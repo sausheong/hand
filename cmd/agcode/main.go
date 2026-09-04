@@ -4,6 +4,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -35,6 +36,32 @@ type programSender struct {
 
 func (s *programSender) Send(msg any) {
 	s.Program.Send(msg)
+}
+
+// runOneShot drains one agent turn to stdout and returns, with no TUI —
+// mirrors harness's own examples/minimal's non-streaming print loop.
+// The first EventError seen becomes the process's exit error; text still
+// printed before that stays on stdout (matches how the interactive path
+// also shows partial output before an error).
+func runOneShot(ctx context.Context, rt *runtime.Runtime, prompt string) error {
+	events, err := rt.Run(ctx, prompt, nil)
+	if err != nil {
+		return err
+	}
+
+	var runErr error
+	for ev := range events {
+		switch ev.Type {
+		case runtime.EventTextDelta:
+			fmt.Print(ev.Text)
+		case runtime.EventError:
+			if runErr == nil && ev.Error != nil {
+				runErr = ev.Error
+			}
+		}
+	}
+	fmt.Println()
+	return runErr
 }
 
 func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
@@ -83,7 +110,14 @@ func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.agcode/config.json for this run)")
 	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.agcode/config.json for this run; not supported for gemini)")
 	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
+	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
+	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
 	flag.Parse()
+
+	oneShot := *printFlag != ""
+	if *yesFlag && !oneShot {
+		return fmt.Errorf("--yes only applies together with -p")
+	}
 
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelWarn})))
 
@@ -117,8 +151,14 @@ func run() error {
 		return fmt.Errorf("load permissions: %w", err)
 	}
 
-	sender := &programSender{}
-	hook := agentio.NewApprovalHook(sender, perms)
+	var sender *programSender
+	var hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)
+	if oneShot {
+		hook = agentio.NewOneShotApprovalHook(perms, *yesFlag)
+	} else {
+		sender = &programSender{}
+		hook = agentio.NewApprovalHook(sender, perms, workspace)
+	}
 	spec := agentio.BuildAgentSpec(model, workspace, hook)
 	reg := agentio.BuildRegistry(workspace)
 
@@ -151,6 +191,10 @@ func run() error {
 		return fmt.Errorf("build runtime: %w", err)
 	}
 	defer rt.Close()
+
+	if oneShot {
+		return runOneShot(context.Background(), rt, *printFlag)
+	}
 
 	m := tui.NewModel(rt)
 	if history := sess.History(); len(history) > 0 {
