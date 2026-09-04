@@ -1,4 +1,4 @@
-# agcode Phase 4 Design: One-shot mode + polish
+# hand Phase 4 Design: One-shot mode + polish
 
 ## Context
 
@@ -83,7 +83,7 @@ dimensions cached in the `Model` from the last `WindowSizeMsg`. This is
 the one non-obvious mechanical consequence of adding a variable-height
 preview.
 
-### `cmd/agcode/main.go`
+### `cmd/hand/main.go`
 
 Two new flags: `-p` (string, the one-shot prompt) and `--yes` (bool,
 error at startup if set without `-p`). When `-p` is set, `main.go` skips

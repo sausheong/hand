@@ -1,8 +1,8 @@
-# agcode Phase 1 Design: Core Loop + TUI Shell
+# hand Phase 1 Design: Core Loop + TUI Shell
 
 ## Context
 
-`agcode` is a new CLI coding agent built on [`harness`](../../../../harness),
+`hand` is a new CLI coding agent built on [`harness`](../../../../harness),
 Anthropic's Go agentic-loop library. The goal is an interactive terminal
 experience similar to Claude Code: a persistent REPL where the model can
 read/write files, run shell commands, fetch/search the web, and track its
@@ -25,7 +25,7 @@ This document covers Phase 1 only.
 
 ## Goals
 
-- `agcode` run from any directory gives an interactive chat loop against
+- `hand` run from any directory gives an interactive chat loop against
   any of harness's four providers (Anthropic, OpenAI, Gemini, Qwen),
   operating on that directory as its workspace.
 - The agent can read/write/edit files, run bash commands, fetch/search the
@@ -33,7 +33,7 @@ This document covers Phase 1 only.
 - Output streams live into a real terminal UI (Bubble Tea), not raw stdout.
 - Before any file write, edit, or bash execution, the user is asked to
   approve it (no persistence of the answer yet — that is Phase 2).
-- Config (default provider/model) lives in `~/.agcode/config.json` so
+- Config (default provider/model) lives in `~/.hand/config.json` so
   Phase 2 can extend the same file family for the permission allowlist.
 
 ## Non-goals (deferred to later phases or out of scope entirely)
@@ -42,20 +42,20 @@ This document covers Phase 1 only.
 - Session save/resume (Phase 3).
 - One-shot / non-interactive mode (Phase 4).
 - Slash commands, plan mode, subagents, memory/skills, MCP servers,
-  browser tool — none of these are in scope for `agcode` v1 as currently
+  browser tool — none of these are in scope for `hand` v1 as currently
   planned; revisit only if a future phase is explicitly proposed.
 
 ## Architecture
 
-`agcode` is a single Go binary (module `github.com/sausheong/agcode`,
-entrypoint `cmd/agcode`) that composes one harness `Runtime` per process
+`hand` is a single Go binary (module `github.com/sausheong/hand`,
+entrypoint `cmd/hand`) that composes one harness `Runtime` per process
 and drives it from a Bubble Tea terminal UI
 (`charmbracelet/bubbletea` + `charmbracelet/bubbles` +
 `charmbracelet/lipgloss`). The workspace is always the current working
 directory — there is no `--workspace` flag in Phase 1.
 
 Harness owns the agent loop, streaming, context compaction, and tool
-dispatch. `agcode` owns configuration, the tool registry wiring, the
+dispatch. `hand` owns configuration, the tool registry wiring, the
 approval bridge, and the TUI. Nothing in `internal/tui` talks to an LLM
 provider directly; everything goes through the `Runtime`.
 
@@ -122,12 +122,12 @@ Phase 1 and is what Phase 2's allowlist replaces.
 
 ## Components
 
-- **`cmd/agcode/main.go`** — flag parsing (`--model provider/model`
+- **`cmd/hand/main.go`** — flag parsing (`--model provider/model`
   overrides config), loads `internal/config`, constructs the selected
   provider, builds the tool registry via `internal/agentio`, calls
   `runtime.BuildRuntime`, launches the Bubble Tea program.
 - **`internal/config`** — `Load()` / `Save()` for
-  `~/.agcode/config.json`. Schema: `{"model": "anthropic/claude-sonnet-5"}`
+  `~/.hand/config.json`. Schema: `{"model": "anthropic/claude-sonnet-5"}`
   (provider is encoded in the `provider/model` string per
   `llm.ParseProviderModel`). `Load()` creates the file with a default
   model on first run if it does not exist. A `--model` flag value
@@ -190,8 +190,8 @@ Phase 1 and is what Phase 2's allowlist replaces.
 ## Open questions carried into Phase 2
 
 - Exact shape of the persisted allowlist file (likely
-  `.agcode/settings.json`, project-local) and how it composes with the
-  user-level `~/.agcode/config.json` — not decided here, deliberately
+  `.hand/settings.json`, project-local) and how it composes with the
+  user-level `~/.hand/config.json` — not decided here, deliberately
   deferred.
 - Whether "always allow" should be scoped per exact command (for bash)
   or per tool name — a bash allowlist granular enough to be safe but not

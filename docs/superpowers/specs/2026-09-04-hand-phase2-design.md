@@ -1,4 +1,4 @@
-# agcode Phase 2 Design: Permissions
+# hand Phase 2 Design: Permissions
 
 ## Context
 
@@ -11,7 +11,7 @@ persisted "always allow" mechanism Phase 1 explicitly deferred.
 
 Turn the yes/no prompt into a three-way choice — **[y]es once / [a]lways /
 [n]o** — where "always" persists per *tool name* (not per exact command) to
-a project-local `.agcode/settings.json`, so a future run of agcode in that
+a project-local `.hand/settings.json`, so a future run of hand in that
 same directory never prompts for that tool again.
 
 Granularity is per-tool-name, not per-command: "always allow bash" means
@@ -39,16 +39,16 @@ type Settings struct {
     AlwaysAllow []string `json:"always_allow"`
 }
 
-func DefaultPath(workspace string) string // workspace/.agcode/settings.json
+func DefaultPath(workspace string) string // workspace/.hand/settings.json
 func Load(path string) (Settings, error)  // missing file -> Settings{}, nil (no auto-create)
-func Save(path string, s Settings) error  // creates .agcode/ dir as needed
+func Save(path string, s Settings) error  // creates .hand/ dir as needed
 
 func (s Settings) IsAlwaysAllowed(tool string) bool
 ```
 
 `Load` deliberately does **not** create the file when missing (unlike
 `internal/config.Load`'s auto-create-on-first-run) — a project shouldn't
-get a `.agcode/settings.json` littered into it just for running agcode
+get a `.hand/settings.json` littered into it just for running hand
 once; the file appears only the first time the user actually presses `a`.
 
 A `Store` wraps `Settings` with a mutex and the load path, so the approval
@@ -94,7 +94,7 @@ The pending-approval branch in `handleKey` grows a third case (`a`/`A` →
 strictly stronger approval than a one-time yes). The status line's prompt
 text becomes `"Allow <tool>? [y]es / [a]lways / [n]o"`.
 
-### `cmd/agcode/main.go` changes
+### `cmd/hand/main.go` changes
 
 Build a `permissions.Store` at `permissions.DefaultPath(workspace)` right
 alongside the registry/spec construction, and pass it into

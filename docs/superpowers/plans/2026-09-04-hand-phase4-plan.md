@@ -1,9 +1,9 @@
-# agcode Phase 4 (One-shot mode + polish) Implementation Plan
+# hand Phase 4 (One-shot mode + polish) Implementation Plan
 
 **Goal:** `-p` non-interactive mode consulting Phase 2's allowlist, plus
 diff/command previews on the approval prompt.
 
-**Spec:** [docs/superpowers/specs/2026-09-04-agcode-phase4-design.md](../specs/2026-09-04-agcode-phase4-design.md)
+**Spec:** [docs/superpowers/specs/2026-09-04-hand-phase4-design.md](../specs/2026-09-04-hand-phase4-design.md)
 
 ## Tasks
 
@@ -17,7 +17,7 @@ diff/command previews on the approval prompt.
    prefix), dynamic viewport-height layout in `refreshViewport()`
    replacing the fixed math in `resize()`. Update/extend
    `model_test.go`'s approval tests for the preview text.
-4. **`cmd/agcode/main.go`** — `-p`/`--yes` flags, one-shot branch
+4. **`cmd/hand/main.go`** — `-p`/`--yes` flags, one-shot branch
    (`runOneShot`), `NewApprovalHook`'s new `workspace` argument at the
    interactive call site.
 5. **Verify** — `go build ./...`, `go vet ./...`, `go test ./...` across

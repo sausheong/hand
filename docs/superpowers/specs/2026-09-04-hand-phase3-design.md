@@ -1,9 +1,9 @@
-# agcode Phase 3 Design: Sessions
+# hand Phase 3 Design: Sessions
 
 ## Context
 
 Phase 1/2 use `session.NewSession(spec.ID, "main")` — in-memory only. Every
-restart of agcode starts from a blank conversation, even in the same
+restart of hand starts from a blank conversation, even in the same
 directory. This phase wires harness's `session.Store` (JSONL persistence,
 already implemented in harness — see `harness/session/store.go`) so
 conversations survive restarts.
@@ -39,7 +39,7 @@ into the transcript instead of starting blank.
 ### `internal/sessionio` (new package)
 
 ```go
-func StoreDir() (string, error) // ~/.agcode/sessions
+func StoreDir() (string, error) // ~/.hand/sessions
 func KeyForWorkspace(workspace string) string
 ```
 
@@ -50,7 +50,7 @@ sanitize to the same string, and filenames blowing past reasonable length
 limits for deeply nested projects. It trivially satisfies the store's
 single-path-component requirement.
 
-### `cmd/agcode/main.go` changes
+### `cmd/hand/main.go` changes
 
 ```go
 storeDir, err := sessionio.StoreDir()
@@ -63,8 +63,8 @@ sess, err := store.Load(spec.ID, key)
 ```
 
 replacing the current `session.NewSession(spec.ID, "main")`. A new
-`--new-session` bool flag controls the reset. `spec.ID` (`"agcode"`,
-fixed) is reused as the store's `agentID`, so `~/.agcode/sessions/agcode/`
+`--new-session` bool flag controls the reset. `spec.ID` (`"hand"`,
+fixed) is reused as the store's `agentID`, so `~/.hand/sessions/hand/`
 holds one `<hash>.jsonl` per workspace directory ever used.
 
 ### `internal/tui` changes
@@ -89,7 +89,7 @@ non-empty.
 
 A `Store`/`Load` failure (e.g. a corrupted JSONL line) degrades the same
 way harness's own `Store` does internally — `Store.Load` already skips
-malformed lines with a warning rather than failing outright, so agcode
+malformed lines with a warning rather than failing outright, so hand
 doesn't need extra handling there. A failure to resolve `StoreDir` (e.g.
 `os.UserHomeDir` failing) is a startup error, same treatment as a bad
 config file.

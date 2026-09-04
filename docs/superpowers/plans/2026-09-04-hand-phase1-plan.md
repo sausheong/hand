@@ -1,8 +1,8 @@
-# agcode Phase 1 (Core Loop + TUI Shell) Implementation Plan
+# hand Phase 1 (Core Loop + TUI Shell) Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Ship a working `agcode` binary: an interactive terminal coding
+**Goal:** Ship a working `hand` binary: an interactive terminal coding
 agent, built on `harness`, with a Bubble Tea TUI, four tools wired in
 (file read/write/edit, bash, web fetch/search, todo), and a
 non-persisted yes/no approval gate on every write/edit/bash call.
@@ -13,18 +13,18 @@ owns the user-level config file; `internal/agentio` owns the tool
 registry, the `AgentSpec`, and the approval bridge (a `BeforeToolUse`
 hook that blocks on a channel until the TUI answers); `internal/tui`
 owns the Bubble Tea `Model` and the goroutine that forwards harness's
-`AgentEvent` stream into the program. `cmd/agcode` is wiring only.
+`AgentEvent` stream into the program. `cmd/hand` is wiring only.
 
 **Tech Stack:** Go 1.25.1, `github.com/sausheong/harness` (local
 replace), `github.com/charmbracelet/bubbletea` + `bubbles` + `lipgloss`
 (TUI), stdlib `flag`/`encoding/json` for config and CLI.
 
-**Spec:** [docs/superpowers/specs/2026-09-04-agcode-phase1-design.md](../specs/2026-09-04-agcode-phase1-design.md)
+**Spec:** [docs/superpowers/specs/2026-09-04-hand-phase1-design.md](../specs/2026-09-04-hand-phase1-design.md)
 
 ## Global Constraints
 
 - Go 1.25.1 (matches harness's floor — `harness` requires 1.25.1+).
-- Module path: `github.com/sausheong/agcode`.
+- Module path: `github.com/sausheong/hand`.
 - `harness` is consumed via `replace github.com/sausheong/harness =>
   /Users/sausheong/projects/harness` (matches the convention already
   used by the sibling `sidecar` project in this workspace) — do not
@@ -57,14 +57,14 @@ replace), `github.com/charmbracelet/bubbletea` + `bubbles` + `lipgloss`
 
 Run:
 ```bash
-cd /Users/sausheong/projects/agcode
-go mod init github.com/sausheong/agcode
+cd /Users/sausheong/projects/hand
+go mod init github.com/sausheong/hand
 ```
 
 Then edit the generated `go.mod` to read exactly:
 
 ```
-module github.com/sausheong/agcode
+module github.com/sausheong/hand
 
 go 1.25.1
 
@@ -85,7 +85,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/sausheong/agcode/internal/config"
+	"github.com/sausheong/hand/internal/config"
 )
 
 func TestLoad_CreatesDefaultOnFirstRun(t *testing.T) {
@@ -158,8 +158,8 @@ Expected: FAIL — `package config: no Go files` or undefined symbols
 Create `internal/config/config.go`:
 
 ```go
-// Package config reads and writes agcode's user-level configuration
-// file at ~/.agcode/config.json.
+// Package config reads and writes hand's user-level configuration
+// file at ~/.hand/config.json.
 package config
 
 import (
@@ -172,20 +172,20 @@ import (
 // DefaultModel is used when no config file exists yet.
 const DefaultModel = "anthropic/claude-sonnet-5"
 
-// Config is the on-disk shape of ~/.agcode/config.json. API keys are
+// Config is the on-disk shape of ~/.hand/config.json. API keys are
 // never stored here — each provider reads its key from its own
 // standard environment variable.
 type Config struct {
 	Model string `json:"model"`
 }
 
-// DefaultPath returns ~/.agcode/config.json for the current user.
+// DefaultPath returns ~/.hand/config.json for the current user.
 func DefaultPath() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", fmt.Errorf("resolve home directory: %w", err)
 	}
-	return filepath.Join(home, ".agcode", "config.json"), nil
+	return filepath.Join(home, ".hand", "config.json"), nil
 }
 
 // Load reads the config at path. If the file does not exist, Load
@@ -282,7 +282,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 )
 
 type fakeSender struct {
@@ -444,7 +444,7 @@ undefined.
 
 ```go
 // Package agentio wires harness's tool registry, agent spec, and
-// approval gating for agcode.
+// approval gating for hand.
 package agentio
 
 import (
@@ -551,7 +551,7 @@ package agentio_test
 import (
 	"testing"
 
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 )
 
 func TestBuildRegistry_RegistersExpectedTools(t *testing.T) {
@@ -595,7 +595,7 @@ import (
 	"github.com/sausheong/harness/tools/web"
 )
 
-// BuildRegistry returns the tool.Registry for agcode's four Phase 1
+// BuildRegistry returns the tool.Registry for hand's four Phase 1
 // tool packages, all scoped to workDir. bash.BashTool's ExecPolicy is
 // left nil (full) — the approval bridge in approval.go is the safety
 // net for bash in Phase 1, not the exec policy.
@@ -653,7 +653,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/runtime"
 )
 
@@ -699,20 +699,20 @@ import (
 	"github.com/sausheong/harness/runtime"
 )
 
-// SystemPrompt is agcode's fixed identity prompt for Phase 1 (no
+// SystemPrompt is hand's fixed identity prompt for Phase 1 (no
 // per-project customization yet).
-const SystemPrompt = `You are agcode, a terminal-based coding assistant. You can read, write, and edit files in the current workspace, run shell commands, and fetch or search the web. Track multi-step work with the todo tool. Be direct and concise: prefer making the requested change over describing what you would do.`
+const SystemPrompt = `You are hand, a terminal-based coding assistant. You can read, write, and edit files in the current workspace, run shell commands, and fetch or search the web. Track multi-step work with the todo tool. Be direct and concise: prefer making the requested change over describing what you would do.`
 
-// MaxTurns caps the tool-use loop for a single agcode run.
+// MaxTurns caps the tool-use loop for a single hand run.
 const MaxTurns = 50
 
-// BuildAgentSpec builds the single AgentSpec agcode uses for the whole
+// BuildAgentSpec builds the single AgentSpec hand uses for the whole
 // process. hook is wired as Loop.Hooks.BeforeToolUse — callers pass the
 // closure returned by NewApprovalHook.
 func BuildAgentSpec(model, workspace string, hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)) runtime.AgentSpec {
 	return runtime.AgentSpec{
-		ID:           "agcode",
-		Name:         "agcode",
+		ID:           "hand",
+		Name:         "hand",
 		Model:        model,
 		Workspace:    workspace,
 		SystemPrompt: SystemPrompt,
@@ -842,7 +842,7 @@ Expected: FAIL — `StreamEvents` and `runEndedMsg` undefined.
 - [ ] **Step 3: Implement `internal/tui/events.go`**
 
 ```go
-// Package tui is agcode's Bubble Tea terminal UI.
+// Package tui is hand's Bubble Tea terminal UI.
 package tui
 
 import (
@@ -1053,12 +1053,12 @@ type Runner interface {
 	Run(ctx context.Context, userMsg string, images []llm.ImageContent) (<-chan runtime.AgentEvent, error)
 }
 
-// Model is the agcode Bubble Tea program. It uses pointer-receiver
+// Model is the hand Bubble Tea program. It uses pointer-receiver
 // Init/Update/View methods (rather than the value-receiver style most
 // Bubble Tea examples use) so a *tea.Program reference can be injected
 // after construction via BindProgram — breaking the construction cycle
 // between the Program and the approval hook that needs to Send into it
-// (see internal/agentio.Sender and cmd/agcode/main.go).
+// (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
 	rt      Runner
 	program *tea.Program
@@ -1074,7 +1074,7 @@ type Model struct {
 	cancel  context.CancelFunc
 }
 
-// NewModel builds an agcode TUI model driving rt. Call BindProgram with
+// NewModel builds an hand TUI model driving rt. Call BindProgram with
 // the *tea.Program constructed from this model before calling Run on
 // that program.
 func NewModel(rt Runner) *Model {
@@ -1290,7 +1290,7 @@ git commit -m "Add TUI model with streaming transcript and submit/quit handling"
 - [ ] **Step 1: Write the failing test**
 
 Add to `internal/tui/model_test.go` (new imports: add
-`"github.com/sausheong/agcode/internal/agentio"` and
+`"github.com/sausheong/hand/internal/agentio"` and
 `"encoding/json"` to the existing import block):
 
 ```go
@@ -1387,7 +1387,7 @@ value and both new tests time out.
 
 - [ ] **Step 3: Extend `internal/tui/model.go`**
 
-Add the import `"github.com/sausheong/agcode/internal/agentio"` to
+Add the import `"github.com/sausheong/hand/internal/agentio"` to
 `model.go`'s import block.
 
 Add a `pending` field to the `Model` struct, right after `running bool`:
@@ -1483,10 +1483,10 @@ git commit -m "Add approval prompt handling to the TUI model"
 
 ---
 
-### Task 8: `cmd/agcode` wiring
+### Task 8: `cmd/hand` wiring
 
 **Files:**
-- Create: `cmd/agcode/main.go`
+- Create: `cmd/hand/main.go`
 
 **Interfaces:**
 - Consumes: `config.DefaultPath`, `config.Load`, `config.ResolveModel`
@@ -1495,7 +1495,7 @@ git commit -m "Add approval prompt handling to the TUI model"
   `(*tui.Model).BindProgram` (Tasks 6-7); harness's
   `llm.ParseProviderModel`, `providers/{anthropic,openai,gemini,qwen}`,
   `runtime.BuildRuntime`, `session.NewSession`.
-- Produces: the `agcode` binary's `main()`. No new testable package —
+- Produces: the `hand` binary's `main()`. No new testable package —
   this task is verified by `go build` and a manual smoke run, matching
   how harness's own `examples/*/main.go` files are verified (none of
   them have `_test.go` files).
@@ -1511,10 +1511,10 @@ go get github.com/sausheong/harness/providers/qwen
 go get github.com/sausheong/harness/session
 ```
 
-- [ ] **Step 2: Implement `cmd/agcode/main.go`**
+- [ ] **Step 2: Implement `cmd/hand/main.go`**
 
 ```go
-// Command agcode is an interactive terminal coding agent built on
+// Command hand is an interactive terminal coding agent built on
 // harness. Run it from the directory you want it to work in.
 package main
 
@@ -1527,9 +1527,9 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/sausheong/agcode/internal/agentio"
-	"github.com/sausheong/agcode/internal/config"
-	"github.com/sausheong/agcode/internal/tui"
+	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/config"
+	"github.com/sausheong/hand/internal/tui"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/providers/anthropic"
 	"github.com/sausheong/harness/providers/gemini"
@@ -1591,7 +1591,7 @@ func buildProvider(providerName string) (llm.LLMProvider, error) {
 }
 
 func run() error {
-	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.agcode/config.json for this run)")
+	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
 	flag.Parse()
 
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelWarn})))
@@ -1653,7 +1653,7 @@ func run() error {
 
 func main() {
 	if err := run(); err != nil {
-		fmt.Fprintln(os.Stderr, "agcode:", err)
+		fmt.Fprintln(os.Stderr, "hand:", err)
 		os.Exit(1)
 	}
 }
@@ -1674,21 +1674,21 @@ Expected: PASS across `internal/config`, `internal/agentio`, and
 
 Run (from a disposable scratch directory, with a real API key):
 ```bash
-mkdir -p /tmp/agcode-smoke && cd /tmp/agcode-smoke
-ANTHROPIC_API_KEY=sk-ant-... go run github.com/sausheong/agcode/cmd/agcode
+mkdir -p /tmp/hand-smoke && cd /tmp/hand-smoke
+ANTHROPIC_API_KEY=sk-ant-... go run github.com/sausheong/hand/cmd/hand
 ```
 Expected: the TUI launches, shows a `ready` status line and an empty
 input box. Typing a message that asks the agent to create a file (e.g.
 "create a file called hello.txt with the text hi") and pressing Enter
 streams assistant text, then shows an `Allow write_file? [y/N]` prompt;
-pressing `y` creates the file in `/tmp/agcode-smoke`, pressing `n`
+pressing `y` creates the file in `/tmp/hand-smoke`, pressing `n`
 denies it. `Ctrl-C` while idle quits the program.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add go.mod go.sum cmd/agcode/main.go
-git commit -m "Wire config, agentio, and tui into the agcode binary"
+git add go.mod go.sum cmd/hand/main.go
+git commit -m "Wire config, agentio, and tui into the hand binary"
 ```
 
 ## Self-Review Notes
