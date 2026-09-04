@@ -35,23 +35,26 @@ func (s *programSender) Send(msg any) {
 	s.Program.Send(msg)
 }
 
-func buildProvider(providerName string) (llm.LLMProvider, error) {
+func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 	switch providerName {
 	case "anthropic":
 		key := os.Getenv("ANTHROPIC_API_KEY")
 		if key == "" {
 			return nil, fmt.Errorf("ANTHROPIC_API_KEY is not set")
 		}
-		return anthropic.NewAnthropicProvider(key, ""), nil
+		return anthropic.NewAnthropicProvider(key, baseURL), nil
 
 	case "openai":
 		key := os.Getenv("OPENAI_API_KEY")
 		if key == "" {
 			return nil, fmt.Errorf("OPENAI_API_KEY is not set")
 		}
-		return openai.NewOpenAIProvider(key, ""), nil
+		return openai.NewOpenAIProvider(key, baseURL), nil
 
 	case "gemini":
+		if baseURL != "" {
+			return nil, fmt.Errorf("--base-url is not supported for gemini (harness's Gemini provider has no base-URL parameter)")
+		}
 		key := os.Getenv("GEMINI_API_KEY")
 		if key == "" {
 			return nil, fmt.Errorf("GEMINI_API_KEY is not set")
@@ -67,7 +70,7 @@ func buildProvider(providerName string) (llm.LLMProvider, error) {
 		if key == "" {
 			return nil, fmt.Errorf("DASHSCOPE_API_KEY is not set")
 		}
-		return qwen.NewQwenProvider(key, ""), nil
+		return qwen.NewQwenProvider(key, baseURL), nil
 
 	default:
 		return nil, fmt.Errorf("unknown provider %q (want anthropic, openai, gemini, or qwen)", providerName)
@@ -76,6 +79,7 @@ func buildProvider(providerName string) (llm.LLMProvider, error) {
 
 func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.agcode/config.json for this run)")
+	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.agcode/config.json for this run; not supported for gemini)")
 	flag.Parse()
 
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelWarn})))
@@ -89,12 +93,13 @@ func run() error {
 		return fmt.Errorf("load config: %w", err)
 	}
 	model := config.ResolveModel(*modelFlag, cfg)
+	baseURL := config.ResolveBaseURL(*baseURLFlag, cfg)
 
 	providerName, _ := llm.ParseProviderModel(model)
 	if providerName == "" {
 		return fmt.Errorf("model %q must be in \"provider/model\" form, e.g. anthropic/claude-sonnet-5", model)
 	}
-	provider, err := buildProvider(providerName)
+	provider, err := buildProvider(providerName, baseURL)
 	if err != nil {
 		return fmt.Errorf("build provider %q: %w", providerName, err)
 	}

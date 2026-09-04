@@ -17,6 +17,12 @@ const DefaultModel = "anthropic/claude-sonnet-5"
 // standard environment variable.
 type Config struct {
 	Model string `json:"model"`
+	// BaseURL overrides the selected provider's default API endpoint,
+	// e.g. to point at a LiteLLM proxy or other OpenAI-compatible
+	// gateway. Empty means use the provider's own default. Not every
+	// provider supports this — harness's Gemini provider has no
+	// base-URL parameter.
+	BaseURL string `json:"base_url,omitempty"`
 }
 
 // DefaultPath returns ~/.agcode/config.json for the current user.
@@ -76,4 +82,15 @@ func ResolveModel(flagValue string, cfg Config) string {
 		return flagValue
 	}
 	return cfg.Model
+}
+
+// ResolveBaseURL returns flagValue if non-empty, otherwise cfg.BaseURL.
+// Does not persist anything — a --base-url flag overrides the loaded
+// config for this invocation only. An empty result means "use the
+// provider's own default endpoint".
+func ResolveBaseURL(flagValue string, cfg Config) string {
+	if flagValue != "" {
+		return flagValue
+	}
+	return cfg.BaseURL
 }
