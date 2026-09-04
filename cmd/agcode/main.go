@@ -13,6 +13,7 @@ import (
 
 	"github.com/sausheong/agcode/internal/agentio"
 	"github.com/sausheong/agcode/internal/config"
+	"github.com/sausheong/agcode/internal/permissions"
 	"github.com/sausheong/agcode/internal/tui"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/providers/anthropic"
@@ -109,8 +110,13 @@ func run() error {
 		return fmt.Errorf("resolve working directory: %w", err)
 	}
 
+	perms, err := permissions.NewStore(permissions.DefaultPath(workspace))
+	if err != nil {
+		return fmt.Errorf("load permissions: %w", err)
+	}
+
 	sender := &programSender{}
-	hook := agentio.NewApprovalHook(sender)
+	hook := agentio.NewApprovalHook(sender, perms)
 	spec := agentio.BuildAgentSpec(model, workspace, hook)
 	reg := agentio.BuildRegistry(workspace)
 	sess := session.NewSession(spec.ID, "main")
