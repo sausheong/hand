@@ -50,12 +50,12 @@ func NewModel(rt Runner) *Model {
 	ta := textarea.New()
 	ta.Placeholder = "Type a message..."
 	ta.ShowLineNumbers = false
-	ta.SetWidth(80)
+	ta.SetWidth(78) // 80 minus the 1-column border on each side (see View/resize)
 	ta.SetHeight(3)
 	ta.Focus()
 
 	vp := viewport.New(80, 20)
-	sp := spinner.New(spinner.WithSpinner(spinner.Dot))
+	sp := spinner.New(spinner.WithSpinner(spinner.Dot), spinner.WithStyle(spinnerStyle))
 
 	return &Model{
 		rt:       rt,
@@ -114,12 +114,12 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "y", "Y":
 			m.pending.Respond <- true
-			m.transcript = append(m.transcript, fmt.Sprintf("  approved: %s", m.pending.Tool))
+			m.transcript = append(m.transcript, approvedStyle.Render(fmt.Sprintf("  approved: %s", m.pending.Tool)))
 			m.pending = nil
 			m.refreshViewport()
 		default:
 			m.pending.Respond <- false
-			m.transcript = append(m.transcript, fmt.Sprintf("  denied: %s", m.pending.Tool))
+			m.transcript = append(m.transcript, deniedStyle.Render(fmt.Sprintf("  denied: %s", m.pending.Tool)))
 			m.pending = nil
 			m.refreshViewport()
 		}
@@ -156,7 +156,7 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 // terminal Msg and this stream is unbounded until EventDone /
 // EventError / channel-close.
 func (m *Model) startRun(text string) tea.Cmd {
-	m.transcript = append(m.transcript, "> "+text)
+	m.transcript = append(m.transcript, userLineStyle.Render("> "+text))
 	m.textarea.Reset()
 	m.running = true
 
@@ -166,7 +166,7 @@ func (m *Model) startRun(text string) tea.Cmd {
 	events, err := m.rt.Run(ctx, text, nil)
 	if err != nil {
 		m.running = false
-		m.transcript = append(m.transcript, "error: "+err.Error())
+		m.transcript = append(m.transcript, errorLineStyle.Render("error: "+err.Error()))
 		cancel()
 		m.refreshViewport()
 		return nil
@@ -188,13 +188,13 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 		if ev.ToolCall != nil {
 			name = ev.ToolCall.Name
 		}
-		m.transcript = append(m.transcript, fmt.Sprintf("[tool: %s]", name))
+		m.transcript = append(m.transcript, toolCallStyle.Render(fmt.Sprintf("[tool: %s]", name)))
 
 	case runtime.EventToolResult:
 		if ev.Result != nil && ev.Result.Error != "" {
-			m.transcript = append(m.transcript, "  ✗ "+ev.Result.Error)
+			m.transcript = append(m.transcript, toolErrStyle.Render("  ✗ "+ev.Result.Error))
 		} else {
-			m.transcript = append(m.transcript, "  ✓")
+			m.transcript = append(m.transcript, toolOKStyle.Render("  ✓"))
 		}
 
 	case runtime.EventError:
@@ -203,7 +203,7 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 		if ev.Error != nil {
 			errText = ev.Error.Error()
 		}
-		m.transcript = append(m.transcript, "error: "+errText)
+		m.transcript = append(m.transcript, errorLineStyle.Render("error: "+errText))
 
 	case runtime.EventDone:
 		m.flushStream()
@@ -230,26 +230,28 @@ func (m *Model) refreshViewport() {
 
 func (m *Model) resize(width, height int) {
 	m.viewport.Width = width
-	const inputHeight, statusHeight = 3, 1
-	viewportHeight := height - inputHeight - statusHeight
+	// inputHeight is the textarea's own rows; borderRows accounts for the
+	// rounded border View() draws around it (1 row top + 1 bottom).
+	const inputHeight, statusHeight, borderRows = 3, 1, 2
+	viewportHeight := height - inputHeight - statusHeight - borderRows
 	if viewportHeight < 1 {
 		viewportHeight = 1
 	}
 	m.viewport.Height = viewportHeight
-	m.textarea.SetWidth(width)
+	m.textarea.SetWidth(width - 2) // border consumes 1 column each side
 	m.refreshViewport()
 }
 
 func (m *Model) statusLine() string {
 	if m.pending != nil {
-		return fmt.Sprintf("Allow %s? [y/N]", m.pending.Tool)
+		return statusAlertStyle.Render(fmt.Sprintf("Allow %s? [y/N]", m.pending.Tool))
 	}
 	if m.running {
-		return m.spinner.View() + " working..."
+		return m.spinner.View() + statusIdleStyle.Render(" working...")
 	}
-	return "ready"
+	return statusIdleStyle.Render("ready")
 }
 
 func (m *Model) View() string {
-	return m.viewport.View() + "\n" + m.statusLine() + "\n" + m.textarea.View()
+	return m.viewport.View() + "\n" + m.statusLine() + "\n" + inputBorderStyle.Render(m.textarea.View())
 }
