@@ -41,6 +41,14 @@ type Model struct {
 	running bool
 	pending *agentio.ApprovalRequest
 	cancel  context.CancelFunc
+
+	// termWidth/termHeight cache the last WindowSizeMsg. The approval
+	// panel's height varies with the pending request's Preview (a diff
+	// can be several lines; a bash command is one), so the viewport's
+	// height can't be a fixed constant computed only on resize — it's
+	// recomputed in refreshViewport, using these cached dimensions,
+	// every time the transcript or approval state changes.
+	termWidth, termHeight int
 }
 
 // NewModel builds an agcode TUI model driving rt. Call BindProgram with
@@ -58,10 +66,12 @@ func NewModel(rt Runner) *Model {
 	sp := spinner.New(spinner.WithSpinner(spinner.Dot), spinner.WithStyle(spinnerStyle))
 
 	return &Model{
-		rt:       rt,
-		textarea: ta,
-		viewport: vp,
-		spinner:  sp,
+		rt:         rt,
+		textarea:   ta,
+		viewport:   vp,
+		spinner:    sp,
+		termWidth:  80,
+		termHeight: 24,
 	}
 }
 
@@ -230,33 +240,84 @@ func (m *Model) refreshViewport() {
 		content += "\n" + m.streamBuf.String()
 	}
 	m.viewport.SetContent(content)
+
+	// inputHeight is the textarea's own rows; borderRows accounts for the
+	// rounded border View() draws around it (1 row top + 1 bottom).
+	// bottomHeight is the status line when idle, or the whole approval
+	// panel (preview + question) when a request is pending — recomputed
+	// here, not just on resize, since the panel's height depends on the
+	// current Preview, not just the terminal size.
+	const inputHeight, borderRows = 3, 2
+	viewportHeight := m.termHeight - inputHeight - borderRows - m.bottomHeight()
+	if viewportHeight < 1 {
+		viewportHeight = 1
+	}
+	m.viewport.Width = m.termWidth
+	m.viewport.Height = viewportHeight
 	m.viewport.GotoBottom()
 }
 
 func (m *Model) resize(width, height int) {
-	m.viewport.Width = width
-	// inputHeight is the textarea's own rows; borderRows accounts for the
-	// rounded border View() draws around it (1 row top + 1 bottom).
-	const inputHeight, statusHeight, borderRows = 3, 1, 2
-	viewportHeight := height - inputHeight - statusHeight - borderRows
-	if viewportHeight < 1 {
-		viewportHeight = 1
-	}
-	m.viewport.Height = viewportHeight
+	m.termWidth = width
+	m.termHeight = height
 	m.textarea.SetWidth(width - 2) // border consumes 1 column each side
 	m.refreshViewport()
 }
 
-func (m *Model) statusLine() string {
-	if m.pending != nil {
-		return statusAlertStyle.Render(fmt.Sprintf("Allow %s? [y]es / [a]lways / [n]o", m.pending.Tool))
+// bottomHeight returns how many lines the status/approval area below the
+// viewport currently occupies.
+func (m *Model) bottomHeight() int {
+	if m.pending == nil {
+		return 1 // the plain status line
 	}
+	if m.pending.Preview == "" {
+		return 1 // just the question line
+	}
+	return strings.Count(m.pending.Preview, "\n") + 1 /* last preview line */ + 1 /* question line */
+}
+
+func (m *Model) statusLine() string {
 	if m.running {
 		return m.spinner.View() + statusIdleStyle.Render(" working...")
 	}
 	return statusIdleStyle.Render("ready")
 }
 
+// approvalPanel renders the pending request's preview (colored by line
+// prefix) followed by the yes/always/no question.
+func (m *Model) approvalPanel() string {
+	question := statusAlertStyle.Render(fmt.Sprintf("Allow %s? [y]es / [a]lways / [n]o", m.pending.Tool))
+	if m.pending.Preview == "" {
+		return question
+	}
+	return renderPreview(m.pending.Preview) + "\n" + question
+}
+
+// renderPreview colors an agentio-built preview line by line: "+ " lines
+// (added) in the success color, "- " lines (removed) in the error color,
+// "$ " (a bash command) in the user-input color, everything else
+// (diff context lines) dim.
+func renderPreview(preview string) string {
+	lines := strings.Split(preview, "\n")
+	for i, line := range lines {
+		switch {
+		case strings.HasPrefix(line, "+ "):
+			lines[i] = toolOKStyle.Render(line)
+		case strings.HasPrefix(line, "- "):
+			lines[i] = toolErrStyle.Render(line)
+		case strings.HasPrefix(line, "$ "):
+			lines[i] = userLineStyle.Render(line)
+		default:
+			lines[i] = toolCallStyle.Render(line)
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
 func (m *Model) View() string {
-	return m.viewport.View() + "\n" + m.statusLine() + "\n" + inputBorderStyle.Render(m.textarea.View())
+	bottom := m.statusLine()
+	if m.pending != nil {
+		bottom = m.approvalPanel()
+	}
+	return m.viewport.View() + "\n" + bottom + "\n" + inputBorderStyle.Render(m.textarea.View())
 }

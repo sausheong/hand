@@ -120,6 +120,43 @@ func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
 }
 
+func TestModel_ApprovalPromptShowsPreview(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner)
+
+	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
+	m.BindProgram(tm.GetProgram())
+
+	tm.Type("run a command")
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	respond := make(chan agentio.Decision, 1)
+	tm.Send(agentio.ApprovalRequest{
+		Tool:    "bash",
+		Input:   json.RawMessage(`{"command":"go test ./..."}`),
+		Preview: "$ go test ./...",
+		Respond: respond,
+	})
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "$ go test ./...") && contains(bts, "Allow bash?")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("n")})
+	<-respond
+
+	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	close(events)
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "ready")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
+	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
 func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
