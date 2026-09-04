@@ -10,6 +10,7 @@ import (
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 
+	"github.com/sausheong/agcode/internal/agentio"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 )
@@ -38,6 +39,7 @@ type Model struct {
 	streamBuf  strings.Builder
 
 	running bool
+	pending *agentio.ApprovalRequest
 	cancel  context.CancelFunc
 }
 
@@ -94,6 +96,12 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.refreshViewport()
 		return m, nil
 
+	case agentio.ApprovalRequest:
+		req := msg
+		m.pending = &req
+		m.refreshViewport()
+		return m, nil
+
 	case tea.KeyMsg:
 		return m.handleKey(msg)
 	}
@@ -102,6 +110,22 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	if m.pending != nil {
+		switch msg.String() {
+		case "y", "Y":
+			m.pending.Respond <- true
+			m.transcript = append(m.transcript, fmt.Sprintf("  approved: %s", m.pending.Tool))
+			m.pending = nil
+			m.refreshViewport()
+		default:
+			m.pending.Respond <- false
+			m.transcript = append(m.transcript, fmt.Sprintf("  denied: %s", m.pending.Tool))
+			m.pending = nil
+			m.refreshViewport()
+		}
+		return m, nil
+	}
+
 	switch msg.String() {
 	case "ctrl+c":
 		if m.running && m.cancel != nil {
@@ -217,6 +241,9 @@ func (m *Model) resize(width, height int) {
 }
 
 func (m *Model) statusLine() string {
+	if m.pending != nil {
+		return fmt.Sprintf("Allow %s? [y/N]", m.pending.Tool)
+	}
 	if m.running {
 		return m.spinner.View() + " working..."
 	}

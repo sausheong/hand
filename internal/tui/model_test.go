@@ -2,11 +2,13 @@ package tui
 
 import (
 	"context"
+	"encoding/json"
 	"testing"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	teatest "github.com/charmbracelet/x/exp/teatest"
+	"github.com/sausheong/agcode/internal/agentio"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/tool"
@@ -68,6 +70,94 @@ func TestModel_ToolCallAndResultRender(t *testing.T) {
 
 	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
 		return contains(bts, "[tool: read_file]") && contains(bts, "✓")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
+	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
+func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner)
+
+	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
+	m.BindProgram(tm.GetProgram())
+
+	tm.Type("write a file")
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	respond := make(chan bool, 1)
+	tm.Send(agentio.ApprovalRequest{
+		Tool:    "write_file",
+		Input:   json.RawMessage(`{"path":"x.txt"}`),
+		Respond: respond,
+	})
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "Allow write_file?")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("y")})
+
+	select {
+	case allow := <-respond:
+		if !allow {
+			t.Fatal("expected Respond to receive true after pressing y")
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("Respond never received a value after pressing y")
+	}
+
+	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	close(events)
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "approved: write_file")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
+	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
+func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner)
+
+	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
+	m.BindProgram(tm.GetProgram())
+
+	tm.Type("run rm -rf")
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	respond := make(chan bool, 1)
+	tm.Send(agentio.ApprovalRequest{
+		Tool:    "bash",
+		Input:   json.RawMessage(`{"command":"rm -rf /"}`),
+		Respond: respond,
+	})
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "Allow bash?")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	select {
+	case allow := <-respond:
+		if allow {
+			t.Fatal("expected Respond to receive false after pressing enter on a pending prompt")
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("Respond never received a value")
+	}
+
+	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	close(events)
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "ready")
 	}, teatest.WithDuration(2*time.Second))
 
 	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
