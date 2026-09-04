@@ -113,12 +113,17 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	if m.pending != nil {
 		switch msg.String() {
 		case "y", "Y":
-			m.pending.Respond <- true
+			m.pending.Respond <- agentio.DecisionOnce
 			m.transcript = append(m.transcript, approvedStyle.Render(fmt.Sprintf("  approved: %s", m.pending.Tool)))
 			m.pending = nil
 			m.refreshViewport()
+		case "a", "A":
+			m.pending.Respond <- agentio.DecisionAlways
+			m.transcript = append(m.transcript, approvedStyle.Render(fmt.Sprintf("  always allowed: %s", m.pending.Tool)))
+			m.pending = nil
+			m.refreshViewport()
 		default:
-			m.pending.Respond <- false
+			m.pending.Respond <- agentio.DecisionDeny
 			m.transcript = append(m.transcript, deniedStyle.Render(fmt.Sprintf("  denied: %s", m.pending.Tool)))
 			m.pending = nil
 			m.refreshViewport()
@@ -244,7 +249,7 @@ func (m *Model) resize(width, height int) {
 
 func (m *Model) statusLine() string {
 	if m.pending != nil {
-		return statusAlertStyle.Render(fmt.Sprintf("Allow %s? [y/N]", m.pending.Tool))
+		return statusAlertStyle.Render(fmt.Sprintf("Allow %s? [y]es / [a]lways / [n]o", m.pending.Tool))
 	}
 	if m.running {
 		return m.spinner.View() + statusIdleStyle.Render(" working...")

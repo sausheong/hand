@@ -87,7 +87,7 @@ func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
 	tm.Type("write a file")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
-	respond := make(chan bool, 1)
+	respond := make(chan agentio.Decision, 1)
 	tm.Send(agentio.ApprovalRequest{
 		Tool:    "write_file",
 		Input:   json.RawMessage(`{"path":"x.txt"}`),
@@ -101,9 +101,9 @@ func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
 	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("y")})
 
 	select {
-	case allow := <-respond:
-		if !allow {
-			t.Fatal("expected Respond to receive true after pressing y")
+	case decision := <-respond:
+		if decision != agentio.DecisionOnce {
+			t.Fatalf("expected DecisionOnce after pressing y, got %v", decision)
 		}
 	case <-time.After(2 * time.Second):
 		t.Fatal("Respond never received a value after pressing y")
@@ -131,7 +131,7 @@ func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 	tm.Type("run rm -rf")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
-	respond := make(chan bool, 1)
+	respond := make(chan agentio.Decision, 1)
 	tm.Send(agentio.ApprovalRequest{
 		Tool:    "bash",
 		Input:   json.RawMessage(`{"command":"rm -rf /"}`),
@@ -145,9 +145,9 @@ func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
 	select {
-	case allow := <-respond:
-		if allow {
-			t.Fatal("expected Respond to receive false after pressing enter on a pending prompt")
+	case decision := <-respond:
+		if decision != agentio.DecisionDeny {
+			t.Fatalf("expected DecisionDeny after pressing enter on a pending prompt, got %v", decision)
 		}
 	case <-time.After(2 * time.Second):
 		t.Fatal("Respond never received a value")
@@ -158,6 +158,50 @@ func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 
 	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
 		return contains(bts, "ready")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
+	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
+func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner)
+
+	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
+	m.BindProgram(tm.GetProgram())
+
+	tm.Type("write a file")
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	respond := make(chan agentio.Decision, 1)
+	tm.Send(agentio.ApprovalRequest{
+		Tool:    "write_file",
+		Input:   json.RawMessage(`{"path":"x.txt"}`),
+		Respond: respond,
+	})
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "Allow write_file? [y]es / [a]lways / [n]o")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("a")})
+
+	select {
+	case decision := <-respond:
+		if decision != agentio.DecisionAlways {
+			t.Fatalf("expected DecisionAlways after pressing a, got %v", decision)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("Respond never received a value after pressing a")
+	}
+
+	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	close(events)
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "always allowed: write_file")
 	}, teatest.WithDuration(2*time.Second))
 
 	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
