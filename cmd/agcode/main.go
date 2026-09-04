@@ -14,6 +14,7 @@ import (
 	"github.com/sausheong/agcode/internal/agentio"
 	"github.com/sausheong/agcode/internal/config"
 	"github.com/sausheong/agcode/internal/permissions"
+	"github.com/sausheong/agcode/internal/sessionio"
 	"github.com/sausheong/agcode/internal/tui"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/providers/anthropic"
@@ -81,6 +82,7 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.agcode/config.json for this run)")
 	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.agcode/config.json for this run; not supported for gemini)")
+	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
 	flag.Parse()
 
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelWarn})))
@@ -119,7 +121,22 @@ func run() error {
 	hook := agentio.NewApprovalHook(sender, perms)
 	spec := agentio.BuildAgentSpec(model, workspace, hook)
 	reg := agentio.BuildRegistry(workspace)
-	sess := session.NewSession(spec.ID, "main")
+
+	storeDir, err := sessionio.StoreDir()
+	if err != nil {
+		return fmt.Errorf("resolve session store directory: %w", err)
+	}
+	store := session.NewStore(storeDir)
+	sessionKey := sessionio.KeyForWorkspace(workspace)
+	if *newSessionFlag {
+		if err := store.Delete(spec.ID, sessionKey); err != nil {
+			return fmt.Errorf("discard previous session: %w", err)
+		}
+	}
+	sess, err := store.Load(spec.ID, sessionKey)
+	if err != nil {
+		return fmt.Errorf("load session: %w", err)
+	}
 
 	rt, err := runtime.BuildRuntime(
 		runtime.RuntimeDeps{},
@@ -136,6 +153,9 @@ func run() error {
 	defer rt.Close()
 
 	m := tui.NewModel(rt)
+	if history := sess.History(); len(history) > 0 {
+		m.LoadHistory(history)
+	}
 	program := tea.NewProgram(m, tea.WithAltScreen())
 	m.BindProgram(program)
 	sender.Program = program
