@@ -8,7 +8,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	teatest "github.com/charmbracelet/x/exp/teatest"
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/tool"

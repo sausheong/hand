@@ -1,4 +1,4 @@
-// Package sessionio maps an agcode workspace directory onto a
+// Package sessionio maps a Hand workspace directory onto a
 // harness session.Store key, and resolves where sessions live on disk.
 package sessionio
 
@@ -10,13 +10,13 @@ import (
 	"path/filepath"
 )
 
-// StoreDir returns ~/.agcode/sessions for the current user.
+// StoreDir returns ~/.hand/sessions for the current user.
 func StoreDir() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", fmt.Errorf("resolve home directory: %w", err)
 	}
-	return filepath.Join(home, ".agcode", "sessions"), nil
+	return filepath.Join(home, ".hand", "sessions"), nil
 }
 
 // KeyForWorkspace returns a stable, harness session.Store-safe key for

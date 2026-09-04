@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/sausheong/agcode/internal/permissions"
+	"github.com/sausheong/hand/internal/permissions"
 )
 
 func TestLoad_MissingFileReturnsEmptyWithoutCreating(t *testing.T) {
@@ -25,7 +25,7 @@ func TestLoad_MissingFileReturnsEmptyWithoutCreating(t *testing.T) {
 }
 
 func TestSaveLoad_RoundTrip(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 	want := permissions.Settings{AlwaysAllow: []string{"bash", "write_file"}}
 
 	if err := permissions.Save(path, want); err != nil {
@@ -52,7 +52,7 @@ func TestSettings_IsAlwaysAllowed(t *testing.T) {
 }
 
 func TestStore_SetAlwaysAllow_PersistsAndReflectsAcrossStores(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 
 	st1, err := permissions.NewStore(path)
 	if err != nil {
@@ -79,7 +79,7 @@ func TestStore_SetAlwaysAllow_PersistsAndReflectsAcrossStores(t *testing.T) {
 }
 
 func TestStore_SetAlwaysAllow_NoOpWhenAlreadyAllowed(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 	st, err := permissions.NewStore(path)
 	if err != nil {
 		t.Fatalf("NewStore returned error: %v", err)

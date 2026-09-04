@@ -1,4 +1,4 @@
-module github.com/sausheong/agcode
+module github.com/sausheong/hand
 
 go 1.25.1
 

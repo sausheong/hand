@@ -1,5 +1,5 @@
-// Package config reads and writes agcode's user-level configuration
-// file at ~/.agcode/config.json.
+// Package config reads and writes Hand's user-level configuration
+// file at ~/.hand/config.json.
 package config
 
 import (
@@ -12,7 +12,7 @@ import (
 // DefaultModel is used when no config file exists yet.
 const DefaultModel = "anthropic/claude-sonnet-5"
 
-// Config is the on-disk shape of ~/.agcode/config.json. API keys are
+// Config is the on-disk shape of ~/.hand/config.json. API keys are
 // never stored here — each provider reads its key from its own
 // standard environment variable.
 type Config struct {
@@ -25,13 +25,13 @@ type Config struct {
 	BaseURL string `json:"base_url,omitempty"`
 }
 
-// DefaultPath returns ~/.agcode/config.json for the current user.
+// DefaultPath returns ~/.hand/config.json for the current user.
 func DefaultPath() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", fmt.Errorf("resolve home directory: %w", err)
 	}
-	return filepath.Join(home, ".agcode", "config.json"), nil
+	return filepath.Join(home, ".hand", "config.json"), nil
 }
 
 // Load reads the config at path. If the file does not exist, Load

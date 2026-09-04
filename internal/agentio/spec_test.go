@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/runtime"
 )
 

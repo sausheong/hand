@@ -1,4 +1,4 @@
-// Package tui is agcode's Bubble Tea terminal UI.
+// Package tui is Hand's Bubble Tea terminal UI.
 package tui
 
 import (

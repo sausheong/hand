@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/sausheong/agcode/internal/agentio"
-	"github.com/sausheong/agcode/internal/permissions"
+	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/permissions"
 	"github.com/sausheong/harness/runtime"
 )
 
@@ -173,7 +173,7 @@ func TestApprovalHook_RequestIncludesPreview(t *testing.T) {
 }
 
 func TestApprovalHook_AlreadyAlwaysAllowedSkipsPrompt(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 	perms, err := permissions.NewStore(path)
 	if err != nil {
 		t.Fatalf("NewStore returned error: %v", err)
@@ -198,7 +198,7 @@ func TestApprovalHook_AlreadyAlwaysAllowedSkipsPrompt(t *testing.T) {
 }
 
 func TestApprovalHook_DecisionAlwaysPersistsBeforeReturning(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 	perms, err := permissions.NewStore(path)
 	if err != nil {
 		t.Fatalf("NewStore returned error: %v", err)
@@ -267,7 +267,7 @@ func TestOneShotApprovalHook_GatedDeniedByDefault(t *testing.T) {
 }
 
 func TestOneShotApprovalHook_GatedAllowedWhenAlwaysAllowed(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 	perms, err := permissions.NewStore(path)
 	if err != nil {
 		t.Fatalf("NewStore returned error: %v", err)

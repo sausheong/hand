@@ -8,7 +8,7 @@ import (
 	"github.com/sausheong/harness/tools/web"
 )
 
-// BuildRegistry returns the tool.Registry for agcode's four Phase 1
+// BuildRegistry returns the tool.Registry for Hand's four Phase 1
 // tool packages, all scoped to workDir. bash.BashTool's ExecPolicy is
 // left nil (full) — the approval bridge in approval.go is the safety
 // net for bash in Phase 1, not the exec policy.

@@ -1,5 +1,5 @@
-// Package permissions manages agcode's project-local "always allow"
-// allowlist at .agcode/settings.json.
+// Package permissions manages Hand's project-local "always allow"
+// allowlist at .hand/settings.json.
 package permissions
 
 import (
@@ -11,7 +11,7 @@ import (
 	"sync"
 )
 
-// Settings is the on-disk shape of .agcode/settings.json.
+// Settings is the on-disk shape of .hand/settings.json.
 type Settings struct {
 	// AlwaysAllow lists tool names the user has approved with "always"
 	// for this project — every future call to that tool is allowed
@@ -25,15 +25,15 @@ func (s Settings) IsAlwaysAllowed(tool string) bool {
 	return slices.Contains(s.AlwaysAllow, tool)
 }
 
-// DefaultPath returns workspace/.agcode/settings.json.
+// DefaultPath returns workspace/.hand/settings.json.
 func DefaultPath(workspace string) string {
-	return filepath.Join(workspace, ".agcode", "settings.json")
+	return filepath.Join(workspace, ".hand", "settings.json")
 }
 
 // Load reads the settings at path. Unlike internal/config.Load, a
 // missing file is not an error and is not created — it returns an
-// empty Settings{}. A project shouldn't get a .agcode/settings.json
-// littered into it just for running agcode; the file appears only the
+// empty Settings{}. A project shouldn't get a .hand/settings.json
+// littered into it just for running hand; the file appears only the
 // first time the user actually approves something with "always".
 func Load(path string) (Settings, error) {
 	data, err := os.ReadFile(path)

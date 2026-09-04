@@ -1,5 +1,5 @@
 // Package agentio wires harness's tool registry, agent spec, and
-// approval gating for agcode.
+// approval gating for Hand.
 package agentio
 
 import (
@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/sausheong/agcode/internal/permissions"
+	"github.com/sausheong/hand/internal/permissions"
 	"github.com/sausheong/harness/runtime"
 )
 
@@ -100,7 +100,7 @@ func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string) 
 // tool is allowed only if autoApprove is true (the --yes flag) or it is
 // already always-allowed in perms (perms may be nil, meaning neither
 // applies). Anything else is denied with a Reason explaining how to
-// approve it: run agcode interactively once and press 'a', or pass
+// approve it: run hand interactively once and press 'a', or pass
 // --yes.
 func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 	return func(_ context.Context, name string, _ json.RawMessage) (runtime.HookDecision, error) {
@@ -116,7 +116,7 @@ func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool) func(ctx
 		return runtime.HookDecision{
 			Allow: false,
 			Reason: fmt.Sprintf(
-				"%s is not always-allowed for this project; run agcode interactively once and press 'a' to approve it, or pass --yes to bypass approval for this one-shot run",
+				"%s is not always-allowed for this project; run hand interactively once and press 'a' to approve it, or pass --yes to bypass approval for this one-shot run",
 				name,
 			),
 		}, nil

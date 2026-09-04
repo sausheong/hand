@@ -10,7 +10,7 @@ import (
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 )
@@ -21,12 +21,12 @@ type Runner interface {
 	Run(ctx context.Context, userMsg string, images []llm.ImageContent) (<-chan runtime.AgentEvent, error)
 }
 
-// Model is the agcode Bubble Tea program. It uses pointer-receiver
+// Model is the Hand Bubble Tea program. It uses pointer-receiver
 // Init/Update/View methods (rather than the value-receiver style most
 // Bubble Tea examples use) so a *tea.Program reference can be injected
 // after construction via BindProgram — breaking the construction cycle
 // between the Program and the approval hook that needs to Send into it
-// (see internal/agentio.Sender and cmd/agcode/main.go).
+// (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
 	rt      Runner
 	program *tea.Program
@@ -51,7 +51,7 @@ type Model struct {
 	termWidth, termHeight int
 }
 
-// NewModel builds an agcode TUI model driving rt. Call BindProgram with
+// NewModel builds a Hand TUI model driving rt. Call BindProgram with
 // the *tea.Program constructed from this model before calling Run on
 // that program.
 func NewModel(rt Runner) *Model {

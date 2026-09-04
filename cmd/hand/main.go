@@ -1,4 +1,4 @@
-// Command agcode is an interactive terminal coding agent built on
+// Command hand is an interactive terminal coding agent built on
 // harness. Run it from the directory you want it to work in.
 package main
 
@@ -12,11 +12,11 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 
-	"github.com/sausheong/agcode/internal/agentio"
-	"github.com/sausheong/agcode/internal/config"
-	"github.com/sausheong/agcode/internal/permissions"
-	"github.com/sausheong/agcode/internal/sessionio"
-	"github.com/sausheong/agcode/internal/tui"
+	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/config"
+	"github.com/sausheong/hand/internal/permissions"
+	"github.com/sausheong/hand/internal/sessionio"
+	"github.com/sausheong/hand/internal/tui"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/providers/anthropic"
 	"github.com/sausheong/harness/providers/gemini"
@@ -107,8 +107,8 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 }
 
 func run() error {
-	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.agcode/config.json for this run)")
-	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.agcode/config.json for this run; not supported for gemini)")
+	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
+	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.hand/config.json for this run; not supported for gemini)")
 	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
@@ -212,7 +212,7 @@ func run() error {
 
 func main() {
 	if err := run(); err != nil {
-		fmt.Fprintln(os.Stderr, "agcode:", err)
+		fmt.Fprintln(os.Stderr, "hand:", err)
 		os.Exit(1)
 	}
 }

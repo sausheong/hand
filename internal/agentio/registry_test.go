@@ -3,7 +3,7 @@ package agentio_test
 import (
 	"testing"
 
-	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/hand/internal/agentio"
 )
 
 func TestBuildRegistry_RegistersExpectedTools(t *testing.T) {

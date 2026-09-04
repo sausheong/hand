@@ -1,5 +1,5 @@
 # ──────────────────────────────────────────────────────────────
-# agcode — Makefile
+# Hand — Makefile
 # ──────────────────────────────────────────────────────────────
 
 .PHONY: help build run test vet fmt lint install clean
@@ -14,15 +14,15 @@ help: ## Show this help
 
 # ── Build ──────────────────────────────────────────────────────
 
-build: ## Build the agcode binary to bin/agcode
+build: ## Build the hand binary to bin/hand
 	@mkdir -p $(BIN_DIR)
-	go build -o $(BIN_DIR)/agcode ./cmd/agcode
+	go build -o $(BIN_DIR)/hand ./cmd/hand
 
-run: ## Run agcode without building (fast dev loop)
-	go run ./cmd/agcode
+run: ## Run hand without building (fast dev loop)
+	go run ./cmd/hand
 
-install: ## Install agcode to $GOPATH/bin (or $GOBIN)
-	go install ./cmd/agcode
+install: ## Install hand to $GOPATH/bin (or $GOBIN)
+	go install ./cmd/hand
 
 # ── Go tools ───────────────────────────────────────────────────
 
