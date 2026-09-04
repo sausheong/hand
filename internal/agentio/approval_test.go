@@ -3,11 +3,13 @@ package agentio_test
 import (
 	"context"
 	"encoding/json"
+	"path/filepath"
 	"sync"
 	"testing"
 	"time"
 
 	"github.com/sausheong/agcode/internal/agentio"
+	"github.com/sausheong/agcode/internal/permissions"
 	"github.com/sausheong/harness/runtime"
 )
 
@@ -54,7 +56,7 @@ func TestApprovalHook_UngatedToolsAllowedImmediately(t *testing.T) {
 	for _, name := range []string{"read_file", "web_fetch", "web_search", "todo_write"} {
 		t.Run(name, func(t *testing.T) {
 			sender := &fakeSender{}
-			hook := agentio.NewApprovalHook(sender)
+			hook := agentio.NewApprovalHook(sender, nil)
 
 			decision, err := hook(context.Background(), name, json.RawMessage(`{}`))
 			if err != nil {
@@ -72,18 +74,19 @@ func TestApprovalHook_UngatedToolsAllowedImmediately(t *testing.T) {
 
 func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 	cases := []struct {
-		tool   string
-		answer bool
+		tool      string
+		decision  agentio.Decision
+		wantAllow bool
 	}{
-		{"write_file", true},
-		{"write_file", false},
-		{"edit_file", true},
-		{"bash", false},
+		{"write_file", agentio.DecisionOnce, true},
+		{"write_file", agentio.DecisionDeny, false},
+		{"edit_file", agentio.DecisionOnce, true},
+		{"bash", agentio.DecisionDeny, false},
 	}
 	for _, tc := range cases {
 		t.Run(tc.tool, func(t *testing.T) {
 			sender := &fakeSender{}
-			hook := agentio.NewApprovalHook(sender)
+			hook := agentio.NewApprovalHook(sender, nil)
 
 			resultCh := make(chan struct {
 				decision runtime.HookDecision
@@ -108,15 +111,15 @@ func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 			case <-time.After(20 * time.Millisecond):
 			}
 
-			req.Respond <- tc.answer
+			req.Respond <- tc.decision
 
 			select {
 			case res := <-resultCh:
 				if res.err != nil {
 					t.Fatalf("unexpected error: %v", res.err)
 				}
-				if res.decision.Allow != tc.answer {
-					t.Fatalf("Allow = %v, want %v", res.decision.Allow, tc.answer)
+				if res.decision.Allow != tc.wantAllow {
+					t.Fatalf("Allow = %v, want %v", res.decision.Allow, tc.wantAllow)
 				}
 			case <-time.After(2 * time.Second):
 				t.Fatal("hook did not return after approval was answered")
@@ -127,7 +130,7 @@ func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 
 func TestApprovalHook_ContextCancelDenies(t *testing.T) {
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender)
+	hook := agentio.NewApprovalHook(sender, nil)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	resultCh := make(chan error, 1)
@@ -151,5 +154,74 @@ func TestApprovalHook_ContextCancelDenies(t *testing.T) {
 		}
 	case <-time.After(2 * time.Second):
 		t.Fatal("hook did not return after context cancellation")
+	}
+}
+
+func TestApprovalHook_AlreadyAlwaysAllowedSkipsPrompt(t *testing.T) {
+	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	perms, err := permissions.NewStore(path)
+	if err != nil {
+		t.Fatalf("NewStore returned error: %v", err)
+	}
+	if err := perms.SetAlwaysAllow("bash"); err != nil {
+		t.Fatalf("SetAlwaysAllow returned error: %v", err)
+	}
+
+	sender := &fakeSender{}
+	hook := agentio.NewApprovalHook(sender, perms)
+
+	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !decision.Allow {
+		t.Fatalf("expected Allow=true for an already-always-allowed tool, got %+v", decision)
+	}
+	if _, ok := sender.first(); ok {
+		t.Fatal("an already-always-allowed tool should never prompt")
+	}
+}
+
+func TestApprovalHook_DecisionAlwaysPersistsBeforeReturning(t *testing.T) {
+	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	perms, err := permissions.NewStore(path)
+	if err != nil {
+		t.Fatalf("NewStore returned error: %v", err)
+	}
+
+	sender := &fakeSender{}
+	hook := agentio.NewApprovalHook(sender, perms)
+
+	resultCh := make(chan runtime.HookDecision, 1)
+	go func() {
+		decision, err := hook(context.Background(), "write_file", json.RawMessage(`{}`))
+		if err != nil {
+			t.Errorf("unexpected error: %v", err)
+		}
+		resultCh <- decision
+	}()
+
+	req := waitForRequest(t, sender)
+	req.Respond <- agentio.DecisionAlways
+
+	select {
+	case decision := <-resultCh:
+		if !decision.Allow {
+			t.Fatalf("expected Allow=true after DecisionAlways, got %+v", decision)
+		}
+	case <-time.After(2 * time.Second):
+		t.Fatal("hook did not return after DecisionAlways")
+	}
+
+	if !perms.IsAlwaysAllowed("write_file") {
+		t.Fatal("expected write_file to be always-allowed in the Store after DecisionAlways")
+	}
+
+	onDisk, err := permissions.Load(path)
+	if err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+	if !onDisk.IsAlwaysAllowed("write_file") {
+		t.Fatal("expected write_file to be persisted to disk after DecisionAlways")
 	}
 }
