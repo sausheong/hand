@@ -39,6 +39,7 @@ const (
 type ApprovalRequest struct {
 	Tool    string
 	Input   json.RawMessage
+	Preview string // human-readable preview (a diff, or the bash command); "" if none
 	Respond chan Decision
 }
 
@@ -52,12 +53,13 @@ var gatedTools = map[string]bool{
 
 // NewApprovalHook returns a runtime.LifecycleHooks.BeforeToolUse
 // closure. For a gated tool not already always-allowed by perms, it
-// sends an ApprovalRequest via sender and blocks until the request's
-// Respond channel receives an answer (or the call's context is
-// cancelled, which denies). Every other tool is allowed immediately
+// sends an ApprovalRequest (with a best-effort Preview built from the
+// call's input against workspace) via sender and blocks until the
+// request's Respond channel receives an answer (or the call's context
+// is cancelled, which denies). Every other tool is allowed immediately
 // with no prompt. perms may be nil, meaning no persistence — every
 // gated call always prompts, matching Phase 1's behavior.
-func NewApprovalHook(sender Sender, perms *permissions.Store) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
+func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 	return func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 		if !gatedTools[name] {
 			return runtime.HookDecision{Allow: true}, nil
@@ -66,7 +68,7 @@ func NewApprovalHook(sender Sender, perms *permissions.Store) func(ctx context.C
 			return runtime.HookDecision{Allow: true}, nil
 		}
 
-		req := ApprovalRequest{Tool: name, Input: input, Respond: make(chan Decision, 1)}
+		req := ApprovalRequest{Tool: name, Input: input, Preview: buildPreview(workspace, name, input), Respond: make(chan Decision, 1)}
 		sender.Send(req)
 
 		select {
@@ -90,5 +92,33 @@ func NewApprovalHook(sender Sender, perms *permissions.Store) func(ctx context.C
 		case <-ctx.Done():
 			return runtime.HookDecision{Allow: false, Reason: "approval cancelled: " + ctx.Err().Error()}, nil
 		}
+	}
+}
+
+// NewOneShotApprovalHook returns a BeforeToolUse closure for
+// non-interactive (-p) runs, where there is no TUI to prompt. A gated
+// tool is allowed only if autoApprove is true (the --yes flag) or it is
+// already always-allowed in perms (perms may be nil, meaning neither
+// applies). Anything else is denied with a Reason explaining how to
+// approve it: run agcode interactively once and press 'a', or pass
+// --yes.
+func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
+	return func(_ context.Context, name string, _ json.RawMessage) (runtime.HookDecision, error) {
+		if !gatedTools[name] {
+			return runtime.HookDecision{Allow: true}, nil
+		}
+		if autoApprove {
+			return runtime.HookDecision{Allow: true}, nil
+		}
+		if perms != nil && perms.IsAlwaysAllowed(name) {
+			return runtime.HookDecision{Allow: true}, nil
+		}
+		return runtime.HookDecision{
+			Allow: false,
+			Reason: fmt.Sprintf(
+				"%s is not always-allowed for this project; run agcode interactively once and press 'a' to approve it, or pass --yes to bypass approval for this one-shot run",
+				name,
+			),
+		}, nil
 	}
 }

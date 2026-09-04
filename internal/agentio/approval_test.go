@@ -56,7 +56,7 @@ func TestApprovalHook_UngatedToolsAllowedImmediately(t *testing.T) {
 	for _, name := range []string{"read_file", "web_fetch", "web_search", "todo_write"} {
 		t.Run(name, func(t *testing.T) {
 			sender := &fakeSender{}
-			hook := agentio.NewApprovalHook(sender, nil)
+			hook := agentio.NewApprovalHook(sender, nil, "")
 
 			decision, err := hook(context.Background(), name, json.RawMessage(`{}`))
 			if err != nil {
@@ -86,7 +86,7 @@ func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 	for _, tc := range cases {
 		t.Run(tc.tool, func(t *testing.T) {
 			sender := &fakeSender{}
-			hook := agentio.NewApprovalHook(sender, nil)
+			hook := agentio.NewApprovalHook(sender, nil, "")
 
 			resultCh := make(chan struct {
 				decision runtime.HookDecision
@@ -130,7 +130,7 @@ func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 
 func TestApprovalHook_ContextCancelDenies(t *testing.T) {
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, nil)
+	hook := agentio.NewApprovalHook(sender, nil, "")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	resultCh := make(chan error, 1)
@@ -157,6 +157,21 @@ func TestApprovalHook_ContextCancelDenies(t *testing.T) {
 	}
 }
 
+func TestApprovalHook_RequestIncludesPreview(t *testing.T) {
+	sender := &fakeSender{}
+	hook := agentio.NewApprovalHook(sender, nil, "/tmp/does-not-matter")
+
+	go func() {
+		_, _ = hook(context.Background(), "bash", json.RawMessage(`{"command":"echo hi"}`))
+	}()
+
+	req := waitForRequest(t, sender)
+	if req.Preview != "$ echo hi" {
+		t.Fatalf("Preview = %q, want %q", req.Preview, "$ echo hi")
+	}
+	req.Respond <- agentio.DecisionDeny
+}
+
 func TestApprovalHook_AlreadyAlwaysAllowedSkipsPrompt(t *testing.T) {
 	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
 	perms, err := permissions.NewStore(path)
@@ -168,7 +183,7 @@ func TestApprovalHook_AlreadyAlwaysAllowedSkipsPrompt(t *testing.T) {
 	}
 
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, perms)
+	hook := agentio.NewApprovalHook(sender, perms, "")
 
 	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
 	if err != nil {
@@ -190,7 +205,7 @@ func TestApprovalHook_DecisionAlwaysPersistsBeforeReturning(t *testing.T) {
 	}
 
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, perms)
+	hook := agentio.NewApprovalHook(sender, perms, "")
 
 	resultCh := make(chan runtime.HookDecision, 1)
 	go func() {
@@ -223,5 +238,61 @@ func TestApprovalHook_DecisionAlwaysPersistsBeforeReturning(t *testing.T) {
 	}
 	if !onDisk.IsAlwaysAllowed("write_file") {
 		t.Fatal("expected write_file to be persisted to disk after DecisionAlways")
+	}
+}
+
+func TestOneShotApprovalHook_UngatedToolsAlwaysAllowed(t *testing.T) {
+	hook := agentio.NewOneShotApprovalHook(nil, false)
+	decision, err := hook(context.Background(), "read_file", json.RawMessage(`{}`))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !decision.Allow {
+		t.Fatalf("expected Allow=true for an ungated tool, got %+v", decision)
+	}
+}
+
+func TestOneShotApprovalHook_GatedDeniedByDefault(t *testing.T) {
+	hook := agentio.NewOneShotApprovalHook(nil, false)
+	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if decision.Allow {
+		t.Fatal("expected Allow=false for a gated tool with no allowlist and no autoApprove")
+	}
+	if decision.Reason == "" {
+		t.Fatal("expected a Reason explaining how to approve the tool")
+	}
+}
+
+func TestOneShotApprovalHook_GatedAllowedWhenAlwaysAllowed(t *testing.T) {
+	path := filepath.Join(t.TempDir(), ".agcode", "settings.json")
+	perms, err := permissions.NewStore(path)
+	if err != nil {
+		t.Fatalf("NewStore returned error: %v", err)
+	}
+	if err := perms.SetAlwaysAllow("bash"); err != nil {
+		t.Fatalf("SetAlwaysAllow returned error: %v", err)
+	}
+
+	hook := agentio.NewOneShotApprovalHook(perms, false)
+	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !decision.Allow {
+		t.Fatalf("expected Allow=true for an already-always-allowed tool, got %+v", decision)
+	}
+}
+
+func TestOneShotApprovalHook_GatedAllowedWithAutoApprove(t *testing.T) {
+	hook := agentio.NewOneShotApprovalHook(nil, true)
+	decision, err := hook(context.Background(), "write_file", json.RawMessage(`{}`))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if !decision.Allow {
+		t.Fatalf("expected Allow=true with autoApprove, got %+v", decision)
 	}
 }
