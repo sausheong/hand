@@ -77,7 +77,8 @@ This opens an interactive terminal UI. Type a request and press Enter; Hand
 streams its response and shows each tool call it makes along the way.
 Assistant responses are rendered as Markdown (headings, bold/italic, lists,
 code blocks) — the model's raw formatting shows up styled, not as literal
-`**`/`#`/`` ` `` characters.
+`**`/`#`/`` ` `` characters. The style defaults to `dark`; see `--markdown-style`
+below to change it.
 
 ### One-shot mode
 
@@ -103,6 +104,7 @@ hand -p "fix the failing test in pkg/foo" --yes
 | `--base-url`        | Custom API base URL (e.g. a LiteLLM proxy) — not supported for Gemini |
 | `--max-turns`       | Cap the agent's tool-use loop for this run (default: 50, or `max_turns` in config) |
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
+| `--markdown-style`  | Glamour style for rendering assistant Markdown: `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, `tokyo-night` (default `dark`) — overrides `~/.hand/config.json` |
 | `--new-session`     | Discard this workspace's saved session and start fresh |
 | `-p "<prompt>"`     | Run one turn non-interactively and exit (no TUI) |
 | `--yes`             | Auto-approve all gated tool calls for this run (only valid with `-p`) |
@@ -177,6 +179,7 @@ run):
   "base_url": "",
   "max_turns": 50,
   "fallback_model": "",
+  "markdown_style": "dark",
   "mcp_servers": [
     {
       "name": "github",
@@ -195,8 +198,13 @@ run):
 }
 ```
 
-- `model` / `base_url` / `max_turns` / `fallback_model` are the same values
-  the CLI flags above override for a single run.
+- `model` / `base_url` / `max_turns` / `fallback_model` / `markdown_style` are
+  the same values the CLI flags above override for a single run.
+  `markdown_style` accepts `dark`, `light`, `ascii`, `notty`, `pink`,
+  `dracula`, or `tokyo-night`; anything else (including glamour's own
+  `auto` — deliberately not offered, since it detects light/dark by
+  querying the terminal in a way that can corrupt the input box) falls
+  back to `dark`.
 - `mcp_servers` lists [MCP](https://modelcontextprotocol.io) servers to
   connect at startup, extending Hand's built-in tools. Each entry is either
   a local command (`command`/`args`/`env`) or a remote server (`url`/

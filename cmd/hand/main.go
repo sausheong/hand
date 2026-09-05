@@ -182,6 +182,7 @@ func run() error {
 	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.hand/config.json for this run; not supported for gemini)")
 	maxTurnsFlag := flag.Int("max-turns", 0, "cap the agent's tool-use loop for this run (overrides ~/.hand/config.json for this run; 0 means use the config/default)")
 	fallbackModelFlag := flag.String("fallback-model", "", "provider/model to retry against on a transient provider error, same provider as --model (overrides ~/.hand/config.json for this run)")
+	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
 	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
@@ -206,6 +207,7 @@ func run() error {
 	baseURL := config.ResolveBaseURL(*baseURLFlag, cfg)
 	maxTurns := config.ResolveMaxTurns(*maxTurnsFlag, cfg)
 	fallbackModel := config.ResolveFallbackModel(*fallbackModelFlag, cfg)
+	markdownStyle := config.ResolveMarkdownStyle(*markdownStyleFlag, cfg)
 
 	providerName, bareModel := llm.ParseProviderModel(model)
 	if providerName == "" {
@@ -293,6 +295,7 @@ func run() error {
 	}
 
 	m := tui.NewModel(rt, workspace)
+	m.SetMarkdownStyle(markdownStyle)
 	m.SetBanner(version, model, workspace)
 	m.SetController(&tui.Controller{
 		Rt:            rt,

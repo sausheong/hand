@@ -14,6 +14,7 @@ import (
 	"github.com/charmbracelet/lipgloss"
 
 	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/config"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/tokens"
@@ -67,6 +68,12 @@ type Model struct {
 	// 0 if never set (tests that skip SetBanner/setModel).
 	contextWindow int
 
+	// markdownStyle is the glamour style name (config.ValidMarkdownStyles)
+	// passed to renderMarkdown. Defaults to config.DefaultMarkdownStyle so
+	// tests that skip SetMarkdownStyle still render safely; main.go sets
+	// it from --markdown-style/config.json via SetMarkdownStyle.
+	markdownStyle string
+
 	// turnStart marks when the in-flight (or, once finished, most
 	// recent) turn's Run() began — read live while running for the
 	// status line's elapsed-time display.
@@ -115,14 +122,26 @@ func NewModel(rt Runner, workspace string) *Model {
 	sp := spinner.New(spinner.WithSpinner(spinner.Dot), spinner.WithStyle(spinnerStyle))
 
 	return &Model{
-		rt:         rt,
-		workspace:  workspace,
-		textarea:   ta,
-		viewport:   vp,
-		spinner:    sp,
-		termWidth:  80,
-		termHeight: 24,
+		rt:            rt,
+		workspace:     workspace,
+		textarea:      ta,
+		viewport:      vp,
+		spinner:       sp,
+		termWidth:     80,
+		termHeight:    24,
+		markdownStyle: config.DefaultMarkdownStyle,
 	}
+}
+
+// SetMarkdownStyle sets the glamour style renderMarkdown uses for
+// assistant output (see config.ValidMarkdownStyles). Call before the
+// first turn if overriding the config.DefaultMarkdownStyle set by
+// NewModel — main.go does this from --markdown-style/config.json.
+// renderMarkdown falls back to the default itself for anything not on
+// the allow-list, so an unvalidated value here is safe, just possibly
+// not what the caller intended.
+func (m *Model) SetMarkdownStyle(style string) {
+	m.markdownStyle = style
 }
 
 // BindProgram gives the model a reference to its own running Program,
@@ -408,7 +427,7 @@ func (m *Model) flushStream() {
 	if m.streamBuf.Len() == 0 {
 		return
 	}
-	m.transcript = append(m.transcript, renderMarkdown(m.streamBuf.String(), m.termWidth))
+	m.transcript = append(m.transcript, renderMarkdown(m.streamBuf.String(), m.termWidth, m.markdownStyle))
 	m.streamBuf.Reset()
 }
 

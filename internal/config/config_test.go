@@ -322,3 +322,54 @@ func TestLoad_TightensLoosePermissions(t *testing.T) {
 		t.Fatalf("config file permissions after Load = %o, want 0600", perm)
 	}
 }
+
+func TestResolveMarkdownStyle_FlagOverridesConfigOverridesDefault(t *testing.T) {
+	cases := []struct {
+		name      string
+		flagValue string
+		cfg       config.Config
+		want      string
+	}{
+		{"flag and config both empty uses default", "", config.Config{}, config.DefaultMarkdownStyle},
+		{"flag empty uses valid config value", "", config.Config{MarkdownStyle: "light"}, "light"},
+		{"flag set overrides config", "pink", config.Config{MarkdownStyle: "light"}, "pink"},
+		{"flag set overrides default", "dracula", config.Config{}, "dracula"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := config.ResolveMarkdownStyle(tc.flagValue, tc.cfg)
+			if got != tc.want {
+				t.Fatalf("ResolveMarkdownStyle(%q, %+v) = %q, want %q", tc.flagValue, tc.cfg, got, tc.want)
+			}
+		})
+	}
+}
+
+// Regression: "auto" is a real glamour style name (it triggers
+// termenv's interactive terminal-background query — see
+// internal/tui/markdown.go for why that's unsafe alongside Bubble Tea's
+// own stdin reader), so it must be rejected the same as any other
+// unrecognized string, not accidentally let through because it happens
+// to be a name glamour understands.
+func TestResolveMarkdownStyle_RejectsAutoAndUnknownValues(t *testing.T) {
+	for _, style := range []string{"auto", "bogus", "AUTO", "Dark"} {
+		t.Run(style, func(t *testing.T) {
+			got := config.ResolveMarkdownStyle(style, config.Config{})
+			if got != config.DefaultMarkdownStyle {
+				t.Fatalf("ResolveMarkdownStyle(%q, {}) = %q, want the default %q", style, got, config.DefaultMarkdownStyle)
+			}
+			got = config.ResolveMarkdownStyle("", config.Config{MarkdownStyle: style})
+			if got != config.DefaultMarkdownStyle {
+				t.Fatalf("ResolveMarkdownStyle(\"\", {MarkdownStyle: %q}) = %q, want the default %q", style, got, config.DefaultMarkdownStyle)
+			}
+		})
+	}
+}
+
+func TestValidMarkdownStyles_ExcludesAuto(t *testing.T) {
+	for _, s := range config.ValidMarkdownStyles {
+		if s == "auto" {
+			t.Fatal("ValidMarkdownStyles must never include \"auto\" — it triggers glamour's terminal-querying auto-detection, exactly what this allow-list exists to keep out")
+		}
+	}
+}

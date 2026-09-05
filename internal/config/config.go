@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 
 	"github.com/sausheong/harness/tools/mcp"
 )
@@ -17,6 +18,21 @@ const DefaultModel = "anthropic/claude-sonnet-5"
 // DefaultMaxTurns caps the agent's tool-use loop for a single run when
 // neither --max-turns nor config.json's max_turns is set.
 const DefaultMaxTurns = 50
+
+// DefaultMarkdownStyle is used when neither --markdown-style nor
+// config.json's markdown_style names a recognized style.
+const DefaultMarkdownStyle = "dark"
+
+// ValidMarkdownStyles lists the glamour standard styles hand accepts
+// for rendering assistant Markdown output — every one of glamour's
+// built-in styles except "auto". Unlike every name here, "auto"
+// detects light vs. dark by querying the terminal for its background
+// color over stdin/stdout at render time, which races Bubble Tea's own
+// stdin reader and can leak the terminal's raw response into the input
+// box as literal text (see internal/tui/markdown.go). ResolveMarkdownStyle
+// and renderMarkdown itself both enforce this list — never pass a
+// style straight through unchecked.
+var ValidMarkdownStyles = []string{"ascii", "dark", "dracula", "light", "notty", "pink", "tokyo-night"}
 
 // Config is the on-disk shape of ~/.hand/config.json. API keys are
 // never stored here — each provider reads its key from its own
@@ -40,6 +56,12 @@ type Config struct {
 	// MCPServers lists the MCP servers to connect at startup. Empty
 	// means no extensions — hand's built-in tool set only.
 	MCPServers []MCPServer `json:"mcp_servers,omitempty"`
+	// MarkdownStyle selects the glamour style used to render assistant
+	// Markdown output in the interactive TUI — one of ValidMarkdownStyles.
+	// Empty (or anything else unrecognized) falls back to
+	// DefaultMarkdownStyle. Has no effect in -p one-shot mode, which
+	// prints raw text and never touches the TUI/glamour at all.
+	MarkdownStyle string `json:"markdown_style,omitempty"`
 }
 
 // MCPServer is one entry in config.json's mcp_servers list. Exactly one
@@ -162,6 +184,29 @@ func ResolveFallbackModel(flagValue string, cfg Config) string {
 		return flagValue
 	}
 	return cfg.FallbackModel
+}
+
+// ResolveMarkdownStyle returns flagValue if it names a recognized style
+// (see ValidMarkdownStyles), otherwise cfg.MarkdownStyle if that does,
+// otherwise DefaultMarkdownStyle. An unrecognized value falls back
+// silently rather than erroring — same "a cosmetic setting shouldn't
+// crash the run" spirit as the other Resolve* functions here — but
+// internal/tui's renderMarkdown enforces the identical allow-list as an
+// authoritative second check regardless of what this returns, since
+// letting "auto" (or any other unrecognized string) through to glamour
+// is a real safety issue, not just a cosmetic one.
+func ResolveMarkdownStyle(flagValue string, cfg Config) string {
+	if isValidMarkdownStyle(flagValue) {
+		return flagValue
+	}
+	if isValidMarkdownStyle(cfg.MarkdownStyle) {
+		return cfg.MarkdownStyle
+	}
+	return DefaultMarkdownStyle
+}
+
+func isValidMarkdownStyle(style string) bool {
+	return slices.Contains(ValidMarkdownStyles, style)
 }
 
 // ToServerConfigs converts cfg.MCPServers to harness's mcp.ServerConfig

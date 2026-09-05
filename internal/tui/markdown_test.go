@@ -43,8 +43,8 @@ func TestRenderMarkdown_NeverUsesAutoStyle(t *testing.T) {
 
 func TestRenderMarkdown_EmptyOrWhitespaceReturnsUnchanged(t *testing.T) {
 	for _, in := range []string{"", "   ", "\n\t\n"} {
-		if got := renderMarkdown(in, 80); got != in {
-			t.Errorf("renderMarkdown(%q, 80) = %q, want unchanged", in, got)
+		if got := renderMarkdown(in, 80, "dark"); got != in {
+			t.Errorf("renderMarkdown(%q, 80, dark) = %q, want unchanged", in, got)
 		}
 	}
 }
@@ -72,9 +72,9 @@ func TestRenderMarkdown_PreservesContent(t *testing.T) {
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := sanitizeForTerminal(renderMarkdown(tc.in, 80))
+			got := sanitizeForTerminal(renderMarkdown(tc.in, 80, "dark"))
 			if !strings.Contains(got, tc.want) {
-				t.Fatalf("renderMarkdown(%q, 80) (ANSI stripped) = %q, want it to contain %q", tc.in, got, tc.want)
+				t.Fatalf("renderMarkdown(%q, 80, dark) (ANSI stripped) = %q, want it to contain %q", tc.in, got, tc.want)
 			}
 		})
 	}
@@ -82,9 +82,25 @@ func TestRenderMarkdown_PreservesContent(t *testing.T) {
 
 func TestRenderMarkdown_ClampsNarrowOrInvalidWidth(t *testing.T) {
 	for _, w := range []int{0, -5, 1, minMarkdownWidth - 1} {
-		got := sanitizeForTerminal(renderMarkdown("hello world", w))
+		got := sanitizeForTerminal(renderMarkdown("hello world", w, "dark"))
 		if !strings.Contains(got, "hello") {
-			t.Fatalf("renderMarkdown(%q, width=%d) (ANSI stripped) = %q, want it to still contain the content", "hello world", w, got)
+			t.Fatalf("renderMarkdown(%q, width=%d, dark) (ANSI stripped) = %q, want it to still contain the content", "hello world", w, got)
+		}
+	}
+}
+
+// Regression: renderMarkdown must never hand glamour an unrecognized
+// (or, worse, "auto") style — it validates the style itself
+// (safeMarkdownStyle) rather than trusting the caller already did,
+// since config.ResolveMarkdownStyle isn't the only path that can reach
+// here. Proven by checking the output is identical to explicitly
+// passing "dark", not just "didn't crash".
+func TestRenderMarkdown_FallsBackToDefaultStyleForUnsafeOrUnknownNames(t *testing.T) {
+	const text = "hello **world**"
+	want := renderMarkdown(text, 80, "dark")
+	for _, style := range []string{"auto", "bogus", ""} {
+		if got := renderMarkdown(text, 80, style); got != want {
+			t.Fatalf("renderMarkdown(%q, 80, %q) = %q, want it to fall back to the dark-style output %q", text, style, got, want)
 		}
 	}
 }

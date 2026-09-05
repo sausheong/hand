@@ -21,7 +21,7 @@ func TestReplayHistory_UserMessage(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeMessage, Role: "user", Data: mustMarshal(t, session.MessageData{Text: "hello there"})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -34,7 +34,7 @@ func TestReplayHistory_AssistantMessage(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeMessage, Role: "assistant", Data: mustMarshal(t, session.MessageData{Text: "hi back"})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -51,7 +51,7 @@ func TestReplayHistory_ToolCall(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeToolCall, Data: mustMarshal(t, session.ToolCallData{Tool: "read_file", ID: "tc1", Input: json.RawMessage(`{}`)})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -64,7 +64,7 @@ func TestReplayHistory_ToolResultSuccess(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeToolResult, Data: mustMarshal(t, session.ToolResultData{ToolCallID: "tc1", Output: "ok"})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -77,7 +77,7 @@ func TestReplayHistory_ToolResultFailure(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeToolResult, Data: mustMarshal(t, session.ToolResultData{ToolCallID: "tc1", Error: "file not found", IsError: true})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -90,7 +90,7 @@ func TestReplayHistory_Compaction(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeCompaction, Data: mustMarshal(t, session.CompactionData{Summary: "old stuff", TurnsCompacted: 12})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -103,7 +103,7 @@ func TestReplayHistory_Meta(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeMeta, Role: "system", Data: mustMarshal(t, session.MessageData{Text: "a system note"})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
@@ -117,7 +117,7 @@ func TestReplayHistory_MultipleEntriesPreserveOrder(t *testing.T) {
 		{Type: session.EntryTypeMessage, Role: "user", Data: mustMarshal(t, session.MessageData{Text: "first"})},
 		{Type: session.EntryTypeMessage, Role: "assistant", Data: mustMarshal(t, session.MessageData{Text: "second"})},
 	}
-	lines := ReplayHistory(entries, 80)
+	lines := ReplayHistory(entries, 80, "dark")
 	if len(lines) != 2 {
 		t.Fatalf("got %d lines, want 2: %v", len(lines), lines)
 	}

@@ -14,6 +14,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	teatest "github.com/charmbracelet/x/exp/teatest"
 	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/config"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/tool"
@@ -695,6 +696,26 @@ func TestRunModelCommand_RefreshesContextWindowOnSwitch(t *testing.T) {
 	}
 	if m.contextWindow != 1_000_000 {
 		t.Fatalf("contextWindow = %d, want 1000000 (claude-sonnet-4-6's 1M window, vs claude-sonnet-5's 200k)", m.contextWindow)
+	}
+}
+
+func TestNewModel_DefaultsMarkdownStyleToConfigDefault(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	if m.markdownStyle != config.DefaultMarkdownStyle {
+		t.Fatalf("markdownStyle = %q, want the config default %q", m.markdownStyle, config.DefaultMarkdownStyle)
+	}
+}
+
+func TestSetMarkdownStyle_AffectsFlushedRendering(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.SetMarkdownStyle("light")
+
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "some **bold** text"})
+	m.flushStream()
+
+	want := renderMarkdown("some **bold** text", m.termWidth, "light")
+	if len(m.transcript) != 1 || m.transcript[0] != want {
+		t.Fatalf("transcript = %v, want a single entry rendered with the \"light\" style: %q", m.transcript, want)
 	}
 }
 
