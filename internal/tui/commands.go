@@ -155,7 +155,8 @@ func (m *Model) runModelCommand(args []string) {
 		m.transcript = append(m.transcript, errorLineStyle.Render("model switch failed: "+err.Error()))
 		return
 	}
-	m.transcript = append(m.transcript, approvedStyle.Render("model switched to "+m.controller.CurrentModel()))
+	m.setModel(m.controller.CurrentModel())
+	m.transcript = append(m.transcript, approvedStyle.Render("model switched to "+m.model))
 }
 
 func (m *Model) runNewCommand() {
@@ -199,7 +200,12 @@ func (m *Model) runUsageCommand() {
 		return
 	}
 	u := m.lastUsage
-	line := fmt.Sprintf("input: %d  output: %d  cache write: %d  cache read: %d",
-		u.InputTokens, u.OutputTokens, u.CacheCreationInputTokens, u.CacheReadInputTokens)
-	m.transcript = append(m.transcript, toolCallStyle.Render(line))
+	lines := []string{
+		fmt.Sprintf("input: %d  output: %d  cache write: %d  cache read: %d",
+			u.InputTokens, u.OutputTokens, u.CacheCreationInputTokens, u.CacheReadInputTokens),
+		fmt.Sprintf("last turn: %s tok in %s", formatTokenCount(totalTokens(*u)), formatDuration(m.lastTurnDuration)),
+		fmt.Sprintf("session total: %s tok", formatTokenCount(totalTokens(m.sessionUsage))),
+		fmt.Sprintf("context: %s", m.contextSummary()),
+	}
+	m.transcript = append(m.transcript, toolCallStyle.Render(strings.Join(lines, "\n")))
 }

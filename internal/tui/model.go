@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/charmbracelet/bubbles/spinner"
 	"github.com/charmbracelet/bubbles/textarea"
@@ -15,6 +16,7 @@ import (
 	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
+	"github.com/sausheong/harness/tokens"
 )
 
 // Runner is the subset of *runtime.Runtime the TUI needs, so tests can
@@ -48,8 +50,32 @@ type Model struct {
 
 	// lastUsage holds the token counts from the most recent turn's
 	// EventDone, nil until the first turn completes with usage reported
-	// (a provider may not report usage at all). Surfaced via /usage.
+	// (a provider may not report usage at all). Surfaced via /usage and
+	// the always-on status line's context/turn-token figures.
 	lastUsage *llm.Usage
+
+	// sessionUsage accumulates lastUsage's fields across every completed
+	// turn since this process started (not persisted — a fresh hand
+	// process, even resuming the same saved session, starts back at
+	// zero, matching how the rest of this status line resets).
+	sessionUsage llm.Usage
+
+	// model is the active "provider/model" string, kept in sync with
+	// SetBanner and /model so contextWindow can be recomputed on switch.
+	model string
+	// contextWindow is model's max input tokens (tokens.ContextWindowFor),
+	// 0 if never set (tests that skip SetBanner/setModel).
+	contextWindow int
+
+	// turnStart marks when the in-flight (or, once finished, most
+	// recent) turn's Run() began — read live while running for the
+	// status line's elapsed-time display.
+	turnStart time.Time
+	// lastTurnDuration is frozen at the most recently completed turn's
+	// wall-clock time, set once on runEndedMsg (the one signal harness
+	// guarantees fires exactly once per turn on every exit path — see
+	// runEndedMsg's doc comment in events.go). Zero until a turn ends.
+	lastTurnDuration time.Duration
 
 	// suggestIndex is the highlighted row in the slash-command
 	// auto-complete dropdown (see commandSuggestions/renderSuggestions in
@@ -101,6 +127,7 @@ func (m *Model) BindProgram(p *tea.Program) {
 // transcript. Call once, right after NewModel and before LoadHistory, so
 // the banner sits above any resumed conversation.
 func (m *Model) SetBanner(version, model, workspace string) {
+	m.setModel(model)
 	banner := []string{
 		userLineStyle.Render("Hand") + statusIdleStyle.Render(" "+version),
 		statusIdleStyle.Render(model),
@@ -109,6 +136,15 @@ func (m *Model) SetBanner(version, model, workspace string) {
 	}
 	m.transcript = append(banner, m.transcript...)
 	m.refreshViewport()
+}
+
+// setModel updates the active model name and recomputes its context
+// window (tokens.ContextWindowFor), so the status line's "ctx" figure
+// tracks whichever model is actually active. Called at startup
+// (SetBanner) and after a successful /model switch.
+func (m *Model) setModel(model string) {
+	m.model = model
+	m.contextWindow = tokens.ContextWindowFor(model, 0)
 }
 
 // SetController wires up slash commands that need state beyond the
@@ -140,6 +176,7 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case runEndedMsg:
 		m.running = false
+		m.lastTurnDuration = time.Since(m.turnStart)
 		m.refreshViewport()
 		return m, nil
 
@@ -250,6 +287,7 @@ func (m *Model) startRun(text string) tea.Cmd {
 	m.transcript = append(m.transcript, userLineStyle.Render("> "+cleanText))
 	m.textarea.Reset()
 	m.running = true
+	m.turnStart = time.Now()
 
 	ctx, cancel := context.WithCancel(context.Background())
 	m.cancel = cancel
@@ -316,6 +354,7 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 		m.flushStream()
 		m.running = false
 		m.lastUsage = ev.Usage
+		m.sessionUsage = addUsage(m.sessionUsage, ev.Usage)
 	}
 }
 
@@ -382,14 +421,53 @@ func (m *Model) bottomHeight() int {
 	if suggestions := m.commandSuggestions(); len(suggestions) > 0 {
 		return len(suggestions)
 	}
-	return 1 // the plain status line
+	return strings.Count(wrapToWidth(m.statusLine(), m.termWidth), "\n") + 1
 }
 
+// statusLine is the always-visible footer: run state (with a live
+// elapsed timer while a turn is in flight) plus the context/token gauge
+// from usageLine. Unlike /usage (a one-shot transcript entry), this is
+// redrawn on every Update — including the spinner's own tick — so the
+// elapsed time visibly counts up during a turn.
 func (m *Model) statusLine() string {
+	left := statusIdleStyle.Render("ready")
 	if m.running {
-		return m.spinner.View() + statusIdleStyle.Render(" working...")
+		left = m.spinner.View() + statusIdleStyle.Render(fmt.Sprintf(" working... %s", formatDuration(time.Since(m.turnStart))))
 	}
-	return statusIdleStyle.Render("ready")
+	return left + statusIdleStyle.Render("   "+m.usageLine())
+}
+
+// usageLine renders the context-window gauge plus running token/turn
+// totals — context (how much of the model's window the last turn's
+// final request used), the last completed turn's own token cost and
+// duration, and the session's cumulative token cost (this hand process
+// only; see sessionUsage).
+func (m *Model) usageLine() string {
+	turnTok := 0
+	if m.lastUsage != nil {
+		turnTok = totalTokens(*m.lastUsage)
+	}
+	parts := []string{
+		"ctx " + m.contextSummary(),
+		"turn " + formatTokenCount(turnTok) + " tok",
+		"session " + formatTokenCount(totalTokens(m.sessionUsage)) + " tok",
+	}
+	if m.lastTurnDuration > 0 {
+		parts = append(parts, "last turn "+formatDuration(m.lastTurnDuration))
+	}
+	return strings.Join(parts, "  ·  ")
+}
+
+// contextSummary renders the most recently reported context occupancy
+// as "used/window (pct%)", or just "used" when contextWindow is unknown
+// (setModel was never called, e.g. in a test that skips SetBanner).
+func (m *Model) contextSummary() string {
+	used := contextTokens(m.lastUsage)
+	if m.contextWindow <= 0 {
+		return formatTokenCount(used)
+	}
+	pct := float64(used) / float64(m.contextWindow) * 100
+	return fmt.Sprintf("%s/%s (%.0f%%)", formatTokenCount(used), formatTokenCount(m.contextWindow), pct)
 }
 
 // approvalPanel renders the pending request's preview (colored by line
@@ -424,7 +502,7 @@ func renderPreview(preview string) string {
 }
 
 func (m *Model) View() string {
-	bottom := m.statusLine()
+	bottom := wrapToWidth(m.statusLine(), m.termWidth)
 	switch {
 	case m.pending != nil:
 		bottom = m.approvalPanel()

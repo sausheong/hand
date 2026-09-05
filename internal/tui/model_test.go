@@ -399,6 +399,95 @@ func TestRunUsageCommand_WithUsage(t *testing.T) {
 	}
 }
 
+// Regression: the status line must always show a context/token gauge
+// (not just when running, and not just via /usage) — driven directly
+// via handleAgentEvent, same rationale as the tests above.
+
+func TestStatusLine_ShowsContextGaugeWhenIdleWithNoTurnsYet(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.setModel("anthropic/claude-sonnet-5")
+
+	got := m.statusLine()
+	if !strings.Contains(got, "ready") {
+		t.Fatalf("statusLine() = %q, want it to contain \"ready\" while idle", got)
+	}
+	if !strings.Contains(got, "ctx 0/200k (0%)") {
+		t.Fatalf("statusLine() = %q, want a ctx gauge showing 0 used before any turn completes", got)
+	}
+}
+
+func TestStatusLine_ShowsLiveElapsedTimeWhileRunning(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.running = true
+	m.turnStart = time.Now().Add(-3 * time.Second)
+
+	got := m.statusLine()
+	if !strings.Contains(got, "working...") {
+		t.Fatalf("statusLine() = %q, want \"working...\" while running", got)
+	}
+	if !strings.Contains(got, "3.0s") {
+		t.Fatalf("statusLine() = %q, want it to show the elapsed time (~3.0s)", got)
+	}
+}
+
+func TestHandleAgentEvent_EventDoneAccumulatesSessionUsage(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: &llm.Usage{InputTokens: 100, OutputTokens: 10}})
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: &llm.Usage{InputTokens: 50, OutputTokens: 5}})
+
+	want := llm.Usage{InputTokens: 150, OutputTokens: 15}
+	if m.sessionUsage != want {
+		t.Fatalf("sessionUsage = %+v, want %+v (cumulative across both turns)", m.sessionUsage, want)
+	}
+	// lastUsage reflects only the most recent turn, not the running total.
+	if m.lastUsage == nil || m.lastUsage.InputTokens != 50 {
+		t.Fatalf("lastUsage = %+v, want the second turn's usage only", m.lastUsage)
+	}
+}
+
+func TestModel_RunEndedMsgFreezesLastTurnDuration(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner, t.TempDir())
+
+	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
+	m.BindProgram(tm.GetProgram())
+
+	tm.Type("hello")
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	events <- runtime.AgentEvent{Type: runtime.EventDone, Usage: &llm.Usage{InputTokens: 10, OutputTokens: 2}}
+	close(events)
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "last turn")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
+	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
+func TestRunModelCommand_RefreshesContextWindowOnSwitch(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.setModel("anthropic/claude-sonnet-5")
+	// Same provider ("anthropic") on both sides so this doesn't need a
+	// BuildProvider — SwitchModel only rebuilds the LLM client when the
+	// provider itself changes.
+	m.SetController(&Controller{
+		Rt: &runtime.Runtime{Provider: "anthropic", Model: "claude-sonnet-5"},
+	})
+
+	m.handleCommand("/model anthropic/claude-sonnet-4-6")
+
+	if m.model != "anthropic/claude-sonnet-4-6" {
+		t.Fatalf("model = %q, want %q", m.model, "anthropic/claude-sonnet-4-6")
+	}
+	if m.contextWindow != 1_000_000 {
+		t.Fatalf("contextWindow = %d, want 1000000 (claude-sonnet-4-6's 1M window, vs claude-sonnet-5's 200k)", m.contextWindow)
+	}
+}
+
 func contains(haystack []byte, needle string) bool {
 	return len(needle) == 0 || indexOf(string(haystack), needle) >= 0
 }
