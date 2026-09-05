@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"log/slog"
 	"os"
 	"strings"
@@ -114,7 +115,9 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 // loadTrustedPermissions loads workspace's .hand/settings.json and
 // returns a permissions.Store backed by it — but if that file grants any
 // always_allow entries and this workspace hasn't previously been marked
-// trusted (~/.hand/trust.json), it first asks the user for confirmation.
+// trusted (~/.hand/trust.json), it first asks the user for confirmation,
+// reading the answer from stdin (os.Stdin in production; a fake reader
+// in tests — see loadTrustedPermissions_test.go).
 //
 // This exists because .hand/settings.json lives inside the workspace
 // itself: a cloned or downloaded repo can ship one with
@@ -124,7 +127,7 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 // files — the very first time hand runs there, with no human checkpoint
 // at all. Declining doesn't touch the file; its entries are just not
 // honored for this run, and the user is asked again next time.
-func loadTrustedPermissions(workspace string) (*permissions.Store, error) {
+func loadTrustedPermissions(workspace string, stdin io.Reader) (*permissions.Store, error) {
 	settingsPath := permissions.DefaultPath(workspace)
 	settings, err := permissions.Load(settingsPath)
 	if err != nil {
@@ -146,7 +149,7 @@ func loadTrustedPermissions(workspace string) (*permissions.Store, error) {
 		return permissions.NewStoreFromSettings(settingsPath, settings), nil
 	}
 
-	trusted, err := promptWorkspaceTrust(settingsPath, settings.AlwaysAllow)
+	trusted, err := promptWorkspaceTrust(stdin, settingsPath, settings.AlwaysAllow)
 	if err != nil {
 		return nil, fmt.Errorf("trust prompt: %w", err)
 	}
@@ -162,14 +165,17 @@ func loadTrustedPermissions(workspace string) (*permissions.Store, error) {
 
 // promptWorkspaceTrust asks the user, on stderr/stdin, whether to honor
 // settingsPath's always-allow entries. Runs before the TUI (or one-shot
-// output) exists, so a plain synchronous stdin read works for both
-// modes. Any read failure — including stdin not being interactive —
-// fails closed (not trusted), same as a "no" answer.
-func promptWorkspaceTrust(settingsPath string, tools []string) (bool, error) {
+// output) exists, so a plain synchronous read works for both modes.
+// stdin is a parameter (not a direct os.Stdin reference) so tests can
+// supply a strings.Reader instead of needing a real terminal — see
+// loadTrustedPermissions_test.go. Any read failure — including stdin
+// not being interactive, or a fake reader at EOF — fails closed (not
+// trusted), same as an explicit "no" answer.
+func promptWorkspaceTrust(stdin io.Reader, settingsPath string, tools []string) (bool, error) {
 	fmt.Fprintf(os.Stderr, "hand: %s grants always-allow (no approval prompt) for: %s\n", settingsPath, strings.Join(tools, ", "))
 	fmt.Fprint(os.Stderr, "hand: trust this workspace and skip approval prompts for those tools? [y/N] ")
 
-	line, err := bufio.NewReader(os.Stdin).ReadString('\n')
+	line, err := bufio.NewReader(stdin).ReadString('\n')
 	if err != nil && line == "" {
 		return false, nil
 	}
@@ -225,7 +231,7 @@ func run() error {
 		return fmt.Errorf("resolve working directory: %w", err)
 	}
 
-	perms, err := loadTrustedPermissions(workspace)
+	perms, err := loadTrustedPermissions(workspace, os.Stdin)
 	if err != nil {
 		return fmt.Errorf("load permissions: %w", err)
 	}
