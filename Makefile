@@ -2,7 +2,7 @@
 # Hand — Makefile
 # ──────────────────────────────────────────────────────────────
 
-.PHONY: help build run test vet fmt lint install clean
+.PHONY: help build run test vet fmt lint install deploy clean
 
 BIN_DIR := bin
 
@@ -23,6 +23,8 @@ run: ## Run hand without building (fast dev loop)
 
 install: ## Install hand to $GOPATH/bin (or $GOBIN)
 	go install ./cmd/hand
+
+deploy: install ## Alias for install
 
 # ── Go tools ───────────────────────────────────────────────────
 
