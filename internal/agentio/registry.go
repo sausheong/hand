@@ -8,10 +8,11 @@ import (
 	"github.com/sausheong/harness/tools/web"
 )
 
-// BuildRegistry returns the tool.Registry for Hand's four Phase 1
-// tool packages, all scoped to workDir. bash.BashTool's ExecPolicy is
-// left nil (full) — the approval bridge in approval.go is the safety
-// net for bash in Phase 1, not the exec policy.
+// BuildRegistry returns the tool.Registry for Hand's tool packages, all
+// scoped to workDir. bash.BashTool's ExecPolicy is left nil (full) —
+// the approval bridge in approval.go is the safety net for bash, not
+// the exec policy. search is ungated (never added to gatedTools in
+// approval.go) — same trust tier as read_file.
 func BuildRegistry(workDir string) *tool.Registry {
 	reg := tool.NewRegistry()
 	reg.Register(&file.ReadFileTool{WorkDir: workDir})
@@ -21,5 +22,6 @@ func BuildRegistry(workDir string) *tool.Registry {
 	reg.Register(&web.WebFetchTool{})
 	reg.Register(&web.WebSearchTool{})
 	reg.Register(&todo.TodoWriteTool{WorkDir: workDir})
+	reg.Register(&SearchTool{WorkDir: workDir})
 	return reg
 }

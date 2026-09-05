@@ -16,7 +16,7 @@ func TestBuildRegistry_RegistersExpectedTools(t *testing.T) {
 
 	want := []string{
 		"read_file", "write_file", "edit_file",
-		"bash", "web_fetch", "web_search", "todo_write",
+		"bash", "web_fetch", "web_search", "todo_write", "search",
 	}
 	for _, name := range want {
 		if !got[name] {
