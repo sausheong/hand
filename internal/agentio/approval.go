@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/sausheong/hand/internal/permissions"
 	"github.com/sausheong/harness/runtime"
@@ -51,6 +52,45 @@ var gatedTools = map[string]bool{
 	"bash":       true,
 }
 
+// mcpToolPrefix is harness's namespacing convention for adapter tools
+// registered from a connected MCP server (runtime/builder.go:
+// "mcp__<Name>__<tool>"). Pinned as a literal constant rather than
+// derived from harness, so a harness upgrade that changes this
+// convention fails this package's tests loudly instead of silently
+// un-gating every MCP tool.
+const mcpToolPrefix = "mcp__"
+
+// mcpServerName extracts <Name> from a harness MCP adapter tool name of
+// the form "mcp__<Name>__<tool>". isMCP is true for anything carrying
+// the "mcp__" prefix, even a malformed name with no second "__" — that
+// case returns an empty, unmatchable server string, which can never
+// appear in a trustedServers map, so a malformed MCP tool name fails
+// safe as gated rather than silently slipping through ungated.
+func mcpServerName(toolName string) (server string, isMCP bool) {
+	if !strings.HasPrefix(toolName, mcpToolPrefix) {
+		return "", false
+	}
+	rest := strings.TrimPrefix(toolName, mcpToolPrefix)
+	server, _, _ = strings.Cut(rest, "__")
+	return server, true
+}
+
+// isGated reports whether name requires approval before executing. A
+// built-in tool is gated iff it's in gatedTools. An MCP-provided tool
+// (namespaced "mcp__<Name>__<tool>") is gated unless its server is
+// marked trusted in trustedServers — an arbitrary MCP server can expose
+// arbitrary mutating tools hand has never seen before, so the default is
+// to gate everything it provides.
+func isGated(name string, trustedServers map[string]bool) bool {
+	if gatedTools[name] {
+		return true
+	}
+	if server, isMCP := mcpServerName(name); isMCP {
+		return !trustedServers[server]
+	}
+	return false
+}
+
 // NewApprovalHook returns a runtime.LifecycleHooks.BeforeToolUse
 // closure. For a gated tool not already always-allowed by perms, it
 // sends an ApprovalRequest (with a best-effort Preview built from the
@@ -58,10 +98,12 @@ var gatedTools = map[string]bool{
 // request's Respond channel receives an answer (or the call's context
 // is cancelled, which denies). Every other tool is allowed immediately
 // with no prompt. perms may be nil, meaning no persistence — every
-// gated call always prompts, matching Phase 1's behavior.
-func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
+// gated call always prompts, matching Phase 1's behavior. trustedServers
+// is the set of MCP server names (from config.Config.TrustedMCPServers)
+// whose tools should skip gating entirely.
+func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string, trustedServers map[string]bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 	return func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
-		if !gatedTools[name] {
+		if !isGated(name, trustedServers) {
 			return runtime.HookDecision{Allow: true}, nil
 		}
 		if perms != nil && perms.IsAlwaysAllowed(name) {
@@ -101,10 +143,12 @@ func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string) 
 // already always-allowed in perms (perms may be nil, meaning neither
 // applies). Anything else is denied with a Reason explaining how to
 // approve it: run hand interactively once and press 'a', or pass
-// --yes.
-func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
+// --yes. trustedServers is the set of MCP server names (from
+// config.Config.TrustedMCPServers) whose tools should skip gating
+// entirely.
+func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool, trustedServers map[string]bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 	return func(_ context.Context, name string, _ json.RawMessage) (runtime.HookDecision, error) {
-		if !gatedTools[name] {
+		if !isGated(name, trustedServers) {
 			return runtime.HookDecision{Allow: true}, nil
 		}
 		if autoApprove {
