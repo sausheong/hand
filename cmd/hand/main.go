@@ -158,15 +158,22 @@ func run() error {
 		return fmt.Errorf("load permissions: %w", err)
 	}
 
+	mcpServers := cfg.ToServerConfigs()
+	trustedServers := cfg.TrustedMCPServers()
+
 	var sender *programSender
 	var hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)
 	if oneShot {
-		hook = agentio.NewOneShotApprovalHook(perms, *yesFlag)
+		hook = agentio.NewOneShotApprovalHook(perms, *yesFlag, trustedServers)
 	} else {
 		sender = &programSender{}
-		hook = agentio.NewApprovalHook(sender, perms, workspace)
+		hook = agentio.NewApprovalHook(sender, perms, workspace, trustedServers)
 	}
-	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, hook)
+	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, mcpServers, hook)
+	// reg must stay the concrete *tool.Registry type below (RuntimeInputs.Tools
+	// is the wider tool.Executor interface) — BuildRuntime type-asserts it to
+	// register spec.MCPServers' tools and silently skips registration
+	// otherwise, per harness's own comment in runtime/builder.go.
 	reg := agentio.BuildRegistry(workspace)
 	compactionMgr := agentio.BuildCompactionManager(provider, bareModel)
 
@@ -186,7 +193,7 @@ func run() error {
 		return fmt.Errorf("load session: %w", err)
 	}
 
-	rt, err := runtime.BuildRuntime(
+	rt, err := agentio.BuildRuntimeWithTimeout(
 		runtime.RuntimeDeps{},
 		runtime.RuntimeInputs{
 			Provider:   provider,
@@ -195,6 +202,7 @@ func run() error {
 			Compaction: compactionMgr,
 		},
 		spec,
+		agentio.DefaultMCPConnectTimeout,
 	)
 	if err != nil {
 		return fmt.Errorf("build runtime: %w", err)
