@@ -629,20 +629,52 @@ func TestContextSummary_UsesIdleStyleBelowThreshold(t *testing.T) {
 	}
 }
 
-// Regression: while text is still streaming in, the viewport must show
-// it rendered as Markdown live (not just once the block flushes) —
-// verified structurally (content survives rendering) rather than by
-// asserting exact ANSI bytes, since glamour's styling depends on
-// terminal color-profile detection which a headless `go test` run
-// can't provide the same way a real TTY does.
-func TestModel_LiveStreamRendersMarkdownBeforeFlush(t *testing.T) {
+// Regression: live-streaming text must stay plain (not run through
+// glamour) until it flushes. This used to render live, but Bubble Tea
+// processes one message at a time on a single goroutine — a full
+// glamour re-render of the whole growing buffer on every delta blocked
+// that goroutine for the render's full duration, which scales with
+// buffer size, so a long dense response's cumulative render time
+// compounded into a UI that was completely unresponsive (not even
+// Ctrl+C worked) for a real stretch of wall-clock time. See
+// refreshViewport's own comment for the full account.
+func TestModel_LiveStreamStaysPlainUntilFlush(t *testing.T) {
 	m := NewModel(&fakeRunner{}, t.TempDir())
 	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "some **bold** text"})
 	m.refreshViewport()
 
 	content := m.viewport.View()
-	if !strings.Contains(content, "bold") {
-		t.Fatalf("viewport content = %q, want it to contain the live streaming text", content)
+	if !strings.Contains(content, "some **bold** text") {
+		t.Fatalf("viewport content = %q, want the raw streaming text shown verbatim (unrendered) while still streaming", content)
+	}
+
+	m.flushStream()
+	flushed := m.transcript[len(m.transcript)-1]
+	if !strings.Contains(flushed, "bold") {
+		t.Fatalf("flushed transcript entry = %q, want it to contain the rendered word %q", flushed, "bold")
+	}
+}
+
+// Regression guard for the hang above: refreshViewport runs on every
+// single streamed delta, so its cost must stay roughly linear in the
+// CURRENT buffer size — never compounding across the stream the way a
+// per-delta Markdown re-render of the whole (ever-growing) buffer did,
+// where the cumulative cost over hundreds of deltas grew closer to
+// quadratic. This grows streamBuf incrementally across 400 calls
+// (standing in for 400 deltas of one long response, ending around 20KB)
+// and checks the running total, not just one call in isolation.
+func TestRefreshViewport_StaysFastAcrossALongGrowingStream(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+
+	start := time.Now()
+	for i := 0; i < 400; i++ {
+		m.streamBuf.WriteString(strings.Repeat("w", 50))
+		m.refreshViewport()
+	}
+	elapsed := time.Since(start)
+	if elapsed > time.Second {
+		t.Fatalf("400 refreshViewport calls across a growing ~20KB stream took %v, want well under 1s — something whose cost compounds with delta count (e.g. a Markdown render) was reintroduced into this hot path", elapsed)
 	}
 }
 

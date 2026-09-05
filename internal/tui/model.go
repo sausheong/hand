@@ -400,10 +400,10 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 
 // flushStream moves the in-progress assistant text block into the
 // transcript, rendered as Markdown (see renderMarkdown) now that the
-// block is complete — matching what refreshViewport already showed live
-// while it was streaming (see renderMarkdown's docs on re-rendering the
-// growing buffer on every delta), so there's no visible pop/reflow
-// between the last live frame and the flushed transcript line.
+// block is complete. Live-streaming text (shown raw via refreshViewport
+// reading m.streamBuf directly) stays plain until it flushes — see
+// refreshViewport's comment for why re-rendering the growing buffer
+// live was tried and reverted.
 func (m *Model) flushStream() {
 	if m.streamBuf.Len() == 0 {
 		return
@@ -422,19 +422,23 @@ func (m *Model) refreshViewport() {
 
 	content := strings.Join(m.transcript, "\n")
 	if m.streamBuf.Len() > 0 {
-		// Re-rendering the whole buffer as Markdown on every delta (not
-		// just once at flushStream) means headings/bold/code fences show
-		// live instead of popping into styled form only once the block
-		// completes. Re-parsing a growing buffer on every delta is
-		// O(n²) over one message's full stream, but glamour renders a
-		// message-sized buffer in low-single-digit milliseconds, and
-		// providers stream in word/sentence chunks (tens, not
-		// thousands, of deltas per message) — imperceptible next to the
-		// network latency between deltas. Markup that isn't closed yet
-		// (an open code fence, a half-written "**") may render oddly
-		// for a frame or two until the closing token arrives; harmless
-		// and self-corrects on the next delta.
-		content += "\n" + renderMarkdown(m.streamBuf.String(), m.termWidth)
+		// Deliberately NOT rendered through glamour here. This used to
+		// re-render the whole growing buffer as Markdown on every single
+		// delta so formatting appeared live instead of only once the
+		// block flushed — but Update (and everything else on Bubble
+		// Tea's single event loop: spinner ticks, key presses, Ctrl+C)
+		// blocks for the full duration of glamour's Render call, and
+		// that call's cost grows with buffer size. For a long, dense
+		// response (headers, lists, an open code fence) called on every
+		// one of what can be hundreds of deltas, the cumulative
+		// synchronous render time compounds into many seconds of a
+		// completely unresponsive UI — indistinguishable from a genuine
+		// hang, and Ctrl+C can't get through it either since it's all on
+		// the one goroutine. flushStream still renders the complete,
+		// final block through glamour — bounded to a handful of calls
+		// per turn on text that has stopped growing, not one call per
+		// delta on text that keeps growing.
+		content += "\n" + m.streamBuf.String()
 	}
 	m.viewport.SetContent(wrapToWidth(content, m.termWidth))
 
