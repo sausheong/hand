@@ -86,6 +86,28 @@ func TestReplayHistory_ToolResultFailure(t *testing.T) {
 	}
 }
 
+// Regression: a replayed tool name/error is exactly as untrusted as the
+// live path's (an MCP server's own tool name, bash stderr, etc.) — same
+// sanitization requirement, same bug class as the live-path fix.
+func TestReplayHistory_SanitizesToolNameAndError(t *testing.T) {
+	entries := []session.SessionEntry{
+		{Type: session.EntryTypeToolCall, Data: mustMarshal(t, session.ToolCallData{Tool: "mcp__evil__\x1b]0;pwned\x07tool", ID: "tc1", Input: json.RawMessage(`{}`)})},
+		{Type: session.EntryTypeToolResult, Data: mustMarshal(t, session.ToolResultData{ToolCallID: "tc2", Error: "failed\x1b]52;c;ZXZpbA==\x07", IsError: true})},
+	}
+	lines := ReplayHistory(entries, 80, "dark")
+	if len(lines) != 2 {
+		t.Fatalf("got %d lines, want 2: %v", len(lines), lines)
+	}
+	for _, line := range lines {
+		if strings.ContainsRune(line, '\x1b') || strings.ContainsRune(line, '\x07') {
+			t.Fatalf("line = %q, still contains raw ANSI/control bytes", line)
+		}
+	}
+	if !strings.Contains(lines[1], "failed") {
+		t.Fatalf("line = %q, lost the legitimate error text", lines[1])
+	}
+}
+
 func TestReplayHistory_Compaction(t *testing.T) {
 	entries := []session.SessionEntry{
 		{Type: session.EntryTypeCompaction, Data: mustMarshal(t, session.CompactionData{Summary: "old stuff", TurnsCompacted: 12})},

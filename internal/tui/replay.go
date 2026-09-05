@@ -44,7 +44,10 @@ func replayEntry(entry session.SessionEntry, width int, style string) (string, b
 		if err := json.Unmarshal(entry.Data, &data); err != nil {
 			return toolErrStyle.Render("  ✗ could not replay tool call: " + err.Error()), true
 		}
-		return toolCallStyle.Render(fmt.Sprintf("[tool: %s]", data.Tool)), true
+		// data.Tool is an MCP server's own registered tool name, not
+		// necessarily one of hand's fixed built-ins — same sanitization
+		// as the live path (see Model.handleAgentEvent's EventToolCallStart).
+		return toolCallStyle.Render(fmt.Sprintf("[tool: %s]", sanitizeForTerminal(data.Tool))), true
 
 	case session.EntryTypeToolResult:
 		var data session.ToolResultData
@@ -52,7 +55,9 @@ func replayEntry(entry session.SessionEntry, width int, style string) (string, b
 			return toolErrStyle.Render("  ✗ could not replay tool result: " + err.Error()), true
 		}
 		if data.Error != "" {
-			return toolErrStyle.Render("  ✗ " + data.Error), true
+			// Same untrusted-content reasoning as the live path's
+			// EventToolResult error branch — sanitize before rendering.
+			return toolErrStyle.Render("  ✗ " + sanitizeForTerminal(data.Error)), true
 		}
 		return toolOKStyle.Render("  ✓"), true
 

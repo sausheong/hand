@@ -12,6 +12,12 @@ LLM agents.
 
 ## Installing
 
+> **Not yet published.** This repository doesn't have a public remote or a
+> Releases page yet — the `go install`/prebuilt-binary instructions below will
+> work once it's pushed to GitHub and a release exists, but for now, build
+> from source in place instead: `cd` into this directory and run `make build`
+> (see below).
+
 Hand ships as a single static binary — no runtime dependencies.
 
 ### Build from source
@@ -132,25 +138,45 @@ the same directory picks up where you left off.
 ## Status line
 
 The line just above the input box is always showing, whether or not a turn
-is running:
+is running. While idle, after a turn has completed at least once:
 
 ```
-⠋ working... 4.2s   ctx 38.4k/200k (19%)  ·  turn 6.1k tok  ·  session 21.9k tok  ·  last turn 5.8s
+ready   ctx 38.4k/200k (19%)  ·  turn 6.1k tok  ·  session 21.9k tok  ·  last turn 5.8s
 ```
 
-- **Run state** — `ready`, or a spinner with a live elapsed-time counter
-  while a turn is in progress.
-- **`ctx`** — how much of the active model's context window the last turn's
-  request used, and the window size itself (e.g. `38.4k/200k (19%)`).
-- **`turn`** — total tokens (input + output) the most recently completed
-  turn cost.
+While a turn is in progress:
+
+```
+⠋ working... 4.2s · 3 tool calls   ctx 38.4k/200k (19%)  ·  turn ~1.2k tok  ·  session 21.9k tok
+```
+
+- **Run state** — `ready`, or a spinner with a live elapsed-time counter while
+  a turn is in progress, plus a running count of tool calls made so far this
+  turn (shown once at least one has run) — concrete evidence of progress on
+  a turn that's mostly tool calls with no text in between, where the token
+  figures below don't move at all until the turn finishes.
+- **`ctx`** — how much of the active model's context window the last
+  *completed* turn's request used, and the window size itself (e.g.
+  `38.4k/200k (19%)`). Turns red once usage crosses 85% of the window, a
+  nudge that compaction (automatic, or `/compact`) is worth watching for.
+- **`turn`** — the most recently completed turn's total tokens (input +
+  output). While a turn is running, shows a live `~`-prefixed estimate of
+  the in-progress response instead (token usage is only reported once a
+  turn finishes, so this is approximate, not exact).
 - **`session`** — the running total across every turn since this `hand`
   process started (resets on restart — it isn't persisted with the saved
   session).
-- **`last turn`** — how long the most recently completed turn took.
+- **`last turn`** — how long the most recently completed turn took (hidden
+  while idle before any turn has completed, and while a turn is running —
+  see the live elapsed-time counter in the run state instead).
 
 `/usage` prints the same figures (plus the raw input/output/cache
 breakdown) as a one-off transcript entry, if you want it in the scrollback.
+
+Tool output shown under a `✓`/`✗` line is a short preview — 5 lines / 500
+characters — not the full result. Scroll up (`pgup`/`pgdown`, `ctrl+u`/
+`ctrl+d`, or the mouse wheel) to review earlier output; the preview cap keeps
+the transcript itself scannable rather than a full pager for every command.
 
 ## Approval prompts
 

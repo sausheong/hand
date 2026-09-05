@@ -378,7 +378,12 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 		name := "?"
 		var input json.RawMessage
 		if ev.ToolCall != nil {
-			name = ev.ToolCall.Name
+			// An MCP server's own registered tool name — unlike hand's
+			// fixed built-in tool names (bash, read_file, ...), this
+			// string comes from whatever the (possibly untrusted) server
+			// declared, so it needs the same sanitization untrusted tool
+			// output already gets.
+			name = sanitizeForTerminal(ev.ToolCall.Name)
 			input = ev.ToolCall.Input
 		}
 		line := fmt.Sprintf("[tool: %s]", name)
@@ -390,7 +395,11 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 	case runtime.EventToolResult:
 		switch {
 		case ev.Result != nil && ev.Result.Error != "":
-			m.transcript = append(m.transcript, toolErrStyle.Render("  ✗ "+ev.Result.Error))
+			// ev.Result.Error can carry untrusted content (bash stderr,
+			// a web_fetch failure echoing page content, an MCP server's
+			// own error text) just as much as a successful Output does —
+			// summarizeToolResult sanitizes that path; this one needs it too.
+			m.transcript = append(m.transcript, toolErrStyle.Render("  ✗ "+sanitizeForTerminal(ev.Result.Error)))
 		case ev.Result != nil:
 			line := toolOKStyle.Render("  ✓")
 			if snippet := summarizeToolResult(ev.Result.Output); snippet != "" {

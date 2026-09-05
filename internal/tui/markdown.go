@@ -1,6 +1,7 @@
 package tui
 
 import (
+	"slices"
 	"strings"
 
 	"github.com/charmbracelet/glamour"
@@ -23,10 +24,8 @@ const minMarkdownWidth = 20
 // package comment above renderMarkdown for why letting that through
 // would matter, not just look wrong.
 func safeMarkdownStyle(style string) string {
-	for _, s := range config.ValidMarkdownStyles {
-		if s == style {
-			return style
-		}
+	if slices.Contains(config.ValidMarkdownStyles, style) {
+		return style
 	}
 	return config.DefaultMarkdownStyle
 }

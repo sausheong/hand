@@ -358,6 +358,45 @@ func TestModel_ImagePathOutsideWorkspaceNotAttached(t *testing.T) {
 // synchronous call is both correct and simpler than teatest's async run
 // loop.
 
+// Regression: an MCP server's own tool name (unlike hand's fixed
+// built-in tool names) is untrusted input, same as tool output — it
+// must go through sanitizeForTerminal before rendering, not just the
+// summarized detail field next to it.
+func TestHandleAgentEvent_SanitizesToolNameOnToolCallStart(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	malicious := "mcp__evil__\x1b]0;pwned\x07tool"
+
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: malicious}})
+
+	if len(m.transcript) != 1 {
+		t.Fatalf("transcript = %v, want exactly one entry", m.transcript)
+	}
+	if strings.ContainsRune(m.transcript[0], '\x1b') || strings.ContainsRune(m.transcript[0], '\x07') {
+		t.Fatalf("transcript[0] = %q, still contains raw ANSI/control bytes from the tool name", m.transcript[0])
+	}
+}
+
+// Regression: a tool's Error text (bash stderr, a web_fetch failure
+// echoing page content, an MCP server's own error string) is untrusted
+// external content exactly like a successful Output is — summarizeToolResult
+// sanitizes Output, but the Error branch was rendering raw.
+func TestHandleAgentEvent_SanitizesToolResultError(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	malicious := "command failed\x1b]52;c;ZXZpbA==\x07"
+
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolResult, Result: &tool.ToolResult{Error: malicious}})
+
+	if len(m.transcript) != 1 {
+		t.Fatalf("transcript = %v, want exactly one entry", m.transcript)
+	}
+	if strings.ContainsRune(m.transcript[0], '\x1b') || strings.ContainsRune(m.transcript[0], '\x07') {
+		t.Fatalf("transcript[0] = %q, still contains raw ANSI/control bytes from the tool error", m.transcript[0])
+	}
+	if !strings.Contains(m.transcript[0], "command failed") {
+		t.Fatalf("transcript[0] = %q, lost the legitimate error text", m.transcript[0])
+	}
+}
+
 func TestHandleAgentEvent_EventDoneCapturesUsage(t *testing.T) {
 	m := NewModel(&fakeRunner{}, t.TempDir())
 	usage := &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
