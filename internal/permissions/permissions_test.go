@@ -149,22 +149,6 @@ func TestLoad_TightensLoosePermissions(t *testing.T) {
 	}
 }
 
-func TestStore_AlwaysAllowList(t *testing.T) {
-	st := permissions.NewEmptyStore(filepath.Join(t.TempDir(), "settings.json"))
-	if got := st.AlwaysAllowList(); len(got) != 0 {
-		t.Fatalf("AlwaysAllowList on empty store = %v, want empty", got)
-	}
-	if err := st.SetAlwaysAllow("bash"); err != nil {
-		t.Fatalf("SetAlwaysAllow returned error: %v", err)
-	}
-	if err := st.SetAlwaysAllow("write_file"); err != nil {
-		t.Fatalf("SetAlwaysAllow returned error: %v", err)
-	}
-	got := st.AlwaysAllowList()
-	if len(got) != 2 || got[0] != "bash" || got[1] != "write_file" {
-		t.Fatalf("AlwaysAllowList() = %v, want [bash write_file]", got)
-	}
-}
 
 func TestNewStoreFromSettings_UsesGivenSettingsNotDisk(t *testing.T) {
 	path := filepath.Join(t.TempDir(), ".hand", "settings.json")

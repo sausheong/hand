@@ -126,14 +126,6 @@ func (st *Store) IsAlwaysAllowed(tool string) bool {
 	return st.settings.IsAlwaysAllowed(tool)
 }
 
-// AlwaysAllowList returns a copy of the tool names currently
-// always-allowed.
-func (st *Store) AlwaysAllowList() []string {
-	st.mu.Lock()
-	defer st.mu.Unlock()
-	return slices.Clone(st.settings.AlwaysAllow)
-}
-
 // SetAlwaysAllow adds tool to the always-allow list and persists it. A
 // no-op (returns nil without writing) if tool is already always-allowed.
 func (st *Store) SetAlwaysAllow(tool string) error {
