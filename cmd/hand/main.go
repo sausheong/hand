@@ -205,7 +205,7 @@ func run() error {
 		return runOneShot(context.Background(), rt, *printFlag)
 	}
 
-	m := tui.NewModel(rt)
+	m := tui.NewModel(rt, workspace)
 	m.SetBanner(version, model, workspace)
 	m.SetController(&tui.Controller{
 		Rt:            rt,
