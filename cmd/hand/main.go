@@ -183,6 +183,7 @@ func run() error {
 	maxTurnsFlag := flag.Int("max-turns", 0, "cap the agent's tool-use loop for this run (overrides ~/.hand/config.json for this run; 0 means use the config/default)")
 	fallbackModelFlag := flag.String("fallback-model", "", "provider/model to retry against on a transient provider error, same provider as --model (overrides ~/.hand/config.json for this run)")
 	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
+	compactionThresholdFlag := flag.Float64("compaction-threshold", 0, fmt.Sprintf("fraction (0-1] of the context window that triggers preventive compaction (overrides ~/.hand/config.json for this run; 0 means use the config/default of %g)", config.DefaultCompactionThreshold))
 	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
@@ -208,6 +209,7 @@ func run() error {
 	maxTurns := config.ResolveMaxTurns(*maxTurnsFlag, cfg)
 	fallbackModel := config.ResolveFallbackModel(*fallbackModelFlag, cfg)
 	markdownStyle := config.ResolveMarkdownStyle(*markdownStyleFlag, cfg)
+	compactionThreshold := config.ResolveCompactionThreshold(*compactionThresholdFlag, cfg)
 
 	providerName, bareModel := llm.ParseProviderModel(model)
 	if providerName == "" {
@@ -246,7 +248,7 @@ func run() error {
 	// register spec.MCPServers' tools and silently skips registration
 	// otherwise, per harness's own comment in runtime/builder.go.
 	reg := agentio.BuildRegistry(workspace)
-	compactionMgr := agentio.BuildCompactionManager(provider, bareModel)
+	compactionMgr := agentio.BuildCompactionManager(provider, bareModel, compactionThreshold)
 
 	storeDir, err := sessionio.StoreDir()
 	if err != nil {

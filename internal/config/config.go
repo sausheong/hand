@@ -23,6 +23,23 @@ const DefaultMaxTurns = 50
 // config.json's markdown_style names a recognized style.
 const DefaultMarkdownStyle = "dark"
 
+// DefaultCompactionThreshold is the fraction of the model's context
+// window that triggers preventive compaction, used when neither
+// --compaction-threshold nor config.json's compaction_threshold is set.
+//
+// Lower than harness's own built-in default (0.6): a coding agent
+// routinely makes many tool calls within a single turn (reading files,
+// running tests, grepping), and each large tool result stays in
+// context — and gets re-sent, and re-billed, on every subsequent call
+// in that same turn — until a compaction pass summarizes it away.
+// Compacting sooner means a large result (a verbose test run, a big
+// spec file) gets summarized before it's been resent dozens of times,
+// which matters far more for total tokens billed on one tool-call-heavy
+// turn than it does for an ordinary short conversation. See
+// agentio.BuildCompactionManager for the same reasoning applied to its
+// MessageCap, a second, non-configurable backstop.
+const DefaultCompactionThreshold = 0.4
+
 // ValidMarkdownStyles lists the glamour standard styles hand accepts
 // for rendering assistant Markdown output — every one of glamour's
 // built-in styles except "auto". Unlike every name here, "auto"
@@ -62,6 +79,10 @@ type Config struct {
 	// DefaultMarkdownStyle. Has no effect in -p one-shot mode, which
 	// prints raw text and never touches the TUI/glamour at all.
 	MarkdownStyle string `json:"markdown_style,omitempty"`
+	// CompactionThreshold is the fraction (0, 1] of the model's context
+	// window that triggers preventive compaction. Zero, negative, or
+	// above 1 means DefaultCompactionThreshold.
+	CompactionThreshold float64 `json:"compaction_threshold,omitempty"`
 }
 
 // MCPServer is one entry in config.json's mcp_servers list. Exactly one
@@ -207,6 +228,28 @@ func ResolveMarkdownStyle(flagValue string, cfg Config) string {
 
 func isValidMarkdownStyle(style string) bool {
 	return slices.Contains(ValidMarkdownStyles, style)
+}
+
+// ResolveCompactionThreshold returns flagValue if it's in (0, 1],
+// otherwise cfg.CompactionThreshold if that's in (0, 1], otherwise
+// DefaultCompactionThreshold. A threshold outside (0, 1] doesn't mean
+// anything to harness's own check (estimate > threshold*window) — 0 or
+// negative would compact on every single turn regardless of size, and
+// above 1 would never compact at all — so, same spirit as
+// ResolveMarkdownStyle, an out-of-range value is treated as unset
+// rather than passed through to produce one of those two extremes.
+func ResolveCompactionThreshold(flagValue float64, cfg Config) float64 {
+	if isValidCompactionThreshold(flagValue) {
+		return flagValue
+	}
+	if isValidCompactionThreshold(cfg.CompactionThreshold) {
+		return cfg.CompactionThreshold
+	}
+	return DefaultCompactionThreshold
+}
+
+func isValidCompactionThreshold(threshold float64) bool {
+	return threshold > 0 && threshold <= 1
 }
 
 // ToServerConfigs converts cfg.MCPServers to harness's mcp.ServerConfig

@@ -105,6 +105,7 @@ hand -p "fix the failing test in pkg/foo" --yes
 | `--max-turns`       | Cap the agent's tool-use loop for this run (default: 50, or `max_turns` in config) |
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
 | `--markdown-style`  | Glamour style for rendering assistant Markdown: `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, `tokyo-night` (default `dark`) — overrides `~/.hand/config.json` |
+| `--compaction-threshold` | Fraction (0-1] of the context window that triggers preventive compaction (default `0.4`) — overrides `~/.hand/config.json` |
 | `--new-session`     | Discard this workspace's saved session and start fresh |
 | `-p "<prompt>"`     | Run one turn non-interactively and exit (no TUI) |
 | `--yes`             | Auto-approve all gated tool calls for this run (only valid with `-p`) |
@@ -180,6 +181,7 @@ run):
   "max_turns": 50,
   "fallback_model": "",
   "markdown_style": "dark",
+  "compaction_threshold": 0.4,
   "mcp_servers": [
     {
       "name": "github",
@@ -198,13 +200,23 @@ run):
 }
 ```
 
-- `model` / `base_url` / `max_turns` / `fallback_model` / `markdown_style` are
-  the same values the CLI flags above override for a single run.
-  `markdown_style` accepts `dark`, `light`, `ascii`, `notty`, `pink`,
-  `dracula`, or `tokyo-night`; anything else (including glamour's own
+- `model` / `base_url` / `max_turns` / `fallback_model` / `markdown_style` /
+  `compaction_threshold` are the same values the CLI flags above override for
+  a single run. `markdown_style` accepts `dark`, `light`, `ascii`, `notty`,
+  `pink`, `dracula`, or `tokyo-night`; anything else (including glamour's own
   `auto` — deliberately not offered, since it detects light/dark by
   querying the terminal in a way that can corrupt the input box) falls
   back to `dark`.
+- `compaction_threshold` controls how eagerly Hand summarizes older
+  conversation to keep token usage down — preventive compaction fires once
+  the estimated context passes this fraction of the model's context window
+  (default `0.4`, i.e. 40%). A tool-call-heavy turn (many file reads, test
+  runs, greps) can otherwise re-send a large tool result on every subsequent
+  call in that same turn until it's compacted away, so lower is more
+  aggressive about controlling token spend at the cost of summarizing sooner
+  (and losing a bit of verbatim detail from earlier in the conversation);
+  higher keeps more raw context around longer. Must be in `(0, 1]` —
+  anything else falls back to the default.
 - `mcp_servers` lists [MCP](https://modelcontextprotocol.io) servers to
   connect at startup, extending Hand's built-in tools. Each entry is either
   a local command (`command`/`args`/`env`) or a remote server (`url`/

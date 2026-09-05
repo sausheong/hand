@@ -373,3 +373,44 @@ func TestValidMarkdownStyles_ExcludesAuto(t *testing.T) {
 		}
 	}
 }
+
+func TestResolveCompactionThreshold_FlagOverridesConfigOverridesDefault(t *testing.T) {
+	cases := []struct {
+		name      string
+		flagValue float64
+		cfg       config.Config
+		want      float64
+	}{
+		{"flag and config both zero uses default", 0, config.Config{}, config.DefaultCompactionThreshold},
+		{"flag zero uses valid config value", 0, config.Config{CompactionThreshold: 0.5}, 0.5},
+		{"flag set overrides config", 0.25, config.Config{CompactionThreshold: 0.5}, 0.25},
+		{"flag set overrides default", 0.3, config.Config{}, 0.3},
+		{"flag of exactly 1 is valid (compact only once truly full)", 1, config.Config{}, 1},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := config.ResolveCompactionThreshold(tc.flagValue, tc.cfg)
+			if got != tc.want {
+				t.Fatalf("ResolveCompactionThreshold(%v, %+v) = %v, want %v", tc.flagValue, tc.cfg, got, tc.want)
+			}
+		})
+	}
+}
+
+// Regression: a threshold outside (0, 1] means something degenerate to
+// harness's own check (estimate > threshold*window) — zero or negative
+// compacts on every single turn, above 1 never compacts at all — so
+// both must be rejected as if unset, from either the flag or the config
+// file, not passed through to produce one of those extremes.
+func TestResolveCompactionThreshold_RejectsOutOfRangeValues(t *testing.T) {
+	for _, bad := range []float64{0, -0.5, 1.1, 5} {
+		got := config.ResolveCompactionThreshold(bad, config.Config{})
+		if got != config.DefaultCompactionThreshold {
+			t.Fatalf("ResolveCompactionThreshold(%v, {}) = %v, want the default %v", bad, got, config.DefaultCompactionThreshold)
+		}
+		got = config.ResolveCompactionThreshold(0, config.Config{CompactionThreshold: bad})
+		if got != config.DefaultCompactionThreshold {
+			t.Fatalf("ResolveCompactionThreshold(0, {CompactionThreshold: %v}) = %v, want the default %v", bad, got, config.DefaultCompactionThreshold)
+		}
+	}
+}
