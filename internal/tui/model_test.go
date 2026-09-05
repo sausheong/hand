@@ -3,7 +3,10 @@ package tui
 import (
 	"context"
 	"encoding/json"
+	"os"
+	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -18,13 +21,25 @@ import (
 type fakeRunner struct {
 	events chan runtime.AgentEvent
 	err    error
+
+	mu         sync.Mutex
+	lastImages []llm.ImageContent
 }
 
 func (f *fakeRunner) Run(ctx context.Context, userMsg string, images []llm.ImageContent) (<-chan runtime.AgentEvent, error) {
+	f.mu.Lock()
+	f.lastImages = images
+	f.mu.Unlock()
 	if f.err != nil {
 		return nil, f.err
 	}
 	return f.events, nil
+}
+
+func (f *fakeRunner) getLastImages() []llm.ImageContent {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.lastImages
 }
 
 var toolResultOK = tool.ToolResult{Output: "ok"}
@@ -32,7 +47,7 @@ var toolResultOK = tool.ToolResult{Output: "ok"}
 func TestModel_StreamsAssistantTextIntoTranscript(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -56,7 +71,7 @@ func TestModel_StreamsAssistantTextIntoTranscript(t *testing.T) {
 func TestModel_ToolCallAndResultRender(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -80,7 +95,7 @@ func TestModel_ToolCallAndResultRender(t *testing.T) {
 func TestModel_ToolCallShowsInputAndResultDetail(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -107,7 +122,7 @@ func TestModel_ToolCallShowsInputAndResultDetail(t *testing.T) {
 func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -151,7 +166,7 @@ func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
 func TestModel_ApprovalPromptShowsPreview(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -188,7 +203,7 @@ func TestModel_ApprovalPromptShowsPreview(t *testing.T) {
 func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -232,7 +247,7 @@ func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}
-	m := NewModel(runner)
+	m := NewModel(runner, t.TempDir())
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -273,6 +288,67 @@ func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
 }
 
+// The two image-extraction tests below call startRun directly rather
+// than driving a real tea.Program: a temp-dir path (macOS's default
+// TMPDIR is a long /var/folders/... prefix) routinely exceeds the
+// 80-column test terminal width, so asserting on the *rendered* output
+// would be asserting on however lipgloss happens to wrap a long
+// unbroken token — asserting on m.transcript directly (and on what was
+// actually passed to Run) tests the real behavior without that
+// incidental fragility.
+
+func TestModel_ImagePathInWorkspaceAttachedAndPlaceholderShown(t *testing.T) {
+	dir := t.TempDir()
+	imgPath := filepath.Join(dir, "shot.png")
+	if err := os.WriteFile(imgPath, []byte("fake png bytes"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	runner := &fakeRunner{events: make(chan runtime.AgentEvent)}
+	m := NewModel(runner, dir)
+
+	m.startRun("look at " + imgPath)
+
+	images := runner.getLastImages()
+	if len(images) != 1 {
+		t.Fatalf("Run was called with %d images, want 1", len(images))
+	}
+	if images[0].MimeType != "image/png" {
+		t.Fatalf("MimeType = %q, want image/png", images[0].MimeType)
+	}
+
+	transcript := strings.Join(m.transcript, "\n")
+	if !strings.Contains(transcript, "[image: shot.png]") {
+		t.Fatalf("transcript = %q, want it to contain the image placeholder", transcript)
+	}
+	if strings.Contains(transcript, imgPath) {
+		t.Fatalf("transcript = %q, want the raw path replaced", transcript)
+	}
+}
+
+func TestModel_ImagePathOutsideWorkspaceNotAttached(t *testing.T) {
+	workspace := t.TempDir()
+	outside := t.TempDir()
+	imgPath := filepath.Join(outside, "shot.png")
+	if err := os.WriteFile(imgPath, []byte("fake png bytes"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	runner := &fakeRunner{events: make(chan runtime.AgentEvent)}
+	m := NewModel(runner, workspace)
+
+	m.startRun("look at " + imgPath)
+
+	if images := runner.getLastImages(); images != nil {
+		t.Fatalf("Run was called with %d images, want nil (path outside workspace)", len(images))
+	}
+
+	transcript := strings.Join(m.transcript, "\n")
+	if !strings.Contains(transcript, imgPath) {
+		t.Fatalf("transcript = %q, want the raw path left unchanged", transcript)
+	}
+}
+
 // The usage tests below call handleAgentEvent/handleCommand directly
 // rather than driving a real tea.Program, for the same reason the
 // slash-command dropdown tests in commands_test.go do: this is pure
@@ -281,7 +357,7 @@ func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
 // loop.
 
 func TestHandleAgentEvent_EventDoneCapturesUsage(t *testing.T) {
-	m := NewModel(&fakeRunner{})
+	m := NewModel(&fakeRunner{}, t.TempDir())
 	usage := &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
 
 	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: usage})
@@ -292,7 +368,7 @@ func TestHandleAgentEvent_EventDoneCapturesUsage(t *testing.T) {
 }
 
 func TestHandleAgentEvent_EventDoneWithNoUsageStaysNil(t *testing.T) {
-	m := NewModel(&fakeRunner{})
+	m := NewModel(&fakeRunner{}, t.TempDir())
 
 	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone})
 
@@ -302,7 +378,7 @@ func TestHandleAgentEvent_EventDoneWithNoUsageStaysNil(t *testing.T) {
 }
 
 func TestRunUsageCommand_NoUsageYet(t *testing.T) {
-	m := NewModel(&fakeRunner{})
+	m := NewModel(&fakeRunner{}, t.TempDir())
 
 	m.handleCommand("/usage")
 
@@ -312,7 +388,7 @@ func TestRunUsageCommand_NoUsageYet(t *testing.T) {
 }
 
 func TestRunUsageCommand_WithUsage(t *testing.T) {
-	m := NewModel(&fakeRunner{})
+	m := NewModel(&fakeRunner{}, t.TempDir())
 	m.lastUsage = &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
 
 	m.handleCommand("/usage")

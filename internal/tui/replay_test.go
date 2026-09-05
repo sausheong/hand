@@ -123,7 +123,7 @@ func TestReplayHistory_MultipleEntriesPreserveOrder(t *testing.T) {
 }
 
 func TestModel_LoadHistory_PopulatesTranscript(t *testing.T) {
-	m := NewModel(&fakeRunner{})
+	m := NewModel(&fakeRunner{}, t.TempDir())
 	m.LoadHistory([]session.SessionEntry{
 		{Type: session.EntryTypeMessage, Role: "user", Data: mustMarshal(t, session.MessageData{Text: "resumed message"})},
 	})

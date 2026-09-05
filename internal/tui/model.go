@@ -31,6 +31,7 @@ type Runner interface {
 // (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
 	rt         Runner
+	workspace  string
 	program    *tea.Program
 	controller *Controller // optional; nil in tests that only exercise Runner
 
@@ -64,10 +65,11 @@ type Model struct {
 	termWidth, termHeight int
 }
 
-// NewModel builds a Hand TUI model driving rt. Call BindProgram with
-// the *tea.Program constructed from this model before calling Run on
-// that program.
-func NewModel(rt Runner) *Model {
+// NewModel builds a Hand TUI model driving rt, with workspace used to
+// resolve image paths referenced in chat messages (see
+// agentio.ExtractImagePaths). Call BindProgram with the *tea.Program
+// constructed from this model before calling Run on that program.
+func NewModel(rt Runner, workspace string) *Model {
 	ta := textarea.New()
 	ta.Placeholder = "Type a message..."
 	ta.ShowLineNumbers = false
@@ -80,6 +82,7 @@ func NewModel(rt Runner) *Model {
 
 	return &Model{
 		rt:         rt,
+		workspace:  workspace,
 		textarea:   ta,
 		viewport:   vp,
 		spinner:    sp,
@@ -243,14 +246,18 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 // terminal Msg and this stream is unbounded until EventDone /
 // EventError / channel-close.
 func (m *Model) startRun(text string) tea.Cmd {
-	m.transcript = append(m.transcript, userLineStyle.Render("> "+text))
+	cleanText, images := agentio.ExtractImagePaths(m.workspace, text)
+	m.transcript = append(m.transcript, userLineStyle.Render("> "+cleanText))
 	m.textarea.Reset()
 	m.running = true
 
 	ctx, cancel := context.WithCancel(context.Background())
 	m.cancel = cancel
 
-	events, err := m.rt.Run(ctx, text, nil)
+	// The original text (with the real path, not the placeholder) is
+	// sent to the model alongside images — the model may benefit from
+	// the literal filename/path context next to the image bytes.
+	events, err := m.rt.Run(ctx, text, images)
 	if err != nil {
 		m.running = false
 		m.transcript = append(m.transcript, errorLineStyle.Render("error: "+err.Error()))
