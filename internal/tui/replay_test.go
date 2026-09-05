@@ -38,8 +38,12 @@ func TestReplayHistory_AssistantMessage(t *testing.T) {
 	if len(lines) != 1 {
 		t.Fatalf("got %d lines, want 1: %v", len(lines), lines)
 	}
-	if !strings.Contains(lines[0], "hi back") {
-		t.Fatalf("line = %q, want it to contain \"hi back\"", lines[0])
+	// Rendered as Markdown (renderMarkdown), which — with a fixed style,
+	// see renderMarkdown's own comment on why never WithAutoStyle —
+	// always applies real ANSI codes, including at word-wrap boundaries;
+	// strip them before checking content survived.
+	if got := sanitizeForTerminal(lines[0]); !strings.Contains(got, "hi back") {
+		t.Fatalf("line (ANSI stripped) = %q, want it to contain \"hi back\"", got)
 	}
 }
 
