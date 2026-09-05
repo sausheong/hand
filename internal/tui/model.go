@@ -231,6 +231,20 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	if m.pending != nil {
+		// Scrolling must not fall through to the default case below
+		// (deny) — a long diff or bash preview is exactly when a user
+		// most wants to scroll back through it before deciding, and
+		// Update's tea.MouseMsg case already documents this same intent
+		// for the mouse wheel ("safe to forward unconditionally,
+		// pending-approval or not"); these are its keyboard equivalent.
+		switch msg.String() {
+		case "pgup", "ctrl+u":
+			m.viewport.HalfPageUp()
+			return m, nil
+		case "pgdown", "ctrl+d":
+			m.viewport.HalfPageDown()
+			return m, nil
+		}
 		switch msg.String() {
 		case "y", "Y":
 			m.pending.Respond <- agentio.DecisionOnce
@@ -569,7 +583,10 @@ func (m *Model) usageLine() string {
 	var turnSeg string
 	switch {
 	case m.running:
-		turnSeg = fmt.Sprintf("turn ~%s tok", formatTokenCount(len(m.streamBuf.String())/4))
+		// .Len(), not len(.String()): usageLine runs on every render
+		// (every spinner tick while streaming), and .String() would
+		// copy the whole growing buffer just to measure it.
+		turnSeg = fmt.Sprintf("turn ~%s tok", formatTokenCount(m.streamBuf.Len()/4))
 	case m.lastUsage != nil:
 		turnSeg = fmt.Sprintf("turn %s tok", formatTokenCount(totalTokens(*m.lastUsage)))
 	default:

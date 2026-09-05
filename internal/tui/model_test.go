@@ -541,6 +541,102 @@ func TestHandleKey_ScrollsViewportIndependentlyOfTextarea(t *testing.T) {
 	}
 }
 
+// Regression: pgdown and ctrl+u look like mirror images of pgdown/ctrl+u
+// above in the implementation (handleKey's scroll switch), but nothing
+// asserted their direction specifically — a copy-paste slip (e.g.
+// ctrl+u wired to HalfPageDown) would pass every other scroll test.
+func TestHandleKey_PgDownAndCtrlUScrollCorrectDirections(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+	lines := make([]string, 200)
+	for i := range lines {
+		lines[i] = fmt.Sprintf("line %d", i)
+	}
+	m.transcript = lines
+	m.refreshViewport()
+
+	m.viewport.GotoTop()
+	topOffset := m.viewport.YOffset
+
+	m.handleKey(tea.KeyMsg{Type: tea.KeyPgDown})
+	if m.viewport.YOffset <= topOffset {
+		t.Fatalf("expected pgdown to scroll down from the top (YOffset %d), got %d", topOffset, m.viewport.YOffset)
+	}
+	afterPgDown := m.viewport.YOffset
+
+	m.handleKey(tea.KeyMsg{Type: tea.KeyCtrlU})
+	if m.viewport.YOffset >= afterPgDown {
+		t.Fatalf("expected ctrl+u to scroll back up (YOffset %d), got %d", afterPgDown, m.viewport.YOffset)
+	}
+}
+
+// Regression: a keyboard scroll while an approval is pending used to
+// fall through to the pending-response switch's default case and
+// silently deny the tool call — exactly the moment a user most wants to
+// scroll back through a long diff or command preview before deciding.
+// Update's tea.MouseMsg handling already documented this same intent
+// for the mouse wheel; this proves the keyboard path honors it too.
+func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+	lines := make([]string, 200)
+	for i := range lines {
+		lines[i] = fmt.Sprintf("line %d", i)
+	}
+	m.transcript = lines
+	m.refreshViewport()
+
+	respond := make(chan agentio.Decision, 1)
+	m.pending = &agentio.ApprovalRequest{Tool: "bash", Respond: respond}
+
+	for _, key := range []tea.KeyMsg{{Type: tea.KeyPgUp}, {Type: tea.KeyPgDown}, {Type: tea.KeyCtrlU}, {Type: tea.KeyCtrlD}} {
+		m.handleKey(key)
+	}
+
+	if m.pending == nil {
+		t.Fatal("scrolling while an approval is pending must not resolve it")
+	}
+	select {
+	case d := <-respond:
+		t.Fatalf("scrolling sent a decision (%v) on the approval's Respond channel, want none", d)
+	default:
+	}
+}
+
+// Regression: forgetting to reassign m.viewport from viewport.Update's
+// return value (a common bubbletea mistake — Update returns a new Model
+// by value, it doesn't mutate the receiver) would make mouse-wheel
+// scrolling silently do nothing, since Update's tea.MouseMsg case only
+// forwards the message and returns whatever cmd it gets back.
+func TestUpdate_MouseWheelScrollsViewport(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+	lines := make([]string, 200)
+	for i := range lines {
+		lines[i] = fmt.Sprintf("line %d", i)
+	}
+	m.transcript = lines
+	m.refreshViewport()
+
+	m.viewport.GotoTop()
+	topOffset := m.viewport.YOffset
+
+	if _, cmd := m.Update(tea.MouseMsg{Action: tea.MouseActionPress, Button: tea.MouseButtonWheelDown}); cmd != nil {
+		cmd()
+	}
+	if m.viewport.YOffset <= topOffset {
+		t.Fatalf("expected mouse wheel down to scroll down from the top (YOffset %d), got %d", topOffset, m.viewport.YOffset)
+	}
+	afterWheelDown := m.viewport.YOffset
+
+	if _, cmd := m.Update(tea.MouseMsg{Action: tea.MouseActionPress, Button: tea.MouseButtonWheelUp}); cmd != nil {
+		cmd()
+	}
+	if m.viewport.YOffset >= afterWheelDown {
+		t.Fatalf("expected mouse wheel up to scroll back up (YOffset %d), got %d", afterWheelDown, m.viewport.YOffset)
+	}
+}
+
 // Regression: refreshViewport used to call GotoBottom() unconditionally
 // on every update, so the instant any new event arrived (a streamed
 // delta, a tool result) it yanked the view back down even if the user
