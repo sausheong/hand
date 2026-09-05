@@ -3,6 +3,9 @@ package agentio_test
 import (
 	"context"
 	"encoding/json"
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/sausheong/hand/internal/agentio"
@@ -45,5 +48,67 @@ func TestBuildAgentSpec_EmptyFallbackModel(t *testing.T) {
 
 	if spec.FallbackModel != "" {
 		t.Errorf("FallbackModel = %q, want empty", spec.FallbackModel)
+	}
+}
+
+func TestBuildSystemPrompt_NoFileReturnsBaseOnly(t *testing.T) {
+	got := agentio.BuildSystemPrompt(t.TempDir())
+
+	if got != agentio.SystemPrompt {
+		t.Errorf("BuildSystemPrompt = %q, want the base prompt unchanged", got)
+	}
+}
+
+func TestBuildSystemPrompt_HandMdAppended(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "HAND.md"), []byte("use tabs, not spaces"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	got := agentio.BuildSystemPrompt(dir)
+
+	if !strings.HasPrefix(got, agentio.SystemPrompt) {
+		t.Errorf("BuildSystemPrompt = %q, want it to start with the base prompt", got)
+	}
+	if !strings.Contains(got, "use tabs, not spaces") {
+		t.Errorf("BuildSystemPrompt = %q, want it to contain the HAND.md content", got)
+	}
+	if !strings.Contains(got, "HAND.md") {
+		t.Errorf("BuildSystemPrompt = %q, want it to name the source file", got)
+	}
+}
+
+func TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "AGENTS.md"), []byte("follow the style guide"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	got := agentio.BuildSystemPrompt(dir)
+
+	if !strings.Contains(got, "follow the style guide") {
+		t.Errorf("BuildSystemPrompt = %q, want it to contain the AGENTS.md content", got)
+	}
+	if !strings.Contains(got, "AGENTS.md") {
+		t.Errorf("BuildSystemPrompt = %q, want it to name the source file", got)
+	}
+}
+
+func TestBuildSystemPrompt_HandMdWinsOverAgentsMd(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "HAND.md"), []byte("hand instructions"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "AGENTS.md"), []byte("agents instructions"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	got := agentio.BuildSystemPrompt(dir)
+
+	if !strings.Contains(got, "hand instructions") {
+		t.Errorf("BuildSystemPrompt = %q, want HAND.md content present", got)
+	}
+	if strings.Contains(got, "agents instructions") {
+		t.Errorf("BuildSystemPrompt = %q, want AGENTS.md content absent when HAND.md is present", got)
 	}
 }

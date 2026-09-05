@@ -3,13 +3,40 @@ package agentio
 import (
 	"context"
 	"encoding/json"
+	"os"
+	"path/filepath"
 
 	"github.com/sausheong/harness/runtime"
 )
 
-// SystemPrompt is Hand's fixed identity prompt for Phase 1 (no
-// per-project customization yet).
-const SystemPrompt = `You are Hand, a terminal-based coding assistant. You can read, write, and edit files in the current workspace, run shell commands, and fetch or search the web. Track multi-step work with the todo tool. Be direct and concise: prefer making the requested change over describing what you would do.`
+// baseSystemPrompt is Hand's fixed identity prompt.
+const baseSystemPrompt = `You are Hand, a terminal-based coding assistant. You can read, write, and edit files in the current workspace, run shell commands, and fetch or search the web. Track multi-step work with the todo tool. Be direct and concise: prefer making the requested change over describing what you would do.`
+
+// SystemPrompt is baseSystemPrompt's fallback form for callers/tests that
+// reference the fixed identity text directly; BuildSystemPrompt is what
+// Hand actually uses, since it also appends any project instructions.
+const SystemPrompt = baseSystemPrompt
+
+// projectInstructionFiles are checked in order; the first one found
+// wins. HAND.md is hand-specific and takes precedence over the more
+// widely-adopted AGENTS.md convention, so a repo that already has an
+// AGENTS.md for other tools works with hand too without duplication.
+var projectInstructionFiles = []string{"HAND.md", "AGENTS.md"}
+
+// BuildSystemPrompt returns hand's fixed identity plus, if present, one
+// project instruction file's content appended underneath. Only one
+// workspace-root file is ever read — no merging across multiple
+// directories (parent dirs, $HOME).
+func BuildSystemPrompt(workspace string) string {
+	for _, name := range projectInstructionFiles {
+		data, err := os.ReadFile(filepath.Join(workspace, name))
+		if err != nil {
+			continue
+		}
+		return baseSystemPrompt + "\n\n---\n\nProject instructions (" + name + "):\n\n" + string(data)
+	}
+	return baseSystemPrompt
+}
 
 // BuildAgentSpec builds the single AgentSpec Hand uses for the whole
 // process. hook is wired as Loop.Hooks.BeforeToolUse — callers pass the
@@ -25,7 +52,7 @@ func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string,
 		Model:         model,
 		FallbackModel: fallbackModel,
 		Workspace:     workspace,
-		SystemPrompt:  SystemPrompt,
+		SystemPrompt:  BuildSystemPrompt(workspace),
 		MaxTurns:      maxTurns,
 		Loop: runtime.LoopConfig{
 			Hooks: runtime.LifecycleHooks{
