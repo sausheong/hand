@@ -6,10 +6,22 @@ import (
 	"testing"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/sausheong/harness/compaction"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/session"
 )
+
+// fakeLLMProvider is a distinguishable llm.LLMProvider stand-in for
+// SwitchModel tests that need to tell two provider values apart by
+// identity. The bare struct{ llm.LLMProvider }{} literal used elsewhere
+// in this file can't do that: two zero-valued instances of the same
+// anonymous type both hold a nil embedded interface and compare equal
+// to each other regardless of which one a piece of code actually chose.
+type fakeLLMProvider struct {
+	llm.LLMProvider
+	name string
+}
 
 func TestIsCommand(t *testing.T) {
 	cases := map[string]bool{"/exit": true, "/": true, "hello": false, "": false}
@@ -103,6 +115,88 @@ func TestController_SwitchModel_DifferentProviderRebuildsLLM(t *testing.T) {
 	}
 	if rt.Provider != "openai" || rt.Model != "gpt-5" {
 		t.Fatalf("Provider/Model = %q/%q, want openai/gpt-5", rt.Provider, rt.Model)
+	}
+}
+
+// Regression: SwitchModel used to update Rt.LLM/Provider/Model only,
+// leaving Rt.Compaction.Summarizer and Rt.FallbackModel silently pinned
+// to whatever provider hand started with — so compaction kept
+// summarizing through a now-abandoned client, and a retryable error
+// would misfire FallbackModel's stale bare model id against the new one.
+func TestController_SwitchModel_DifferentProviderUpdatesCompactionAndClearsFallback(t *testing.T) {
+	// Named with a distinguishing field, not the bare struct{
+	// llm.LLMProvider }{} literal used elsewhere in this file: two
+	// zero-valued instances of that anonymous type are indistinguishable
+	// (both hold a nil embedded interface), so a naive identity check
+	// against them can't actually tell "correctly updated" from "bug:
+	// left at the old value" apart.
+	anthropicLLM := fakeLLMProvider{name: "anthropic-llm"}
+	rt := &runtime.Runtime{
+		Provider:      "anthropic",
+		Model:         "claude-sonnet-5",
+		FallbackModel: "claude-haiku-4-5",
+		Compaction: &compaction.Manager{
+			Summarizer: &compaction.Summarizer{Provider: anthropicLLM, Model: "claude-sonnet-5"},
+		},
+	}
+	openaiLLM := fakeLLMProvider{name: "openai-llm"}
+	c := &Controller{Rt: rt, BuildProvider: func(string, string) (llm.LLMProvider, error) {
+		return openaiLLM, nil
+	}}
+
+	if err := c.SwitchModel("openai/gpt-5"); err != nil {
+		t.Fatalf("SwitchModel: %v", err)
+	}
+
+	if rt.FallbackModel != "" {
+		t.Errorf("FallbackModel = %q, want cleared after a cross-provider switch", rt.FallbackModel)
+	}
+	if rt.Compaction.Summarizer.Provider != openaiLLM {
+		t.Error("Compaction.Summarizer.Provider was not updated to the new provider")
+	}
+	if rt.Compaction.Summarizer.Model != "gpt-5" {
+		t.Errorf("Compaction.Summarizer.Model = %q, want gpt-5", rt.Compaction.Summarizer.Model)
+	}
+}
+
+func TestController_SwitchModel_SameProviderUpdatesCompactionModelKeepsFallback(t *testing.T) {
+	anthropicLLM := fakeLLMProvider{name: "anthropic-llm"}
+	rt := &runtime.Runtime{
+		Provider:      "anthropic",
+		Model:         "claude-haiku-4-5",
+		FallbackModel: "claude-haiku-4-5",
+		Compaction: &compaction.Manager{
+			Summarizer: &compaction.Summarizer{Provider: anthropicLLM, Model: "claude-haiku-4-5"},
+		},
+	}
+	c := &Controller{Rt: rt, BuildProvider: func(string, string) (llm.LLMProvider, error) {
+		t.Fatal("BuildProvider should not be called for a same-provider switch")
+		return nil, nil
+	}}
+
+	if err := c.SwitchModel("anthropic/claude-sonnet-5"); err != nil {
+		t.Fatalf("SwitchModel: %v", err)
+	}
+
+	if rt.FallbackModel != "claude-haiku-4-5" {
+		t.Errorf("FallbackModel = %q, want it left alone on a same-provider switch", rt.FallbackModel)
+	}
+	if rt.Compaction.Summarizer.Provider != anthropicLLM {
+		t.Error("Compaction.Summarizer.Provider should not change on a same-provider switch")
+	}
+	if rt.Compaction.Summarizer.Model != "claude-sonnet-5" {
+		t.Errorf("Compaction.Summarizer.Model = %q, want claude-sonnet-5 (kept in sync with the active run's model)", rt.Compaction.Summarizer.Model)
+	}
+}
+
+func TestController_SwitchModel_NilCompactionIsSafe(t *testing.T) {
+	rt := &runtime.Runtime{Provider: "anthropic", Model: "claude-sonnet-5"}
+	c := &Controller{Rt: rt}
+	if err := c.SwitchModel("anthropic/claude-haiku-4-5"); err != nil {
+		t.Fatalf("SwitchModel: %v", err)
+	}
+	if rt.Model != "claude-haiku-4-5" {
+		t.Fatalf("Model = %q, want claude-haiku-4-5", rt.Model)
 	}
 }
 

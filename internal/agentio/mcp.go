@@ -24,12 +24,22 @@ const DefaultMCPConnectTimeout = 15 * time.Second
 // This is a real limitation, not a clean fix: on timeout, the abandoned
 // BuildRuntime goroutine keeps running in the background (Go has no way
 // to forcibly cancel a goroutine that isn't itself watching a context),
-// so a hung stdio child process spawned by mcp.Connect outlives the
-// timeout and is never cleaned up — a hung MCP server can leak a
-// subprocess for the life of the hand process, even though the CLI
-// itself becomes responsive again after the timeout. Accepted for this
-// phase: reimplementing MCP connection logic just to get cancellation is
-// a much bigger feature than wiring up the client harness already has.
+// so a genuinely hung stdio child process spawned by mcp.Connect
+// outlives the timeout and is never cleaned up — that specific case can
+// leak a subprocess for the life of the hand process, even though the
+// CLI itself becomes responsive again after the timeout. Accepted for
+// this phase: reimplementing MCP connection logic just to get
+// cancellation is a much bigger feature than wiring up the client
+// harness already has.
+//
+// What this function DOES clean up: a server that's merely slow, not
+// permanently hung, and connects successfully a few seconds after the
+// timeout already fired and returned an error to the caller. Without
+// the drain goroutine below, that late-arriving *runtime.Runtime — with
+// its live MCP client connections — would simply be discarded with no
+// Close() ever called, leaking those connections (and any stdio
+// subprocess) for good even though the connection itself was never
+// actually hung.
 func BuildRuntimeWithTimeout(deps runtime.RuntimeDeps, inputs runtime.RuntimeInputs, spec runtime.AgentSpec, timeout time.Duration) (*runtime.Runtime, error) {
 	if len(spec.MCPServers) == 0 {
 		return runtime.BuildRuntime(deps, inputs, spec)
@@ -49,6 +59,11 @@ func BuildRuntimeWithTimeout(deps runtime.RuntimeDeps, inputs runtime.RuntimeInp
 	case r := <-done:
 		return r.rt, r.err
 	case <-time.After(timeout):
+		go func() {
+			if r := <-done; r.rt != nil {
+				_ = r.rt.Close()
+			}
+		}()
 		return nil, fmt.Errorf("timed out after %s connecting configured MCP servers (check mcp_servers in ~/.hand/config.json)", timeout)
 	}
 }

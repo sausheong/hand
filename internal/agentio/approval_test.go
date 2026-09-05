@@ -56,7 +56,7 @@ func TestApprovalHook_UngatedToolsAllowedImmediately(t *testing.T) {
 	for _, name := range []string{"read_file", "web_fetch", "web_search", "todo_write", "search"} {
 		t.Run(name, func(t *testing.T) {
 			sender := &fakeSender{}
-			hook := agentio.NewApprovalHook(sender, nil, "", nil)
+			hook := agentio.NewApprovalHook(sender, nil, "", nil, nil)
 
 			decision, err := hook(context.Background(), name, json.RawMessage(`{}`))
 			if err != nil {
@@ -86,7 +86,7 @@ func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 	for _, tc := range cases {
 		t.Run(tc.tool, func(t *testing.T) {
 			sender := &fakeSender{}
-			hook := agentio.NewApprovalHook(sender, nil, "", nil)
+			hook := agentio.NewApprovalHook(sender, nil, "", nil, nil)
 
 			resultCh := make(chan struct {
 				decision runtime.HookDecision
@@ -130,7 +130,7 @@ func TestApprovalHook_GatedToolBlocksThenRespects(t *testing.T) {
 
 func TestApprovalHook_ContextCancelDenies(t *testing.T) {
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, nil, "", nil)
+	hook := agentio.NewApprovalHook(sender, nil, "", nil, nil)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	resultCh := make(chan error, 1)
@@ -159,7 +159,7 @@ func TestApprovalHook_ContextCancelDenies(t *testing.T) {
 
 func TestApprovalHook_RequestIncludesPreview(t *testing.T) {
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, nil, "/tmp/does-not-matter", nil)
+	hook := agentio.NewApprovalHook(sender, nil, "/tmp/does-not-matter", nil, nil)
 
 	go func() {
 		_, _ = hook(context.Background(), "bash", json.RawMessage(`{"command":"echo hi"}`))
@@ -183,7 +183,7 @@ func TestApprovalHook_AlreadyAlwaysAllowedSkipsPrompt(t *testing.T) {
 	}
 
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, perms, "", nil)
+	hook := agentio.NewApprovalHook(sender, perms, "", nil, nil)
 
 	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
 	if err != nil {
@@ -205,7 +205,7 @@ func TestApprovalHook_DecisionAlwaysPersistsBeforeReturning(t *testing.T) {
 	}
 
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, perms, "", nil)
+	hook := agentio.NewApprovalHook(sender, perms, "", nil, nil)
 
 	resultCh := make(chan runtime.HookDecision, 1)
 	go func() {
@@ -242,7 +242,7 @@ func TestApprovalHook_DecisionAlwaysPersistsBeforeReturning(t *testing.T) {
 }
 
 func TestOneShotApprovalHook_UngatedToolsAlwaysAllowed(t *testing.T) {
-	hook := agentio.NewOneShotApprovalHook(nil, false, nil)
+	hook := agentio.NewOneShotApprovalHook(nil, false, nil, nil)
 	decision, err := hook(context.Background(), "read_file", json.RawMessage(`{}`))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -253,7 +253,7 @@ func TestOneShotApprovalHook_UngatedToolsAlwaysAllowed(t *testing.T) {
 }
 
 func TestOneShotApprovalHook_GatedDeniedByDefault(t *testing.T) {
-	hook := agentio.NewOneShotApprovalHook(nil, false, nil)
+	hook := agentio.NewOneShotApprovalHook(nil, false, nil, nil)
 	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -276,7 +276,7 @@ func TestOneShotApprovalHook_GatedAllowedWhenAlwaysAllowed(t *testing.T) {
 		t.Fatalf("SetAlwaysAllow returned error: %v", err)
 	}
 
-	hook := agentio.NewOneShotApprovalHook(perms, false, nil)
+	hook := agentio.NewOneShotApprovalHook(perms, false, nil, nil)
 	decision, err := hook(context.Background(), "bash", json.RawMessage(`{}`))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -287,7 +287,7 @@ func TestOneShotApprovalHook_GatedAllowedWhenAlwaysAllowed(t *testing.T) {
 }
 
 func TestOneShotApprovalHook_GatedAllowedWithAutoApprove(t *testing.T) {
-	hook := agentio.NewOneShotApprovalHook(nil, true, nil)
+	hook := agentio.NewOneShotApprovalHook(nil, true, nil, nil)
 	decision, err := hook(context.Background(), "write_file", json.RawMessage(`{}`))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -299,7 +299,7 @@ func TestOneShotApprovalHook_GatedAllowedWithAutoApprove(t *testing.T) {
 
 func TestApprovalHook_UntrustedMCPToolPromptsLikeBash(t *testing.T) {
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, nil, "", map[string]bool{"trusted-server": true})
+	hook := agentio.NewApprovalHook(sender, nil, "", []string{"trusted-server", "untrusted"}, map[string]bool{"trusted-server": true})
 
 	resultCh := make(chan runtime.HookDecision, 1)
 	go func() {
@@ -325,7 +325,7 @@ func TestApprovalHook_UntrustedMCPToolPromptsLikeBash(t *testing.T) {
 
 func TestApprovalHook_TrustedMCPToolAllowedWithNoPrompt(t *testing.T) {
 	sender := &fakeSender{}
-	hook := agentio.NewApprovalHook(sender, nil, "", map[string]bool{"trusted-server": true})
+	hook := agentio.NewApprovalHook(sender, nil, "", []string{"trusted-server", "untrusted"}, map[string]bool{"trusted-server": true})
 
 	decision, err := hook(context.Background(), "mcp__trusted-server__tool", json.RawMessage(`{}`))
 	if err != nil {
@@ -340,7 +340,7 @@ func TestApprovalHook_TrustedMCPToolAllowedWithNoPrompt(t *testing.T) {
 }
 
 func TestOneShotApprovalHook_UntrustedMCPToolDeniedByDefault(t *testing.T) {
-	hook := agentio.NewOneShotApprovalHook(nil, false, map[string]bool{"trusted-server": true})
+	hook := agentio.NewOneShotApprovalHook(nil, false, []string{"trusted-server", "untrusted"}, map[string]bool{"trusted-server": true})
 	decision, err := hook(context.Background(), "mcp__untrusted__tool", json.RawMessage(`{}`))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -354,7 +354,7 @@ func TestOneShotApprovalHook_UntrustedMCPToolDeniedByDefault(t *testing.T) {
 }
 
 func TestOneShotApprovalHook_TrustedMCPToolAllowed(t *testing.T) {
-	hook := agentio.NewOneShotApprovalHook(nil, false, map[string]bool{"trusted-server": true})
+	hook := agentio.NewOneShotApprovalHook(nil, false, []string{"trusted-server", "untrusted"}, map[string]bool{"trusted-server": true})
 	decision, err := hook(context.Background(), "mcp__trusted-server__tool", json.RawMessage(`{}`))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)

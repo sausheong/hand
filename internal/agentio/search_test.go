@@ -117,6 +117,41 @@ func TestSearchTool_MissingBothParametersErrors(t *testing.T) {
 	}
 }
 
+// Regression: filepath.WalkDir's callback swallows every walk error
+// (including the root-stat error for a path that doesn't exist), so
+// without an explicit upfront check a typo'd path silently produced
+// the same "no matches" output as a valid, empty directory.
+func TestSearchTool_NonexistentPathReturnsError(t *testing.T) {
+	dir := t.TempDir()
+	tool := &agentio.SearchTool{WorkDir: dir}
+	res, err := tool.Execute(context.Background(), json.RawMessage(`{"path":"totally/bogus/dir","name_glob":"*"}`))
+	if err != nil {
+		t.Fatalf("Execute: %v", err)
+	}
+	if res.Error == "" {
+		t.Fatal("expected an error for a nonexistent path, got none (silently reported as \"no matches\"?)")
+	}
+	if res.Output == "no matches" {
+		t.Fatal("a nonexistent path must not be indistinguishable from a valid, empty result")
+	}
+}
+
+func TestSearchTool_PathIsNotADirectoryErrors(t *testing.T) {
+	dir := t.TempDir()
+	filePath := filepath.Join(dir, "not-a-dir.txt")
+	if err := os.WriteFile(filePath, []byte("x"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	tool := &agentio.SearchTool{WorkDir: dir}
+	res, err := tool.Execute(context.Background(), json.RawMessage(`{"path":"not-a-dir.txt","name_glob":"*"}`))
+	if err != nil {
+		t.Fatalf("Execute: %v", err)
+	}
+	if !strings.Contains(res.Error, "not a directory") {
+		t.Errorf("Error = %q, want it to say the path isn't a directory", res.Error)
+	}
+}
+
 func TestSearchTool_PathOutsideWorkDirRejected(t *testing.T) {
 	dir := t.TempDir()
 	tool := &agentio.SearchTool{WorkDir: dir}

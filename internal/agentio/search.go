@@ -102,12 +102,16 @@ func (t *SearchTool) Execute(ctx context.Context, input json.RawMessage) (tool.T
 	if path == "" {
 		path = "."
 	}
-	path = tool.ExpandHome(path)
-	if !filepath.IsAbs(path) {
-		path = filepath.Join(t.WorkDir, path)
-	}
+	path = resolvePath(t.WorkDir, path)
 	if err := tool.ValidatePathInWorkDir(path, t.WorkDir); err != nil {
 		return tool.ToolResult{Error: err.Error()}, nil
+	}
+	info, err := os.Stat(path)
+	if err != nil {
+		return tool.ToolResult{Error: fmt.Sprintf("path %q: %v", in.Path, err)}, nil
+	}
+	if !info.IsDir() {
+		return tool.ToolResult{Error: fmt.Sprintf("path %q is not a directory", in.Path)}, nil
 	}
 
 	var re *regexp.Regexp

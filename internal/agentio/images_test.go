@@ -99,6 +99,73 @@ func TestExtractImagePaths_NoPathsReturnsUnchanged(t *testing.T) {
 	}
 }
 
+// Regression for a bug where replacement was done with strings.Replace
+// on the running output string: a token that is itself a substring of
+// another token in the message got mangled at the wrong position instead
+// of the real, later occurrence being replaced.
+func TestExtractImagePaths_SubstringTokenDoesNotCorruptReplacement(t *testing.T) {
+	dir := t.TempDir()
+	realImg := filepath.Join(dir, "a.png")
+	if err := os.WriteFile(realImg, []byte("real"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	// "xa.png" doesn't exist, but "a.png" is a substring of it — a naive
+	// strings.Replace(replaced, "a.png", placeholder, 1) would match
+	// inside "xa.png" first and never touch the real trailing token.
+	missing := filepath.Join(dir, "xa.png")
+	text := missing + " " + realImg
+
+	got, images := agentio.ExtractImagePaths(dir, text)
+
+	if len(images) != 1 {
+		t.Fatalf("got %d images, want exactly 1 (only the real file)", len(images))
+	}
+	if !strings.Contains(got, missing) {
+		t.Errorf("text = %q, want the nonexistent path left completely untouched", got)
+	}
+	if !strings.Contains(got, "[image: a.png]") {
+		t.Errorf("text = %q, want the real path replaced with its own placeholder", got)
+	}
+}
+
+func TestExtractImagePaths_DuplicateReferenceAttachedOnce(t *testing.T) {
+	dir := t.TempDir()
+	imgPath := filepath.Join(dir, "shot.png")
+	if err := os.WriteFile(imgPath, []byte("bytes"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	text, images := agentio.ExtractImagePaths(dir, imgPath+" "+imgPath)
+
+	if len(images) != 1 {
+		t.Fatalf("got %d images, want 1 (same path referenced twice should attach once)", len(images))
+	}
+	if got := strings.Count(text, "[image: shot.png]"); got != 2 {
+		t.Errorf("placeholder appears %d times, want 2 (both references still shown, just not re-attached)", got)
+	}
+}
+
+func TestExtractImagePaths_OversizedImageSkipped(t *testing.T) {
+	dir := t.TempDir()
+	imgPath := filepath.Join(dir, "huge.png")
+	// One byte over images.go's maxImageFileSize (5 MiB); duplicated here
+	// as a literal since that constant is unexported and this is an
+	// external (agentio_test) test package.
+	const overLimit = 5*1024*1024 + 1
+	if err := os.WriteFile(imgPath, make([]byte, overLimit), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	text, images := agentio.ExtractImagePaths(dir, "see "+imgPath)
+
+	if images != nil {
+		t.Fatalf("got %d images, want nil (oversized file must be skipped)", len(images))
+	}
+	if !strings.Contains(text, imgPath) {
+		t.Errorf("text = %q, want the raw path left untouched", text)
+	}
+}
+
 func TestExtractImagePaths_ImageOutsideWorkspaceNotAttached(t *testing.T) {
 	workspace := t.TempDir()
 	outside := t.TempDir()

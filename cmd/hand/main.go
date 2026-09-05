@@ -159,15 +159,16 @@ func run() error {
 	}
 
 	mcpServers := cfg.ToServerConfigs()
+	allMCPServerNames := cfg.AllMCPServerNames()
 	trustedServers := cfg.TrustedMCPServers()
 
 	var sender *programSender
 	var hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)
 	if oneShot {
-		hook = agentio.NewOneShotApprovalHook(perms, *yesFlag, trustedServers)
+		hook = agentio.NewOneShotApprovalHook(perms, *yesFlag, allMCPServerNames, trustedServers)
 	} else {
 		sender = &programSender{}
-		hook = agentio.NewApprovalHook(sender, perms, workspace, trustedServers)
+		hook = agentio.NewApprovalHook(sender, perms, workspace, allMCPServerNames, trustedServers)
 	}
 	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, mcpServers, hook)
 	// reg must stay the concrete *tool.Registry type below (RuntimeInputs.Tools
@@ -193,6 +194,16 @@ func run() error {
 		return fmt.Errorf("load session: %w", err)
 	}
 
+	// BuildRuntimeWithTimeout connects every configured MCP server
+	// synchronously, before the TUI (or one-shot output) exists — a slow
+	// server adds real, silent delay to startup otherwise. This is the
+	// only feedback the user gets until it either succeeds or the
+	// timeout fires; a fuller fix would start the TUI first and connect
+	// in the background, but that needs Runner to be swappable after
+	// construction, a larger change than this warrants right now.
+	if len(mcpServers) > 0 {
+		fmt.Fprintf(os.Stderr, "hand: connecting to %d configured MCP server(s)...\n", len(mcpServers))
+	}
 	rt, err := agentio.BuildRuntimeWithTimeout(
 		runtime.RuntimeDeps{},
 		runtime.RuntimeInputs{

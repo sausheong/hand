@@ -2,6 +2,7 @@ package agentio_test
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"sync"
@@ -25,10 +26,22 @@ var (
 // per test run, so BuildRuntimeWithTimeout's "normal, quickly-resolving
 // call" case exercises a real mcp.Connect handshake rather than a faked
 // one.
+//
+// Deliberately os.MkdirTemp, not t.TempDir(): the sync.Once below runs
+// exactly once for the whole test binary, on whichever test happens to
+// call this function first — a t.TempDir() would tie the binary's
+// lifetime to that *specific* test and get deleted by its cleanup the
+// moment that one test finishes, breaking every other test that reuses
+// the cached path afterward. Left for the OS's own temp-dir GC, same as
+// any other build-once-per-process test fixture.
 func buildMCPServerFixture(t *testing.T) string {
 	t.Helper()
 	mcpServerFixtureOnce.Do(func() {
-		dir := t.TempDir()
+		dir, err := os.MkdirTemp("", "hand-mcpserver-fixture")
+		if err != nil {
+			mcpServerFixtureErr = fmt.Errorf("create fixture temp dir: %w", err)
+			return
+		}
 		out := filepath.Join(dir, "mcpserver")
 		cmd := exec.Command("go", "build", "-o", out, "./testdata/mcpserver")
 		if output, err := cmd.CombinedOutput(); err != nil {
@@ -105,5 +118,50 @@ func TestBuildRuntimeWithTimeout_HangingServerTimesOutFast(t *testing.T) {
 	}
 	if elapsed > 2*time.Second {
 		t.Fatalf("BuildRuntimeWithTimeout took %s, want approximately the %s test timeout, never the real DefaultMCPConnectTimeout", elapsed, timeout)
+	}
+}
+
+// Regression: on timeout, the abandoned BuildRuntime goroutine's
+// eventual result used to be discarded outright — a server that's
+// merely slow (not permanently hung) and connects successfully a moment
+// after the timeout fired leaked its live MCP connection (and spawned
+// subprocess) forever, since nothing ever called Close() on the
+// late-arriving *runtime.Runtime. This drives a real, slightly-delayed
+// stdio server through the timeout path and checks — via the fixture
+// writing a marker file only once its Run() returns, which happens when
+// the client side closes the connection — that hand's drain goroutine
+// actually closes that late connection instead of abandoning it.
+func TestBuildRuntimeWithTimeout_LateSuccessAfterTimeoutIsStillClosed(t *testing.T) {
+	binPath := buildMCPServerFixture(t)
+	marker := filepath.Join(t.TempDir(), "closed.marker")
+	reg := tool.NewRegistry()
+	spec := runtime.AgentSpec{
+		ID: "a", Name: "A", Model: "anthropic/claude-sonnet-5",
+		MCPServers: []mcp.ServerConfig{{
+			Name:    "slow",
+			Command: binPath,
+			Args:    []string{"-delay=300ms", "-marker=" + marker},
+		}},
+	}
+
+	const timeout = 50 * time.Millisecond
+	rt, err := agentio.BuildRuntimeWithTimeout(runtime.RuntimeDeps{}, runtime.RuntimeInputs{Tools: reg}, spec, timeout)
+	if err == nil {
+		t.Fatal("expected a timeout error since the fixture's 300ms delay exceeds the 50ms timeout")
+	}
+	if rt != nil {
+		t.Fatal("expected a nil Runtime on timeout")
+	}
+
+	deadline := time.After(5 * time.Second)
+	for {
+		if _, err := os.Stat(marker); err == nil {
+			return // the fixture observed its connection being closed
+		}
+		select {
+		case <-deadline:
+			t.Fatal("marker file never appeared: the late-succeeding connection was never closed")
+		case <-time.After(20 * time.Millisecond):
+		}
 	}
 }

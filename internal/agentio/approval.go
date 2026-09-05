@@ -60,35 +60,59 @@ var gatedTools = map[string]bool{
 // un-gating every MCP tool.
 const mcpToolPrefix = "mcp__"
 
-// mcpServerName extracts <Name> from a harness MCP adapter tool name of
-// the form "mcp__<Name>__<tool>". isMCP is true for anything carrying
-// the "mcp__" prefix, even a malformed name with no second "__" — that
-// case returns an empty, unmatchable server string, which can never
-// appear in a trustedServers map, so a malformed MCP tool name fails
-// safe as gated rather than silently slipping through ungated.
-func mcpServerName(toolName string) (server string, isMCP bool) {
-	if !strings.HasPrefix(toolName, mcpToolPrefix) {
+// mcpToolServer extracts <Name> from a harness MCP adapter tool name of
+// the form "mcp__<Name>__<tool>", using allServers (every configured
+// server name, trusted or not — config.Config.AllMCPServerNames) to
+// resolve the split correctly even when a server name itself contains
+// "__". Matching only against trusted names isn't enough: if trusted
+// server "brave" and untrusted server "brave__search" are both
+// configured, a tool actually belonging to "brave__search" would
+// wrongly match "brave" as a prefix and be treated as trusted. Matching
+// the *longest* name in the complete set first avoids that — "brave__search"
+// wins over "brave" when both are candidates, so the disambiguation is
+// resolved before trust is even considered.
+//
+// ok is false when name isn't MCP-namespaced at all, or carries the
+// prefix but matches no known server (deleted from config since
+// connecting, or a naming-convention change in harness) — either way,
+// isGated's caller treats "no server resolved" as untrusted-by-default,
+// never as "skip gating."
+func mcpToolServer(name string, allServers []string) (server string, ok bool) {
+	if !strings.HasPrefix(name, mcpToolPrefix) {
 		return "", false
 	}
-	rest := strings.TrimPrefix(toolName, mcpToolPrefix)
-	server, _, _ = strings.Cut(rest, "__")
-	return server, true
+	rest := strings.TrimPrefix(name, mcpToolPrefix)
+	best := ""
+	for _, candidate := range allServers {
+		if candidate == "" {
+			continue
+		}
+		if (rest == candidate || strings.HasPrefix(rest, candidate+"__")) && len(candidate) > len(best) {
+			best = candidate
+		}
+	}
+	return best, best != ""
 }
 
 // isGated reports whether name requires approval before executing. A
 // built-in tool is gated iff it's in gatedTools. An MCP-provided tool
-// (namespaced "mcp__<Name>__<tool>") is gated unless its server is
-// marked trusted in trustedServers — an arbitrary MCP server can expose
-// arbitrary mutating tools hand has never seen before, so the default is
-// to gate everything it provides.
-func isGated(name string, trustedServers map[string]bool) bool {
+// (namespaced "mcp__<Name>__<tool>") is gated unless its resolved server
+// is marked trusted in trustedServers — an arbitrary MCP server can
+// expose arbitrary mutating tools hand has never seen before, so the
+// default is to gate everything it provides, including a tool whose
+// server couldn't even be resolved from allServers.
+func isGated(name string, allServers []string, trustedServers map[string]bool) bool {
 	if gatedTools[name] {
 		return true
 	}
-	if server, isMCP := mcpServerName(name); isMCP {
-		return !trustedServers[server]
+	if !strings.HasPrefix(name, mcpToolPrefix) {
+		return false
 	}
-	return false
+	server, ok := mcpToolServer(name, allServers)
+	if !ok {
+		return true
+	}
+	return !trustedServers[server]
 }
 
 // NewApprovalHook returns a runtime.LifecycleHooks.BeforeToolUse
@@ -98,12 +122,14 @@ func isGated(name string, trustedServers map[string]bool) bool {
 // request's Respond channel receives an answer (or the call's context
 // is cancelled, which denies). Every other tool is allowed immediately
 // with no prompt. perms may be nil, meaning no persistence — every
-// gated call always prompts, matching Phase 1's behavior. trustedServers
-// is the set of MCP server names (from config.Config.TrustedMCPServers)
-// whose tools should skip gating entirely.
-func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string, trustedServers map[string]bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
+// gated call always prompts, matching Phase 1's behavior. allServers is
+// every configured MCP server name (config.Config.AllMCPServerNames);
+// trustedServers is the subset marked trusted
+// (config.Config.TrustedMCPServers) whose tools should skip gating
+// entirely.
+func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string, allServers []string, trustedServers map[string]bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 	return func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
-		if !isGated(name, trustedServers) {
+		if !isGated(name, allServers, trustedServers) {
 			return runtime.HookDecision{Allow: true}, nil
 		}
 		if perms != nil && perms.IsAlwaysAllowed(name) {
@@ -143,12 +169,13 @@ func NewApprovalHook(sender Sender, perms *permissions.Store, workspace string, 
 // already always-allowed in perms (perms may be nil, meaning neither
 // applies). Anything else is denied with a Reason explaining how to
 // approve it: run hand interactively once and press 'a', or pass
-// --yes. trustedServers is the set of MCP server names (from
-// config.Config.TrustedMCPServers) whose tools should skip gating
-// entirely.
-func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool, trustedServers map[string]bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
+// --yes. allServers is every configured MCP server name
+// (config.Config.AllMCPServerNames); trustedServers is the subset
+// marked trusted (config.Config.TrustedMCPServers) whose tools should
+// skip gating entirely.
+func NewOneShotApprovalHook(perms *permissions.Store, autoApprove bool, allServers []string, trustedServers map[string]bool) func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 	return func(_ context.Context, name string, _ json.RawMessage) (runtime.HookDecision, error) {
-		if !isGated(name, trustedServers) {
+		if !isGated(name, allServers, trustedServers) {
 			return runtime.HookDecision{Allow: true}, nil
 		}
 		if autoApprove {

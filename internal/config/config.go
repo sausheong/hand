@@ -188,3 +188,21 @@ func (cfg Config) TrustedMCPServers() map[string]bool {
 	}
 	return trusted
 }
+
+// AllMCPServerNames returns every configured server's Name, trusted or
+// not. NewApprovalHook/NewOneShotApprovalHook need the *complete* set
+// (not just TrustedMCPServers) to correctly split a harness adapter tool
+// name "mcp__<Name>__<tool>" when a server's own Name contains "__" —
+// matching against the longest known name (trusted or not) is the only
+// way to avoid mistaking, say, trusted server "brave" for the real,
+// untrusted server "brave__search" when both share that prefix.
+func (cfg Config) AllMCPServerNames() []string {
+	if len(cfg.MCPServers) == 0 {
+		return nil
+	}
+	names := make([]string, len(cfg.MCPServers))
+	for i, s := range cfg.MCPServers {
+		names[i] = s.Name
+	}
+	return names
+}

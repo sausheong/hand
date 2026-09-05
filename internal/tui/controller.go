@@ -33,7 +33,12 @@ func (c *Controller) CurrentModel() string {
 // SwitchModel points subsequent turns at a different provider/model.
 // Switching to a different provider rebuilds the LLM client via
 // BuildProvider; switching within the same provider just updates the
-// model name.
+// model name. Either way, it also keeps two other Runtime fields that
+// are otherwise silently pinned to hand's startup provider/model in
+// sync: the compaction summarizer (agentio.BuildCompactionManager
+// deliberately reuses the active run's own provider/model, an invariant
+// this must preserve across a switch too) and FallbackModel (a bare
+// model id meaningful only against the provider it was resolved for).
 func (c *Controller) SwitchModel(providerModel string) error {
 	providerName, modelName := llm.ParseProviderModel(providerModel)
 	if providerName == "" || modelName == "" {
@@ -49,8 +54,21 @@ func (c *Controller) SwitchModel(providerModel string) error {
 		}
 		c.Rt.LLM = p
 		c.Rt.Provider = providerName
+		// The old FallbackModel is a bare model id for the previous
+		// provider; sent to the new client it would misfire as a
+		// confusing "model not found" on the next retryable error. hand
+		// has no way to guess a sensible fallback for the new provider,
+		// so the only safe choice is to drop it — the user can set a new
+		// one via --fallback-model/config on their next run.
+		c.Rt.FallbackModel = ""
+		if c.Rt.Compaction != nil && c.Rt.Compaction.Summarizer != nil {
+			c.Rt.Compaction.Summarizer.Provider = p
+		}
 	}
 	c.Rt.Model = modelName
+	if c.Rt.Compaction != nil && c.Rt.Compaction.Summarizer != nil {
+		c.Rt.Compaction.Summarizer.Model = modelName
+	}
 	return nil
 }
 
