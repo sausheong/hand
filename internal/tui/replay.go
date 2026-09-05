@@ -9,20 +9,23 @@ import (
 
 // ReplayHistory turns stored session entries back into the same kind of
 // styled lines the live event path produces, so a resumed session shows
-// prior conversation instead of a blank transcript. Malformed entry data
-// (should not happen for entries this program wrote itself) renders as a
-// visible placeholder rather than being silently dropped or panicking.
-func ReplayHistory(entries []session.SessionEntry) []string {
+// prior conversation instead of a blank transcript. width sets the
+// Markdown wrap column for replayed assistant messages (see
+// renderMarkdown) — pass the model's current termWidth. Malformed entry
+// data (should not happen for entries this program wrote itself)
+// renders as a visible placeholder rather than being silently dropped
+// or panicking.
+func ReplayHistory(entries []session.SessionEntry, width int) []string {
 	lines := make([]string, 0, len(entries))
 	for _, entry := range entries {
-		if line, ok := replayEntry(entry); ok {
+		if line, ok := replayEntry(entry, width); ok {
 			lines = append(lines, line)
 		}
 	}
 	return lines
 }
 
-func replayEntry(entry session.SessionEntry) (string, bool) {
+func replayEntry(entry session.SessionEntry, width int) (string, bool) {
 	switch entry.Type {
 	case session.EntryTypeMessage:
 		var data session.MessageData
@@ -32,7 +35,9 @@ func replayEntry(entry session.SessionEntry) (string, bool) {
 		if entry.Role == "user" {
 			return userLineStyle.Render("> " + sanitizeForTerminal(data.Text)), true
 		}
-		return sanitizeForTerminal(data.Text), true // assistant text renders unstyled, matching the live streamed path
+		// assistant text renders as Markdown, matching the live
+		// streamed-and-flushed path (see Model.flushStream).
+		return renderMarkdown(sanitizeForTerminal(data.Text), width), true
 
 	case session.EntryTypeToolCall:
 		var data session.ToolCallData
@@ -74,6 +79,6 @@ func replayEntry(entry session.SessionEntry) (string, bool) {
 // and refreshes the viewport. Call once, right after NewModel, when
 // resuming a session with non-empty History().
 func (m *Model) LoadHistory(entries []session.SessionEntry) {
-	m.transcript = append(m.transcript, ReplayHistory(entries)...)
+	m.transcript = append(m.transcript, ReplayHistory(entries, m.termWidth)...)
 	m.refreshViewport()
 }

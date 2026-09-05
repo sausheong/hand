@@ -358,11 +358,18 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 	}
 }
 
+// flushStream moves the in-progress assistant text block into the
+// transcript, rendered as Markdown (see renderMarkdown) now that the
+// block is complete. Text still arriving mid-stream (shown live via
+// refreshViewport reading m.streamBuf directly) stays plain — re-running
+// glamour on every delta would be redone work on every single token and
+// risks rendering visibly malformed output for markup that isn't closed
+// yet (an open code fence, a half-written bold marker).
 func (m *Model) flushStream() {
 	if m.streamBuf.Len() == 0 {
 		return
 	}
-	m.transcript = append(m.transcript, m.streamBuf.String())
+	m.transcript = append(m.transcript, renderMarkdown(m.streamBuf.String(), m.termWidth))
 	m.streamBuf.Reset()
 }
 

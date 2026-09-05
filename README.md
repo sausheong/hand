@@ -75,6 +75,9 @@ hand
 
 This opens an interactive terminal UI. Type a request and press Enter; Hand
 streams its response and shows each tool call it makes along the way.
+Assistant responses are rendered as Markdown (headings, bold/italic, lists,
+code blocks) — the model's raw formatting shows up styled, not as literal
+`**`/`#`/`` ` `` characters.
 
 ### One-shot mode
 
