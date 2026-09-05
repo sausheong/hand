@@ -120,3 +120,25 @@ func TestResolveBaseURL_FlagOverridesConfig(t *testing.T) {
 		})
 	}
 }
+
+func TestResolveMaxTurns_FlagOverridesConfigOverridesDefault(t *testing.T) {
+	cases := []struct {
+		name      string
+		flagValue int
+		cfg       config.Config
+		want      int
+	}{
+		{"flag and config both zero uses default", 0, config.Config{}, config.DefaultMaxTurns},
+		{"flag zero uses config", 0, config.Config{MaxTurns: 10}, 10},
+		{"flag set overrides config", 5, config.Config{MaxTurns: 10}, 5},
+		{"flag set overrides default", 5, config.Config{}, 5},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := config.ResolveMaxTurns(tc.flagValue, tc.cfg)
+			if got != tc.want {
+				t.Fatalf("ResolveMaxTurns(%d, %+v) = %d, want %d", tc.flagValue, tc.cfg, got, tc.want)
+			}
+		})
+	}
+}

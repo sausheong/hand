@@ -12,6 +12,10 @@ import (
 // DefaultModel is used when no config file exists yet.
 const DefaultModel = "anthropic/claude-sonnet-5"
 
+// DefaultMaxTurns caps the agent's tool-use loop for a single run when
+// neither --max-turns nor config.json's max_turns is set.
+const DefaultMaxTurns = 50
+
 // Config is the on-disk shape of ~/.hand/config.json. API keys are
 // never stored here — each provider reads its key from its own
 // standard environment variable.
@@ -23,6 +27,9 @@ type Config struct {
 	// provider supports this — harness's Gemini provider has no
 	// base-URL parameter.
 	BaseURL string `json:"base_url,omitempty"`
+	// MaxTurns caps the agent's tool-use loop for a single run. Zero (or
+	// absent) means DefaultMaxTurns.
+	MaxTurns int `json:"max_turns,omitempty"`
 }
 
 // DefaultPath returns ~/.hand/config.json for the current user.
@@ -93,4 +100,17 @@ func ResolveBaseURL(flagValue string, cfg Config) string {
 		return flagValue
 	}
 	return cfg.BaseURL
+}
+
+// ResolveMaxTurns returns flagValue if positive, otherwise cfg.MaxTurns
+// if positive, otherwise DefaultMaxTurns. Does not persist anything — a
+// --max-turns flag overrides the loaded config for this invocation only.
+func ResolveMaxTurns(flagValue int, cfg Config) int {
+	if flagValue > 0 {
+		return flagValue
+	}
+	if cfg.MaxTurns > 0 {
+		return cfg.MaxTurns
+	}
+	return DefaultMaxTurns
 }

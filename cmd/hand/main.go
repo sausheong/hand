@@ -112,6 +112,7 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
 	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.hand/config.json for this run; not supported for gemini)")
+	maxTurnsFlag := flag.Int("max-turns", 0, "cap the agent's tool-use loop for this run (overrides ~/.hand/config.json for this run; 0 means use the config/default)")
 	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
@@ -134,6 +135,7 @@ func run() error {
 	}
 	model := config.ResolveModel(*modelFlag, cfg)
 	baseURL := config.ResolveBaseURL(*baseURLFlag, cfg)
+	maxTurns := config.ResolveMaxTurns(*maxTurnsFlag, cfg)
 
 	providerName, _ := llm.ParseProviderModel(model)
 	if providerName == "" {
@@ -162,7 +164,7 @@ func run() error {
 		sender = &programSender{}
 		hook = agentio.NewApprovalHook(sender, perms, workspace)
 	}
-	spec := agentio.BuildAgentSpec(model, workspace, hook)
+	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, hook)
 	reg := agentio.BuildRegistry(workspace)
 
 	storeDir, err := sessionio.StoreDir()

@@ -14,7 +14,7 @@ func TestBuildAgentSpec_SetsExpectedFields(t *testing.T) {
 		return runtime.HookDecision{Allow: true}, nil
 	}
 
-	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", hook)
+	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, hook)
 
 	if spec.Model != "anthropic/claude-sonnet-5" {
 		t.Errorf("Model = %q, want %q", spec.Model, "anthropic/claude-sonnet-5")
@@ -25,8 +25,8 @@ func TestBuildAgentSpec_SetsExpectedFields(t *testing.T) {
 	if spec.SystemPrompt == "" {
 		t.Error("SystemPrompt is empty")
 	}
-	if spec.MaxTurns <= 0 {
-		t.Errorf("MaxTurns = %d, want > 0", spec.MaxTurns)
+	if spec.MaxTurns != 42 {
+		t.Errorf("MaxTurns = %d, want 42", spec.MaxTurns)
 	}
 	if spec.Loop.Hooks.BeforeToolUse == nil {
 		t.Error("Loop.Hooks.BeforeToolUse is nil, want the provided hook")
