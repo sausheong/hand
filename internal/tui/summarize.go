@@ -133,8 +133,12 @@ func summarizeToolResult(output string) string {
 		truncated = true
 	}
 	snippet := strings.Join(lines, "\n")
-	if len(snippet) > toolResultMaxChars {
-		snippet = snippet[:toolResultMaxChars]
+	// Rune-slice, not byte-slice: tool output routinely contains
+	// multi-byte UTF-8 (file contents, bash/web output in any language,
+	// emoji), and byte-slicing at an arbitrary boundary can split a
+	// character in two, producing invalid UTF-8 that then gets rendered.
+	if r := []rune(snippet); len(r) > toolResultMaxChars {
+		snippet = string(r[:toolResultMaxChars])
 		truncated = true
 	}
 	if truncated {

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
 
 func TestSummarizeToolCall(t *testing.T) {
@@ -93,6 +94,31 @@ func TestSummarizeToolResult_ShowsOutputAtTheLineLimitInFull(t *testing.T) {
 		if !strings.Contains(got, line) {
 			t.Fatalf("summarizeToolResult output missing line %q", line)
 		}
+	}
+}
+
+// Regression: truncation must slice on rune boundaries, not byte
+// boundaries. Tool output routinely contains multi-byte UTF-8 (file
+// contents, bash/web output in any language, emoji); byte-slicing at
+// toolResultMaxChars can land in the middle of a multi-byte character
+// and produce invalid UTF-8.
+func TestSummarizeToolResult_TruncatesOnRuneBoundary(t *testing.T) {
+	// Constructed so a byte-boundary slice at exactly toolResultMaxChars
+	// bytes is guaranteed to land one byte into a multi-byte character,
+	// regardless of toolResultMaxChars's value: the (toolResultMaxChars-1)
+	// -byte ASCII prefix exactly fills bytes [0, toolResultMaxChars-1),
+	// so a [:toolResultMaxChars] byte-slice includes exactly one more
+	// byte — the first byte of "€" (3 bytes) — never a complete
+	// character. (A fixed multi-byte repeat like strings.Repeat("é", n)
+	// would only catch this if toolResultMaxChars doesn't happen to be
+	// a multiple of "é"'s byte width — this construction doesn't rely
+	// on that coincidence.)
+	input := strings.Repeat("a", toolResultMaxChars-1) + strings.Repeat("€", 20)
+
+	got := summarizeToolResult(input)
+
+	if !utf8.ValidString(got) {
+		t.Fatalf("summarizeToolResult produced invalid UTF-8: %q", got)
 	}
 }
 
