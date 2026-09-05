@@ -1,6 +1,7 @@
 package config_test
 
 import (
+	"math"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -252,6 +253,35 @@ func TestTrustedMCPServers_ReturnsOnlyTrustedNames(t *testing.T) {
 	}
 }
 
+func TestAllMCPServerNames_ReturnsEveryNameTrustedOrNot(t *testing.T) {
+	cfg := config.Config{
+		MCPServers: []config.MCPServer{
+			{Name: "github", Command: "npx", Trusted: true},
+			{Name: "untrusted-server", Command: "npx", Trusted: false},
+			{Name: "remote", URL: "https://example.com/mcp", Trusted: true},
+		},
+	}
+
+	got := cfg.AllMCPServerNames()
+
+	want := []string{"github", "untrusted-server", "remote"}
+	if len(got) != len(want) {
+		t.Fatalf("AllMCPServerNames() = %v, want %v", got, want)
+	}
+	for i, name := range want {
+		if got[i] != name {
+			t.Fatalf("AllMCPServerNames()[%d] = %q, want %q", i, got[i], name)
+		}
+	}
+}
+
+func TestAllMCPServerNames_EmptyReturnsNil(t *testing.T) {
+	got := config.Config{}.AllMCPServerNames()
+	if got != nil {
+		t.Fatalf("AllMCPServerNames() = %+v, want nil for a config with no MCP servers", got)
+	}
+}
+
 func TestResolveMaxTurns_FlagOverridesConfigOverridesDefault(t *testing.T) {
 	cases := []struct {
 		name      string
@@ -404,6 +434,24 @@ func TestResolveCompactionThreshold_FlagOverridesConfigOverridesDefault(t *testi
 // file, not passed through to produce one of those extremes.
 func TestResolveCompactionThreshold_RejectsOutOfRangeValues(t *testing.T) {
 	for _, bad := range []float64{0, -0.5, 1.1, 5} {
+		got := config.ResolveCompactionThreshold(bad, config.Config{})
+		if got != config.DefaultCompactionThreshold {
+			t.Fatalf("ResolveCompactionThreshold(%v, {}) = %v, want the default %v", bad, got, config.DefaultCompactionThreshold)
+		}
+		got = config.ResolveCompactionThreshold(0, config.Config{CompactionThreshold: bad})
+		if got != config.DefaultCompactionThreshold {
+			t.Fatalf("ResolveCompactionThreshold(0, {CompactionThreshold: %v}) = %v, want the default %v", bad, got, config.DefaultCompactionThreshold)
+		}
+	}
+}
+
+// Regression: NaN and +/-Inf both fail every ordinary comparison against
+// (0, 1] (NaN compares false to everything; +Inf and -Inf compare false
+// or true in ways that could slip past a careless check), so a flag or
+// config value corrupted into one of these must still fall back to the
+// default rather than propagate into harness's compaction math.
+func TestResolveCompactionThreshold_RejectsNaNAndInf(t *testing.T) {
+	for _, bad := range []float64{math.NaN(), math.Inf(1), math.Inf(-1)} {
 		got := config.ResolveCompactionThreshold(bad, config.Config{})
 		if got != config.DefaultCompactionThreshold {
 			t.Fatalf("ResolveCompactionThreshold(%v, {}) = %v, want the default %v", bad, got, config.DefaultCompactionThreshold)
