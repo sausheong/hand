@@ -76,6 +76,33 @@ func TestModel_ToolCallAndResultRender(t *testing.T) {
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
 }
 
+func TestModel_ToolCallShowsInputAndResultDetail(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner)
+
+	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
+	m.BindProgram(tm.GetProgram())
+
+	tm.Type("what does model.go do")
+	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
+
+	events <- runtime.AgentEvent{
+		Type:     runtime.EventToolCallStart,
+		ToolCall: &llm.ToolCall{Name: "read_file", Input: json.RawMessage(`{"path":"internal/tui/model.go"}`)},
+	}
+	events <- runtime.AgentEvent{Type: runtime.EventToolResult, Result: &tool.ToolResult{Output: "package tui\n"}}
+	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	close(events)
+
+	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
+		return contains(bts, "[tool: read_file] internal/tui/model.go") && contains(bts, "package tui")
+	}, teatest.WithDuration(2*time.Second))
+
+	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
+	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
 func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
 	events := make(chan runtime.AgentEvent, 4)
 	runner := &fakeRunner{events: events}

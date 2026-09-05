@@ -26,6 +26,9 @@ import (
 	"github.com/sausheong/harness/session"
 )
 
+// version is shown in the TUI's startup banner.
+const version = "0.1.0"
+
 // programSender adapts a *tea.Program to agentio.Sender, whose method
 // signature uses `any` (not bubbletea's tea.Msg) so the agentio package
 // itself has no dependency on the TUI framework. Program is set after
@@ -197,6 +200,14 @@ func run() error {
 	}
 
 	m := tui.NewModel(rt)
+	m.SetBanner(version, model, workspace)
+	m.SetController(&tui.Controller{
+		Rt:            rt,
+		Store:         store,
+		SessionKey:    sessionKey,
+		BaseURL:       baseURL,
+		BuildProvider: buildProvider,
+	})
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)
 	}

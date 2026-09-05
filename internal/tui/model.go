@@ -2,6 +2,7 @@ package tui
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -9,6 +10,7 @@ import (
 	"github.com/charmbracelet/bubbles/textarea"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 
 	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/llm"
@@ -28,8 +30,9 @@ type Runner interface {
 // between the Program and the approval hook that needs to Send into it
 // (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
-	rt      Runner
-	program *tea.Program
+	rt         Runner
+	program    *tea.Program
+	controller *Controller // optional; nil in tests that only exercise Runner
 
 	viewport viewport.Model
 	textarea textarea.Model
@@ -41,6 +44,11 @@ type Model struct {
 	running bool
 	pending *agentio.ApprovalRequest
 	cancel  context.CancelFunc
+
+	// suggestIndex is the highlighted row in the slash-command
+	// auto-complete dropdown (see commandSuggestions/renderSuggestions in
+	// commands.go), moved by the up/down keys while the dropdown is shown.
+	suggestIndex int
 
 	// termWidth/termHeight cache the last WindowSizeMsg. The approval
 	// panel's height varies with the pending request's Preview (a diff
@@ -79,6 +87,27 @@ func NewModel(rt Runner) *Model {
 // used to launch the per-turn StreamEvents goroutine.
 func (m *Model) BindProgram(p *tea.Program) {
 	m.program = p
+}
+
+// SetBanner prepends the startup banner (version/model/workspace) to the
+// transcript. Call once, right after NewModel and before LoadHistory, so
+// the banner sits above any resumed conversation.
+func (m *Model) SetBanner(version, model, workspace string) {
+	banner := []string{
+		userLineStyle.Render("Hand") + statusIdleStyle.Render(" "+version),
+		statusIdleStyle.Render(model),
+		statusIdleStyle.Render(workspace),
+		"",
+	}
+	m.transcript = append(banner, m.transcript...)
+	m.refreshViewport()
+}
+
+// SetController wires up slash commands that need state beyond the
+// Runner interface (/model, /new, /compact). Without it those commands
+// report themselves unavailable; /exit, /help, and /clear work regardless.
+func (m *Model) SetController(c *Controller) {
+	m.controller = c
 }
 
 func (m *Model) Init() tea.Cmd {
@@ -141,6 +170,39 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		return m, nil
 	}
 
+	// While the slash-command auto-complete dropdown is showing, up/down
+	// move the highlight, tab completes the highlighted name into the
+	// input (leaving room to type arguments), enter runs it directly, and
+	// esc dismisses it — all instead of their normal textarea behavior.
+	if suggestions := m.commandSuggestions(); len(suggestions) > 0 {
+		switch msg.String() {
+		case "up", "ctrl+p":
+			m.suggestIndex--
+			if m.suggestIndex < 0 {
+				m.suggestIndex = len(suggestions) - 1
+			}
+			return m, nil
+		case "down", "ctrl+n":
+			m.suggestIndex = (m.suggestIndex + 1) % len(suggestions)
+			return m, nil
+		case "tab":
+			m.completeSuggestion(suggestions)
+			return m, nil
+		case "enter":
+			if m.suggestIndex < 0 || m.suggestIndex >= len(suggestions) {
+				m.suggestIndex = 0
+			}
+			text := suggestions[m.suggestIndex].name
+			m.textarea.Reset()
+			m.suggestIndex = 0
+			return m, m.handleCommand(text)
+		case "esc":
+			m.textarea.Reset()
+			m.suggestIndex = 0
+			return m, nil
+		}
+	}
+
 	switch msg.String() {
 	case "ctrl+c":
 		if m.running && m.cancel != nil {
@@ -157,9 +219,14 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		if text == "" {
 			return m, nil
 		}
+		if isCommand(text) {
+			m.textarea.Reset()
+			return m, m.handleCommand(text)
+		}
 		return m, m.startRun(text)
 	}
 
+	m.suggestIndex = 0
 	var cmd tea.Cmd
 	m.textarea, cmd = m.textarea.Update(msg)
 	return m, cmd
@@ -200,15 +267,28 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 	case runtime.EventToolCallStart:
 		m.flushStream()
 		name := "?"
+		var input json.RawMessage
 		if ev.ToolCall != nil {
 			name = ev.ToolCall.Name
+			input = ev.ToolCall.Input
 		}
-		m.transcript = append(m.transcript, toolCallStyle.Render(fmt.Sprintf("[tool: %s]", name)))
+		line := fmt.Sprintf("[tool: %s]", name)
+		if detail := summarizeToolCall(name, input); detail != "" {
+			line = fmt.Sprintf("[tool: %s] %s", name, detail)
+		}
+		m.transcript = append(m.transcript, toolCallStyle.Render(line))
 
 	case runtime.EventToolResult:
-		if ev.Result != nil && ev.Result.Error != "" {
+		switch {
+		case ev.Result != nil && ev.Result.Error != "":
 			m.transcript = append(m.transcript, toolErrStyle.Render("  ✗ "+ev.Result.Error))
-		} else {
+		case ev.Result != nil:
+			line := toolOKStyle.Render("  ✓")
+			if snippet := summarizeToolResult(ev.Result.Output); snippet != "" {
+				line += "\n" + toolCallStyle.Render(snippet)
+			}
+			m.transcript = append(m.transcript, line)
+		default:
 			m.transcript = append(m.transcript, toolOKStyle.Render("  ✓"))
 		}
 
@@ -239,7 +319,7 @@ func (m *Model) refreshViewport() {
 	if m.streamBuf.Len() > 0 {
 		content += "\n" + m.streamBuf.String()
 	}
-	m.viewport.SetContent(content)
+	m.viewport.SetContent(wrapToWidth(content, m.termWidth))
 
 	// inputHeight is the textarea's own rows; borderRows accounts for the
 	// rounded border View() draws around it (1 row top + 1 bottom).
@@ -257,6 +337,18 @@ func (m *Model) refreshViewport() {
 	m.viewport.GotoBottom()
 }
 
+// wrapToWidth word-wraps s (which may contain lipgloss/ANSI styling) to
+// width columns, so long lines break instead of overflowing the
+// viewport's fixed-height scroll region. bubbles/viewport counts
+// content by newline, not display row, so unwrapped long lines would
+// desync scrolling from what's actually visible.
+func wrapToWidth(s string, width int) string {
+	if width < 1 {
+		return s
+	}
+	return lipgloss.NewStyle().Width(width).Render(s)
+}
+
 func (m *Model) resize(width, height int) {
 	m.termWidth = width
 	m.termHeight = height
@@ -267,13 +359,17 @@ func (m *Model) resize(width, height int) {
 // bottomHeight returns how many lines the status/approval area below the
 // viewport currently occupies.
 func (m *Model) bottomHeight() int {
-	if m.pending == nil {
-		return 1 // the plain status line
+	if m.pending != nil {
+		if m.pending.Preview == "" {
+			return 1 // just the question line
+		}
+		wrapped := wrapToWidth(renderPreview(m.pending.Preview), m.termWidth)
+		return strings.Count(wrapped, "\n") + 1 /* last preview line */ + 1 /* question line */
 	}
-	if m.pending.Preview == "" {
-		return 1 // just the question line
+	if suggestions := m.commandSuggestions(); len(suggestions) > 0 {
+		return len(suggestions)
 	}
-	return strings.Count(m.pending.Preview, "\n") + 1 /* last preview line */ + 1 /* question line */
+	return 1 // the plain status line
 }
 
 func (m *Model) statusLine() string {
@@ -290,7 +386,7 @@ func (m *Model) approvalPanel() string {
 	if m.pending.Preview == "" {
 		return question
 	}
-	return renderPreview(m.pending.Preview) + "\n" + question
+	return wrapToWidth(renderPreview(m.pending.Preview), m.termWidth) + "\n" + question
 }
 
 // renderPreview colors an agentio-built preview line by line: "+ " lines
@@ -316,8 +412,13 @@ func renderPreview(preview string) string {
 
 func (m *Model) View() string {
 	bottom := m.statusLine()
-	if m.pending != nil {
+	switch {
+	case m.pending != nil:
 		bottom = m.approvalPanel()
+	default:
+		if suggestions := m.commandSuggestions(); len(suggestions) > 0 {
+			bottom = m.renderSuggestions(suggestions)
+		}
 	}
 	return m.viewport.View() + "\n" + bottom + "\n" + inputBorderStyle.Render(m.textarea.View())
 }
