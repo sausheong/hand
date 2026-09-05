@@ -75,12 +75,11 @@ func TestSummarizeToolResult(t *testing.T) {
 	}
 }
 
-// Regression: a typical `go test`/`git diff`-sized output (well under
-// the old 6-line/500-char limits, comfortably under the current ones)
-// must show in full, not just a token gesture at the first couple of
-// lines before "(truncated)" kicks in.
-func TestSummarizeToolResult_ShowsModeratelyLongOutputInFull(t *testing.T) {
-	lines := make([]string, 20)
+// Regression: the preview is deliberately terse (toolResultMaxLines) —
+// an output at or under that limit must show in full, not get cut a
+// line early.
+func TestSummarizeToolResult_ShowsOutputAtTheLineLimitInFull(t *testing.T) {
+	lines := make([]string, toolResultMaxLines)
 	for i := range lines {
 		lines[i] = fmt.Sprintf("--- FAIL: TestSomething%d (0.00s)", i)
 	}
@@ -88,7 +87,7 @@ func TestSummarizeToolResult_ShowsModeratelyLongOutputInFull(t *testing.T) {
 
 	got := summarizeToolResult(output)
 	if strings.Contains(got, "(truncated)") {
-		t.Fatalf("summarizeToolResult truncated a %d-line output, want it shown in full (max is %d lines)", len(lines), toolResultMaxLines)
+		t.Fatalf("summarizeToolResult truncated a %d-line output at exactly the line limit, want it shown in full", len(lines))
 	}
 	for _, line := range lines {
 		if !strings.Contains(got, line) {

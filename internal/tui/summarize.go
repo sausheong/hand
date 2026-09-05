@@ -106,16 +106,15 @@ func truncateOneLine(s string, max int) string {
 
 // toolResultMaxLines and toolResultMaxChars cap the tool-result snippet
 // shown under the ✓ in the transcript — a preview of what the tool
-// actually returned, not the full (possibly huge) output. Generous
-// enough that a typical `go test`/`git diff`/build-error output shows
-// in full without immediately needing to scroll back for it (full
-// history is still just a pgup/pgdown or mouse-wheel scroll away —
-// see the viewport scroll handling in handleKey/Update); still capped
-// so a single command dumping megabytes of output can't blow up
-// rendering or memory.
+// actually returned, not the full (possibly huge) output. Deliberately
+// terse: the transcript stays scannable at a glance, and the full
+// output is still just a pgup/pgdown or mouse-wheel scroll away — see
+// the viewport scroll handling in handleKey/Update — or, for the tool
+// call itself, in whatever produced the output in the first place
+// (the file on disk, the command's own terminal if run outside hand).
 const (
-	toolResultMaxLines = 30
-	toolResultMaxChars = 4000
+	toolResultMaxLines = 5
+	toolResultMaxChars = 500
 )
 
 // summarizeToolResult renders an indented preview of a successful tool
