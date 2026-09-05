@@ -15,15 +15,18 @@ const SystemPrompt = `You are Hand, a terminal-based coding assistant. You can r
 // process. hook is wired as Loop.Hooks.BeforeToolUse — callers pass the
 // closure returned by NewApprovalHook. maxTurns caps the tool-use loop
 // for a single run; callers resolve it (flag, config, or default) via
-// internal/config.ResolveMaxTurns before calling this.
-func BuildAgentSpec(model, workspace string, maxTurns int, hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)) runtime.AgentSpec {
+// internal/config.ResolveMaxTurns before calling this. fallbackModel is
+// the "provider/model" to retry against on a transient provider error;
+// empty means no fallback — harness treats "" as "no fallback".
+func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string, hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)) runtime.AgentSpec {
 	return runtime.AgentSpec{
-		ID:           "hand",
-		Name:         "Hand",
-		Model:        model,
-		Workspace:    workspace,
-		SystemPrompt: SystemPrompt,
-		MaxTurns:     maxTurns,
+		ID:            "hand",
+		Name:          "Hand",
+		Model:         model,
+		FallbackModel: fallbackModel,
+		Workspace:     workspace,
+		SystemPrompt:  SystemPrompt,
+		MaxTurns:      maxTurns,
 		Loop: runtime.LoopConfig{
 			Hooks: runtime.LifecycleHooks{
 				BeforeToolUse: hook,
