@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/sausheong/harness/runtime"
+	"github.com/sausheong/harness/tools/mcp"
 )
 
 // baseSystemPrompt is Hand's fixed identity prompt.
@@ -45,7 +46,10 @@ func BuildSystemPrompt(workspace string) string {
 // internal/config.ResolveMaxTurns before calling this. fallbackModel is
 // the "provider/model" to retry against on a transient provider error;
 // empty means no fallback — harness treats "" as "no fallback".
-func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string, hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)) runtime.AgentSpec {
+// mcpServers is passed straight through to AgentSpec.MCPServers for
+// BuildRuntime to connect; nil/empty preserves today's zero-servers
+// behavior unchanged.
+func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string, mcpServers []mcp.ServerConfig, hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)) runtime.AgentSpec {
 	return runtime.AgentSpec{
 		ID:            "hand",
 		Name:          "Hand",
@@ -54,6 +58,7 @@ func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string,
 		Workspace:     workspace,
 		SystemPrompt:  BuildSystemPrompt(workspace),
 		MaxTurns:      maxTurns,
+		MCPServers:    mcpServers,
 		Loop: runtime.LoopConfig{
 			Hooks: runtime.LifecycleHooks{
 				BeforeToolUse: hook,
