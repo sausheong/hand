@@ -3,6 +3,7 @@ package config_test
 import (
 	"os"
 	"path/filepath"
+	"reflect"
 	"testing"
 
 	"github.com/sausheong/hand/internal/config"
@@ -41,7 +42,7 @@ func TestSaveLoad_RoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load returned error: %v", err)
 	}
-	if got != want {
+	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("Load() = %+v, want %+v", got, want)
 	}
 }
@@ -58,7 +59,7 @@ func TestSaveLoad_RoundTripWithBaseURL(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load returned error: %v", err)
 	}
-	if got != want {
+	if !reflect.DeepEqual(got, want) {
 		t.Fatalf("Load() = %+v, want %+v", got, want)
 	}
 }
@@ -139,6 +140,114 @@ func TestResolveFallbackModel_FlagOverridesConfig(t *testing.T) {
 				t.Fatalf("ResolveFallbackModel(%q, %+v) = %q, want %q", tc.flagValue, tc.cfg, got, tc.want)
 			}
 		})
+	}
+}
+
+func TestSaveLoad_RoundTripWithMCPServers(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "config.json")
+	want := config.Config{
+		Model: "anthropic/claude-sonnet-5",
+		MCPServers: []config.MCPServer{
+			{Name: "github", Command: "npx", Args: []string{"-y", "@modelcontextprotocol/server-github"}, Env: map[string]string{"TOKEN": "x"}, Trusted: true},
+			{Name: "remote", URL: "https://example.com/mcp", Headers: map[string]string{"Authorization": "Bearer x"}},
+		},
+	}
+
+	if err := config.Save(path, want); err != nil {
+		t.Fatalf("Save returned error: %v", err)
+	}
+
+	got, err := config.Load(path)
+	if err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+	if !reflect.DeepEqual(got.MCPServers, want.MCPServers) {
+		t.Fatalf("MCPServers = %+v, want %+v", got.MCPServers, want.MCPServers)
+	}
+}
+
+func TestLoad_MissingMCPServersDefaultsEmpty(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "config.json")
+	if err := os.WriteFile(path, []byte(`{"model":"anthropic/claude-sonnet-5"}`), 0o644); err != nil {
+		t.Fatalf("WriteFile returned error: %v", err)
+	}
+
+	got, err := config.Load(path)
+	if err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+	if len(got.MCPServers) != 0 {
+		t.Fatalf("MCPServers = %+v, want empty for a pre-existing config file without mcp_servers", got.MCPServers)
+	}
+}
+
+func TestToServerConfigs_FieldByFieldMapping(t *testing.T) {
+	cfg := config.Config{
+		MCPServers: []config.MCPServer{
+			{
+				Name:    "github",
+				Command: "npx",
+				Args:    []string{"-y", "server"},
+				Env:     map[string]string{"TOKEN": "x"},
+				Trusted: true,
+			},
+			{
+				Name:    "remote",
+				URL:     "https://example.com/mcp",
+				Headers: map[string]string{"Authorization": "Bearer x"},
+			},
+		},
+	}
+
+	got := cfg.ToServerConfigs()
+	if len(got) != 2 {
+		t.Fatalf("ToServerConfigs() len = %d, want 2", len(got))
+	}
+
+	if got[0].Name != "github" || got[0].Command != "npx" || got[0].Args[0] != "-y" || got[0].Args[1] != "server" || got[0].Env["TOKEN"] != "x" {
+		t.Fatalf("ToServerConfigs()[0] = %+v, want fields copied from MCPServers[0]", got[0])
+	}
+	if got[0].URL != "" || got[0].Headers != nil {
+		t.Fatalf("ToServerConfigs()[0] = %+v, want URL/Headers left zero for a stdio server", got[0])
+	}
+
+	if got[1].Name != "remote" || got[1].URL != "https://example.com/mcp" || got[1].Headers["Authorization"] != "Bearer x" {
+		t.Fatalf("ToServerConfigs()[1] = %+v, want fields copied from MCPServers[1]", got[1])
+	}
+	if got[1].Command != "" || got[1].Args != nil {
+		t.Fatalf("ToServerConfigs()[1] = %+v, want Command/Args left zero for an HTTP server", got[1])
+	}
+}
+
+func TestToServerConfigs_EmptyReturnsNil(t *testing.T) {
+	got := config.Config{}.ToServerConfigs()
+	if got != nil {
+		t.Fatalf("ToServerConfigs() = %+v, want nil for a config with no MCP servers", got)
+	}
+}
+
+func TestTrustedMCPServers_ReturnsOnlyTrustedNames(t *testing.T) {
+	cfg := config.Config{
+		MCPServers: []config.MCPServer{
+			{Name: "github", Command: "npx", Trusted: true},
+			{Name: "untrusted-server", Command: "npx", Trusted: false},
+			{Name: "remote", URL: "https://example.com/mcp", Trusted: true},
+		},
+	}
+
+	got := cfg.TrustedMCPServers()
+
+	if !got["github"] {
+		t.Error(`TrustedMCPServers()["github"] = false, want true`)
+	}
+	if !got["remote"] {
+		t.Error(`TrustedMCPServers()["remote"] = false, want true`)
+	}
+	if got["untrusted-server"] {
+		t.Error(`TrustedMCPServers()["untrusted-server"] = true, want false`)
+	}
+	if len(got) != 2 {
+		t.Fatalf("TrustedMCPServers() = %+v, want exactly 2 entries", got)
 	}
 }
 

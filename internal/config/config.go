@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"github.com/sausheong/harness/tools/mcp"
 )
 
 // DefaultModel is used when no config file exists yet.
@@ -35,6 +37,27 @@ type Config struct {
 	// through unparsed — runtime.AgentSpec.FallbackModel does its own
 	// same-provider validation. Empty means no fallback.
 	FallbackModel string `json:"fallback_model,omitempty"`
+	// MCPServers lists the MCP servers to connect at startup. Empty
+	// means no extensions — hand's built-in tool set only.
+	MCPServers []MCPServer `json:"mcp_servers,omitempty"`
+}
+
+// MCPServer is one entry in config.json's mcp_servers list. Exactly one
+// of Command or URL should be set, matching mcp.ServerConfig's own
+// transport rule. Trusted is hand-side only (not part of
+// mcp.ServerConfig) — it controls approval gating for this server's
+// tools, not the connection itself.
+type MCPServer struct {
+	Name    string            `json:"name"`
+	Command string            `json:"command,omitempty"`
+	Args    []string          `json:"args,omitempty"`
+	Env     map[string]string `json:"env,omitempty"`
+	URL     string            `json:"url,omitempty"`
+	Headers map[string]string `json:"headers,omitempty"`
+	// Trusted skips approval gating for every tool this server exposes.
+	// Default false: an MCP tool is gated like bash/write_file/edit_file
+	// until its server is marked trusted.
+	Trusted bool `json:"trusted,omitempty"`
 }
 
 // DefaultPath returns ~/.hand/config.json for the current user.
@@ -129,4 +152,39 @@ func ResolveFallbackModel(flagValue string, cfg Config) string {
 		return flagValue
 	}
 	return cfg.FallbackModel
+}
+
+// ToServerConfigs converts cfg.MCPServers to harness's mcp.ServerConfig
+// type, dropping the hand-only Trusted flag (approval gating, handled
+// separately by TrustedMCPServers, has no place in mcp.ServerConfig).
+func (cfg Config) ToServerConfigs() []mcp.ServerConfig {
+	if len(cfg.MCPServers) == 0 {
+		return nil
+	}
+	servers := make([]mcp.ServerConfig, len(cfg.MCPServers))
+	for i, s := range cfg.MCPServers {
+		servers[i] = mcp.ServerConfig{
+			Name:    s.Name,
+			Command: s.Command,
+			Args:    s.Args,
+			Env:     s.Env,
+			URL:     s.URL,
+			Headers: s.Headers,
+		}
+	}
+	return servers
+}
+
+// TrustedMCPServers returns the set of server names marked Trusted, for
+// NewApprovalHook/NewOneShotApprovalHook's gating check. A server absent
+// from cfg.MCPServers (or present but not trusted) is simply not a key
+// in the returned map.
+func (cfg Config) TrustedMCPServers() map[string]bool {
+	trusted := make(map[string]bool)
+	for _, s := range cfg.MCPServers {
+		if s.Trusted {
+			trusted[s.Name] = true
+		}
+	}
+	return trusted
 }
