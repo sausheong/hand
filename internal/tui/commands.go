@@ -205,7 +205,7 @@ func (m *Model) runUsageCommand() {
 			u.InputTokens, u.OutputTokens, u.CacheCreationInputTokens, u.CacheReadInputTokens),
 		fmt.Sprintf("last turn: %s tok in %s", formatTokenCount(totalTokens(*u)), formatDuration(m.lastTurnDuration)),
 		fmt.Sprintf("session total: %s tok", formatTokenCount(totalTokens(m.sessionUsage))),
-		fmt.Sprintf("context: %s", m.contextSummary()),
+		m.contextSummary(),
 	}
 	m.transcript = append(m.transcript, toolCallStyle.Render(strings.Join(lines, "\n")))
 }

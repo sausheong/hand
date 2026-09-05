@@ -3,6 +3,7 @@ package tui
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -466,6 +467,72 @@ func TestModel_RunEndedMsgFreezesLastTurnDuration(t *testing.T) {
 
 	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
+func TestUsageLine_ShowsLiveTurnEstimateWhileRunning(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.running = true
+	m.streamBuf.WriteString(strings.Repeat("a", 400)) // 400/4 = 100 estimated tokens
+
+	got := m.usageLine()
+	if !strings.Contains(got, "turn ~100 tok") {
+		t.Fatalf("usageLine() = %q, want a live \"turn ~100 tok\" estimate while streaming", got)
+	}
+}
+
+func TestUsageLine_ShowsCompletedTurnTotalWhenIdle(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.lastUsage = &llm.Usage{InputTokens: 100, OutputTokens: 20}
+
+	got := m.usageLine()
+	if !strings.Contains(got, "turn 120 tok") {
+		t.Fatalf("usageLine() = %q, want the completed turn's real total (120 tok), not an estimate", got)
+	}
+}
+
+// Regression: the reported ctx figure must be flagged, not just quietly
+// stated, once it crosses contextAlertThreshold — this is the user's
+// signal that harness's automatic preventive compaction (or a manual
+// /compact) is worth watching for.
+func TestContextSummary_UsesAlertStyleAboveThreshold(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.setModel("anthropic/claude-sonnet-5") // 200k window
+	m.lastUsage = &llm.Usage{InputTokens: 190_000}
+
+	got := m.contextSummary()
+	want := statusAlertStyle.Render(fmt.Sprintf("ctx %s/%s (%.0f%%)", formatTokenCount(190_000), formatTokenCount(200_000), 95.0))
+	if got != want {
+		t.Fatalf("contextSummary() = %q, want alert-styled %q", got, want)
+	}
+}
+
+func TestContextSummary_UsesIdleStyleBelowThreshold(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.setModel("anthropic/claude-sonnet-5") // 200k window
+	m.lastUsage = &llm.Usage{InputTokens: 10_000}
+
+	got := m.contextSummary()
+	want := statusIdleStyle.Render(fmt.Sprintf("ctx %s/%s (%.0f%%)", formatTokenCount(10_000), formatTokenCount(200_000), 5.0))
+	if got != want {
+		t.Fatalf("contextSummary() = %q, want idle-styled %q", got, want)
+	}
+}
+
+// Regression: while text is still streaming in, the viewport must show
+// it rendered as Markdown live (not just once the block flushes) —
+// verified structurally (content survives rendering) rather than by
+// asserting exact ANSI bytes, since glamour's styling depends on
+// terminal color-profile detection which a headless `go test` run
+// can't provide the same way a real TTY does.
+func TestModel_LiveStreamRendersMarkdownBeforeFlush(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "some **bold** text"})
+	m.refreshViewport()
+
+	content := m.viewport.View()
+	if !strings.Contains(content, "bold") {
+		t.Fatalf("viewport content = %q, want it to contain the live streaming text", content)
+	}
 }
 
 func TestRunModelCommand_RefreshesContextWindowOnSwitch(t *testing.T) {

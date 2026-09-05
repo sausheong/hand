@@ -360,11 +360,10 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 
 // flushStream moves the in-progress assistant text block into the
 // transcript, rendered as Markdown (see renderMarkdown) now that the
-// block is complete. Text still arriving mid-stream (shown live via
-// refreshViewport reading m.streamBuf directly) stays plain — re-running
-// glamour on every delta would be redone work on every single token and
-// risks rendering visibly malformed output for markup that isn't closed
-// yet (an open code fence, a half-written bold marker).
+// block is complete — matching what refreshViewport already showed live
+// while it was streaming (see renderMarkdown's docs on re-rendering the
+// growing buffer on every delta), so there's no visible pop/reflow
+// between the last live frame and the flushed transcript line.
 func (m *Model) flushStream() {
 	if m.streamBuf.Len() == 0 {
 		return
@@ -376,7 +375,19 @@ func (m *Model) flushStream() {
 func (m *Model) refreshViewport() {
 	content := strings.Join(m.transcript, "\n")
 	if m.streamBuf.Len() > 0 {
-		content += "\n" + m.streamBuf.String()
+		// Re-rendering the whole buffer as Markdown on every delta (not
+		// just once at flushStream) means headings/bold/code fences show
+		// live instead of popping into styled form only once the block
+		// completes. Re-parsing a growing buffer on every delta is
+		// O(n²) over one message's full stream, but glamour renders a
+		// message-sized buffer in low-single-digit milliseconds, and
+		// providers stream in word/sentence chunks (tens, not
+		// thousands, of deltas per message) — imperceptible next to the
+		// network latency between deltas. Markup that isn't closed yet
+		// (an open code fence, a half-written "**") may render oddly
+		// for a frame or two until the closing token arrives; harmless
+		// and self-corrects on the next delta.
+		content += "\n" + renderMarkdown(m.streamBuf.String(), m.termWidth)
 	}
 	m.viewport.SetContent(wrapToWidth(content, m.termWidth))
 
@@ -435,46 +446,77 @@ func (m *Model) bottomHeight() int {
 // elapsed timer while a turn is in flight) plus the context/token gauge
 // from usageLine. Unlike /usage (a one-shot transcript entry), this is
 // redrawn on every Update — including the spinner's own tick — so the
-// elapsed time visibly counts up during a turn.
+// elapsed time and (while streaming) the token estimate visibly move
+// during a turn instead of sitting frozen at the previous turn's
+// numbers. Segments are styled individually (statusIdleStyle each,
+// contextSummary sometimes statusAlertStyle) and joined with a plain
+// separator, rather than wrapping the whole line in one outer Render —
+// lipgloss's reset-on-render would otherwise cancel a differently-styled
+// inner segment's color for everything after it.
 func (m *Model) statusLine() string {
 	left := statusIdleStyle.Render("ready")
 	if m.running {
 		left = m.spinner.View() + statusIdleStyle.Render(fmt.Sprintf(" working... %s", formatDuration(time.Since(m.turnStart))))
 	}
-	return left + statusIdleStyle.Render("   "+m.usageLine())
+	return left + "   " + m.usageLine()
 }
 
 // usageLine renders the context-window gauge plus running token/turn
-// totals — context (how much of the model's window the last turn's
-// final request used), the last completed turn's own token cost and
-// duration, and the session's cumulative token cost (this hand process
-// only; see sessionUsage).
+// totals: context (how much of the model's window the last completed
+// turn's final request used), this turn's token cost, and the session's
+// cumulative token cost (this hand process only; see sessionUsage).
+//
+// While a turn is running, "turn" shows a live, clearly-labeled estimate
+// of the response so far (chars/4, the same rough heuristic
+// harness's own tokens.Estimate uses) instead of the previous turn's
+// now-stale total — actual usage numbers only arrive once per turn, on
+// EventDone, so a live count during streaming can only ever be an
+// estimate, not the real thing.
 func (m *Model) usageLine() string {
-	turnTok := 0
-	if m.lastUsage != nil {
-		turnTok = totalTokens(*m.lastUsage)
+	var turnSeg string
+	switch {
+	case m.running:
+		turnSeg = fmt.Sprintf("turn ~%s tok", formatTokenCount(len(m.streamBuf.String())/4))
+	case m.lastUsage != nil:
+		turnSeg = fmt.Sprintf("turn %s tok", formatTokenCount(totalTokens(*m.lastUsage)))
+	default:
+		turnSeg = "turn 0 tok"
 	}
+
+	sep := statusIdleStyle.Render("  ·  ")
 	parts := []string{
-		"ctx " + m.contextSummary(),
-		"turn " + formatTokenCount(turnTok) + " tok",
-		"session " + formatTokenCount(totalTokens(m.sessionUsage)) + " tok",
+		m.contextSummary(),
+		statusIdleStyle.Render(turnSeg),
+		statusIdleStyle.Render(fmt.Sprintf("session %s tok", formatTokenCount(totalTokens(m.sessionUsage)))),
 	}
 	if m.lastTurnDuration > 0 {
-		parts = append(parts, "last turn "+formatDuration(m.lastTurnDuration))
+		parts = append(parts, statusIdleStyle.Render("last turn "+formatDuration(m.lastTurnDuration)))
 	}
-	return strings.Join(parts, "  ·  ")
+	return strings.Join(parts, sep)
 }
 
+// contextAlertThreshold is the fraction of the context window at which
+// contextSummary switches from statusIdleStyle to statusAlertStyle — a
+// visible nudge, ahead of harness's own automatic preventive compaction
+// (or a manual /compact), that the window is running out.
+const contextAlertThreshold = 0.85
+
 // contextSummary renders the most recently reported context occupancy
-// as "used/window (pct%)", or just "used" when contextWindow is unknown
-// (setModel was never called, e.g. in a test that skips SetBanner).
+// as "ctx used/window (pct%)", styled with the alert color once usage
+// crosses contextAlertThreshold, or just "ctx used" when contextWindow
+// is unknown (setModel was never called, e.g. a test that skips
+// SetBanner, or a model tokens.ContextWindowFor has no data for).
 func (m *Model) contextSummary() string {
 	used := contextTokens(m.lastUsage)
 	if m.contextWindow <= 0 {
-		return formatTokenCount(used)
+		return statusIdleStyle.Render("ctx " + formatTokenCount(used))
 	}
-	pct := float64(used) / float64(m.contextWindow) * 100
-	return fmt.Sprintf("%s/%s (%.0f%%)", formatTokenCount(used), formatTokenCount(m.contextWindow), pct)
+	frac := float64(used) / float64(m.contextWindow)
+	text := fmt.Sprintf("ctx %s/%s (%.0f%%)", formatTokenCount(used), formatTokenCount(m.contextWindow), frac*100)
+	if frac >= contextAlertThreshold {
+		return statusAlertStyle.Render(text)
+	}
+	return statusIdleStyle.Render(text)
 }
 
 // approvalPanel renders the pending request's preview (colored by line
