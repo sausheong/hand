@@ -3,6 +3,7 @@ package tui
 import (
 	"context"
 	"encoding/json"
+	"strings"
 	"testing"
 	"time"
 
@@ -270,6 +271,56 @@ func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
 
 	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+}
+
+// The usage tests below call handleAgentEvent/handleCommand directly
+// rather than driving a real tea.Program, for the same reason the
+// slash-command dropdown tests in commands_test.go do: this is pure
+// state-handling logic with no goroutines involved, so a direct
+// synchronous call is both correct and simpler than teatest's async run
+// loop.
+
+func TestHandleAgentEvent_EventDoneCapturesUsage(t *testing.T) {
+	m := NewModel(&fakeRunner{})
+	usage := &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
+
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: usage})
+
+	if m.lastUsage != usage {
+		t.Fatalf("lastUsage = %v, want %v", m.lastUsage, usage)
+	}
+}
+
+func TestHandleAgentEvent_EventDoneWithNoUsageStaysNil(t *testing.T) {
+	m := NewModel(&fakeRunner{})
+
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone})
+
+	if m.lastUsage != nil {
+		t.Fatalf("lastUsage = %v, want nil", m.lastUsage)
+	}
+}
+
+func TestRunUsageCommand_NoUsageYet(t *testing.T) {
+	m := NewModel(&fakeRunner{})
+
+	m.handleCommand("/usage")
+
+	if len(m.transcript) != 1 || !strings.Contains(m.transcript[0], "no usage recorded yet") {
+		t.Fatalf("expected \"no usage recorded yet\" in transcript, got %v", m.transcript)
+	}
+}
+
+func TestRunUsageCommand_WithUsage(t *testing.T) {
+	m := NewModel(&fakeRunner{})
+	m.lastUsage = &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
+
+	m.handleCommand("/usage")
+
+	want := "input: 100  output: 20  cache write: 5  cache read: 3"
+	if len(m.transcript) != 1 || !strings.Contains(m.transcript[0], want) {
+		t.Fatalf("expected %q in transcript, got %v", want, m.transcript)
+	}
 }
 
 func contains(haystack []byte, needle string) bool {

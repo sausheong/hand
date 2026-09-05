@@ -45,6 +45,11 @@ type Model struct {
 	pending *agentio.ApprovalRequest
 	cancel  context.CancelFunc
 
+	// lastUsage holds the token counts from the most recent turn's
+	// EventDone, nil until the first turn completes with usage reported
+	// (a provider may not report usage at all). Surfaced via /usage.
+	lastUsage *llm.Usage
+
 	// suggestIndex is the highlighted row in the slash-command
 	// auto-complete dropdown (see commandSuggestions/renderSuggestions in
 	// commands.go), moved by the up/down keys while the dropdown is shown.
@@ -303,6 +308,7 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 	case runtime.EventDone:
 		m.flushStream()
 		m.running = false
+		m.lastUsage = ev.Usage
 	}
 }
 

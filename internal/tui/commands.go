@@ -21,6 +21,7 @@ var commandDefs = []commandDef{
 	{"/new", "discard this workspace's saved session and start fresh"},
 	{"/clear", "clear the on-screen transcript (keeps the saved session)"},
 	{"/compact", "force a context-compaction pass now"},
+	{"/usage", "show token usage from the most recent turn"},
 	{"/exit", "quit hand"},
 }
 
@@ -129,6 +130,9 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 	case "/compact":
 		m.runCompactCommand()
 
+	case "/usage":
+		m.runUsageCommand()
+
 	default:
 		m.transcript = append(m.transcript, errorLineStyle.Render("unknown command: "+name+" (try /help)"))
 	}
@@ -187,4 +191,15 @@ func (m *Model) runCompactCommand() {
 		return
 	}
 	m.transcript = append(m.transcript, approvedStyle.Render(fmt.Sprintf("compacted %d turns", result.TurnsCompacted)))
+}
+
+func (m *Model) runUsageCommand() {
+	if m.lastUsage == nil {
+		m.transcript = append(m.transcript, toolCallStyle.Render("no usage recorded yet"))
+		return
+	}
+	u := m.lastUsage
+	line := fmt.Sprintf("input: %d  output: %d  cache write: %d  cache read: %d",
+		u.InputTokens, u.OutputTokens, u.CacheCreationInputTokens, u.CacheReadInputTokens)
+	m.transcript = append(m.transcript, toolCallStyle.Render(line))
 }
