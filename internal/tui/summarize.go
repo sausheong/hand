@@ -3,8 +3,46 @@ package tui
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strings"
 )
+
+// ansiEscapePattern matches ANSI/terminal escape sequences: CSI (cursor
+// movement, colors, screen clears), OSC (window title, clipboard writes
+// via OSC 52, hyperlinks — terminated by BEL or ST), and the shorter
+// single-character Fe/Fp/Fs escapes. Content flowing through here
+// (tool call summaries, tool output previews, streamed model text,
+// replayed session history) can originate from an untrusted web page,
+// file, or MCP server — sanitizeForTerminal strips anything that could
+// reprogram the user's terminal before it reaches lipgloss/bubbletea.
+var ansiEscapePattern = regexp.MustCompile(
+	"\x1b(?:" +
+		`\][^\x07\x1b]*(?:\x07|\x1b\\)` + // OSC ... BEL or ST
+		`|\[[0-9;?]*[ -/]*[@-~]` + // CSI
+		`|[@-Z\\\]^_]` + // Fe/Fp/Fs single-char escapes
+		")",
+)
+
+// sanitizeForTerminal strips ANSI escape sequences and other C0 control
+// bytes (keeping \n and \t, which are just formatting) from s. See
+// ansiEscapePattern for what this defends against and why.
+func sanitizeForTerminal(s string) string {
+	s = ansiEscapePattern.ReplaceAllString(s, "")
+
+	var b strings.Builder
+	b.Grow(len(s))
+	for _, r := range s {
+		if r == '\n' || r == '\t' {
+			b.WriteRune(r)
+			continue
+		}
+		if r < 0x20 || r == 0x7f {
+			continue
+		}
+		b.WriteRune(r)
+	}
+	return b.String()
+}
 
 // summaryMaxLen caps how much of a tool call's input (a path, command,
 // URL, or query) shows on its "[tool: name] ..." transcript line — long
@@ -51,7 +89,7 @@ func summarizeToolCall(name string, input json.RawMessage) string {
 			field = fmt.Sprintf("%q", in.Query)
 		}
 	}
-	return truncateOneLine(field, summaryMaxLen)
+	return truncateOneLine(sanitizeForTerminal(field), summaryMaxLen)
 }
 
 // truncateOneLine collapses s to its first line and caps it at max
@@ -78,7 +116,7 @@ const (
 // call's output, or "" for empty output (just the ✓ shows, nothing
 // below it).
 func summarizeToolResult(output string) string {
-	output = strings.TrimRight(output, "\n")
+	output = sanitizeForTerminal(strings.TrimRight(output, "\n"))
 	if output == "" {
 		return ""
 	}

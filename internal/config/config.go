@@ -84,6 +84,13 @@ func Load(path string) (Config, error) {
 	if err != nil {
 		return Config{}, fmt.Errorf("read config %s: %w", path, err)
 	}
+	// Tighten permissions on a config file that predates the 0o600
+	// change in Save (or was otherwise created/edited with looser
+	// permissions) — this file can carry MCP bearer tokens, so bring it
+	// in line every time it's loaded, not just when hand itself writes it.
+	if err := os.Chmod(path, 0o600); err != nil {
+		return Config{}, fmt.Errorf("tighten permissions on config %s: %w", path, err)
+	}
 
 	var cfg Config
 	if err := json.Unmarshal(data, &cfg); err != nil {
@@ -103,7 +110,10 @@ func Save(path string, cfg Config) error {
 		return fmt.Errorf("encode config: %w", err)
 	}
 	data = append(data, '\n')
-	if err := os.WriteFile(path, data, 0o644); err != nil {
+	// 0o600: MCPServers entries may carry bearer tokens or other secrets
+	// in Headers/Env, so this file is treated like a credential file —
+	// unreadable by other local users on a shared machine.
+	if err := os.WriteFile(path, data, 0o600); err != nil {
 		return fmt.Errorf("write config %s: %w", path, err)
 	}
 	return nil

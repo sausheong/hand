@@ -274,7 +274,7 @@ func (m *Model) startRun(text string) tea.Cmd {
 func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 	switch ev.Type {
 	case runtime.EventTextDelta:
-		m.streamBuf.WriteString(ev.Text)
+		m.streamBuf.WriteString(sanitizeForTerminal(ev.Text))
 
 	case runtime.EventToolCallStart:
 		m.flushStream()

@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"runtime"
 	"testing"
 
 	"github.com/sausheong/hand/internal/config"
@@ -270,5 +271,54 @@ func TestResolveMaxTurns_FlagOverridesConfigOverridesDefault(t *testing.T) {
 				t.Fatalf("ResolveMaxTurns(%d, %+v) = %d, want %d", tc.flagValue, tc.cfg, got, tc.want)
 			}
 		})
+	}
+}
+
+// Regression: MCPServers entries may carry bearer tokens or other
+// secrets in Headers/Env, so config.json is treated like a credential
+// file — it must not be readable by other local users on a shared
+// machine.
+func TestSave_WritesOwnerOnlyPermissions(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("POSIX permission bits don't apply on windows")
+	}
+	path := filepath.Join(t.TempDir(), "config.json")
+	if err := config.Save(path, config.Config{Model: "anthropic/claude-sonnet-5"}); err != nil {
+		t.Fatalf("Save returned error: %v", err)
+	}
+	info, err := os.Stat(path)
+	if err != nil {
+		t.Fatalf("Stat returned error: %v", err)
+	}
+	if perm := info.Mode().Perm(); perm != 0o600 {
+		t.Fatalf("config file permissions = %o, want 0600", perm)
+	}
+}
+
+// Regression: an existing config file from before Save started using
+// 0o600 should be tightened the next time it's loaded, not left
+// world/group-readable indefinitely.
+func TestLoad_TightensLoosePermissions(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("POSIX permission bits don't apply on windows")
+	}
+	path := filepath.Join(t.TempDir(), "config.json")
+	if err := config.Save(path, config.Config{Model: "anthropic/claude-sonnet-5"}); err != nil {
+		t.Fatalf("Save returned error: %v", err)
+	}
+	if err := os.Chmod(path, 0o644); err != nil {
+		t.Fatalf("Chmod returned error: %v", err)
+	}
+
+	if _, err := config.Load(path); err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+
+	info, err := os.Stat(path)
+	if err != nil {
+		t.Fatalf("Stat returned error: %v", err)
+	}
+	if perm := info.Mode().Perm(); perm != 0o600 {
+		t.Fatalf("config file permissions after Load = %o, want 0600", perm)
 	}
 }

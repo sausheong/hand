@@ -73,3 +73,54 @@ func TestSummarizeToolResult(t *testing.T) {
 		t.Fatalf("output over %d chars should be marked truncated", toolResultMaxChars)
 	}
 }
+
+// Regression: bash/web_fetch/MCP tool output is untrusted external
+// content. Before sanitizeForTerminal existed, summarizeToolResult
+// passed it straight into the transcript, so a malicious page or
+// compromised MCP server could inject terminal escape sequences (OSC 52
+// clipboard writes, title-bar spoofing, CSI cursor tricks) that render
+// live in the user's terminal.
+func TestSummarizeToolResult_StripsANSIEscapes(t *testing.T) {
+	malicious := "before\x1b[31mred\x1b[0m\x1b]0;evil title\x07after"
+	got := summarizeToolResult(malicious)
+	if strings.ContainsRune(got, '\x1b') {
+		t.Fatalf("summarizeToolResult output still contains ESC: %q", got)
+	}
+	if strings.ContainsRune(got, '\x07') {
+		t.Fatalf("summarizeToolResult output still contains BEL: %q", got)
+	}
+	if !strings.Contains(got, "before") || !strings.Contains(got, "red") || !strings.Contains(got, "after") {
+		t.Fatalf("sanitized output lost legitimate content: %q", got)
+	}
+}
+
+func TestSummarizeToolCall_StripsANSIEscapes(t *testing.T) {
+	input := json.RawMessage(`{"command":"echo [31mhi[0m"}`)
+	got := summarizeToolCall("bash", input)
+	if strings.ContainsRune(got, '\x1b') {
+		t.Fatalf("summarizeToolCall output still contains ESC: %q", got)
+	}
+}
+
+func TestSanitizeForTerminal(t *testing.T) {
+	cases := []struct {
+		name string
+		in   string
+		want string
+	}{
+		{"plain text passes through", "hello world", "hello world"},
+		{"newline and tab preserved", "a\nb\tc", "a\nb\tc"},
+		{"CSI color codes stripped", "\x1b[1;31merror\x1b[0m", "error"},
+		{"OSC 52 clipboard write stripped (BEL terminator)", "\x1b]52;c;ZXZpbA==\x07after", "after"},
+		{"OSC title stripped (ST terminator)", "\x1b]0;pwned\x1b\\after", "after"},
+		{"bare BEL stripped", "ding\x07dong", "dingdong"},
+		{"other control bytes stripped", "a\x00\x01\x7fb", "ab"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := sanitizeForTerminal(tc.in); got != tc.want {
+				t.Fatalf("sanitizeForTerminal(%q) = %q, want %q", tc.in, got, tc.want)
+			}
+		})
+	}
+}

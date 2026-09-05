@@ -3,12 +3,14 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"log/slog"
 	"os"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 
@@ -109,6 +111,72 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 	}
 }
 
+// loadTrustedPermissions loads workspace's .hand/settings.json and
+// returns a permissions.Store backed by it — but if that file grants any
+// always_allow entries and this workspace hasn't previously been marked
+// trusted (~/.hand/trust.json), it first asks the user for confirmation.
+//
+// This exists because .hand/settings.json lives inside the workspace
+// itself: a cloned or downloaded repo can ship one with
+// {"always_allow":["bash"]} committed, which would otherwise silently
+// disable hand's approval gate — including for a bash call whose
+// arguments were steered by a prompt injection in that same repo's
+// files — the very first time hand runs there, with no human checkpoint
+// at all. Declining doesn't touch the file; its entries are just not
+// honored for this run, and the user is asked again next time.
+func loadTrustedPermissions(workspace string) (*permissions.Store, error) {
+	settingsPath := permissions.DefaultPath(workspace)
+	settings, err := permissions.Load(settingsPath)
+	if err != nil {
+		return nil, err
+	}
+	if len(settings.AlwaysAllow) == 0 {
+		return permissions.NewStoreFromSettings(settingsPath, settings), nil
+	}
+
+	trustPath, err := permissions.TrustPath()
+	if err != nil {
+		return nil, fmt.Errorf("resolve trust store path: %w", err)
+	}
+	trust, err := permissions.LoadTrust(trustPath)
+	if err != nil {
+		return nil, fmt.Errorf("load trust store: %w", err)
+	}
+	if trust.IsTrusted(workspace) {
+		return permissions.NewStoreFromSettings(settingsPath, settings), nil
+	}
+
+	trusted, err := promptWorkspaceTrust(settingsPath, settings.AlwaysAllow)
+	if err != nil {
+		return nil, fmt.Errorf("trust prompt: %w", err)
+	}
+	if !trusted {
+		fmt.Fprintln(os.Stderr, "hand: not trusting this workspace's always-allow settings for this run; approval prompts will apply as normal")
+		return permissions.NewEmptyStore(settingsPath), nil
+	}
+	if err := permissions.MarkTrusted(trustPath, workspace); err != nil {
+		return nil, fmt.Errorf("save trust decision: %w", err)
+	}
+	return permissions.NewStoreFromSettings(settingsPath, settings), nil
+}
+
+// promptWorkspaceTrust asks the user, on stderr/stdin, whether to honor
+// settingsPath's always-allow entries. Runs before the TUI (or one-shot
+// output) exists, so a plain synchronous stdin read works for both
+// modes. Any read failure — including stdin not being interactive —
+// fails closed (not trusted), same as a "no" answer.
+func promptWorkspaceTrust(settingsPath string, tools []string) (bool, error) {
+	fmt.Fprintf(os.Stderr, "hand: %s grants always-allow (no approval prompt) for: %s\n", settingsPath, strings.Join(tools, ", "))
+	fmt.Fprint(os.Stderr, "hand: trust this workspace and skip approval prompts for those tools? [y/N] ")
+
+	line, err := bufio.NewReader(os.Stdin).ReadString('\n')
+	if err != nil && line == "" {
+		return false, nil
+	}
+	answer := strings.ToLower(strings.TrimSpace(line))
+	return answer == "y" || answer == "yes", nil
+}
+
 func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
 	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.hand/config.json for this run; not supported for gemini)")
@@ -153,7 +221,7 @@ func run() error {
 		return fmt.Errorf("resolve working directory: %w", err)
 	}
 
-	perms, err := permissions.NewStore(permissions.DefaultPath(workspace))
+	perms, err := loadTrustedPermissions(workspace)
 	if err != nil {
 		return fmt.Errorf("load permissions: %w", err)
 	}

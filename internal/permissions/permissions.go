@@ -43,6 +43,13 @@ func Load(path string) (Settings, error) {
 	if err != nil {
 		return Settings{}, fmt.Errorf("read settings %s: %w", path, err)
 	}
+	// Tighten permissions on a settings file that predates the 0o600
+	// change in Save — its always_allow entries let a tool bypass an
+	// approval prompt, so bring it in line every time it's loaded, not
+	// just when hand itself writes it.
+	if err := os.Chmod(path, 0o600); err != nil {
+		return Settings{}, fmt.Errorf("tighten permissions on settings %s: %w", path, err)
+	}
 
 	var s Settings
 	if err := json.Unmarshal(data, &s); err != nil {
@@ -62,7 +69,11 @@ func Save(path string, s Settings) error {
 		return fmt.Errorf("encode settings: %w", err)
 	}
 	data = append(data, '\n')
-	if err := os.WriteFile(path, data, 0o644); err != nil {
+	// 0o600: this file's always_allow entries let a tool run without a
+	// human approval prompt, so it's treated the same as a credential —
+	// unreadable by other local users on a shared machine, not just
+	// unwritable.
+	if err := os.WriteFile(path, data, 0o600); err != nil {
 		return fmt.Errorf("write settings %s: %w", path, err)
 	}
 	return nil
@@ -88,11 +99,39 @@ func NewStore(path string) (*Store, error) {
 	return &Store{path: path, settings: s}, nil
 }
 
+// NewStoreFromSettings returns a Store bound to path whose initial
+// in-memory content is s, rather than whatever Load(path) would return.
+// For callers that already loaded (and possibly vetted, e.g. against a
+// workspace-trust decision) Settings themselves — see cmd/hand's
+// trust-on-first-use prompt for a workspace's always_allow entries.
+// SetAlwaysAllow still persists to path as normal.
+func NewStoreFromSettings(path string, s Settings) *Store {
+	return &Store{path: path, settings: s}
+}
+
+// NewEmptyStore returns a Store bound to path with no in-memory
+// always-allow entries, regardless of what (if anything) is currently on
+// disk at path. Used when a caller has decided not to honor path's
+// existing content for this run (e.g. the user declined to trust it) —
+// a later SetAlwaysAllow during the session still persists normally,
+// starting from a clean slate.
+func NewEmptyStore(path string) *Store {
+	return NewStoreFromSettings(path, Settings{})
+}
+
 // IsAlwaysAllowed reports whether tool is currently always-allowed.
 func (st *Store) IsAlwaysAllowed(tool string) bool {
 	st.mu.Lock()
 	defer st.mu.Unlock()
 	return st.settings.IsAlwaysAllowed(tool)
+}
+
+// AlwaysAllowList returns a copy of the tool names currently
+// always-allowed.
+func (st *Store) AlwaysAllowList() []string {
+	st.mu.Lock()
+	defer st.mu.Unlock()
+	return slices.Clone(st.settings.AlwaysAllow)
 }
 
 // SetAlwaysAllow adds tool to the always-allow list and persists it. A

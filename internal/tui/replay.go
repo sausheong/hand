@@ -30,9 +30,9 @@ func replayEntry(entry session.SessionEntry) (string, bool) {
 			return toolErrStyle.Render("  ✗ could not replay message: " + err.Error()), true
 		}
 		if entry.Role == "user" {
-			return userLineStyle.Render("> " + data.Text), true
+			return userLineStyle.Render("> " + sanitizeForTerminal(data.Text)), true
 		}
-		return data.Text, true // assistant text renders unstyled, matching the live streamed path
+		return sanitizeForTerminal(data.Text), true // assistant text renders unstyled, matching the live streamed path
 
 	case session.EntryTypeToolCall:
 		var data session.ToolCallData
@@ -63,7 +63,7 @@ func replayEntry(entry session.SessionEntry) (string, bool) {
 		if err := json.Unmarshal(entry.Data, &data); err != nil {
 			return toolErrStyle.Render("  ✗ could not replay note: " + err.Error()), true
 		}
-		return toolCallStyle.Render("[" + data.Text + "]"), true
+		return toolCallStyle.Render("[" + sanitizeForTerminal(data.Text) + "]"), true
 
 	default:
 		return "", false
