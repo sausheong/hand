@@ -21,7 +21,7 @@ var commandDefs = []commandDef{
 	{"/new", "discard this workspace's saved session and start fresh"},
 	{"/clear", "clear the on-screen transcript (keeps the saved session)"},
 	{"/compact", "force a context-compaction pass now"},
-	{"/usage", "show token usage from the most recent turn"},
+	{"/usage", "show token usage: this turn, session total, and context window"},
 	{"/exit", "quit hand"},
 }
 

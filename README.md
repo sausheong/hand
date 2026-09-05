@@ -129,7 +129,7 @@ dropdown (arrow keys to move, Tab or Enter to fill it in).
 | `/new`            | Discard this workspace's saved session and start fresh |
 | `/clear`          | Clear the on-screen transcript (the saved session is untouched) |
 | `/compact`        | Force a context-compaction pass now |
-| `/usage`          | Show token usage from the most recent turn |
+| `/usage`          | Show token usage: this turn, session total, and context window |
 | `/exit`           | Quit Hand (`/quit` also works) |
 
 Conversations are saved per-workspace, so quitting and re-running `hand` in
