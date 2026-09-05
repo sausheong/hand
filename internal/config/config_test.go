@@ -121,6 +121,27 @@ func TestResolveBaseURL_FlagOverridesConfig(t *testing.T) {
 	}
 }
 
+func TestResolveFallbackModel_FlagOverridesConfig(t *testing.T) {
+	cases := []struct {
+		name      string
+		flagValue string
+		cfg       config.Config
+		want      string
+	}{
+		{"flag empty uses config", "", config.Config{FallbackModel: "anthropic/claude-haiku-4-5"}, "anthropic/claude-haiku-4-5"},
+		{"flag set overrides config", "openai/gpt-5-mini", config.Config{FallbackModel: "anthropic/claude-haiku-4-5"}, "openai/gpt-5-mini"},
+		{"both empty stays empty", "", config.Config{}, ""},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := config.ResolveFallbackModel(tc.flagValue, tc.cfg)
+			if got != tc.want {
+				t.Fatalf("ResolveFallbackModel(%q, %+v) = %q, want %q", tc.flagValue, tc.cfg, got, tc.want)
+			}
+		})
+	}
+}
+
 func TestResolveMaxTurns_FlagOverridesConfigOverridesDefault(t *testing.T) {
 	cases := []struct {
 		name      string

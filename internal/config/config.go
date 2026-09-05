@@ -30,6 +30,11 @@ type Config struct {
 	// MaxTurns caps the agent's tool-use loop for a single run. Zero (or
 	// absent) means DefaultMaxTurns.
 	MaxTurns int `json:"max_turns,omitempty"`
+	// FallbackModel is the "provider/model" to retry against on a
+	// transient provider error (429/5xx), same form as Model and passed
+	// through unparsed — runtime.AgentSpec.FallbackModel does its own
+	// same-provider validation. Empty means no fallback.
+	FallbackModel string `json:"fallback_model,omitempty"`
 }
 
 // DefaultPath returns ~/.hand/config.json for the current user.
@@ -113,4 +118,15 @@ func ResolveMaxTurns(flagValue int, cfg Config) int {
 		return cfg.MaxTurns
 	}
 	return DefaultMaxTurns
+}
+
+// ResolveFallbackModel returns flagValue if non-empty, otherwise
+// cfg.FallbackModel. Does not persist anything — a --fallback-model flag
+// overrides the loaded config for this invocation only. An empty result
+// means "no fallback".
+func ResolveFallbackModel(flagValue string, cfg Config) string {
+	if flagValue != "" {
+		return flagValue
+	}
+	return cfg.FallbackModel
 }
