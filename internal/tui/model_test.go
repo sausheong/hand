@@ -431,6 +431,117 @@ func TestStatusLine_ShowsLiveElapsedTimeWhileRunning(t *testing.T) {
 	}
 }
 
+// Regression: a turn that's mostly back-to-back tool calls with no
+// assistant text in between leaves every token/context figure frozen at
+// 0 for a real stretch of genuine work (usage is only reported once, at
+// EventDone) — which reads as a hung UI. The tool-call count is
+// concrete, immediately-available evidence that something is happening.
+func TestStatusLine_ShowsToolCallCountWhileRunning(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.running = true
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: "bash"}})
+	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: "bash"}})
+
+	got := m.statusLine()
+	if !strings.Contains(got, "2 tool calls") {
+		t.Fatalf("statusLine() = %q, want it to mention \"2 tool calls\"", got)
+	}
+}
+
+func TestStatusLine_OmitsToolCallCountBeforeAnyToolCall(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.running = true
+
+	if got := m.statusLine(); strings.Contains(got, "tool call") {
+		t.Fatalf("statusLine() = %q, want no tool-call mention before any tool has run this turn", got)
+	}
+}
+
+func TestStartRun_ResetsToolCallCount(t *testing.T) {
+	events := make(chan runtime.AgentEvent, 4)
+	runner := &fakeRunner{events: events}
+	m := NewModel(runner, t.TempDir())
+	m.toolCallsThisTurn = 5
+
+	m.startRun("go again")
+
+	if m.toolCallsThisTurn != 0 {
+		t.Fatalf("toolCallsThisTurn = %d after startRun, want reset to 0", m.toolCallsThisTurn)
+	}
+}
+
+// Regression: PageUp/PageDown/ctrl+u/ctrl+d must scroll the transcript
+// viewport directly, independent of the textarea (which owns plain
+// up/down for cursor movement) — before this, nothing forwarded these
+// keys to the viewport at all, so there was no way to scroll back
+// through earlier output.
+func TestHandleKey_ScrollsViewportIndependentlyOfTextarea(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+	lines := make([]string, 200)
+	for i := range lines {
+		lines[i] = fmt.Sprintf("line %d", i)
+	}
+	m.transcript = lines
+	m.refreshViewport()
+
+	if !m.viewport.AtBottom() {
+		t.Fatal("expected the viewport to start at the bottom (stick-to-bottom default)")
+	}
+
+	m.handleKey(tea.KeyMsg{Type: tea.KeyPgUp})
+	if m.viewport.AtBottom() {
+		t.Fatal("expected pgup to scroll away from the bottom")
+	}
+	offsetAfterPgUp := m.viewport.YOffset
+
+	m.handleKey(tea.KeyMsg{Type: tea.KeyCtrlD})
+	if m.viewport.YOffset <= offsetAfterPgUp {
+		t.Fatalf("expected ctrl+d to scroll further down (YOffset %d), got %d", offsetAfterPgUp, m.viewport.YOffset)
+	}
+}
+
+// Regression: refreshViewport used to call GotoBottom() unconditionally
+// on every update, so the instant any new event arrived (a streamed
+// delta, a tool result) it yanked the view back down even if the user
+// had just scrolled up to reread something.
+func TestRefreshViewport_PreservesManualScrollPosition(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+	lines := make([]string, 200)
+	for i := range lines {
+		lines[i] = fmt.Sprintf("line %d", i)
+	}
+	m.transcript = lines
+	m.refreshViewport()
+
+	m.viewport.GotoTop()
+	if m.viewport.AtBottom() {
+		t.Fatal("expected GotoTop to leave the viewport away from the bottom")
+	}
+
+	m.transcript = append(m.transcript, "a new line arrived")
+	m.refreshViewport()
+
+	if m.viewport.AtBottom() {
+		t.Fatal("refreshViewport must not re-snap to the bottom when the user had scrolled away from it")
+	}
+}
+
+func TestRefreshViewport_StillFollowsBottomWhenAlreadyThere(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.resize(80, 24)
+	m.transcript = []string{"line 1"}
+	m.refreshViewport()
+
+	m.transcript = append(m.transcript, "line 2")
+	m.refreshViewport()
+
+	if !m.viewport.AtBottom() {
+		t.Fatal("refreshViewport should still auto-follow the bottom when the user hasn't scrolled away from it")
+	}
+}
+
 func TestHandleAgentEvent_EventDoneAccumulatesSessionUsage(t *testing.T) {
 	m := NewModel(&fakeRunner{}, t.TempDir())
 

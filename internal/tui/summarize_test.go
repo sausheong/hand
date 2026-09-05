@@ -2,6 +2,7 @@ package tui
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -71,6 +72,28 @@ func TestSummarizeToolResult(t *testing.T) {
 	got = summarizeToolResult(longLine)
 	if !strings.Contains(got, "(truncated)") {
 		t.Fatalf("output over %d chars should be marked truncated", toolResultMaxChars)
+	}
+}
+
+// Regression: a typical `go test`/`git diff`-sized output (well under
+// the old 6-line/500-char limits, comfortably under the current ones)
+// must show in full, not just a token gesture at the first couple of
+// lines before "(truncated)" kicks in.
+func TestSummarizeToolResult_ShowsModeratelyLongOutputInFull(t *testing.T) {
+	lines := make([]string, 20)
+	for i := range lines {
+		lines[i] = fmt.Sprintf("--- FAIL: TestSomething%d (0.00s)", i)
+	}
+	output := strings.Join(lines, "\n")
+
+	got := summarizeToolResult(output)
+	if strings.Contains(got, "(truncated)") {
+		t.Fatalf("summarizeToolResult truncated a %d-line output, want it shown in full (max is %d lines)", len(lines), toolResultMaxLines)
+	}
+	for _, line := range lines {
+		if !strings.Contains(got, line) {
+			t.Fatalf("summarizeToolResult output missing line %q", line)
+		}
 	}
 }
 

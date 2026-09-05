@@ -304,7 +304,7 @@ func run() error {
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)
 	}
-	program := tea.NewProgram(m, tea.WithAltScreen())
+	program := tea.NewProgram(m, tea.WithAltScreen(), tea.WithMouseCellMotion())
 	m.BindProgram(program)
 	sender.Program = program
 

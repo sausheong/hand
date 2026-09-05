@@ -71,6 +71,14 @@ type Model struct {
 	// recent) turn's Run() began — read live while running for the
 	// status line's elapsed-time display.
 	turnStart time.Time
+	// toolCallsThisTurn counts EventToolCallStart events since turnStart,
+	// reset at the start of each new turn. Surfaced in the "working..."
+	// status while running: a turn can spend a long stretch making tool
+	// calls with no assistant text in between, during which the
+	// token/context figures don't move at all (usage is only reported
+	// once, at EventDone) — this is real, concrete evidence that
+	// something is actually happening, not a frozen/hung UI.
+	toolCallsThisTurn int
 	// lastTurnDuration is frozen at the most recently completed turn's
 	// wall-clock time, set once on runEndedMsg (the one signal harness
 	// guarantees fires exactly once per turn on every exit path — see
@@ -188,6 +196,15 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tea.KeyMsg:
 		return m.handleKey(msg)
+
+	case tea.MouseMsg:
+		// Only the transcript scrolls on mouse wheel — viewport.Update
+		// ignores anything but wheel-up/down on its own (MouseWheelEnabled
+		// defaults true from viewport.New), so this is safe to forward
+		// unconditionally, pending-approval or not.
+		var cmd tea.Cmd
+		m.viewport, cmd = m.viewport.Update(msg)
+		return m, cmd
 	}
 
 	return m, nil
@@ -256,6 +273,27 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		}
 		return m, tea.Quit
 
+	// Scroll the transcript, independent of the textarea (which owns
+	// plain up/down for cursor movement — see the dropdown branch above
+	// and the fallthrough to m.textarea.Update below). These keys are
+	// never typed as ordinary message text, so they're safe to claim
+	// unconditionally. refreshViewport only re-snaps to the bottom when
+	// the viewport was already there before new content arrived (see
+	// its own comment), so scrolling up here isn't immediately undone
+	// by the next streamed event.
+	case "pgup":
+		m.viewport.HalfPageUp()
+		return m, nil
+	case "pgdown":
+		m.viewport.HalfPageDown()
+		return m, nil
+	case "ctrl+u":
+		m.viewport.HalfPageUp()
+		return m, nil
+	case "ctrl+d":
+		m.viewport.HalfPageDown()
+		return m, nil
+
 	case "enter":
 		if m.running {
 			return m, nil
@@ -288,6 +326,7 @@ func (m *Model) startRun(text string) tea.Cmd {
 	m.textarea.Reset()
 	m.running = true
 	m.turnStart = time.Now()
+	m.toolCallsThisTurn = 0
 
 	ctx, cancel := context.WithCancel(context.Background())
 	m.cancel = cancel
@@ -316,6 +355,7 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 
 	case runtime.EventToolCallStart:
 		m.flushStream()
+		m.toolCallsThisTurn++
 		name := "?"
 		var input json.RawMessage
 		if ev.ToolCall != nil {
@@ -373,6 +413,13 @@ func (m *Model) flushStream() {
 }
 
 func (m *Model) refreshViewport() {
+	// Only auto-scroll to the new bottom if the viewport was already
+	// there before this update — otherwise every streamed delta or tool
+	// event (refreshViewport runs on each one) would yank the view back
+	// down the instant the user scrolls up to reread earlier output.
+	// Checked before SetContent changes what "bottom" even means.
+	stickToBottom := m.viewport.AtBottom()
+
 	content := strings.Join(m.transcript, "\n")
 	if m.streamBuf.Len() > 0 {
 		// Re-rendering the whole buffer as Markdown on every delta (not
@@ -404,7 +451,9 @@ func (m *Model) refreshViewport() {
 	}
 	m.viewport.Width = m.termWidth
 	m.viewport.Height = viewportHeight
-	m.viewport.GotoBottom()
+	if stickToBottom {
+		m.viewport.GotoBottom()
+	}
 }
 
 // wrapToWidth word-wraps s (which may contain lipgloss/ANSI styling) to
@@ -456,7 +505,19 @@ func (m *Model) bottomHeight() int {
 func (m *Model) statusLine() string {
 	left := statusIdleStyle.Render("ready")
 	if m.running {
-		left = m.spinner.View() + statusIdleStyle.Render(fmt.Sprintf(" working... %s", formatDuration(time.Since(m.turnStart))))
+		toolInfo := ""
+		if m.toolCallsThisTurn > 0 {
+			// Concrete, non-estimated evidence of progress — the token
+			// figures in usageLine can sit at "0" for a long stretch of
+			// real work when a turn is mostly back-to-back tool calls
+			// with no assistant text in between (usage is only reported
+			// once, at EventDone), which otherwise reads as a hung UI.
+			toolInfo = fmt.Sprintf(" · %d tool call", m.toolCallsThisTurn)
+			if m.toolCallsThisTurn != 1 {
+				toolInfo += "s"
+			}
+		}
+		left = m.spinner.View() + statusIdleStyle.Render(fmt.Sprintf(" working... %s%s", formatDuration(time.Since(m.turnStart)), toolInfo))
 	}
 	return left + "   " + m.usageLine()
 }
