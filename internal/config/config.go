@@ -83,6 +83,42 @@ type Config struct {
 	// window that triggers preventive compaction. Zero, negative, or
 	// above 1 means DefaultCompactionThreshold.
 	CompactionThreshold float64 `json:"compaction_threshold,omitempty"`
+	// Hooks lists shell commands to run on agent lifecycle events (see
+	// ValidHookEvents). Deliberately global-only — unlike MCPServers,
+	// which is also global-only, there is no per-project hooks file:
+	// a hook executes arbitrary commands, and a per-project config would
+	// let a cloned repo run code automatically the first time hand
+	// touches it. Empty means no hooks.
+	Hooks []HookConfig `json:"hooks,omitempty"`
+}
+
+// ValidHookEvents lists the lifecycle events a HookConfig.Event may
+// name. Mirrors harness's runtime.LifecycleHooks callback points.
+// Matcher only applies to PreToolUse/PostToolUse — the other three
+// events have no tool name to match against.
+var ValidHookEvents = []string{"PreToolUse", "PostToolUse", "SessionStart", "UserPromptSubmit", "Stop"}
+
+// DefaultHookTimeoutSeconds bounds how long a single hook command may
+// run before it's treated as failed (fails open — see
+// agentio.BuildLifecycleHooks) when HookConfig.Timeout is unset.
+const DefaultHookTimeoutSeconds = 30
+
+// HookConfig is one entry in config.json's hooks list: run Command
+// (with Args) whenever Event fires, restricted to tool calls matching
+// Matcher when Event is PreToolUse or PostToolUse. See
+// agentio.BuildLifecycleHooks for the exit-code contract (0 = allow,
+// 2 = deny/abort with stderr as the reason, anything else = fail open
+// with a logged warning) and which env vars each event receives.
+type HookConfig struct {
+	Event string `json:"event"`
+	// Matcher is the exact tool name to restrict this hook to; "" or
+	// "*" matches every tool. Ignored for events with no tool name.
+	Matcher string   `json:"matcher,omitempty"`
+	Command string   `json:"command"`
+	Args    []string `json:"args,omitempty"`
+	// Timeout, in seconds, bounds this hook's run time. Zero means
+	// DefaultHookTimeoutSeconds.
+	Timeout int `json:"timeout_seconds,omitempty"`
 }
 
 // MCPServer is one entry in config.json's mcp_servers list. Exactly one

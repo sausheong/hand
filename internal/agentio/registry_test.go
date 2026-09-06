@@ -4,10 +4,11 @@ import (
 	"testing"
 
 	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/harness/tool/skills/disk"
 )
 
 func TestBuildRegistry_RegistersExpectedTools(t *testing.T) {
-	reg := agentio.BuildRegistry(t.TempDir())
+	reg := agentio.BuildRegistry(t.TempDir(), disk.NewStore(t.TempDir()))
 
 	got := map[string]bool{}
 	for _, def := range reg.ToolDefs() {
@@ -16,7 +17,7 @@ func TestBuildRegistry_RegistersExpectedTools(t *testing.T) {
 
 	want := []string{
 		"read_file", "write_file", "edit_file",
-		"bash", "web_fetch", "web_search", "todo_write", "search",
+		"bash", "web_fetch", "web_search", "todo_write", "search", "skill_manage",
 	}
 	for _, name := range want {
 		if !got[name] {

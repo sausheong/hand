@@ -74,6 +74,15 @@ type Model struct {
 	// it from --markdown-style/config.json via SetMarkdownStyle.
 	markdownStyle string
 
+	// skillsIndex is the "## Skills" block the agent's system prompt was
+	// built with (agentio.BuildSkillProvider().FormatIndex()), captured
+	// once at startup for the /skills command. Not refreshed mid-session —
+	// a skill the agent creates via skill_manage won't appear here (or in
+	// the system prompt) until the next run, a harness-level limitation
+	// (see runtime.SkillProvider's doc comment: FormatIndex is called
+	// once at BuildRuntime time).
+	skillsIndex string
+
 	// turnStart marks when the in-flight (or, once finished, most
 	// recent) turn's Run() began — read live while running for the
 	// status line's elapsed-time display.
@@ -142,6 +151,12 @@ func NewModel(rt Runner, workspace string) *Model {
 // not what the caller intended.
 func (m *Model) SetMarkdownStyle(style string) {
 	m.markdownStyle = style
+}
+
+// SetSkillsIndex sets the text /skills prints — main.go passes
+// agentio.BuildSkillProvider's merged provider's FormatIndex() result.
+func (m *Model) SetSkillsIndex(index string) {
+	m.skillsIndex = index
 }
 
 // BindProgram gives the model a reference to its own running Program,

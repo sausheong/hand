@@ -1,8 +1,6 @@
 package agentio
 
 import (
-	"context"
-	"encoding/json"
 	"os"
 	"path/filepath"
 
@@ -40,16 +38,18 @@ func BuildSystemPrompt(workspace string) string {
 }
 
 // BuildAgentSpec builds the single AgentSpec Hand uses for the whole
-// process. hook is wired as Loop.Hooks.BeforeToolUse — callers pass the
-// closure returned by NewApprovalHook. maxTurns caps the tool-use loop
-// for a single run; callers resolve it (flag, config, or default) via
+// process. hooks is wired straight to Loop.Hooks — callers pass the
+// result of agentio.BuildLifecycleHooks, which composes config.json's
+// hooks list with the approval-prompt hook (NewApprovalHook /
+// NewOneShotApprovalHook). maxTurns caps the tool-use loop for a single
+// run; callers resolve it (flag, config, or default) via
 // internal/config.ResolveMaxTurns before calling this. fallbackModel is
 // the "provider/model" to retry against on a transient provider error;
 // empty means no fallback — harness treats "" as "no fallback".
 // mcpServers is passed straight through to AgentSpec.MCPServers for
 // BuildRuntime to connect; nil/empty preserves today's zero-servers
 // behavior unchanged.
-func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string, mcpServers []mcp.ServerConfig, hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)) runtime.AgentSpec {
+func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string, mcpServers []mcp.ServerConfig, hooks runtime.LifecycleHooks) runtime.AgentSpec {
 	return runtime.AgentSpec{
 		ID:            "hand",
 		Name:          "Hand",
@@ -60,9 +60,7 @@ func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string,
 		MaxTurns:      maxTurns,
 		MCPServers:    mcpServers,
 		Loop: runtime.LoopConfig{
-			Hooks: runtime.LifecycleHooks{
-				BeforeToolUse: hook,
-			},
+			Hooks: hooks,
 		},
 	}
 }

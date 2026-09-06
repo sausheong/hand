@@ -130,6 +130,7 @@ dropdown (arrow keys to move, Tab or Enter to fill it in).
 | `/clear`          | Clear the on-screen transcript (the saved session is untouched) |
 | `/compact`        | Force a context-compaction pass now |
 | `/usage`          | Show token usage: this turn, session total, and context window |
+| `/skills`         | List available skills (personal + project) |
 | `/exit`           | Quit Hand (`/quit` also works) |
 
 Conversations are saved per-workspace, so quitting and re-running `hand` in
@@ -195,6 +196,60 @@ to confirm trusting it once per workspace before honoring those entries —
 add `.hand/` to your `.gitignore` if you don't want your own approvals
 checked into version control.
 
+## Skills
+
+Skills are reusable, on-demand-loaded procedural knowledge: a short name and
+description show up in Hand's system prompt at startup, and the full body
+loads into context only when the agent actually needs it — cheaper than
+stuffing everything into the system prompt up front.
+
+Hand looks in two places, merged, with the project version winning on a
+name collision:
+
+- `~/.hand/skills/` — personal skills you maintain by hand, shared across
+  every project
+- `<workspace>/.hand/skills/` — project-specific skills, which can be
+  committed to a repo alongside `HAND.md`/`AGENTS.md`
+
+Each skill is a directory containing `SKILL.md`:
+
+```
+.hand/skills/run-tests/SKILL.md
+```
+
+```markdown
+---
+description: how to run this repo's test suite
+---
+
+Run `make test`. Integration tests additionally need a running Postgres —
+see docker-compose.yml.
+```
+
+The agent can also create, patch, replace, remove, list, or get skills
+itself via the `skill_manage` tool — useful for "remember how to do this"
+requests. Self-authored skills always land in the **project-local** store
+(`<workspace>/.hand/skills/`), never your personal `~/.hand/skills/`, so an
+agent-authored skill stays scoped to the repo it was learned in. A skill
+created mid-session shows up in the system prompt starting next session,
+not immediately — the index is built once at startup.
+
+Run `/skills` to see what's currently loaded.
+
+## Hooks
+
+Hooks are shell commands that run on agent lifecycle events — before/after a
+tool call, session start, prompt submit, and stop — configured in
+`~/.hand/config.json`'s `hooks` list (see [Configuration](#configuration)
+below). A hook can observe (log, notify) or, for `PreToolUse` and
+`UserPromptSubmit`, block.
+
+Hooks are global-config-only, unlike skills — there's no per-project hooks
+file. A hook runs an arbitrary command, so it gets the same trust tier as an
+`mcp_servers` entry (also global-only): letting a cloned repo define its own
+hooks would mean a repo you just cloned could run code automatically the
+first time Hand touches it.
+
 ## Configuration
 
 Hand reads `~/.hand/config.json` on startup (created with defaults on first
@@ -221,6 +276,19 @@ run):
       "url": "https://example.com/mcp",
       "headers": { "Authorization": "Bearer ..." },
       "trusted": true
+    }
+  ],
+  "hooks": [
+    {
+      "event": "PreToolUse",
+      "matcher": "bash",
+      "command": "./scripts/check-command.sh",
+      "timeout_seconds": 10
+    },
+    {
+      "event": "Stop",
+      "command": "notify-send",
+      "args": ["hand finished"]
     }
   ]
 }
@@ -250,6 +318,22 @@ run):
 - `trusted: true` skips the approval gate for that server's tools. Leave it
   `false` (the default) unless you trust the server's output as much as
   Hand's own built-in tools.
+- `hooks` lists shell commands to run on lifecycle events (see
+  [Hooks](#hooks) above). Each entry:
+  - `event` — one of `PreToolUse`, `PostToolUse`, `SessionStart`,
+    `UserPromptSubmit`, `Stop`.
+  - `matcher` — for `PreToolUse`/`PostToolUse` only: the exact tool name to
+    restrict this hook to, or `"*"`/omitted for every tool.
+  - `command` / `args` — the command to run. Receives the current
+    environment plus event-specific `HAND_*` variables (e.g. `HAND_TOOL_NAME`,
+    `HAND_TOOL_INPUT`, `HAND_PROMPT`, `HAND_STOP_REASON`).
+  - `timeout_seconds` — bounds how long the command may run (default `30`).
+  - Exit code `0` allows the call to proceed; exit code `2` denies it
+    (`PreToolUse`) or aborts the turn (`UserPromptSubmit`), with stderr shown
+    as the reason. Any other exit code, or a timeout, fails open — logged as
+    a warning, but the call proceeds — so a broken hook script can't brick
+    every tool call. `PostToolUse`/`SessionStart`/`Stop` hooks are
+    observe-only regardless of exit code.
 
 ## Development
 

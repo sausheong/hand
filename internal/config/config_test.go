@@ -183,6 +183,44 @@ func TestLoad_MissingMCPServersDefaultsEmpty(t *testing.T) {
 	}
 }
 
+func TestSaveLoad_RoundTripWithHooks(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "config.json")
+	want := config.Config{
+		Model: "anthropic/claude-sonnet-5",
+		Hooks: []config.HookConfig{
+			{Event: "PreToolUse", Matcher: "bash", Command: "sh", Args: []string{"-c", "exit 0"}, Timeout: 10},
+			{Event: "Stop", Command: "notify-send", Args: []string{"hand finished"}},
+		},
+	}
+
+	if err := config.Save(path, want); err != nil {
+		t.Fatalf("Save returned error: %v", err)
+	}
+
+	got, err := config.Load(path)
+	if err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+	if !reflect.DeepEqual(got.Hooks, want.Hooks) {
+		t.Fatalf("Hooks = %+v, want %+v", got.Hooks, want.Hooks)
+	}
+}
+
+func TestLoad_MissingHooksDefaultsEmpty(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "config.json")
+	if err := os.WriteFile(path, []byte(`{"model":"anthropic/claude-sonnet-5"}`), 0o644); err != nil {
+		t.Fatalf("WriteFile returned error: %v", err)
+	}
+
+	got, err := config.Load(path)
+	if err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+	if len(got.Hooks) != 0 {
+		t.Fatalf("Hooks = %+v, want empty for a pre-existing config file without hooks", got.Hooks)
+	}
+}
+
 func TestToServerConfigs_FieldByFieldMapping(t *testing.T) {
 	cfg := config.Config{
 		MCPServers: []config.MCPServer{

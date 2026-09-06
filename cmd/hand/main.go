@@ -248,12 +248,18 @@ func run() error {
 		sender = &programSender{}
 		hook = agentio.NewApprovalHook(sender, perms, workspace, allMCPServerNames, trustedServers)
 	}
-	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, mcpServers, hook)
+	hooks := agentio.BuildLifecycleHooks(cfg.Hooks, workspace, hook)
+	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, mcpServers, hooks)
+
+	skillProvider, projectSkillStore, err := agentio.BuildSkillProvider(workspace)
+	if err != nil {
+		return fmt.Errorf("build skill provider: %w", err)
+	}
 	// reg must stay the concrete *tool.Registry type below (RuntimeInputs.Tools
 	// is the wider tool.Executor interface) — BuildRuntime type-asserts it to
 	// register spec.MCPServers' tools and silently skips registration
 	// otherwise, per harness's own comment in runtime/builder.go.
-	reg := agentio.BuildRegistry(workspace)
+	reg := agentio.BuildRegistry(workspace, projectSkillStore)
 	compactionMgr := agentio.BuildCompactionManager(provider, bareModel, compactionThreshold)
 
 	storeDir, err := sessionio.StoreDir()
@@ -283,7 +289,7 @@ func run() error {
 		fmt.Fprintf(os.Stderr, "hand: connecting to %d configured MCP server(s)...\n", len(mcpServers))
 	}
 	rt, err := agentio.BuildRuntimeWithTimeout(
-		runtime.RuntimeDeps{},
+		runtime.RuntimeDeps{Skills: skillProvider},
 		runtime.RuntimeInputs{
 			Provider:   provider,
 			Tools:      reg,
@@ -305,6 +311,7 @@ func run() error {
 	m := tui.NewModel(rt, workspace)
 	m.SetMarkdownStyle(markdownStyle)
 	m.SetBanner(version, model, workspace)
+	m.SetSkillsIndex(skillProvider.FormatIndex())
 	m.SetController(&tui.Controller{
 		Rt:            rt,
 		Store:         store,

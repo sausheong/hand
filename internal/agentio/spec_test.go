@@ -17,8 +17,9 @@ func TestBuildAgentSpec_SetsExpectedFields(t *testing.T) {
 	hook := func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 		return runtime.HookDecision{Allow: true}, nil
 	}
+	hooks := runtime.LifecycleHooks{BeforeToolUse: hook}
 
-	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "anthropic/claude-haiku-4-5", nil, hook)
+	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "anthropic/claude-haiku-4-5", nil, hooks)
 
 	if spec.Model != "anthropic/claude-sonnet-5" {
 		t.Errorf("Model = %q, want %q", spec.Model, "anthropic/claude-sonnet-5")
@@ -44,8 +45,9 @@ func TestBuildAgentSpec_EmptyFallbackModel(t *testing.T) {
 	hook := func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 		return runtime.HookDecision{Allow: true}, nil
 	}
+	hooks := runtime.LifecycleHooks{BeforeToolUse: hook}
 
-	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "", nil, hook)
+	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "", nil, hooks)
 
 	if spec.FallbackModel != "" {
 		t.Errorf("FallbackModel = %q, want empty", spec.FallbackModel)
@@ -56,9 +58,10 @@ func TestBuildAgentSpec_SetsMCPServers(t *testing.T) {
 	hook := func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 		return runtime.HookDecision{Allow: true}, nil
 	}
+	hooks := runtime.LifecycleHooks{BeforeToolUse: hook}
 	servers := []mcp.ServerConfig{{Name: "github", Command: "npx"}}
 
-	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "", servers, hook)
+	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "", servers, hooks)
 
 	if len(spec.MCPServers) != 1 || spec.MCPServers[0].Name != "github" {
 		t.Errorf("MCPServers = %+v, want %+v", spec.MCPServers, servers)
@@ -69,8 +72,9 @@ func TestBuildAgentSpec_NilMCPServers(t *testing.T) {
 	hook := func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error) {
 		return runtime.HookDecision{Allow: true}, nil
 	}
+	hooks := runtime.LifecycleHooks{BeforeToolUse: hook}
 
-	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "", nil, hook)
+	spec := agentio.BuildAgentSpec("anthropic/claude-sonnet-5", "/tmp/work", 42, "", nil, hooks)
 
 	if len(spec.MCPServers) != 0 {
 		t.Errorf("MCPServers = %+v, want empty", spec.MCPServers)

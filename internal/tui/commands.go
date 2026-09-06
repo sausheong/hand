@@ -22,6 +22,7 @@ var commandDefs = []commandDef{
 	{"/clear", "clear the on-screen transcript (keeps the saved session)"},
 	{"/compact", "force a context-compaction pass now"},
 	{"/usage", "show token usage: this turn, session total, and context window"},
+	{"/skills", "list available skills (personal + project)"},
 	{"/exit", "quit hand"},
 }
 
@@ -133,6 +134,9 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 	case "/usage":
 		m.runUsageCommand()
 
+	case "/skills":
+		m.runSkillsCommand()
+
 	default:
 		m.transcript = append(m.transcript, errorLineStyle.Render("unknown command: "+name+" (try /help)"))
 	}
@@ -208,4 +212,12 @@ func (m *Model) runUsageCommand() {
 		m.contextSummary(),
 	}
 	m.transcript = append(m.transcript, toolCallStyle.Render(strings.Join(lines, "\n")))
+}
+
+func (m *Model) runSkillsCommand() {
+	if m.skillsIndex == "" {
+		m.transcript = append(m.transcript, toolCallStyle.Render("no skills found in ~/.hand/skills or this workspace's .hand/skills"))
+		return
+	}
+	m.transcript = append(m.transcript, toolCallStyle.Render(strings.TrimRight(m.skillsIndex, "\n")))
 }
