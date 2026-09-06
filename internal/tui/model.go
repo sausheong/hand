@@ -275,15 +275,6 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case tea.KeyMsg:
 		return m.handleKey(msg)
-
-	case tea.MouseMsg:
-		// Only the transcript scrolls on mouse wheel — viewport.Update
-		// ignores anything but wheel-up/down on its own (MouseWheelEnabled
-		// defaults true from viewport.New), so this is safe to forward
-		// unconditionally, pending-approval or not.
-		var cmd tea.Cmd
-		m.viewport, cmd = m.viewport.Update(msg)
-		return m, cmd
 	}
 
 	return m, nil
@@ -293,10 +284,7 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	if m.pending != nil {
 		// Scrolling must not fall through to the default case below
 		// (deny) — a long diff or bash preview is exactly when a user
-		// most wants to scroll back through it before deciding, and
-		// Update's tea.MouseMsg case already documents this same intent
-		// for the mouse wheel ("safe to forward unconditionally,
-		// pending-approval or not"); these are its keyboard equivalent.
+		// most wants to scroll back through it before deciding.
 		switch msg.String() {
 		case "pgup", "ctrl+u":
 			m.viewport.HalfPageUp()

@@ -108,10 +108,10 @@ func truncateOneLine(s string, max int) string {
 // shown under the ✓ in the transcript — a preview of what the tool
 // actually returned, not the full (possibly huge) output. Deliberately
 // terse: the transcript stays scannable at a glance, and the full
-// output is still just a pgup/pgdown or mouse-wheel scroll away — see
-// the viewport scroll handling in handleKey/Update — or, for the tool
-// call itself, in whatever produced the output in the first place
-// (the file on disk, the command's own terminal if run outside hand).
+// output is still just a pgup/pgdown/ctrl+u/ctrl+d scroll away — see
+// the viewport scroll handling in handleKey — or, for the tool call
+// itself, in whatever produced the output in the first place (the file
+// on disk, the command's own terminal if run outside hand).
 const (
 	toolResultMaxLines = 5
 	toolResultMaxChars = 500

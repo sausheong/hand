@@ -582,8 +582,6 @@ func TestHandleKey_PgDownAndCtrlUScrollCorrectDirections(t *testing.T) {
 // fall through to the pending-response switch's default case and
 // silently deny the tool call — exactly the moment a user most wants to
 // scroll back through a long diff or command preview before deciding.
-// Update's tea.MouseMsg handling already documented this same intent
-// for the mouse wheel; this proves the keyboard path honors it too.
 func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
 	m := NewModel(&fakeRunner{}, t.TempDir())
 	m.resize(80, 24)
@@ -608,40 +606,6 @@ func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
 	case d := <-respond:
 		t.Fatalf("scrolling sent a decision (%v) on the approval's Respond channel, want none", d)
 	default:
-	}
-}
-
-// Regression: forgetting to reassign m.viewport from viewport.Update's
-// return value (a common bubbletea mistake — Update returns a new Model
-// by value, it doesn't mutate the receiver) would make mouse-wheel
-// scrolling silently do nothing, since Update's tea.MouseMsg case only
-// forwards the message and returns whatever cmd it gets back.
-func TestUpdate_MouseWheelScrollsViewport(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	m.resize(80, 24)
-	lines := make([]string, 200)
-	for i := range lines {
-		lines[i] = fmt.Sprintf("line %d", i)
-	}
-	m.transcript = lines
-	m.refreshViewport()
-
-	m.viewport.GotoTop()
-	topOffset := m.viewport.YOffset
-
-	if _, cmd := m.Update(tea.MouseMsg{Action: tea.MouseActionPress, Button: tea.MouseButtonWheelDown}); cmd != nil {
-		cmd()
-	}
-	if m.viewport.YOffset <= topOffset {
-		t.Fatalf("expected mouse wheel down to scroll down from the top (YOffset %d), got %d", topOffset, m.viewport.YOffset)
-	}
-	afterWheelDown := m.viewport.YOffset
-
-	if _, cmd := m.Update(tea.MouseMsg{Action: tea.MouseActionPress, Button: tea.MouseButtonWheelUp}); cmd != nil {
-		cmd()
-	}
-	if m.viewport.YOffset >= afterWheelDown {
-		t.Fatalf("expected mouse wheel up to scroll back up (YOffset %d), got %d", afterWheelDown, m.viewport.YOffset)
 	}
 }
 

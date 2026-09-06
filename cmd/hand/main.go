@@ -360,7 +360,12 @@ func run() error {
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)
 	}
-	program := tea.NewProgram(m, tea.WithAltScreen(), tea.WithMouseCellMotion())
+	// No tea.WithMouseCellMotion(): enabling mouse tracking makes most
+	// terminal emulators hand every mouse event to the app instead of
+	// letting the user select/copy text natively — a worse trade than
+	// losing wheel-scroll, since pgup/pgdown/ctrl+u/ctrl+d already cover
+	// scrolling from the keyboard (see handleKey in internal/tui).
+	program := tea.NewProgram(m, tea.WithAltScreen())
 	m.BindProgram(program)
 	sender.Program = program
 

@@ -186,8 +186,11 @@ breakdown) as a one-off transcript entry, if you want it in the scrollback.
 
 Tool output shown under a `✓`/`✗` line is a short preview — 5 lines / 500
 characters — not the full result. Scroll up (`pgup`/`pgdown`, `ctrl+u`/
-`ctrl+d`, or the mouse wheel) to review earlier output; the preview cap keeps
-the transcript itself scannable rather than a full pager for every command.
+`ctrl+d`) to review earlier output; the preview cap keeps the transcript
+itself scannable rather than a full pager for every command.
+
+Hand doesn't capture the mouse, so your terminal's normal text
+selection/copy works exactly as it would anywhere else.
 
 ## Approval prompts
 
