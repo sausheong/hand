@@ -23,6 +23,14 @@ type Controller struct {
 	BaseURL    string
 
 	BuildProvider func(providerName, baseURL string) (llm.LLMProvider, error)
+
+	// RebuildSystemPrompt returns the identity system prompt (hand's
+	// fixed prompt, the "you are running as model X" line, and any
+	// project instructions) for the given "provider/model" string. main.go
+	// supplies this (it owns agentio.BuildSystemPrompt); tui deliberately
+	// doesn't know how that prompt is assembled, same reasoning as
+	// BuildProvider above.
+	RebuildSystemPrompt func(providerModel string) string
 }
 
 // CurrentModel returns the active "provider/model" string.
@@ -68,6 +76,33 @@ func (c *Controller) SwitchModel(providerModel string) error {
 	c.Rt.Model = modelName
 	if c.Rt.Compaction != nil && c.Rt.Compaction.Summarizer != nil {
 		c.Rt.Compaction.Summarizer.Model = modelName
+	}
+
+	// StaticSystemPrompt is built once at startup and reused verbatim every
+	// turn (that's the whole point — it's what lets the prompt cache hit).
+	// Left alone, it would keep telling the model it's whatever hand
+	// started up as, no matter what /model switches to since — which is
+	// exactly the self-identification bug this rebuild fixes. Skills and
+	// memory indices are re-read live off the Runtime rather than
+	// recomputed from scratch, since hand hands the same *Runtime through
+	// every switch; config summary and memory files are hand's static
+	// empties (see RuntimeDeps{Skills: skillProvider} in main.go), not
+	// something a model switch could change.
+	if c.RebuildSystemPrompt != nil {
+		newPrompt := c.RebuildSystemPrompt(c.CurrentModel())
+		skillsIndex := ""
+		if c.Rt.Skills != nil {
+			skillsIndex = c.Rt.Skills.FormatIndex()
+		}
+		memoryIndex := ""
+		if c.Rt.Memory != nil {
+			memoryIndex = c.Rt.Memory.FormatIndex()
+		}
+		c.Rt.SystemPrompt = newPrompt
+		c.Rt.StaticSystemPrompt = runtime.BuildStaticSystemPrompt(
+			c.Rt.Workspace, newPrompt, c.Rt.AgentID, c.Rt.AgentName,
+			c.Rt.Tools.Names(), "", skillsIndex, memoryIndex, "",
+		)
 	}
 	return nil
 }

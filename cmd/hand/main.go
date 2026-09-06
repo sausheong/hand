@@ -356,6 +356,9 @@ func run() error {
 		SessionKey:    sessionKey,
 		BaseURL:       baseURL,
 		BuildProvider: buildProvider,
+		RebuildSystemPrompt: func(providerModel string) string {
+			return agentio.BuildSystemPrompt(workspace, providerModel)
+		},
 	})
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)

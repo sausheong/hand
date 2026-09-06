@@ -10,6 +10,7 @@ import (
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/session"
+	"github.com/sausheong/harness/tool"
 )
 
 // fakeLLMProvider is a distinguishable llm.LLMProvider stand-in for
@@ -204,6 +205,68 @@ func TestController_SwitchModel_RejectsMalformedModel(t *testing.T) {
 	c := &Controller{Rt: &runtime.Runtime{Provider: "anthropic", Model: "claude-sonnet-5"}}
 	if err := c.SwitchModel("not-a-valid-model"); err == nil {
 		t.Fatal("expected an error for a malformed provider/model string")
+	}
+}
+
+// fakeSkillProvider is a minimal runtime.SkillProvider stand-in so tests
+// can assert FormatIndex's result actually reaches the rebuilt static
+// prompt, rather than a hardcoded default.
+type fakeSkillProvider struct{ index string }
+
+func (f fakeSkillProvider) FormatIndex() string       { return f.index }
+func (f fakeSkillProvider) Get(string) (string, bool) { return "", false }
+
+// Regression: SwitchModel used to leave Rt.StaticSystemPrompt untouched,
+// so the "you are running as model X" line baked in at startup kept
+// naming the OLD model forever — a model asked "which model are you"
+// after switching would answer with whatever hand started up as, not
+// what it was actually switched to.
+func TestController_SwitchModel_RebuildsStaticSystemPromptWhenConfigured(t *testing.T) {
+	rt := &runtime.Runtime{
+		Provider:  "openrouter",
+		Model:     "meta/muse-spark-1.3",
+		AgentID:   "hand",
+		AgentName: "Hand",
+		Workspace: "/tmp/workspace",
+		Tools:     tool.NewRegistry(),
+		Skills:    fakeSkillProvider{index: "\n\nSkills Index:\n- example"},
+	}
+	var gotModel string
+	c := &Controller{
+		Rt: rt,
+		RebuildSystemPrompt: func(providerModel string) string {
+			gotModel = providerModel
+			return "identity for " + providerModel
+		},
+	}
+
+	if err := c.SwitchModel("openrouter/anthropic/claude-sonnet-5"); err != nil {
+		t.Fatalf("SwitchModel: %v", err)
+	}
+
+	if gotModel != "openrouter/anthropic/claude-sonnet-5" {
+		t.Fatalf("RebuildSystemPrompt called with %q, want the new provider/model", gotModel)
+	}
+	if !strings.Contains(rt.StaticSystemPrompt, "identity for openrouter/anthropic/claude-sonnet-5") {
+		t.Fatalf("StaticSystemPrompt = %q, want the rebuilt identity text", rt.StaticSystemPrompt)
+	}
+	if !strings.Contains(rt.StaticSystemPrompt, "Skills Index") {
+		t.Fatalf("StaticSystemPrompt = %q, want the live skills index preserved across the switch", rt.StaticSystemPrompt)
+	}
+}
+
+func TestController_SwitchModel_NilRebuildSystemPromptLeavesStaticPromptAlone(t *testing.T) {
+	rt := &runtime.Runtime{
+		Provider:           "anthropic",
+		Model:              "claude-haiku-4-5",
+		StaticSystemPrompt: "original identity",
+	}
+	c := &Controller{Rt: rt}
+	if err := c.SwitchModel("anthropic/claude-sonnet-5"); err != nil {
+		t.Fatalf("SwitchModel: %v", err)
+	}
+	if rt.StaticSystemPrompt != "original identity" {
+		t.Fatalf("StaticSystemPrompt = %q, want unchanged when RebuildSystemPrompt is nil", rt.StaticSystemPrompt)
 	}
 }
 
