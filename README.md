@@ -78,6 +78,18 @@ one-off integration per vendor. OpenRouter needs no other setup
 need `--base-url` (or `base_url` in config) pointing at your proxy —
 there's no public default endpoint to fall back to.
 
+> **Watch the prefix.** OpenRouter's own catalog ids look like
+> `anthropic/claude-sonnet-4-5` or `google/gemini-3-pro` — a vendor name
+> followed by a model name, the same shape Hand uses for `provider/model`.
+> The *first* segment you give Hand always selects Hand's own provider, so
+> to pick that catalog entry through OpenRouter you must repeat the
+> aggregator prefix: `--model openrouter/anthropic/claude-sonnet-4-5` (or
+> `/model openrouter/anthropic/claude-sonnet-4-5` at the prompt). Drop the
+> `openrouter/` and Hand switches straight to its own `anthropic` provider
+> — a real vendor, so it won't be rejected as "unknown provider" — and
+> calls the real Anthropic API directly with whatever model string
+> followed, which usually isn't a valid Anthropic model id.
+
 ## Running it
 
 Run `hand` from the directory you want it to work in — that directory is the

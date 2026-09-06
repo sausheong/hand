@@ -155,12 +155,27 @@ func (m *Model) runModelCommand(args []string) {
 		return
 	}
 	target := args[0]
+	oldProvider, _, _ := strings.Cut(m.controller.CurrentModel(), "/")
 	if err := m.controller.SwitchModel(target); err != nil {
 		m.transcript = append(m.transcript, errorLineStyle.Render("model switch failed: "+err.Error()))
 		return
 	}
 	m.setModel(m.controller.CurrentModel())
-	m.transcript = append(m.transcript, approvedStyle.Render("model switched to "+m.model))
+	newProvider, _, _ := strings.Cut(m.model, "/")
+	msg := "model switched to " + m.model
+	if newProvider != oldProvider {
+		// The first segment of a /model argument always selects hand's own
+		// provider, even when it happens to match the vendor name inside
+		// an aggregator's own catalog id (e.g. openrouter lists models as
+		// "anthropic/claude-...", "google/gemini-..."). Typing that vendor
+		// name without re-prefixing the aggregator ("openrouter/anthropic/
+		// claude-...") silently leaves the aggregator entirely and hits
+		// that vendor's real API instead — worth calling out immediately,
+		// since the failure otherwise only surfaces later as a confusing
+		// API error from a provider the user didn't think they switched to.
+		msg += fmt.Sprintf(" — now using the %q provider directly (was %q)", newProvider, oldProvider)
+	}
+	m.transcript = append(m.transcript, approvedStyle.Render(msg))
 }
 
 func (m *Model) runNewCommand() {
