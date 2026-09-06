@@ -91,7 +91,7 @@ func TestResolveModel_FlagOverridesConfig(t *testing.T) {
 		want      string
 	}{
 		{"flag empty uses config", "", config.Config{Model: "anthropic/claude-sonnet-5"}, "anthropic/claude-sonnet-5"},
-		{"flag set overrides config", "qwen/qwen-max", config.Config{Model: "anthropic/claude-sonnet-5"}, "qwen/qwen-max"},
+		{"flag set overrides config", "openrouter/gpt-4o", config.Config{Model: "anthropic/claude-sonnet-5"}, "openrouter/gpt-4o"},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

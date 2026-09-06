@@ -61,13 +61,22 @@ environment variable:
 | Anthropic   | `ANTHROPIC_API_KEY`    |
 | OpenAI      | `OPENAI_API_KEY`       |
 | Gemini      | `GEMINI_API_KEY`       |
-| Qwen        | `DASHSCOPE_API_KEY`    |
+| OpenRouter  | `OPENROUTER_API_KEY`   |
+| LiteLLM     | `LITELLM_API_KEY` (optional — many self-hosted proxies don't enforce auth) |
 
 Export the one matching your default model before running Hand, e.g.:
 
 ```sh
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
+
+**LiteLLM and OpenRouter** are aggregators, not single vendors — each
+fronts dozens to hundreds of underlying models behind one OpenAI-compatible
+endpoint, so supporting them once gets you that whole catalog instead of a
+one-off integration per vendor. OpenRouter needs no other setup
+(`--model openrouter/<catalog-id>`); LiteLLM is self-hosted, so you also
+need `--base-url` (or `base_url` in config) pointing at your proxy —
+there's no public default endpoint to fall back to.
 
 ## Running it
 
@@ -107,7 +116,7 @@ hand -p "fix the failing test in pkg/foo" --yes
 | Flag               | Description |
 |---------------------|-------------|
 | `--model`           | `provider/model` to use for this run, e.g. `anthropic/claude-sonnet-5` — overrides `~/.hand/config.json` |
-| `--base-url`        | Custom API base URL (e.g. a LiteLLM proxy) — not supported for Gemini |
+| `--base-url`        | Custom API base URL — required for `litellm`, optional for `openai`/`openrouter`, not supported for `gemini` |
 | `--max-turns`       | Cap the agent's tool-use loop for this run (default: 50, or `max_turns` in config) |
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
 | `--markdown-style`  | Glamour style for rendering assistant Markdown: `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, `tokyo-night` (default `dark`) — overrides `~/.hand/config.json` |

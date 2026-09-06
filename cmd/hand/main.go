@@ -23,8 +23,9 @@ import (
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/providers/anthropic"
 	"github.com/sausheong/harness/providers/gemini"
+	"github.com/sausheong/harness/providers/litellm"
 	"github.com/sausheong/harness/providers/openai"
-	"github.com/sausheong/harness/providers/qwen"
+	"github.com/sausheong/harness/providers/openrouter"
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/session"
 )
@@ -122,15 +123,26 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 		}
 		return p, nil
 
-	case "qwen":
-		key := os.Getenv("DASHSCOPE_API_KEY")
-		if key == "" {
-			return nil, fmt.Errorf("DASHSCOPE_API_KEY is not set")
+	case "litellm":
+		if baseURL == "" {
+			return nil, fmt.Errorf("litellm requires --base-url (or base_url in ~/.hand/config.json) pointing at your LiteLLM proxy — it has no public default endpoint")
 		}
-		return qwen.NewQwenProvider(key, baseURL), nil
+		// LITELLM_API_KEY is deliberately optional, unlike every other
+		// provider here: many self-hosted LiteLLM proxies don't enforce
+		// auth at all, and forcing a dummy env var just to reach one
+		// would be pure friction.
+		key := os.Getenv("LITELLM_API_KEY")
+		return litellm.NewLiteLLMProvider(key, baseURL), nil
+
+	case "openrouter":
+		key := os.Getenv("OPENROUTER_API_KEY")
+		if key == "" {
+			return nil, fmt.Errorf("OPENROUTER_API_KEY is not set")
+		}
+		return openrouter.NewOpenRouterProvider(key, baseURL), nil
 
 	default:
-		return nil, fmt.Errorf("unknown provider %q (want anthropic, openai, gemini, or qwen)", providerName)
+		return nil, fmt.Errorf("unknown provider %q (want anthropic, openai, gemini, litellm, or openrouter)", providerName)
 	}
 }
 
@@ -207,7 +219,7 @@ func promptWorkspaceTrust(stdin io.Reader, settingsPath string, tools []string) 
 
 func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
-	baseURLFlag := flag.String("base-url", "", "custom API base URL, e.g. a LiteLLM proxy endpoint (overrides ~/.hand/config.json for this run; not supported for gemini)")
+	baseURLFlag := flag.String("base-url", "", "custom API base URL (overrides ~/.hand/config.json for this run; required for litellm, optional for openai/openrouter, not supported for gemini)")
 	maxTurnsFlag := flag.Int("max-turns", 0, "cap the agent's tool-use loop for this run (overrides ~/.hand/config.json for this run; 0 means use the config/default)")
 	fallbackModelFlag := flag.String("fallback-model", "", "provider/model to retry against on a transient provider error, same provider as --model (overrides ~/.hand/config.json for this run)")
 	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
