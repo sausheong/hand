@@ -340,6 +340,7 @@ func run() error {
 		return fmt.Errorf("build runtime: %w", err)
 	}
 	defer rt.Close()
+	rt.DynamicIdentityHint = agentio.ModelIdentityHint(model)
 
 	if oneShot {
 		return runOneShot(context.Background(), rt, *printFlag, cfg.Hooks, workspace, &stopReason, maxIterations)
@@ -351,14 +352,12 @@ func run() error {
 	m.SetSkillsIndex(skillProvider.FormatIndex())
 	m.SetGoalLoop(cfg.Hooks, &stopReason, maxIterations)
 	m.SetController(&tui.Controller{
-		Rt:            rt,
-		Store:         store,
-		SessionKey:    sessionKey,
-		BaseURL:       baseURL,
-		BuildProvider: buildProvider,
-		RebuildSystemPrompt: func(providerModel string) string {
-			return agentio.BuildSystemPrompt(workspace, providerModel)
-		},
+		Rt:                     rt,
+		Store:                  store,
+		SessionKey:             sessionKey,
+		BaseURL:                baseURL,
+		BuildProvider:          buildProvider,
+		BuildModelIdentityHint: agentio.ModelIdentityHint,
 	})
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)

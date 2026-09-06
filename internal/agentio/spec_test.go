@@ -82,34 +82,10 @@ func TestBuildAgentSpec_NilMCPServers(t *testing.T) {
 }
 
 func TestBuildSystemPrompt_NoFileReturnsBaseOnly(t *testing.T) {
-	got := agentio.BuildSystemPrompt(t.TempDir(), "")
+	got := agentio.BuildSystemPrompt(t.TempDir())
 
 	if got != agentio.SystemPrompt {
 		t.Errorf("BuildSystemPrompt = %q, want the base prompt unchanged", got)
-	}
-}
-
-// Regression: an LLM's own self-knowledge about which model it is
-// running as is unreliable, especially behind an aggregator (OpenRouter)
-// or proxy (LiteLLM) — asking it "which model are you?" with nothing in
-// context to ground the answer produces a guess, often wrong. Stating
-// the active model explicitly in the system prompt is the fix.
-func TestBuildSystemPrompt_NamesTheActiveModel(t *testing.T) {
-	got := agentio.BuildSystemPrompt(t.TempDir(), "openrouter/qwen/qwen3.8-flash")
-
-	if !strings.HasPrefix(got, agentio.SystemPrompt) {
-		t.Errorf("BuildSystemPrompt = %q, want it to still start with the base prompt", got)
-	}
-	if !strings.Contains(got, "openrouter/qwen/qwen3.8-flash") {
-		t.Errorf("BuildSystemPrompt = %q, want it to name the active model", got)
-	}
-}
-
-func TestBuildSystemPrompt_EmptyModelOmitsModelLine(t *testing.T) {
-	got := agentio.BuildSystemPrompt(t.TempDir(), "")
-
-	if strings.Contains(got, "running as the model") {
-		t.Errorf("BuildSystemPrompt = %q, want no model line when model is empty", got)
 	}
 }
 
@@ -119,7 +95,7 @@ func TestBuildSystemPrompt_HandMdAppended(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got := agentio.BuildSystemPrompt(dir, "")
+	got := agentio.BuildSystemPrompt(dir)
 
 	if !strings.HasPrefix(got, agentio.SystemPrompt) {
 		t.Errorf("BuildSystemPrompt = %q, want it to start with the base prompt", got)
@@ -138,7 +114,7 @@ func TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got := agentio.BuildSystemPrompt(dir, "")
+	got := agentio.BuildSystemPrompt(dir)
 
 	if !strings.Contains(got, "follow the style guide") {
 		t.Errorf("BuildSystemPrompt = %q, want it to contain the AGENTS.md content", got)
@@ -157,12 +133,34 @@ func TestBuildSystemPrompt_HandMdWinsOverAgentsMd(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	got := agentio.BuildSystemPrompt(dir, "")
+	got := agentio.BuildSystemPrompt(dir)
 
 	if !strings.Contains(got, "hand instructions") {
 		t.Errorf("BuildSystemPrompt = %q, want HAND.md content present", got)
 	}
 	if strings.Contains(got, "agents instructions") {
 		t.Errorf("BuildSystemPrompt = %q, want AGENTS.md content absent when HAND.md is present", got)
+	}
+}
+
+// Regression: an LLM's own self-knowledge about which model it is
+// running as is unreliable, especially behind an aggregator (OpenRouter)
+// or proxy (LiteLLM) — asking it "which model are you?" with nothing in
+// context to ground the answer produces a guess, often wrong. Stating
+// the active model explicitly, and telling it to override any different
+// model it stated earlier in the conversation, is the fix. This lives in
+// ModelIdentityHint, not BuildSystemPrompt, so it can be resent fresh
+// every turn (see ModelIdentityHint's doc comment for why).
+func TestModelIdentityHint_NamesTheActiveModel(t *testing.T) {
+	got := agentio.ModelIdentityHint("openrouter/qwen/qwen3.8-flash")
+
+	if !strings.Contains(got, "openrouter/qwen/qwen3.8-flash") {
+		t.Errorf("ModelIdentityHint = %q, want it to name the active model", got)
+	}
+}
+
+func TestModelIdentityHint_EmptyModelReturnsEmpty(t *testing.T) {
+	if got := agentio.ModelIdentityHint(""); got != "" {
+		t.Errorf("ModelIdentityHint(\"\") = %q, want \"\"", got)
 	}
 }

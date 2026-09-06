@@ -22,24 +22,16 @@ const SystemPrompt = baseSystemPrompt
 // AGENTS.md for other tools works with hand too without duplication.
 var projectInstructionFiles = []string{"HAND.md", "AGENTS.md"}
 
-// BuildSystemPrompt returns hand's fixed identity, a line naming the
-// active model (when model is non-empty), plus, if present, one project
-// instruction file's content appended underneath. Only one
+// BuildSystemPrompt returns hand's fixed identity plus, if present, one
+// project instruction file's content appended underneath. Only one
 // workspace-root file is ever read — no merging across multiple
 // directories (parent dirs, $HOME).
 //
-// The model line exists because an LLM's own self-knowledge about which
-// model it is running as is unreliable — especially behind an
-// aggregator like OpenRouter or a proxy like LiteLLM, where the model
-// actually serving the request may not match whatever the underlying
-// weights "believe" about themselves from training. Stating it
-// explicitly, as an instruction for how to answer rather than just
-// background info, is the only reliable fix.
-func BuildSystemPrompt(workspace, model string) string {
+// The active model is deliberately NOT named here — see
+// ModelIdentityHint's doc comment for why that line has to live in the
+// per-turn dynamic prompt instead of this cached static one.
+func BuildSystemPrompt(workspace string) string {
 	prompt := baseSystemPrompt
-	if model != "" {
-		prompt += "\n\nYou are running as the model \"" + model + "\" — if asked which model you are, answer with this exact string."
-	}
 	for _, name := range projectInstructionFiles {
 		data, err := os.ReadFile(filepath.Join(workspace, name))
 		if err != nil {
@@ -48,6 +40,29 @@ func BuildSystemPrompt(workspace, model string) string {
 		return prompt + "\n\n---\n\nProject instructions (" + name + "):\n\n" + string(data)
 	}
 	return prompt
+}
+
+// ModelIdentityHint returns the per-turn (uncached) text naming the
+// active model, for Runtime.DynamicIdentityHint — set once at startup and
+// again on every /model switch (see tui.Controller.SwitchModel).
+//
+// This can't just be baked into BuildSystemPrompt's cached static text:
+// an LLM's own self-knowledge about which model it's running as is
+// unreliable to begin with — especially behind an aggregator like
+// OpenRouter or a proxy like LiteLLM, where the model actually serving
+// the request may not match whatever the underlying weights "believe"
+// about themselves from training — and once the conversation has a few
+// turns in it, a model tends to just repeat whatever it already told the
+// user earlier in that same conversation, outweighing a fact it only
+// read once near the top of a large cached block. Resending the fact
+// fresh, every turn, and explicitly telling it to override any earlier
+// self-statement, gives it the same recency the model grants its own
+// last answer.
+func ModelIdentityHint(model string) string {
+	if model == "" {
+		return ""
+	}
+	return "You are running as the model \"" + model + "\" — if asked which model you are, answer with this exact string, even if you stated a different model earlier in this conversation (the model was switched)."
 }
 
 // BuildAgentSpec builds the single AgentSpec Hand uses for the whole
@@ -69,7 +84,7 @@ func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string,
 		Model:         model,
 		FallbackModel: fallbackModel,
 		Workspace:     workspace,
-		SystemPrompt:  BuildSystemPrompt(workspace, model),
+		SystemPrompt:  BuildSystemPrompt(workspace),
 		MaxTurns:      maxTurns,
 		MCPServers:    mcpServers,
 		Loop: runtime.LoopConfig{
