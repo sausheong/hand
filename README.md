@@ -196,22 +196,90 @@ to confirm trusting it once per workspace before honoring those entries —
 add `.hand/` to your `.gitignore` if you don't want your own approvals
 checked into version control.
 
-## Skills
+## Extending Hand
 
-Skills are reusable, on-demand-loaded procedural knowledge: a short name and
-description show up in Hand's system prompt at startup, and the full body
-loads into context only when the agent actually needs it — cheaper than
-stuffing everything into the system prompt up front.
+Hand has three, orthogonal ways to extend what it can do, and it's worth
+being precise about what each one actually adds:
 
-Hand looks in two places, merged, with the project version winning on a
-name collision:
+- **MCP servers** add new *tools* the model can call.
+- **Skills** add new *knowledge* the model can pull into context on demand —
+  no new tools, just a name/description index plus a way to fetch the body.
+- **Hooks** add *lifecycle interception* — a chance to observe or block
+  something that's about to happen, for every tool call (built-in, MCP, or
+  skill-related) and every turn, not just gated ones.
+
+They compose: an MCP server's tools are gated and hookable exactly like
+Hand's own `bash`/`write_file`/`edit_file`; a `PreToolUse` hook's `matcher`
+can target `mcp__<server>__<tool>` just as easily as `bash`.
+
+### MCP servers
+
+[MCP](https://modelcontextprotocol.io) (Model Context Protocol) servers are
+external processes (or remote endpoints) that expose their own tools — a
+GitHub server exposing `create_issue`, a database server exposing `query`,
+and so on. Configure them in `~/.hand/config.json`'s `mcp_servers` list (see
+[Configuration](#configuration)); there's no per-project MCP config.
+
+Each entry is either:
+
+- a **local command** (`command`, `args`, `env`) — Hand spawns it as a
+  subprocess and speaks MCP over its stdin/stdout, or
+- a **remote server** (`url`, `headers`) — Hand connects over HTTP.
+
+Set exactly one of the two per entry.
+
+**Connecting.** Every configured server is connected synchronously, before
+the TUI (or one-shot output) appears — a slow server adds visible startup
+delay, with `hand: connecting to N configured MCP server(s)...` printed
+while it waits. Connecting is bounded to 15 seconds total across every
+configured server; on timeout, Hand exits with an error rather than hanging
+indefinitely (a server that finishes connecting a few seconds *after* the
+timeout is still cleaned up properly in the background, so it won't leak a
+subprocess).
+
+**Naming and gating.** Each tool a connected server exposes gets registered
+into Hand's tool registry as `mcp__<server-name>__<tool-name>` — visible to
+the model under that full name. By default, every tool from every server is
+gated exactly like `bash`/`write_file`/`edit_file`: it triggers the same
+`Allow <tool>? [y]es / [a]lways / [n]o` approval prompt (see
+[Approval prompts](#approval-prompts)) before it's allowed to run. Setting
+`"trusted": true` on a server's config entry skips the prompt for every tool
+that server exposes — only do this for a server whose output you trust as
+much as Hand's own built-in tools, since an untrusted MCP server can expose
+arbitrary tools you've never seen before that might use identical names to a
+trusted one (Hand resolves the *longest* matching configured server name
+first specifically to avoid a shorter trusted name accidentally covering a
+longer untrusted one that happens to share a prefix).
+
+```json
+"mcp_servers": [
+  { "name": "github", "command": "npx", "args": ["-y", "@modelcontextprotocol/server-github"], "env": { "GITHUB_TOKEN": "..." }, "trusted": false },
+  { "name": "remote-example", "url": "https://example.com/mcp", "headers": { "Authorization": "Bearer ..." }, "trusted": true }
+]
+```
+
+### Skills
+
+Skills are reusable, on-demand-loaded procedural knowledge: a name and
+one-line description show up in Hand's system prompt at startup as a
+"## Skills" index, and the full body only loads into context when the agent
+actually decides it needs it (via a `load_skill` tool call) — cheaper than
+stuffing every skill's full content into the system prompt on every turn,
+and the index itself is built once at startup and reused unchanged for the
+life of the process.
+
+**Where they live.** Hand reads two directories and merges them, project
+winning on a name collision:
 
 - `~/.hand/skills/` — personal skills you maintain by hand, shared across
-  every project
-- `<workspace>/.hand/skills/` — project-specific skills, which can be
-  committed to a repo alongside `HAND.md`/`AGENTS.md`
+  every project.
+- `<workspace>/.hand/skills/` — project-specific skills. Committable to a
+  repo alongside `HAND.md`/`AGENTS.md`, so a team can share "how we do
+  things here" knowledge the same way they share project instructions.
 
-Each skill is a directory containing `SKILL.md`:
+**Format.** Each skill is its own directory containing `SKILL.md`, with a
+frontmatter block for metadata and everything after it as the body the model
+sees once loaded:
 
 ```
 .hand/skills/run-tests/SKILL.md
@@ -226,29 +294,95 @@ Run `make test`. Integration tests additionally need a running Postgres —
 see docker-compose.yml.
 ```
 
-The agent can also create, patch, replace, remove, list, or get skills
-itself via the `skill_manage` tool — useful for "remember how to do this"
-requests. Self-authored skills always land in the **project-local** store
-(`<workspace>/.hand/skills/`), never your personal `~/.hand/skills/`, so an
-agent-authored skill stays scoped to the repo it was learned in. A skill
-created mid-session shows up in the system prompt starting next session,
-not immediately — the index is built once at startup.
+**How a skill actually gets used in a turn:** at startup, Hand scans both
+directories, builds the merged index, and injects it into the system
+prompt. Mid-conversation, if the model decides a skill looks relevant to
+what you asked, it calls `load_skill` with the skill's name; Hand returns
+the full `SKILL.md` body as that tool call's result, which then sits in
+context for the rest of the conversation like any other tool output
+(subject to the same compaction as everything else — see
+`compaction_threshold` below).
 
-Run `/skills` to see what's currently loaded.
+**Self-authoring.** The model can also create, patch, replace, remove,
+list, or get skills itself via a `skill_manage` tool — useful for "remember
+how to do this" requests, where the agent writes its own procedural
+knowledge for next time. Self-authored skills always land in the
+**project-local** store (`<workspace>/.hand/skills/`), never your personal
+`~/.hand/skills/`, so an agent-authored skill stays scoped to the repo it
+was learned in rather than silently spreading across every project you use
+Hand in. Note that `load_skill`/`skill_manage` are **not** gated — no
+approval prompt — since they're confined to the skills directory rather
+than able to touch arbitrary files, unlike `write_file`. A skill created or
+edited mid-session shows up in the system prompt starting the *next* run,
+not immediately, since the index is fixed at startup.
 
-## Hooks
+Run `/skills` to see what's currently loaded, from both directories.
 
-Hooks are shell commands that run on agent lifecycle events — before/after a
-tool call, session start, prompt submit, and stop — configured in
-`~/.hand/config.json`'s `hooks` list (see [Configuration](#configuration)
-below). A hook can observe (log, notify) or, for `PreToolUse` and
-`UserPromptSubmit`, block.
+### Hooks
 
-Hooks are global-config-only, unlike skills — there's no per-project hooks
-file. A hook runs an arbitrary command, so it gets the same trust tier as an
-`mcp_servers` entry (also global-only): letting a cloned repo define its own
-hooks would mean a repo you just cloned could run code automatically the
-first time Hand touches it.
+Hooks are shell commands Hand runs at five points in the agent loop —
+before a tool call, after a tool call, at session start, when you submit a
+prompt, and when a turn stops — configured globally in
+`~/.hand/config.json`'s `hooks` list (see [Configuration](#configuration)).
+Unlike skills, there is no per-project hooks file: a hook executes an
+arbitrary command, so it gets the same trust tier as an `mcp_servers` entry
+(also global-only) rather than something a cloned repo could ship and have
+run automatically the first time Hand touches it.
+
+**The five events:**
+
+| Event | Fires | Can block? | Extra env vars |
+|-------|-------|------------|-----------------|
+| `PreToolUse` | Before any tool call — built-in, MCP, or skill-related | Yes | `HAND_TOOL_NAME`, `HAND_TOOL_INPUT` |
+| `PostToolUse` | After a tool call returns (success or error) | No (observe-only) | `HAND_TOOL_NAME`, `HAND_TOOL_INPUT`, `HAND_TOOL_RESULT`, `HAND_TOOL_ERROR` (if any) |
+| `SessionStart` | Once, when a session begins | No | — |
+| `UserPromptSubmit` | Once per turn, before your message is sent | Yes | `HAND_PROMPT` |
+| `Stop` | Once, when a turn ends (any outcome) | No | `HAND_STOP_REASON` |
+
+Every hook also receives `HAND_HOOK_EVENT` (the event name) and
+`HAND_WORKSPACE`, plus the rest of Hand's own process environment.
+
+**Ordering relative to gating.** `PreToolUse` hooks run for *every* tool
+call, not just gated ones — `read_file` and `web_search` trigger matching
+hooks too, even though neither ever shows an approval prompt. For a gated
+tool, a `PreToolUse` hook runs *before* the interactive approval prompt, so
+a hook can auto-deny a call before you're ever asked about it.
+
+**The exit-code contract** (deliberately the simplest form that works —
+matches the convention from Claude Code's own hooks, so anyone already
+familiar with it can write one for Hand without learning a new contract):
+
+- **Exit `0`** — allow. For `PostToolUse`/`SessionStart`/`Stop` this is the
+  only outcome that matters; they can't block regardless of exit code.
+- **Exit `2`** — deny (`PreToolUse`, with stderr shown as the approval
+  denial reason) or abort the turn (`UserPromptSubmit`, with stderr as the
+  error). Nothing else happens after the first hook that returns this.
+- **Anything else, or a timeout** (default 30s, `timeout_seconds` to
+  change) — *fails open*: the call proceeds and a warning is logged, rather
+  than a typo or a crashing script silently blocking every tool call.
+
+A `matcher` (exact tool name, or `"*"`/omitted for every tool) restricts a
+`PreToolUse`/`PostToolUse` hook to specific tools — including MCP ones, e.g.
+`"matcher": "mcp__github__create_issue"`. `SessionStart`/`UserPromptSubmit`/
+`Stop` have no tool to match against, so `matcher` is ignored for them.
+
+Two worked examples:
+
+```json
+{ "event": "PreToolUse", "matcher": "bash", "command": "./scripts/check-command.sh" }
+```
+
+`check-command.sh` reads `$HAND_TOOL_INPUT` (the raw JSON tool input,
+containing the shell command), and exits `2` with a reason on stderr to
+block anything it doesn't like — e.g. a company policy against `curl | sh`.
+
+```json
+{ "event": "Stop", "command": "notify-send", "args": ["hand finished"] }
+```
+
+A simple desktop notification every time a turn ends, regardless of how it
+ended (`HAND_STOP_REASON` is one of `completed`, `max_turns`, `error`, or
+`aborted`) — no blocking, just an observation.
 
 ## Configuration
 
@@ -311,29 +445,10 @@ run):
   (and losing a bit of verbatim detail from earlier in the conversation);
   higher keeps more raw context around longer. Must be in `(0, 1]` —
   anything else falls back to the default.
-- `mcp_servers` lists [MCP](https://modelcontextprotocol.io) servers to
-  connect at startup, extending Hand's built-in tools. Each entry is either
-  a local command (`command`/`args`/`env`) or a remote server (`url`/
-  `headers`) — set exactly one.
-- `trusted: true` skips the approval gate for that server's tools. Leave it
-  `false` (the default) unless you trust the server's output as much as
-  Hand's own built-in tools.
-- `hooks` lists shell commands to run on lifecycle events (see
-  [Hooks](#hooks) above). Each entry:
-  - `event` — one of `PreToolUse`, `PostToolUse`, `SessionStart`,
-    `UserPromptSubmit`, `Stop`.
-  - `matcher` — for `PreToolUse`/`PostToolUse` only: the exact tool name to
-    restrict this hook to, or `"*"`/omitted for every tool.
-  - `command` / `args` — the command to run. Receives the current
-    environment plus event-specific `HAND_*` variables (e.g. `HAND_TOOL_NAME`,
-    `HAND_TOOL_INPUT`, `HAND_PROMPT`, `HAND_STOP_REASON`).
-  - `timeout_seconds` — bounds how long the command may run (default `30`).
-  - Exit code `0` allows the call to proceed; exit code `2` denies it
-    (`PreToolUse`) or aborts the turn (`UserPromptSubmit`), with stderr shown
-    as the reason. Any other exit code, or a timeout, fails open — logged as
-    a warning, but the call proceeds — so a broken hook script can't brick
-    every tool call. `PostToolUse`/`SessionStart`/`Stop` hooks are
-    observe-only regardless of exit code.
+- `mcp_servers` — see [MCP servers](#mcp-servers) above for what each field
+  means and how gating/trust works.
+- `hooks` — see [Hooks](#hooks) above for the five events, the exit-code
+  contract, and what each `HAND_*` environment variable carries.
 
 ## Development
 
