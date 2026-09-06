@@ -22,19 +22,32 @@ const SystemPrompt = baseSystemPrompt
 // AGENTS.md for other tools works with hand too without duplication.
 var projectInstructionFiles = []string{"HAND.md", "AGENTS.md"}
 
-// BuildSystemPrompt returns hand's fixed identity plus, if present, one
-// project instruction file's content appended underneath. Only one
+// BuildSystemPrompt returns hand's fixed identity, a line naming the
+// active model (when model is non-empty), plus, if present, one project
+// instruction file's content appended underneath. Only one
 // workspace-root file is ever read — no merging across multiple
 // directories (parent dirs, $HOME).
-func BuildSystemPrompt(workspace string) string {
+//
+// The model line exists because an LLM's own self-knowledge about which
+// model it is running as is unreliable — especially behind an
+// aggregator like OpenRouter or a proxy like LiteLLM, where the model
+// actually serving the request may not match whatever the underlying
+// weights "believe" about themselves from training. Stating it
+// explicitly, as an instruction for how to answer rather than just
+// background info, is the only reliable fix.
+func BuildSystemPrompt(workspace, model string) string {
+	prompt := baseSystemPrompt
+	if model != "" {
+		prompt += "\n\nYou are running as the model \"" + model + "\" — if asked which model you are, answer with this exact string."
+	}
 	for _, name := range projectInstructionFiles {
 		data, err := os.ReadFile(filepath.Join(workspace, name))
 		if err != nil {
 			continue
 		}
-		return baseSystemPrompt + "\n\n---\n\nProject instructions (" + name + "):\n\n" + string(data)
+		return prompt + "\n\n---\n\nProject instructions (" + name + "):\n\n" + string(data)
 	}
-	return baseSystemPrompt
+	return prompt
 }
 
 // BuildAgentSpec builds the single AgentSpec Hand uses for the whole
@@ -56,7 +69,7 @@ func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string,
 		Model:         model,
 		FallbackModel: fallbackModel,
 		Workspace:     workspace,
-		SystemPrompt:  BuildSystemPrompt(workspace),
+		SystemPrompt:  BuildSystemPrompt(workspace, model),
 		MaxTurns:      maxTurns,
 		MCPServers:    mcpServers,
 		Loop: runtime.LoopConfig{
