@@ -342,6 +342,45 @@ func TestResolveMaxTurns_FlagOverridesConfigOverridesDefault(t *testing.T) {
 	}
 }
 
+func TestResolveMaxGoalIterations_FlagOverridesConfigOverridesDefault(t *testing.T) {
+	cases := []struct {
+		name      string
+		flagValue int
+		cfg       config.Config
+		want      int
+	}{
+		{"flag and config both zero uses default", 0, config.Config{}, config.DefaultMaxGoalIterations},
+		{"flag zero uses config", 0, config.Config{MaxGoalIterations: 25}, 25},
+		{"flag set overrides config", 5, config.Config{MaxGoalIterations: 25}, 5},
+		{"flag set overrides default", 5, config.Config{}, 5},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			got := config.ResolveMaxGoalIterations(tc.flagValue, tc.cfg)
+			if got != tc.want {
+				t.Fatalf("ResolveMaxGoalIterations(%d, %+v) = %d, want %d", tc.flagValue, tc.cfg, got, tc.want)
+			}
+		})
+	}
+}
+
+func TestSaveLoad_RoundTripWithMaxGoalIterations(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "config.json")
+	want := config.Config{Model: "anthropic/claude-sonnet-5", MaxGoalIterations: 25}
+
+	if err := config.Save(path, want); err != nil {
+		t.Fatalf("Save returned error: %v", err)
+	}
+
+	got, err := config.Load(path)
+	if err != nil {
+		t.Fatalf("Load returned error: %v", err)
+	}
+	if got.MaxGoalIterations != 25 {
+		t.Fatalf("MaxGoalIterations = %d, want 25", got.MaxGoalIterations)
+	}
+}
+
 // Regression: MCPServers entries may carry bearer tokens or other
 // secrets in Headers/Env, so config.json is treated like a credential
 // file — it must not be readable by other local users on a shared

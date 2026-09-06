@@ -83,6 +83,33 @@ type Model struct {
 	// once at BuildRuntime time).
 	skillsIndex string
 
+	// goalHooks/goalStopReason/goalMaxIterations back the Stop-hook goal
+	// loop (see agentio.EvaluateStopHooks): after a turn ends cleanly,
+	// runEndedMsg's handler checks whether a configured Stop hook says
+	// the goal isn't met yet and, if so, automatically starts another
+	// turn — see startAutoContinue. goalStopReason is a pointer into the
+	// same string main.go passed to agentio.BuildLifecycleHooks, updated
+	// by harness's OnStop callback before runEndedMsg ever fires (see
+	// that function's doc comment for why this is race-free without a
+	// mutex). Set once via SetGoalLoop; nil-safe (an unset goalHooks
+	// means the loop never fires, matching pre-goal-loop behavior).
+	goalHooks         []config.HookConfig
+	goalStopReason    *string
+	goalMaxIterations int
+	// goalIteration counts turns run so far in the current goal-loop
+	// chain, including the first (user-submitted) one. Reset to 1 by
+	// runTurn when it starts a user-submitted turn (startRun); left
+	// alone (and incremented) by startAutoContinue.
+	goalIteration int
+	// turnErrored is set when the most recent turn emitted EventError,
+	// and goalCancelled when the user pressed ctrl+c to abort it — both
+	// suppress the goal loop for that turn: an error or an explicit user
+	// interrupt should never be second-guessed by an automatic
+	// continuation. Both reset at the start of every turn via runTurn
+	// (goalCancelled only by startRun — see its own comment).
+	turnErrored   bool
+	goalCancelled bool
+
 	// turnStart marks when the in-flight (or, once finished, most
 	// recent) turn's Run() began — read live while running for the
 	// status line's elapsed-time display.
@@ -159,6 +186,18 @@ func (m *Model) SetSkillsIndex(index string) {
 	m.skillsIndex = index
 }
 
+// SetGoalLoop wires up the Stop-hook goal loop (see
+// agentio.EvaluateStopHooks): hooks is cfg.Hooks, stopReason is the same
+// pointer main.go passed to agentio.BuildLifecycleHooks, and
+// maxIterations bounds how many turns a chain may run automatically
+// before giving up. Leaving this unset (the zero Model) means the loop
+// never fires — pre-goal-loop behavior.
+func (m *Model) SetGoalLoop(hooks []config.HookConfig, stopReason *string, maxIterations int) {
+	m.goalHooks = hooks
+	m.goalStopReason = stopReason
+	m.goalMaxIterations = maxIterations
+}
+
 // BindProgram gives the model a reference to its own running Program,
 // used to launch the per-turn StreamEvents goroutine.
 func (m *Model) BindProgram(p *tea.Program) {
@@ -220,7 +259,13 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.running = false
 		m.lastTurnDuration = time.Since(m.turnStart)
 		m.refreshViewport()
-		return m, nil
+		return m, m.maybeContinueGoalLoop()
+
+	case goalLoopResultMsg:
+		if !msg.outcome.Continue {
+			return m, nil
+		}
+		return m, m.startAutoContinue(msg.outcome.NextPrompt)
 
 	case agentio.ApprovalRequest:
 		req := msg
@@ -316,6 +361,7 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	case "ctrl+c":
 		if m.running && m.cancel != nil {
+			m.goalCancelled = true
 			m.cancel()
 			return m, nil
 		}
@@ -363,26 +409,50 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-// startRun begins one agent turn and returns nil (not a tea.Cmd that
-// produces a Msg): StreamEvents runs in its own goroutine for the
-// lifetime of the turn, since a tea.Cmd can only ever produce a single
-// terminal Msg and this stream is unbounded until EventDone /
-// EventError / channel-close.
+// startRun begins one user-submitted agent turn. Resets the goal-loop
+// chain (goalIteration/goalCancelled) since this is a fresh,
+// human-initiated turn, not an automatic continuation of a previous one.
 func (m *Model) startRun(text string) tea.Cmd {
 	cleanText, images := agentio.ExtractImagePaths(m.workspace, text)
-	m.transcript = append(m.transcript, userLineStyle.Render("> "+cleanText))
+	m.goalIteration = 1
+	m.goalCancelled = false
+	// The original text (with the real path, not the placeholder) is
+	// sent to the model alongside images — the model may benefit from
+	// the literal filename/path context next to the image bytes.
+	return m.runTurn(userLineStyle.Render("> "+cleanText), text, images)
+}
+
+// startAutoContinue begins the next turn in an in-progress Stop-hook
+// goal loop (see agentio.EvaluateStopHooks and runEndedMsg's handling in
+// Update) — prompt is that hook's NextPrompt. Rendered with a visually
+// distinct transcript line so it's never mistaken for something the
+// user typed. Unlike startRun, does not reset goalCancelled: a chain
+// only calls this once runEndedMsg has already confirmed the previous
+// turn wasn't cancelled.
+func (m *Model) startAutoContinue(prompt string) tea.Cmd {
+	m.goalIteration++
+	line := fmt.Sprintf("↻ continuing (goal loop %d/%d): %s", m.goalIteration, m.goalMaxIterations, prompt)
+	return m.runTurn(toolCallStyle.Render(line), prompt, nil)
+}
+
+// runTurn is startRun/startAutoContinue's shared Run()-kickoff: appends
+// displayLine to the transcript, starts the turn, and returns nil (not a
+// tea.Cmd that produces a Msg) — StreamEvents runs in its own goroutine
+// for the lifetime of the turn, since a tea.Cmd can only ever produce a
+// single terminal Msg and this stream is unbounded until EventDone /
+// EventError / channel-close.
+func (m *Model) runTurn(displayLine, prompt string, images []llm.ImageContent) tea.Cmd {
+	m.transcript = append(m.transcript, displayLine)
 	m.textarea.Reset()
 	m.running = true
 	m.turnStart = time.Now()
 	m.toolCallsThisTurn = 0
+	m.turnErrored = false
 
 	ctx, cancel := context.WithCancel(context.Background())
 	m.cancel = cancel
 
-	// The original text (with the real path, not the placeholder) is
-	// sent to the model alongside images — the model may benefit from
-	// the literal filename/path context next to the image bytes.
-	events, err := m.rt.Run(ctx, text, images)
+	events, err := m.rt.Run(ctx, prompt, images)
 	if err != nil {
 		m.running = false
 		m.transcript = append(m.transcript, errorLineStyle.Render("error: "+err.Error()))
@@ -394,6 +464,38 @@ func (m *Model) startRun(text string) tea.Cmd {
 	go StreamEvents(m.program, events)
 	m.refreshViewport()
 	return nil
+}
+
+// maybeContinueGoalLoop is called from runEndedMsg's handling in Update,
+// once a turn has fully ended, to decide whether the Stop-hook goal loop
+// (see agentio.EvaluateStopHooks) should automatically start another
+// turn. Returns nil (no-op) when there's nothing to check — an errored
+// or user-cancelled turn is never second-guessed by an automatic
+// continuation, and a no-hooks-configured session pays no cost at all.
+// Otherwise returns a tea.Cmd that runs the (subprocess-spawning, so
+// potentially slow) hook check off the Update goroutine, producing a
+// goalLoopResultMsg.
+func (m *Model) maybeContinueGoalLoop() tea.Cmd {
+	if m.turnErrored || m.goalCancelled || len(m.goalHooks) == 0 {
+		return nil
+	}
+	if m.goalIteration >= m.goalMaxIterations {
+		m.transcript = append(m.transcript, toolCallStyle.Render(
+			fmt.Sprintf("goal loop stopped: reached the %d-iteration cap", m.goalMaxIterations)))
+		m.refreshViewport()
+		return nil
+	}
+
+	hooks := m.goalHooks
+	workspace := m.workspace
+	iteration := m.goalIteration
+	reason := ""
+	if m.goalStopReason != nil {
+		reason = *m.goalStopReason
+	}
+	return func() tea.Msg {
+		return goalLoopResultMsg{outcome: agentio.EvaluateStopHooks(context.Background(), hooks, workspace, reason, iteration)}
+	}
 }
 
 func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
@@ -441,6 +543,7 @@ func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
 
 	case runtime.EventError:
 		m.flushStream()
+		m.turnErrored = true
 		errText := "unknown error"
 		if ev.Error != nil {
 			errText = ev.Error.Error()

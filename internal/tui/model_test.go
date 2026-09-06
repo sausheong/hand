@@ -26,11 +26,13 @@ type fakeRunner struct {
 
 	mu         sync.Mutex
 	lastImages []llm.ImageContent
+	lastMsg    string
 }
 
 func (f *fakeRunner) Run(ctx context.Context, userMsg string, images []llm.ImageContent) (<-chan runtime.AgentEvent, error) {
 	f.mu.Lock()
 	f.lastImages = images
+	f.lastMsg = userMsg
 	f.mu.Unlock()
 	if f.err != nil {
 		return nil, f.err
@@ -42,6 +44,12 @@ func (f *fakeRunner) getLastImages() []llm.ImageContent {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	return f.lastImages
+}
+
+func (f *fakeRunner) getLastMsg() string {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+	return f.lastMsg
 }
 
 var toolResultOK = tool.ToolResult{Output: "ok"}
@@ -851,6 +859,149 @@ func TestSetMarkdownStyle_AffectsFlushedRendering(t *testing.T) {
 	want := renderMarkdown("some **bold** text", m.termWidth, "light")
 	if len(m.transcript) != 1 || m.transcript[0] != want {
 		t.Fatalf("transcript = %v, want a single entry rendered with the \"light\" style: %q", m.transcript, want)
+	}
+}
+
+func TestMaybeContinueGoalLoop_NoHooksConfigured(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.goalIteration = 1
+
+	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
+		t.Fatal("with no goal hooks configured, maybeContinueGoalLoop should return nil")
+	}
+}
+
+func TestMaybeContinueGoalLoop_SkipsOnTurnErrored(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	var reason string
+	m.SetGoalLoop([]config.HookConfig{
+		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 2"}},
+	}, &reason, 10)
+	m.goalIteration = 1
+	m.turnErrored = true
+
+	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
+		t.Fatal("an errored turn must never be second-guessed by an automatic continuation")
+	}
+}
+
+func TestMaybeContinueGoalLoop_SkipsOnGoalCancelled(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	var reason string
+	m.SetGoalLoop([]config.HookConfig{
+		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 2"}},
+	}, &reason, 10)
+	m.goalIteration = 1
+	m.goalCancelled = true
+
+	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
+		t.Fatal("a user-cancelled turn must never be second-guessed by an automatic continuation")
+	}
+}
+
+func TestMaybeContinueGoalLoop_StopsAtIterationCap(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	var reason string
+	m.SetGoalLoop([]config.HookConfig{
+		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 2"}},
+	}, &reason, 2)
+	m.goalIteration = 2
+
+	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
+		t.Fatal("reaching the iteration cap should return nil, not another check")
+	}
+	if len(m.transcript) == 0 || !strings.Contains(m.transcript[len(m.transcript)-1], "reached the 2-iteration cap") {
+		t.Fatalf("transcript = %v, want a line noting the cap was reached", m.transcript)
+	}
+}
+
+func TestMaybeContinueGoalLoop_ReturnsCmdThatEvaluatesTheConfiguredHook(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	var reason string
+	m.SetGoalLoop([]config.HookConfig{
+		{Event: "Stop", Command: "sh", Args: []string{"-c", "echo 'next step'; exit 2"}},
+	}, &reason, 10)
+	m.goalIteration = 1
+
+	cmd := m.maybeContinueGoalLoop()
+	if cmd == nil {
+		t.Fatal("with hooks configured, below the cap, and no error/cancel, maybeContinueGoalLoop should return a Cmd")
+	}
+	msg, ok := cmd().(goalLoopResultMsg)
+	if !ok {
+		t.Fatalf("cmd() = %T, want goalLoopResultMsg", cmd())
+	}
+	if !msg.outcome.Continue || msg.outcome.NextPrompt != "next step" {
+		t.Fatalf("outcome = %+v, want Continue=true and NextPrompt from the hook's stdout", msg.outcome)
+	}
+}
+
+func TestStartAutoContinue_IncrementsIterationAndUsesDistinctTranscriptLine(t *testing.T) {
+	runner := &fakeRunner{}
+	m := NewModel(runner, t.TempDir())
+	m.goalIteration = 1
+	m.goalMaxIterations = 5
+
+	m.startAutoContinue("next step")
+
+	if m.goalIteration != 2 {
+		t.Fatalf("goalIteration = %d, want 2", m.goalIteration)
+	}
+	last := m.transcript[len(m.transcript)-1]
+	if strings.Contains(last, "> next step") {
+		t.Fatal("an auto-continued turn must not be rendered like user-typed input")
+	}
+	if !strings.Contains(last, "goal loop 2/5") || !strings.Contains(last, "next step") {
+		t.Fatalf("transcript line = %q, want it to name the iteration and the next prompt", last)
+	}
+	if runner.getLastMsg() != "next step" {
+		t.Fatalf("Run() was called with %q, want %q", runner.getLastMsg(), "next step")
+	}
+}
+
+func TestUpdate_RunEndedMsg_DispatchesGoalLoopCheckWhenHooksConfigured(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	var reason string
+	m.SetGoalLoop([]config.HookConfig{
+		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 0"}},
+	}, &reason, 10)
+	m.goalIteration = 1
+	m.turnStart = time.Now()
+
+	_, cmd := m.Update(runEndedMsg{})
+	if cmd == nil {
+		t.Fatal("runEndedMsg should dispatch a goal-loop check when Stop hooks are configured")
+	}
+}
+
+func TestUpdate_GoalLoopResultMsg_ContinuesWhenOutcomeSaysSo(t *testing.T) {
+	runner := &fakeRunner{}
+	m := NewModel(runner, t.TempDir())
+	m.goalIteration = 1
+	m.goalMaxIterations = 10
+
+	m.Update(goalLoopResultMsg{outcome: agentio.GoalLoopOutcome{Continue: true, NextPrompt: "keep going"}})
+
+	if m.goalIteration != 2 {
+		t.Fatalf("goalIteration = %d, want 2 (startAutoContinue should have run)", m.goalIteration)
+	}
+	if runner.getLastMsg() != "keep going" {
+		t.Fatalf("Run() was called with %q, want %q", runner.getLastMsg(), "keep going")
+	}
+}
+
+func TestUpdate_GoalLoopResultMsg_NoOpWhenOutcomeSaysDone(t *testing.T) {
+	runner := &fakeRunner{}
+	m := NewModel(runner, t.TempDir())
+	m.goalIteration = 1
+
+	m.Update(goalLoopResultMsg{outcome: agentio.GoalLoopOutcome{Continue: false}})
+
+	if m.goalIteration != 1 {
+		t.Fatalf("goalIteration = %d, want unchanged at 1", m.goalIteration)
+	}
+	if runner.getLastMsg() != "" {
+		t.Fatal("Run() should not have been called when the outcome says done")
 	}
 }
 

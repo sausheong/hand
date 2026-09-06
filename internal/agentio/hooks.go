@@ -8,6 +8,8 @@ import (
 	"log/slog"
 	"os"
 	"os/exec"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/sausheong/hand/internal/config"
@@ -124,7 +126,18 @@ func runMatchingHooks(ctx context.Context, hooks []config.HookConfig, event, too
 // ever prompted — matching Claude Code's own PreToolUse ordering
 // relative to its permission system. See config.HookConfig's doc
 // comment for the exit-code contract.
-func BuildLifecycleHooks(hooks []config.HookConfig, workspace string, beforeToolUse BeforeToolUseFunc) runtime.LifecycleHooks {
+//
+// Stop-event hooks are deliberately NOT run here — harness's OnStop
+// fires from inside Run()'s own defer stack while Run()'s mutex is
+// still held, so nothing invoked from it can ever call Run() again to
+// build a loop (see EvaluateStopHooks). The OnStop closure below only
+// captures harness's own stop reason into *stopReason for the caller to
+// read once Run()'s event channel has closed (safe without a mutex:
+// that channel close happens only after this defer runs, by the same
+// LIFO defer ordering that rules out looping from inside OnStop itself
+// — see runtime.go's Run()). stopReason may be nil if the caller has no
+// use for it.
+func BuildLifecycleHooks(hooks []config.HookConfig, workspace string, beforeToolUse BeforeToolUseFunc, stopReason *string) runtime.LifecycleHooks {
 	return runtime.LifecycleHooks{
 		OnUserPromptSubmit: func(ctx context.Context, prompt string, images []llm.ImageContent) (string, []llm.ImageContent, error) {
 			env := map[string]string{
@@ -186,18 +199,62 @@ func BuildLifecycleHooks(hooks []config.HookConfig, workspace string, beforeTool
 			}
 		},
 
-		OnStop: func(ctx context.Context, reason string) {
-			env := map[string]string{
-				"HAND_HOOK_EVENT":  "Stop",
-				"HAND_WORKSPACE":   workspace,
-				"HAND_STOP_REASON": reason,
-			}
-			for _, h := range hooks {
-				if h.Event != "Stop" {
-					continue
-				}
-				warnHookFailure("Stop", h.Command, runHookCommand(ctx, h, env))
+		OnStop: func(_ context.Context, reason string) {
+			if stopReason != nil {
+				*stopReason = reason
 			}
 		},
 	}
+}
+
+// GoalLoopOutcome is the result of evaluating a turn's Stop-event hooks
+// for whether hand's driver should automatically start another turn.
+type GoalLoopOutcome struct {
+	Continue   bool
+	NextPrompt string
+}
+
+// EvaluateStopHooks runs every Stop-event hook in hooks, in order, and
+// is meant to be called by hand's own driver code (cmd/hand/main.go's
+// runOneShot, internal/tui's runEndedMsg handling) once a turn's event
+// channel has fully closed — never from inside harness's OnStop
+// callback itself, which cannot be used to build a loop (see
+// BuildLifecycleHooks' doc comment on why). reason is the stop reason
+// BuildLifecycleHooks captured via its stopReason parameter
+// ("completed", "max_turns", "error", "aborted"); iteration is the
+// 1-based count of turns run so far in this chain.
+//
+// The first hook that exits hookDenyExitCode means "the goal has not
+// been met" — Continue is true and NextPrompt becomes the next prompt
+// to run automatically, taken from that hook's stdout (falling back to
+// stderr, falling back to a fixed message if both are empty). Any other
+// outcome — an allowing exit 0, a failed-open nonzero exit or timeout,
+// or no Stop hooks configured at all — means Continue is false and the
+// caller should stop as normal, exactly like before this feature
+// existed.
+func EvaluateStopHooks(ctx context.Context, hooks []config.HookConfig, workspace, reason string, iteration int) GoalLoopOutcome {
+	env := map[string]string{
+		"HAND_HOOK_EVENT":     "Stop",
+		"HAND_WORKSPACE":      workspace,
+		"HAND_STOP_REASON":    reason,
+		"HAND_GOAL_ITERATION": strconv.Itoa(iteration),
+	}
+	for _, h := range hooks {
+		if h.Event != "Stop" {
+			continue
+		}
+		o := runHookCommand(ctx, h, env)
+		if !o.timedOut && o.spawnErr == nil && o.exitCode == hookDenyExitCode {
+			next := strings.TrimSpace(o.stdout)
+			if next == "" {
+				next = strings.TrimSpace(o.stderr)
+			}
+			if next == "" {
+				next = "Continue — the configured Stop hook indicated the goal has not been met yet."
+			}
+			return GoalLoopOutcome{Continue: true, NextPrompt: next}
+		}
+		warnHookFailure("Stop", h.Command, o)
+	}
+	return GoalLoopOutcome{}
 }

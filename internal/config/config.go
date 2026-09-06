@@ -19,6 +19,15 @@ const DefaultModel = "anthropic/claude-sonnet-5"
 // neither --max-turns nor config.json's max_turns is set.
 const DefaultMaxTurns = 50
 
+// DefaultMaxGoalIterations caps how many turns a Stop-hook-driven goal
+// loop (see agentio.EvaluateStopHooks) may chain automatically, used
+// when neither --max-iterations nor config.json's max_goal_iterations is
+// set. Distinct from max_turns, which bounds the tool-use loop *within*
+// a single turn — this bounds how many top-level turns get chained
+// together, the safety backstop against a broken or malicious
+// goal-check script looping forever.
+const DefaultMaxGoalIterations = 10
+
 // DefaultMarkdownStyle is used when neither --markdown-style nor
 // config.json's markdown_style names a recognized style.
 const DefaultMarkdownStyle = "dark"
@@ -65,6 +74,10 @@ type Config struct {
 	// MaxTurns caps the agent's tool-use loop for a single run. Zero (or
 	// absent) means DefaultMaxTurns.
 	MaxTurns int `json:"max_turns,omitempty"`
+	// MaxGoalIterations caps how many turns a Stop-hook-driven goal loop
+	// may chain automatically (see agentio.EvaluateStopHooks). Zero (or
+	// absent) means DefaultMaxGoalIterations.
+	MaxGoalIterations int `json:"max_goal_iterations,omitempty"`
 	// FallbackModel is the "provider/model" to retry against on a
 	// transient provider error (429/5xx), same form as Model and passed
 	// through unparsed — runtime.AgentSpec.FallbackModel does its own
@@ -230,6 +243,20 @@ func ResolveMaxTurns(flagValue int, cfg Config) int {
 		return cfg.MaxTurns
 	}
 	return DefaultMaxTurns
+}
+
+// ResolveMaxGoalIterations returns flagValue if positive, otherwise
+// cfg.MaxGoalIterations if positive, otherwise DefaultMaxGoalIterations.
+// Does not persist anything — a --max-iterations flag overrides the
+// loaded config for this invocation only.
+func ResolveMaxGoalIterations(flagValue int, cfg Config) int {
+	if flagValue > 0 {
+		return flagValue
+	}
+	if cfg.MaxGoalIterations > 0 {
+		return cfg.MaxGoalIterations
+	}
+	return DefaultMaxGoalIterations
 }
 
 // ResolveFallbackModel returns flagValue if non-empty, otherwise

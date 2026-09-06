@@ -3,6 +3,7 @@ package tui
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/harness/runtime"
 )
 
@@ -13,6 +14,13 @@ import (
 // leave the UI stuck in the "running" state on those paths. StreamEvents
 // sends this exactly once, after ranging over events completes.
 type runEndedMsg struct{}
+
+// goalLoopResultMsg carries the result of evaluating a turn's Stop-event
+// hooks (see agentio.EvaluateStopHooks) — produced by the tea.Cmd
+// Model.maybeContinueGoalLoop returns from runEndedMsg's handling in
+// Update, so the (potentially slow, subprocess-spawning) hook check runs
+// off the Update goroutine like any other tea.Cmd.
+type goalLoopResultMsg struct{ outcome agentio.GoalLoopOutcome }
 
 // programSender is satisfied by *tea.Program. Declared as an interface
 // (rather than taking *tea.Program directly) so StreamEvents is

@@ -44,30 +44,52 @@ func (s *programSender) Send(msg any) {
 	s.Program.Send(msg)
 }
 
-// runOneShot drains one agent turn to stdout and returns, with no TUI —
-// mirrors harness's own examples/minimal's non-streaming print loop.
-// The first EventError seen becomes the process's exit error; text still
-// printed before that stays on stdout (matches how the interactive path
-// also shows partial output before an error).
-func runOneShot(ctx context.Context, rt *runtime.Runtime, prompt string) error {
-	events, err := rt.Run(ctx, prompt, nil)
-	if err != nil {
-		return err
-	}
+// runOneShot drains agent turns to stdout and returns, with no TUI —
+// mirrors harness's own examples/minimal's non-streaming print loop,
+// extended into a goal loop: after a turn completes cleanly (no error),
+// agentio.EvaluateStopHooks decides whether to automatically run another
+// turn with a hook-supplied prompt (see that function's doc comment for
+// the exit-code contract). maxIterations bounds how many turns this
+// chain may run before giving up regardless of what the hooks say — the
+// safety backstop against a broken or malicious goal-check script
+// looping forever. The first EventError seen in any turn becomes the
+// process's exit error and stops the loop immediately; text already
+// printed stays on stdout.
+func runOneShot(ctx context.Context, rt *runtime.Runtime, prompt string, hooks []config.HookConfig, workspace string, stopReason *string, maxIterations int) error {
+	current := prompt
+	for iteration := 1; ; iteration++ {
+		events, err := rt.Run(ctx, current, nil)
+		if err != nil {
+			return err
+		}
 
-	var runErr error
-	for ev := range events {
-		switch ev.Type {
-		case runtime.EventTextDelta:
-			fmt.Print(ev.Text)
-		case runtime.EventError:
-			if runErr == nil && ev.Error != nil {
-				runErr = ev.Error
+		var runErr error
+		for ev := range events {
+			switch ev.Type {
+			case runtime.EventTextDelta:
+				fmt.Print(ev.Text)
+			case runtime.EventError:
+				if runErr == nil && ev.Error != nil {
+					runErr = ev.Error
+				}
 			}
 		}
+		fmt.Println()
+		if runErr != nil {
+			return runErr
+		}
+
+		outcome := agentio.EvaluateStopHooks(ctx, hooks, workspace, *stopReason, iteration)
+		if !outcome.Continue {
+			return nil
+		}
+		if iteration >= maxIterations {
+			fmt.Fprintf(os.Stderr, "hand: reached the %d-iteration goal-loop cap; stopping\n", maxIterations)
+			return nil
+		}
+		fmt.Fprintf(os.Stderr, "hand: goal not met, continuing (%d/%d)...\n", iteration+1, maxIterations)
+		current = outcome.NextPrompt
 	}
-	fmt.Println()
-	return runErr
 }
 
 func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
@@ -190,6 +212,7 @@ func run() error {
 	fallbackModelFlag := flag.String("fallback-model", "", "provider/model to retry against on a transient provider error, same provider as --model (overrides ~/.hand/config.json for this run)")
 	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
 	compactionThresholdFlag := flag.Float64("compaction-threshold", 0, fmt.Sprintf("fraction (0-1] of the context window that triggers preventive compaction (overrides ~/.hand/config.json for this run; 0 means use the config/default of %g)", config.DefaultCompactionThreshold))
+	maxIterationsFlag := flag.Int("max-iterations", 0, fmt.Sprintf("cap how many turns a Stop-hook-driven goal loop may chain automatically (overrides ~/.hand/config.json for this run; 0 means use the config/default of %d)", config.DefaultMaxGoalIterations))
 	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
@@ -216,6 +239,7 @@ func run() error {
 	fallbackModel := config.ResolveFallbackModel(*fallbackModelFlag, cfg)
 	markdownStyle := config.ResolveMarkdownStyle(*markdownStyleFlag, cfg)
 	compactionThreshold := config.ResolveCompactionThreshold(*compactionThresholdFlag, cfg)
+	maxIterations := config.ResolveMaxGoalIterations(*maxIterationsFlag, cfg)
 
 	providerName, bareModel := llm.ParseProviderModel(model)
 	if providerName == "" {
@@ -248,7 +272,8 @@ func run() error {
 		sender = &programSender{}
 		hook = agentio.NewApprovalHook(sender, perms, workspace, allMCPServerNames, trustedServers)
 	}
-	hooks := agentio.BuildLifecycleHooks(cfg.Hooks, workspace, hook)
+	var stopReason string
+	hooks := agentio.BuildLifecycleHooks(cfg.Hooks, workspace, hook, &stopReason)
 	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, mcpServers, hooks)
 
 	skillProvider, projectSkillStore, err := agentio.BuildSkillProvider(workspace)
@@ -305,13 +330,14 @@ func run() error {
 	defer rt.Close()
 
 	if oneShot {
-		return runOneShot(context.Background(), rt, *printFlag)
+		return runOneShot(context.Background(), rt, *printFlag, cfg.Hooks, workspace, &stopReason, maxIterations)
 	}
 
 	m := tui.NewModel(rt, workspace)
 	m.SetMarkdownStyle(markdownStyle)
 	m.SetBanner(version, model, workspace)
 	m.SetSkillsIndex(skillProvider.FormatIndex())
+	m.SetGoalLoop(cfg.Hooks, &stopReason, maxIterations)
 	m.SetController(&tui.Controller{
 		Rt:            rt,
 		Store:         store,

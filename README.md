@@ -112,6 +112,7 @@ hand -p "fix the failing test in pkg/foo" --yes
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
 | `--markdown-style`  | Glamour style for rendering assistant Markdown: `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, `tokyo-night` (default `dark`) — overrides `~/.hand/config.json` |
 | `--compaction-threshold` | Fraction (0-1] of the context window that triggers preventive compaction (default `0.4`) — overrides `~/.hand/config.json` |
+| `--max-iterations`  | Cap how many turns a [Stop-hook goal loop](#goal-loop) may chain automatically (default `10`, or `max_goal_iterations` in config) |
 | `--new-session`     | Discard this workspace's saved session and start fresh |
 | `-p "<prompt>"`     | Run one turn non-interactively and exit (no TUI) |
 | `--yes`             | Auto-approve all gated tool calls for this run (only valid with `-p`) |
@@ -337,7 +338,7 @@ run automatically the first time Hand touches it.
 | `PostToolUse` | After a tool call returns (success or error) | No (observe-only) | `HAND_TOOL_NAME`, `HAND_TOOL_INPUT`, `HAND_TOOL_RESULT`, `HAND_TOOL_ERROR` (if any) |
 | `SessionStart` | Once, when a session begins | No | — |
 | `UserPromptSubmit` | Once per turn, before your message is sent | Yes | `HAND_PROMPT` |
-| `Stop` | Once, when a turn ends (any outcome) | No | `HAND_STOP_REASON` |
+| `Stop` | Once, when a turn ends (any outcome) | Yes — see [Goal loop](#goal-loop) | `HAND_STOP_REASON`, `HAND_GOAL_ITERATION` |
 
 Every hook also receives `HAND_HOOK_EVENT` (the event name) and
 `HAND_WORKSPACE`, plus the rest of Hand's own process environment.
@@ -352,14 +353,17 @@ a hook can auto-deny a call before you're ever asked about it.
 matches the convention from Claude Code's own hooks, so anyone already
 familiar with it can write one for Hand without learning a new contract):
 
-- **Exit `0`** — allow. For `PostToolUse`/`SessionStart`/`Stop` this is the
-  only outcome that matters; they can't block regardless of exit code.
+- **Exit `0`** — allow. For `PostToolUse`/`SessionStart` this is the only
+  outcome that matters; they can't block regardless of exit code.
 - **Exit `2`** — deny (`PreToolUse`, with stderr shown as the approval
-  denial reason) or abort the turn (`UserPromptSubmit`, with stderr as the
-  error). Nothing else happens after the first hook that returns this.
+  denial reason), abort the turn (`UserPromptSubmit`, with stderr as the
+  error), or keep going (`Stop` — see [Goal loop](#goal-loop) below, its
+  own variant of this same convention). Nothing else happens after the
+  first hook that returns this.
 - **Anything else, or a timeout** (default 30s, `timeout_seconds` to
-  change) — *fails open*: the call proceeds and a warning is logged, rather
-  than a typo or a crashing script silently blocking every tool call.
+  change) — *fails open*: the call proceeds (or, for `Stop`, the turn
+  simply ends) and a warning is logged, rather than a typo or a crashing
+  script silently blocking every tool call or looping forever.
 
 A `matcher` (exact tool name, or `"*"`/omitted for every tool) restricts a
 `PreToolUse`/`PostToolUse` hook to specific tools — including MCP ones, e.g.
@@ -384,6 +388,55 @@ A simple desktop notification every time a turn ends, regardless of how it
 ended (`HAND_STOP_REASON` is one of `completed`, `max_turns`, `error`, or
 `aborted`) — no blocking, just an observation.
 
+### Goal loop
+
+A `Stop` hook can do more than notify — it can tell Hand the goal hasn't
+been met yet, and Hand will automatically run another turn to keep working,
+without you re-typing anything. This is what makes an unattended "keep
+fixing until `make test` is green" run possible, in both `-p` one-shot and
+the interactive TUI.
+
+It reuses the exact same exit-code contract as everything else: your `Stop`
+hook exits `0` when the goal is met (stop as normal — the ordinary,
+backward-compatible case, like the `notify-send` example above), or exits
+`2` when it isn't, printing what's still wrong to **stdout** (falls back to
+stderr, then to a fixed message if both are empty) — that text becomes the
+next prompt Hand runs automatically:
+
+```json
+{
+  "event": "Stop",
+  "command": "sh",
+  "args": ["-c", "make test 2>&1 | tail -20 && exit 0 || (make test 2>&1 | tail -20; exit 2)"]
+}
+```
+
+A rough sketch: exit `0` if `make test` passes, otherwise print the
+failure output and exit `2` — Hand then runs another turn with that output
+as the prompt, and repeats until the tests pass or the loop gives up.
+
+In the interactive TUI, an auto-continued turn shows up with a distinct
+`↻ continuing (goal loop N/max): ...` transcript line, never rendered like
+something you typed. Pressing ctrl+c during an auto-continued turn stops
+the loop as well as the turn — it does not immediately try again.
+
+**Safety cap.** `max_goal_iterations` (config.json) / `--max-iterations`
+bounds how many turns a single goal-loop chain may run automatically
+(default `10`, the first turn plus up to 9 continuations) before Hand gives
+up regardless of what the hook says — the backstop against a broken or
+malicious goal-check script looping forever and burning API tokens with no
+one approving the overall goal each time. This is a *different* knob from
+`max_turns`, which bounds the tool-use loop *within* one turn, not how many
+turns get chained.
+
+**What's unaffected.** Per-tool-call approval gating inside each turn is
+completely unchanged — `bash`/`write_file`/`edit_file` and untrusted MCP
+tools still prompt (or run their own `PreToolUse` hooks) exactly as before.
+The goal loop only decides whether to start *another* turn once one ends;
+it has no effect on what happens *inside* a turn. An errored turn
+(`EventError`) never triggers a continuation, regardless of what a `Stop`
+hook would have said.
+
 ## Configuration
 
 Hand reads `~/.hand/config.json` on startup (created with defaults on first
@@ -394,6 +447,7 @@ run):
   "model": "anthropic/claude-sonnet-5",
   "base_url": "",
   "max_turns": 50,
+  "max_goal_iterations": 10,
   "fallback_model": "",
   "markdown_style": "dark",
   "compaction_threshold": 0.4,
@@ -428,13 +482,15 @@ run):
 }
 ```
 
-- `model` / `base_url` / `max_turns` / `fallback_model` / `markdown_style` /
-  `compaction_threshold` are the same values the CLI flags above override for
-  a single run. `markdown_style` accepts `dark`, `light`, `ascii`, `notty`,
-  `pink`, `dracula`, or `tokyo-night`; anything else (including glamour's own
-  `auto` — deliberately not offered, since it detects light/dark by
-  querying the terminal in a way that can corrupt the input box) falls
-  back to `dark`.
+- `model` / `base_url` / `max_turns` / `max_goal_iterations` /
+  `fallback_model` / `markdown_style` / `compaction_threshold` are the same
+  values the CLI flags above override for a single run. `markdown_style`
+  accepts `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, or
+  `tokyo-night`; anything else (including glamour's own `auto` —
+  deliberately not offered, since it detects light/dark by querying the
+  terminal in a way that can corrupt the input box) falls back to `dark`.
+  `max_goal_iterations` is unrelated to `max_turns` — see
+  [Goal loop](#goal-loop).
 - `compaction_threshold` controls how eagerly Hand summarizes older
   conversation to keep token usage down — preventive compaction fires once
   the estimated context passes this fraction of the model's context window
