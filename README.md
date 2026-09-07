@@ -156,7 +156,21 @@ dropdown (arrow keys to move, Tab or Enter to fill it in).
 | `/exit`           | Quit Hand (`/quit` also works) |
 
 Conversations are saved per-workspace, so quitting and re-running `hand` in
-the same directory picks up where you left off.
+the same directory picks up where you left off — including across a
+`/model` switch, so relaunching `hand` does not by itself give you a clean
+slate.
+
+> **After `/model`, a long-lived conversation can still "remember" the old
+> model.** Hand tells the model which one it's running as fresh on every
+> turn, but if the conversation already has several turns where the model
+> stated its old identity (e.g. you asked "which model are you" a few times
+> before switching), it can keep repeating that instead of the current,
+> correct answer — a model generally treats what it already told you as
+> stronger evidence than an instruction to disregard it. This isn't a bug
+> in the switch itself: the request really is going to the new model, it's
+> just the model's self-report that lags. `/new` starts a blank
+> conversation with no such history to compete with, which reliably clears
+> it up.
 
 ## Status line
 
