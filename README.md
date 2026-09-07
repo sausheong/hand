@@ -68,7 +68,7 @@ environment variable:
 | Gemini      | `GEMINI_API_KEY`       |
 | OpenRouter  | `OPENROUTER_API_KEY`   |
 | LiteLLM     | `LITELLM_API_KEY` (optional — many self-hosted proxies don't enforce auth) |
-| Ollama      | none — local servers don't authenticate requests |
+| Local       | none — local servers don't authenticate requests |
 
 Export the one matching your default model before running Hand, e.g.:
 
@@ -96,12 +96,13 @@ there's no public default endpoint to fall back to.
 > calls the real Anthropic API directly with whatever model string
 > followed, which usually isn't a valid Anthropic model id.
 
-**Ollama** runs models locally — no key, no network round-trip beyond your
-own machine. It needs no other setup either: `--model ollama/<model-name>`
-(e.g. `ollama/qwen2.5:3b`, matching what `ollama list` shows) talks to
-`http://localhost:11434/v1` by default; pass `--base-url` if your server
-runs elsewhere. This also covers any other local server sharing Ollama's
-OpenAI-compatible endpoint shape (LM Studio, llama.cpp's server, vLLM).
+**Local** models run on your own machine — no key, no network round-trip
+beyond it. `--model local/<model-name>` talks to
+`http://localhost:11434/v1` by default (Ollama's endpoint — e.g.
+`local/qwen2.5:3b`, matching what `ollama list` shows); pass `--base-url`
+for a different port or a different local server entirely (LM Studio,
+llama.cpp's server, vLLM, or anything else exposing an OpenAI-compatible
+endpoint).
 
 ## Running it
 
