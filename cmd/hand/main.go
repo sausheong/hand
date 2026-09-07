@@ -24,6 +24,7 @@ import (
 	"github.com/sausheong/harness/providers/anthropic"
 	"github.com/sausheong/harness/providers/gemini"
 	"github.com/sausheong/harness/providers/litellm"
+	"github.com/sausheong/harness/providers/ollama"
 	"github.com/sausheong/harness/providers/openai"
 	"github.com/sausheong/harness/providers/openrouter"
 	"github.com/sausheong/harness/runtime"
@@ -141,8 +142,14 @@ func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
 		}
 		return openrouter.NewOpenRouterProvider(key, baseURL), nil
 
+	case "ollama":
+		// No API key: Ollama (and other local OpenAI-compatible servers
+		// sharing its endpoint shape — LM Studio, llama.cpp's server,
+		// vLLM) doesn't authenticate requests.
+		return ollama.NewOllamaProvider(baseURL), nil
+
 	default:
-		return nil, fmt.Errorf("unknown provider %q (want anthropic, openai, gemini, litellm, or openrouter)", providerName)
+		return nil, fmt.Errorf("unknown provider %q (want anthropic, openai, gemini, litellm, openrouter, or ollama)", providerName)
 	}
 }
 
@@ -219,7 +226,7 @@ func promptWorkspaceTrust(stdin io.Reader, settingsPath string, tools []string) 
 
 func run() error {
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
-	baseURLFlag := flag.String("base-url", "", "custom API base URL (overrides ~/.hand/config.json for this run; required for litellm, optional for openai/openrouter, not supported for gemini)")
+	baseURLFlag := flag.String("base-url", "", "custom API base URL (overrides ~/.hand/config.json for this run; required for litellm, optional for openai/openrouter/ollama, not supported for gemini)")
 	maxTurnsFlag := flag.Int("max-turns", 0, "cap the agent's tool-use loop for this run (overrides ~/.hand/config.json for this run; 0 means use the config/default)")
 	fallbackModelFlag := flag.String("fallback-model", "", "provider/model to retry against on a transient provider error, same provider as --model (overrides ~/.hand/config.json for this run)")
 	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
