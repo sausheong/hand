@@ -586,3 +586,7 @@ Pushing a `v*` tag triggers
 resulting archives and checksums attached, via
 [`softprops/action-gh-release`](https://github.com/softprops/action-gh-release).
 Nothing needs to be built or uploaded by hand beyond `make release` itself.
+
+## License
+
+MIT — see [`LICENSE`](./LICENSE).
