@@ -12,12 +12,6 @@ LLM agents.
 
 ## Installing
 
-> **Not yet published.** This repository doesn't have a public remote or a
-> Releases page yet — the `go install`/prebuilt-binary instructions below will
-> work once it's pushed to GitHub and a release exists, but for now, build
-> from source in place instead: `cd` into this directory and run `make build`
-> (see below).
-
 Hand ships as a single static binary — no runtime dependencies.
 
 ### Build from source
@@ -42,13 +36,24 @@ Make sure that directory is on your `PATH`.
 
 ### Download a prebuilt binary
 
-If you'd rather skip building it yourself, grab the binary for your platform
-from the project's [Releases page](https://github.com/sausheong/hand/releases),
-then:
+Every [release](https://github.com/sausheong/hand/releases) ships a
+`hand-<version>-<os>-<arch>.tar.gz` archive for each platform —
+`darwin-amd64`, `darwin-arm64`, `linux-amd64`, `linux-arm64` — plus a
+`SHA256SUMS` file, all built and published automatically by CI when the
+release is tagged (see [Releasing](#releasing) below). Grab the one
+matching your platform:
 
 ```sh
-chmod +x hand-<os>-<arch>
-mv hand-<os>-<arch> /usr/local/bin/hand   # anywhere on your PATH
+curl -LO https://github.com/sausheong/hand/releases/latest/download/hand-<version>-<os>-<arch>.tar.gz
+tar -xzf hand-<version>-<os>-<arch>.tar.gz
+mv hand-<version>-<os>-<arch>/hand /usr/local/bin/hand   # anywhere on your PATH
+```
+
+To verify the download against `SHA256SUMS` (also attached to the release):
+
+```sh
+curl -LO https://github.com/sausheong/hand/releases/latest/download/SHA256SUMS
+shasum -a 256 -c SHA256SUMS --ignore-missing   # or: sha256sum -c ... on Linux
 ```
 
 ## Setting up an API key
@@ -554,3 +559,17 @@ make vet     # go vet ./...
 make fmt     # go fmt ./...
 make install # go install ./cmd/hand
 ```
+
+## Releasing
+
+```sh
+make dist                      # cross-compile darwin/linux amd64/arm64 into dist/*.tar.gz + SHA256SUMS
+make release VERSION=v0.1.1    # tag and push — the step below then runs automatically
+```
+
+Pushing a `v*` tag triggers
+[`.github/workflows/release.yml`](.github/workflows/release.yml): it runs
+`make dist` on a clean runner and publishes a GitHub release with the
+resulting archives and checksums attached, via
+[`softprops/action-gh-release`](https://github.com/softprops/action-gh-release).
+Nothing needs to be built or uploaded by hand beyond `make release` itself.
