@@ -674,10 +674,15 @@ func (m *Model) statusLine() string {
 	return left + "   " + m.usageLine()
 }
 
-// usageLine renders the context-window gauge plus running token/turn
-// totals: context (how much of the model's window the last completed
-// turn's final request used), this turn's token cost, and the session's
-// cumulative token cost (this hand process only; see sessionUsage).
+// usageLine renders the active "provider/model" string, the
+// context-window gauge, and running token/turn totals: context (how
+// much of the model's window the last completed turn's final request
+// used), this turn's token cost, and the session's cumulative token
+// cost (this hand process only; see sessionUsage). The model leads
+// because it's the one thing /model can change mid-session — after a
+// switch, the startup banner scrolls out of view but this line stays
+// put, so it's the reliable place to check which model is actually
+// live.
 //
 // While a turn is running, "turn" shows a live, clearly-labeled estimate
 // of the response so far (chars/4, the same rough heuristic
@@ -701,6 +706,7 @@ func (m *Model) usageLine() string {
 
 	sep := statusIdleStyle.Render("  ·  ")
 	parts := []string{
+		statusIdleStyle.Render(m.model),
 		m.contextSummary(),
 		statusIdleStyle.Render(turnSeg),
 		statusIdleStyle.Render(fmt.Sprintf("session %s tok", formatTokenCount(totalTokens(m.sessionUsage)))),

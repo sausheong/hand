@@ -709,6 +709,22 @@ func TestUsageLine_ShowsCompletedTurnTotalWhenIdle(t *testing.T) {
 	}
 }
 
+// Regression: after a live /model switch, the startup banner naming the
+// original model scrolls out of the visible transcript, leaving no
+// on-screen indication of which model is actually active — exactly the
+// kind of confusion this session's earlier /model self-identification
+// bugs came from. The status line stays put, so it's where this needs
+// to live.
+func TestUsageLine_ShowsActiveModel(t *testing.T) {
+	m := NewModel(&fakeRunner{}, t.TempDir())
+	m.setModel("openrouter/anthropic/claude-sonnet-5")
+
+	got := m.usageLine()
+	if !strings.Contains(got, "openrouter/anthropic/claude-sonnet-5") {
+		t.Fatalf("usageLine() = %q, want it to show the active model", got)
+	}
+}
+
 // Regression: the reported ctx figure must be flagged, not just quietly
 // stated, once it crosses contextAlertThreshold — this is the user's
 // signal that harness's automatic preventive compaction (or a manual

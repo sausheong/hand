@@ -192,13 +192,13 @@ The line just above the input box is always showing, whether or not a turn
 is running. While idle, after a turn has completed at least once:
 
 ```
-ready   ctx 38.4k/200k (19%)  ·  turn 6.1k tok  ·  session 21.9k tok  ·  last turn 5.8s
+ready   anthropic/claude-sonnet-5  ·  ctx 38.4k/200k (19%)  ·  turn 6.1k tok  ·  session 21.9k tok  ·  last turn 5.8s
 ```
 
 While a turn is in progress:
 
 ```
-⠋ working... 4.2s · 3 tool calls   ctx 38.4k/200k (19%)  ·  turn ~1.2k tok  ·  session 21.9k tok
+⠋ working... 4.2s · 3 tool calls   anthropic/claude-sonnet-5  ·  ctx 38.4k/200k (19%)  ·  turn ~1.2k tok  ·  session 21.9k tok
 ```
 
 - **Run state** — `ready`, or a spinner with a live elapsed-time counter while
@@ -206,6 +206,10 @@ While a turn is in progress:
   turn (shown once at least one has run) — concrete evidence of progress on
   a turn that's mostly tool calls with no text in between, where the token
   figures below don't move at all until the turn finishes.
+- **The active model** — the current `provider/model` string. Shown here,
+  not just in the startup banner, because [`/model`](#slash-commands) can
+  change it mid-session and the banner scrolls out of view — this is the
+  one place that always reflects what's actually running right now.
 - **`ctx`** — how much of the active model's context window the last
   *completed* turn's request used, and the window size itself (e.g.
   `38.4k/200k (19%)`). Turns red once usage crosses 85% of the window, a
