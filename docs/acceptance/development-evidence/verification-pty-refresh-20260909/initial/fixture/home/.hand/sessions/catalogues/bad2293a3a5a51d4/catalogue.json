@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-verification-pty-20260909-evidence/fixture/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_768844acffcfa22c",
+  "sessions": [
+    {
+      "id": "ses_768844acffcfa22c",
+      "agentId": "hand",
+      "storeKey": "workspace_bad2293a3a5a51d4_d876203e9dd4b749c297ea34ffff02dd",
+      "name": "",
+      "createdAt": "2026-09-09T00:35:02.654907Z",
+      "lastActive": "2026-09-09T00:35:02.655317Z"
+    }
+  ]
+}

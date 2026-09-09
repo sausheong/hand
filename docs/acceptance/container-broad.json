@@ -1,0 +1,57 @@
+{
+  "status": "development_passed",
+  "scope": [
+    "internal/extensions",
+    "internal/app",
+    "cmd/hand"
+  ],
+  "results": {
+    "tests": {
+      "pass": 174,
+      "fail": 2,
+      "skip": 4
+    },
+    "loopback": {
+      "pass": 289,
+      "fail": 0,
+      "skip": 4
+    },
+    "native": {
+      "pass": 10,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "reconciled_test_records": {
+    "pass": 357,
+    "fail": 0,
+    "skip": 0
+  },
+  "source_bindings": [
+    {
+      "path": "docs/acceptance/container-callback-integration.json",
+      "sha256": "4f0431716f2de44180df32bacb195971e9b0223b78acc94bbf9f72bfbf4b747e"
+    },
+    {
+      "path": "docs/acceptance/harness-container-stream.json",
+      "sha256": "cf80049c6c41de1d1a160936e2a71cdcd1e552bff28064dca2a12e77eae2ad2c"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-broad-20260909/hand-container-broad-tests-20260909.jsonl",
+      "sha256": "e3a9689db275c1dafecdfb5d53ca293ff3f9b0e537b4761c21f1296a76ed323a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-broad-20260909/hand-container-broad-loopback-20260909.jsonl",
+      "sha256": "0dcbe66de5a982d6f60647b883d669fe93a3dc89d7e087ab153124cd894ef21a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-broad-20260909/hand-container-broad-native-20260909.jsonl",
+      "sha256": "ff37c4e6df741af76e81f5aab688a9f8709cd48eafd2898adeb2cad66e1978ad"
+    }
+  ],
+  "limitations": [
+    "Initial application and CLI tests aborted because the sandbox denied local HTTP fixture listeners. A full rerun of both affected packages passed with local fixture access. Explicit native/public fixture run supplies the skipped container and public fetch cases; all distinct named test records in this scoped suite reconcile to pass. Parent and subtest records are not acceptance-scenario counts. Unreleased Harness and development source; no coverage threshold, whole-repository or final-candidate qualification is claimed."
+  ]
+}

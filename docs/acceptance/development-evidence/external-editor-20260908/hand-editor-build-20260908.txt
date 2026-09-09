@@ -1,0 +1,1 @@
+ok  	github.com/sausheong/hand/internal/tui	0.562s [no tests to run]

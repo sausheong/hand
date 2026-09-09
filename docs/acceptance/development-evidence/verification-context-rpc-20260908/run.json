@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "833d9b7d63365ac86a952d58dc05c22d9e047db2e91aef93c688f1794d911d65",
+  "runner_sha256": "654dfee9614448210594f9881ea78208bebcedeef5471d9d7739654de946ff7a",
+  "client_runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "passed_id": "67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6",
+  "failed_id": "c7d5c10c7c993d014d84e4999b89caf38330819e1bdf9e0cef47d054fb3c95c6",
+  "later_edit_stale": true,
+  "replay_after_restart": true,
+  "structured_context_restart": true,
+  "replay_preserves_stale_context": true,
+  "cancel_joined": true,
+  "disconnect_joined": true,
+  "command_pids": [
+    15151,
+    15152
+  ],
+  "provider_calls": 0
+}

@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""Exercise a built Hand terminal's scoped skill decisions without paid calls."""
+import argparse
+import fcntl
+import hashlib
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import json
+import os
+from pathlib import Path
+import pty
+import select
+import signal
+import struct
+import subprocess
+import sys
+import termios
+import threading
+import time
+
+sys.dont_write_bytecode = True
+from benchmark_startup import ANSI
+from check_transcript_performance import snapshot
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def trial(binary, output, decision):
+    directory = output / decision
+    home, work = directory / 'home', directory / 'workspace'
+    home.mkdir(parents=True); work.mkdir()
+    target = work / '.hand/skills/pty-skill/SKILL.md'
+    requests = []
+
+    class Provider(BaseHTTPRequestHandler):
+        def log_message(self, *args):
+            pass
+
+        def do_POST(self):
+            length = int(self.headers.get('Content-Length', 0))
+            if length > 1 << 20:
+                self.send_error(413); return
+            requests.append(json.loads(self.rfile.read(length)))
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/event-stream'); self.end_headers()
+            if len(requests) == 1:
+                delta = {'tool_calls': [{'index': 0, 'id': 'create', 'type': 'function', 'function': {
+                    'name': 'skill_manage', 'arguments': json.dumps({'action': 'create', 'name': 'pty-skill', 'body': 'approved PTY body'})}}]}
+                reason = 'tool_calls'
+            else:
+                delta, reason = {'content': 'PTY_TASK_FINISHED'}, 'stop'
+            for event in [{'choices': [{'index': 0, 'delta': delta, 'finish_reason': None}]},
+                          {'choices': [{'index': 0, 'delta': {}, 'finish_reason': reason}]}]:
+                self.wfile.write(('data: ' + json.dumps(event) + '\n\n').encode())
+            self.wfile.write(b'data: [DONE]\n\n')
+
+    server = ThreadingHTTPServer(('127.0.0.1', 0), Provider)
+    thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+    env = dict(os.environ, HOME=str(home), XDG_CONFIG_HOME=str(home/'.config'), TERM='xterm-256color')
+    for key in list(env):
+        if key.endswith('_API_KEY') or key in ('OPENAI_ACCESS_TOKEN', 'ANTHROPIC_AUTH_TOKEN'):
+            env.pop(key)
+    master, slave = pty.openpty()
+    fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack('HHHH', 40, 120, 0, 0))
+    process = subprocess.Popen([str(binary), '--model=local/fixture', '--base-url=http://127.0.0.1:' + str(server.server_port) + '/v1'],
+                               cwd=work, env=env, stdin=slave, stdout=slave, stderr=slave, start_new_session=True)
+    os.close(slave)
+    raw = bytearray(); phase = 'startup'; error = None; decision_sent = False
+    started = time.monotonic()
+    try:
+        while time.monotonic() - started < 20:
+            if select.select([master], [], [], .02)[0]:
+                try:
+                    chunk = os.read(master, 65536)
+                except OSError:
+                    chunk = b''
+                raw.extend(chunk)
+                if len(raw) > 4 << 20:
+                    raise RuntimeError('PTY capture exceeded 4 MiB')
+                visible = ANSI.sub(b'', bytes(raw))
+                if phase == 'startup' and b'Type a message...' in visible:
+                    if termios.tcgetattr(master)[3] & termios.ECHO:
+                        raise RuntimeError('terminal echo enabled; input provenance ambiguous')
+                    os.write(master, b'create the requested skill\r'); phase = 'approval'
+                elif phase == 'approval' and b'Allow skill_manage?' in visible:
+                    if target.exists():
+                        raise RuntimeError('skill created before approval')
+                    os.write(master, {'allow': b'y', 'deny': b'n', 'cancel': b'\x03'}[decision])
+                    decision_sent = True; phase = 'result'
+                elif phase == 'result':
+                    marker = b'Cancelled' if decision == 'cancel' else b'PTY_TASK_FINISHED'
+                    if marker in visible and (decision == 'cancel' or b'[result] Completed:' in visible):
+                        os.write(master, b'/exit\r'); phase = 'exit'
+            if process.poll() is not None:
+                break
+        if process.poll() is None:
+            raise RuntimeError('terminal journey deadline exceeded at ' + phase)
+        if process.returncode != 0 or phase != 'exit' or not decision_sent:
+            raise RuntimeError('unexpected terminal exit: ' + str((phase, process.returncode)))
+        if target.exists() != (decision == 'allow'):
+            raise RuntimeError('disk effect differs from terminal decision')
+        if decision == 'allow' and 'approved PTY body' not in target.read_text():
+            raise RuntimeError('approved skill content missing')
+        if len(requests) != (1 if decision == 'cancel' else 2):
+            raise RuntimeError('unexpected provider request count')
+    except (OSError, RuntimeError) as exc:
+        error = str(exc)
+    finally:
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGKILL); process.wait(timeout=5)
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        os.close(master); server.shutdown(); server.server_close(); thread.join(timeout=5)
+        (directory/'terminal.pty').write_bytes(raw)
+        (directory/'requests.json').write_text(json.dumps(requests, indent=2)+'\n')
+    return dict(decision=decision, status='passed' if error is None else 'failed', error=error,
+                exit_code=process.returncode, phase=phase, requests=len(requests), skill_exists=target.exists())
+
+
+def main(trial_runner=None, decisions=('deny', 'allow', 'cancel')):
+    trial_runner = trial if trial_runner is None else trial_runner
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args(); output = args.output.resolve()
+    if output == ROOT or ROOT in output.parents:
+        parser.error('output must be outside source checkout')
+    output.mkdir(parents=True, exist_ok=False)
+    roots, before = [], {}
+    report = dict(status='failed', results=[], limitations=[
+        'Local fake provider, no paid calls',
+        'Development native PTY, not final candidate/platform qualification'])
+    try:
+        with (output/'harness-module.json').open('wb') as stdout, (output/'harness-module.stderr').open('wb') as stderr:
+            subprocess.run(['go', 'list', '-m', '-json', 'github.com/sausheong/harness'], cwd=ROOT,
+                           stdout=stdout, stderr=stderr, check=True, timeout=30)
+        dependency = json.loads((output/'harness-module.json').read_text())
+        report['harness_module'] = dependency
+        roots = [ROOT, Path(dependency.get('Replace', dependency)['Dir'])]
+        before = {str(path): snapshot(path) for path in roots}
+        binary = output/'hand'
+        with (output/'build.log').open('wb') as log:
+            subprocess.run(['go', 'build', '-o', str(binary), './cmd/hand'], cwd=ROOT,
+                           stdout=log, stderr=subprocess.STDOUT, check=True, timeout=120)
+        report['binary_sha256'] = hashlib.sha256(binary.read_bytes()).hexdigest()
+        for decision in decisions:
+            report['results'].append(trial_runner(binary, output, decision))
+        if all(result['status'] == 'passed' for result in report['results']):
+            report['status'] = 'development_passed'
+    except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError) as exc:
+        report['error'] = str(exc)
+    finally:
+        report['source_before'] = before
+        try:
+            report['source_after'] = {str(path): snapshot(path) for path in roots}
+        except (OSError, ValueError, subprocess.SubprocessError) as exc:
+            report['snapshot_error'] = str(exc)
+        report['sources_unchanged'] = bool(before) and before == report.get('source_after')
+        if not report['sources_unchanged']:
+            report['status'] = 'failed'
+        (output/'report.json').write_text(json.dumps(report, indent=2)+'\n')
+    print(json.dumps({'status': report['status'], 'results': report['results']}))
+    return int(report['status'] != 'development_passed')
+
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

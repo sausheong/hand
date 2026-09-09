@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T21:32:42.731046+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T21:32:43.343234+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun"}
+{"Time":"2026-09-08T21:32:43.3433+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun","Output":"=== RUN   TestTimeBudgetCancelsRunningProviderAndBlocksNextRun\n"}
+{"Time":"2026-09-08T21:32:44.345305+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun","Output":"--- PASS: TestTimeBudgetCancelsRunningProviderAndBlocksNextRun (1.00s)\n"}
+{"Time":"2026-09-08T21:32:44.345453+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun","Elapsed":1}
+{"Time":"2026-09-08T21:32:44.345531+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T21:32:45.361021+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t2.630s\n"}
+{"Time":"2026-09-08T21:32:45.36114+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":2.63}

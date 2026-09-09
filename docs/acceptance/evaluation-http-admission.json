@@ -1,0 +1,51 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Combined HTTP header/body/quote admission with atomic persistent transport, quote and budget records; fixed HTTPS Anthropic origin and credential-free metadata.",
+  "tests": {
+    "focused": 5,
+    "captured_requests": 6,
+    "evaluation_suite": 123,
+    "failures": 0,
+    "skips": 0
+  },
+  "scenarios": [
+    "Six actual SDK captures pass combined admission",
+    "Header/body/revoked-run rejection leaves no records",
+    "Injected transport write failure rolls back quote and budget",
+    "Actual process crash preserves all records and cannot grant replay",
+    "Stored body-digest mismatch blocks existing and reopened ledger"
+  ],
+  "limitations": [
+    "No HTTP socket/server or request forwarding, redirect policy, TLS/network isolation or genuine provider usage reconciliation yet.",
+    "Trusted caller must resolve run/token/model/pricing/beta policy from frozen schedule; clients may not supply that mapping.",
+    "Development ledgers lacking new transport schema are rejected, not migrated or reset.",
+    "No live calls, spending approval or candidate qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-admission-20260909/evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_budget.py",
+      "sha256": "bbf48c3d3c77c5df676d5488ee313e9eb256ececc4edefcf899345ed09eed96a",
+      "uncompressed_sha256": "e7962c42d25cfcfec736bdf98c448a360e71645624e04161d4b23685dfda2ee0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-admission-20260909/evaluation_http_policy.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_http_policy.py",
+      "sha256": "1f4b0ca7bd4bc48f0de53c076e9595c51557ca6603f47be9f46d375609936130",
+      "uncompressed_sha256": "bef02f340e98a8770de5f27bdfcd92b5c5581099307a5c78997bdea4e52359f2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-admission-20260909/test_evaluation_http_admission.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_http_admission.py",
+      "sha256": "e5688ab14a6c22093318b987909b0b23b3be4e374e83a23fc04f8d74679a6292",
+      "uncompressed_sha256": "520d72bec48b59aa8032bc73147648215a851b6578b0f5e832bcb809c0612305"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-admission-20260909/hand-evaluation-http-admission-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-http-admission-20260909.log",
+      "sha256": "be040f9f85c4cc7d8582344f6a02a0b5418e6399e2f3325f6f55f120de482361",
+      "uncompressed_sha256": "da17282cc1a55b5e725b8554a69e24ead9243e92366ca6e455d646a754895230"
+    }
+  ]
+}

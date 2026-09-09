@@ -1,0 +1,118 @@
+{
+  "development_harness_candidate": "b2433fa75b98ef820b4a4af9177962a61970f91e",
+  "harness_base": "98ac7017027e0ba4009e9ae0d136e716e7a76db5",
+  "patch_sha256": "b0420560c209a093eb5600c3b08720511c94dbc04ad50987bd17f9416e9c62db",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "hand_source_manifest": "docs/acceptance/session-combined-recovery-integration.json",
+  "results": {
+    "hand-list-metadata-hand-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 588,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "pass",
+        "github.com/sausheong/hand/internal/config": "pass",
+        "github.com/sausheong/hand/internal/permissions": "pass",
+        "github.com/sausheong/hand/internal/tui": "pass",
+        "github.com/sausheong/hand/internal/agentio": "pass",
+        "github.com/sausheong/hand/cmd/hand": "pass",
+        "github.com/sausheong/hand/internal/sessionio": "pass"
+      }
+    },
+    "hand-list-metadata-harness-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 910,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    },
+    "hand-list-metadata-repeat-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 40,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/session": "pass"
+      }
+    }
+  },
+  "repeat_count": 20,
+  "harness_full_exit_code": 0,
+  "hand_full_exit_code": 0,
+  "harness_vet_exit_code": 0,
+  "hand_vet_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-hand-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-list-metadata-hand-full-20260908.jsonl",
+      "sha256": "63876b5bdb48b71e43033e7894a48bec8dd07d86f45dcbc57c2da00ecab077ac"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-hand-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-list-metadata-hand-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-hand-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-list-metadata-hand-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-harness-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-list-metadata-harness-full-20260908.jsonl",
+      "sha256": "8ac5e00e08213b4874fedfdb1922ea84fcd887e240bb8543dd22bb0c14fc36e9"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-harness-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-list-metadata-harness-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-harness-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-list-metadata-harness-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/list-metadata-20260908/hand-list-metadata-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-list-metadata-repeat-20260908.jsonl",
+      "sha256": "59287319ce464fdb5b4ae00e6a2078fc1466b469fe3221dea34992ff91bb212b"
+    }
+  ],
+  "limitations": [
+    "Development evidence against unpublished local Harness, not released integration.",
+    "Listing extracts syntactic metadata and is not graph validation.",
+    "Full requirement coverage and final candidate/platform qualification remain pending."
+  ]
+}

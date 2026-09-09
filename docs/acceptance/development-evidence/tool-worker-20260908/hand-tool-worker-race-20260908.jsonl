@@ -1,0 +1,13 @@
+{"Time":"2026-09-08T13:45:11.673225+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolworker"}
+{"Time":"2026-09-08T13:45:12.230995+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests"}
+{"Time":"2026-09-08T13:45:12.231085+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"=== RUN   TestWorkerRealFileRoundtripAndRejectedRequests\n"}
+{"Time":"2026-09-08T13:45:12.238022+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"    worker_test.go:38: {Version:1 Result:{Output: Error:old_string found 7 times in file, must be unique Metadata:map[] Images:[]}}\n"}
+{"Time":"2026-09-08T13:45:12.240532+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"--- FAIL: TestWorkerRealFileRoundtripAndRejectedRequests (0.01s)\n"}
+{"Time":"2026-09-08T13:45:12.240554+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Elapsed":0.01}
+{"Time":"2026-09-08T13:45:12.240577+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput"}
+{"Time":"2026-09-08T13:45:12.240583+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"=== RUN   TestWorkerCancellationAndBrokenOutput\n"}
+{"Time":"2026-09-08T13:45:12.246988+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"--- PASS: TestWorkerCancellationAndBrokenOutput (0.01s)\n"}
+{"Time":"2026-09-08T13:45:12.247017+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Elapsed":0.01}
+{"Time":"2026-09-08T13:45:12.247027+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"FAIL\n"}
+{"Time":"2026-09-08T13:45:12.248167+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"FAIL\tgithub.com/sausheong/hand/internal/toolworker\t0.575s\n"}
+{"Time":"2026-09-08T13:45:12.248182+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/toolworker","Elapsed":0.575}

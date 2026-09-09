@@ -1,0 +1,57 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M3.1",
+    "M3.3"
+  ],
+  "scope": "Persisted tool outcome flags projected consistently into transcript and full-output viewer",
+  "command": "go test -race -count=1 -coverprofile=/private/tmp/hand-replay-outcome-20260909.cover -json ./internal/tui",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off"
+  },
+  "exit_code": 0,
+  "before": {
+    "fail": 4,
+    "pass": 2
+  },
+  "after": {
+    "pass": 305
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/replay-outcome-20260909/hand-replay-outcome-before-20260909.jsonl",
+      "sha256": "9c7ee3827998396da79ec769b167a5a523289920e4f9b24ff9b714867a14b5ce"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-outcome-20260909/hand-replay-outcome-20260909.jsonl",
+      "sha256": "0eefe1324954ccc73f78d0c61b4ce6cd456f03438e020cca01ee158fe5053387"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-outcome-20260909/hand-replay-outcome-20260909.cover",
+      "sha256": "2dd0e993dc68073d87055c689511acaa7a762f098346653771cc11d8cc84dd3c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-outcome-20260909/transcript_blocks.go.txt",
+      "sha256": "74b28ca35c5996902c5b0b85d3538819e944dfdfcd0c3f9513b8d74a3fa12e9a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-outcome-20260909/output.go.txt",
+      "sha256": "4002749fcc84c42691b45ebfb713ebbce9414b648cda88b59d8dda3ae9006dd6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-outcome-20260909/replay_outcome_test.go.txt",
+      "sha256": "fda621b67594a58fd59fa8655b659ed6f6e97fb3ce1f0c4b3d4bc0bb25548ccd"
+    }
+  ],
+  "assertions": [
+    "IsError without text renders tool failed, never success",
+    "Aborted without text renders tool cancelled, including when IsError is set",
+    "Explicit error text and partial output remain available in viewer",
+    "Resize preserves unsuccessful outcome"
+  ],
+  "limits": [
+    "Direct history API; no claim these flag combinations originate from current provider adapters",
+    "No built-terminal/platform qualification; full profiles remain stale"
+  ]
+}

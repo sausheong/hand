@@ -1,0 +1,36 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenario": "steer_during_tool_cancel",
+  "command": "go test -race -count=20 -timeout=3m -run ^TestBinarySDKSteerDuringToolThenCancel$ -json ./cmd/hand",
+  "tests": {
+    "pass": 20
+  },
+  "repetitions": 20,
+  "assertions": [
+    "Compiled Hand process negotiates public SDK protocol and receives exact one-time approval",
+    "Actual bash child PID is alive when steering is submitted",
+    "queue.list shows retained steering while tool is blocked",
+    "Cancelled terminal arrives within two seconds and only after PID is reaped",
+    "Process shutdown completes with exactly one provider request, so queued steering cannot dispatch after cancellation"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/steer-cancel-journey-20260909/hand-steer-cancel-journey-repeat-20260909.jsonl.gz",
+      "sha256": "31b43da50493f76773aed9569f350f16703874d047a27c7fd577ceec5ea2815b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/steer-cancel-journey-20260909/hand-steer-cancel-journey-20260909.jsonl.gz",
+      "sha256": "391cea578a30fc876d624a2eeed7fed06fb718e8a3d40c9a710fbf026255c2af"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/steer-cancel-journey-20260909/steer_cancel_journey_test.go.gz",
+      "sha256": "27bd15ace964b4fe944b4f11c3c4b37686437cbb7e41d4a07c25e6589573cc25"
+    }
+  ],
+  "limitations": [
+    "Scripted local provider and development checkout; not final platform/candidate qualification",
+    "Steering acceptance and retention are verified; cancellation prevents later delivery by design",
+    "Race-enabled test harness; ordinary compiled Hand child"
+  ]
+}

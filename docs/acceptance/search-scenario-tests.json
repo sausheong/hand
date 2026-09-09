@@ -1,0 +1,35 @@
+{
+  "status": "development_search_scenario_checks_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/agentio -run '^TestSearch'",
+  "test_records": {
+    "pass": 360
+  },
+  "repetitions": 20,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/search-audit-20260909/hand-search-audit-20260909.jsonl.gz",
+      "sha256": "f930b52a951253d2d8d0e74c4a14604a7254dbf6a38782ca0a9e46abcc48a51e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-audit-20260909/search.go.txt",
+      "sha256": "5f3aac9ed8caea71d6949a39cee8248611fefa3fc4308ac75dbd4b6c9b2cd5cf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-audit-20260909/search_instructions_test.go.txt",
+      "sha256": "5cd7de17e968154db492b19d6ac8db868cecea0078923fc7b2158eeaec355311"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-audit-20260909/search_regression_test.go.txt",
+      "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-audit-20260909/search_test.go.txt",
+      "sha256": "62cb3d903f4e52cbed33ca2d188d290905ad82a40c635ade01c7ced03f654f91"
+    }
+  ],
+  "limitations": [
+    "Unprivileged native macOS tests; final supported-platform evidence remains required",
+    "Cancellation fixture begins cancelled; active scan cancellation qualification remains separate",
+    "No production change; final candidate not frozen"
+  ]
+}

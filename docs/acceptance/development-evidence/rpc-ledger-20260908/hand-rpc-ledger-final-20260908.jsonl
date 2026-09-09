@@ -1,0 +1,24 @@
+{"Time":"2026-09-08T11:31:16.304441+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T11:31:16.719267+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution"}
+{"Time":"2026-09-08T11:31:16.719353+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution","Output":"=== RUN   TestLedgerDuplicateAndRestartDoNotGrantExecution\n"}
+{"Time":"2026-09-08T11:31:16.744393+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution","Output":"--- PASS: TestLedgerDuplicateAndRestartDoNotGrantExecution (0.03s)\n"}
+{"Time":"2026-09-08T11:31:16.744429+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution","Elapsed":0.03}
+{"Time":"2026-09-08T11:31:16.744462+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied"}
+{"Time":"2026-09-08T11:31:16.744467+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied","Output":"=== RUN   TestLedgerCompletedResultSurvivesRestartAndIsCopied\n"}
+{"Time":"2026-09-08T11:31:16.763039+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied","Output":"--- PASS: TestLedgerCompletedResultSurvivesRestartAndIsCopied (0.02s)\n"}
+{"Time":"2026-09-08T11:31:16.763082+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied","Elapsed":0.02}
+{"Time":"2026-09-08T11:31:16.763091+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail"}
+{"Time":"2026-09-08T11:31:16.763105+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail","Output":"=== RUN   TestLedgerExclusiveWriterAndTruncatedTail\n"}
+{"Time":"2026-09-08T11:31:16.773576+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail","Output":"--- PASS: TestLedgerExclusiveWriterAndTruncatedTail (0.01s)\n"}
+{"Time":"2026-09-08T11:31:16.773605+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail","Elapsed":0.01}
+{"Time":"2026-09-08T11:31:16.773624+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart"}
+{"Time":"2026-09-08T11:31:16.773628+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Output":"=== RUN   TestLedgerPendingIntentIsUncertainAfterRestart\n"}
+{"Time":"2026-09-08T11:31:16.782798+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Output":"--- PASS: TestLedgerPendingIntentIsUncertainAfterRestart (0.01s)\n"}
+{"Time":"2026-09-08T11:31:16.782826+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Elapsed":0.01}
+{"Time":"2026-09-08T11:31:16.782832+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerConcurrentDuplicateHasOneExecutionGrant"}
+{"Time":"2026-09-08T11:31:16.782837+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerConcurrentDuplicateHasOneExecutionGrant","Output":"=== RUN   TestLedgerConcurrentDuplicateHasOneExecutionGrant\n"}
+{"Time":"2026-09-08T11:31:16.792541+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerConcurrentDuplicateHasOneExecutionGrant","Output":"--- PASS: TestLedgerConcurrentDuplicateHasOneExecutionGrant (0.01s)\n"}
+{"Time":"2026-09-08T11:31:16.79258+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerConcurrentDuplicateHasOneExecutionGrant","Elapsed":0.01}
+{"Time":"2026-09-08T11:31:16.792584+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T11:31:17.80002+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.495s\n"}
+{"Time":"2026-09-08T11:31:17.800072+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.496}

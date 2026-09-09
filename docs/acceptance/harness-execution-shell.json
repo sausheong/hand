@@ -1,0 +1,42 @@
+{
+  "qualification": "development",
+  "parent": "50445a5de790e02fa8995aaeea3c2813ba16de43",
+  "published": false,
+  "hand_integrated": false,
+  "patch_sha256": "646b2ce18ae7baba1ba20146f25d6bdec5bb4ed21bfe2fdd8fb6acca18d071e4",
+  "results": {
+    "hand-container-shell-final-20260908.jsonl": {
+      "pass": 34,
+      "fail": 0,
+      "skip": 0
+    },
+    "hand-container-shell-race-20260908.jsonl": {
+      "pass": 34,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-shell-20260908/hand-container-shell-final-20260908.jsonl",
+      "sha256": "f0f36565a5b4d911f9148dd767692fdec75990f50cf161a3ce8d7c7090860af1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-shell-20260908/hand-container-shell-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-shell-20260908/hand-container-shell-final-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-shell-20260908/hand-container-shell-race-20260908.jsonl",
+      "sha256": "605a1fb8dc620a0ae5faf9f9e3cb99e7bc1212d9220a5c3467ad6e3fea1c020a"
+    }
+  ],
+  "limitations": [
+    "Shell tool backend path only; Hand isolation selection and other built-in/background/MCP/extension routes remain pending.",
+    "Native container checks ran on Docker Desktop macOS with cached Alpine and Debian images; Linux-host and final acceptance remain pending."
+  ],
+  "harness_commit": "df4cdc2e30d80e138fa3c3d5733adda2eaabc77d"
+}

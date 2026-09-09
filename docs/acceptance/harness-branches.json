@@ -1,0 +1,79 @@
+{
+  "base": "46dfa7b3f20b3e16189610c7a7ef44276c102689",
+  "candidate": "44309157ae4563839a19cf60bd57492cbbd3cbce",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 838,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_session_compaction_tests_passed": 3040,
+  "repetitions": 20,
+  "fuzz": {
+    "target": "FuzzSessionRecords",
+    "requested_seconds": 60,
+    "elapsed_seconds": 61.04,
+    "executions": 423691,
+    "passed": true
+  },
+  "counterfactual": {
+    "base": "46dfa7b3f20b3e16189610c7a7ef44276c102689",
+    "regressions_failed": 2,
+    "checkout": "/private/tmp/hand-harness-branch-regression-base-20260908"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-branches.patch",
+      "sha256": "829fbb2d63cd72e06822f5ee29f65d2131e2707518153c6068f4fba2c4360798"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-full-20260908.jsonl",
+      "sha256": "52acd76e873030d9d71affdb585e56b2ec5a7f55add008284231d53a21f8b8d2"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-coverage-20260908.out",
+      "sha256": "41e8c350b5f18fe5adf661d39116a8d41d278c6442e044cc9641c2de07a0e287"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-repeat-20260908.jsonl",
+      "sha256": "7e391f6827930e1c91c624aaa9c6231ca1496adf7373d905d9a3c6e004e6521c"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-fuzz-20260908.jsonl",
+      "sha256": "8d9c4d41484753424c30e8cd9d5958c8e365b3fb7e5e766e478acf1b08f4343e"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-fuzz-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-base-failures-20260908.jsonl",
+      "sha256": "e20986dc5bff9ccd24f935b71b9e7ea0700bb2598e23516e461dbd5f6e9965fd"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-base-failures-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-first-20260908.txt",
+      "sha256": "c78017e47aeada02b107995c5c7b3fa76a79b018b0a3d9472c82b2734f4d3961"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-fixed-20260908.txt",
+      "sha256": "a6782034b3a25c8460a985350e44c36c1462712205959230337ea6831b82dab8"
+    },
+    {
+      "path": "/private/tmp/hand-harness-branch-regressions-20260908.txt",
+      "sha256": "c178084c689bc4c3b0482c79b201b6fdf3d55d19389dad9fef5c68d24be262a3"
+    }
+  ]
+}

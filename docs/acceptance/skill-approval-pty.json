@@ -1,0 +1,118 @@
+{
+  "status": "development_built_pty_skill_approval_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off python3 scripts/check_skill_approval_pty.py --output /private/tmp/hand-skill-pty-fixed-20260909",
+  "results": [
+    {
+      "decision": "deny",
+      "status": "passed",
+      "error": null,
+      "exit_code": 0,
+      "phase": "exit",
+      "requests": 2,
+      "skill_exists": false
+    },
+    {
+      "decision": "allow",
+      "status": "passed",
+      "error": null,
+      "exit_code": 0,
+      "phase": "exit",
+      "requests": 2,
+      "skill_exists": true
+    },
+    {
+      "decision": "cancel",
+      "status": "passed",
+      "error": null,
+      "exit_code": 0,
+      "phase": "exit",
+      "requests": 1,
+      "skill_exists": false
+    }
+  ],
+  "sources_unchanged": true,
+  "binary_sha256": "cc4733de60d31e07f05f32b63fd043e4ebc6f57f6bf33596a05df817be84555b",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/allow_requests.json.gz",
+      "sha256": "8e9aa99d9e7e5488eca75e97a48d6105ed9bd081ddb0ce922a301176f2e7fa21"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/allow_terminal.pty.gz",
+      "sha256": "9251d297887d997a904119316bce6f016e081aa1b2a00b7759aa92a7bba14478"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/cancel_requests.json.gz",
+      "sha256": "7f587d57c5b3dd09d9e34a8883303ad2092790b501991d920792ab42b47d2372"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/cancel_terminal.pty.gz",
+      "sha256": "0b2833c07986e70d73bd4f04b22de1954f087b0f09f70c1d0781e090a8ce8e0c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/deny_requests.json.gz",
+      "sha256": "be60ac2b68ac1daf79dde513b7c79447993db20de8dd2d46daf02aa0ff7a63d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/deny_terminal.pty.gz",
+      "sha256": "0f8b4ce75ee38894cbbf9846d6438d03ed3139fdfea6cb9cb81ca039dea6a365"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/fixed/report.json.gz",
+      "sha256": "5845c1878cbe7e1e27c7c1197f29c0ecdd3a2b69f44cdae8ae848bf381402847"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/allow_requests.json.gz",
+      "sha256": "6a10d4e578e0b420d34a0da1b4a07b443898cbb9ecab528bbef4a65fe8f827a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/allow_terminal.pty.gz",
+      "sha256": "2b6ca771b7de2bdc7972ad03cfb11b9f89d6d08fa4bf9b2ebcfee28cb1421e4f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/cancel_requests.json.gz",
+      "sha256": "7f587d57c5b3dd09d9e34a8883303ad2092790b501991d920792ab42b47d2372"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/cancel_terminal.pty.gz",
+      "sha256": "05ad3c6f8c2ccb660c9e600503781e5de5e67ef6bd7a75797f4274149f336824"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/deny_requests.json.gz",
+      "sha256": "be60ac2b68ac1daf79dde513b7c79447993db20de8dd2d46daf02aa0ff7a63d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/deny_terminal.pty.gz",
+      "sha256": "a8bf5f7c73ca15b59dcf07cc425bc1b8239694a58651c35e9766aba6bd582bc2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/initial/report.json.gz",
+      "sha256": "40f05f095a8de88159c67209f47c4bbaae57808c8a026e416b8f32bedd102c85"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-20260909/runner.py.txt",
+      "sha256": "42def13e65ab37afa3538c2910744be90d8f90c56d96b3396d88b78b6a682c60"
+    }
+  ],
+  "assertions": [
+    "Built Hand renders scoped skill approval in real PTY after submitted input with echo disabled",
+    "Skill absent before decision",
+    "y creates exact requested body; n and Ctrl-C leave skill absent",
+    "Completed/cancelled terminal results observed before exit and all processes exit zero",
+    "One provider request for cancellation; two for completed allow/deny"
+  ],
+  "limitations": [
+    "Native macOS development source/local Harness checkout; not final candidate/platform evidence",
+    "Initial runner submitted exit before completed result and timed out; raw failure retained, synchronisation corrected",
+    "Local fake provider; no paid calls",
+    "Runner source provenance currently assumes Git checkouts; released-module inventory support still needed"
+  ]
+}

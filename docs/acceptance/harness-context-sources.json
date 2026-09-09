@@ -1,0 +1,74 @@
+{
+  "status": "development_passed",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "0ad3f8105c2a66bd8e56df2ac2660c974aa61bce4230251f57c038679f71b723",
+  "sources": [
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "40e374350ddd34e592804c48b7f660fd094bdc0acabe799f317b5e2c0005509d"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "2b2800e922b109458c42094a97095fdc5df239c9c1e972fde8989f81d5b4916f"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "1a1d0940ec22d02e55c8e5cbb30d89061190788e3f4c07c7055c82648c152a13"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "76eb53fea41aad9fb39d7e7b517a8891dc9b455a92f1ec274067b45c3fcec4c4"
+    },
+    {
+      "path": "runtime/skills_authoring_test.go",
+      "before_sha256": null,
+      "after_sha256": "4d9e44d05e3ae8813c5f5ed590883f970256ded90d9caaad7581b74022278263"
+    },
+    {
+      "path": "runtime/context_inspect.go",
+      "before_sha256": null,
+      "after_sha256": "99fe08143ae36fb95823919ed3a25eb5c425392b3e5f98d04f694b311b71b0b3"
+    },
+    {
+      "path": "runtime/context_inspect_test.go",
+      "before_sha256": null,
+      "after_sha256": "d728bd3d9136db6477958a6a09b626521dbf5d1edc15a12abf1a00d0b3dd97b0"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-context-sources-20260908/harness-context-sources-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-context-sources-20260908/harness-context-sources-race-20260908.jsonl",
+      "sha256": "ee89b27cde283fd7ca5a9f6f46158d98a67ed6e849980cf48cf1692680101ccc"
+    }
+  ],
+  "results": {
+    "harness-context-sources-race-20260908.jsonl": {
+      "pass": 15,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Development only; not released or integrated in primary Hand.",
+    "Inspection groups static identity/guidance/skills/memory; source-level decomposition remains pending.",
+    "App/RPC/terminal context interface remains pending.",
+    "Inspection excludes future user input and dynamic retrieval and does not claim exact provider usage."
+  ]
+}

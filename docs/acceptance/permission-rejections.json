@@ -1,0 +1,35 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scope": "Invalid grant and authority-context rejection preserves existing valid policy",
+  "test_records": {
+    "pass": 112,
+    "fail": 0,
+    "skip": 0
+  },
+  "package_coverage": {
+    "statements": 428,
+    "covered": 370,
+    "percentage": 86.44859813084112
+  },
+  "command": "go test -race -count=1 -coverprofile=/private/tmp/hand-permission-rejection-20260909.cover -json ./internal/permissions",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-rejection-20260909/hand-permission-rejection-20260909.cover",
+      "sha256": "86984e76c93d6b73502d54823e5237fd5640295430e74a68a83b4ef8d5ac2899"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-rejection-20260909/hand-permission-rejection-20260909.jsonl",
+      "sha256": "a7d4ff72ffa2c9d1f56c11272172510786aa0c826e79c86851b0c43852128b76"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-rejection-20260909/rejection_test.go.txt",
+      "sha256": "9a14e29d10b064bcb3c8e0d7aa6a5143fad90e4be1116ac37977e58b020f2ef3"
+    }
+  ],
+  "limitations": [
+    "Native macOS development package suite",
+    "Package coverage is not the mapped critical permissions metric; thresholds remain unmet",
+    "Final candidate and required platform qualification pending"
+  ]
+}

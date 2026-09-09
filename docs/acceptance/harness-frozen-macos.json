@@ -1,0 +1,94 @@
+{
+  "status": "candidate_native_passed",
+  "commit": "0972eed3eabe53dd310239bc66643aa89b915bd0",
+  "source_fingerprint": "c04759d354adec6b17dbdb13c7da27c24b41e55d6c080699569bfde66096fe33",
+  "clean_after": true,
+  "platform": "darwin/arm64 with Linux ARM64 Docker fixtures",
+  "tests": {
+    "passed": 1114,
+    "skipped": [],
+    "failed": [],
+    "missing": [],
+    "packages": [
+      "github.com/sausheong/harness/attachment",
+      "github.com/sausheong/harness/budget",
+      "github.com/sausheong/harness/compaction",
+      "github.com/sausheong/harness/examples/data-agent",
+      "github.com/sausheong/harness/examples/lta-agent",
+      "github.com/sausheong/harness/examples/minimal",
+      "github.com/sausheong/harness/examples/self-improving-agent",
+      "github.com/sausheong/harness/examples/support-agent",
+      "github.com/sausheong/harness/execution",
+      "github.com/sausheong/harness/llm",
+      "github.com/sausheong/harness/llm/llmtest",
+      "github.com/sausheong/harness/process",
+      "github.com/sausheong/harness/providers/anthropic",
+      "github.com/sausheong/harness/providers/gemini",
+      "github.com/sausheong/harness/providers/litellm",
+      "github.com/sausheong/harness/providers/local",
+      "github.com/sausheong/harness/providers/openai",
+      "github.com/sausheong/harness/providers/openrouter",
+      "github.com/sausheong/harness/runtime",
+      "github.com/sausheong/harness/session",
+      "github.com/sausheong/harness/tokens",
+      "github.com/sausheong/harness/tool",
+      "github.com/sausheong/harness/tool/memory",
+      "github.com/sausheong/harness/tool/memory/jsonl",
+      "github.com/sausheong/harness/tool/skills",
+      "github.com/sausheong/harness/tool/skills/disk",
+      "github.com/sausheong/harness/tools/bash",
+      "github.com/sausheong/harness/tools/browser",
+      "github.com/sausheong/harness/tools/file",
+      "github.com/sausheong/harness/tools/mcp",
+      "github.com/sausheong/harness/tools/todo",
+      "github.com/sausheong/harness/tools/web"
+    ],
+    "unfinished": [],
+    "missing_packages": []
+  },
+  "coverage": {
+    "statements": 8922,
+    "covered": 6249,
+    "percentage": 70.04034969737727
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-macos-20260909/report.json.gz",
+      "sha256": "d14ce694591b2c257ba5bdfec59ec3ba8694c74a8f54cde1358b638ae629dfc0",
+      "uncompressed_sha256": "17aa491738704fc3a946daa628ac2d5a2b17308b9bedadc2cc12ebcfc55f61c2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-macos-20260909/tests.jsonl.gz",
+      "sha256": "1482a3b6eb389a6088ff804d18408c680fc28f1519761de374fc77fcadba4961",
+      "uncompressed_sha256": "55aa0e8c79d99c1e7bd8c7cba19cba07d7c60441a921c86255bb67aa96448096"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-macos-20260909/inventory.json.gz",
+      "sha256": "d4b11d0944ba11ee4ebce0a41c8a96ba0db35fcfab3afb2bbcb2994cc2d84c3c",
+      "uncompressed_sha256": "2f7913a9b38c44cb76ba1415d8f107ad8852fd9ef1d7ed18c68f59be724829b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-macos-20260909/coverage.out.gz",
+      "sha256": "2b2578861cb2f541ba18991609c816f87257899305022e4f6b8e0d4e775219b8",
+      "uncompressed_sha256": "b82092a9b79d28310a8ecbe67451141c6e2041a55a204d54f67ba048ecb21b71"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-macos-20260909/packages.txt.gz",
+      "sha256": "a3bb5d66a6423cb447418957263d362b8f741fef98b2b8ec3ab3f5e40831a201",
+      "uncompressed_sha256": "996ee2b035ca271a96890f0a4effdc5dd24801ed598d5c39b1e835575a719849"
+    }
+  ],
+  "limitations": [
+    "Whole-Harness coverage measurement does not replace Hand overall/changed/critical qualification.",
+    "Linux candidate run and publication review remain pending."
+  ],
+  "cancellation_repetitions": {
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0,
+    "max_total_trial_seconds": 0.5,
+    "evidence": "docs/acceptance/development-evidence/harness-frozen-macos-20260909/cancellation-20.jsonl.gz",
+    "sha256": "ef01bbb4f1714aacce09f92a65409f4ce83cd26ea274c347e39bb2b37c1424f7",
+    "uncompressed_sha256": "17d2495434ed5017a62a7930bcf7b031e42a3af93083d692d16817d6eb0958cd"
+  }
+}

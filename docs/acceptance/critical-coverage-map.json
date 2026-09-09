@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "groups": {
+    "lifecycle": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "cmd/hand/main.go",
+          "internal/tui/model.go",
+          "internal/tui/events.go",
+          "internal/tui/commands.go",
+          "internal/agentio/identity.go",
+          "internal/agentio/outcome.go",
+          "internal/agentio/hooks.go",
+          "internal/app/runtime_construction.go",
+          "internal/app/*.go"
+        ],
+        "github.com/sausheong/harness": [
+          "runtime/*.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "permissions": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "internal/permissions/*.go",
+          "internal/agentio/approval.go",
+          "internal/app/permission_binding.go",
+          "cmd/hand/permission_binding.go",
+          "cmd/hand/scoped_permissions.go"
+        ],
+        "github.com/sausheong/harness": [
+          "tool/policy.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "persistence": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "internal/sessionio/*.go",
+          "internal/app/sessions.go",
+          "internal/app/session_*.go"
+        ],
+        "github.com/sausheong/harness": [
+          "session/*.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "execution": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "internal/agentio/hooks.go",
+          "internal/app/runtime_construction.go",
+          "internal/isolation/*.go",
+          "internal/toolproxy/*.go",
+          "internal/toolworker/*.go",
+          "internal/app/process*.go"
+        ],
+        "github.com/sausheong/harness": [
+          "process/*.go",
+          "tools/bash/bash.go",
+          "tools/mcp/*.go",
+          "tools/file/writefile.go",
+          "execution/*.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "checkpoints": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "internal/checkpoints/*.go",
+          "internal/app/checkpoint*.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "budgets": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "internal/app/*budget*.go"
+        ],
+        "github.com/sausheong/harness": [
+          "budget/*.go",
+          "runtime/*budget*.go",
+          "llm/admission.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "protocol": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "protocol/*.go",
+          "sdk/*.go",
+          "cmd/hand/rpc.go",
+          "internal/rpc/*.go",
+          "cmd/hand/rpc_stdio_unix.go",
+          "cmd/hand/rpc_stdio_other.go",
+          "cmd/hand/rpc_peer_darwin.go",
+          "cmd/hand/rpc_peer_linux.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "extensions": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "extension/protocol/*.go",
+          "internal/extensions/*.go",
+          "internal/packages/*.go",
+          "internal/app/extension*.go",
+          "internal/app/package*.go",
+          "cmd/hand/package*.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "accounting": {
+      "sources": {
+        "github.com/sausheong/hand": [
+          "internal/tui/status.go",
+          "internal/tui/model.go",
+          "internal/tui/commands.go",
+          "internal/app/*usage*.go",
+          "internal/sessionio/usage.go"
+        ],
+        "github.com/sausheong/harness": [
+          "llm/usage_observer.go",
+          "runtime/runtime.go",
+          "runtime/runturn.go",
+          "compaction/*.go",
+          "providers/anthropic/anthropic.go",
+          "budget/*.go",
+          "runtime/streaming*.go",
+          "runtime/*budget*.go"
+        ]
+      },
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    }
+  }
+}

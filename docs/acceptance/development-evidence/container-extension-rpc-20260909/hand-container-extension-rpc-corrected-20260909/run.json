@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "binary_sha256": "2f8988262e1419a0c2cc2665bb952aa97cb9fd57f1b9408e8c7931abccbba6aa",
+  "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+  "extension_sha256": "b36d29d68055efc756984ca2690f6e2243c09fe79fa1bfd983c28561f5344944",
+  "runner_sha256": "fb864fc1a18f3174872d32a612c890abb398cbb077a45045e842f1074681980c",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "poll_runner_sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3",
+  "provider_calls": 0,
+  "typed_presentation": true,
+  "inspected_isolation": true,
+  "cleanup_joined": true
+}

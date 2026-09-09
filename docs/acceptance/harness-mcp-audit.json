@@ -1,0 +1,60 @@
+{
+  "candidate": "a111b33b826dd22713ef755d403516c28edf8133",
+  "base": "328ce04dad7ff160217cdb4894c377f124a5e1d8",
+  "patch_sha256": "615564c9b0eb9f2acc87172e7f8d4c168c49d645854bb1333b4f467f0e8702e1",
+  "results": {
+    "harness-mcp-audit-full-20260908.jsonl": {
+      "test_events": {
+        "pass": 936,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/examples/data-agent": "skip",
+        "github.com/sausheong/harness/examples/lta-agent": "skip",
+        "github.com/sausheong/harness/examples/minimal": "skip",
+        "github.com/sausheong/harness/examples/self-improving-agent": "skip",
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    }
+  },
+  "full_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-audit-20260908/harness-mcp-audit-full-20260908.jsonl",
+      "sha256": "166e7c3a5247753ca3d9211d19210cccc14a0905ce43929ca8f729674ffe47b1"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-audit-20260908/harness-mcp-audit-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Local full race suite only; final native and released-candidate acceptance pending."
+  ]
+}

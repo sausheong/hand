@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "test_fixtures": [
+    {
+      "path": "docs/acceptance/development-evidence/bound-journeys-20260908/hand-bound-journeys-compatibility-20260908/consumer/main.go",
+      "sha256": "abe53f67488b61dc0ccbec72d86cc4d41d36148b13c8805bac1956edfe20e855",
+      "reason": "External SDK compatibility test driver retained as hashed raw journey evidence; it is a separate consumer fixture, not part of the Hand production module."
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cli-scoped-20260908/hand-cli-scoped-compatibility-20260908/consumer/main.go",
+      "sha256": "abe53f67488b61dc0ccbec72d86cc4d41d36148b13c8805bac1956edfe20e855",
+      "reason": "External SDK compatibility test driver retained as hashed raw journey evidence; it is a separate consumer fixture, not part of the Hand production module."
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-cancel-20260908/compatibility/consumer/main.go",
+      "sha256": "6963b87bd2fb620822939fcaf48935c9252013262c0cada58abbf9253dd9e7fe",
+      "reason": "External SDK compatibility test driver retained as hashed raw journey evidence; it is a separate consumer fixture, not part of the Hand production module."
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-20260908/consumer/main.go",
+      "sha256": "65db41332d012a56feec3a07dbe24fa8284d89e54dd6dff7eb619726bf1f2532",
+      "reason": "External SDK compatibility test driver retained as hashed raw journey evidence; it is a separate consumer fixture, not part of the Hand production module."
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-final-20260908/consumer/main.go",
+      "sha256": "65db41332d012a56feec3a07dbe24fa8284d89e54dd6dff7eb619726bf1f2532",
+      "reason": "External SDK compatibility test driver retained as hashed raw journey evidence; it is a separate consumer fixture, not part of the Hand production module."
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-verified-20260908/consumer/main.go",
+      "sha256": "65db41332d012a56feec3a07dbe24fa8284d89e54dd6dff7eb619726bf1f2532",
+      "reason": "External SDK compatibility test driver retained as hashed raw journey evidence; it is a separate consumer fixture, not part of the Hand production module."
+    },
+    {
+      "path": "internal/agentio/testdata/mcpserver/main.go",
+      "sha256": "2d2a4425b2f7219ad638411b746c5c815a7356facdd3f49a9361b62754975c61",
+      "reason": "MCP server test helper built only by internal/agentio tests; its marker and delay options verify transport cleanup and timeout behaviour."
+    },
+    {
+      "path": "docs/acceptance/evaluation/testdata/capture_harness_request.go",
+      "sha256": "cde4bffd091dbd89272920f2a5ddb7f9f02d3177adfa913bf1b12ef3fe1ce0f2",
+      "reason": "Standalone Harness SDK request/gateway test driver used by the evaluation probe; not Hand production code."
+    },
+    {
+      "path": "docs/acceptance/evaluation/testdata/harness_gateway.go",
+      "sha256": "91e0b38eb14979828d3b72b9c6abf8224d37760f8c5f18684209d3039a8e0d00",
+      "reason": "Standalone Harness SDK request/gateway test driver used by the evaluation probe; not Hand production code."
+    }
+  ]
+}

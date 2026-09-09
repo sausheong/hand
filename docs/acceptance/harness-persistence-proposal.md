@@ -1,0 +1,11 @@
+# Harness persistence follow-on — local development evidence
+
+The independent checkout `/private/tmp/hand-harness-persistence-20260908` contains commit `ec89b4d718182ddde190c036907522a166f7e7d6`, based on the earlier local candidate `308f702545c138fc5ad51a585c5d6f0a0f6ccc77`. The original candidate checkout remains unchanged. This follow-on is not published or integrated; Hand continues to use released Harness v0.3.9. The previously prepared release request does not implicitly authorise publishing this additional commit.
+
+`Session.PersistenceError` exposes the first append/rewrite persistence failure for that session. The error is sticky: a subsequent successful write cannot reconstruct lost entries. Other sessions sharing a store remain independently usable. `Session.Flush` synchronises the file and containing directory and surfaces open/sync/close failures. Callers must join producers before flushing; this is not a writer lease or complete power-loss recovery protocol.
+
+Runtime checks reject primary prompt/answer persistence failures instead of emitting successful completion, and its normal completion path flushes the session. RunSync now drains the event stream after errors so deferred cleanup joins before it returns. The test fixtures create actual filesystem obstructions, malformed entry data and missing sync targets; they do not use checker fixtures as product evidence.
+
+Fresh full race/coverage validation against this local commit passed 778 tests/subtests, zero failures/skips. The final targeted persistence and RunSync regression set passed 20 repetitions (140 executions). Vet passed for session/runtime. Exact hashes and raw log/coverage paths are in harness-persistence.json; the reconstructable incremental patch is harness-persistence.patch. Native Linux and hosted release checks have not run.
+
+Remaining work includes atomic rewrite/recovery, per-session writer leases, errors arising from deferred hooks/background compaction, parent-directory creation durability, attachment limits, selected DAG leaf persistence and Hand integration. This patch does not establish full M2.1/M3.1 acceptance or durable successful completion across every exit path. Extend and qualify the candidate before updating the release proposal for approval.

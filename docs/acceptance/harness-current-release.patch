@@ -1,0 +1,5831 @@
+diff --git a/.github/workflows/qualify.yml b/.github/workflows/qualify.yml
+new file mode 100644
+index 0000000..b5d947c
+--- /dev/null
++++ b/.github/workflows/qualify.yml
+@@ -0,0 +1,41 @@
++name: Qualify Harness
++on:
++  pull_request:
++  push:
++    branches: [main, 'codex/**']
++  workflow_dispatch:
++permissions:
++  contents: read
++jobs:
++  native:
++    strategy:
++      fail-fast: false
++      matrix:
++        os: [ubuntu-latest, macos-latest]
++    runs-on: ${{ matrix.os }}
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-go@v5
++        with:
++          go-version-file: go.mod
++      - name: Record candidate identity
++        run: |
++          mkdir evidence
++          git rev-parse HEAD > evidence/commit.txt
++          git status --porcelain > evidence/status.txt
++          go version > evidence/toolchain.txt
++          go env -json GOOS GOARCH GOVERSION > evidence/platform.json
++      - name: Build and vet
++        run: |
++          go build ./... > evidence/build.txt 2>&1
++          go vet ./... > evidence/vet.txt 2>&1
++      - name: Uncached race and coverage suite
++        run: go test -count=1 -timeout=10m -race -json -covermode=atomic -coverprofile=evidence/coverage.out ./... > evidence/tests.jsonl 2> evidence/tests.stderr
++      - name: Repeat lifecycle regressions
++        run: go test -count=20 -race -timeout=10m -json ./process ./tools/bash ./runtime -run 'TestCancellationStopsShellDescendant|TestNormalExitStopsShellDescendant|TestArtifactCrossProcessReservation|TestRun_StreamingAbortMidKickoffPairsAllEntries' > evidence/critical-repeat.jsonl 2> evidence/critical-repeat.stderr
++      - name: Preserve raw results
++        if: always()
++        uses: actions/upload-artifact@v4
++        with:
++          name: harness-${{ matrix.os }}-${{ github.sha }}
++          path: evidence/
+diff --git a/README.md b/README.md
+index 4cf0714..a4091b2 100644
+--- a/README.md
++++ b/README.md
+@@ -404,3 +404,39 @@ for the changelog of each tagged version.
+ ## License
+ 
+ MIT — see [`LICENSE`](./LICENSE).
++
++## Usage accounting
++
++See [USAGE.md](USAGE.md) for request-level records, reported versus unknown usage,
++retry/compaction accounting and the cache-counter migration from v0.3.9.
++
++### Managed subprocess lifecycle and output
++
++The `process` package creates a private Unix process group for a command and
++kills that group on context cancellation. `process.Run` joins the command and
++removes descendants after normal exit too. Callers using `Start`/`Wait` directly
++must call `process.KillGroup` when their protocol closes. Bash and stdio MCP use
++this lifecycle; non-Unix platforms currently provide direct-child cleanup only.
++A child that deliberately starts a new session can escape a process group: this
++is lifecycle management, not isolation. Use a containment backend for isolation.
++
++`process.Capture` drains output while retaining a bounded prefix. Bash retains
++at most 64 KiB per stdout/stderr stream and includes explicit truncation notices,
++observed byte counts, truncation flags, cancellation/timeout flags and an exit
++code when available in result metadata. Cancellation and timeout reasons remain
++visible even if stderr has content. Output exceeding the memory prefix is spooled into private 0600 artifacts. The
++metadata and inline notice identify their paths, captured bytes, disk truncation
++and any capture error. The default store is `harness-output-<uid>` under the OS
++temporary directory; callers may provide BashTool.OutputStore to choose a
++private directory. Treat output as potentially sensitive.
++
++Each artifact is capped at 8 MiB and the store reserves at most 64 MiB across
++active and completed captures. Cooperating processes use advisory locks so
++active files cannot be evicted; completed files are evicted oldest first.
++Allocation also removes completed files older than 24 hours. Time-based cleanup
++is lazy, so files can remain until the next allocation; storage remains bounded.
++Artifacts are ephemeral and paths can expire after eviction. A full active quota
++or write failure is explicitly reported while output continues to drain.
++Artifact locking is supported on Unix; other platforms report unavailable disk
++capture and retain the bounded inline prefix. These locks do not defend against
++malicious programs running as the same user.
+diff --git a/SESSION_FORMAT.md b/SESSION_FORMAT.md
+new file mode 100644
+index 0000000..0319dcd
+--- /dev/null
++++ b/SESSION_FORMAT.md
+@@ -0,0 +1,51 @@
++# Session JSONL format, version 1
++
++New sessions begin with one `session_header` record. Its nonempty `id` is the
++session identity, `schemaVersion` is 1, and `timestamp` records creation time.
++The header has no parent. It is independent of agent/key names and survives
++renaming the file. Copying a file preserves identity; a product-level fork must
++assign a new identity explicitly rather than pretending the copy is a new session.
++
++```json
++{"id":"ses_example","type":"session_header","schemaVersion":1,"timestamp":1788796800,"data":null}
++{"id":"e_example","type":"message","role":"user","timestamp":1788796801,"data":{"text":"Hello"}}
++```
++
++The header must be the first nonblank record and cannot occur again. Unsupported
++header versions, a version field on a conversation record, and graph links to
++headers or selection controls are errors. No loader, recovery or migration path
++silently accepts an unsupported version. Entry IDs are unique within the log;
++parents precede children. Selection controls use `type: selection`, their target
++in `parentId`, and `data: {"version":1}`. They select a conversation node without
++becoming part of its history. Ordinary appends subsequently select the new node.
++
++`Session.Entries` contains graph entries and selection controls, excluding the
++format header. `History` and `View` exclude both kinds of control record. A raw
++file export must retain the header; serialising `Entries` alone is not a complete
++identity-preserving session export. Store.List exposes the stored session ID and
++excludes the header from EntryCount.
++
++Store.Create commits a complete synced header file without overwriting an
++existing key. First append to a new/empty file writes the header before the entry.
++Rewrite retains the same header. Use an exclusive session lease and Flush/Close
++according to their documented producer-joining contract. A failed append may
++leave an incomplete final record and must be treated as degraded persistence.
++
++Legacy headerless files remain readable without implicit modification. Their
++historical format has no persisted session ID, so ordinary Load still assigns
++an ephemeral ID. Use MigrateLegacy before exposing durable session identity:
++it adds the version-1 header, corrects supported old compaction duplicate IDs,
++and retains a synced complete-original backup before atomic replacement. The
++report distinguishes format upgrade from duplicate-ID remapping. Repeating the
++migration on a valid version-1 file preserves its exact bytes and ID.
++
++Recovery repairs only incomplete final JSON objects and retains its own backup.
++A future-version or structurally invalid complete record is never a recoverable
++tail. Truncated first-header recovery yields an empty log; without a complete
++header there was no recoverable durable identity. Unsupported versions require
++an explicit future migration implementation.
++
++Payload-specific schemas, application session catalogues, attachment/export
++policies and cross-platform release qualification remain separate work. Unknown
++JSON fields are retained by the legacy converter; generic typed rewrites do not
++promise lossless preservation of arbitrary unknown fields.
+diff --git a/USAGE.md b/USAGE.md
+new file mode 100644
+index 0000000..2e6e067
+--- /dev/null
++++ b/USAGE.md
+@@ -0,0 +1,46 @@
++# Usage accounting
++
++`llm.Usage.InputTokens` is total input, including cached input. Cache-read and
++cache-creation counters are subsets used for pricing and analysis. Do not add
++them to InputTokens when calculating context occupancy or total input. The
++Anthropic adapter normalizes its separate wire counters to this contract;
++OpenAI-style prompt-token totals already include all input.
++
++This changes Anthropic InputTokens from its old uncached-only value. Consumers
++upgrading from v0.3.9 must remove their extra addition of cache counters. For
++example, 10 uncached + 42 cache creation + 17 cache read becomes InputTokens=69,
++not 10 and not 128 after adding cache twice.
++
++`runtime.EventRequestUsage` carries one `llm.RequestUsage` per provider attempt:
++request ID, model, category (`generation`, `retry`, `compaction`), status,
++source (`reported` or `unavailable`) and optional usage. A nil usage value is
++unknown, including on potentially billable failures. It must never be priced
++as zero or replaced by the preceding request's usage. No estimated figure is
++labelled reported by this layer.
++
++Use the newest applicable generation/retry record for the active model when
++showing context occupancy. Use the sum of records for consumption. Ten
++20,000-input requests consume 200,000 reported input tokens while the newest
++request occupies approximately 20,000 input tokens. An unavailable newest
++record makes current occupancy unknown; model/session changes also require
++resetting a consumer's gauge.
++
++`EventDone.Usage` is a reported-only aggregate for the run, including observed
++retries and synchronous compaction. It is incomplete whenever any request
++record has unavailable usage. RunTurn returns the aggregate for that call,
++including refusal retries, rather than only the last attempt. Request records
++are available on error paths even when no EventDone is emitted.
++
++Compaction returns its attempt records in `compaction.Result.Requests`.
++`Manager.OnUsage` optionally observes all compaction attempts, including
++background compaction. The observer must be concurrency-safe. Background work
++is not charged to a run that has already ended: applications should collect
++its records separately for session accounting. When combining event and
++callback streams, deduplicate by request ID.
++
++`llm.WithUsageObserver` can be used by other adapters with `llm.ObserveChat`.
++Observers are invoked before the terminal event is forwarded; providers must
++honour cancellation and end their streams after EventDone/EventError.
++`RunTurn` preserves serial delivery of its TurnEmit callbacks. UsageLedger is
++intended for a bounded operation, not an unbounded global history. Persistence,
++price schedules and budget admission remain application responsibilities.
+diff --git a/compaction/compaction.go b/compaction/compaction.go
+index 5ffa3ad..e2d6c33 100644
+--- a/compaction/compaction.go
++++ b/compaction/compaction.go
+@@ -8,6 +8,7 @@ import (
+ 	"sync"
+ 	"time"
+ 
++	"github.com/sausheong/harness/llm"
+ 	"github.com/sausheong/harness/session"
+ )
+ 
+@@ -34,6 +35,8 @@ const (
+ // false, Skipped names the reason ("too_short", "empty_summary",
+ // "ollama_down", "model_missing", "timeout", "summarizer_error").
+ type Result struct {
++	Requests []llm.RequestUsage
++
+ 	Compacted      bool
+ 	Reason         Reason
+ 	Skipped        string
+@@ -47,6 +50,10 @@ type Result struct {
+ // Manager orchestrates compaction for sessions. One Manager is shared across
+ // the whole agent runtime; it tracks per-session mutexes internally.
+ type Manager struct {
++	// OnUsage receives compaction attempt records, including background work.
++	// The callback must be concurrency-safe and must not mutate records.
++	OnUsage func(llm.RequestUsage)
++
+ 	Summarizer    *Summarizer
+ 	PreserveTurns int     // K; default 4 if zero
+ 	Threshold     float64 // fraction of context window that triggers preventive compaction (e.g. 0.6); 0 means use caller default
+@@ -90,7 +97,16 @@ type inFlightCompaction struct {
+ // will block until the first completes. This is intentional — it prevents
+ // two compactions from racing on session.Append — but callers triggering
+ // manual compactions while a preventive one is in flight should expect a wait.
+-func (m *Manager) MaybeCompact(ctx context.Context, sess *session.Session, reason Reason, instructions string) (Result, error) {
++func (m *Manager) MaybeCompact(ctx context.Context, sess *session.Session, reason Reason, instructions string) (result Result, resultErr error) {
++	ledger := &llm.UsageLedger{}
++	ctx = llm.WithUsageObserver(ctx, func(record llm.RequestUsage) {
++		ledger.Record(record)
++		if m != nil && m.OnUsage != nil {
++			m.OnUsage(record)
++		}
++	})
++	defer func() { result.Requests = ledger.Records() }()
++
+ 	if m == nil || m.Summarizer == nil {
+ 		return Result{Reason: reason, Skipped: "no_summarizer"}, nil
+ 	}
+@@ -156,14 +172,8 @@ func (m *Manager) MaybeCompact(ctx context.Context, sess *session.Session, reaso
+ 	// compaction at the leaf and View() would terminate on it immediately,
+ 	// silently dropping every preserved turn.
+ 	entry.ParentID = toPreserve[0].ParentID
+-	sess.Append(entry)
+-	for i, e := range toPreserve {
+-		if i == 0 {
+-			e.ParentID = entry.ID
+-		}
+-		// Re-append with same ID — Session.Append's entryMap overwrite and
+-		// the loader's last-write-wins behaviour both make this safe.
+-		sess.Append(e)
++	if err := sess.CommitCompaction(view[len(view)-1].ID, entry, toPreserve); err != nil {
++		return Result{}, err
+ 	}
+ 
+ 	dur := time.Since(start).Milliseconds()
+diff --git a/compaction/summarizer.go b/compaction/summarizer.go
+index 92bba97..8c86a01 100644
+--- a/compaction/summarizer.go
++++ b/compaction/summarizer.go
+@@ -113,7 +113,7 @@ func (s *Summarizer) callOnce(ctx context.Context, transcript, additionalInstruc
+ 		},
+ 		MaxTokens: 4096,
+ 	}
+-	stream, err := s.Provider.ChatStream(callCtx, req)
++	stream, err := llm.ObserveChat(callCtx, req, llm.CallCompaction, s.Provider.ChatStream)
+ 	if err != nil {
+ 		return "", fmt.Errorf("compaction: chat stream: %w", err)
+ 	}
+@@ -127,6 +127,9 @@ func (s *Summarizer) callOnce(ctx context.Context, transcript, additionalInstruc
+ 			return "", fmt.Errorf("compaction: stream error: %w", ev.Error)
+ 		}
+ 	}
++	if err := callCtx.Err(); err != nil {
++		return "", err
++	}
+ 	out := strings.TrimSpace(sb.String())
+ 	if out == "" {
+ 		return "", ErrEmptySummary
+diff --git a/compaction/usage_test.go b/compaction/usage_test.go
+new file mode 100644
+index 0000000..766122b
+--- /dev/null
++++ b/compaction/usage_test.go
+@@ -0,0 +1,33 @@
++package compaction
++
++import (
++	"context"
++	"testing"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/llm/llmtest"
++	"github.com/stretchr/testify/require"
++)
++
++type usageSummaryProvider struct{ llmtest.Base }
++
++func (usageSummaryProvider) ChatStream(context.Context, llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	ch := make(chan llm.ChatEvent, 2)
++	ch <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Summary of prior work."}
++	ch <- llm.ChatEvent{Type: llm.EventDone, Usage: &llm.Usage{InputTokens: 1200, OutputTokens: 20}}
++	close(ch)
++	return ch, nil
++}
++func TestCompactionUsageRecordsAndBackgroundObserver(t *testing.T) {
++	ledger := &llm.UsageLedger{}
++	manager := &Manager{Summarizer: &Summarizer{Provider: usageSummaryProvider{}, Model: "summary-model"}, OnUsage: ledger.Record, PreserveTurns: 4}
++	result, err := manager.MaybeCompact(context.Background(), longSession(), ReasonManual, "")
++	require.NoError(t, err)
++	require.True(t, result.Compacted)
++	require.Len(t, result.Requests, 1)
++	require.Equal(t, llm.CallCompaction, result.Requests[0].Category)
++	require.Equal(t, "summary-model", result.Requests[0].Model)
++	<-manager.MaybeCompactAsync(longSession(), ReasonPreventive)
++	require.Len(t, ledger.Records(), 2)
++	require.Equal(t, 2400, ledger.Total().InputTokens)
++}
+diff --git a/llm/provider.go b/llm/provider.go
+index a4ec654..8597097 100644
+--- a/llm/provider.go
++++ b/llm/provider.go
+@@ -181,6 +181,8 @@ type ChatRequest struct {
+ }
+ 
+ // Usage tracks token usage.
++// InputTokens is total input including cached input. Cache counters are
++// subsets used for pricing/analysis and must not be added again for context.
+ type Usage struct {
+ 	InputTokens              int `json:"input_tokens"`
+ 	OutputTokens             int `json:"output_tokens"`
+diff --git a/llm/usage_observer.go b/llm/usage_observer.go
+new file mode 100644
+index 0000000..2ced624
+--- /dev/null
++++ b/llm/usage_observer.go
+@@ -0,0 +1,169 @@
++package llm
++
++import (
++	"context"
++	"crypto/rand"
++	"fmt"
++	"sync"
++)
++
++type CallCategory string
++
++const (
++	CallGeneration CallCategory = "generation"
++	CallRetry      CallCategory = "retry"
++	CallCompaction CallCategory = "compaction"
++)
++
++// RequestUsage represents one attempted provider call. Nil Usage explicitly
++// means unavailable, including potentially billable failures; it is not zero.
++// InputTokens includes cached input. Cache fields are subsets, not additions.
++type RequestUsage struct {
++	ID       string       `json:"request_id"`
++	Model    string       `json:"model"`
++	Category CallCategory `json:"category"`
++	Status   string       `json:"status"`
++	Source   string       `json:"source"`
++	Usage    *Usage       `json:"usage"`
++}
++
++type usageObserverKey struct{}
++
++// WithUsageObserver chains observers. Callbacks can run concurrently and must
++// not mutate their record. Each callback completes before its terminal event
++// is forwarded to the consumer.
++func WithUsageObserver(ctx context.Context, observer func(RequestUsage)) context.Context {
++	previous, _ := ctx.Value(usageObserverKey{}).(func(RequestUsage))
++	return context.WithValue(ctx, usageObserverKey{}, func(record RequestUsage) {
++		if previous != nil {
++			previous(record)
++		}
++		if observer != nil {
++			observer(record)
++		}
++	})
++}
++
++// ObserveChat observes streaming and non-streaming adapters using one contract.
++// Providers must terminate after EventDone/EventError and honour cancellation.
++func ObserveChat(ctx context.Context, req ChatRequest, category CallCategory, call func(context.Context, ChatRequest) (<-chan ChatEvent, error)) (<-chan ChatEvent, error) {
++	observer, _ := ctx.Value(usageObserverKey{}).(func(RequestUsage))
++	if observer == nil {
++		return call(ctx, req)
++	}
++	record := RequestUsage{ID: rand.Text(), Model: req.Model, Category: category, Source: "unavailable"}
++	publish := func(status string, usage *Usage) {
++		record.Status = status
++		if usage != nil {
++			copy := *usage
++			record.Usage = &copy
++			record.Source = "reported"
++		}
++		observer(record)
++	}
++	source, err := call(ctx, req)
++	if err != nil {
++		status := "failed"
++		if ctx.Err() != nil {
++			status = "cancelled"
++		}
++		publish(status, nil)
++		return nil, err
++	}
++	if source == nil {
++		publish("failed", nil)
++		return nil, fmt.Errorf("provider returned a nil event stream")
++	}
++	out := make(chan ChatEvent)
++	go func() {
++		defer close(out)
++		var usage *Usage
++		for {
++			select {
++			case <-ctx.Done():
++				publish("cancelled", usage)
++				return
++			case event, ok := <-source:
++				if !ok {
++					publish("failed", usage)
++					select {
++					case out <- ChatEvent{Type: EventError, Error: fmt.Errorf("provider stream closed without terminal event")}:
++					case <-ctx.Done():
++					}
++					return
++				}
++				if event.Usage != nil {
++					copy := *event.Usage
++					usage = &copy
++				}
++				terminal := event.Type == EventDone || event.Type == EventError
++				if terminal {
++					status := "completed"
++					if event.Type == EventError {
++						status = "failed"
++					}
++					publish(status, usage)
++				}
++				select {
++				case out <- event:
++				case <-ctx.Done():
++					if !terminal {
++						publish("cancelled", usage)
++					}
++					return
++				}
++				if terminal {
++					return
++				}
++			}
++		}
++	}()
++	return out, nil
++}
++
++// UsageLedger keeps immutable request records and a reported-only total.
++// Unknown requests remain visible through Records rather than being priced as
++// free. Create a ledger per bounded operation, not a process-global history.
++type UsageLedger struct {
++	mu      sync.Mutex
++	records []RequestUsage
++	total   *Usage
++}
++
++func (l *UsageLedger) Record(record RequestUsage) {
++	l.mu.Lock()
++	defer l.mu.Unlock()
++	if record.Usage != nil {
++		u := *record.Usage
++		record.Usage = &u
++		if l.total == nil {
++			l.total = &Usage{}
++		}
++		l.total.InputTokens += u.InputTokens
++		l.total.OutputTokens += u.OutputTokens
++		l.total.CacheCreationInputTokens += u.CacheCreationInputTokens
++		l.total.CacheReadInputTokens += u.CacheReadInputTokens
++	}
++	l.records = append(l.records, record)
++}
++func (l *UsageLedger) Total() *Usage {
++	l.mu.Lock()
++	defer l.mu.Unlock()
++	if l.total == nil {
++		return nil
++	}
++	u := *l.total
++	return &u
++}
++func (l *UsageLedger) Records() []RequestUsage {
++	l.mu.Lock()
++	defer l.mu.Unlock()
++	out := append([]RequestUsage(nil), l.records...)
++	for i := range out {
++		if out[i].Usage != nil {
++			u := *out[i].Usage
++			out[i].Usage = &u
++		}
++	}
++	return out
++}
+diff --git a/llm/usage_observer_test.go b/llm/usage_observer_test.go
+new file mode 100644
+index 0000000..92edbf3
+--- /dev/null
++++ b/llm/usage_observer_test.go
+@@ -0,0 +1,50 @@
++package llm
++
++import (
++	"context"
++	"errors"
++	"testing"
++)
++
++func TestUsageObserverFailedRequestCanCarryReportedUsage(t *testing.T) {
++	ledger := &UsageLedger{}
++	ctx := WithUsageObserver(context.Background(), ledger.Record)
++	ch, err := ObserveChat(ctx, ChatRequest{Model: "m"}, CallRetry, func(context.Context, ChatRequest) (<-chan ChatEvent, error) {
++		ch := make(chan ChatEvent, 1)
++		ch <- ChatEvent{Type: EventError, Error: errors.New("failed"), Usage: &Usage{InputTokens: 42}}
++		close(ch)
++		return ch, nil
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	for range ch {
++	}
++	records := ledger.Records()
++	if len(records) != 1 || records[0].Status != "failed" || records[0].Source != "reported" || ledger.Total().InputTokens != 42 {
++		t.Fatalf("records %+v total %+v", records, ledger.Total())
++	}
++	records[0].Usage.InputTokens = 100
++	if ledger.Total().InputTokens != 42 {
++		t.Fatal("records alias total")
++	}
++}
++func TestUsageObserverReportsMissingTerminal(t *testing.T) {
++	ledger := &UsageLedger{}
++	ctx := WithUsageObserver(context.Background(), ledger.Record)
++	ch, err := ObserveChat(ctx, ChatRequest{Model: "m"}, CallGeneration, func(context.Context, ChatRequest) (<-chan ChatEvent, error) {
++		ch := make(chan ChatEvent)
++		close(ch)
++		return ch, nil
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	var event ChatEvent
++	for e := range ch {
++		event = e
++	}
++	if event.Type != EventError || len(ledger.Records()) != 1 || ledger.Total() != nil {
++		t.Fatal("missing terminal treated as success")
++	}
++}
+diff --git a/process/artifacts.go b/process/artifacts.go
+new file mode 100644
+index 0000000..99ad392
+--- /dev/null
++++ b/process/artifacts.go
+@@ -0,0 +1,203 @@
++package process
++
++import (
++	"crypto/rand"
++	"errors"
++	"fmt"
++	"io/fs"
++	"os"
++	"path/filepath"
++	"sort"
++	"strings"
++	"sync"
++	"time"
++)
++
++const ArtifactFileLimit int64 = 8 << 20
++const ArtifactStoreLimit int64 = 64 << 20
++const ArtifactRetention = 24 * time.Hour
++
++// ArtifactStore owns a private directory used only for command output. Each
++// active capture reserves one full file allowance. Advisory file locks protect
++// active files across cooperating processes; old completed files are evicted
++// oldest first. Retention is enforced when a new artifact is allocated.
++type ArtifactStore struct{ dir string }
++
++func NewArtifactStore(dir string) (*ArtifactStore, error) {
++	abs, err := filepath.Abs(dir)
++	if err != nil {
++		return nil, err
++	}
++	if err = os.MkdirAll(abs, 0700); err != nil {
++		return nil, err
++	}
++	info, err := os.Lstat(abs)
++	if err != nil {
++		return nil, err
++	}
++	if !info.IsDir() || info.Mode().Perm()&0077 != 0 {
++		return nil, errors.New("artifact directory must be a private directory (0700)")
++	}
++	return &ArtifactStore{dir: abs}, nil
++}
++
++func (s *ArtifactStore) allocate() (*os.File, string, error) {
++	root, err := os.OpenRoot(s.dir)
++	if err != nil {
++		return nil, "", err
++	}
++	defer root.Close()
++	guard, err := root.OpenFile(".lock", os.O_CREATE|os.O_RDWR, 0600)
++	if err != nil {
++		return nil, "", err
++	}
++	defer guard.Close()
++	if err = lockArtifact(guard, false); err != nil {
++		return nil, "", err
++	}
++	names, err := fs.ReadDir(root.FS(), ".")
++	if err != nil {
++		return nil, "", err
++	}
++	type candidate struct {
++		name     string
++		modified time.Time
++	}
++	var files []candidate
++	for _, e := range names {
++		if !strings.HasPrefix(e.Name(), "output-") {
++			continue
++		}
++		info, err := e.Info()
++		if err != nil {
++			return nil, "", err
++		}
++		if !info.Mode().IsRegular() || info.Size() > ArtifactFileLimit {
++			return nil, "", errors.New("invalid output artifact in store")
++		}
++		files = append(files, candidate{e.Name(), info.ModTime()})
++	}
++	sort.Slice(files, func(i, j int) bool { return files[i].modified.Before(files[j].modified) })
++	count := len(files)
++	for _, f := range files {
++		expired := time.Since(f.modified) > ArtifactRetention
++		if !expired && int64(count+1)*ArtifactFileLimit <= ArtifactStoreLimit {
++			continue
++		}
++		file, err := root.OpenFile(f.name, os.O_RDWR, 0)
++		if err != nil {
++			return nil, "", err
++		}
++		err = lockArtifact(file, true)
++		if artifactBusy(err) {
++			file.Close()
++			continue
++		}
++		if err != nil {
++			file.Close()
++			return nil, "", err
++		}
++		err = root.Remove(f.name)
++		file.Close()
++		if err != nil {
++			return nil, "", err
++		}
++		count--
++	}
++	if int64(count+1)*ArtifactFileLimit > ArtifactStoreLimit {
++		return nil, "", errors.New("output artifact quota occupied by active captures")
++	}
++	name := "output-" + rand.Text() + ".log"
++	file, err := root.OpenFile(name, os.O_CREATE|os.O_EXCL|os.O_RDWR, 0600)
++	if err != nil {
++		return nil, "", err
++	}
++	if err = lockArtifact(file, false); err != nil {
++		file.Close()
++		root.Remove(name)
++		return nil, "", err
++	}
++	return file, filepath.Join(s.dir, name), nil
++}
++
++// OutputCapture drains every byte, retains a bounded memory prefix, and spills
++// output exceeding that prefix into an artifact with an independent disk cap.
++// Call Close after the subprocess joins, before consuming Info. Write errors
++// are recorded instead of stopping the drain and changing subprocess behaviour.
++type OutputCapture struct {
++	mu     sync.Mutex
++	prefix *Capture
++	store  *ArtifactStore
++	file   *os.File
++	info   ArtifactInfo
++	closed bool
++}
++
++type ArtifactInfo struct {
++	Path      string `json:"path,omitempty"`
++	Bytes     int64  `json:"bytes"`
++	Truncated bool   `json:"truncated"`
++	Error     string `json:"error,omitempty"`
++}
++
++func (s *ArtifactStore) Capture(memoryLimit int) *OutputCapture {
++	return &OutputCapture{store: s, prefix: NewCapture(memoryLimit)}
++}
++
++func (c *OutputCapture) Write(p []byte) (int, error) {
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	if c.closed {
++		return 0, os.ErrClosed
++	}
++	var before string
++	if c.file == nil && c.info.Error == "" {
++		before, _, _ = c.prefix.Snapshot()
++	}
++	c.prefix.Write(p)
++	_, total, truncated := c.prefix.Snapshot()
++	if truncated && c.file == nil && c.info.Error == "" {
++		f, path, err := c.store.allocate()
++		if err != nil {
++			c.info.Error = err.Error()
++		} else {
++			c.file = f
++			c.info.Path = path
++			c.writeDisk([]byte(before))
++		}
++	}
++	if c.file != nil {
++		c.writeDisk(p)
++	}
++	c.info.Truncated = truncated && (c.info.Bytes < total)
++	return len(p), nil
++}
++func (c *OutputCapture) writeDisk(p []byte) {
++	if c.info.Error != "" {
++		return
++	}
++	keep := min(int64(len(p)), ArtifactFileLimit-c.info.Bytes)
++	n, err := c.file.Write(p[:int(keep)])
++	c.info.Bytes += int64(n)
++	if err != nil {
++		c.info.Error = fmt.Sprintf("capture output: %v", err)
++	}
++}
++func (c *OutputCapture) Snapshot() (string, int64, bool) { return c.prefix.Snapshot() }
++func (c *OutputCapture) Info() ArtifactInfo              { c.mu.Lock(); defer c.mu.Unlock(); return c.info }
++func (c *OutputCapture) Close() error {
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	if c.closed {
++		return nil
++	}
++	c.closed = true
++	if c.file == nil {
++		return nil
++	}
++	err := c.file.Close()
++	if err != nil {
++		c.info.Error = err.Error()
++	}
++	return err
++}
+diff --git a/process/artifacts_other.go b/process/artifacts_other.go
+new file mode 100644
+index 0000000..1f839ed
+--- /dev/null
++++ b/process/artifacts_other.go
+@@ -0,0 +1,13 @@
++//go:build !unix
++
++package process
++
++import (
++	"errors"
++	"os"
++)
++
++func lockArtifact(_ *os.File, _ bool) error {
++	return errors.New("output artifact locking is unsupported on this platform")
++}
++func artifactBusy(_ error) bool { return false }
+diff --git a/process/artifacts_test.go b/process/artifacts_test.go
+new file mode 100644
+index 0000000..82d0223
+--- /dev/null
++++ b/process/artifacts_test.go
+@@ -0,0 +1,182 @@
++//go:build unix
++
++package process
++
++import (
++	"bytes"
++	"context"
++	"os"
++	"path/filepath"
++	"testing"
++	"time"
++)
++
++func testStore(t *testing.T) *ArtifactStore {
++	t.Helper()
++	dir := filepath.Join(t.TempDir(), "output")
++	s, err := NewArtifactStore(dir)
++	if err != nil {
++		t.Fatal(err)
++	}
++	return s
++}
++func TestArtifactSpillExactAndCap(t *testing.T) {
++	s := testStore(t)
++	c := s.Capture(7)
++	for _, p := range []string{"abc", "def", "ghij", "klmnop"} {
++		c.Write([]byte(p))
++	}
++	c.Close()
++	info := c.Info()
++	raw, err := os.ReadFile(info.Path)
++	if err != nil || string(raw) != "abcdefghijklmnop" || info.Bytes != 16 || info.Truncated || info.Error != "" {
++		t.Fatalf("%q %+v %v", raw, info, err)
++	}
++	stat, _ := os.Stat(info.Path)
++	if stat.Mode().Perm() != 0600 {
++		t.Fatal(stat.Mode())
++	}
++	capped := s.Capture(4)
++	block := bytes.Repeat([]byte("z"), 1<<20)
++	for range 10 {
++		capped.Write(block)
++	}
++	capped.Close()
++	info = capped.Info()
++	stat, err = os.Stat(info.Path)
++	if err != nil || stat.Size() != ArtifactFileLimit || info.Bytes != ArtifactFileLimit || !info.Truncated {
++		t.Fatalf("%+v %v", info, err)
++	}
++	prefix, total, truncated := capped.Snapshot()
++	if prefix != "zzzz" || total != 10<<20 || !truncated {
++		t.Fatalf("%q %d %v", prefix, total, truncated)
++	}
++}
++func TestArtifactQuotaProtectsActiveAndEvictsCompleted(t *testing.T) {
++	s := testStore(t)
++	var active []*OutputCapture
++	for range 8 {
++		c := s.Capture(1)
++		c.Write([]byte("abc"))
++		if c.Info().Error != "" {
++			t.Fatal(c.Info())
++		}
++		active = append(active, c)
++		defer c.Close()
++	}
++	// A separate store instance must obey the same active-file reservations.
++	other, err := NewArtifactStore(s.dir)
++	if err != nil {
++		t.Fatal(err)
++	}
++	full := other.Capture(1)
++	full.Write([]byte("abc"))
++	full.Close()
++	if full.Info().Error == "" || !full.Info().Truncated || full.Info().Path != "" {
++		t.Fatal(full.Info())
++	}
++	old := active[0].Info().Path
++	active[0].Close()
++	next := other.Capture(1)
++	next.Write([]byte("abc"))
++	defer next.Close()
++	if next.Info().Error != "" {
++		t.Fatal(next.Info())
++	}
++	if _, err := os.Stat(old); !os.IsNotExist(err) {
++		t.Fatalf("completed artifact not evicted: %v", err)
++	}
++	for _, c := range active[1:] {
++		if _, err := os.Stat(c.Info().Path); err != nil {
++			t.Fatal("active artifact evicted", err)
++		}
++	}
++}
++func TestArtifactRetentionAndPrivateDirectory(t *testing.T) {
++	s := testStore(t)
++	c := s.Capture(1)
++	c.Write([]byte("abc"))
++	c.Close()
++	old := c.Info().Path
++	expired := time.Now().Add(-ArtifactRetention - time.Hour)
++	if err := os.Chtimes(old, expired, expired); err != nil {
++		t.Fatal(err)
++	}
++	next := s.Capture(1)
++	next.Write([]byte("abc"))
++	next.Close()
++	if _, err := os.Stat(old); !os.IsNotExist(err) {
++		t.Fatalf("expired artifact remains: %v", err)
++	}
++	small := s.Capture(10)
++	small.Write([]byte("abc"))
++	small.Close()
++	if small.Info().Path != "" || small.Info().Truncated {
++		t.Fatal(small.Info())
++	}
++	if _, err := small.Write([]byte("x")); err == nil {
++		t.Fatal("write after close succeeded")
++	}
++	if err := os.Chmod(s.dir, 0755); err != nil {
++		t.Fatal(err)
++	}
++	if _, err := NewArtifactStore(s.dir); err == nil {
++		t.Fatal("public directory accepted")
++	}
++}
++
++func TestArtifactCrossProcessReservation(t *testing.T) {
++	if dir := os.Getenv("HARNESS_ARTIFACT_QUOTA_FIXTURE"); dir != "" {
++		s, err := NewArtifactStore(dir)
++		if err != nil {
++			t.Fatal(err)
++		}
++		c := s.Capture(1)
++		c.Write([]byte("abc"))
++		c.Close()
++		if c.Info().Error == "" || c.Info().Path != "" {
++			t.Fatal("child bypassed active reservations", c.Info())
++		}
++		return
++	}
++	s := testStore(t)
++	for range 8 {
++		c := s.Capture(1)
++		c.Write([]byte("abc"))
++		defer c.Close()
++		if c.Info().Error != "" {
++			t.Fatal(c.Info())
++		}
++	}
++	exe, err := os.Executable()
++	if err != nil {
++		t.Fatal(err)
++	}
++	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++	defer cancel()
++	cmd := Command(ctx, exe, "-test.run=^TestArtifactCrossProcessReservation$")
++	cmd.Env = append(os.Environ(), "HARNESS_ARTIFACT_QUOTA_FIXTURE="+s.dir, "GORACE=atexit_sleep_ms=0")
++	var output bytes.Buffer
++	cmd.Stdout = &output
++	cmd.Stderr = &output
++	if err := Run(cmd); err != nil {
++		t.Fatalf("child quota check: %v %s", err, output.String())
++	}
++}
++
++func TestArtifactAllocationFailureStillDrains(t *testing.T) {
++	s := testStore(t)
++	if err := os.Mkdir(filepath.Join(s.dir, ".lock"), 0700); err != nil {
++		t.Fatal(err)
++	}
++	c := s.Capture(2)
++	n, err := c.Write([]byte("abcdef"))
++	c.Close()
++	if n != 6 || err != nil {
++		t.Fatalf("drain: %d %v", n, err)
++	}
++	prefix, total, truncated := c.Snapshot()
++	if prefix != "ab" || total != 6 || !truncated || c.Info().Error == "" || !c.Info().Truncated {
++		t.Fatalf("%q %d %v %+v", prefix, total, truncated, c.Info())
++	}
++}
+diff --git a/process/artifacts_unix.go b/process/artifacts_unix.go
+new file mode 100644
+index 0000000..e4ef8ea
+--- /dev/null
++++ b/process/artifacts_unix.go
+@@ -0,0 +1,18 @@
++//go:build unix
++
++package process
++
++import (
++	"errors"
++	"os"
++	"syscall"
++)
++
++func lockArtifact(f *os.File, nonblocking bool) error {
++	flags := syscall.LOCK_EX
++	if nonblocking {
++		flags |= syscall.LOCK_NB
++	}
++	return syscall.Flock(int(f.Fd()), flags)
++}
++func artifactBusy(err error) bool { return errors.Is(err, syscall.EWOULDBLOCK) }
+diff --git a/process/capture.go b/process/capture.go
+new file mode 100644
+index 0000000..1f6dd1d
+--- /dev/null
++++ b/process/capture.go
+@@ -0,0 +1,37 @@
++package process
++
++import "sync"
++
++// Capture retains a bounded prefix while draining all writes. It deliberately
++// does not embed a buffer: io.Copy must not bypass Write through ReaderFrom.
++// The zero value drains without retaining bytes.
++type Capture struct {
++	mu    sync.Mutex
++	limit int
++	data  []byte
++	total int64
++}
++
++func NewCapture(limit int) *Capture {
++	if limit < 0 {
++		limit = 0
++	}
++	return &Capture{limit: limit}
++}
++
++func (c *Capture) Write(p []byte) (int, error) {
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	n := len(p)
++	c.total += int64(n)
++	keep := min(n, c.limit-len(c.data))
++	c.data = append(c.data, p[:keep]...)
++	return n, nil
++}
++
++// Snapshot returns an independent prefix, observed byte count and truncation.
++func (c *Capture) Snapshot() (string, int64, bool) {
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	return string(c.data), c.total, c.total > int64(len(c.data))
++}
+diff --git a/process/capture_test.go b/process/capture_test.go
+new file mode 100644
+index 0000000..aa1d572
+--- /dev/null
++++ b/process/capture_test.go
+@@ -0,0 +1,40 @@
++package process
++
++import (
++	"io"
++	"strings"
++	"sync"
++	"testing"
++)
++
++func TestCaptureCopyBound(t *testing.T) {
++	c := NewCapture(17)
++	n, err := io.Copy(c, strings.NewReader(strings.Repeat("x", 1<<20)))
++	prefix, total, truncated := c.Snapshot()
++	if err != nil || n != 1<<20 || total != n || prefix != strings.Repeat("x", 17) || !truncated {
++		t.Fatalf("copy=%d err=%v prefix=%q total=%d truncated=%v", n, err, prefix, total, truncated)
++	}
++}
++
++func TestCaptureConcurrentAndEmpty(t *testing.T) {
++	var c Capture
++	var wg sync.WaitGroup
++	for range 10 {
++		wg.Go(func() {
++			for range 100 {
++				_, _ = c.Write([]byte("abc"))
++				c.Snapshot()
++			}
++		})
++	}
++	wg.Wait()
++	prefix, total, truncated := c.Snapshot()
++	if prefix != "" || total != 3000 || !truncated {
++		t.Fatalf("%q %d %v", prefix, total, truncated)
++	}
++	empty := NewCapture(10)
++	_, total, truncated = empty.Snapshot()
++	if total != 0 || truncated {
++		t.Fatal("empty capture marked truncated")
++	}
++}
+diff --git a/process/command.go b/process/command.go
+new file mode 100644
+index 0000000..b8d38f7
+--- /dev/null
++++ b/process/command.go
+@@ -0,0 +1,28 @@
++// Package process owns bounded subprocess shutdown. On Unix each command has
++// its own process group. This is lifecycle management, not a security sandbox.
++package process
++
++import (
++	"context"
++	"os/exec"
++	"time"
++)
++
++// Command creates a command whose cancellation kills its owned process group.
++// Run joins it and removes descendants left after normal exit. Callers using
++// Start/Wait directly must call KillGroup when their protocol closes.
++func Command(ctx context.Context, name string, args ...string) *exec.Cmd {
++	cmd := exec.CommandContext(ctx, name, args...)
++	configureGroup(cmd)
++	cmd.Cancel = func() error { return KillGroup(cmd) }
++	cmd.WaitDelay = 250 * time.Millisecond
++	return cmd
++}
++func Run(cmd *exec.Cmd) error {
++	err := cmd.Run()
++	cleanupErr := KillGroup(cmd)
++	if err != nil {
++		return err
++	}
++	return cleanupErr
++}
+diff --git a/process/group_other.go b/process/group_other.go
+new file mode 100644
+index 0000000..0c57400
+--- /dev/null
++++ b/process/group_other.go
+@@ -0,0 +1,24 @@
++//go:build !unix
++
++package process
++
++import (
++	"errors"
++	"os"
++	"os/exec"
++)
++
++func configureGroup(cmd *exec.Cmd) {}
++
++// Other platforms stop the direct child only. Process-tree guarantees apply
++// to the advertised Linux/macOS backends; isolation is a separate capability.
++func KillGroup(cmd *exec.Cmd) error {
++	if cmd.Process == nil {
++		return nil
++	}
++	err := cmd.Process.Kill()
++	if errors.Is(err, os.ErrProcessDone) {
++		return nil
++	}
++	return err
++}
+diff --git a/process/group_unix.go b/process/group_unix.go
+new file mode 100644
+index 0000000..722ecbd
+--- /dev/null
++++ b/process/group_unix.go
+@@ -0,0 +1,28 @@
++//go:build unix
++
++package process
++
++import (
++	"errors"
++	"os/exec"
++	"syscall"
++)
++
++func configureGroup(cmd *exec.Cmd) { cmd.SysProcAttr = &syscall.SysProcAttr{Setpgid: true} }
++
++// KillGroup only signals the group explicitly created for this command.
++func KillGroup(cmd *exec.Cmd) error {
++	if cmd.Process == nil {
++		return nil
++	}
++	var err error
++	if cmd.SysProcAttr != nil && cmd.SysProcAttr.Setpgid {
++		err = syscall.Kill(-cmd.Process.Pid, syscall.SIGKILL)
++	} else {
++		err = cmd.Process.Kill()
++	}
++	if errors.Is(err, syscall.ESRCH) {
++		return nil
++	}
++	return err
++}
+diff --git a/providers/anthropic/anthropic.go b/providers/anthropic/anthropic.go
+index ee219e3..7ec32d5 100644
+--- a/providers/anthropic/anthropic.go
++++ b/providers/anthropic/anthropic.go
+@@ -354,7 +354,7 @@ func (p *AnthropicProvider) ChatStream(ctx context.Context, req llm.ChatRequest)
+ 					events <- llm.ChatEvent{
+ 						Type: llm.EventDone,
+ 						Usage: &llm.Usage{
+-							InputTokens:              int(inputTokens),
++							InputTokens:              int(inputTokens + cacheCreationTokens + cacheReadTokens),
+ 							OutputTokens:             int(event.Usage.OutputTokens),
+ 							CacheCreationInputTokens: int(cacheCreationTokens),
+ 							CacheReadInputTokens:     int(cacheReadTokens),
+@@ -457,7 +457,7 @@ func (p *AnthropicProvider) ChatNonStreaming(ctx context.Context, req llm.ChatRe
+ 		events <- llm.ChatEvent{
+ 			Type: llm.EventDone,
+ 			Usage: &llm.Usage{
+-				InputTokens:              int(msg.Usage.InputTokens),
++				InputTokens:              int(msg.Usage.InputTokens + msg.Usage.CacheCreationInputTokens + msg.Usage.CacheReadInputTokens),
+ 				OutputTokens:             int(msg.Usage.OutputTokens),
+ 				CacheCreationInputTokens: int(msg.Usage.CacheCreationInputTokens),
+ 				CacheReadInputTokens:     int(msg.Usage.CacheReadInputTokens),
+diff --git a/providers/anthropic/anthropic_test.go b/providers/anthropic/anthropic_test.go
+index 7ced78e..480c845 100644
+--- a/providers/anthropic/anthropic_test.go
++++ b/providers/anthropic/anthropic_test.go
+@@ -424,7 +424,7 @@ data: {"type":"message_stop"}
+ 	require.Equal(t, 42, done.Usage.CacheCreationInputTokens)
+ 	require.Equal(t, 17, done.Usage.CacheReadInputTokens)
+ 	require.Equal(t, 5, done.Usage.OutputTokens)
+-	require.Equal(t, 10, done.Usage.InputTokens)
++	require.Equal(t, 69, done.Usage.InputTokens) // 10 uncached + 42 cache creation + 17 cache read
+ }
+ 
+ // TestBuildMessageParamsIsPure protects the cache-prefix invariant
+diff --git a/runtime/builder.go b/runtime/builder.go
+index f83284f..428487a 100644
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -70,9 +70,20 @@ type RuntimeInputs struct {
+ //  2. Parsing the reasoning mode (default-to-off + warn on invalid)
+ //  3. Resolving the per-agent KnowledgeGraph via deps.KGFn (nil-safe)
+ //
+-// Returns the constructed Runtime and a nil error today, but callers MUST
+-// check the error: the return is reserved for future validation.
++// Use BuildRuntimeContext when construction must be cancellable.
+ func BuildRuntime(deps RuntimeDeps, inputs RuntimeInputs, spec AgentSpec) (*Runtime, error) {
++	return BuildRuntimeContext(context.Background(), deps, inputs, spec)
++}
++
++// BuildRuntimeContext propagates cancellation through MCP initialization and
++// discovery. On failure, all established sessions are closed before returning;
++// the caller's registry receives no partially discovered tools. The context
++// bounds construction, not the lifetime of successfully connected sessions.
++func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeInputs, spec AgentSpec) (_ *Runtime, buildErr error) {
++	if err := ctx.Err(); err != nil {
++		return nil, err
++	}
++
+ 	provider, modelName := llm.ParseProviderModel(spec.Model)
+ 	reasoning, err := llm.ParseReasoningMode(spec.Reasoning)
+ 	if err != nil {
+@@ -91,10 +102,18 @@ func BuildRuntime(deps RuntimeDeps, inputs RuntimeInputs, spec AgentSpec) (*Runt
+ 	// callers always pass *tool.Registry; test paths that don't won't
+ 	// get load tools registered (which is fine for them).
+ 	var mcpClients []*mcp.Client
+-	if reg, ok := inputs.Tools.(*tool.Registry); ok {
++	defer func() {
++		if buildErr != nil {
++			for _, c := range mcpClients {
++				_ = c.Close()
++			}
++		}
++	}()
++	var stagedTools []tool.Tool
++	if _, ok := inputs.Tools.(*tool.Registry); ok {
+ 		if deps.Skills != nil {
+ 			skills := deps.Skills
+-			reg.Register(&tool.LoadSkillTool{
++			stagedTools = append(stagedTools, &tool.LoadSkillTool{
+ 				Lookup: func(name string) (string, bool) {
+ 					return skills.Get(name)
+ 				},
+@@ -102,7 +121,7 @@ func BuildRuntime(deps RuntimeDeps, inputs RuntimeInputs, spec AgentSpec) (*Runt
+ 		}
+ 		if deps.Memory != nil {
+ 			mem := deps.Memory
+-			reg.Register(&tool.LoadMemoryTool{
++			stagedTools = append(stagedTools, &tool.LoadMemoryTool{
+ 				Lookup: func(id string) (string, bool) {
+ 					return mem.Get(id)
+ 				},
+@@ -112,15 +131,12 @@ func BuildRuntime(deps RuntimeDeps, inputs RuntimeInputs, spec AgentSpec) (*Runt
+ 		// On any failure, close everything connected so far before
+ 		// returning — a partially-built Runtime would leak processes.
+ 		for _, srv := range spec.MCPServers {
+-			cli, err := mcp.Connect(context.Background(), srv)
++			cli, err := mcp.Connect(ctx, srv)
+ 			if err != nil {
+-				for _, c := range mcpClients {
+-					_ = c.Close()
+-				}
+ 				return nil, fmt.Errorf("mcp server %q: %w", srv.Name, err)
+ 			}
+ 			for _, t := range cli.Tools() {
+-				reg.Register(t)
++				stagedTools = append(stagedTools, t)
+ 			}
+ 			mcpClients = append(mcpClients, cli)
+ 		}
+@@ -128,6 +144,15 @@ func BuildRuntime(deps RuntimeDeps, inputs RuntimeInputs, spec AgentSpec) (*Runt
+ 		return nil, fmt.Errorf("AgentSpec.MCPServers requires inputs.Tools to be *tool.Registry")
+ 	}
+ 
++	if err := ctx.Err(); err != nil {
++		return nil, err
++	}
++	if reg, ok := inputs.Tools.(*tool.Registry); ok {
++		for _, t := range stagedTools {
++			reg.Register(t)
++		}
++	}
++
+ 	// Pre-compute the static portion of the system prompt so the per-turn
+ 	// hot loop never reads config or rebuilds the indices. The load tools
+ 	// are registered above so toolNames includes them in the default
+diff --git a/runtime/builder_context_test.go b/runtime/builder_context_test.go
+new file mode 100644
+index 0000000..db16481
+--- /dev/null
++++ b/runtime/builder_context_test.go
+@@ -0,0 +1,98 @@
++package runtime
++
++import (
++	"context"
++	"encoding/json"
++	"errors"
++	"os"
++	"path/filepath"
++	"testing"
++	"time"
++
++	sdk "github.com/modelcontextprotocol/go-sdk/mcp"
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tools/mcp"
++)
++
++func TestConstructionServerFixture(t *testing.T) {
++	marker := os.Getenv("HARNESS_TEST_MCP_SHUTDOWN_MARKER")
++	if marker == "" {
++		return
++	}
++	server := sdk.NewServer(&sdk.Implementation{Name: "construction-fixture", Version: "1"}, nil)
++	server.AddTool(&sdk.Tool{Name: "echo", InputSchema: json.RawMessage(`{"type":"object"}`)}, func(context.Context, *sdk.CallToolRequest) (*sdk.CallToolResult, error) {
++		return &sdk.CallToolResult{}, nil
++	})
++	err := server.Run(context.Background(), &sdk.StdioTransport{})
++	if err != nil {
++		os.Exit(1)
++	}
++	if err := os.WriteFile(marker, []byte("closed"), 0600); err != nil {
++		os.Exit(2)
++	}
++	os.Exit(0)
++}
++
++func constructionServer(t *testing.T) (mcp.ServerConfig, string) {
++	t.Helper()
++	marker := filepath.Join(t.TempDir(), "closed")
++	return mcp.ServerConfig{Name: "healthy", Command: os.Args[0], Args: []string{"-test.run=^TestConstructionServerFixture$"}, Env: map[string]string{"HARNESS_TEST_MCP_SHUTDOWN_MARKER": marker, "GORACE": "atexit_sleep_ms=0"}}, marker
++}
++
++func TestBuildRuntimeContextCancellationClosesPartialConnections(t *testing.T) {
++	healthy, marker := constructionServer(t)
++	reg := tool.NewRegistry()
++	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
++	defer cancel()
++	start := time.Now()
++	rt, err := BuildRuntimeContext(ctx, RuntimeDeps{}, RuntimeInputs{Tools: reg}, AgentSpec{MCPServers: []mcp.ServerConfig{healthy, {Name: "hung", Command: "sleep", Args: []string{"30"}}}})
++	if rt != nil || !errors.Is(err, context.DeadlineExceeded) {
++		t.Fatalf("build = %v, %v", rt, err)
++	}
++	if len(reg.Names()) != 0 {
++		t.Fatalf("partial tools leaked into registry: %v", reg.Names())
++	}
++	if _, err := os.Stat(marker); err != nil {
++		t.Fatalf("healthy connection not closed before return: %v", err)
++	}
++	if time.Since(start) > 3*time.Second {
++		t.Fatal("construction shutdown exceeded bound")
++	}
++}
++
++func TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry(t *testing.T) {
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	reg := tool.NewRegistry()
++	rt, err := BuildRuntimeContext(ctx, RuntimeDeps{}, RuntimeInputs{Tools: reg}, AgentSpec{})
++	if rt != nil || !errors.Is(err, context.Canceled) || len(reg.Names()) != 0 {
++		t.Fatalf("build = %v, %v, tools %v", rt, err, reg.Names())
++	}
++}
++
++func TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime(t *testing.T) {
++	healthy, marker := constructionServer(t)
++	reg := tool.NewRegistry()
++	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
++	defer cancel()
++	rt, err := BuildRuntimeContext(ctx, RuntimeDeps{}, RuntimeInputs{Tools: reg}, AgentSpec{MCPServers: []mcp.ServerConfig{healthy}})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	cancel()
++	pingCtx, pingCancel := context.WithTimeout(context.Background(), time.Second)
++	defer pingCancel()
++	if err := rt.mcpClients[0].Ping(pingCtx); err != nil {
++		t.Fatalf("construction context killed established session: %v", err)
++	}
++	if len(reg.Names()) != 1 || reg.Names()[0] != "mcp__healthy__echo" {
++		t.Fatalf("tools %v", reg.Names())
++	}
++	if err := rt.Close(); err != nil {
++		t.Fatal(err)
++	}
++	if _, err := os.Stat(marker); err != nil {
++		t.Fatal("runtime close did not join child")
++	}
++}
+diff --git a/runtime/persistence_test.go b/runtime/persistence_test.go
+new file mode 100644
+index 0000000..e61ef02
+--- /dev/null
++++ b/runtime/persistence_test.go
+@@ -0,0 +1,92 @@
++package runtime
++
++import (
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"testing"
++	"time"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tool"
++)
++
++type persistenceProvider struct {
++	usageDoneProvider
++	before func()
++	calls  int
++}
++
++func (p *persistenceProvider) ChatStream(ctx context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.calls++
++	if p.before != nil {
++		p.before()
++	}
++	return p.usageDoneProvider.ChatStream(ctx, req)
++}
++
++func TestPersistenceFailurePreventsSuccessfulRuntimeCompletion(t *testing.T) {
++	for _, stage := range []string{"prompt", "answer"} {
++		t.Run(stage, func(t *testing.T) {
++			root := filepath.Join(t.TempDir(), "store")
++			sess := session.NewSession("agent", "key")
++			sess.SetStore(session.NewStore(root))
++			provider := &persistenceProvider{}
++			if stage == "prompt" {
++				if err := os.WriteFile(root, []byte("obstruction"), 0600); err != nil {
++					t.Fatal(err)
++				}
++			} else {
++				provider.before = func() {
++					path := filepath.Join(root, "agent", "key.jsonl")
++					if err := os.Remove(path); err != nil {
++						t.Error(err)
++					}
++					if err := os.Mkdir(path, 0700); err != nil {
++						t.Error(err)
++					}
++				}
++			}
++			rt := &Runtime{AgentID: "agent", Provider: "local", Model: "fixture", Session: sess, Tools: tool.NewRegistry(), LLM: provider, MaxTurns: 1}
++			events, err := rt.Run(context.Background(), "work", nil)
++			if err != nil {
++				t.Fatal(err)
++			}
++			failed, done := false, false
++			for event := range events {
++				if event.Type == EventError && event.Error != nil {
++					failed = true
++				}
++				if event.Type == EventDone {
++					done = true
++				}
++			}
++			if !failed || done || sess.PersistenceError() == nil {
++				t.Fatal("persistence failure became success", failed, done)
++			}
++			if stage == "prompt" && provider.calls != 0 {
++				t.Fatal("unsaved prompt sent to provider")
++			}
++		})
++	}
++}
++
++func TestRunSyncJoinsAfterError(t *testing.T) {
++	entered, release := make(chan struct{}), make(chan struct{})
++	rt := &Runtime{AgentID: "agent", Provider: "local", Model: "fixture", Session: session.NewSession("agent", "key"), Tools: tool.NewRegistry(), LLM: &mockLLMProvider{events: []llm.ChatEvent{{Type: llm.EventError, Error: errors.New("provider failed")}}}, MaxTurns: 1}
++	rt.AgentLoop.Hooks.OnStop = func(context.Context, string) { close(entered); <-release }
++	result := make(chan error, 1)
++	go func() { _, err := rt.RunSync(context.Background(), "work", nil); result <- err }()
++	<-entered
++	select {
++	case err := <-result:
++		t.Fatal("RunSync returned before cleanup", err)
++	case <-time.After(20 * time.Millisecond):
++	}
++	close(release)
++	if err := <-result; err == nil {
++		t.Fatal("failure lost while joining")
++	}
++}
+diff --git a/runtime/request_usage_test.go b/runtime/request_usage_test.go
+new file mode 100644
+index 0000000..7e1cff8
+--- /dev/null
++++ b/runtime/request_usage_test.go
+@@ -0,0 +1,114 @@
++package runtime
++
++import (
++	"context"
++	"encoding/json"
++	"errors"
++	"testing"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/llm/llmtest"
++	"github.com/sausheong/harness/session"
++	"github.com/stretchr/testify/require"
++)
++
++type requestUsageProvider struct {
++	llmtest.Base
++	calls       int
++	total       int
++	failFirst   bool
++	missingLast bool
++}
++
++func (p *requestUsageProvider) ChatStream(_ context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.calls++
++	if p.failFirst && p.calls == 1 {
++		return nil, errors.New("529 overloaded")
++	}
++	ch := make(chan llm.ChatEvent, 2)
++	if p.calls < p.total {
++		ch <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: req.Model, Name: "noop", Input: json.RawMessage(`{}`)}}
++	}
++	usage := &llm.Usage{InputTokens: 20000, OutputTokens: 100, CacheReadInputTokens: 15000}
++	if p.missingLast && p.calls == p.total {
++		usage = nil
++	}
++	ch <- llm.ChatEvent{Type: llm.EventDone, Usage: usage}
++	close(ch)
++	return ch, nil
++}
++func TestRequestUsageSeparatesLatestFromCumulative(t *testing.T) {
++	p := &requestUsageProvider{total: 10}
++	r := &Runtime{LLM: p, Tools: usageNoopExecutor{}, Session: session.NewSession("a", "k"), Model: "primary", MaxTurns: 10}
++	events, err := r.Run(context.Background(), "go", nil)
++	require.NoError(t, err)
++	var records []llm.RequestUsage
++	var total *llm.Usage
++	for e := range events {
++		if e.Type == EventRequestUsage {
++			records = append(records, *e.RequestUsage)
++		}
++		if e.Type == EventDone {
++			total = e.Usage
++		}
++	}
++	require.Len(t, records, 10)
++	require.Equal(t, 20000, records[9].Usage.InputTokens)
++	require.Equal(t, 200000, total.InputTokens)
++	for _, r := range records {
++		require.Equal(t, llm.CallGeneration, r.Category)
++		require.Equal(t, "reported", r.Source)
++	}
++}
++func TestRequestUsageRetainsUnknownFailedAttemptAndModelChange(t *testing.T) {
++	p := &requestUsageProvider{total: 2, failFirst: true, missingLast: true}
++	r := &Runtime{LLM: p, Tools: usageNoopExecutor{}, Session: session.NewSession("a", "k"), Model: "primary", FallbackModel: "fallback", MaxTurns: 2}
++	events, err := r.Run(context.Background(), "go", nil)
++	require.NoError(t, err)
++	var records []llm.RequestUsage
++	for e := range events {
++		if e.Type == EventRequestUsage {
++			records = append(records, *e.RequestUsage)
++		}
++	}
++	require.Len(t, records, 2)
++	require.Equal(t, "failed", records[0].Status)
++	require.Nil(t, records[0].Usage)
++	require.Equal(t, "primary", records[0].Model)
++	require.Equal(t, "fallback", records[1].Model)
++	require.Equal(t, llm.CallRetry, records[1].Category)
++	require.Equal(t, "unavailable", records[1].Source)
++}
++
++type refusalUsageProvider struct {
++	llmtest.Base
++	calls int
++}
++
++func (p *refusalUsageProvider) ChatStream(context.Context, llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.calls++
++	ch := make(chan llm.ChatEvent, 1)
++	e := llm.ChatEvent{Type: llm.EventDone, Usage: &llm.Usage{InputTokens: 10000}}
++	if p.calls == 1 {
++		e.StopReason = llm.StopReasonRefusal
++		e.Usage.InputTokens = 20000
++	}
++	ch <- e
++	close(ch)
++	return ch, nil
++}
++func TestRunTurnUsageIncludesRefusedAttempt(t *testing.T) {
++	p := &refusalUsageProvider{}
++	r := &Runtime{LLM: p, Tools: usageNoopExecutor{}, Session: session.NewSession("a", "k"), Model: "primary", FallbackModel: "fallback"}
++	var records []llm.RequestUsage
++	result, err := r.RunTurn(context.Background(), "go", nil, func(e AgentEvent) {
++		if e.RequestUsage != nil {
++			records = append(records, *e.RequestUsage)
++		}
++	})
++	require.NoError(t, err)
++	require.NoError(t, result.Err)
++	require.Equal(t, 30000, result.Usage.InputTokens)
++	require.Len(t, records, 2)
++	require.Equal(t, llm.CallRetry, records[1].Category)
++}
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index 61de67c..6ab25e3 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -31,10 +31,13 @@ const (
+ 	EventCompactionStart
+ 	EventCompactionDone
+ 	EventCompactionSkipped
++	EventRequestUsage
+ )
+ 
+ // AgentEvent is a single streaming event from the agent.
+ type AgentEvent struct {
++	RequestUsage *llm.RequestUsage // one provider attempt, independent of cumulative Usage
++
+ 	Type EventType
+ 	// AgentID is the emitter's agent identifier. Empty for top-level
+ 	// (Parent==nil) runtimes; populated by Runtime.emit when forwarding a
+@@ -45,7 +48,7 @@ type AgentEvent struct {
+ 	Result     *tool.ToolResult
+ 	Error      error
+ 	Compaction *compaction.Result // populated for EventCompaction* events
+-	Usage      *llm.Usage         // on the terminal EventDone, the token total accumulated across all turns of the run (nil if the provider never reported usage); per-turn figures are available via RunTurn's TurnResult.Usage
++	Usage      *llm.Usage         // reported-only cumulative consumption on EventRequestUsage/EventDone; see USAGE.md for unknown attempts and compaction
+ }
+ 
+ // Runtime is the agent think-act loop.
+@@ -295,6 +298,11 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 	}
+ 	events := make(chan AgentEvent, 100)
+ 	r.events = events
++	ledger := &llm.UsageLedger{}
++	ctx = llm.WithUsageObserver(ctx, func(record llm.RequestUsage) {
++		ledger.Record(record)
++		r.emit(AgentEvent{Type: EventRequestUsage, RequestUsage: &record, Usage: ledger.Total()})
++	})
+ 	tr := TraceFrom(ctx)
+ 	tr.Mark("agent.run.start", "user_msg_len", len(userMsg), "images", len(images))
+ 
+@@ -357,6 +365,12 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 			r.Session.Append(session.UserMessageEntry(userMsg))
+ 		}
+ 
++		if err := r.Session.PersistenceError(); err != nil {
++			stopReason = "error"
++			r.emit(AgentEvent{Type: EventError, Error: err})
++			return
++		}
++
+ 		if hook := r.AgentLoop.Hooks.OnSessionStart; hook != nil {
+ 			hook(ctx, r.Session)
+ 		}
+@@ -424,9 +438,13 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 				"reason", d.Reason)
+ 		}
+ 
+-		var runUsage *llm.Usage // accumulated across all turns; nil until first reported
+-
+ 		for turn := 0; turn < maxTurns; turn++ {
++			if err := r.Session.PersistenceError(); err != nil {
++				stopReason = "error"
++				r.emit(AgentEvent{Type: EventError, Error: err})
++				return
++			}
++
+ 			if ctx.Err() != nil {
+ 				stopReason = "aborted"
+ 				r.emit(AgentEvent{Type: EventAborted})
+@@ -525,7 +543,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 				prefillChars += len(m.Content)
+ 			}
+ 			tr.Mark("llm.request_sent", "turn", turn, "model", r.Model, "prefill_chars", prefillChars)
+-			stream, err := r.LLM.ChatStream(ctx, req)
++			stream, err := llm.ObserveChat(ctx, req, llm.CallGeneration, r.LLM.ChatStream)
+ 			if err != nil {
+ 				if compaction.IsContextOverflow(err) && r.Compaction != nil {
+ 					r.emit(AgentEvent{Type: EventCompactionStart})
+@@ -537,7 +555,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 						r.prune(msgs, spillCfg)
+ 						msgs = prependPostCompactRestore(msgs, r.snapshotTouchedFiles())
+ 						req.Messages = msgs
+-						stream, err = r.LLM.ChatStream(ctx, req)
++						stream, err = llm.ObserveChat(ctx, req, llm.CallRetry, r.LLM.ChatStream)
+ 					} else {
+ 						r.emit(AgentEvent{Type: EventCompactionSkipped, Compaction: &res})
+ 					}
+@@ -550,7 +568,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 						"err", err.Error())
+ 					tr.Mark("llm.fallback", "turn", turn, "primary", req.Model, "fallback", r.FallbackModel)
+ 					req.Model = r.FallbackModel
+-					stream, err = r.LLM.ChatStream(ctx, req)
++					stream, err = llm.ObserveChat(ctx, req, llm.CallRetry, r.LLM.ChatStream)
+ 				}
+ 				if err != nil {
+ 					stopReason = "error"
+@@ -626,9 +644,6 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 					case llm.EventDone:
+ 						refused = event.StopReason == llm.StopReasonRefusal
+ 						refusalCategory = event.StopCategory
+-						if event.Usage != nil {
+-							runUsage = addUsage(runUsage, event.Usage)
+-						}
+ 						if event.Usage != nil && r.calibrator != nil {
+ 							// Recompute the estimate on the CURRENT msgs (which may
+ 							// have been reassembled by mid-turn compaction) so the
+@@ -664,7 +679,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 								kickoffs = map[string]chan kickoffResult{}
+ 								gotFirstToken = false
+ 								kickoffStopped = false
+-								nsStream, retryErr := ns.ChatNonStreaming(ctx, req)
++								nsStream, retryErr := llm.ObserveChat(ctx, req, llm.CallRetry, ns.ChatNonStreaming)
+ 								if retryErr != nil {
+ 									stopReason = "error"
+ 									r.emit(AgentEvent{Type: EventError, Error: retryErr})
+@@ -682,6 +697,18 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 					}
+ 				}
+ 
++				if ctx.Err() != nil {
++					if len(toolCalls) > 0 {
++						// Reconcile started tools below before closing events;
++						// cancellation must not discard their session pairs.
++						break streamLoop
++					}
++					drainKickoffs(kickoffs)
++					stopReason = "aborted"
++					r.emit(AgentEvent{Type: EventAborted})
++					return
++				}
++
+ 				// Classifier/model refusal (Claude Fable 5+): HTTP 200,
+ 				// stop_reason=refusal, usually no content. Without handling,
+ 				// the turn ends as a silent empty success. Retry once on the
+@@ -708,7 +735,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 						refused = false
+ 						retriedRefusal = true
+ 						req.Model = r.FallbackModel
+-						retryStream, retryErr := r.LLM.ChatStream(ctx, req)
++						retryStream, retryErr := llm.ObserveChat(ctx, req, llm.CallRetry, r.LLM.ChatStream)
+ 						if retryErr != nil {
+ 							stopReason = "error"
+ 							r.emit(AgentEvent{Type: EventError, Error: retryErr})
+@@ -757,8 +784,13 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 					drainKickoffs(kickoffs)
+ 				}
+ 				tr.Mark("agent.done", "turn", turn, "reason", "no_tool_calls")
++				if err := r.Session.Flush(); err != nil {
++					stopReason = "error"
++					r.emit(AgentEvent{Type: EventError, Error: err})
++					return
++				}
+ 				stopReason = "completed"
+-				r.emit(AgentEvent{Type: EventDone, Usage: runUsage})
++				r.emit(AgentEvent{Type: EventDone, Usage: ledger.Total()})
+ 				r.maybeKickoffAsyncCompaction(msgs, parts, toolDefs)
+ 				return
+ 			}
+@@ -863,7 +895,7 @@ func (r *Runtime) recoverFromPreTokenError(ctx context.Context, err error, req *
+ 			newMsgs = prependPostCompactRestore(newMsgs, r.snapshotTouchedFiles())
+ 			*msgs = newMsgs
+ 			req.Messages = newMsgs
+-			if s, e := r.LLM.ChatStream(ctx, *req); e == nil {
++			if s, e := llm.ObserveChat(ctx, *req, llm.CallRetry, r.LLM.ChatStream); e == nil {
+ 				return s, true
+ 			}
+ 		} else {
+@@ -874,7 +906,7 @@ func (r *Runtime) recoverFromPreTokenError(ctx context.Context, err error, req *
+ 		slog.Info("llm fallback model engaged (stream error)",
+ 			"agent", r.AgentID, "primary", req.Model, "fallback", r.FallbackModel, "err", err.Error())
+ 		req.Model = r.FallbackModel
+-		if s, e := r.LLM.ChatStream(ctx, *req); e == nil {
++		if s, e := llm.ObserveChat(ctx, *req, llm.CallRetry, r.LLM.ChatStream); e == nil {
+ 			return s, true
+ 		}
+ 	}
+@@ -890,18 +922,25 @@ func (r *Runtime) RunSync(ctx context.Context, userMsg string, images []llm.Imag
+ 	}
+ 
+ 	var response strings.Builder
++	var runErr error
+ 	for event := range events {
+ 		switch event.Type {
+ 		case EventTextDelta:
+ 			response.WriteString(event.Text)
+ 		case EventAborted:
+-			return response.String(), context.Canceled
++			if runErr == nil {
++				runErr = context.Canceled
++			}
+ 		case EventError:
+-			return response.String(), event.Error
++			if runErr == nil {
++				runErr = event.Error
++				if runErr == nil {
++					runErr = fmt.Errorf("runtime emitted an error without details")
++				}
++			}
+ 		}
+ 	}
+-
+-	return response.String(), nil
++	return response.String(), runErr
+ }
+ 
+ // dispatchTool executes one tool call with strict tool_use ↔ tool_result
+diff --git a/runtime/runturn.go b/runtime/runturn.go
+index 55dc3cf..06ac239 100644
+--- a/runtime/runturn.go
++++ b/runtime/runturn.go
+@@ -19,7 +19,7 @@ type TurnResult struct {
+ 	StopReason string                 // "continue" | "completed" | "error" | "aborted"
+ 	Entries    []session.SessionEntry // entries appended during THIS turn, in order
+ 	Err        error
+-	Usage      *llm.Usage
++	Usage      *llm.Usage // reported aggregate for this call, including retries
+ }
+ 
+ // TurnEmit is an optional live-streaming callback. Pass nil for headless
+@@ -44,6 +44,17 @@ func (r *Runtime) RunTurn(ctx context.Context, userMsg string, images []llm.Imag
+ 	if emit == nil {
+ 		emit = func(AgentEvent) {}
+ 	}
++	ledger := &llm.UsageLedger{}
++	ctx = llm.WithUsageObserver(ctx, ledger.Record)
++	emittedUsage := 0
++	flushUsage := func() {
++		records := ledger.Records()
++		for ; emittedUsage < len(records); emittedUsage++ {
++			record := records[emittedUsage]
++			emit(AgentEvent{Type: EventRequestUsage, RequestUsage: &record, Usage: ledger.Total()})
++		}
++	}
++	defer flushUsage()
+ 	startLen := len(r.Session.Entries())
+ 
+ 	if userMsg != "" || len(images) > 0 {
+@@ -99,11 +110,11 @@ func (r *Runtime) RunTurn(ctx context.Context, userMsg string, images []llm.Imag
+ 		Reasoning:         r.Reasoning,
+ 	}
+ 
+-	stream, err := r.LLM.ChatStream(ctx, req)
++	stream, err := llm.ObserveChat(ctx, req, llm.CallGeneration, r.LLM.ChatStream)
+ 	if err != nil {
+ 		if r.FallbackModel != "" && r.FallbackModel != req.Model && llm.IsRetryableModelError(err) {
+ 			req.Model = r.FallbackModel
+-			stream, err = r.LLM.ChatStream(ctx, req)
++			stream, err = llm.ObserveChat(ctx, req, llm.CallRetry, r.LLM.ChatStream)
+ 		}
+ 		if err != nil {
+ 			emit(AgentEvent{Type: EventError, Error: fmt.Errorf("llm error: %w", err)})
+@@ -114,13 +125,15 @@ func (r *Runtime) RunTurn(ctx context.Context, userMsg string, images []llm.Imag
+ 	var textContent strings.Builder
+ 	var toolCalls []llm.ToolCall
+ 	var thinkingBlocks []session.ThinkingBlockData
+-	var lastUsage *llm.Usage
+ 	retriedRefusal := false
+ streamLoop:
+ 	for {
+ 		var refused bool
+ 		var refusalCategory string
+ 		for event := range stream {
++			if event.Type == llm.EventDone || event.Type == llm.EventError {
++				flushUsage()
++			}
+ 			switch event.Type {
+ 			case llm.EventTextDelta:
+ 				textContent.WriteString(event.Text)
+@@ -141,15 +154,15 @@ streamLoop:
+ 			case llm.EventDone:
+ 				refused = event.StopReason == llm.StopReasonRefusal
+ 				refusalCategory = event.StopCategory
+-				if event.Usage != nil {
+-					lastUsage = event.Usage
+-				}
+ 			case llm.EventError:
+ 				emit(AgentEvent{Type: EventError, Error: event.Error})
+-				return r.turnSlice(startLen, true, "error", lastUsage, event.Error), nil
++				return r.turnSlice(startLen, true, "error", ledger.Total(), event.Error), nil
+ 			}
+ 		}
+ 
++		if ctx.Err() != nil {
++			return r.turnSlice(startLen, true, "aborted", ledger.Total(), ctx.Err()), nil
++		}
+ 		// Same refusal contract as Run: retry once on the fallback model,
+ 		// else surface a visible explanation instead of empty silence.
+ 		if refused {
+@@ -158,10 +171,10 @@ streamLoop:
+ 				textContent.Reset()
+ 				toolCalls = nil
+ 				req.Model = r.FallbackModel
+-				retryStream, retryErr := r.LLM.ChatStream(ctx, req)
++				retryStream, retryErr := llm.ObserveChat(ctx, req, llm.CallRetry, r.LLM.ChatStream)
+ 				if retryErr != nil {
+ 					emit(AgentEvent{Type: EventError, Error: retryErr})
+-					return r.turnSlice(startLen, true, "error", lastUsage, retryErr), nil
++					return r.turnSlice(startLen, true, "error", ledger.Total(), retryErr), nil
+ 				}
+ 				stream = retryStream
+ 				continue streamLoop
+@@ -200,8 +213,8 @@ streamLoop:
+ 		if r.KG != nil {
+ 			r.KG.Ingest(context.Background(), sessionThread(r.Session.View()))
+ 		}
+-		emit(AgentEvent{Type: EventDone, Usage: lastUsage})
+-		return r.turnSlice(startLen, true, "completed", lastUsage, nil), nil
++		emit(AgentEvent{Type: EventDone, Usage: ledger.Total()})
++		return r.turnSlice(startLen, true, "completed", ledger.Total(), nil), nil
+ 	}
+ 
+ 	// RunTurn dispatches tool calls serially by design: deterministic
+@@ -212,11 +225,11 @@ streamLoop:
+ 		result, aborted := r.dispatchTool(ctx, tc, nil)
+ 		emit(AgentEvent{Type: EventToolResult, ToolCall: &tc, Result: &result})
+ 		if aborted {
+-			return r.turnSlice(startLen, true, "aborted", lastUsage, ctx.Err()), nil
++			return r.turnSlice(startLen, true, "aborted", ledger.Total(), ctx.Err()), nil
+ 		}
+ 	}
+ 
+-	return r.turnSlice(startLen, false, "continue", lastUsage, nil), nil
++	return r.turnSlice(startLen, false, "continue", ledger.Total(), nil), nil
+ }
+ 
+ // turnSlice builds a TurnResult from the entries appended since startLen.
+diff --git a/session/branch_persistence_test.go b/session/branch_persistence_test.go
+new file mode 100644
+index 0000000..10b6df1
+--- /dev/null
++++ b/session/branch_persistence_test.go
+@@ -0,0 +1,178 @@
++package session
++
++import (
++	"os"
++	"reflect"
++	"sync"
++	"testing"
++)
++
++func TestSelectedBranchSurvivesRestartAndRewrite(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	sess.Append(AssistantMessageEntry("first branch"))
++	first := sess.LeafID()
++	if err := sess.Branch(root); err != nil {
++		t.Fatal(err)
++	}
++	sess.Append(AssistantMessageEntry("second branch"))
++	second := sess.LeafID()
++	if err := sess.Branch(first); err != nil {
++		t.Fatal(err)
++	}
++	for _, rewrite := range []bool{false, true} {
++		if rewrite {
++			store.Rewrite(sess)
++		}
++		loaded, err := store.Load("agent", "key")
++		if err != nil || loaded.LeafID() != first {
++			t.Fatal("selected branch lost on restart", err)
++		}
++		history := loaded.History()
++		if len(history) != 2 || history[0].ID != root || history[1].ID != first {
++			t.Fatal("selection leaked into history", history)
++		}
++		if !reflect.DeepEqual(loaded.View(), history) {
++			t.Fatal("view differs from selected branch")
++		}
++	}
++	sess.Append(UserMessageEntry("continue first"))
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	history := loaded.History()
++	if len(history) != 3 || history[1].ID != first || history[2].ParentID != first {
++		t.Fatal("append ignored selected parent")
++	}
++	if err := sess.Branch(second); err != nil {
++		t.Fatal("other branch lost", err)
++	}
++}
++
++func TestLegacyCompactionPreservesOriginalBranches(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	for _, msg := range []string{"root", "middle", "last"} {
++		sess.Append(UserMessageEntry(msg))
++	}
++	original := sess.History()
++	if err := sess.Branch(original[0].ID); err != nil {
++		t.Fatal(err)
++	}
++	sess.Append(AssistantMessageEntry("alternative"))
++	other := sess.LeafID()
++	if err := sess.Branch(original[2].ID); err != nil {
++		t.Fatal(err)
++	}
++	sess.Compact("summary", 1)
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	current := sess.History()
++	if len(current) != 2 || current[1].ID == original[2].ID {
++		t.Fatal("compaction must clone retained nodes")
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err := loaded.Branch(original[2].ID); err == nil {
++		t.Fatal("legacy writer bypassed active lease")
++	}
++	sess.Close()
++	loaded, err = store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer loaded.Close()
++	if err := loaded.Branch(original[2].ID); err != nil {
++		t.Fatal("original history discarded", err)
++	}
++	if !reflect.DeepEqual(loaded.History(), original) {
++		t.Fatal("original graph mutated")
++	}
++	if err := loaded.Branch(other); err != nil || len(loaded.History()) != 2 {
++		t.Fatal("unselected branch discarded", err)
++	}
++}
++
++func TestFailedBranchPersistenceIsVisible(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	sess.Append(UserMessageEntry("tail"))
++	previous := sess.LeafID()
++	path := store.sessionPath("agent", "key")
++	if err := os.Rename(path, path+".original"); err != nil {
++		t.Fatal(err)
++	}
++	if err := os.Mkdir(path, 0700); err != nil {
++		t.Fatal(err)
++	}
++	if err := sess.Branch(root); err == nil || sess.PersistenceError() == nil {
++		t.Fatal("branch storage failure hidden")
++	}
++	if sess.LeafID() != previous {
++		t.Fatal("failed selection changed memory leaf")
++	}
++}
++
++func TestConcurrentBranchAppendAndViews(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	var wg sync.WaitGroup
++	wg.Add(3)
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 30; i++ {
++			if err := sess.Branch(root); err != nil {
++				t.Error(err)
++				return
++			}
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 30; i++ {
++			sess.Append(UserMessageEntry("append"))
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 100; i++ {
++			sess.History()
++			sess.View()
++			sess.Entries()
++		}
++	}()
++	wg.Wait()
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || !reflect.DeepEqual(loaded.Entries(), sess.Entries()) || loaded.LeafID() != sess.LeafID() {
++		t.Fatal("concurrent graph differs on disk", err)
++	}
++}
+diff --git a/session/format_test.go b/session/format_test.go
+new file mode 100644
+index 0000000..e3bfa02
+--- /dev/null
++++ b/session/format_test.go
+@@ -0,0 +1,154 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"os"
++	"strings"
++	"testing"
++)
++
++func TestPersistedSessionIdentity(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	first, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer first.Close()
++	id := first.ID
++	empty, err := store.Load("agent", "key")
++	if err != nil || empty.ID != id || len(empty.Entries()) != 0 || empty.LeafID() != "" {
++		t.Fatal("empty identity or graph changed", err)
++	}
++	first.Append(UserMessageEntry("message"))
++	store.Rewrite(first)
++	if err := first.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || loaded.ID != id || len(loaded.Entries()) != 1 || len(loaded.History()) != 1 {
++		t.Fatal("header identity/history lost", err)
++	}
++	first.Close()
++	if err := store.Rename("agent", "key", "renamed"); err != nil {
++		t.Fatal(err)
++	}
++	renamed, err := store.Load("agent", "renamed")
++	if err != nil || renamed.ID != id {
++		t.Fatal("rename changed session identity", err)
++	}
++	list, err := store.List("agent")
++	if err != nil || len(list) != 1 || list[0].ID != id || list[0].EntryCount != 1 {
++		t.Fatal("catalogue metadata counts header as message", list, err)
++	}
++}
++
++func TestFirstAppendPersistsIdentity(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("first"))
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || loaded.ID != sess.ID {
++		t.Fatal("first append lost identity", err)
++	}
++	raw, err := os.ReadFile(store.sessionPath("agent", "key"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(raw))
++	if err != nil || len(entries) != 2 || entries[0].Type != EntryTypeHeader || entries[0].SchemaVersion != 1 {
++		t.Fatal("first append lacks format header", err)
++	}
++}
++
++func TestFormatHeadersRejectedWithoutRecoveryOrMigration(t *testing.T) {
++	for name, raw := range map[string]string{
++		"future":                `{"id":"s","type":"session_header","schemaVersion":2}`,
++		"missing version":       `{"id":"s","type":"session_header"}`,
++		"late":                  `{"id":"a"}` + "\n" + `{"id":"s","type":"session_header","schemaVersion":1}`,
++		"second header":         `{"id":"s","type":"session_header","schemaVersion":1}` + "\n" + `{"id":"s2","type":"session_header","schemaVersion":1}`,
++		"header parent":         `{"id":"s","type":"session_header","schemaVersion":1,"parentId":"a"}`,
++		"message parent header": `{"id":"s","type":"session_header","schemaVersion":1}` + "\n" + `{"id":"a","parentId":"s"}`,
++		"version on message":    `{"id":"a","type":"message","schemaVersion":2}`,
++	} {
++		t.Run(name, func(t *testing.T) {
++			store, path := recoveryFixture(t, raw)
++			if _, err := store.Load("agent", "key"); err == nil {
++				t.Fatal("invalid schema loaded")
++			}
++			if _, _, err := store.LoadRecovering(context.Background(), "agent", "key"); err == nil {
++				t.Fatal("invalid schema repaired")
++			}
++			if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); err == nil {
++				t.Fatal("invalid schema migrated")
++			}
++			after, _ := os.ReadFile(path)
++			if string(after) != raw {
++				t.Fatal("invalid schema modified")
++			}
++		})
++	}
++}
++
++func TestLegacyFormatUpgradeBackedUpAndStable(t *testing.T) {
++	for _, raw := range []string{"", `{"id":"old","type":"message","timestamp":123,"future":true}` + "\n"} {
++		store, path := recoveryFixture(t, raw)
++		sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++		if err != nil {
++			t.Fatal(err)
++		}
++		id := sess.ID
++		sess.Close()
++		if !report.Migrated || !report.FormatUpgraded || report.RemappedIDs != 0 || report.BackupPath == "" {
++			t.Fatal("legacy format upgrade unreported", report)
++		}
++		backup, _ := os.ReadFile(report.BackupPath)
++		if string(backup) != raw {
++			t.Fatal("format upgrade lost original")
++		}
++		before, _ := os.ReadFile(path)
++		again, second, err := store.MigrateLegacy(context.Background(), "agent", "key")
++		if err != nil {
++			t.Fatal(err)
++		}
++		again.Close()
++		after, _ := os.ReadFile(path)
++		if again.ID != id || second.Migrated || second.FormatUpgraded || !bytes.Equal(before, after) {
++			t.Fatal("format migration not idempotent", second)
++		}
++		if raw != "" && !strings.Contains(string(after), `"future":true`) {
++			t.Fatal("format upgrade dropped unknown field")
++		}
++	}
++}
++
++func TestCreateDoesNotOverwriteExistingSession(t *testing.T) {
++	store, path := recoveryFixture(t, `{"id":"existing"}`)
++	if err := store.Create("agent", "key"); err == nil {
++		t.Fatal("create overwrote existing session")
++	}
++	raw, _ := os.ReadFile(path)
++	if string(raw) != `{"id":"existing"}` {
++		t.Fatal("existing bytes changed")
++	}
++}
++
++func TestAppendCannotReuseHeaderIdentity(t *testing.T) {
++	sess := NewSession("agent", "key")
++	entry := UserMessageEntry("invalid")
++	entry.ID = sess.ID
++	sess.Append(entry)
++	if sess.PersistenceError() == nil || len(sess.Entries()) != 0 {
++		t.Fatal("header ID reused as graph node")
++	}
++}
+diff --git a/session/graph.go b/session/graph.go
+new file mode 100644
+index 0000000..81a4c26
+--- /dev/null
++++ b/session/graph.go
+@@ -0,0 +1,111 @@
++package session
++
++import (
++	"encoding/json"
++	"errors"
++	"fmt"
++)
++
++// validateGraphNode requires parents to precede children in the append log.
++// This rejects missing links, duplicate IDs and cycles before graph traversal.
++func validateGraphNode(entry SessionEntry, lookup func(string) (EntryType, bool)) error {
++	if entry.Type == EntryTypeHeader {
++		if entry.SchemaVersion != 1 {
++			return fmt.Errorf("unsupported session schema version %d", entry.SchemaVersion)
++		}
++		if entry.ParentID != "" {
++			return errors.New("session header cannot have a parent")
++		}
++	} else if entry.SchemaVersion != 0 {
++		return errors.New("schema version belongs only on the session header")
++	}
++	if entry.ID == "" {
++		return errors.New("session entry ID is empty")
++	}
++	if _, exists := lookup(entry.ID); exists {
++		return fmt.Errorf("duplicate session entry ID %q", entry.ID)
++	}
++	if entry.ParentID != "" {
++		parent, exists := lookup(entry.ParentID)
++		if !exists || parent == EntryTypeSelection || parent == EntryTypeHeader {
++			return errors.New("session parent is missing or is a selection control record")
++		}
++	}
++	if entry.Type == EntryTypeSelection {
++		var selection struct {
++			Version int `json:"version"`
++		}
++		if entry.ParentID == "" {
++			return errors.New("selection record has no target")
++		}
++		if err := json.Unmarshal(entry.Data, &selection); err != nil {
++			return fmt.Errorf("invalid selection record: %w", err)
++		}
++		if selection.Version != 1 {
++			return fmt.Errorf("unsupported selection record version %d", selection.Version)
++		}
++	}
++	return nil
++}
++
++var ErrSessionChanged = errors.New("session branch changed while preparing compaction")
++
++// CommitCompaction installs a summary and preserved messages as one graph
++// mutation. The caller supplies the leaf of the view it summarised. Concurrent
++// appends or branch selections invalidate that snapshot instead of losing work.
++// Original nodes remain immutable; cloned messages have fresh graph IDs while
++// their tool-call IDs and content remain unchanged.
++func (s *Session) CommitCompaction(expectedLeaf string, summary SessionEntry, preserved []SessionEntry) error {
++	s.mu.Lock()
++	if s.leafID != expectedLeaf {
++		s.mu.Unlock()
++		return ErrSessionChanged
++	}
++	if err := s.PersistenceError(); err != nil {
++		s.mu.Unlock()
++		return err
++	}
++	if summary.Type != EntryTypeCompaction {
++		s.mu.Unlock()
++		return errors.New("expected compaction summary")
++	}
++	summary.ID = generateID("compact")
++	if err := validateGraphNode(summary, func(id string) (EntryType, bool) {
++		if id == s.header.ID {
++			return EntryTypeHeader, true
++		}
++		node, ok := s.entryMap[id]
++		if !ok {
++			return "", false
++		}
++		return node.Type, true
++	}); err != nil {
++		s.mu.Unlock()
++		return err
++	}
++	for _, node := range preserved {
++		if node.Type == EntryTypeSelection || node.Type == EntryTypeHeader {
++			s.mu.Unlock()
++			return errors.New("selection record cannot be preserved as a message")
++		}
++	}
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	s.entries = append(s.entries, summary)
++	s.entryMap[summary.ID] = &s.entries[len(s.entries)-1]
++	s.leafID = summary.ID
++	for _, node := range preserved {
++		node.ID = generateID("e")
++		node.ParentID = s.leafID
++		s.entries = append(s.entries, node)
++		s.entryMap[node.ID] = &s.entries[len(s.entries)-1]
++		s.leafID = node.ID
++	}
++	entries := append([]SessionEntry(nil), s.entries...)
++	store := s.store
++	s.mu.Unlock()
++	if store != nil {
++		store.rewriteEntries(s, entries)
++	}
++	return s.PersistenceError()
++}
+diff --git a/session/graph_test.go b/session/graph_test.go
+new file mode 100644
+index 0000000..9cb5e07
+--- /dev/null
++++ b/session/graph_test.go
+@@ -0,0 +1,118 @@
++package session
++
++import (
++	"context"
++	"errors"
++	"os"
++	"reflect"
++	"strings"
++	"testing"
++)
++
++func TestGraphCorruptionRejectedWithoutTailRepair(t *testing.T) {
++	root := `{"id":"root","type":"message"}` + "\n"
++	for name, raw := range map[string]string{
++		"missing ID":               `{}`,
++		"duplicate ID":             root + root,
++		"self cycle":               `{"id":"a","parentId":"a"}`,
++		"future parent":            `{"id":"a","parentId":"b"}` + "\n" + `{"id":"b","parentId":"a"}`,
++		"selection missing target": root + `{"id":"s","type":"selection","data":{"version":1}}`,
++		"selection future version": root + `{"id":"s","parentId":"root","type":"selection","data":{"version":2}}`,
++		"selection invalid data":   root + `{"id":"s","parentId":"root","type":"selection","data":"bad"}`,
++		"selection parent":         root + `{"id":"s","parentId":"root","type":"selection","data":{"version":1}}` + "\n" + `{"id":"child","parentId":"s"}`,
++	} {
++		t.Run(name, func(t *testing.T) {
++			store, path := recoveryFixture(t, raw)
++			sess, report, err := store.LoadRecovering(context.Background(), "agent", "key")
++			var record *RecordError
++			if sess != nil || !errors.As(err, &record) || record.RecoverableTail || report.Repaired {
++				t.Fatal("graph corruption accepted or repaired", err)
++			}
++			after, _ := os.ReadFile(path)
++			if string(after) != raw {
++				t.Fatal("graph corruption modified")
++			}
++		})
++	}
++}
++
++func TestAppendRejectsDuplicateAndMissingParent(t *testing.T) {
++	for _, duplicate := range []bool{false, true} {
++		sess := NewSession("agent", "key")
++		sess.Append(UserMessageEntry("root"))
++		before := sess.Entries()
++		entry := UserMessageEntry("invalid")
++		if duplicate {
++			entry.ID = sess.LeafID()
++		} else {
++			entry.ParentID = "missing"
++		}
++		sess.Append(entry)
++		if sess.PersistenceError() == nil || !reflect.DeepEqual(before, sess.Entries()) {
++			t.Fatal("invalid append changed graph")
++		}
++	}
++}
++
++func TestCommitCompactionPreservesOriginalGraphAndRestart(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	for _, text := range []string{"one", "two", "three"} {
++		sess.Append(UserMessageEntry(text))
++	}
++	original := sess.History()
++	summary := CompactionEntry("summary", original[0].ID, original[1].ID, "model", 0, 0, 2)
++	summary.ParentID = original[1].ID
++	if err := sess.CommitCompaction(original[2].ID, summary, original[2:]); err != nil {
++		t.Fatal(err)
++	}
++	view := sess.View()
++	if len(view) != 2 || view[0].Type != EntryTypeCompaction || view[1].ID == original[2].ID || view[1].ParentID != view[0].ID {
++		t.Fatal("compaction view invalid", view)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || !reflect.DeepEqual(loaded.View(), view) {
++		t.Fatal("compaction restart differs", err)
++	}
++	if err := sess.Branch(original[2].ID); err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(sess.History(), original) {
++		t.Fatal("compaction mutated old graph")
++	}
++}
++
++func TestCommitCompactionRejectsStaleView(t *testing.T) {
++	sess := NewSession("agent", "key")
++	sess.Append(UserMessageEntry("original"))
++	previous := sess.LeafID()
++	sess.Append(UserMessageEntry("new work"))
++	before := sess.Entries()
++	err := sess.CommitCompaction(previous, CompactionEntry("obsolete", previous, previous, "model", 0, 0, 1), nil)
++	if !errors.Is(err, ErrSessionChanged) || !reflect.DeepEqual(sess.Entries(), before) {
++		t.Fatal("stale compaction changed graph", err)
++	}
++}
++
++func TestSelectionControlVersionRoundTrip(t *testing.T) {
++	sess := NewSession("agent", "key")
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	if err := sess.Branch(root); err != nil {
++		t.Fatal(err)
++	}
++	marker := sess.Entries()[1]
++	if marker.Type != EntryTypeSelection || string(marker.Data) != `{"version":1}` {
++		t.Fatal("invalid marker", marker)
++	}
++	if err := sess.Branch(marker.ID); err == nil {
++		t.Fatal("selected control record")
++	}
++	if _, err := decodeSessionRecords(strings.NewReader(`{"id":"legacy","type":"message"}`)); err != nil {
++		t.Fatal("ordinary legacy record rejected", err)
++	}
++}
+diff --git a/session/lease.go b/session/lease.go
+new file mode 100644
+index 0000000..4f5c56f
+--- /dev/null
++++ b/session/lease.go
+@@ -0,0 +1,126 @@
++package session
++
++import (
++	"errors"
++	"fmt"
++	"os"
++	"path/filepath"
++)
++
++var ErrSessionBusy = errors.New("session already has an active writer")
++var ErrSessionClosed = errors.New("session writer is closed")
++
++type writerLease struct {
++	file         *os.File
++	store        *Store
++	agentID, key string
++}
++
++func (l *writerLease) close() error {
++	if l.file == nil {
++		return nil
++	}
++	return l.file.Close()
++}
++
++// LoadExclusive acquires a kernel-managed writer lease before reading. The
++// lease lasts until Session.Close or process exit. It never steals an active
++// lease based on a PID/timestamp; a dead process's lock is released by the OS.
++func (s *Store) LoadExclusive(agentID, key string) (*Session, error) {
++	lease, err := s.acquireLease(agentID, key)
++	if err != nil {
++		return nil, err
++	}
++	sess, err := s.Load(agentID, key)
++	if err != nil {
++		lease.close()
++		return nil, err
++	}
++	sess.lease = lease
++	return sess, nil
++}
++
++func (s *Store) acquireLease(agentID, key string) (*writerLease, error) {
++	if err := validateStoreIDs(agentID, key); err != nil {
++		return nil, err
++	}
++	dir := filepath.Join(s.sessionDir(agentID), ".leases")
++	if err := os.MkdirAll(dir, 0700); err != nil {
++		return nil, err
++	}
++	f, err := openLeaseFile(filepath.Join(dir, key+".lock"))
++	if err != nil {
++		return nil, err
++	}
++	if err := lockLeaseFile(f); err != nil {
++		f.Close()
++		if leaseWouldBlock(err) {
++			return nil, fmt.Errorf("%w: %s/%s", ErrSessionBusy, agentID, key)
++		}
++		return nil, err
++	}
++	// Metadata is advisory only; stale contents never override the kernel lock.
++	if err := f.Truncate(0); err != nil {
++		f.Close()
++		return nil, err
++	}
++	if _, err := fmt.Fprintf(f, "pid=%d\n", os.Getpid()); err != nil {
++		f.Close()
++		return nil, err
++	}
++	return &writerLease{file: f, store: s, agentID: agentID, key: key}, nil
++}
++
++// writeLease is called under Store.mu. Legacy callers without a lifetime lease
++// acquire a temporary operation lease, so they cannot bypass an exclusive owner.
++// Two legacy callers are not a safe DAG writer protocol: use LoadExclusive.
++func (s *Store) writeLease(sess *Session) (func(), error) {
++	sess.leaseMu.Lock()
++	defer sess.leaseMu.Unlock()
++	if sess.writerClosed {
++		return nil, ErrSessionClosed
++	}
++	if sess.lease != nil {
++		if sess.lease.store != s || sess.lease.agentID != sess.AgentID || sess.lease.key != sess.Key {
++			return nil, errors.New("session identity no longer matches its writer lease")
++		}
++		return func() {}, nil
++	}
++	lease, err := s.acquireOperationLease(sess.AgentID, sess.Key)
++	if err != nil {
++		return nil, err
++	}
++	return func() { lease.close() }, nil
++}
++
++// Close joins synchronous writes before releasing the lease. Further persistent
++// writes through this instance fail. Callers must also stop their own producers.
++func (s *Session) Close() error {
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	if s.store != nil {
++		s.store.mu.Lock()
++		defer s.store.mu.Unlock()
++	}
++	s.leaseMu.Lock()
++	defer s.leaseMu.Unlock()
++	if s.writerClosed {
++		return nil
++	}
++	s.writerClosed = true
++	if s.lease != nil {
++		err := s.lease.close()
++		s.lease = nil
++		return err
++	}
++	return nil
++}
++
++// Legacy operations retain their pre-lease behaviour on unsupported platforms.
++// LoadExclusive always fails there rather than promising an unavailable lease.
++func (s *Store) acquireOperationLease(agentID, key string) (*writerLease, error) {
++	if !supportsWriterLease {
++		return &writerLease{}, nil
++	}
++	return s.acquireLease(agentID, key)
++}
+diff --git a/session/lease_other.go b/session/lease_other.go
+new file mode 100644
+index 0000000..1888496
+--- /dev/null
++++ b/session/lease_other.go
+@@ -0,0 +1,18 @@
++//go:build !linux && !darwin
++
++package session
++
++import (
++	"errors"
++	"os"
++)
++
++const supportsWriterLease = false
++
++func openLeaseFile(string) (*os.File, error) {
++	return nil, errors.New("session writer leases are unsupported on this platform")
++}
++func lockLeaseFile(*os.File) error {
++	return errors.New("session writer leases are unsupported on this platform")
++}
++func leaseWouldBlock(error) bool { return false }
+diff --git a/session/lease_test.go b/session/lease_test.go
+new file mode 100644
+index 0000000..2caee58
+--- /dev/null
++++ b/session/lease_test.go
+@@ -0,0 +1,139 @@
++package session
++
++import (
++	"bufio"
++	"context"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"os/exec"
++	"testing"
++	"time"
++)
++
++func TestExclusiveLeaseBlocksOtherWritersAndMutations(t *testing.T) {
++	store := NewStore(t.TempDir())
++	owner, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	owner.Append(UserMessageEntry("retained"))
++	if err := owner.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	if _, err := store.LoadExclusive("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal(err)
++	}
++	if err := store.Delete("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("delete bypassed lease", err)
++	}
++	if err := store.Rename("agent", "key", "other"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("rename bypassed lease", err)
++	}
++	other, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	other.Append(UserMessageEntry("must not persist"))
++	if !errors.Is(other.PersistenceError(), ErrSessionBusy) {
++		t.Fatal("legacy append bypassed lease", other.PersistenceError())
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || len(loaded.Entries()) != 1 {
++		t.Fatal("unauthorised entry persisted", err)
++	}
++	if err := owner.Close(); err != nil {
++		t.Fatal(err)
++	}
++	if err := owner.Close(); err != nil {
++		t.Fatal("close not idempotent", err)
++	}
++	owner.Append(UserMessageEntry("closed"))
++	if !errors.Is(owner.PersistenceError(), ErrSessionClosed) {
++		t.Fatal("closed writer accepted append")
++	}
++	resumed, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer resumed.Close()
++	if len(resumed.Entries()) != 1 {
++		t.Fatal("lease lifecycle damaged session")
++	}
++}
++
++func TestWriterLeaseCannotBeReusedForAnotherKey(t *testing.T) {
++	store := NewStore(t.TempDir())
++	s, err := store.LoadExclusive("agent", "original")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer s.Close()
++	s.Key = "different"
++	s.Append(UserMessageEntry("must not write"))
++	if s.PersistenceError() == nil {
++		t.Fatal("changed key retained write capability")
++	}
++}
++
++func TestWriterLeaseHelper(t *testing.T) {
++	root := os.Getenv("HARNESS_LEASE_HELPER_ROOT")
++	if root == "" {
++		return
++	}
++	s, err := NewStore(root).LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer s.Close()
++	fmt.Println("LEASE_READY")
++	io.Copy(io.Discard, os.Stdin)
++}
++
++func TestWriterLeaseRecoversAfterProcessDeath(t *testing.T) {
++	root := t.TempDir()
++	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++	defer cancel()
++	cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestWriterLeaseHelper$")
++	cmd.Env = append(os.Environ(), "HARNESS_LEASE_HELPER_ROOT="+root)
++	stdout, err := cmd.StdoutPipe()
++	if err != nil {
++		t.Fatal(err)
++	}
++	input, err := cmd.StdinPipe()
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer input.Close()
++	if err := cmd.Start(); err != nil {
++		t.Fatal(err)
++	}
++	defer func() {
++		if cmd.ProcessState == nil {
++			cmd.Process.Kill()
++			cmd.Wait()
++		}
++	}()
++	scanner := bufio.NewScanner(stdout)
++	if !scanner.Scan() || scanner.Text() != "LEASE_READY" {
++		t.Fatal("child did not acquire lease")
++	}
++	store := NewStore(root)
++	if _, err := store.LoadExclusive("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("second process acquired live writer lease", err)
++	}
++	if err := cmd.Process.Kill(); err != nil {
++		t.Fatal(err)
++	}
++	cmd.Wait()
++	recovered, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal("stale lease blocked recovery", err)
++	}
++	defer recovered.Close()
++	recovered.Append(UserMessageEntry("after process death"))
++	if err := recovered.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
+diff --git a/session/lease_unix.go b/session/lease_unix.go
+new file mode 100644
+index 0000000..ab5c2e2
+--- /dev/null
++++ b/session/lease_unix.go
+@@ -0,0 +1,25 @@
++//go:build linux || darwin
++
++package session
++
++import (
++	"errors"
++	"os"
++	"syscall"
++)
++
++const supportsWriterLease = true
++
++func openLeaseFile(path string) (*os.File, error) {
++	fd, err := syscall.Open(path, syscall.O_CREAT|syscall.O_RDWR|syscall.O_CLOEXEC|syscall.O_NOFOLLOW, 0600)
++	if err != nil {
++		return nil, err
++	}
++	return os.NewFile(uintptr(fd), path), nil
++}
++func lockLeaseFile(f *os.File) error {
++	return syscall.Flock(int(f.Fd()), syscall.LOCK_EX|syscall.LOCK_NB)
++}
++func leaseWouldBlock(err error) bool {
++	return errors.Is(err, syscall.EWOULDBLOCK) || errors.Is(err, syscall.EAGAIN)
++}
+diff --git a/session/legacy.go b/session/legacy.go
+new file mode 100644
+index 0000000..14f36df
+--- /dev/null
++++ b/session/legacy.go
+@@ -0,0 +1,206 @@
++package session
++
++import (
++	"bufio"
++	"bytes"
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"errors"
++	"fmt"
++	"io"
++	"reflect"
++)
++
++// MaxLegacyImportBytes bounds a single legacy conversion. Larger sessions need
++// an explicit migration policy instead of unbounded allocation.
++const MaxLegacyImportBytes int64 = 128 << 20
++
++const MaxLegacyImportRecords = 100000
++
++// LegacyConversion describes a deterministic conversion, not a durable import.
++// The caller must back up the original before installing the returned bytes.
++type LegacyConversion struct {
++	SourceSHA256 string
++	Records      int
++	RemappedIDs  int
++}
++
++// ConvertLegacySession validates a complete legacy log and converts the old
++// compactor's repeated nodes to unique graph IDs. It never edits the source.
++// Duplicate nodes are accepted only when content is identical and the duplicate
++// continues a compaction clone chain. Other duplicate IDs remain corruption.
++// Output preserves unknown JSON fields and all original node versions. Input
++// without duplicates is returned byte-for-byte. A truncated tail is an error;
++// recovery and migration must remain separately reported operations.
++func ConvertLegacySession(reader io.Reader) ([]byte, LegacyConversion, error) {
++	var report LegacyConversion
++	raw, err := io.ReadAll(io.LimitReader(reader, MaxLegacyImportBytes+1))
++	if err != nil {
++		return nil, report, err
++	}
++	if int64(len(raw)) > MaxLegacyImportBytes {
++		return nil, report, errors.New("legacy session exceeds import size limit")
++	}
++	digest := sha256.Sum256(raw)
++	report.SourceSHA256 = hex.EncodeToString(digest[:])
++	type record struct {
++		entry  SessionEntry
++		fields map[string]json.RawMessage
++	}
++	var records []record
++	originalIDs := make(map[string]bool)
++	r := bufio.NewReaderSize(bytes.NewReader(raw), 64<<10)
++	var offset int64
++	for lineNumber := 1; ; lineNumber++ {
++		line, final, err := readSessionRecord(r)
++		if err != nil {
++			return nil, report, &RecordError{Line: lineNumber, Offset: offset, Cause: err}
++		}
++		trimmed := bytes.TrimSpace(line)
++		if len(trimmed) > 0 {
++			entry, err := decodeSessionRecord(trimmed, final, lineNumber, offset)
++			if err != nil {
++				return nil, report, err
++			}
++			if entry.ID == "" {
++				return nil, report, errors.New("legacy entry ID is empty")
++			}
++			var fields map[string]json.RawMessage
++			if err := json.Unmarshal(trimmed, &fields); err != nil {
++				return nil, report, err
++			}
++			if len(records) >= MaxLegacyImportRecords {
++				return nil, report, errors.New("legacy session exceeds import record limit")
++			}
++			records = append(records, record{entry, fields})
++			originalIDs[entry.ID] = true
++		}
++		offset += int64(len(line))
++		if final {
++			break
++		}
++	}
++	report.Records = len(records)
++	latest := make(map[string]string)
++	first := make(map[string]record)
++	seen := make(map[string]EntryType)
++	lookup := func(id string) (EntryType, bool) { kind, ok := seen[id]; return kind, ok }
++	var output bytes.Buffer
++	encoder := json.NewEncoder(&output)
++	cloneChain := false
++	previousOriginal := ""
++	previousConverted := ""
++	for index, rec := range records {
++		entry := rec.entry
++		if entry.Type == EntryTypeHeader && index != 0 {
++			return nil, report, errors.New("session header must be the first record")
++		}
++		oldID := entry.ID
++		if entry.ParentID != "" {
++			mapped, ok := latest[entry.ParentID]
++			if !ok {
++				return nil, report, errors.New("legacy parent does not precede child")
++			}
++			entry.ParentID = mapped
++		}
++		previous, duplicate := first[oldID]
++		if duplicate {
++			// Only the historical compactor's identical-node replay is supported.
++			if !legacyContentEqual(previous.fields, rec.fields) || entry.Type == EntryTypeCompaction || entry.Type == EntryTypeSelection {
++				return nil, report, errors.New("legacy duplicate ID has conflicting content")
++			}
++			// The first clone hangs from a newly appended compaction; subsequent
++			// clones must follow the immediately preceding original node's ID.
++			if !cloneChain || entry.ParentID != previousConverted || (seen[previousConverted] != EntryTypeCompaction && rec.entry.ParentID != previousOriginal) {
++				return nil, report, errors.New("legacy duplicate is outside a compaction clone chain")
++			}
++			sum := sha256.Sum256([]byte(fmt.Sprintf("harness-legacy-node-v1\x00%s\x00%d\x00%s", report.SourceSHA256, index, oldID)))
++			entry.ID = "import_" + hex.EncodeToString(sum[:])
++			if originalIDs[entry.ID] {
++				return nil, report, errors.New("legacy generated ID collides with source")
++			}
++			report.RemappedIDs++
++		} else {
++			first[oldID] = rec
++			cloneChain = entry.Type == EntryTypeCompaction
++		}
++		if err := validateGraphNode(entry, lookup); err != nil {
++			return nil, report, err
++		}
++		latest[oldID] = entry.ID
++		seen[entry.ID] = entry.Type
++		previousOriginal = oldID
++		previousConverted = entry.ID
++		if entry.Type == EntryTypeCompaction && len(entry.Data) > 0 && string(entry.Data) != "null" {
++			var data map[string]json.RawMessage
++			if err := json.Unmarshal(entry.Data, &data); err != nil {
++				return nil, report, err
++			}
++			for _, key := range []string{"range_start_id", "range_end_id"} {
++				value, exists := data[key]
++				if !exists {
++					continue
++				}
++				var id string
++				if err := json.Unmarshal(value, &id); err != nil {
++					return nil, report, err
++				}
++				if id != "" {
++					mapped, ok := latest[id]
++					if !ok || id == oldID {
++						return nil, report, errors.New("legacy compaction range references a missing or current node")
++					}
++					data[key], _ = json.Marshal(mapped)
++				}
++			}
++			rec.fields["data"], _ = json.Marshal(data)
++		}
++		rec.fields["id"], _ = json.Marshal(entry.ID)
++		if entry.ParentID != "" {
++			rec.fields["parentId"], _ = json.Marshal(entry.ParentID)
++		}
++		if err := encoder.Encode(rec.fields); err != nil {
++			return nil, report, err
++		}
++		if int64(output.Len()) > 2*MaxLegacyImportBytes {
++			return nil, report, errors.New("converted session exceeds output size limit")
++		}
++	}
++	if report.RemappedIDs == 0 {
++		return raw, report, nil
++	}
++	// Verify the result with the strict production loader before returning it.
++	converted := output.Bytes()
++	if _, err := decodeSessionRecords(bytes.NewReader(converted)); err != nil {
++		return nil, report, fmt.Errorf("converted graph: %w", err)
++	}
++	return converted, report, nil
++}
++
++func legacyContentEqual(a, b map[string]json.RawMessage) bool {
++	// Parent links and graph IDs are the only fields historical compaction
++	// changed. Compare decoded values so whitespace in JSON is immaterial.
++	normalize := func(fields map[string]json.RawMessage) (map[string]any, error) {
++		out := make(map[string]any)
++		for key, raw := range fields {
++			if key == "id" || key == "parentId" {
++				continue
++			}
++			var value any
++			dec := json.NewDecoder(bytes.NewReader(raw))
++			dec.UseNumber()
++			if err := dec.Decode(&value); err != nil {
++				return nil, err
++			}
++			out[key] = value
++		}
++		return out, nil
++	}
++	x, err := normalize(a)
++	if err != nil {
++		return false
++	}
++	y, err := normalize(b)
++	return err == nil && reflect.DeepEqual(x, y)
++}
+diff --git a/session/legacy_test.go b/session/legacy_test.go
+new file mode 100644
+index 0000000..a5d779c
+--- /dev/null
++++ b/session/legacy_test.go
+@@ -0,0 +1,132 @@
++package session
++
++import (
++	"bytes"
++	"encoding/json"
++	"strings"
++	"testing"
++)
++
++func legacyCompactionFixture() string {
++	return strings.Join([]string{
++		`{"id":"a","type":"message","data":{"text":"root"}}`,
++		`{"id":"b","parentId":"a","type":"message","data":{"text":"kept"},"future":{"value":9007199254740993}}`,
++		`{"id":"c","parentId":"b","type":"message","data":{"text":"last"}}`,
++		`{"id":"summary","parentId":"a","type":"compaction","data":{"summary":"root summary"}}`,
++		`{"id":"b","parentId":"summary","type":"message","data":{"text":"kept"},"future":{"value":9007199254740993}}`,
++		`{"id":"c","parentId":"b","type":"message","data":{"text":"last"}}`,
++	}, "\n") + "\n"
++}
++
++func TestConvertLegacyCompactionRetainsEveryVersion(t *testing.T) {
++	raw := legacyCompactionFixture()
++	converted, report, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil {
++		t.Fatal(err)
++	}
++	if report.Records != 6 || report.RemappedIDs != 2 || len(report.SourceSHA256) != 64 {
++		t.Fatal(report)
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(converted))
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(entries) != 6 || entries[1].ID != "b" || entries[1].ParentID != "a" || entries[2].ID != "c" || entries[2].ParentID != "b" {
++		t.Fatal("original graph lost", entries)
++	}
++	if entries[4].ID == "b" || entries[4].ParentID != "summary" || entries[5].ID == "c" || entries[5].ParentID != entries[4].ID {
++		t.Fatal("clone chain not restored", entries)
++	}
++	if bytes.Count(converted, []byte(`"value":9007199254740993`)) != 2 {
++		t.Fatal("unknown fields or integer precision lost")
++	}
++	again, second, err := ConvertLegacySession(bytes.NewReader(converted))
++	if err != nil || !bytes.Equal(converted, again) || second.RemappedIDs != 0 {
++		t.Fatal("conversion not idempotent", err, second)
++	}
++	repeat, _, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil || !bytes.Equal(converted, repeat) {
++		t.Fatal("conversion not deterministic", err)
++	}
++}
++
++func TestConvertLegacyRejectsUnrelatedCorruption(t *testing.T) {
++	for name, raw := range map[string]string{
++		"self range":            `{"id":"s","type":"compaction","data":{"range_end_id":"s"}}`,
++		"conflicting duplicate": strings.Replace(legacyCompactionFixture(), `"parentId":"summary","type":"message","data":{"text":"kept"}`, `"parentId":"summary","type":"message","data":{"text":"changed"}`, 1),
++		"unrelated duplicate":   `{"id":"a","type":"message"}` + "\n" + `{"id":"a","type":"message"}`,
++		"missing parent":        `{"id":"a","parentId":"missing"}`,
++		"tail":                  legacyCompactionFixture() + `{"id":`,
++		"interior":              "not json\n" + legacyCompactionFixture(),
++		"future selection":      `{"id":"a"}` + "\n" + `{"id":"s","parentId":"a","type":"selection","data":{"version":2}}`,
++	} {
++		t.Run(name, func(t *testing.T) {
++			out, _, err := ConvertLegacySession(strings.NewReader(raw))
++			if err == nil || out != nil {
++				t.Fatal("corrupt legacy log accepted")
++			}
++		})
++	}
++}
++
++func TestConvertValidLegacyPreservesExactBytes(t *testing.T) {
++	raw := "\n  " + `{"id":"a", "future": true}` + " \n"
++	out, report, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil || string(out) != raw || report.RemappedIDs != 0 {
++		t.Fatal("valid log changed", err)
++	}
++}
++
++func FuzzLegacyConversion(f *testing.F) {
++	for _, seed := range []string{legacyCompactionFixture(), `{"id":"a"}`, `{"id":`, "null\n"} {
++		f.Add([]byte(seed))
++	}
++	f.Fuzz(func(t *testing.T, raw []byte) {
++		out, report, err := ConvertLegacySession(bytes.NewReader(raw))
++		if err != nil {
++			if out != nil {
++				t.Fatal("failed conversion returned output")
++			}
++			return
++		}
++		entries, err := decodeSessionRecords(bytes.NewReader(out))
++		if err != nil || len(entries) != report.Records {
++			t.Fatal("converter produced invalid graph", err)
++		}
++		second, r, err := ConvertLegacySession(bytes.NewReader(out))
++		if err != nil || !bytes.Equal(second, out) || r.RemappedIDs != 0 {
++			t.Fatal("conversion not idempotent", err)
++		}
++		for _, entry := range entries {
++			if len(entry.Data) > 0 && !json.Valid(entry.Data) {
++				t.Fatal("invalid data")
++			}
++		}
++	})
++}
++
++func TestLegacyConversionRemapsCompactionRanges(t *testing.T) {
++	raw := legacyCompactionFixture() + `{"id":"summary2","parentId":"c","type":"compaction","data":{"summary":"second","range_start_id":"b","range_end_id":"c","unknown":true}}` + "\n"
++	out, _, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil {
++		t.Fatal(err)
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(out))
++	if err != nil {
++		t.Fatal(err)
++	}
++	var data map[string]any
++	if err := json.Unmarshal(entries[6].Data, &data); err != nil {
++		t.Fatal(err)
++	}
++	if data["range_start_id"] != entries[4].ID || data["range_end_id"] != entries[5].ID || data["unknown"] != true {
++		t.Fatal("compaction provenance references wrong versions", data)
++	}
++}
++
++func TestLegacyConversionRecordLimit(t *testing.T) {
++	out, _, err := ConvertLegacySession(strings.NewReader(strings.Repeat("{\"id\":\"a\"}\n", MaxLegacyImportRecords+1)))
++	if err == nil || out != nil || !strings.Contains(err.Error(), "record limit") {
++		t.Fatal("record cap not enforced", err)
++	}
++}
+diff --git a/session/migration.go b/session/migration.go
+new file mode 100644
+index 0000000..dfbedef
+--- /dev/null
++++ b/session/migration.go
+@@ -0,0 +1,156 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"encoding/json"
++	"errors"
++	"io"
++	"os"
++	"path/filepath"
++)
++
++type MigrationReport struct {
++	LegacyConversion
++	FormatUpgraded bool
++	BackupPath     string
++	Migrated       bool // replacement occurred; a later sync error still requires reconciliation
++}
++
++// MigrateLegacy converts historical duplicate-ID compaction logs in place,
++// holding the lifetime writer lease. It preserves a private, synced original
++// backup before atomic replacement. Legacy logs receive a versioned identity header. Already-versioned valid logs remain byte-identical.
++// The returned session owns the lease until Close. This is a log-format
++// migration primitive, not a workspace/session catalogue importer.
++func (s *Store) MigrateLegacy(ctx context.Context, agentID, key string) (*Session, MigrationReport, error) {
++	return s.migrateLegacy(ctx, agentID, key, syncRecoveryDirectory)
++}
++
++func (s *Store) migrateLegacy(ctx context.Context, agentID, key string, syncDirectory func(string) error) (*Session, MigrationReport, error) {
++	var report MigrationReport
++	if err := ctx.Err(); err != nil {
++		return nil, report, err
++	}
++	lease, err := s.acquireLease(agentID, key)
++	if err != nil {
++		return nil, report, err
++	}
++	keep := false
++	defer func() {
++		if !keep {
++			lease.close()
++		}
++	}()
++	path := s.sessionPath(agentID, key)
++	info, err := os.Lstat(path)
++	if err != nil {
++		return nil, report, err
++	}
++	if !info.Mode().IsRegular() {
++		return nil, report, errors.New("migration requires a regular session file")
++	}
++	source, err := os.Open(path)
++	if err != nil {
++		return nil, report, err
++	}
++	raw, err := io.ReadAll(io.LimitReader(&recoveryReader{ctx: ctx, reader: source}, MaxLegacyImportBytes+1))
++	err = errors.Join(err, source.Close())
++	if err != nil {
++		return nil, report, err
++	}
++	if int64(len(raw)) > MaxLegacyImportBytes {
++		return nil, report, errors.New("legacy session exceeds import size limit")
++	}
++	converted, conversion, err := ConvertLegacySession(&recoveryReader{ctx: ctx, reader: bytes.NewReader(raw)})
++	report.LegacyConversion = conversion
++	if err != nil {
++		return nil, report, err
++	}
++	if err := ctx.Err(); err != nil {
++		return nil, report, err
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(converted))
++	if err != nil {
++		return nil, report, err
++	}
++	if len(entries) == 0 || entries[0].Type != EntryTypeHeader {
++		header := NewSession(agentID, key).header
++		if len(entries) > 0 && entries[0].Timestamp > 0 {
++			header.Timestamp = entries[0].Timestamp
++		} else {
++			header.Timestamp = info.ModTime().Unix()
++		}
++		encoded, err := json.Marshal(header)
++		if err != nil {
++			return nil, report, err
++		}
++		converted = append(append(encoded, '\n'), converted...)
++		if _, err := decodeSessionRecords(bytes.NewReader(converted)); err != nil {
++			return nil, report, err
++		}
++		report.FormatUpgraded = true
++	}
++	if conversion.RemappedIDs > 0 || report.FormatUpgraded {
++		dir := filepath.Dir(path)
++		backup, err := writeMigrationFile(ctx, dir, "."+key+".migration-backup-*", raw)
++		if err != nil {
++			return nil, report, err
++		}
++		if err := syncDirectory(dir); err != nil {
++			os.Remove(backup)
++			return nil, report, err
++		}
++		report.BackupPath = backup
++		replacement, err := writeMigrationFile(ctx, dir, "."+key+".migration-replace-*", converted)
++		if err != nil {
++			return nil, report, err
++		}
++		defer os.Remove(replacement)
++		if err := ctx.Err(); err != nil {
++			return nil, report, err
++		}
++		if err := os.Rename(replacement, path); err != nil {
++			return nil, report, err
++		}
++		report.Migrated = true
++		if err := syncDirectory(dir); err != nil {
++			return nil, report, err
++		}
++	}
++	sess, err := s.loadContext(ctx, agentID, key)
++	if err != nil {
++		return nil, report, err
++	}
++	sess.lease = lease
++	keep = true
++	return sess, report, nil
++}
++
++func writeMigrationFile(ctx context.Context, dir, pattern string, raw []byte) (string, error) {
++	if err := ctx.Err(); err != nil {
++		return "", err
++	}
++	file, err := os.CreateTemp(dir, pattern)
++	if err != nil {
++		return "", err
++	}
++	path := file.Name()
++	complete := false
++	defer func() {
++		file.Close()
++		if !complete {
++			os.Remove(path)
++		}
++	}()
++	if _, err := io.Copy(file, &recoveryReader{ctx: ctx, reader: bytes.NewReader(raw)}); err != nil {
++		return "", err
++	}
++	if err := file.Sync(); err != nil {
++		return "", err
++	}
++	if err := file.Close(); err != nil {
++		return "", err
++	}
++	complete = true
++	return path, nil
++}
+diff --git a/session/migration_process_test.go b/session/migration_process_test.go
+new file mode 100644
+index 0000000..4178177
+--- /dev/null
++++ b/session/migration_process_test.go
+@@ -0,0 +1,130 @@
++package session
++
++import (
++	"bufio"
++	"bytes"
++	"context"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strconv"
++	"strings"
++	"testing"
++	"time"
++)
++
++func TestMigrationProcessHelper(t *testing.T) {
++	root := os.Getenv("HARNESS_MIGRATION_HELPER_ROOT")
++	if root == "" {
++		return
++	}
++	stage, err := strconv.Atoi(os.Getenv("HARNESS_MIGRATION_HELPER_STAGE"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	calls := 0
++	sess, _, err := NewStore(root).migrateLegacy(context.Background(), "agent", "key", func(dir string) error {
++		if err := syncRecoveryDirectory(dir); err != nil {
++			return err
++		}
++		calls++
++		if calls == stage {
++			fmt.Println("MIGRATION_READY")
++			io.Copy(io.Discard, os.Stdin)
++		}
++		return nil
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	sess.Close()
++}
++
++func TestMigrationSurvivesProcessDeath(t *testing.T) {
++	original := legacyCompactionFixture()
++	converted, _, err := ConvertLegacySession(strings.NewReader(original))
++	if err != nil {
++		t.Fatal(err)
++	}
++	prefix := string(converted)
++	for _, stage := range []int{1, 2} {
++		t.Run(strconv.Itoa(stage), func(t *testing.T) {
++			store, path := recoveryFixture(t, original)
++			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++			defer cancel()
++			cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestMigrationProcessHelper$")
++			cmd.Env = append(os.Environ(), "HARNESS_MIGRATION_HELPER_ROOT="+store.baseDir, "HARNESS_MIGRATION_HELPER_STAGE="+strconv.Itoa(stage))
++			stdout, err := cmd.StdoutPipe()
++			if err != nil {
++				t.Fatal(err)
++			}
++			input, err := cmd.StdinPipe()
++			if err != nil {
++				t.Fatal(err)
++			}
++			defer input.Close()
++			if err := cmd.Start(); err != nil {
++				t.Fatal(err)
++			}
++			defer func() {
++				if cmd.ProcessState == nil {
++					cmd.Process.Kill()
++					cmd.Wait()
++				}
++			}()
++			scanner := bufio.NewScanner(stdout)
++			if !scanner.Scan() || scanner.Text() != "MIGRATION_READY" {
++				t.Fatal("child did not reach durability boundary")
++			}
++			if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); !errors.Is(err, ErrSessionBusy) {
++				t.Fatal("live repair bypassed", err)
++			}
++			if err := cmd.Process.Kill(); err != nil {
++				t.Fatal(err)
++			}
++			cmd.Wait()
++			raw, err := os.ReadFile(path)
++			expected := original
++			if stage == 2 {
++				expected = prefix
++			}
++			if stage == 2 {
++				entries, decodeErr := decodeSessionRecords(bytes.NewReader(raw))
++				if decodeErr != nil || len(entries) != 7 || entries[0].Type != EntryTypeHeader {
++					t.Fatal("missing durable format header", decodeErr)
++				}
++				raw = raw[bytes.IndexByte(raw, '\n')+1:]
++			}
++			if err != nil || string(raw) != expected {
++				t.Fatal("process death left partial replacement", err)
++			}
++			backups, err := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.migration-backup-*"))
++			if err != nil || len(backups) != 1 {
++				t.Fatal("backup missing after death", backups, err)
++			}
++			backup, err := os.ReadFile(backups[0])
++			if err != nil || string(backup) != original {
++				t.Fatal("backup corrupted after death", err)
++			}
++			sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++			if err != nil {
++				t.Fatal("restart failed", err)
++			}
++			defer sess.Close()
++			if report.Migrated != (stage == 1) || len(sess.Entries()) != 6 {
++				t.Fatal("restart wrong repair", report)
++			}
++			sess.Append(UserMessageEntry("after restart"))
++			if err := sess.Flush(); err != nil {
++				t.Fatal(err)
++			}
++			loaded, err := store.Load("agent", "key")
++			if err != nil || len(loaded.Entries()) != 7 {
++				t.Fatal("restart not writable", err)
++			}
++		})
++	}
++}
+diff --git a/session/migration_test.go b/session/migration_test.go
+new file mode 100644
+index 0000000..b339f07
+--- /dev/null
++++ b/session/migration_test.go
+@@ -0,0 +1,119 @@
++package session
++
++import (
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func TestLegacyMigrationBackupRestartAndIdempotence(t *testing.T) {
++	original := legacyCompactionFixture()
++	store, path := recoveryFixture(t, original)
++	sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	if !report.Migrated || report.RemappedIDs != 2 || report.BackupPath == "" {
++		t.Fatal(report)
++	}
++	backup, err := os.ReadFile(report.BackupPath)
++	if err != nil || string(backup) != original {
++		t.Fatal("original backup differs", err)
++	}
++	for _, p := range []string{path, report.BackupPath} {
++		info, err := os.Stat(p)
++		if err != nil || info.Mode().Perm() != 0600 {
++			t.Fatal("migration files not private", err)
++		}
++	}
++	if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("migration bypassed writer", err)
++	}
++	if len(sess.View()) != 3 || sess.View()[0].Type != EntryTypeCompaction {
++		t.Fatal("migrated view wrong", sess.View())
++	}
++	if err := sess.Branch("c"); err != nil || len(sess.History()) != 3 {
++		t.Fatal("original branch unavailable", err)
++	}
++	sess.Close()
++	before, _ := os.ReadFile(path)
++	resumed, again, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer resumed.Close()
++	after, _ := os.ReadFile(path)
++	if again.Migrated || again.BackupPath != "" || string(before) != string(after) || resumed.LeafID() != "c" {
++		t.Fatal("repeat migration changed data", again)
++	}
++	backups, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.migration-backup-*"))
++	if len(backups) != 1 {
++		t.Fatal("repeat migration duplicated backup")
++	}
++	resumed.Append(UserMessageEntry("after migration"))
++	if err := resumed.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
++
++func TestLegacyMigrationFailureBoundaries(t *testing.T) {
++	original := legacyCompactionFixture()
++	failure := errors.New("injected migration directory sync failure")
++	for _, stage := range []int{1, 2} {
++		store, path := recoveryFixture(t, original)
++		calls := 0
++		sess, report, err := store.migrateLegacy(context.Background(), "agent", "key", func(dir string) error {
++			calls++
++			if calls == stage {
++				return failure
++			}
++			return syncRecoveryDirectory(dir)
++		})
++		if sess != nil || !errors.Is(err, failure) {
++			t.Fatal("migration failure hidden", err)
++		}
++		raw, _ := os.ReadFile(path)
++		if stage == 1 {
++			if string(raw) != original || report.Migrated || report.BackupPath != "" {
++				t.Fatal("changed before durable backup")
++			}
++		} else {
++			if !report.Migrated || report.BackupPath == "" {
++				t.Fatal("post-replace failure misreported")
++			}
++			backup, _ := os.ReadFile(report.BackupPath)
++			if string(backup) != original {
++				t.Fatal("backup lost")
++			}
++		}
++		lease, err := store.acquireLease("agent", "key")
++		if err != nil {
++			t.Fatal("failure leaked lease", err)
++		}
++		lease.close()
++	}
++}
++
++func TestLegacyMigrationCancelledAfterBackup(t *testing.T) {
++	original := legacyCompactionFixture()
++	store, path := recoveryFixture(t, original)
++	ctx, cancel := context.WithCancel(context.Background())
++	defer cancel()
++	sess, report, err := store.migrateLegacy(ctx, "agent", "key", func(dir string) error { err := syncRecoveryDirectory(dir); cancel(); return err })
++	if sess != nil || !errors.Is(err, context.Canceled) || report.Migrated || report.BackupPath == "" {
++		t.Fatal("cancelled migration outcome", err, report)
++	}
++	for _, p := range []string{path, report.BackupPath} {
++		raw, _ := os.ReadFile(p)
++		if string(raw) != original {
++			t.Fatal("cancelled migration lost original")
++		}
++	}
++	temps, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.migration-replace-*"))
++	if len(temps) != 0 {
++		t.Fatal("temporary file leaked")
++	}
++}
+diff --git a/session/persistence.go b/session/persistence.go
+new file mode 100644
+index 0000000..03cde69
+--- /dev/null
++++ b/session/persistence.go
+@@ -0,0 +1,79 @@
++package session
++
++import (
++	"fmt"
++	"os"
++)
++
++type persistenceFailure struct{ err error }
++
++// PersistenceError returns the first failure for this in-memory session. It is
++// sticky: a later successful write cannot restore entries already lost. Recovery
++// requires reconciling durable state and opening a new session instance.
++func (s *Session) PersistenceError() error {
++	if failure := s.persistenceFailure.Load(); failure != nil {
++		return failure.err
++	}
++	return nil
++}
++func (store *Store) recordPersistenceFailure(s *Session, reason string, err error) {
++	if err == nil {
++		return
++	}
++	s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("session persistence %s: %w", reason, err)})
++	store.markDegraded(reason, err)
++}
++
++// Flush synchronizes the session file and its containing directory, surfacing
++// write/close/sync failures. Call after joining append/compaction workers; Flush
++// does not claim to join concurrent producers. In-memory sessions need no I/O.
++// This does not implement writer leases, branch recovery or migration.
++func (s *Session) Flush() error {
++	if err := s.PersistenceError(); err != nil {
++		return err
++	}
++	if s.store == nil {
++		return nil
++	}
++	store := s.store
++	store.mu.Lock()
++	defer store.mu.Unlock()
++	release, err := store.writeLease(s)
++	if err != nil {
++		store.recordPersistenceFailure(s, "acquire sync lease", err)
++		return s.PersistenceError()
++	}
++	defer release()
++	fail := func(reason string, err error) error {
++		store.recordPersistenceFailure(s, reason, err)
++		return s.PersistenceError()
++	}
++	if err := validateStoreIDs(s.AgentID, s.Key); err != nil {
++		return fail("invalid session path", err)
++	}
++	f, err := os.OpenFile(store.sessionPath(s.AgentID, s.Key), os.O_WRONLY, 0)
++	if err != nil {
++		return fail("open for sync", err)
++	}
++	syncErr := f.Sync()
++	closeErr := f.Close()
++	if syncErr != nil {
++		return fail("sync session file", syncErr)
++	}
++	if closeErr != nil {
++		return fail("close synced session", closeErr)
++	}
++	dir, err := os.Open(store.sessionDir(s.AgentID))
++	if err != nil {
++		return fail("open session directory", err)
++	}
++	syncErr = dir.Sync()
++	closeErr = dir.Close()
++	if syncErr != nil {
++		return fail("sync session directory", syncErr)
++	}
++	if closeErr != nil {
++		return fail("close session directory", closeErr)
++	}
++	return s.PersistenceError()
++}
+diff --git a/session/persistence_test.go b/session/persistence_test.go
+new file mode 100644
+index 0000000..7039520
+--- /dev/null
++++ b/session/persistence_test.go
+@@ -0,0 +1,79 @@
++package session
++
++import (
++	"encoding/json"
++	"os"
++	"path/filepath"
++	"sync"
++	"testing"
++)
++
++func TestPersistenceErrorIsStickyAndSessionScoped(t *testing.T) {
++	root := filepath.Join(t.TempDir(), "store")
++	if err := os.WriteFile(root, []byte("obstruction"), 0600); err != nil {
++		t.Fatal(err)
++	}
++	store := NewStore(root)
++	broken := NewSession("agent", "broken")
++	broken.SetStore(store)
++	broken.Append(UserMessageEntry("cannot persist"))
++	first := broken.PersistenceError()
++	if first == nil {
++		t.Fatal("append failure hidden")
++	}
++	if err := os.Remove(root); err != nil {
++		t.Fatal(err)
++	}
++	healthy := NewSession("agent", "healthy")
++	healthy.SetStore(store)
++	healthy.Append(UserMessageEntry("retained"))
++	if err := healthy.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	broken.Append(UserMessageEntry("later write works"))
++	if broken.PersistenceError() != first || broken.Flush() != first {
++		t.Fatal("later write erased degraded state")
++	}
++	loaded, err := store.Load("agent", "healthy")
++	if err != nil || len(loaded.Entries()) != 1 || loaded.PersistenceError() != nil {
++		t.Fatal(loaded, err)
++	}
++}
++
++func TestPersistenceCapturesMarshalAndFlushFailures(t *testing.T) {
++	s := NewSession("agent", "invalid")
++	s.SetStore(NewStore(t.TempDir()))
++	s.Append(SessionEntry{Type: EntryTypeMessage, Data: json.RawMessage(`invalid-json`)})
++	if s.PersistenceError() == nil {
++		t.Fatal("marshal failure hidden")
++	}
++	missing := NewSession("agent", "missing")
++	missing.SetStore(NewStore(t.TempDir()))
++	if missing.Flush() == nil || missing.PersistenceError() == nil {
++		t.Fatal("missing file sync accepted")
++	}
++	if err := NewSession("agent", "memory").Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
++
++func TestPersistenceErrorConcurrentReaders(t *testing.T) {
++	store := NewStore(filepath.Join(t.TempDir(), "missing-parent", "store"))
++	s := NewSession("agent", "session")
++	s.SetStore(store)
++	var wg sync.WaitGroup
++	for i := 0; i < 8; i++ {
++		wg.Add(1)
++		go func() {
++			defer wg.Done()
++			for j := 0; j < 20; j++ {
++				s.PersistenceError()
++			}
++		}()
++	}
++	s.Append(UserMessageEntry("saved"))
++	wg.Wait()
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
+diff --git a/session/records.go b/session/records.go
+new file mode 100644
+index 0000000..10a3a8a
+--- /dev/null
++++ b/session/records.go
+@@ -0,0 +1,103 @@
++package session
++
++import (
++	"bufio"
++	"bytes"
++	"encoding/json"
++	"errors"
++	"fmt"
++	"io"
++	"unicode/utf8"
++)
++
++const MaxSessionRecordBytes = 10 << 20
++
++var ErrSessionRecordTooLarge = errors.New("session record exceeds size limit")
++
++// RecordError locates corruption without including session content in the
++// message. Only an unfinished JSON object at physical EOF is a candidate for
++// tail recovery; newline-terminated or interior corruption must be rejected.
++type RecordError struct {
++	Line            int
++	Offset          int64
++	RecoverableTail bool
++	Cause           error
++}
++
++func (e *RecordError) Error() string {
++	return fmt.Sprintf("invalid session record at line %d, byte %d (recoverable tail: %t): %v", e.Line, e.Offset, e.RecoverableTail, e.Cause)
++}
++func (e *RecordError) Unwrap() error { return e.Cause }
++
++func readSessionRecord(r *bufio.Reader) ([]byte, bool, error) {
++	var record []byte
++	for {
++		part, err := r.ReadSlice('\n')
++		if len(record)+len(part) > MaxSessionRecordBytes {
++			return nil, false, ErrSessionRecordTooLarge
++		}
++		record = append(record, part...)
++		if err == bufio.ErrBufferFull {
++			continue
++		}
++		if err == io.EOF {
++			return record, true, nil
++		}
++		return record, false, err
++	}
++}
++
++func decodeSessionRecords(reader io.Reader) ([]SessionEntry, error) {
++	r := bufio.NewReaderSize(reader, 64<<10)
++	var entries []SessionEntry
++	seen := make(map[string]EntryType)
++	lookup := func(id string) (EntryType, bool) { kind, ok := seen[id]; return kind, ok }
++	var offset int64
++	for number := 1; ; number++ {
++		line, final, err := readSessionRecord(r)
++		if err != nil {
++			return nil, &RecordError{Line: number, Offset: offset, Cause: err}
++		}
++		trimmed := bytes.TrimSpace(line)
++		if len(trimmed) > 0 {
++			entry, err := decodeSessionRecord(trimmed, final, number, offset)
++			if err != nil {
++				return nil, err
++			}
++			if entry.Type == EntryTypeHeader && len(entries) != 0 {
++				return nil, &RecordError{Line: number, Offset: offset, Cause: errors.New("session header must be the first record")}
++			}
++			if err := validateGraphNode(entry, lookup); err != nil {
++				return nil, &RecordError{Line: number, Offset: offset, Cause: err}
++			}
++			seen[entry.ID] = entry.Type
++			entries = append(entries, entry)
++		}
++		offset += int64(len(line))
++		if final {
++			return entries, nil
++		}
++	}
++}
++
++// decodeSessionRecord validates one nonblank record without graph assumptions.
++func decodeSessionRecord(trimmed []byte, final bool, number int, offset int64) (SessionEntry, error) {
++	entry := SessionEntry{}
++	decoder := json.NewDecoder(bytes.NewReader(trimmed))
++	err := decoder.Decode(&entry)
++	if !utf8.Valid(trimmed) {
++		err = errors.New("record is not valid UTF-8")
++	}
++	if err != nil {
++		return SessionEntry{}, &RecordError{Line: number, Offset: offset, RecoverableTail: final && trimmed[0] == '{' && errors.Is(err, io.ErrUnexpectedEOF), Cause: err}
++	}
++	if trimmed[0] != '{' {
++		return SessionEntry{}, &RecordError{Line: number, Offset: offset, Cause: errors.New("record must be a JSON object")}
++	}
++	var extra any
++	if err := decoder.Decode(&extra); err != io.EOF {
++		return SessionEntry{}, &RecordError{Line: number, Offset: offset, Cause: errors.New("record contains trailing JSON data")}
++	}
++
++	return entry, nil
++}
+diff --git a/session/records_test.go b/session/records_test.go
+new file mode 100644
+index 0000000..a311a06
+--- /dev/null
++++ b/session/records_test.go
+@@ -0,0 +1,107 @@
++package session
++
++import (
++	"bytes"
++	"errors"
++	"io"
++	"os"
++	"path/filepath"
++	"strings"
++	"testing"
++	"unicode/utf8"
++)
++
++func TestSessionRecordErrorsDistinguishTailFromInterior(t *testing.T) {
++	prefix := `{"id":"first","type":"message","data":{"text":"retained"}}` + "\n"
++	cases := []struct {
++		name, body string
++		tail       bool
++		line       int
++		offset     int64
++	}{
++		{"unfinished tail", prefix + `{"id":"second","data":`, true, 2, int64(len(prefix))},
++		{"unfinished interior", prefix + `{"id":` + "\n" + prefix, false, 2, int64(len(prefix))},
++		{"terminated corrupt tail", prefix + `{"id":` + "\n", false, 2, int64(len(prefix))},
++		{"invalid tail", prefix + `not JSON`, false, 2, int64(len(prefix))},
++		{"trailing object", prefix + `{} {}`, false, 2, int64(len(prefix))},
++		{"null record", `null`, false, 1, 0},
++		{"oversized", strings.Repeat("x", MaxSessionRecordBytes+1), false, 1, 0},
++	}
++	for _, tc := range cases {
++		t.Run(tc.name, func(t *testing.T) {
++			root := t.TempDir()
++			dir := filepath.Join(root, "agent")
++			if err := os.MkdirAll(dir, 0700); err != nil {
++				t.Fatal(err)
++			}
++			path := filepath.Join(dir, "key.jsonl")
++			if err := os.WriteFile(path, []byte(tc.body), 0600); err != nil {
++				t.Fatal(err)
++			}
++			sess, err := NewStore(root).Load("agent", "key")
++			var record *RecordError
++			if sess != nil || !errors.As(err, &record) || record.RecoverableTail != tc.tail || record.Line != tc.line || record.Offset != tc.offset {
++				t.Fatalf("wrong corruption classification: %v", err)
++			}
++			raw, _ := os.ReadFile(path)
++			if string(raw) != tc.body {
++				t.Fatal("read silently modified session")
++			}
++		})
++	}
++}
++
++func TestCompleteFinalRecordWithoutNewlineLoads(t *testing.T) {
++	entries, err := decodeSessionRecords(strings.NewReader("\n" + `{"id":"first","type":"message"}`))
++	if err != nil || len(entries) != 1 || entries[0].ID != "first" {
++		t.Fatal(entries, err)
++	}
++}
++
++func TestAppendDelimitsCompleteUnterminatedRecord(t *testing.T) {
++	root := t.TempDir()
++	dir := filepath.Join(root, "agent")
++	if err := os.MkdirAll(dir, 0700); err != nil {
++		t.Fatal(err)
++	}
++	path := filepath.Join(dir, "key.jsonl")
++	if err := os.WriteFile(path, []byte(`{"id":"first","type":"message"}`), 0600); err != nil {
++		t.Fatal(err)
++	}
++	store := NewStore(root)
++	s, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	s.Append(UserMessageEntry("next"))
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	s.Close()
++	loaded, err := store.Load("agent", "key")
++	if err != nil || len(loaded.Entries()) != 2 {
++		t.Fatal("append corrupted unterminated final record", err)
++	}
++}
++
++func FuzzSessionRecords(f *testing.F) {
++	for _, seed := range []string{`{"id":"entry","type":"message"}` + "\n", `{"id":`, "null\n", `{} {}`, "\xff"} {
++		f.Add([]byte(seed))
++	}
++	f.Fuzz(func(t *testing.T, raw []byte) {
++		_, err := decodeSessionRecords(bytes.NewReader(raw))
++		if err == nil {
++			return
++		}
++		var record *RecordError
++		if !errors.As(err, &record) || record.Offset < 0 || record.Offset > int64(len(raw)) || record.Line < 1 {
++			t.Fatal("invalid error location", err)
++		}
++		if record.RecoverableTail {
++			tail := raw[record.Offset:]
++			if bytes.Contains(tail, []byte{'\n'}) || !errors.Is(record.Cause, io.ErrUnexpectedEOF) || !utf8.Valid(tail) {
++				t.Fatal("non-tail corruption classified recoverable", err)
++			}
++		}
++	})
++}
+diff --git a/session/recovery.go b/session/recovery.go
+new file mode 100644
+index 0000000..6e7db89
+--- /dev/null
++++ b/session/recovery.go
+@@ -0,0 +1,173 @@
++package session
++
++import (
++	"context"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"path/filepath"
++)
++
++// RecoveryReport describes a repair. BackupPath is populated as soon as the
++// complete original is durably backed up, including when a later step fails.
++// Repaired means the atomic replacement occurred; a later sync error still
++// returns an error and must not be treated as successful durable recovery.
++type RecoveryReport struct {
++	BackupPath   string
++	DroppedBytes int64
++	Repaired     bool
++}
++
++// LoadRecovering holds an exclusive writer lease while validating and, only
++// for an incomplete final JSON object, repairing the session. Valid records
++// are preserved byte for byte, including unknown fields. The original is
++// synced to a private backup before replacement. The caller owns the returned
++// session's lease and must Close it. Ordinary Load never performs repairs.
++func (s *Store) LoadRecovering(ctx context.Context, agentID, key string) (*Session, RecoveryReport, error) {
++	return s.loadRecovering(ctx, agentID, key, syncRecoveryDirectory)
++}
++
++func (s *Store) loadRecovering(ctx context.Context, agentID, key string, syncDirectory func(string) error) (*Session, RecoveryReport, error) {
++	var report RecoveryReport
++	if err := ctx.Err(); err != nil {
++		return nil, report, err
++	}
++	lease, err := s.acquireLease(agentID, key)
++	if err != nil {
++		return nil, report, err
++	}
++	keep := false
++	defer func() {
++		if !keep {
++			lease.close()
++		}
++	}()
++	path := s.sessionPath(agentID, key)
++	info, err := os.Lstat(path)
++	if err != nil && !os.IsNotExist(err) {
++		return nil, report, err
++	}
++	if err == nil && !info.Mode().IsRegular() {
++		return nil, report, errors.New("recovery requires a regular session file")
++	}
++	sess, err := s.loadContext(ctx, agentID, key)
++	if err == nil {
++		if err = ctx.Err(); err != nil {
++			return nil, report, err
++		}
++		sess.lease = lease
++		keep = true
++		return sess, report, nil
++	}
++	var record *RecordError
++	if !errors.As(err, &record) || !record.RecoverableTail {
++		return nil, report, err
++	}
++	source, err := os.Open(path)
++	if err != nil {
++		return nil, report, err
++	}
++	defer source.Close()
++	// Validate again on the descriptor which will be backed up and copied.
++	_, err = decodeSessionRecords(&recoveryReader{ctx: ctx, reader: source})
++	if !errors.As(err, &record) || !record.RecoverableTail {
++		if err == nil {
++			err = errors.New("source is no longer an incomplete tail")
++		}
++		return nil, report, fmt.Errorf("revalidate recovery source: %w", err)
++	}
++	size, err := source.Stat()
++	if err != nil {
++		return nil, report, err
++	}
++	report.DroppedBytes = size.Size() - record.Offset
++	if report.DroppedBytes <= 0 {
++		return nil, report, errors.New("recovery source changed during validation")
++	}
++	dir := filepath.Dir(path)
++	backup, err := os.CreateTemp(dir, "."+key+".recovery-backup-*")
++	if err != nil {
++		return nil, report, err
++	}
++	backupPath := backup.Name()
++	backupComplete := false
++	defer func() {
++		backup.Close()
++		if !backupComplete {
++			os.Remove(backupPath)
++		}
++	}()
++	if _, err = source.Seek(0, io.SeekStart); err != nil {
++		return nil, report, err
++	}
++	if _, err = io.Copy(backup, &recoveryReader{ctx: ctx, reader: source}); err != nil {
++		return nil, report, err
++	}
++	if err = backup.Sync(); err != nil {
++		return nil, report, err
++	}
++	if err = backup.Close(); err != nil {
++		return nil, report, err
++	}
++	if err = syncDirectory(dir); err != nil {
++		return nil, report, err
++	}
++	backupComplete = true
++	report.BackupPath = backupPath
++	replacement, err := os.CreateTemp(dir, "."+key+".recovery-replace-*")
++	if err != nil {
++		return nil, report, err
++	}
++	defer func() { replacement.Close(); os.Remove(replacement.Name()) }()
++	if _, err = source.Seek(0, io.SeekStart); err != nil {
++		return nil, report, err
++	}
++	if _, err = io.CopyN(replacement, &recoveryReader{ctx: ctx, reader: source}, record.Offset); err != nil {
++		return nil, report, err
++	}
++	if err = replacement.Sync(); err != nil {
++		return nil, report, err
++	}
++	if err = replacement.Close(); err != nil {
++		return nil, report, err
++	}
++	if err = ctx.Err(); err != nil {
++		return nil, report, err
++	}
++	if err = os.Rename(replacement.Name(), path); err != nil {
++		return nil, report, err
++	}
++	report.Repaired = true
++	if err = syncDirectory(dir); err != nil {
++		return nil, report, err
++	}
++	sess, err = s.Load(agentID, key)
++	if err != nil {
++		return nil, report, err
++	}
++	sess.lease = lease
++	keep = true
++	return sess, report, nil
++}
++
++func syncRecoveryDirectory(path string) error {
++	dir, err := os.Open(path)
++	if err != nil {
++		return err
++	}
++	err = dir.Sync()
++	return errors.Join(err, dir.Close())
++}
++
++type recoveryReader struct {
++	ctx    context.Context
++	reader io.Reader
++}
++
++func (r *recoveryReader) Read(p []byte) (int, error) {
++	if err := r.ctx.Err(); err != nil {
++		return 0, err
++	}
++	return r.reader.Read(p)
++}
+diff --git a/session/recovery_process_test.go b/session/recovery_process_test.go
+new file mode 100644
+index 0000000..ed59c9c
+--- /dev/null
++++ b/session/recovery_process_test.go
+@@ -0,0 +1,117 @@
++package session
++
++import (
++	"bufio"
++	"context"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strconv"
++	"testing"
++	"time"
++)
++
++func TestRecoveryProcessHelper(t *testing.T) {
++	root := os.Getenv("HARNESS_RECOVERY_HELPER_ROOT")
++	if root == "" {
++		return
++	}
++	stage, err := strconv.Atoi(os.Getenv("HARNESS_RECOVERY_HELPER_STAGE"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	calls := 0
++	sess, _, err := NewStore(root).loadRecovering(context.Background(), "agent", "key", func(dir string) error {
++		if err := syncRecoveryDirectory(dir); err != nil {
++			return err
++		}
++		calls++
++		if calls == stage {
++			fmt.Println("RECOVERY_READY")
++			io.Copy(io.Discard, os.Stdin)
++		}
++		return nil
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	sess.Close()
++}
++
++func TestRecoverySurvivesProcessDeath(t *testing.T) {
++	prefix := `{"id":"retained","future":true}` + "\n"
++	original := prefix + `{"id":`
++	for _, stage := range []int{1, 2} {
++		t.Run(strconv.Itoa(stage), func(t *testing.T) {
++			store, path := recoveryFixture(t, original)
++			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++			defer cancel()
++			cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestRecoveryProcessHelper$")
++			cmd.Env = append(os.Environ(), "HARNESS_RECOVERY_HELPER_ROOT="+store.baseDir, "HARNESS_RECOVERY_HELPER_STAGE="+strconv.Itoa(stage))
++			stdout, err := cmd.StdoutPipe()
++			if err != nil {
++				t.Fatal(err)
++			}
++			input, err := cmd.StdinPipe()
++			if err != nil {
++				t.Fatal(err)
++			}
++			defer input.Close()
++			if err := cmd.Start(); err != nil {
++				t.Fatal(err)
++			}
++			defer func() {
++				if cmd.ProcessState == nil {
++					cmd.Process.Kill()
++					cmd.Wait()
++				}
++			}()
++			scanner := bufio.NewScanner(stdout)
++			if !scanner.Scan() || scanner.Text() != "RECOVERY_READY" {
++				t.Fatal("child did not reach durability boundary")
++			}
++			if _, _, err := store.LoadRecovering(context.Background(), "agent", "key"); !errors.Is(err, ErrSessionBusy) {
++				t.Fatal("live repair bypassed", err)
++			}
++			if err := cmd.Process.Kill(); err != nil {
++				t.Fatal(err)
++			}
++			cmd.Wait()
++			raw, err := os.ReadFile(path)
++			expected := original
++			if stage == 2 {
++				expected = prefix
++			}
++			if err != nil || string(raw) != expected {
++				t.Fatal("process death left partial replacement", err)
++			}
++			backups, err := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.recovery-backup-*"))
++			if err != nil || len(backups) != 1 {
++				t.Fatal("backup missing after death", backups, err)
++			}
++			backup, err := os.ReadFile(backups[0])
++			if err != nil || string(backup) != original {
++				t.Fatal("backup corrupted after death", err)
++			}
++			sess, report, err := store.LoadRecovering(context.Background(), "agent", "key")
++			if err != nil {
++				t.Fatal("restart failed", err)
++			}
++			defer sess.Close()
++			if report.Repaired != (stage == 1) || len(sess.Entries()) != 1 {
++				t.Fatal("restart wrong repair", report)
++			}
++			sess.Append(UserMessageEntry("after restart"))
++			if err := sess.Flush(); err != nil {
++				t.Fatal(err)
++			}
++			loaded, err := store.Load("agent", "key")
++			if err != nil || len(loaded.Entries()) != 2 {
++				t.Fatal("restart not writable", err)
++			}
++		})
++	}
++}
+diff --git a/session/recovery_test.go b/session/recovery_test.go
+new file mode 100644
+index 0000000..78b360b
+--- /dev/null
++++ b/session/recovery_test.go
+@@ -0,0 +1,235 @@
++package session
++
++import (
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"strings"
++	"testing"
++)
++
++func recoveryFixture(t *testing.T, body string) (*Store, string) {
++	t.Helper()
++	store := NewStore(t.TempDir())
++	path := store.sessionPath("agent", "key")
++	if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
++		t.Fatal(err)
++	}
++	if err := os.WriteFile(path, []byte(body), 0600); err != nil {
++		t.Fatal(err)
++	}
++	return store, path
++}
++
++func TestRecoveryPreservesBackupAndExactPrefix(t *testing.T) {
++	prefix := "\n" + ` {"id":"first", "type":"message", "future":{"unknown":true}} ` + "\n\n"
++	tail := `{"id":"second","data":`
++	store, path := recoveryFixture(t, prefix+tail)
++	sess, report, err := store.LoadRecovering(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	if !report.Repaired || report.DroppedBytes != int64(len(tail)) || report.BackupPath == "" {
++		t.Fatal(report)
++	}
++	backup, err := os.ReadFile(report.BackupPath)
++	if err != nil || string(backup) != prefix+tail {
++		t.Fatal("original backup mismatch", err)
++	}
++	repaired, err := os.ReadFile(path)
++	if err != nil || string(repaired) != prefix {
++		t.Fatal("valid bytes changed", err)
++	}
++	for _, p := range []string{path, report.BackupPath} {
++		info, err := os.Stat(p)
++		if err != nil || info.Mode().Perm() != 0600 {
++			t.Fatal("recovery file is not private", err)
++		}
++	}
++	if len(sess.Entries()) != 1 || sess.Entries()[0].ID != "first" {
++		t.Fatal("wrong recovered history")
++	}
++	if _, err := NewStore(store.baseDir).LoadExclusive("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("recovered writer lost lease", err)
++	}
++	if err := sess.Close(); err != nil {
++		t.Fatal(err)
++	}
++	second, again, err := store.LoadRecovering(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer second.Close()
++	if again != (RecoveryReport{}) {
++		t.Fatal("valid repeat produced another repair", again)
++	}
++	second.Append(UserMessageEntry("after recovery"))
++	if err := second.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || len(loaded.Entries()) != 2 {
++		t.Fatal("repaired session not writable", err)
++	}
++	backups, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.recovery-backup-*"))
++	if len(backups) != 1 {
++		t.Fatal("backup proliferation", backups)
++	}
++	temps, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.recovery-replace-*"))
++	if len(temps) != 0 {
++		t.Fatal("replacement temporary leaked", temps)
++	}
++}
++
++func TestRecoveryRejectsCorruptionWithoutMutation(t *testing.T) {
++	for _, body := range []string{`{"id":` + "\n" + `{"id":"good"}`, `{"id":` + "\n", `not JSON`, `null`, `{} {}`, strings.Repeat("x", MaxSessionRecordBytes+1)} {
++		t.Run(body[:min(len(body), 25)], func(t *testing.T) {
++			store, path := recoveryFixture(t, body)
++			sess, report, err := store.LoadRecovering(context.Background(), "agent", "key")
++			if err == nil || sess != nil || report != (RecoveryReport{}) {
++				t.Fatal("invalid repair accepted", err, report)
++			}
++			raw, _ := os.ReadFile(path)
++			if string(raw) != body {
++				t.Fatal("corrupt file changed")
++			}
++			files, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.recovery-*"))
++			if len(files) != 0 {
++				t.Fatal("refused recovery left files", files)
++			}
++			lease, err := store.acquireLease("agent", "key")
++			if err != nil {
++				t.Fatal("error leaked lease", err)
++			}
++			lease.close()
++		})
++	}
++}
++
++func TestRecoveryCancellationAndBusyLeaveOriginal(t *testing.T) {
++	store, path := recoveryFixture(t, `{"id":`)
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if _, _, err := store.LoadRecovering(ctx, "agent", "key"); !errors.Is(err, context.Canceled) {
++		t.Fatal(err)
++	}
++	lease, err := store.acquireLease("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer lease.close()
++	if _, _, err := NewStore(store.baseDir).LoadRecovering(context.Background(), "agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal(err)
++	}
++	raw, _ := os.ReadFile(path)
++	if string(raw) != `{"id":` {
++		t.Fatal("busy/cancelled recovery changed source")
++	}
++}
++
++func TestRecoveryRejectsSymlink(t *testing.T) {
++	store, path := recoveryFixture(t, `{"id":`)
++	target := path + ".target"
++	if err := os.Rename(path, target); err != nil {
++		t.Fatal(err)
++	}
++	if err := os.Symlink(target, path); err != nil {
++		t.Fatal(err)
++	}
++	if _, _, err := store.LoadRecovering(context.Background(), "agent", "key"); err == nil {
++		t.Fatal("symlink accepted")
++	}
++	raw, _ := os.ReadFile(target)
++	if string(raw) != `{"id":` {
++		t.Fatal("symlink target changed")
++	}
++}
++
++func TestRecoveryEmptyPrefixAndMissingSession(t *testing.T) {
++	store, path := recoveryFixture(t, `{"id":`)
++	sess, report, err := store.LoadRecovering(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	sess.Close()
++	raw, err := os.ReadFile(path)
++	if err != nil || len(raw) != 0 || !report.Repaired || len(sess.Entries()) != 0 {
++		t.Fatal("first interrupted record", report, err)
++	}
++	missing, report, err := store.LoadRecovering(context.Background(), "agent", "missing")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer missing.Close()
++	if report != (RecoveryReport{}) {
++		t.Fatal("missing session counted as repair")
++	}
++}
++
++func TestRecoveryDirectorySyncFailures(t *testing.T) {
++	prefix := `{"id":"retained"}` + "\n"
++	original := prefix + `{"id":`
++	failure := errors.New("injected directory sync failure")
++	for _, failAt := range []int{1, 2} {
++		t.Run(string(rune('0'+failAt)), func(t *testing.T) {
++			store, path := recoveryFixture(t, original)
++			calls := 0
++			sess, report, err := store.loadRecovering(context.Background(), "agent", "key", func(dir string) error {
++				calls++
++				if calls == failAt {
++					return failure
++				}
++				return syncRecoveryDirectory(dir)
++			})
++			if sess != nil || !errors.Is(err, failure) {
++				t.Fatal("sync failure hidden", err)
++			}
++			raw, _ := os.ReadFile(path)
++			if failAt == 1 {
++				if string(raw) != original || report.Repaired || report.BackupPath != "" {
++					t.Fatal("replacement before durable backup", report)
++				}
++			} else {
++				if string(raw) != prefix || !report.Repaired || report.BackupPath == "" {
++					t.Fatal("post-rename failure misreported", report)
++				}
++				backup, err := os.ReadFile(report.BackupPath)
++				if err != nil || string(backup) != original {
++					t.Fatal("post-rename failure lost backup", err)
++				}
++			}
++			lease, err := store.acquireLease("agent", "key")
++			if err != nil {
++				t.Fatal("failed repair leaked lease", err)
++			}
++			lease.close()
++		})
++	}
++}
++
++func TestRecoveryCancellationAfterBackupPreservesOriginal(t *testing.T) {
++	original := `{"id":"retained"}` + "\n" + `{"id":`
++	store, path := recoveryFixture(t, original)
++	ctx, cancel := context.WithCancel(context.Background())
++	defer cancel()
++	sess, report, err := store.loadRecovering(ctx, "agent", "key", func(dir string) error {
++		err := syncRecoveryDirectory(dir)
++		cancel()
++		return err
++	})
++	if sess != nil || !errors.Is(err, context.Canceled) || report.Repaired || report.BackupPath == "" {
++		t.Fatal("cancelled repair outcome", err, report)
++	}
++	for _, p := range []string{path, report.BackupPath} {
++		raw, err := os.ReadFile(p)
++		if err != nil || string(raw) != original {
++			t.Fatal("cancelled repair lost original", p, err)
++		}
++	}
++	temps, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.recovery-replace-*"))
++	if len(temps) != 0 {
++		t.Fatal("cancelled repair leaked replacement", temps)
++	}
++}
+diff --git a/session/rewrite_atomic_test.go b/session/rewrite_atomic_test.go
+new file mode 100644
+index 0000000..3a7edb5
+--- /dev/null
++++ b/session/rewrite_atomic_test.go
+@@ -0,0 +1,145 @@
++package session
++
++import (
++	"bytes"
++	"encoding/json"
++	"fmt"
++	"os"
++	"path/filepath"
++	"reflect"
++	"sync"
++	"testing"
++)
++
++func TestRewriteMarshalFailurePreservesOriginal(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	original := NewSession("agent", "key")
++	original.SetStore(store)
++	original.Append(UserMessageEntry("recoverable original"))
++	path := filepath.Join(root, "agent", "key.jsonl")
++	before, err := os.ReadFile(path)
++	if err != nil {
++		t.Fatal(err)
++	}
++	replacement := NewSession("agent", "key")
++	replacement.Append(UserMessageEntry("replacement prefix"))
++	replacement.Append(SessionEntry{Type: EntryTypeMessage, Data: json.RawMessage("invalid JSON")})
++	store.Rewrite(replacement)
++	after, err := os.ReadFile(path)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !bytes.Equal(before, after) {
++		t.Fatal("failed rewrite destroyed original session")
++	}
++	if replacement.PersistenceError() == nil {
++		t.Fatal("rewrite failure was hidden")
++	}
++	files, _ := os.ReadDir(filepath.Dir(path))
++	regular := 0
++	for _, file := range files {
++		if !file.IsDir() {
++			regular++
++		}
++	}
++	if regular != 1 {
++		t.Fatal("temporary rewrite leaked", files)
++	}
++}
++
++func TestAtomicRewriteIsPrivateAndReloadable(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	old := NewSession("agent", "key")
++	old.SetStore(store)
++	old.Append(UserMessageEntry("old"))
++	replacement := NewSession("agent", "key")
++	replacement.Append(UserMessageEntry("replacement"))
++	store.Rewrite(replacement)
++	if err := replacement.PersistenceError(); err != nil {
++		t.Fatal(err)
++	}
++	path := filepath.Join(root, "agent", "key.jsonl")
++	stat, err := os.Stat(path)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if stat.Mode().Perm() != 0600 {
++		t.Fatal("rewrite permissions", stat.Mode())
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(loaded.Entries(), replacement.Entries()) {
++		t.Fatal("rewrite did not survive reload")
++	}
++}
++
++func TestConcurrentRewriteAndAppendPreserveDiskOrder(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	s := NewSession("agent", "key")
++	s.SetStore(store)
++	s.Append(UserMessageEntry("initial"))
++	var wg sync.WaitGroup
++	wg.Add(2)
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 100; i++ {
++			s.Append(UserMessageEntry(fmt.Sprint(i)))
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 40; i++ {
++			store.Rewrite(s)
++		}
++	}()
++	wg.Wait()
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(loaded.Entries(), s.Entries()) || len(loaded.Entries()) != 101 {
++		t.Fatal("concurrent rewrite lost/duplicated entries")
++	}
++}
++
++func TestConcurrentLegacyCompactionAndAppendRemainConsistent(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	s := NewSession("agent", "key")
++	s.SetStore(store)
++	s.Append(UserMessageEntry("initial"))
++	var wg sync.WaitGroup
++	wg.Add(2)
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 100; i++ {
++			s.Append(UserMessageEntry(fmt.Sprint(i)))
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 40; i++ {
++			s.Compact("summary", 4)
++			s.View()
++		}
++	}()
++	wg.Wait()
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(loaded.Entries(), s.Entries()) {
++		t.Fatal("compaction snapshot diverged from disk")
++	}
++}
+diff --git a/session/session.go b/session/session.go
+index 3a544cf..b6830d0 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -6,6 +6,7 @@ import (
+ 	"encoding/json"
+ 	"fmt"
+ 	"sync"
++	"sync/atomic"
+ 	"time"
+ )
+ 
+@@ -14,20 +15,23 @@ type EntryType string
+ 
+ const (
+ 	EntryTypeMessage    EntryType = "message"
++	EntryTypeHeader     EntryType = "session_header"
+ 	EntryTypeToolCall   EntryType = "tool_call"
+ 	EntryTypeToolResult EntryType = "tool_result"
+ 	EntryTypeMeta       EntryType = "meta"
+ 	EntryTypeCompaction EntryType = "compaction"
++	EntryTypeSelection  EntryType = "selection" // versioned control record; never part of conversation history
+ )
+ 
+ // SessionEntry is a single node in the session DAG.
+ type SessionEntry struct {
+-	ID        string          `json:"id"`
+-	ParentID  string          `json:"parentId,omitempty"`
+-	Type      EntryType       `json:"type"`
+-	Role      string          `json:"role,omitempty"` // user, assistant, system
+-	Timestamp int64           `json:"timestamp"`
+-	Data      json.RawMessage `json:"data"`
++	SchemaVersion int             `json:"schemaVersion,omitempty"`
++	ID            string          `json:"id"`
++	ParentID      string          `json:"parentId,omitempty"`
++	Type          EntryType       `json:"type"`
++	Role          string          `json:"role,omitempty"` // user, assistant, system
++	Timestamp     int64           `json:"timestamp"`
++	Data          json.RawMessage `json:"data"`
+ }
+ 
+ // ImageData holds a base64-encoded image for session persistence.
+@@ -84,14 +88,19 @@ type CompactionData struct {
+ 
+ // Session holds a conversation session with DAG-structured entries.
+ type Session struct {
+-	ID      string
+-	AgentID string
+-	Key     string // channel + peer derived key
++	leaseMu            sync.Mutex
++	lease              *writerLease
++	writerClosed       bool
++	persistenceFailure atomic.Pointer[persistenceFailure]
++	ID                 string
++	AgentID            string
++	Key                string // channel + peer derived key
+ 
+ 	mu       sync.RWMutex // guards entries / entryMap / leafID
+ 	entries  []SessionEntry
+ 	entryMap map[string]*SessionEntry
+-	leafID   string // current leaf for history traversal
++	header   SessionEntry // immutable after construction/load
++	leafID   string       // current leaf for history traversal
+ 	store    *Store
+ 
+ 	// writeMu serializes store writes and preserves their order. Acquired in
+@@ -103,12 +112,8 @@ type Session struct {
+ 
+ // NewSession creates a new empty session.
+ func NewSession(agentID, key string) *Session {
+-	return &Session{
+-		ID:       generateID("ses"),
+-		AgentID:  agentID,
+-		Key:      key,
+-		entryMap: make(map[string]*SessionEntry),
+-	}
++	id := generateID("ses")
++	return &Session{ID: id, AgentID: agentID, Key: key, entryMap: make(map[string]*SessionEntry), header: SessionEntry{ID: id, Type: EntryTypeHeader, SchemaVersion: 1, Timestamp: time.Now().Unix()}}
+ }
+ 
+ // Append adds an entry to the session.
+@@ -124,6 +129,28 @@ func (s *Session) Append(entry SessionEntry) {
+ 		entry.ParentID = s.leafID
+ 	}
+ 
++	if err := validateGraphNode(entry, func(id string) (EntryType, bool) {
++		if id == s.header.ID {
++			return EntryTypeHeader, true
++		}
++		node, ok := s.entryMap[id]
++		if !ok {
++			return "", false
++		}
++		return node.Type, true
++	}); err != nil {
++		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{err})
++		s.mu.Unlock()
++		return
++	}
++	// Selection control records must use Branch so their durability and leaf
++	// semantics cannot be bypassed through the generic append API.
++	if entry.Type == EntryTypeSelection || entry.Type == EntryTypeHeader {
++		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("control records require their dedicated API")})
++		s.mu.Unlock()
++		return
++	}
++
+ 	s.entries = append(s.entries, entry)
+ 	s.entryMap[entry.ID] = &s.entries[len(s.entries)-1]
+ 	s.leafID = entry.ID
+@@ -148,6 +175,10 @@ func (s *Session) Append(entry SessionEntry) {
+ func (s *Session) History() []SessionEntry {
+ 	s.mu.RLock()
+ 	defer s.mu.RUnlock()
++	return s.historyLocked()
++}
++
++func (s *Session) historyLocked() []SessionEntry {
+ 	if len(s.entries) == 0 {
+ 		return nil
+ 	}
+@@ -224,14 +255,30 @@ func (s *Session) LeafID() string {
+ 	return s.leafID
+ }
+ 
+-// Branch moves the leaf pointer to the specified entry ID, creating a branch.
+-// New entries appended after this will have the branch point as their parent.
+-//
+-// NOTE: not lock-guarded — see Phase B spec, runs during /resume or DAG branching, never from parallel dispatch goroutines.
++// Branch durably selects an existing conversation node. Selection is an
++// append-only control record, so copying/renaming/exporting the JSONL also
++// preserves the selected branch. It is excluded from History and View.
+ func (s *Session) Branch(entryID string) error {
+-	if _, ok := s.entryMap[entryID]; !ok {
+-		return fmt.Errorf("entry %q not found in session", entryID)
++	s.mu.Lock()
++	defer s.mu.Unlock()
++	target, ok := s.entryMap[entryID]
++	if !ok || target.Type == EntryTypeSelection || target.Type == EntryTypeHeader {
++		return fmt.Errorf("entry %q is not a conversation node", entryID)
++	}
++	if err := s.PersistenceError(); err != nil {
++		return err
+ 	}
++	marker := SessionEntry{ID: generateID("select"), ParentID: entryID, Type: EntryTypeSelection, Timestamp: time.Now().Unix(), Data: json.RawMessage(`{"version":1}`)}
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	if s.store != nil {
++		s.store.AppendEntry(s, marker)
++		if err := s.Flush(); err != nil {
++			return err
++		}
++	}
++	s.entries = append(s.entries, marker)
++	s.entryMap[marker.ID] = &s.entries[len(s.entries)-1]
+ 	s.leafID = entryID
+ 	return nil
+ }
+@@ -248,19 +295,18 @@ func (s *Session) EstimateTokens() int {
+ 	return totalChars / 4
+ }
+ 
+-// Compact replaces older history entries with a summary entry.
+-// It keeps the most recent keepEntries entries and replaces everything
+-// before them with a single summary meta entry.
+-// The summary text should be generated by the caller (typically by asking
+-// the LLM to summarize).
+-//
+-// NOTE: not lock-guarded — runs between turns only. Calls History() and
+-// Entries() (via store.Rewrite) internally; do NOT wrap in s.mu.Lock()
+-// without also restructuring those calls, or you will deadlock on the
+-// non-recursive sync.RWMutex.
++// Compact creates a new summarised branch while retaining all original
++// records and branches. Kept messages receive new IDs and parents; the original
++// nodes are immutable and remain available for branching and export. The
++// replacement is atomic on disk and keeps appends ordered behind the snapshot.
+ func (s *Session) Compact(summary string, keepEntries int) {
+-	history := s.History()
++	if keepEntries < 0 {
++		keepEntries = 0
++	}
++	s.mu.Lock()
++	history := s.historyLocked()
+ 	if len(history) <= keepEntries {
++		s.mu.Unlock()
+ 		return // nothing to compact
+ 	}
+ 
+@@ -278,31 +324,29 @@ func (s *Session) Compact(summary string, keepEntries int) {
+ 		Data:      summaryData,
+ 	}
+ 
+-	// Rebuild the session with summary + recent entries
+-	s.entries = nil
+-	s.entryMap = make(map[string]*SessionEntry)
+-	s.leafID = ""
+-
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
+ 	// Add summary entry
+ 	s.entries = append(s.entries, summaryEntry)
+-	s.entryMap[summaryEntry.ID] = &s.entries[0]
++	s.entryMap[summaryEntry.ID] = &s.entries[len(s.entries)-1]
+ 	s.leafID = summaryEntry.ID
+ 
+-	// Add recent entries, re-parenting the first one to the summary
+-	for i, entry := range recentEntries {
+-		if i == 0 {
+-			entry.ParentID = summaryEntry.ID
+-		} else {
+-			entry.ParentID = recentEntries[i-1].ID
+-		}
++	// Clone recent entries onto the new summary branch. Never rewrite the
++	// identities or parent links of records in the original graph.
++	for _, entry := range recentEntries {
++		entry.ID = generateID("e")
++		entry.ParentID = s.leafID
+ 		s.entries = append(s.entries, entry)
+ 		s.entryMap[entry.ID] = &s.entries[len(s.entries)-1]
+ 		s.leafID = entry.ID
+ 	}
+ 
+-	// Rewrite the session file if store is set
+-	if s.store != nil {
+-		s.store.Rewrite(s)
++	entries := append([]SessionEntry(nil), s.entries...)
++	store := s.store
++	s.mu.Unlock()
++	// Keep appends ordered behind the snapshot until its replacement commits.
++	if store != nil {
++		store.rewriteEntries(s, entries)
+ 	}
+ }
+ 
+diff --git a/session/store.go b/session/store.go
+index 7255238..7472de0 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -2,11 +2,15 @@ package session
+ 
+ import (
+ 	"bufio"
++	"bytes"
++	"context"
+ 	"encoding/json"
+ 	"fmt"
++	"io"
+ 	"log/slog"
+ 	"os"
+ 	"path/filepath"
++	"slices"
+ 	"strings"
+ 	"sync"
+ 	"sync/atomic"
+@@ -15,6 +19,7 @@ import (
+ 
+ // SessionInfo describes a session without loading its full contents.
+ type SessionInfo struct {
++	ID           string    `json:"id,omitempty"`
+ 	Key          string    `json:"key"`
+ 	CreatedAt    time.Time `json:"createdAt"`
+ 	LastActivity time.Time `json:"lastActivity"`
+@@ -73,6 +78,10 @@ func validateStoreIDs(agentID, key string) error {
+ 
+ // Load reads a session from its JSONL file.
+ func (s *Store) Load(agentID, key string) (*Session, error) {
++	return s.loadContext(context.Background(), agentID, key)
++}
++
++func (s *Store) loadContext(ctx context.Context, agentID, key string) (*Session, error) {
+ 	if err := validateStoreIDs(agentID, key); err != nil {
+ 		return nil, err
+ 	}
+@@ -92,29 +101,23 @@ func (s *Store) Load(agentID, key string) (*Session, error) {
+ 	sess := NewSession(agentID, key)
+ 	sess.SetStore(s)
+ 
+-	scanner := bufio.NewScanner(f)
+-	scanner.Buffer(make([]byte, 0, 1024*1024), 10*1024*1024) // 10MB max line
+-
+-	for scanner.Scan() {
+-		line := scanner.Bytes()
+-		if len(line) == 0 {
+-			continue
+-		}
+-
+-		var entry SessionEntry
+-		if err := json.Unmarshal(line, &entry); err != nil {
+-			slog.Warn("skipping malformed session entry", "error", err)
++	entries, err := decodeSessionRecords(&recoveryReader{ctx: ctx, reader: f})
++	if err != nil {
++		return nil, err
++	}
++	for _, entry := range entries {
++		if entry.Type == EntryTypeHeader {
++			sess.ID = entry.ID
++			sess.header = entry
+ 			continue
+ 		}
+-
+-		// Add to session without re-persisting
+ 		sess.entries = append(sess.entries, entry)
+ 		sess.entryMap[entry.ID] = &sess.entries[len(sess.entries)-1]
+-		sess.leafID = entry.ID
+-	}
+-
+-	if err := scanner.Err(); err != nil {
+-		return nil, fmt.Errorf("read session file: %w", err)
++		if entry.Type == EntryTypeSelection {
++			sess.leafID = entry.ParentID
++		} else {
++			sess.leafID = entry.ID
++		}
+ 	}
+ 
+ 	return sess, nil
+@@ -124,37 +127,77 @@ func (s *Store) Load(agentID, key string) (*Session, error) {
+ func (s *Store) AppendEntry(sess *Session, entry SessionEntry) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	release, err := s.writeLease(sess)
++	if err != nil {
++		s.recordPersistenceFailure(sess, "acquire writer lease", err)
++		return
++	}
++	defer release()
++
+ 	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+-		s.markDegraded("invalid session path", err)
++		s.recordPersistenceFailure(sess, "invalid session path", err)
+ 		slog.Error("refusing to persist session outside store", "error", err)
+ 		return
+ 	}
+ 
+ 	dir := s.sessionDir(sess.AgentID)
+ 	if err := os.MkdirAll(dir, 0o755); err != nil {
+-		s.markDegraded("create session dir", err)
++		s.recordPersistenceFailure(sess, "create session dir", err)
+ 		slog.Error("failed to create session dir", "error", err)
+ 		return
+ 	}
+ 
+ 	path := s.sessionPath(sess.AgentID, sess.Key)
+-	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o600)
++	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0o600)
+ 	if err != nil {
+-		s.markDegraded("open session file", err)
++		s.recordPersistenceFailure(sess, "open session file", err)
+ 		slog.Error("failed to open session file", "error", err)
+ 		return
+ 	}
+-	defer f.Close()
++	defer func() {
++		if err := f.Close(); err != nil {
++			s.recordPersistenceFailure(sess, "close session file", err)
++		}
++	}()
+ 
+ 	data, err := json.Marshal(entry)
+ 	if err != nil {
++		s.recordPersistenceFailure(sess, "marshal session entry", err)
+ 		slog.Error("failed to marshal session entry", "error", err)
+ 		return
+ 	}
+ 
++	// A valid last record may lack its final newline. Delimit it before
++	// appending, otherwise two valid JSON objects become one corrupt record.
++	info, err := f.Stat()
++	if err != nil {
++		s.recordPersistenceFailure(sess, "stat before append", err)
++		return
++	}
++	if info.Size() == 0 {
++		header, err := json.Marshal(sess.header)
++		if err != nil {
++			s.recordPersistenceFailure(sess, "marshal header", err)
++			return
++		}
++		data = append(append(header, '\n'), data...)
++	}
++	if info.Size() > 0 {
++		var last [1]byte
++		if _, err := f.ReadAt(last[:], info.Size()-1); err != nil {
++			s.recordPersistenceFailure(sess, "read append boundary", err)
++			return
++		}
++		if last[0] != '\n' {
++			data = append([]byte{'\n'}, data...)
++		}
++	}
+ 	data = append(data, '\n')
+-	if _, err := f.Write(data); err != nil {
+-		s.markDegraded("write session entry", err)
++	if n, err := f.Write(data); err != nil || n != len(data) {
++		if err == nil {
++			err = io.ErrShortWrite
++		}
++		s.recordPersistenceFailure(sess, "write session entry", err)
+ 		slog.Error("failed to write session entry", "error", err)
+ 	}
+ }
+@@ -166,6 +209,11 @@ func (s *Store) Create(agentID, key string) error {
+ 	}
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	lease, err := s.acquireOperationLease(agentID, key)
++	if err != nil {
++		return err
++	}
++	defer lease.close()
+ 
+ 	dir := s.sessionDir(agentID)
+ 	if err := os.MkdirAll(dir, 0o755); err != nil {
+@@ -173,11 +221,21 @@ func (s *Store) Create(agentID, key string) error {
+ 	}
+ 
+ 	path := s.sessionPath(agentID, key)
+-	f, err := os.OpenFile(path, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0o600)
++	var encoded bytes.Buffer
++	if err := json.NewEncoder(&encoded).Encode(NewSession(agentID, key).header); err != nil {
++		return err
++	}
++	temporary, err := writeMigrationFile(context.Background(), dir, "."+key+".create-*", encoded.Bytes())
+ 	if err != nil {
++		return err
++	}
++	defer os.Remove(temporary)
++	// Link commits a complete synced file without overwriting an existing key.
++	if err := os.Link(temporary, path); err != nil {
+ 		return fmt.Errorf("create session file: %w", err)
+ 	}
+-	return f.Close()
++	return syncRecoveryDirectory(dir)
++
+ }
+ 
+ // List returns metadata for all sessions belonging to the given agent.
+@@ -222,13 +280,21 @@ func (s *Store) List(agentID string) ([]SessionInfo, error) {
+ 			}
+ 			lineCount++
+ 			var partial struct {
+-				Timestamp int64 `json:"timestamp"`
++				Timestamp int64     `json:"timestamp"`
++				Type      EntryType `json:"type"`
++				ID        string    `json:"id"`
+ 			}
+-			if json.Unmarshal(line, &partial) == nil && partial.Timestamp > 0 {
+-				if firstTS == 0 {
+-					firstTS = partial.Timestamp
++			if json.Unmarshal(line, &partial) == nil {
++				if partial.Type == EntryTypeHeader {
++					lineCount--
++					info.ID = partial.ID
++				}
++				if partial.Timestamp > 0 {
++					if firstTS == 0 {
++						firstTS = partial.Timestamp
++					}
++					lastTS = partial.Timestamp
+ 				}
+-				lastTS = partial.Timestamp
+ 			}
+ 		}
+ 		f.Close()
+@@ -274,6 +340,21 @@ func (s *Store) Rename(agentID, oldKey, newKey string) error {
+ 	}
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	if oldKey == newKey {
++		return fmt.Errorf("rename requires a different session key")
++	}
++	keys := []string{oldKey, newKey}
++	slices.Sort(keys)
++	first, err := s.acquireOperationLease(agentID, keys[0])
++	if err != nil {
++		return err
++	}
++	defer first.close()
++	second, err := s.acquireOperationLease(agentID, keys[1])
++	if err != nil {
++		return err
++	}
++	defer second.close()
+ 
+ 	oldPath := s.sessionPath(agentID, oldKey)
+ 	newPath := s.sessionPath(agentID, newKey)
+@@ -295,6 +376,11 @@ func (s *Store) Delete(agentID, key string) error {
+ 	}
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	lease, err := s.acquireOperationLease(agentID, key)
++	if err != nil {
++		return err
++	}
++	defer lease.close()
+ 
+ 	path := s.sessionPath(agentID, key)
+ 	if err := os.Remove(path); err != nil && !os.IsNotExist(err) {
+@@ -306,44 +392,84 @@ func (s *Store) Delete(agentID, key string) error {
+ // Rewrite replaces the entire session JSONL file with the current entries.
+ // Used after compaction to replace the old file.
+ func (s *Store) Rewrite(sess *Session) {
++	// Match Append's lock order, and take the snapshot before store.mu. Taking
++	// a session read lock while holding store.mu can deadlock a queued append.
++	sess.mu.Lock()
++	sess.writeMu.Lock()
++	entries := append([]SessionEntry(nil), sess.entries...)
++	sess.mu.Unlock()
++	defer sess.writeMu.Unlock()
++	s.rewriteEntries(sess, entries)
++}
++
++func (s *Store) rewriteEntries(sess *Session, entries []SessionEntry) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
+-	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+-		s.markDegraded("invalid session path", err)
+-		slog.Error("refusing to rewrite session outside store", "error", err)
++	release, err := s.writeLease(sess)
++	if err != nil {
++		s.recordPersistenceFailure(sess, "acquire writer lease", err)
+ 		return
+ 	}
++	defer release()
+ 
++	fail := func(reason string, err error) { s.recordPersistenceFailure(sess, reason, err) }
++	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
++		fail("invalid rewrite path", err)
++		return
++	}
+ 	dir := s.sessionDir(sess.AgentID)
+-	if err := os.MkdirAll(dir, 0o755); err != nil {
+-		s.markDegraded("create session dir", err)
+-		slog.Error("failed to create session dir", "error", err)
++	if err := os.MkdirAll(dir, 0755); err != nil {
++		fail("create rewrite directory", err)
+ 		return
+ 	}
+-
+-	path := s.sessionPath(sess.AgentID, sess.Key)
+-
+-	f, err := os.Create(path)
++	f, err := os.CreateTemp(dir, "."+sess.Key+".rewrite-*")
+ 	if err != nil {
+-		s.markDegraded("create session file for rewrite", err)
+-		slog.Error("failed to create session file for rewrite", "error", err)
++		fail("create temporary rewrite", err)
+ 		return
+ 	}
++	temporary := f.Name()
++	defer os.Remove(temporary)
+ 	defer f.Close()
+-
+ 	w := bufio.NewWriter(f)
+-	for _, entry := range sess.Entries() {
+-		data, err := json.Marshal(entry)
+-		if err != nil {
+-			slog.Error("failed to marshal session entry", "error", err)
+-			continue
++	encoder := json.NewEncoder(w)
++	if err := encoder.Encode(sess.header); err != nil {
++		fail("encode session header", err)
++		return
++	}
++	for _, entry := range entries {
++		if err := encoder.Encode(entry); err != nil {
++			fail("encode rewrite entry", err)
++			return
+ 		}
+-		w.Write(data)
+-		w.WriteByte('\n')
+ 	}
+-
+ 	if err := w.Flush(); err != nil {
+-		s.markDegraded("flush session file", err)
+-		slog.Error("failed to flush session file", "error", err)
++		fail("flush rewrite", err)
++		return
++	}
++	if err := f.Sync(); err != nil {
++		fail("sync rewrite", err)
++		return
++	}
++	if err := f.Close(); err != nil {
++		fail("close rewrite", err)
++		return
++	}
++	if err := os.Rename(temporary, s.sessionPath(sess.AgentID, sess.Key)); err != nil {
++		fail("commit rewrite", err)
++		return
++	}
++	directory, err := os.Open(dir)
++	if err != nil {
++		fail("open rewrite directory", err)
++		return
++	}
++	syncErr := directory.Sync()
++	closeErr := directory.Close()
++	if syncErr != nil {
++		fail("sync rewrite directory", syncErr)
++		return
++	}
++	if closeErr != nil {
++		fail("close rewrite directory", closeErr)
+ 	}
+ }
+diff --git a/tools/bash/bash.go b/tools/bash/bash.go
+index 18a1a05..94c4589 100644
+--- a/tools/bash/bash.go
++++ b/tools/bash/bash.go
+@@ -1,17 +1,19 @@
+ package bash
+ 
+ import (
+-	"bytes"
+ 	"context"
+ 	"encoding/json"
+ 	"fmt"
++	"os"
+ 	"os/exec"
+ 	"path/filepath"
+ 	"regexp"
+ 	"runtime"
++	"strconv"
+ 	"strings"
+ 	"time"
+ 
++	"github.com/sausheong/harness/process"
+ 	"github.com/sausheong/harness/tool"
+ )
+ 
+@@ -89,8 +91,9 @@ type ExecPolicy struct {
+ 
+ // BashTool executes shell commands.
+ type BashTool struct {
+-	WorkDir    string
+-	ExecPolicy *ExecPolicy // nil means "full" (allow everything)
++	WorkDir     string
++	OutputStore *process.ArtifactStore // nil uses the private per-user temporary store
++	ExecPolicy  *ExecPolicy            // nil means "full" (allow everything)
+ }
+ 
+ type bashInput struct {
+@@ -231,36 +234,78 @@ func (t *BashTool) Execute(ctx context.Context, input json.RawMessage) (tool.Too
+ 
+ 	var cmd *exec.Cmd
+ 	if runtime.GOOS == "windows" {
+-		cmd = exec.CommandContext(ctx, "cmd", "/c", in.Command)
++		cmd = process.Command(ctx, "cmd", "/c", in.Command)
+ 	} else {
+-		cmd = exec.CommandContext(ctx, "bash", "-c", in.Command)
++		cmd = process.Command(ctx, "bash", "-c", in.Command)
+ 	}
+ 	if t.WorkDir != "" {
+ 		cmd.Dir = t.WorkDir
+ 	}
+ 
+-	var stdout, stderr bytes.Buffer
+-	cmd.Stdout = &stdout
+-	cmd.Stderr = &stderr
+-
+-	err := cmd.Run()
+-
+-	output := stdout.String()
+-	errOutput := stderr.String()
++	store := t.OutputStore
++	if store == nil {
++		var err error
++		store, err = process.NewArtifactStore(filepath.Join(os.TempDir(), "harness-output-"+strconv.Itoa(os.Getuid())))
++		if err != nil {
++			return tool.ToolResult{Error: "prepare output capture: " + err.Error()}, nil
++		}
++	}
++	stdout, stderr := store.Capture(64<<10), store.Capture(64<<10)
++	cmd.Stdout = stdout
++	cmd.Stderr = stderr
++
++	err := process.Run(cmd)
++	stdout.Close()
++	stderr.Close()
++
++	output, stdoutBytes, stdoutTruncated := stdout.Snapshot()
++	errOutput, stderrBytes, stderrTruncated := stderr.Snapshot()
++	metadata := map[string]any{
++		"stdout_bytes": stdoutBytes, "stderr_bytes": stderrBytes,
++		"stdout_artifact": stdout.Info(), "stderr_artifact": stderr.Info(),
++		"stdout_truncated": stdoutTruncated, "stderr_truncated": stderrTruncated,
++		"cancelled": ctx.Err() == context.Canceled,
++		"timed_out": ctx.Err() == context.DeadlineExceeded,
++	}
++	if cmd.ProcessState != nil {
++		metadata["exit_code"] = cmd.ProcessState.ExitCode()
++	}
++	if stdoutTruncated {
++		output += "\n[stdout truncated after 65536 bytes]"
++	}
++	if stderrTruncated {
++		errOutput += "\n[stderr truncated after 65536 bytes]"
++	}
+ 
+ 	notice := pathSubsNotice(pathSubs)
++	for _, capture := range []struct {
++		name string
++		info process.ArtifactInfo
++	}{
++		{"stdout", stdout.Info()}, {"stderr", stderr.Info()},
++	} {
++		if capture.info.Path != "" {
++			notice += fmt.Sprintf("[%s artifact: %s; %d bytes; truncated=%t]\n", capture.name, capture.info.Path, capture.info.Bytes, capture.info.Truncated)
++		}
++		if capture.info.Error != "" {
++			notice += fmt.Sprintf("[%s artifact unavailable or incomplete: %s]\n", capture.name, capture.info.Error)
++		}
++	}
+ 
+ 	if err != nil {
+ 		msg := err.Error()
+ 		if ctx.Err() == context.DeadlineExceeded {
+ 			msg = "command timed out"
++		} else if ctx.Err() == context.Canceled {
++			msg = "command cancelled"
+ 		}
+ 		if errOutput != "" {
+-			msg = errOutput
++			msg += ": " + errOutput
+ 		}
+ 		return tool.ToolResult{
+-			Output: notice + output,
+-			Error:  msg,
++			Output:   notice + output,
++			Error:    msg,
++			Metadata: metadata,
+ 		}, nil
+ 	}
+ 
+@@ -268,7 +313,7 @@ func (t *BashTool) Execute(ctx context.Context, input json.RawMessage) (tool.Too
+ 		output += "\nSTDERR:\n" + errOutput
+ 	}
+ 
+-	return tool.ToolResult{Output: notice + output}, nil
++	return tool.ToolResult{Output: notice + output, Metadata: metadata}, nil
+ }
+ 
+ // pathSubsNotice formats a one-block notice listing any path substitutions
+diff --git a/tools/bash/lifecycle_test.go b/tools/bash/lifecycle_test.go
+new file mode 100644
+index 0000000..5a82d43
+--- /dev/null
++++ b/tools/bash/lifecycle_test.go
+@@ -0,0 +1,76 @@
++//go:build darwin || linux
++
++package bash
++
++import (
++	"context"
++	"encoding/json"
++	"github.com/sausheong/harness/process"
++	"os"
++	"path/filepath"
++	"testing"
++	"time"
++)
++
++func TestCancellationStopsShellDescendant(t *testing.T) {
++	marker := filepath.Join(t.TempDir(), "survived")
++	input, _ := json.Marshal(bashInput{Command: "sh -c 'sleep 1; echo survived > \"$1\"' fixture " + shellSingleQuote(marker) + " & wait"})
++	ctx, cancel := context.WithTimeout(context.Background(), 150*time.Millisecond)
++	defer cancel()
++	result, err := (&BashTool{}).Execute(ctx, input)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if result.Error == "" {
++		t.Fatal("cancelled command succeeded")
++	}
++	// Waiting beyond the descendant's scheduled write distinguishes stopping it
++	// from merely returning while it continues to run in the background.
++	time.Sleep(1100 * time.Millisecond)
++	if _, err := os.Stat(marker); err == nil {
++		t.Fatal("shell descendant survived cancellation and wrote its marker")
++	}
++}
++
++func TestNormalExitStopsShellDescendant(t *testing.T) {
++	marker := filepath.Join(t.TempDir(), "survived")
++	input, _ := json.Marshal(bashInput{Command: "sh -c 'sleep 1; echo survived > \"$1\"' fixture " + shellSingleQuote(marker) + " >/dev/null 2>&1 &"})
++	result, err := (&BashTool{}).Execute(context.Background(), input)
++	if err != nil || result.Error != "" {
++		t.Fatalf("%+v %v", result, err)
++	}
++	time.Sleep(1100 * time.Millisecond)
++	if _, err := os.Stat(marker); !os.IsNotExist(err) {
++		t.Fatalf("descendant marker: %v", err)
++	}
++}
++
++func TestOutputCaptureBoundsBothStreams(t *testing.T) {
++	input := json.RawMessage(`{"command":"head -c 1048576 /dev/zero; head -c 1048576 /dev/zero >&2"}`)
++	store, storeErr := process.NewArtifactStore(filepath.Join(t.TempDir(), "artifacts"))
++	if storeErr != nil {
++		t.Fatal(storeErr)
++	}
++	result, err := (&BashTool{OutputStore: store}).Execute(context.Background(), input)
++	if err != nil || result.Error != "" {
++		t.Fatalf("error: %v %s", err, result.Error)
++	}
++	if len(result.Output) > 2*(64<<10)+1000 {
++		t.Fatalf("unbounded output: %d", len(result.Output))
++	}
++	for _, stream := range []string{"stdout", "stderr"} {
++		artifact := result.Metadata[stream+"_artifact"].(process.ArtifactInfo)
++		raw, err := os.ReadFile(artifact.Path)
++		if err != nil || len(raw) != 1048576 || artifact.Truncated || artifact.Error != "" {
++			t.Fatalf("artifact %+v: len=%d err=%v", artifact, len(raw), err)
++		}
++		for _, b := range raw {
++			if b != 0 {
++				t.Fatal("artifact content corrupted")
++			}
++		}
++		if result.Metadata[stream+"_bytes"] != int64(1048576) || result.Metadata[stream+"_truncated"] != true {
++			t.Fatalf("incorrect capture metadata: %+v", result.Metadata)
++		}
++	}
++}
+diff --git a/tools/file/writefile.go b/tools/file/writefile.go
+index 812ec46..4983088 100644
+--- a/tools/file/writefile.go
++++ b/tools/file/writefile.go
+@@ -3,10 +3,11 @@ package file
+ import (
+ 	"context"
+ 	"encoding/json"
++	"errors"
+ 	"fmt"
++	"github.com/sausheong/harness/tool"
+ 	"os"
+ 	"path/filepath"
+-	"github.com/sausheong/harness/tool"
+ )
+ 
+ // WriteFileTool creates or overwrites a file.
+@@ -72,7 +73,19 @@ func (t *WriteFileTool) Execute(_ context.Context, input json.RawMessage) (tool.
+ 		return tool.ToolResult{Error: fmt.Sprintf("failed to create directory: %v", err)}, nil
+ 	}
+ 
+-	if err := tool.WriteFileAtomic(in.Path, []byte(in.Content), 0o600); err != nil {
++	// Retain existing ordinary permission bits, including executable scripts.
++	// New files remain private. Inspection failures must not silently replace
++	// a file with restrictive defaults and lose its original mode.
++	mode := os.FileMode(0600)
++	if info, err := os.Stat(in.Path); err == nil {
++		if !info.Mode().IsRegular() {
++			return tool.ToolResult{Error: "destination is not a regular file"}, nil
++		}
++		mode = info.Mode().Perm()
++	} else if !errors.Is(err, os.ErrNotExist) {
++		return tool.ToolResult{Error: fmt.Sprintf("inspect destination: %v", err)}, nil
++	}
++	if err := tool.WriteFileAtomic(in.Path, []byte(in.Content), mode); err != nil {
+ 		return tool.ToolResult{Error: fmt.Sprintf("failed to write file: %v", err)}, nil
+ 	}
+ 
+diff --git a/tools/file/writefile_perm_test.go b/tools/file/writefile_perm_test.go
+index 0ebedc7..8146e7a 100644
+--- a/tools/file/writefile_perm_test.go
++++ b/tools/file/writefile_perm_test.go
+@@ -24,3 +24,44 @@ func TestWriteFileIsRestrictive(t *testing.T) {
+ 	require.NoError(t, err)
+ 	require.Equal(t, os.FileMode(0o600), info.Mode().Perm())
+ }
++
++func TestWriteFilePreservesExecutableMode(t *testing.T) {
++	dir := t.TempDir()
++	path := filepath.Join(dir, "script.sh")
++	require.NoError(t, os.WriteFile(path, []byte("old"), 0751))
++	require.NoError(t, os.Chmod(path, 0751))
++	writer := &WriteFileTool{WorkDir: dir}
++	input, _ := json.Marshal(map[string]string{"path": path, "content": "#!/bin/sh\nexit 0\n"})
++	result, err := writer.Execute(context.Background(), input)
++	require.NoError(t, err)
++	require.Empty(t, result.Error)
++	info, err := os.Stat(path)
++	require.NoError(t, err)
++	require.Equal(t, os.FileMode(0751), info.Mode().Perm())
++}
++
++func TestFailedWritePreservesExistingContentAndMode(t *testing.T) {
++	if os.Geteuid() == 0 {
++		t.Fatal("permission failure fixture requires an unprivileged user")
++	}
++	dir := t.TempDir()
++	path := filepath.Join(dir, "script.sh")
++	require.NoError(t, os.WriteFile(path, []byte("original"), 0751))
++	require.NoError(t, os.Chmod(path, 0751))
++	require.NoError(t, os.Chmod(dir, 0500))
++	defer os.Chmod(dir, 0700)
++	writer := &WriteFileTool{WorkDir: dir}
++	input, _ := json.Marshal(map[string]string{"path": path, "content": "replacement"})
++	result, err := writer.Execute(context.Background(), input)
++	require.NoError(t, err)
++	require.NotEmpty(t, result.Error)
++	data, err := os.ReadFile(path)
++	require.NoError(t, err)
++	require.Equal(t, "original", string(data))
++	info, err := os.Stat(path)
++	require.NoError(t, err)
++	require.Equal(t, os.FileMode(0751), info.Mode().Perm())
++	entries, err := os.ReadDir(dir)
++	require.NoError(t, err)
++	require.Len(t, entries, 1)
++}
+diff --git a/tools/mcp/connection_lifecycle_test.go b/tools/mcp/connection_lifecycle_test.go
+new file mode 100644
+index 0000000..871f2f6
+--- /dev/null
++++ b/tools/mcp/connection_lifecycle_test.go
+@@ -0,0 +1,50 @@
++//go:build darwin || linux
++
++package mcp
++
++import (
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"strconv"
++	"strings"
++	"syscall"
++	"testing"
++	"time"
++)
++
++func TestCancelledHandshakeReapsChildPromptly(t *testing.T) {
++	path := filepath.Join(t.TempDir(), "pid")
++	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
++	defer cancel()
++	start := time.Now()
++	cli, err := Connect(ctx, ServerConfig{Name: "hung", Command: "sh", Args: []string{"-c", `echo $$ > "$1"; exec sleep 30`, "fixture", path}})
++	elapsed := time.Since(start)
++	if cli != nil {
++		cli.Close()
++		t.Fatal("hung handshake connected")
++	}
++	if !errors.Is(err, context.DeadlineExceeded) {
++		t.Fatalf("connect error %v", err)
++	}
++	data, readErr := os.ReadFile(path)
++	if readErr != nil {
++		t.Fatal(readErr)
++	}
++	pid, parseErr := strconv.Atoi(strings.TrimSpace(string(data)))
++	if parseErr != nil {
++		t.Fatal(parseErr)
++	}
++	aliveErr := syscall.Kill(pid, 0)
++	if aliveErr == nil {
++		syscall.Kill(pid, syscall.SIGKILL)
++		t.Fatal("connection returned with child still alive")
++	}
++	if !errors.Is(aliveErr, syscall.ESRCH) {
++		t.Fatalf("child status %v", aliveErr)
++	}
++	if elapsed > 2*time.Second {
++		t.Fatalf("cancelled handshake took %s", elapsed)
++	}
++}
+diff --git a/tools/mcp/mcp.go b/tools/mcp/mcp.go
+index 5a6cf17..c9c0a4f 100644
+--- a/tools/mcp/mcp.go
++++ b/tools/mcp/mcp.go
+@@ -24,9 +24,11 @@ import (
+ 	"fmt"
+ 	"net/http"
+ 	"os"
+-	"os/exec"
++	"sync"
++	"time"
+ 
+ 	sdk "github.com/modelcontextprotocol/go-sdk/mcp"
++	"github.com/sausheong/harness/process"
+ 	"github.com/sausheong/harness/tool"
+ )
+ 
+@@ -71,16 +73,20 @@ type ServerConfig struct {
+ // Client is a connected MCP server with its discovered tools adapted as
+ // harness tool.Tool implementations.
+ type Client struct {
+-	name    string
+-	session *sdk.ClientSession
+-	tools   []tool.Tool
+-	closed  bool
++	name      string
++	session   *sdk.ClientSession
++	tools     []tool.Tool
++	closeOnce sync.Once
++	closeErr  error
+ }
+ 
+ // Connect opens a session to the MCP server in cfg, lists its tools,
+ // and adapts each into a tool.Tool. Returned Client owns the session;
+ // call Close to release it.
+ func Connect(ctx context.Context, cfg ServerConfig) (*Client, error) {
++	if err := ctx.Err(); err != nil {
++		return nil, err
++	}
+ 	if cfg.Name == "" {
+ 		return nil, fmt.Errorf("mcp: ServerConfig.Name is required")
+ 	}
+@@ -135,11 +141,8 @@ func (c *Client) Ping(ctx context.Context) error {
+ // Close releases the underlying MCP session. Safe to call multiple
+ // times — subsequent calls are no-ops.
+ func (c *Client) Close() error {
+-	if c.closed {
+-		return nil
+-	}
+-	c.closed = true
+-	return c.session.Close()
++	c.closeOnce.Do(func() { c.closeErr = c.session.Close() })
++	return c.closeErr
+ }
+ 
+ // buildTransport selects a transport based on cfg. stdio uses
+@@ -149,9 +152,9 @@ func (c *Client) Close() error {
+ // applied via wrapHTTPClient.
+ func buildTransport(cfg ServerConfig) (sdk.Transport, error) {
+ 	if cfg.Command != "" {
+-		cmd := exec.Command(cfg.Command, cfg.Args...)
++		cmd := process.Command(context.Background(), cfg.Command, cfg.Args...)
+ 		cmd.Env = mergeEnv(os.Environ(), cfg.Env)
+-		return &sdk.CommandTransport{Command: cmd}, nil
++		return &managedCommandTransport{CommandTransport: sdk.CommandTransport{Command: cmd, TerminateDuration: 250 * time.Millisecond}}, nil
+ 	}
+ 	return &sdk.StreamableClientTransport{
+ 		Endpoint:   cfg.URL,
+diff --git a/tools/mcp/process_transport.go b/tools/mcp/process_transport.go
+new file mode 100644
+index 0000000..e8e161f
+--- /dev/null
++++ b/tools/mcp/process_transport.go
+@@ -0,0 +1,39 @@
++package mcp
++
++import (
++	"context"
++	"os/exec"
++	"sync"
++
++	sdk "github.com/modelcontextprotocol/go-sdk/mcp"
++	"github.com/sausheong/harness/process"
++)
++
++type managedCommandTransport struct{ sdk.CommandTransport }
++
++func (t *managedCommandTransport) Connect(ctx context.Context) (sdk.Connection, error) {
++	conn, err := t.CommandTransport.Connect(ctx)
++	if err != nil {
++		return nil, err
++	}
++	return &managedCommandConnection{Connection: conn, command: t.Command}, nil
++}
++
++type managedCommandConnection struct {
++	sdk.Connection
++	command  *exec.Cmd
++	once     sync.Once
++	closeErr error
++}
++
++func (c *managedCommandConnection) Close() error {
++	c.once.Do(func() {
++		// Let the SDK close stdin and join the server first, then remove any
++		// descendants it left behind. WaitDelay bounds inherited-pipe draining.
++		c.closeErr = c.Connection.Close()
++		if err := process.KillGroup(c.command); c.closeErr == nil {
++			c.closeErr = err
++		}
++	})
++	return c.closeErr
++}

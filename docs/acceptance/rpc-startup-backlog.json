@@ -1,0 +1,102 @@
+{
+  "status": "development_regression_fixed",
+  "requirements": [
+    "M4.1",
+    "M2.1"
+  ],
+  "tests": {
+    "hand-rpc-startup-backlog-before-20260909.jsonl": {
+      "fail": 1
+    },
+    "hand-rpc-startup-backlog-after-20260909.jsonl": {
+      "pass": 140
+    },
+    "hand-rpc-startup-backlog-binary-20260909.jsonl": {
+      "pass": 5
+    },
+    "hand-rpc-startup-backlog-repeat-20260909.jsonl": {
+      "pass": 80
+    },
+    "hand-rpc-startup-backlog-final-transport-20260909.jsonl": {
+      "pass": 140
+    }
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-startup-backlog-before-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/0-hand-rpc-startup-backlog-before-20260909.jsonl.gz",
+      "sha256": "7fd2f893c9b5e58ba397c34f924af42e4cffbaaf5cd6541c172000ea6bfa8e91",
+      "uncompressed_sha256": "40c2d3cda7d0087ed051d54a80631460c19016f7f0c44735da08b48f74f88c73"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-backlog-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/1-hand-rpc-startup-backlog-after-20260909.jsonl.gz",
+      "sha256": "d5a459b6a94b19f550156772d105089c7a24673c1fc23ae0f2149de2b14e212b",
+      "uncompressed_sha256": "049421e3af25a28dff7155b7faf01a58d7964ed147e60d9955eadaea6c242912"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-backlog-binary-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/2-hand-rpc-startup-backlog-binary-20260909.jsonl.gz",
+      "sha256": "4dea520a0f18f4ad70d517cf45e732fb027ab3b2dbeafcc1ecdcccaa90a1574b",
+      "uncompressed_sha256": "c7301812fad99d49c96194511853403f606ba474ef793a887233bc98d4c26eb6"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-backlog-repeat-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/3-hand-rpc-startup-backlog-repeat-20260909.jsonl.gz",
+      "sha256": "fdc38521b0c23a87983ae49bafefab469ad84c770c8209984fb77f309e112788",
+      "uncompressed_sha256": "58a45c33a9e7f2396fc2060eeb463a1916ff2bc93d4c144f2682728c245511a5"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-backlog-final-transport-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/4-hand-rpc-startup-backlog-final-transport-20260909.jsonl.gz",
+      "sha256": "508b04a50f7cbe160e732793ac79ab847ecbfcd147f28fec2a822cafe17ac606",
+      "uncompressed_sha256": "8900fca9847e25df7ac22517475de24fe10d790e0dafd1f78212d3427264cef9"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-backlog-vet-20260909.log",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/5-hand-rpc-startup-backlog-vet-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "internal/rpc/prepared_transport.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/6-prepared_transport.go.gz",
+      "sha256": "32700b71bd6a5163c813c8005ebf6c8af42f5369d10eb3780236405c6123b83c",
+      "uncompressed_sha256": "fc3d3727293c3f7ea14fd02feceba9f2f6e8e4789603bb46ac33993848f74f2d"
+    },
+    {
+      "source": "internal/rpc/transport.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/7-transport.go.gz",
+      "sha256": "224c04190d6263abbd3e3863dda84bedce36eda5bb687164d483ddb5b2399217",
+      "uncompressed_sha256": "0a6532d290f035d8044673f764ed6bffabeec050a19afd07fccac4c4651d6148"
+    },
+    {
+      "source": "internal/rpc/transport_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/8-transport_test.go.gz",
+      "sha256": "4f7a3685157e379b51544aa81667bec8f056838d0ede0788e37b6e2ceecb43f7",
+      "uncompressed_sha256": "b91d55813c07a2364e58b0da4ceb5a343f206aafd557ecf48cc45ff916552d25"
+    },
+    {
+      "source": "cmd/hand/main.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/9-main.go.gz",
+      "sha256": "9bf1a433ad1e773281cf7f914dc753f0cdaabb9ff9fefe324fbbfff29110d863",
+      "uncompressed_sha256": "d1b6af3bdd02c0165094265c031f7c9f127a7583e2ee3e584aeeb6c34f288d20"
+    },
+    {
+      "source": "cmd/hand/startup_signal_binary_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-backlog-20260909/10-startup_signal_binary_test.go.gz",
+      "sha256": "2c746352bf48e1d9604fca4421bfc93fcfea83910fc1db3d498c2c5ded2d7553",
+      "uncompressed_sha256": "a8a41b88f58d60be31404a68d360254eb23deacb4bf0cb212b7e5d5e31b1ba33"
+    }
+  ],
+  "vet_exit_code": 0,
+  "before": "Two queued requests blocked the early reader before it could observe EOF, leaving startup waiting on MCP",
+  "after": "Pre-dispatcher queue rejects an additional complete request explicitly and cancels construction; normal ready-state transport retains bounded backpressure",
+  "limitations": [
+    "Native macOS development checkout; full platform and candidate qualification pending",
+    "Compiled binary is ordinary go build with race-enabled parent tests",
+    "Steady-state pipelined disconnect semantics are a separate transport audit; this evidence establishes pre-dispatcher startup behavior"
+  ],
+  "binary_trials": 60,
+  "cleanup_max_ms": 263.659
+}

@@ -1,0 +1,4 @@
+=== RUN   TestBinaryConversationReportsRealENOSPC
+    session_enospc_linux_test.go:245: Provider request reached before kernel ENOSPC; CLI exit 5 and disk-full diagnostic; durable questions recovered and writer usable
+--- PASS: TestBinaryConversationReportsRealENOSPC (0.05s)
+PASS

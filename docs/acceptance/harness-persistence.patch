@@ -1,0 +1,473 @@
+diff --git a/runtime/persistence_test.go b/runtime/persistence_test.go
+new file mode 100644
+index 0000000..e61ef02
+--- /dev/null
++++ b/runtime/persistence_test.go
+@@ -0,0 +1,92 @@
++package runtime
++
++import (
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"testing"
++	"time"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tool"
++)
++
++type persistenceProvider struct {
++	usageDoneProvider
++	before func()
++	calls  int
++}
++
++func (p *persistenceProvider) ChatStream(ctx context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.calls++
++	if p.before != nil {
++		p.before()
++	}
++	return p.usageDoneProvider.ChatStream(ctx, req)
++}
++
++func TestPersistenceFailurePreventsSuccessfulRuntimeCompletion(t *testing.T) {
++	for _, stage := range []string{"prompt", "answer"} {
++		t.Run(stage, func(t *testing.T) {
++			root := filepath.Join(t.TempDir(), "store")
++			sess := session.NewSession("agent", "key")
++			sess.SetStore(session.NewStore(root))
++			provider := &persistenceProvider{}
++			if stage == "prompt" {
++				if err := os.WriteFile(root, []byte("obstruction"), 0600); err != nil {
++					t.Fatal(err)
++				}
++			} else {
++				provider.before = func() {
++					path := filepath.Join(root, "agent", "key.jsonl")
++					if err := os.Remove(path); err != nil {
++						t.Error(err)
++					}
++					if err := os.Mkdir(path, 0700); err != nil {
++						t.Error(err)
++					}
++				}
++			}
++			rt := &Runtime{AgentID: "agent", Provider: "local", Model: "fixture", Session: sess, Tools: tool.NewRegistry(), LLM: provider, MaxTurns: 1}
++			events, err := rt.Run(context.Background(), "work", nil)
++			if err != nil {
++				t.Fatal(err)
++			}
++			failed, done := false, false
++			for event := range events {
++				if event.Type == EventError && event.Error != nil {
++					failed = true
++				}
++				if event.Type == EventDone {
++					done = true
++				}
++			}
++			if !failed || done || sess.PersistenceError() == nil {
++				t.Fatal("persistence failure became success", failed, done)
++			}
++			if stage == "prompt" && provider.calls != 0 {
++				t.Fatal("unsaved prompt sent to provider")
++			}
++		})
++	}
++}
++
++func TestRunSyncJoinsAfterError(t *testing.T) {
++	entered, release := make(chan struct{}), make(chan struct{})
++	rt := &Runtime{AgentID: "agent", Provider: "local", Model: "fixture", Session: session.NewSession("agent", "key"), Tools: tool.NewRegistry(), LLM: &mockLLMProvider{events: []llm.ChatEvent{{Type: llm.EventError, Error: errors.New("provider failed")}}}, MaxTurns: 1}
++	rt.AgentLoop.Hooks.OnStop = func(context.Context, string) { close(entered); <-release }
++	result := make(chan error, 1)
++	go func() { _, err := rt.RunSync(context.Background(), "work", nil); result <- err }()
++	<-entered
++	select {
++	case err := <-result:
++		t.Fatal("RunSync returned before cleanup", err)
++	case <-time.After(20 * time.Millisecond):
++	}
++	close(release)
++	if err := <-result; err == nil {
++		t.Fatal("failure lost while joining")
++	}
++}
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index 22acc49..6ab25e3 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -365,6 +365,12 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 			r.Session.Append(session.UserMessageEntry(userMsg))
+ 		}
+ 
++		if err := r.Session.PersistenceError(); err != nil {
++			stopReason = "error"
++			r.emit(AgentEvent{Type: EventError, Error: err})
++			return
++		}
++
+ 		if hook := r.AgentLoop.Hooks.OnSessionStart; hook != nil {
+ 			hook(ctx, r.Session)
+ 		}
+@@ -433,6 +439,12 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 		}
+ 
+ 		for turn := 0; turn < maxTurns; turn++ {
++			if err := r.Session.PersistenceError(); err != nil {
++				stopReason = "error"
++				r.emit(AgentEvent{Type: EventError, Error: err})
++				return
++			}
++
+ 			if ctx.Err() != nil {
+ 				stopReason = "aborted"
+ 				r.emit(AgentEvent{Type: EventAborted})
+@@ -772,6 +784,11 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 					drainKickoffs(kickoffs)
+ 				}
+ 				tr.Mark("agent.done", "turn", turn, "reason", "no_tool_calls")
++				if err := r.Session.Flush(); err != nil {
++					stopReason = "error"
++					r.emit(AgentEvent{Type: EventError, Error: err})
++					return
++				}
+ 				stopReason = "completed"
+ 				r.emit(AgentEvent{Type: EventDone, Usage: ledger.Total()})
+ 				r.maybeKickoffAsyncCompaction(msgs, parts, toolDefs)
+@@ -905,18 +922,25 @@ func (r *Runtime) RunSync(ctx context.Context, userMsg string, images []llm.Imag
+ 	}
+ 
+ 	var response strings.Builder
++	var runErr error
+ 	for event := range events {
+ 		switch event.Type {
+ 		case EventTextDelta:
+ 			response.WriteString(event.Text)
+ 		case EventAborted:
+-			return response.String(), context.Canceled
++			if runErr == nil {
++				runErr = context.Canceled
++			}
+ 		case EventError:
+-			return response.String(), event.Error
++			if runErr == nil {
++				runErr = event.Error
++				if runErr == nil {
++					runErr = fmt.Errorf("runtime emitted an error without details")
++				}
++			}
+ 		}
+ 	}
+-
+-	return response.String(), nil
++	return response.String(), runErr
+ }
+ 
+ // dispatchTool executes one tool call with strict tool_use ↔ tool_result
+diff --git a/session/persistence.go b/session/persistence.go
+new file mode 100644
+index 0000000..58210f4
+--- /dev/null
++++ b/session/persistence.go
+@@ -0,0 +1,73 @@
++package session
++
++import (
++	"fmt"
++	"os"
++)
++
++type persistenceFailure struct{ err error }
++
++// PersistenceError returns the first failure for this in-memory session. It is
++// sticky: a later successful write cannot restore entries already lost. Recovery
++// requires reconciling durable state and opening a new session instance.
++func (s *Session) PersistenceError() error {
++	if failure := s.persistenceFailure.Load(); failure != nil {
++		return failure.err
++	}
++	return nil
++}
++func (store *Store) recordPersistenceFailure(s *Session, reason string, err error) {
++	if err == nil {
++		return
++	}
++	s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("session persistence %s: %w", reason, err)})
++	store.markDegraded(reason, err)
++}
++
++// Flush synchronizes the session file and its containing directory, surfacing
++// write/close/sync failures. Call after joining append/compaction workers; Flush
++// does not claim to join concurrent producers. In-memory sessions need no I/O.
++// This does not implement writer leases, branch recovery or migration.
++func (s *Session) Flush() error {
++	if err := s.PersistenceError(); err != nil {
++		return err
++	}
++	if s.store == nil {
++		return nil
++	}
++	store := s.store
++	store.mu.Lock()
++	defer store.mu.Unlock()
++	fail := func(reason string, err error) error {
++		store.recordPersistenceFailure(s, reason, err)
++		return s.PersistenceError()
++	}
++	if err := validateStoreIDs(s.AgentID, s.Key); err != nil {
++		return fail("invalid session path", err)
++	}
++	f, err := os.OpenFile(store.sessionPath(s.AgentID, s.Key), os.O_WRONLY, 0)
++	if err != nil {
++		return fail("open for sync", err)
++	}
++	syncErr := f.Sync()
++	closeErr := f.Close()
++	if syncErr != nil {
++		return fail("sync session file", syncErr)
++	}
++	if closeErr != nil {
++		return fail("close synced session", closeErr)
++	}
++	dir, err := os.Open(store.sessionDir(s.AgentID))
++	if err != nil {
++		return fail("open session directory", err)
++	}
++	syncErr = dir.Sync()
++	closeErr = dir.Close()
++	if syncErr != nil {
++		return fail("sync session directory", syncErr)
++	}
++	if closeErr != nil {
++		return fail("close session directory", closeErr)
++	}
++	return s.PersistenceError()
++}
+diff --git a/session/persistence_test.go b/session/persistence_test.go
+new file mode 100644
+index 0000000..7039520
+--- /dev/null
++++ b/session/persistence_test.go
+@@ -0,0 +1,79 @@
++package session
++
++import (
++	"encoding/json"
++	"os"
++	"path/filepath"
++	"sync"
++	"testing"
++)
++
++func TestPersistenceErrorIsStickyAndSessionScoped(t *testing.T) {
++	root := filepath.Join(t.TempDir(), "store")
++	if err := os.WriteFile(root, []byte("obstruction"), 0600); err != nil {
++		t.Fatal(err)
++	}
++	store := NewStore(root)
++	broken := NewSession("agent", "broken")
++	broken.SetStore(store)
++	broken.Append(UserMessageEntry("cannot persist"))
++	first := broken.PersistenceError()
++	if first == nil {
++		t.Fatal("append failure hidden")
++	}
++	if err := os.Remove(root); err != nil {
++		t.Fatal(err)
++	}
++	healthy := NewSession("agent", "healthy")
++	healthy.SetStore(store)
++	healthy.Append(UserMessageEntry("retained"))
++	if err := healthy.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	broken.Append(UserMessageEntry("later write works"))
++	if broken.PersistenceError() != first || broken.Flush() != first {
++		t.Fatal("later write erased degraded state")
++	}
++	loaded, err := store.Load("agent", "healthy")
++	if err != nil || len(loaded.Entries()) != 1 || loaded.PersistenceError() != nil {
++		t.Fatal(loaded, err)
++	}
++}
++
++func TestPersistenceCapturesMarshalAndFlushFailures(t *testing.T) {
++	s := NewSession("agent", "invalid")
++	s.SetStore(NewStore(t.TempDir()))
++	s.Append(SessionEntry{Type: EntryTypeMessage, Data: json.RawMessage(`invalid-json`)})
++	if s.PersistenceError() == nil {
++		t.Fatal("marshal failure hidden")
++	}
++	missing := NewSession("agent", "missing")
++	missing.SetStore(NewStore(t.TempDir()))
++	if missing.Flush() == nil || missing.PersistenceError() == nil {
++		t.Fatal("missing file sync accepted")
++	}
++	if err := NewSession("agent", "memory").Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
++
++func TestPersistenceErrorConcurrentReaders(t *testing.T) {
++	store := NewStore(filepath.Join(t.TempDir(), "missing-parent", "store"))
++	s := NewSession("agent", "session")
++	s.SetStore(store)
++	var wg sync.WaitGroup
++	for i := 0; i < 8; i++ {
++		wg.Add(1)
++		go func() {
++			defer wg.Done()
++			for j := 0; j < 20; j++ {
++				s.PersistenceError()
++			}
++		}()
++	}
++	s.Append(UserMessageEntry("saved"))
++	wg.Wait()
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
+diff --git a/session/session.go b/session/session.go
+index 3a544cf..e237c3b 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -6,6 +6,7 @@ import (
+ 	"encoding/json"
+ 	"fmt"
+ 	"sync"
++	"sync/atomic"
+ 	"time"
+ )
+ 
+@@ -84,9 +85,10 @@ type CompactionData struct {
+ 
+ // Session holds a conversation session with DAG-structured entries.
+ type Session struct {
+-	ID      string
+-	AgentID string
+-	Key     string // channel + peer derived key
++	persistenceFailure atomic.Pointer[persistenceFailure]
++	ID                 string
++	AgentID            string
++	Key                string // channel + peer derived key
+ 
+ 	mu       sync.RWMutex // guards entries / entryMap / leafID
+ 	entries  []SessionEntry
+diff --git a/session/store.go b/session/store.go
+index 7255238..6310e27 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -4,6 +4,7 @@ import (
+ 	"bufio"
+ 	"encoding/json"
+ 	"fmt"
++	"io"
+ 	"log/slog"
+ 	"os"
+ 	"path/filepath"
+@@ -125,14 +126,14 @@ func (s *Store) AppendEntry(sess *Session, entry SessionEntry) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
+ 	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+-		s.markDegraded("invalid session path", err)
++		s.recordPersistenceFailure(sess, "invalid session path", err)
+ 		slog.Error("refusing to persist session outside store", "error", err)
+ 		return
+ 	}
+ 
+ 	dir := s.sessionDir(sess.AgentID)
+ 	if err := os.MkdirAll(dir, 0o755); err != nil {
+-		s.markDegraded("create session dir", err)
++		s.recordPersistenceFailure(sess, "create session dir", err)
+ 		slog.Error("failed to create session dir", "error", err)
+ 		return
+ 	}
+@@ -140,21 +141,29 @@ func (s *Store) AppendEntry(sess *Session, entry SessionEntry) {
+ 	path := s.sessionPath(sess.AgentID, sess.Key)
+ 	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o600)
+ 	if err != nil {
+-		s.markDegraded("open session file", err)
++		s.recordPersistenceFailure(sess, "open session file", err)
+ 		slog.Error("failed to open session file", "error", err)
+ 		return
+ 	}
+-	defer f.Close()
++	defer func() {
++		if err := f.Close(); err != nil {
++			s.recordPersistenceFailure(sess, "close session file", err)
++		}
++	}()
+ 
+ 	data, err := json.Marshal(entry)
+ 	if err != nil {
++		s.recordPersistenceFailure(sess, "marshal session entry", err)
+ 		slog.Error("failed to marshal session entry", "error", err)
+ 		return
+ 	}
+ 
+ 	data = append(data, '\n')
+-	if _, err := f.Write(data); err != nil {
+-		s.markDegraded("write session entry", err)
++	if n, err := f.Write(data); err != nil || n != len(data) {
++		if err == nil {
++			err = io.ErrShortWrite
++		}
++		s.recordPersistenceFailure(sess, "write session entry", err)
+ 		slog.Error("failed to write session entry", "error", err)
+ 	}
+ }
+@@ -309,14 +318,14 @@ func (s *Store) Rewrite(sess *Session) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
+ 	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+-		s.markDegraded("invalid session path", err)
++		s.recordPersistenceFailure(sess, "invalid session path", err)
+ 		slog.Error("refusing to rewrite session outside store", "error", err)
+ 		return
+ 	}
+ 
+ 	dir := s.sessionDir(sess.AgentID)
+ 	if err := os.MkdirAll(dir, 0o755); err != nil {
+-		s.markDegraded("create session dir", err)
++		s.recordPersistenceFailure(sess, "create session dir", err)
+ 		slog.Error("failed to create session dir", "error", err)
+ 		return
+ 	}
+@@ -325,16 +334,21 @@ func (s *Store) Rewrite(sess *Session) {
+ 
+ 	f, err := os.Create(path)
+ 	if err != nil {
+-		s.markDegraded("create session file for rewrite", err)
++		s.recordPersistenceFailure(sess, "create session file for rewrite", err)
+ 		slog.Error("failed to create session file for rewrite", "error", err)
+ 		return
+ 	}
+-	defer f.Close()
++	defer func() {
++		if err := f.Close(); err != nil {
++			s.recordPersistenceFailure(sess, "close rewritten session", err)
++		}
++	}()
+ 
+ 	w := bufio.NewWriter(f)
+ 	for _, entry := range sess.Entries() {
+ 		data, err := json.Marshal(entry)
+ 		if err != nil {
++			s.recordPersistenceFailure(sess, "marshal session entry", err)
+ 			slog.Error("failed to marshal session entry", "error", err)
+ 			continue
+ 		}
+@@ -343,7 +357,7 @@ func (s *Store) Rewrite(sess *Session) {
+ 	}
+ 
+ 	if err := w.Flush(); err != nil {
+-		s.markDegraded("flush session file", err)
++		s.recordPersistenceFailure(sess, "flush session file", err)
+ 		slog.Error("failed to flush session file", "error", err)
+ 	}
+ }

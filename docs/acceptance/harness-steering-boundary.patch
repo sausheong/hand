@@ -1,0 +1,292 @@
+diff --git a/runtime/STEERING.md b/runtime/STEERING.md
+new file mode 100644
+index 0000000..60b0afe
+--- /dev/null
++++ b/runtime/STEERING.md
+@@ -0,0 +1,26 @@
++# Steering boundary contract
++
++`WithSteering` installs a prompt source for `Runtime.Run`/`RunSync`. It is polled
++after a model response and between joined tools. Without a source, existing tool
++concurrency and streaming kickoff behaviour is unchanged. With a source, tools
++run serially and streaming kickoff is disabled, providing a boundary before
++each remaining proposed call.
++
++A source returns nil when no correction is pending. Otherwise it returns a
++stable ID, nonempty UTF-8 text up to 64 KiB and an optional acknowledgement
++callback. The source must retain that correction until acknowledgement, honour
++cancellation, and return promptly. IDs are at most 128 bytes. A delivered ID
++must never be reused with different text.
++
++On delivery, remaining calls receive explicit skipped results, then the user
++correction is appended under its stable ID and flushed. Only then does Harness
++acknowledge the source. The next model turn sees that history. Source or
++persistence errors stop execution. An acknowledgement failure also stops the
++run; redelivery of the same ID/text acknowledges without appending a duplicate.
++
++This API does not cancel an already executing tool or take over its approval.
++The host must manage queue ownership, freeze text while delivery is claimed,
++reconcile acknowledgement failures, and render pending/delivered state. A
++correction arriving during a pending approval waits for that tool's execution
++boundary; separate cancellation remains available. `RunTurn` does not currently
++use this API. Native platform and integrated Hand qualification remain pending.
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index 48fac5f..b6d5361 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -614,7 +614,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 			var thinkingBlocks []session.ThinkingBlockData
+ 			gotFirstToken := false
+ 
+-			streamingOn := r.streamingToolsEnabled()
++			streamingOn := r.streamingToolsEnabled() && steeringSource(ctx) == nil
+ 			kickoffs := map[string]chan kickoffResult{}
+ 			kickoffStopped := false
+ 
+@@ -811,6 +811,14 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 				}
+ 			}
+ 
++			if steered, err := r.applySteering(ctx, toolCalls); err != nil {
++				stopReason = "error"
++				r.emit(AgentEvent{Type: EventError, Error: err})
++				return
++			} else if steered {
++				continue
++			}
++
+ 			if len(toolCalls) == 0 {
+ 				if len(kickoffs) > 0 {
+ 					drainKickoffs(kickoffs)
+@@ -889,7 +897,23 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 			}
+ 
+ 			batches := partitionToolCalls(pending, r.Tools)
+-			for _, b := range batches {
++			if steeringSource(ctx) != nil {
++				batches = nil
++				for _, tc := range pending {
++					batches = append(batches, batch{calls: []llm.ToolCall{tc}})
++				}
++			}
++			for i, b := range batches {
++				// The first boundary was checked immediately after model output.
++				if i > 0 {
++					if steered, err := r.applySteering(ctx, pending[i:]); err != nil {
++						stopReason = "error"
++						r.emit(AgentEvent{Type: EventError, Error: err})
++						return
++					} else if steered {
++						break
++					}
++				}
+ 				if r.runBatch(ctx, b, kgThreadOrNil(r.KG, &thread), turn, tr) {
+ 					stopReason = "aborted"
+ 					r.emit(AgentEvent{Type: EventAborted})
+diff --git a/runtime/steering.go b/runtime/steering.go
+new file mode 100644
+index 0000000..a201a66
+--- /dev/null
++++ b/runtime/steering.go
+@@ -0,0 +1,84 @@
++package runtime
++
++import (
++	"context"
++	"errors"
++	"strings"
++	"unicode/utf8"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++)
++
++type steeringContextKey struct{}
++
++// SteeringMessage identifies one correction. Source retains it until Acknowledge
++// succeeds. ID must be stable across retry; Text must not change after delivery.
++type SteeringMessage struct {
++	ID          string
++	Text        string
++	Acknowledge func() error
++}
++type SteeringSource func(context.Context) (*SteeringMessage, error)
++
++// WithSteering enables safe-boundary delivery for Run. Tool execution becomes
++// serial and streaming kickoff is disabled so no eligible later tool can race a
++// correction. Source is called after model output and between joined tools.
++// A nil message means no correction. Source must return promptly and honour ctx.
++func WithSteering(ctx context.Context, source SteeringSource) context.Context {
++	return context.WithValue(ctx, steeringContextKey{}, source)
++}
++func steeringSource(ctx context.Context) SteeringSource {
++	source, _ := ctx.Value(steeringContextKey{}).(SteeringSource)
++	return source
++}
++
++func (r *Runtime) applySteering(ctx context.Context, pending []llm.ToolCall) (bool, error) {
++	source := steeringSource(ctx)
++	if source == nil {
++		return false, nil
++	}
++	if err := ctx.Err(); err != nil {
++		return false, err
++	}
++	message, err := source(ctx)
++	if err != nil || message == nil {
++		return false, err
++	}
++	if message.ID == "" || len(message.ID) > 128 || strings.ContainsAny(message.ID, "\r\n\x00") || !utf8.ValidString(message.ID) || !utf8.ValidString(message.Text) || strings.TrimSpace(message.Text) == "" || len(message.Text) > 64<<10 {
++		return false, errors.New("invalid steering identity or text")
++	}
++	entry := session.UserMessageEntry(message.Text)
++	entry.ID = "steering_" + message.ID
++	for _, prior := range r.Session.Entries() {
++		if prior.ID != entry.ID {
++			continue
++		}
++		if prior.Type != entry.Type || string(prior.Data) != string(entry.Data) {
++			return false, errors.New("conflicting delivered steering identity")
++		}
++		if err := r.Session.Flush(); err != nil {
++			return false, err
++		}
++		if message.Acknowledge != nil {
++			return false, message.Acknowledge()
++		}
++		return false, nil
++	}
++	// Reconcile every proposed call before injecting user input. Unexecuted tools
++	// get explicit error results so provider histories never contain orphan calls.
++	for _, tc := range pending {
++		r.Session.AppendContext(ctx, session.ToolCallEntry(tc.ID, tc.Name, tc.Input))
++		r.Session.AppendContext(ctx, session.ToolResultEntry(tc.ID, "", "skipped because user steering superseded this tool call", nil))
++	}
++	r.Session.AppendContext(ctx, entry)
++	if err := r.Session.Flush(); err != nil {
++		return false, err
++	}
++	if message.Acknowledge != nil {
++		if err := message.Acknowledge(); err != nil {
++			return true, err
++		}
++	}
++	return true, nil
++}
+diff --git a/runtime/steering_test.go b/runtime/steering_test.go
+new file mode 100644
+index 0000000..f985328
+--- /dev/null
++++ b/runtime/steering_test.go
+@@ -0,0 +1,111 @@
++package runtime
++
++import (
++	"context"
++	"encoding/json"
++	"errors"
++	"testing"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++)
++
++func TestSteeringStopsRemainingToolsAndAcknowledgesDurably(t *testing.T) {
++	exec := newTimedExecutor()
++	exec.addTool("read")
++	exec.markSafe("read")
++	first := &llm.ToolCall{ID: "one", Name: "read", Input: json.RawMessage(`{}`)}
++	second := &llm.ToolCall{ID: "two", Name: "read", Input: json.RawMessage(`{}`)}
++	provider := &scriptedStreamLLM{events: []scriptedStreamEvent{{typ: llm.EventToolCallDone, toolCall: first}, {typ: llm.EventToolCallDone, toolCall: second}, {typ: llm.EventDone}}}
++	store := session.NewStore(t.TempDir())
++	if err := store.Create("a", "k"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("a", "k")
++	if err != nil {
++		t.Fatal(err)
++	}
++	rt := &Runtime{LLM: provider, Tools: exec, Session: sess, AgentID: "a", Model: "test", MaxTurns: 3, AgentLoop: LoopConfig{StreamingTools: true}}
++	ack := false
++	ctx := WithSteering(context.Background(), func(context.Context) (*SteeringMessage, error) {
++		if exec.callCount() == 0 || ack {
++			return nil, nil
++		}
++		return &SteeringMessage{ID: "correction", Text: "Stop reading and answer", Acknowledge: func() error { ack = true; return nil }}, nil
++	})
++	if _, err := rt.RunSync(ctx, "go", nil); err != nil {
++		t.Fatal(err)
++	}
++	if exec.callCount() != 1 || !ack {
++		t.Fatal("remaining tool ran or correction lost", exec.callCount(), ack)
++	}
++	if err := sess.Close(); err != nil {
++		t.Fatal(err)
++	}
++	sess, err = store.LoadExclusive("a", "k")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	calls, results, corrections := 0, 0, 0
++	for _, entry := range sess.Entries() {
++		switch entry.Type {
++		case session.EntryTypeToolCall:
++			calls++
++		case session.EntryTypeToolResult:
++			results++
++		}
++		if entry.ID == "steering_correction" {
++			corrections++
++		}
++	}
++	if calls != 2 || results != 2 || corrections != 1 {
++		t.Fatal(calls, results, corrections)
++	}
++	rt.Session = sess
++	before := len(sess.Entries())
++	ctx = WithSteering(context.Background(), func(context.Context) (*SteeringMessage, error) {
++		return &SteeringMessage{ID: "correction", Text: "Stop reading and answer"}, nil
++	})
++	if applied, err := rt.applySteering(ctx, nil); err != nil || applied || len(sess.Entries()) != before {
++		t.Fatal("redelivery duplicated input", applied, err)
++	}
++}
++
++func TestSteeringDoesNotAcknowledgePersistenceFailure(t *testing.T) {
++	store := session.NewStore(t.TempDir())
++	if err := store.Create("a", "k"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("a", "k")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err := sess.Close(); err != nil {
++		t.Fatal(err)
++	}
++	ack := false
++	rt := &Runtime{Session: sess}
++	ctx := WithSteering(context.Background(), func(context.Context) (*SteeringMessage, error) {
++		return &SteeringMessage{ID: "x", Text: "correction", Acknowledge: func() error { ack = true; return nil }}, nil
++	})
++	if _, err := rt.applySteering(ctx, nil); err == nil || ack {
++		t.Fatal("failed write acknowledged", err, ack)
++	}
++}
++
++func TestSteeringSourceErrorAndInvalidInputDoNotWrite(t *testing.T) {
++	rt := &Runtime{Session: session.NewSession("a", "k")}
++	sentinel := errors.New("queue unavailable")
++	ctx := WithSteering(context.Background(), func(context.Context) (*SteeringMessage, error) { return nil, sentinel })
++	if _, err := rt.applySteering(ctx, nil); !errors.Is(err, sentinel) {
++		t.Fatal(err)
++	}
++	ctx = WithSteering(context.Background(), func(context.Context) (*SteeringMessage, error) { return &SteeringMessage{ID: "x", Text: " "}, nil })
++	if _, err := rt.applySteering(ctx, nil); err == nil {
++		t.Fatal("invalid correction accepted")
++	}
++	if len(rt.Session.Entries()) != 0 {
++		t.Fatal("failed steering changed history")
++	}
++}

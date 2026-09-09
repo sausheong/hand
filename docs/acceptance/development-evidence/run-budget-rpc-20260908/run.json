@@ -1,0 +1,87 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "paid_calls": 0,
+  "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+  "runner_sha256": "500bbc8ea61fdc41477c6b3a3162ddd9efcc7b0818ad8f857530db66685aa256",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "session_id": "ses_c7ea75988f4256ab",
+  "exhausted": {
+    "approval_id": "",
+    "error": "llm error: provider admission: run token budget: budget_exhausted\nbudget_exhausted",
+    "iteration": 1,
+    "reason": "run_token_budget",
+    "state": "idle",
+    "status": "budget_exhausted",
+    "text": "",
+    "truncated": false,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 0,
+      "known": true,
+      "output_tokens": 0,
+      "prior_unknown": false,
+      "requests": 0,
+      "unknown_requests": 0
+    },
+    "verified": false
+  },
+  "charged": {
+    "id": "repair",
+    "selected": true,
+    "configured": true,
+    "tokens": {
+      "limit": 100000,
+      "committed": 15,
+      "exhausted": false,
+      "attempts": 2,
+      "uncertain_attempts": 0,
+      "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+    },
+    "cost": {
+      "currency": "USD",
+      "limit_nano": 100000,
+      "committed_nano": 15,
+      "compaction_nano": 0,
+      "strict": true,
+      "exhausted": false,
+      "attempts": 1,
+      "unpriced_attempts": 0,
+      "uncertain_attempts": 0,
+      "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+    },
+    "time": {
+      "configured": false,
+      "decided_at": "0001-01-01T00:00:00Z",
+      "deadline": "0001-01-01T00:00:00Z",
+      "expired": false,
+      "remaining_millis": 0,
+      "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+    },
+    "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+  },
+  "completed": {
+    "approval_id": "",
+    "error": "",
+    "iteration": 1,
+    "reason": "answer_completed",
+    "state": "idle",
+    "status": "completed",
+    "text": "",
+    "truncated": false,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 10,
+      "known": true,
+      "output_tokens": 5,
+      "prior_unknown": false,
+      "requests": 1,
+      "unknown_requests": 0
+    },
+    "verified": false
+  },
+  "clean_exits": 3,
+  "local_provider_requests": 1
+}

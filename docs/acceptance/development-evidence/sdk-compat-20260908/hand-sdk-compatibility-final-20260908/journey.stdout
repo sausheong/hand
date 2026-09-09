@@ -1,0 +1,1 @@
+{"observations":{"cli_jsonl":{"text":"compatible answer","status":"completed","terminals":1},"embedded_sdk":{"text":"compatible answer","status":"completed","terminals":1},"subprocess_sdk":{"text":"compatible answer","status":"completed","terminals":1}},"provider_calls":3,"scope":"local fixture completion journey; excludes live evaluation","status":"passed"}

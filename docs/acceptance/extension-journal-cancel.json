@@ -1,0 +1,58 @@
+{
+  "status": "development_extension_cancellation_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/rpc -run '^TestExtensionRPCQuestionReplayAndDisconnect$/^journal_failure$'",
+  "test_records": {
+    "pass": 40
+  },
+  "repetitions": 20,
+  "command_join_and_state_check_ms": [
+    2.450125,
+    1.824959,
+    1.949375,
+    1.720709,
+    1.493792,
+    1.048583,
+    1.045291,
+    0.96475,
+    1.002958,
+    0.915584,
+    1.093375,
+    1.617333,
+    0.911583,
+    1.154833,
+    1.160708,
+    0.907875,
+    1.831,
+    1.326917,
+    0.999709,
+    1.019291
+  ],
+  "maximum_ms": 2.450125,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-journal-cancel-20260909/hand-extension-journal-cancel-20260909.jsonl.gz",
+      "sha256": "5b2055e38637b39c5565bc942e654a5db27b7920077f40817c75d41b4f72609c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-journal-cancel-20260909/extensions_test.go.gz",
+      "sha256": "2d53f7081762e529a2e62f9fbb3738ae9f55ebe78e6c40a170564bfcd371246e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-journal-cancel-20260909/main.go.gz",
+      "sha256": "830cbce10b0e4c043d3ee707e95880b09cbe965c134746eb56f26abf31c1540c"
+    }
+  ],
+  "assertions": [
+    "Built task-note extension reaches pending interactive question before journal failure",
+    "Valid cancel reports ledger_failure with no success result",
+    "Command worker joins, question disappears and extension state revision remains zero",
+    "Automatic followups paused and failure disclosed",
+    "Reopened command remains uncertain; duplicate does not dispatch or recreate question"
+  ],
+  "limitations": [
+    "Native local extension-process command cancellation, not extension host process termination",
+    "Closed-descriptor write failure and clean journal reopen; not power-loss or Linux qualification",
+    "Twenty fault repetitions, not thirty UI-initiation latency trials",
+    "No production change or final candidate qualification"
+  ]
+}

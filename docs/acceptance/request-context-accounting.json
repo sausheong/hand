@@ -1,0 +1,102 @@
+{
+  "status": "development_request_context_display_passed",
+  "test_records": {
+    "before": {
+      "fail": 1
+    },
+    "after": {
+      "pass": 325,
+      "fail": 1
+    },
+    "fixed": {
+      "pass": 326
+    },
+    "bridge": {
+      "pass": 11,
+      "fail": 1
+    },
+    "bridge-native": {
+      "pass": 27
+    }
+  },
+  "assertions": [
+    "Canonical input/output totals exclude additional cache charges",
+    "Context receives per-request input separately from cumulative turn usage",
+    "Ten request events display 20k context against 201k cumulative tokens",
+    "Missing request usage displays unknown instead of stale/zero context",
+    "Model/session changes and compaction clear last request occupancy",
+    "Runtime-to-application-to-wire bridge retains known/unknown context"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/hand-context-after-20260909.jsonl.gz",
+      "sha256": "4aa2e353b9cba193f4257372d9cc0ae5760c0507dbf4dbdc86d0c79f3b88127c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/hand-context-before-20260909.jsonl.gz",
+      "sha256": "c6e34b0de962b5f230420f75b09a47149b3bb722e456eacde998628d880243e4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/hand-context-bridge-20260909.jsonl.gz",
+      "sha256": "ba51892e92b4312aab52c53647c5f5080721bcafbed7f53ab5c12d1dc15336e1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/hand-context-bridge-native-20260909.jsonl.gz",
+      "sha256": "bef409a70672dd1c33af6195205dab665709c9b5920433b09bf5ade9f8d5de0e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/hand-context-fixed-20260909.jsonl.gz",
+      "sha256": "75610621f742877d9a9695dd2dade620643c861409057e1fb30700dfd0b3975c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_app_harness.go.txt",
+      "sha256": "781eec63e86c1491acd2e5882bde79c33d8852e0296dcb2c00f2f622895db1a5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_app_wire.go.txt",
+      "sha256": "26114f970e7b5911170feb703942517f4f0a1fc6c56712ef6d780c7a2f46a5d4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_app_wire_usage_test.go.txt",
+      "sha256": "9858b2af673221f479e447f668dda875dc2a73e7335399d83a9f3b8a14e02907"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_application.go.txt",
+      "sha256": "8f8937f5abebed1ba1773f344246af56ae62fb249349a8dffbc6abd465286cf3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_model.go.txt",
+      "sha256": "40d7a52b01c7c8379de50292b755b2be8cc8d76feab1ae2d008cccaa65294471"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_model_test.go.txt",
+      "sha256": "a50eb936819d20b73cfc7be8db1c9abb05db5a6606a760b3f23e12299ae82153"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_profile_test.go.txt",
+      "sha256": "f9d4fecff8d4e8b0ed4edefc16ee23cc845969440074ed044e6c3f2dd14a947a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_request_context_test.go.txt",
+      "sha256": "b1be91791c19334c747d7cdd897c51e36abb03d620348f6267f397ed81739069"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_sessions.go.txt",
+      "sha256": "9a597077ac90b6eafbd2cabac6cb6aab34d125d0dd4ebbde94a7f2fdd49d761b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_status.go.txt",
+      "sha256": "7983f0a2c9a3d38b8de5ee88a3f546b7903a6861b1446a07f24c96ce00d72dfe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/request-context-20260909/internal_tui_status_test.go.txt",
+      "sha256": "a6799834e4ba504434c771f6686d22b4b7f38c9f0f85a07f8986e7ef93fbeb2c"
+    }
+  ],
+  "limitations": [
+    "Ten-request display and runtime bridge tested separately, not one built-client fixture",
+    "Initial application run blocked by sandbox local listener; native selected rerun passed",
+    "Full integrated coverage predates these production changes",
+    "Historical tests encoded obsolete cache semantics and were corrected; original failure preserved"
+  ]
+}

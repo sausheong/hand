@@ -1,0 +1,41 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.3",
+  "scope": "TUI command dispatch and asynchronous handling with actual local process, checkpoints and saved evidence",
+  "command": "go test -count=1 -race -coverprofile=/private/tmp/hand-tui-verification-20260909.cover -json ./internal/tui",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off"
+  },
+  "exit_code": 0,
+  "test_records": {
+    "pass": 292
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/tui-verification-20260909/hand-tui-verification-20260909.jsonl",
+      "sha256": "c47676c47c9e35b3aeacb977198a0b7f945caa6c126571e9924cda7a60af892b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tui-verification-20260909/hand-tui-verification-20260909.cover",
+      "sha256": "cd6cc4e7f09866d1f6da230e14e76cb581c7efad45fdbe1ed148a4b97e801419"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tui-verification-20260909/verification_journey_test.go.txt",
+      "sha256": "7520c4c65a1f079b2a61a69b6a9065af2333212d4fb529ab070cfc2cf95095d2"
+    }
+  ],
+  "assertions": [
+    "Review does not execute command; incorrect and replayed confirmation cannot dispatch",
+    "Confirmed command executes exactly once and produces visible successful exit/stdout",
+    "Saved evidence is listed and a later workspace edit yields stale assessment",
+    "Unlisted deletion is refused; listed deletion removes record and does not undo external command effect",
+    "Invalid syntax and unavailable checkpoint configuration report errors without changing session identity or retaining worker"
+  ],
+  "limits": [
+    "In-process TUI journey, not built binary PTY rendering",
+    "Native macOS development run with local Harness dependency",
+    "Package-only coverage does not replace aggregate or critical-group profiles",
+    "Clean candidate, released Harness, platform and final acceptance gates remain open"
+  ]
+}

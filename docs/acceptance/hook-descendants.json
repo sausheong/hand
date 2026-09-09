@@ -1,0 +1,42 @@
+{
+  "status": "development_regression_fixed",
+  "problem": "Direct hook subprocess cancellation left a descendant running; regression observed its file write after cancellation.",
+  "implementation": "Use Harness process.Command and process.Run to own and clean up the Unix process group while retaining hook payloads, output bounds and outcome classification.",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/agentio -run 'Hook|Goal'",
+  "test_records": {
+    "pass": 58,
+    "fail": 0,
+    "skip": 0
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-hook-descendants-before-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/hook-descendants-20260909/hand-hook-descendants-before-20260909.jsonl.gz",
+      "sha256": "195792792e1b2efc98a267907bde0046631bb8d34cead3c77ad0f9a5b8a77195",
+      "uncompressed_sha256": "ebb35f2edf079499577fa0c9174cba7b99f99cd10e1b6e615fff51d889145234"
+    },
+    {
+      "source": "/private/tmp/hand-hook-descendants-fixed-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/hook-descendants-20260909/hand-hook-descendants-fixed-20260909.jsonl.gz",
+      "sha256": "b9e02a393c9590fc5aef3af2bbab888ddbf8e4ef2552b7169bc97fdf553f9c55",
+      "uncompressed_sha256": "170486302adf3398437d943bbfa9bb6e5d775324ecd38750afcfa8c34bbca665"
+    },
+    {
+      "source": "internal/agentio/hooks.go",
+      "path": "docs/acceptance/development-evidence/hook-descendants-20260909/hooks.go.gz",
+      "sha256": "d62e58333225a300483b8c95f9c00304ee80dbcce9a4259e231e6d93bbcfe1e7",
+      "uncompressed_sha256": "c4d50f2f5f79e95e721424d7efabb98cd934ac099c9dce453b24ddc9757341c3"
+    },
+    {
+      "source": "internal/agentio/hooks_process_test.go",
+      "path": "docs/acceptance/development-evidence/hook-descendants-20260909/hooks_process_test.go.gz",
+      "sha256": "4a322e18f370e99f97526279ff509934fb523fddec9c82a2816b90b9a9d90326",
+      "uncompressed_sha256": "af1eca8e997954e6a7e7afa8e2ddbd0bf088f96e9a0bddfc28e80b6ccad02e0c"
+    }
+  ],
+  "limitations": [
+    "Native macOS regression only; Linux and 30-trial cleanup qualification remain pending",
+    "Requires release and integration of current Harness development changes",
+    "Final candidate qualification remains open"
+  ]
+}

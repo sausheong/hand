@@ -1,0 +1,208 @@
+[
+  {
+    "arguments": [
+      "inspect",
+      "--source",
+      "/private/tmp/hand-package-cli-journey-20260909/source"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"python-task-note\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"main.py\",\n        \"kind\": \"extension\",\n        \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n        \"size\": 3339\n      }\n    ],\n    \"runtimes\": [\n      {\n        \"name\": \"python\",\n        \"command\": \"python3\",\n        \"minimum_version\": \"3.9.0\"\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"task-note\",\n        \"entrypoint\": \"main.py\",\n        \"runtime\": \"python\",\n        \"capabilities\": [\n          \"commands\",\n          \"questions\",\n          \"state\",\n          \"context.transform\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-install",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-cli-journey-20260909/install.json",
+      "--source",
+      "/private/tmp/hand-package-cli-journey-20260909/source",
+      "--pin",
+      "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-cli-journey-20260909/install.json\",\n  \"approval_digest\": \"27f14124847cb9addad770b0c5cb8c38589d3de0371b767eb9ac22d936a1f78d\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n    },\n    \"action\": \"install\",\n    \"store\": \"/private/tmp/hand-package-cli-journey-20260909/store\",\n    \"generation\": 0,\n    \"name\": \"python-task-note\",\n    \"previous\": \"\",\n    \"digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n    \"source\": \"/private/tmp/hand-package-cli-journey-20260909/source\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"python-task-note\",\n      \"version\": \"1.0.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"main.py\",\n          \"kind\": \"extension\",\n          \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n          \"size\": 3339\n        }\n      ],\n      \"runtimes\": [\n        {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        }\n      ],\n      \"extensions\": [\n        {\n          \"name\": \"task-note\",\n          \"entrypoint\": \"main.py\",\n          \"runtime\": \"python\",\n          \"capabilities\": [\n            \"commands\",\n            \"questions\",\n            \"state\",\n            \"context.transform\"\n          ]\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/install.json",
+      "--approve",
+      "0000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "hand: package review differs from approved digest\n"
+  },
+  {
+    "arguments": [
+      "list",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"lock\": {\n    \"schema\": 1,\n    \"generation\": 0,\n    \"packages\": []\n  },\n  \"recovery\": {\n    \"removed_temporary_locks\": 0,\n    \"preserved_unsafe_entries\": 0\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/install.json",
+      "--approve",
+      "27f14124847cb9addad770b0c5cb8c38589d3de0371b767eb9ac22d936a1f78d"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 1\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/install.json",
+      "--approve",
+      "27f14124847cb9addad770b0c5cb8c38589d3de0371b767eb9ac22d936a1f78d"
+    ],
+    "exit_code": 2,
+    "stdout": "{\n  \"result\": {\n    \"committed\": false,\n    \"generation\": 0\n  },\n  \"error\": \"package store changed since review\"\n}\n",
+    "stderr": "hand: package store changed since review\n"
+  },
+  {
+    "arguments": [
+      "list",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"lock\": {\n    \"schema\": 1,\n    \"generation\": 1,\n    \"packages\": [\n      {\n        \"name\": \"python-task-note\",\n        \"current\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n        \"revisions\": [\n          {\n            \"origin\": {\n              \"kind\": \"local\",\n              \"location\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n            },\n            \"digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n            \"version\": \"1.0.0\",\n            \"source\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n          }\n        ]\n      }\n    ]\n  },\n  \"recovery\": {\n    \"removed_temporary_locks\": 0,\n    \"preserved_unsafe_entries\": 0\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "inspect",
+      "--source",
+      "/private/tmp/hand-package-cli-journey-20260909/source"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"python-task-note\",\n    \"version\": \"1.1.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"main.py\",\n        \"kind\": \"extension\",\n        \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n        \"size\": 3339\n      }\n    ],\n    \"runtimes\": [\n      {\n        \"name\": \"python\",\n        \"command\": \"python3\",\n        \"minimum_version\": \"3.9.0\"\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"task-note\",\n        \"entrypoint\": \"main.py\",\n        \"runtime\": \"python\",\n        \"capabilities\": [\n          \"commands\",\n          \"questions\",\n          \"state\",\n          \"context.transform\",\n          \"file.read\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-install",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-cli-journey-20260909/update.json",
+      "--source",
+      "/private/tmp/hand-package-cli-journey-20260909/source",
+      "--pin",
+      "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-cli-journey-20260909/update.json\",\n  \"approval_digest\": \"fe1c8ed6eaa37390aae404555c06d6cb40f0abeab7bece3444af700697d7c23b\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n    },\n    \"action\": \"install\",\n    \"store\": \"/private/tmp/hand-package-cli-journey-20260909/store\",\n    \"generation\": 1,\n    \"name\": \"python-task-note\",\n    \"previous\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n    \"digest\": \"f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484\",\n    \"source\": \"/private/tmp/hand-package-cli-journey-20260909/source\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"python-task-note\",\n      \"version\": \"1.1.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"main.py\",\n          \"kind\": \"extension\",\n          \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n          \"size\": 3339\n        }\n      ],\n      \"runtimes\": [\n        {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        }\n      ],\n      \"extensions\": [\n        {\n          \"name\": \"task-note\",\n          \"entrypoint\": \"main.py\",\n          \"runtime\": \"python\",\n          \"capabilities\": [\n            \"commands\",\n            \"questions\",\n            \"state\",\n            \"context.transform\",\n            \"file.read\"\n          ]\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/update.json",
+      "--approve",
+      "27f14124847cb9addad770b0c5cb8c38589d3de0371b767eb9ac22d936a1f78d"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "hand: package review differs from approved digest\n"
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/update.json",
+      "--approve",
+      "fe1c8ed6eaa37390aae404555c06d6cb40f0abeab7bece3444af700697d7c23b"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 2\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-rollback",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-cli-journey-20260909/rollback.json",
+      "--name",
+      "python-task-note",
+      "--pin",
+      "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-cli-journey-20260909/rollback.json\",\n  \"approval_digest\": \"0982e92f22f8bf3bae1848d7232fc06ae54685441a82cc6e127bb7446b5c1657\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n    },\n    \"action\": \"rollback\",\n    \"store\": \"/private/tmp/hand-package-cli-journey-20260909/store\",\n    \"generation\": 2,\n    \"name\": \"python-task-note\",\n    \"previous\": \"f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484\",\n    \"digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n    \"source\": \"/private/tmp/hand-package-cli-journey-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"python-task-note\",\n      \"version\": \"1.0.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"main.py\",\n          \"kind\": \"extension\",\n          \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n          \"size\": 3339\n        }\n      ],\n      \"runtimes\": [\n        {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        }\n      ],\n      \"extensions\": [\n        {\n          \"name\": \"task-note\",\n          \"entrypoint\": \"main.py\",\n          \"runtime\": \"python\",\n          \"capabilities\": [\n            \"commands\",\n            \"questions\",\n            \"state\",\n            \"context.transform\"\n          ]\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/rollback.json",
+      "--approve",
+      "0982e92f22f8bf3bae1848d7232fc06ae54685441a82cc6e127bb7446b5c1657"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 3\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "list",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"lock\": {\n    \"schema\": 1,\n    \"generation\": 3,\n    \"packages\": [\n      {\n        \"name\": \"python-task-note\",\n        \"current\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n        \"revisions\": [\n          {\n            \"origin\": {\n              \"kind\": \"local\",\n              \"location\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n            },\n            \"digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n            \"version\": \"1.0.0\",\n            \"source\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n          },\n          {\n            \"origin\": {\n              \"kind\": \"local\",\n              \"location\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n            },\n            \"digest\": \"f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484\",\n            \"version\": \"1.1.0\",\n            \"source\": \"/private/tmp/hand-package-cli-journey-20260909/source\"\n          }\n        ]\n      }\n    ]\n  },\n  \"recovery\": {\n    \"removed_temporary_locks\": 0,\n    \"preserved_unsafe_entries\": 0\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-remove",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-cli-journey-20260909/remove.json",
+      "--name",
+      "python-task-note"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-cli-journey-20260909/remove.json\",\n  \"approval_digest\": \"24508d953270be31d04d6f48e3ae150f01d23affd8aba485c17ea27b69d2e299\",\n  \"review\": {\n    \"action\": \"remove\",\n    \"store\": \"/private/tmp/hand-package-cli-journey-20260909/store\",\n    \"generation\": 3,\n    \"name\": \"python-task-note\",\n    \"previous\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\"\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-cli-journey-20260909/remove.json",
+      "--approve",
+      "24508d953270be31d04d6f48e3ae150f01d23affd8aba485c17ea27b69d2e299"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 4\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "list",
+      "--store",
+      "/private/tmp/hand-package-cli-journey-20260909/store"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"lock\": {\n    \"schema\": 1,\n    \"generation\": 4,\n    \"packages\": []\n  },\n  \"recovery\": {\n    \"removed_temporary_locks\": 0,\n    \"preserved_unsafe_entries\": 0\n  }\n}\n",
+    "stderr": ""
+  }
+]

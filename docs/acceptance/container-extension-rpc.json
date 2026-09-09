@@ -1,0 +1,138 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "binary_sha256": "2f8988262e1419a0c2cc2665bb952aa97cb9fd57f1b9408e8c7931abccbba6aa",
+  "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+  "extension_sha256": "b36d29d68055efc756984ca2690f6e2243c09fe79fa1bfd983c28561f5344944",
+  "runner_sha256": "fb864fc1a18f3174872d32a612c890abb398cbb077a45045e842f1074681980c",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "poll_runner_sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3",
+  "provider_calls": 0,
+  "typed_presentation": true,
+  "inspected_isolation": true,
+  "cleanup_joined": true,
+  "source_bindings": [
+    {
+      "path": "docs/acceptance/container-activation-integration.json",
+      "sha256": "cd5a4b5d2f31db4cddeb3c9368689a92c168db8ff7bedafe7fb209c0fb125eaf"
+    },
+    {
+      "path": "docs/acceptance/harness-container-stream.json",
+      "sha256": "cf80049c6c41de1d1a160936e2a71cdcd1e552bff28064dca2a12e77eae2ad2c"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/commands.json",
+      "sha256": "c3d39bf752a619c74a09c3f42712d95776caeb63dcd62c76b16b09f6d55cbdf2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/container.json",
+      "sha256": "23e3bd0aa8972ca9eb318e5625e4e564480d5694ec363ea6ad3d7fb35230a78b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/container.stderr",
+      "sha256": "a660e479ac75265e147d3cd7e6fdb19d1d5bf98ce781cf1d78d738819c72240e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/authority/56f4414654b9ede20aecce74431e7abc09926271d4aeed3acca5c607fff9b8a0/2bf43bdbb1dc027b02c030ae79e81afa3f10b461f1731608f1fd2aa2e44c8304/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/config.json",
+      "sha256": "994d3b1cdff14aa9d48a250396e29d493056f784c3fd323a0181f675457c65ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/sessions/catalogues/56f4414654b9ede2/catalogue.json",
+      "sha256": "e7c4b0e61f488a5ea04cab0fcf328408dcee47f58ebbc492bc78230f8451c9ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/sessions/catalogues/56f4414654b9ede2/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/sessions/hand/.leases/workspace_56f4414654b9ede2_3f9438cbe115ff4aff09f665db8c1fde.lock",
+      "sha256": "408550480a761b97c17a89cad832b3861488ee59a4e866858375090622bae62b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/sessions/hand/workspace_56f4414654b9ede2_3f9438cbe115ff4aff09f665db8c1fde.jsonl",
+      "sha256": "3534486cec81830fffff5f0aa9a154622a611c35f873a236abbc7e999deabde5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/home/.hand/sessions/rpc-56f4414654b9ede20aecce74431e7abc09926271d4aeed3acca5c607fff9b8a0/requests.jsonl",
+      "sha256": "13a59bfccd5da6915d0b73ca097e1375e5f21cc817d4b18b363f621d8d437128"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/input.json",
+      "sha256": "2fb4c5478fe715761c368f85f6b2b50b5b1b933266969bcc470f270b8c9a3b8b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/review.json",
+      "sha256": "cfb684abc27188a37c5d62d4ca5292a4714d91f15cebaa5b5ce5c5ccd75ec0bd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-20260909/run.json",
+      "sha256": "83fc821b008c9a09f97676a7434800d19dff06a513cc6c4930ec49a982383646"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/commands.json",
+      "sha256": "390d6b9aa39671966d767223a252b4c77e3a7f4a85894412c615cf213c7149b4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/container-inspect.json",
+      "sha256": "a5f015cf6a192eeb65484e867551f1937d3bfe777a2851bb020acfce390d4979"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/container.json",
+      "sha256": "2b345d61035d5cb2e029d71746015874f901e1f6da0cdb9a3c56d377491bd9fa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/container.stderr",
+      "sha256": "a660e479ac75265e147d3cd7e6fdb19d1d5bf98ce781cf1d78d738819c72240e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/authority/f18916476a0fd3cda1d9bf75d7cf0fb91a1d02c4baf671353a1a8d2ccfd78ab2/2bf43bdbb1dc027b02c030ae79e81afa3f10b461f1731608f1fd2aa2e44c8304/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/config.json",
+      "sha256": "994d3b1cdff14aa9d48a250396e29d493056f784c3fd323a0181f675457c65ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/sessions/catalogues/f18916476a0fd3cd/catalogue.json",
+      "sha256": "474ecab3016f08ca81262bae65d2a616baa5bc9df8c24df77d7bb15e91cb0994"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/sessions/catalogues/f18916476a0fd3cd/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/sessions/hand/.leases/workspace_f18916476a0fd3cd_7df526411556d3c1fdb796980582b49e.lock",
+      "sha256": "210f4c943aec5bb06c3901df62d8ba986f29878e4ae32e84fd24b65a7c1cedea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/sessions/hand/workspace_f18916476a0fd3cd_7df526411556d3c1fdb796980582b49e.jsonl",
+      "sha256": "5c09a367c5ab2849b4ac34bb92c4d17e87dd486619871dc62b5de20f6e19df73"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/home/.hand/sessions/rpc-f18916476a0fd3cda1d9bf75d7cf0fb91a1d02c4baf671353a1a8d2ccfd78ab2/requests.jsonl",
+      "sha256": "9ffccb1f95b5f5994c6e8466579aaad36a9e40bd242ead152a89bac78eb03679"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/input.json",
+      "sha256": "120fda58b0344c7ce52a317402405646eac20fde06bd34207b5cc79f97a4b716"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/review.json",
+      "sha256": "ec708b31c52f09da5fd9e622042d720ee1a6615ab77da40350414e52c4a2bf0f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-rpc-20260909/hand-container-extension-rpc-corrected-20260909/run.json",
+      "sha256": "42a8fbd963ba45f8530fcb416763e1c7959cccc0855afbc8f5eac00fd3ea1a77"
+    }
+  ],
+  "limitations": [
+    "Development binary with unreleased Harness; final qualification pending. Initial failure was an optional empty error-field fixture mismatch; corrected fixture and passing run retained. Actual Docker inspection verified disabled networking, read-only root/workspace/resources and expected mount destinations. Before/after container inventory showed no newly retained containers after joined RPC shutdown. No paid/model-provider requests occurred. TUI/container callback journeys and package interpreter support remain pending."
+  ]
+}

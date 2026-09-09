@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--tmpfs",
+    "/tmp:rw,exec,size=128m,mode=1777",
+    "--mount",
+    "type=bind,source=/private/tmp/hand-permission-prompts-linux-20260909,target=/hand,readonly",
+    "--mount",
+    "type=bind,source=/Users/sausheong/projects/hand/scripts,target=/scripts,readonly",
+    "--mount",
+    "type=bind,source=/private/tmp/hand-permission-prompts-linux-run-20260909,target=/evidence",
+    "--entrypoint",
+    "python3",
+    "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "/scripts/check_permission_prompts.py",
+    "--hand-binary",
+    "/hand",
+    "--out",
+    "/evidence/journey"
+  ],
+  "exit_code": 0,
+  "seconds": 1.1788184579927474,
+  "binary_sha256": "09449396a774393b5732b90a52ff2e243ecc19606545c7a437c414a9a1f90d2c"
+}

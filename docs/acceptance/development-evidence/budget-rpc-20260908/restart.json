@@ -1,0 +1,453 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select",
+      "method": "session.select",
+      "params": {
+        "id": "ses_d055d09780f5de42"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_d055d09780f5de42"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restored-state",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restored-state",
+      "result": {
+        "limit": 1,
+        "committed": 0,
+        "exhausted": true,
+        "attempts": 0,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "still-exhausted",
+      "method": "prompt",
+      "params": {
+        "text": "Try again."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "still-exhausted",
+      "result": {
+        "id": "still-exhausted",
+        "fingerprint": "005460bd06d70a04783633d24093bed8540dd8a5f1e711df925cb499f8aa648a",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-exhausted"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-exhausted",
+        "fingerprint": "005460bd06d70a04783633d24093bed8540dd8a5f1e711df925cb499f8aa648a",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-exhausted"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-exhausted",
+        "fingerprint": "005460bd06d70a04783633d24093bed8540dd8a5f1e711df925cb499f8aa648a",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-exhausted"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-exhausted",
+        "fingerprint": "005460bd06d70a04783633d24093bed8540dd8a5f1e711df925cb499f8aa648a",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "H7NRAJJKUQP45LGNAIV6D3APSN:4",
+          "sequence": 4,
+          "session_id": "ses_d055d09780f5de42",
+          "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:1",
+          "request_id": "still-exhausted",
+          "timestamp": "2026-09-08T13:01:38.738403Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: budget_exhausted",
+            "iteration": 1,
+            "reason": "session_token_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "resume",
+      "method": "budget.tokens.decide",
+      "params": {
+        "limit": 100000,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "resume",
+      "result": {
+        "limit": 100000
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "small-limit",
+      "method": "budget.tokens.decide",
+      "params": {
+        "limit": 1,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "small-limit",
+      "result": {
+        "limit": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "after-replay",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "after-replay",
+      "result": {
+        "limit": 100000,
+        "committed": 0,
+        "exhausted": false,
+        "attempts": 0,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "resumed-run",
+      "method": "prompt",
+      "params": {
+        "text": "Complete after explicit resume."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "resumed-run",
+      "result": {
+        "id": "resumed-run",
+        "fingerprint": "b410951c21f15433805f508a78cbf66f79f5c070dd5b453d8d638659844095ac",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed-run",
+        "fingerprint": "b410951c21f15433805f508a78cbf66f79f5c070dd5b453d8d638659844095ac",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed-run",
+        "fingerprint": "b410951c21f15433805f508a78cbf66f79f5c070dd5b453d8d638659844095ac",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed-run",
+        "fingerprint": "b410951c21f15433805f508a78cbf66f79f5c070dd5b453d8d638659844095ac",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed-run",
+        "fingerprint": "b410951c21f15433805f508a78cbf66f79f5c070dd5b453d8d638659844095ac",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed-run",
+        "fingerprint": "b410951c21f15433805f508a78cbf66f79f5c070dd5b453d8d638659844095ac",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "SWJYBMASIT45ZKTICVYB6ZSOM6:11",
+          "sequence": 11,
+          "session_id": "ses_d055d09780f5de42",
+          "run_id": "OWHWT2OHRGCOWPYC6PXS55AQB7:2",
+          "request_id": "resumed-run",
+          "timestamp": "2026-09-08T13:01:38.822528Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 10,
+              "known": true,
+              "output_tokens": 5,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "charged",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "charged",
+      "result": {
+        "limit": 100000,
+        "committed": 15,
+        "exhausted": false,
+        "attempts": 1,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  }
+]

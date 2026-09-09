@@ -1,0 +1,32 @@
+{"Time":"2026-09-08T07:03:07.230761+08:00","Action":"start","Package":"github.com/sausheong/harness/session"}
+{"Time":"2026-09-08T07:03:07.720868+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMigrateLargeLegacyImagePreservesOriginalAndRestarts"}
+{"Time":"2026-09-08T07:03:07.720936+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMigrateLargeLegacyImagePreservesOriginalAndRestarts","Output":"=== RUN   TestMigrateLargeLegacyImagePreservesOriginalAndRestarts\n"}
+{"Time":"2026-09-08T07:03:16.854718+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMigrateLargeLegacyImagePreservesOriginalAndRestarts","Output":"--- PASS: TestMigrateLargeLegacyImagePreservesOriginalAndRestarts (9.13s)\n"}
+{"Time":"2026-09-08T07:03:16.85489+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMigrateLargeLegacyImagePreservesOriginalAndRestarts","Elapsed":9.13}
+{"Time":"2026-09-08T07:03:16.854905+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage"}
+{"Time":"2026-09-08T07:03:16.854909+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage","Output":"=== RUN   TestImageMigrationRejectsOversizedTextAndMalformedImage\n"}
+{"Time":"2026-09-08T07:03:16.854912+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/text"}
+{"Time":"2026-09-08T07:03:16.854915+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/text","Output":"=== RUN   TestImageMigrationRejectsOversizedTextAndMalformedImage/text\n"}
+{"Time":"2026-09-08T07:03:18.070744+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/text","Output":"--- PASS: TestImageMigrationRejectsOversizedTextAndMalformedImage/text (1.22s)\n"}
+{"Time":"2026-09-08T07:03:18.07079+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/text","Elapsed":1.22}
+{"Time":"2026-09-08T07:03:18.070827+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image"}
+{"Time":"2026-09-08T07:03:18.070835+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image","Output":"=== RUN   TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image\n"}
+{"Time":"2026-09-08T07:03:18.080501+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image","Output":"--- PASS: TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image (0.01s)\n"}
+{"Time":"2026-09-08T07:03:18.080516+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image","Elapsed":0.01}
+{"Time":"2026-09-08T07:03:18.08054+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage","Output":"--- PASS: TestImageMigrationRejectsOversizedTextAndMalformedImage (1.23s)\n"}
+{"Time":"2026-09-08T07:03:18.080545+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestImageMigrationRejectsOversizedTextAndMalformedImage","Elapsed":1.23}
+{"Time":"2026-09-08T07:03:18.080709+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationBackupRestartAndIdempotence"}
+{"Time":"2026-09-08T07:03:18.080713+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationBackupRestartAndIdempotence","Output":"=== RUN   TestLegacyMigrationBackupRestartAndIdempotence\n"}
+{"Time":"2026-09-08T07:03:18.112787+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationBackupRestartAndIdempotence","Output":"--- PASS: TestLegacyMigrationBackupRestartAndIdempotence (0.03s)\n"}
+{"Time":"2026-09-08T07:03:18.112795+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationBackupRestartAndIdempotence","Elapsed":0.03}
+{"Time":"2026-09-08T07:03:18.112863+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationFailureBoundaries"}
+{"Time":"2026-09-08T07:03:18.112867+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationFailureBoundaries","Output":"=== RUN   TestLegacyMigrationFailureBoundaries\n"}
+{"Time":"2026-09-08T07:03:18.131693+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationFailureBoundaries","Output":"--- PASS: TestLegacyMigrationFailureBoundaries (0.02s)\n"}
+{"Time":"2026-09-08T07:03:18.131703+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationFailureBoundaries","Elapsed":0.02}
+{"Time":"2026-09-08T07:03:18.131778+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationCancelledAfterBackup"}
+{"Time":"2026-09-08T07:03:18.131781+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationCancelledAfterBackup","Output":"=== RUN   TestLegacyMigrationCancelledAfterBackup\n"}
+{"Time":"2026-09-08T07:03:18.138596+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationCancelledAfterBackup","Output":"--- PASS: TestLegacyMigrationCancelledAfterBackup (0.01s)\n"}
+{"Time":"2026-09-08T07:03:18.138613+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestLegacyMigrationCancelledAfterBackup","Elapsed":0.01}
+{"Time":"2026-09-08T07:03:18.141249+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"PASS\n"}
+{"Time":"2026-09-08T07:03:19.19592+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"ok  \tgithub.com/sausheong/harness/session\t11.965s\n"}
+{"Time":"2026-09-08T07:03:19.195954+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Elapsed":11.965}

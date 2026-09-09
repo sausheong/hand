@@ -1,0 +1,29 @@
+{"Time":"2026-09-09T01:02:32.496825+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolproxy"}
+{"Time":"2026-09-09T01:02:32.57193+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T01:02:32.571982+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T01:02:32.763347+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip"}
+{"Time":"2026-09-09T01:02:32.763399+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"=== RUN   TestNativeProxyWorkerRoundtrip\n"}
+{"Time":"2026-09-09T01:02:33.074963+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney"}
+{"Time":"2026-09-09T01:02:33.075006+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"=== RUN   TestNativeScopedSDKContainerJourney\n"}
+{"Time":"2026-09-09T01:02:33.343719+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown"}
+{"Time":"2026-09-09T01:02:33.343751+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"=== RUN   TestNativeBackgroundContainerInputOutputAndShutdown\n"}
+{"Time":"2026-09-09T01:02:33.735861+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"--- PASS: TestNativeBackgroundContainerInputOutputAndShutdown (0.39s)\n"}
+{"Time":"2026-09-09T01:02:33.735889+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Elapsed":0.39}
+{"Time":"2026-09-09T01:02:33.736052+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T01:02:33.85049+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"--- PASS: TestNativeProxyWorkerRoundtrip (1.09s)\n"}
+{"Time":"2026-09-09T01:02:33.850537+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Elapsed":1.09}
+{"Time":"2026-09-09T01:02:33.85059+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Output":"PASS\n"}
+{"Time":"2026-09-09T01:02:34.640945+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"2026/09/09 01:02:34 WARN tool error tool=write_file id=write error=\"user denied scoped operation\"\n"}
+{"Time":"2026-09-09T01:02:34.671255+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"--- PASS: TestNativeScopedSDKContainerJourney (1.60s)\n"}
+{"Time":"2026-09-09T01:02:34.671283+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Elapsed":1.6}
+{"Time":"2026-09-09T01:02:34.671297+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker"}
+{"Time":"2026-09-09T01:02:34.671303+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"=== RUN   TestNativeSDKRejectsChangedWorker\n"}
+{"Time":"2026-09-09T01:02:34.746033+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.174s\n"}
+{"Time":"2026-09-09T01:02:34.746066+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.174}
+{"Time":"2026-09-09T01:02:34.75913+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"--- PASS: TestNativeSDKRejectsChangedWorker (0.09s)\n"}
+{"Time":"2026-09-09T01:02:34.75915+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Elapsed":0.09}
+{"Time":"2026-09-09T01:02:34.759203+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"PASS\n"}
+{"Time":"2026-09-09T01:02:34.859603+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Output":"ok  \tgithub.com/sausheong/hand/internal/toolproxy\t2.363s\n"}
+{"Time":"2026-09-09T01:02:34.859631+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolproxy","Elapsed":2.363}
+{"Time":"2026-09-09T01:02:35.779901+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"ok  \tgithub.com/sausheong/hand/sdk\t3.208s\n"}
+{"Time":"2026-09-09T01:02:35.780021+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Elapsed":3.208}

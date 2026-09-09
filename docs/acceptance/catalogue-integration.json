@@ -1,0 +1,89 @@
+{
+  "status": "development_partial",
+  "tests": {
+    "hand-catalogue-initial-20260909": {
+      "fail": [
+        "TestProfileSwitchStagesRoutingAndCompactionAtomically"
+      ],
+      "skip": [],
+      "pass_records": 40
+    },
+    "hand-catalogue-suites-20260909": {
+      "fail": [],
+      "skip": [
+        "TestContainerExtensionFileCallbackBoundary",
+        "TestContainerExtensionActivationAndReviewedReload",
+        "TestExtensionResourceIPC/network.fetch/public-fetch",
+        "TestNativeContainerPackagePythonReviewAndLaunch",
+        "TestNativeBackgroundContainerInputOutputAndShutdown"
+      ],
+      "pass_records": 746
+    },
+    "hand-catalogue-cli-20260909": {
+      "fail": [],
+      "skip": [],
+      "pass_records": 19
+    }
+  },
+  "catalogue_version": "2026-09-09.1",
+  "source": "https://developers.openai.com/api/docs/models/gpt-4o",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/hand-catalogue-initial-20260909.jsonl.gz",
+      "sha256": "3494dbe5ade519512cf8dc7159ffd2b53a795497bf54d2e235082a7b5bf59e2c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/hand-catalogue-suites-20260909.jsonl.gz",
+      "sha256": "587fb80872c2616efe1d865a3e8883c39e510dcf17278be6213662538c2b2fbe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/hand-catalogue-cli-20260909.jsonl.gz",
+      "sha256": "d5053709a951f43b705c06ea460d3df3b3aa8fe809f2ef4fdb9e1e1c026c2fae"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/internal_config_model_catalogue.go.gz",
+      "sha256": "7ecdb03c54eec67bd495f00eaddb200ed9ef1e8f3f6f80af029654518e278672"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/internal_config_profiles.go.gz",
+      "sha256": "e60a49c2809cc6333d40bd1260953a623691c6ab0f6e9d44208ee25be98fd092"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/internal_app_metadata.go.gz",
+      "sha256": "d1af8ea8d709594c52293067d066fd3041cd786ca48f432fcbcbadcba1bf84aa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/internal_app_catalogue_test.go.gz",
+      "sha256": "1fd898d0c5ea5805101beb677e692d2c509a143c3346db7c0fe9898a520fe208"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/internal_app_profiles.go.gz",
+      "sha256": "913879442ca36e86a9ac0a6845a9c2c83dab6f07ff25d6b66021cf3918db4a17"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/internal_app_profiles_test.go.gz",
+      "sha256": "c3cf05e7c3faba943b22d7d3aa18d35cbd1908016ce5e687dcd9eda8f79259e1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/cmd_hand_main.go.gz",
+      "sha256": "7739e247685b4f6b431581c9027f7c812f4c8eca5d87c0faeec47b1472fec27a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-20260909/docs_acceptance_model-profiles.md.gz",
+      "sha256": "3704dd757776f295b16580390bfccc199bad61d0a9e519106d20671c1e2d2426"
+    }
+  ],
+  "changes": [
+    "Catalogue consulted by startup and profile switch resolver",
+    "Explicit override then configured server metadata then catalogue then labelled fallback",
+    "Exact direct-provider IDs only; local/custom endpoints/aggregator aliases cannot inherit advertised context",
+    "Resolved output limits now reach Harness generation requests"
+  ],
+  "limitations": [
+    "Five fixture-dependent integration tests skipped; not acceptance passes",
+    "Initial obsolete output-default assertion failed; expected resolved fallback updated and raw failure retained",
+    "Catalogue currently covers three GPT-4o IDs only; other models require override, discovery or fallback",
+    "No live provider calls or quality evaluation",
+    "Current development source/local unreleased Harness; full fresh coverage and final candidate qualification pending"
+  ]
+}

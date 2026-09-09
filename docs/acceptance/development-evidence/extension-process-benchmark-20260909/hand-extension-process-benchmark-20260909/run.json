@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "scope": "direct reviewed example protocol; excludes Hand startup and container overhead",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "trials_per_language": 30,
+  "seed": 709,
+  "page_cache": "not flushed; warmed filesystem launches",
+  "sources": {
+    "/private/tmp/hand-extension-benchmark-note-20260909": "37610113a2f630bfd512f8f0b35759b8945f36834b0c3dc0fde206f88bd78f38",
+    "/private/tmp/hand-session-integration-20260908/examples/extensions/python-task-note/main.py": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+    "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3.14": "07919b0fbf82742c24420d7dcadbd459f61bc1feb638eca02b81dccab2daf4d5",
+    "/Users/sausheong/projects/hand/scripts/benchmark_extension_processes.py": "197ceebca41818ad3dbe91ec062cf16d94f510651b1fd50a227f7a83a29c0232"
+  },
+  "go_executable_bytes": 3023650,
+  "python_executable_bytes": 135696,
+  "python_script_bytes": 3339,
+  "memory_metric": "RSS from ps after ten completed callbacks; not peak, PSS or exclusive memory",
+  "error": "PermissionError(1, 'Operation not permitted')"
+}

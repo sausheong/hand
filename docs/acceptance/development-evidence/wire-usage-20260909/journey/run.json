@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "approvals": [
+    {
+      "step": 0,
+      "tool": "write_file",
+      "decision": "always"
+    },
+    {
+      "step": 2,
+      "tool": "bash",
+      "decision": "always"
+    },
+    {
+      "step": 4,
+      "tool": "write_file",
+      "decision": "deny"
+    },
+    {
+      "step": 5,
+      "tool": "bash",
+      "decision": "deny"
+    },
+    {
+      "step": 6,
+      "tool": "web_fetch",
+      "decision": "deny"
+    },
+    {
+      "step": 7,
+      "tool": "read_file",
+      "decision": "deny"
+    }
+  ],
+  "binary_sha256": "5b259490cff20f6592eb8abe62b71d9ec82152af987eb0b8c508dc82ad4bc009",
+  "runner_sha256": "123f6c201f47ddd85168380de094d3c83d47cc9cb2cdbb0bf0fe416ff1487659",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "routine_operations": 4,
+  "routine_prompts": 2,
+  "broader_operations": 4,
+  "broader_prompts": 4,
+  "provider_calls": 9,
+  "exact_persistent_grants": 2,
+  "terminal": {
+    "id": "workflow",
+    "fingerprint": "f8fa73769687844b33c621d89079ca4b36a4b40fead37243534524d88ba21186",
+    "session_id": "ses_fc5ad4d03899a5d9",
+    "run_id": "P6B4MENWAXIMV74KXZYWNDPRP4:1",
+    "state": "completed",
+    "result": {
+      "version": 1,
+      "event_id": "HTLVG5GARV6TOEGMIHXD6RCUXR:35",
+      "sequence": 35,
+      "session_id": "ses_fc5ad4d03899a5d9",
+      "run_id": "P6B4MENWAXIMV74KXZYWNDPRP4:1",
+      "request_id": "workflow",
+      "timestamp": "2026-09-09T01:54:13.353339Z",
+      "kind": "terminal",
+      "payload": {
+        "approval_id": "",
+        "error": "",
+        "iteration": 1,
+        "reason": "answer_completed",
+        "state": "idle",
+        "status": "completed",
+        "text": "",
+        "truncated": false,
+        "usage": {
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "input_tokens": 0,
+          "known": false,
+          "output_tokens": 0,
+          "prior_unknown": false,
+          "reported_totals_known": true,
+          "requests": 9,
+          "unknown_requests": 9
+        },
+        "verified": false
+      }
+    }
+  },
+  "artifacts": {
+    "provider-requests.json": "d986c212c15c21f4ce8875e8cffd49527ea64a61b0afe18936625e79efc5dd43",
+    "external-private.txt": "f3a095e90e985f857973440882832f2482d23cb8d1695465f47b43a20ab84136",
+    "prompts.stderr": "575e226425ac0173531da162c5e8155141466a826eadd65a4339b743f72d4009",
+    "prompts.json": "0711dffaa53edf14bb3291ce2a0f1765d6f22efc4c1f0a674e9c2eb0079a6649"
+  }
+}

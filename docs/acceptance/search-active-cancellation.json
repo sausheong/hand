@@ -1,0 +1,37 @@
+{
+  "status": "development_search_active_cancellation_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/agentio -run '^TestSearchCancellationDuringScanPreservesPartialMatches$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 20
+  },
+  "assertions": [
+    "Cooperative cancellation occurs after actual matching has started",
+    "Retains nonempty proper prefix of matches with complete=false and cancelled=true",
+    "No truncation/absence misclassification",
+    "Fresh-context follow-up search completes normally"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/search-active-cancel-20260909/hand-search-active-cancel-20260909.jsonl.gz",
+      "sha256": "21ace6bfbeb6cef829f99f03639abd03ebe063c26b7a291992e8fd8152b6487a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-active-cancel-20260909/search.go.txt",
+      "sha256": "5f3aac9ed8caea71d6949a39cee8248611fefa3fc4308ac75dbd4b6c9b2cd5cf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-active-cancel-20260909/search_active_cancel_test.go.txt",
+      "sha256": "abea3c069bc871fb89256704ec3495b41970b8e01e31e23174ffd9bd6aeae8ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/search-active-cancel-20260909/search_regression_test.go.txt",
+      "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+    }
+  ],
+  "limitations": [
+    "Deterministic context-check-triggered cancellation, not external UI/process signal latency",
+    "No stalled filesystem cancellation guarantee",
+    "Native development source; final platform/candidate checks remain open"
+  ]
+}

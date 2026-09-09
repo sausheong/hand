@@ -1,0 +1,84 @@
+{
+  "status": "development_fixture_integrity_passed",
+  "python_runner_tests": 100,
+  "reproduced_defect": "Candidate rewrote the acceptance fixture and exited with passing Go tests; old runner incorrectly returned candidate_tests_passed.",
+  "correction": "Verify pinned fixture bytes after every joined command using no-follow descriptor-relative reads; stop subsequent checks on mutation and fail candidate verification.",
+  "real_tasks": [
+    {
+      "task": "preserve-write-mode",
+      "status": "candidate_tests_passed",
+      "fixture_integrity": "passed"
+    },
+    {
+      "task": "cancel-shell-descendants",
+      "status": "candidate_tests_passed",
+      "fixture_integrity": "passed"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "scripts/evaluation_workspace.py",
+      "sha256": "38bf14d57c75e0983ef98f736ee98e5225e182ae8c92a92b603b10cedaa87dbd"
+    },
+    {
+      "path": "scripts/evaluation_baseline.py",
+      "sha256": "083859386cb7880aee8db3cde9db5673a783847be7e8616f2e2cb52032551d65"
+    },
+    {
+      "path": "scripts/test_evaluation_baseline.py",
+      "sha256": "a7398c7e3dccf6ee81225a6c15acdaf48fae96def03f1490d7a0a5084fb5a35b"
+    },
+    {
+      "path": "scripts/test_evaluation_fixture_integrity.py",
+      "sha256": "15deff7dc673bb1239c3b6949352ed7c512a04f00a5293cde184821f60264638"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/hand-oracle-integrity-before-20260909.log",
+      "sha256": "cc48185d5c45deccad76df7c8e9c976bde6607a35421dc9230dfaa2e2017dbbb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/hand-oracle-integrity-after-20260909.log",
+      "sha256": "75f97a5581485ae4ea1366c491cbc0c16ace000bf9525cc1320c44933510ccb0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/hand-oracle-integrity-all-20260909.log",
+      "sha256": "883301f5d0847d0f7124905b34a81db3e21f6bd681377dc2462ad05be5fee96f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/hand-fixture-integrity-real-20260909.json",
+      "sha256": "cba7eebabd238844796ec09bf59c9f7d06375943387aa9e6337026baabf312e2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/preserve-write-mode-report.json",
+      "sha256": "4da49023ec0fb3f9938635eadbbc21ac10785063cdfdc84d7ad16a3c6ea74085"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/preserve-write-mode-0-stdout.log",
+      "sha256": "9789bb6b7621ce0b78715948beed1b8a5661bc3f70cae48fd1c745132dcb594b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/preserve-write-mode-0-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/cancel-shell-descendants-report.json",
+      "sha256": "9a1397d741c83fe8e0a178c3a53d0df06faa5a0216874c80b07679653cb4f9d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/cancel-shell-descendants-0-stdout.log",
+      "sha256": "a80d2d60f070e1da1b6b6635f52969126da3b6251718d5000ef47c0fae760dc0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-integrity-20260909/cancel-shell-descendants-0-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Only persistent post-command mutation is observed; transient restored writes are not detectable by this check",
+    "No isolation against hostile code as the same host user; this runner remains for reviewed offline inputs",
+    "Passing tests and fixture integrity do not authenticate test execution or replace independent review",
+    "No paid or comparative evaluation occurred; full acceptance is pending"
+  ]
+}

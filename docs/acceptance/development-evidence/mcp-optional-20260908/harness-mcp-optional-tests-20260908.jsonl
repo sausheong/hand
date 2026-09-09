@@ -1,0 +1,32 @@
+{"Time":"2026-09-08T10:55:34.941594+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T10:55:35.552965+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestConstructionServerFixture"}
+{"Time":"2026-09-08T10:55:35.553054+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestConstructionServerFixture","Output":"=== RUN   TestConstructionServerFixture\n"}
+{"Time":"2026-09-08T10:55:35.553111+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestConstructionServerFixture","Output":"--- PASS: TestConstructionServerFixture (0.00s)\n"}
+{"Time":"2026-09-08T10:55:35.553129+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestConstructionServerFixture","Elapsed":0}
+{"Time":"2026-09-08T10:55:35.553137+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextCancellationClosesPartialConnections"}
+{"Time":"2026-09-08T10:55:35.553147+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextCancellationClosesPartialConnections","Output":"=== RUN   TestBuildRuntimeContextCancellationClosesPartialConnections\n"}
+{"Time":"2026-09-08T10:55:36.818361+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextCancellationClosesPartialConnections","Output":"--- PASS: TestBuildRuntimeContextCancellationClosesPartialConnections (1.27s)\n"}
+{"Time":"2026-09-08T10:55:36.818402+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextCancellationClosesPartialConnections","Elapsed":1.27}
+{"Time":"2026-09-08T10:55:36.818616+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry"}
+{"Time":"2026-09-08T10:55:36.818624+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry","Output":"=== RUN   TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry\n"}
+{"Time":"2026-09-08T10:55:36.81869+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry","Output":"--- PASS: TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry (0.00s)\n"}
+{"Time":"2026-09-08T10:55:36.818699+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextAlreadyCancelledDoesNotMutateRegistry","Elapsed":0}
+{"Time":"2026-09-08T10:55:36.818716+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime"}
+{"Time":"2026-09-08T10:55:36.818721+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime","Output":"=== RUN   TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime\n"}
+{"Time":"2026-09-08T10:55:36.845548+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime","Output":"--- PASS: TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime (0.03s)\n"}
+{"Time":"2026-09-08T10:55:36.845563+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime","Elapsed":0.03}
+{"Time":"2026-09-08T10:55:36.845627+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPFailurePreservesHealthyCatalogue"}
+{"Time":"2026-09-08T10:55:36.845633+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPFailurePreservesHealthyCatalogue","Output":"=== RUN   TestOptionalMCPFailurePreservesHealthyCatalogue\n"}
+{"Time":"2026-09-08T10:55:37.182985+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPFailurePreservesHealthyCatalogue","Output":"--- PASS: TestOptionalMCPFailurePreservesHealthyCatalogue (0.34s)\n"}
+{"Time":"2026-09-08T10:55:37.183006+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPFailurePreservesHealthyCatalogue","Elapsed":0.34}
+{"Time":"2026-09-08T10:55:37.183048+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPDoesNotSwallowOwnerCancellation"}
+{"Time":"2026-09-08T10:55:37.183054+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPDoesNotSwallowOwnerCancellation","Output":"=== RUN   TestOptionalMCPDoesNotSwallowOwnerCancellation\n"}
+{"Time":"2026-09-08T10:55:37.48909+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPDoesNotSwallowOwnerCancellation","Output":"--- PASS: TestOptionalMCPDoesNotSwallowOwnerCancellation (0.31s)\n"}
+{"Time":"2026-09-08T10:55:37.489212+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestOptionalMCPDoesNotSwallowOwnerCancellation","Elapsed":0.31}
+{"Time":"2026-09-08T10:55:37.489462+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestMCPDuplicateNamesRejectedBeforeConstruction"}
+{"Time":"2026-09-08T10:55:37.489503+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestMCPDuplicateNamesRejectedBeforeConstruction","Output":"=== RUN   TestMCPDuplicateNamesRejectedBeforeConstruction\n"}
+{"Time":"2026-09-08T10:55:37.489656+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestMCPDuplicateNamesRejectedBeforeConstruction","Output":"--- PASS: TestMCPDuplicateNamesRejectedBeforeConstruction (0.00s)\n"}
+{"Time":"2026-09-08T10:55:37.489679+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestMCPDuplicateNamesRejectedBeforeConstruction","Elapsed":0}
+{"Time":"2026-09-08T10:55:37.494909+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T10:55:38.512185+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t3.570s\n"}
+{"Time":"2026-09-08T10:55:38.512278+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":3.5709999999999997}

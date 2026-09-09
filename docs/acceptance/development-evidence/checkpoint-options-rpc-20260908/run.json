@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "3f02d38deb7bc0b0e7402f3b022559470c0cf91f598b763aafe0a0bce6a8cf5c",
+  "runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "checkpoint_changes": {
+    "status": "passed",
+    "run_id": "EET5CRZG4AEHFTC6XX4GKTUPQL",
+    "changes": 1,
+    "recovered": true
+  },
+  "checkpoint_restore": {
+    "status": "passed",
+    "confirmed": true,
+    "replay_after_restart": true,
+    "later_edit_preserved": true,
+    "journal_records": 2
+  },
+  "scenarios": [
+    "non_go_client_lifecycle",
+    "approval_once_before_write",
+    "steering_delivery",
+    "followup_queue",
+    "duplicate_request_no_sideeffect_replay",
+    "version_error",
+    "cancel_terminal",
+    "disconnect_cleanup",
+    "reconnect_terminal_recovery"
+  ],
+  "provider_calls": 5,
+  "cancelled_provider_requests": 2,
+  "checkpoint_scope": {
+    "status": "passed",
+    "flags": [
+      "--checkpoint-exclude",
+      "private",
+      "--checkpoint-max-entries",
+      "20",
+      "--checkpoint-max-file-bytes",
+      "64",
+      "--checkpoint-max-total-bytes",
+      "128",
+      "--checkpoint-max-snapshots",
+      "4",
+      "--checkpoint-max-store-bytes",
+      "1048576"
+    ],
+    "excluded_payload_preserved": true
+  },
+  "checkpoints": {
+    "snapshots": 2,
+    "starts": 3,
+    "finishes": 3,
+    "status": "passed"
+  }
+}

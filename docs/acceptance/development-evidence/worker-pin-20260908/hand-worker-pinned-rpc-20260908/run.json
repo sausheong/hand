@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "57452df5b8aecf1ea0079e5da5dfdb4d7de345a8979fb231cda486864d43ef5e",
+  "runner_sha256": "c2a3d55f43c0cf15b1540c781ec91868c23048356ca4e400184dbd7a67f8dcc0",
+  "execution_config": {
+    "backend": "container",
+    "docker": "/usr/local/bin/docker",
+    "socket": "/Users/sausheong/.docker/run/docker.sock",
+    "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "worker": "/private/tmp/hand-isolation-worker-20260908",
+    "writable": true,
+    "network": false,
+    "worker_sha256": "4f4942346b9292f25702fc65d982915a5e8f42baa36f5e4c412ff9cfbe1c37b9"
+  },
+  "scenarios": [
+    "non_go_client_lifecycle",
+    "approval_once_before_write",
+    "steering_delivery",
+    "followup_queue",
+    "duplicate_request_no_sideeffect_replay",
+    "version_error",
+    "cancel_terminal",
+    "disconnect_cleanup",
+    "reconnect_terminal_recovery"
+  ],
+  "provider_calls": 5,
+  "cancelled_provider_requests": 2
+}

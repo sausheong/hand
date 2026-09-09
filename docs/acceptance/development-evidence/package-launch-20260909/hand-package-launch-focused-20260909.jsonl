@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T02:18:43.004436+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:18:43.571618+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting"}
+{"Time":"2026-09-09T02:18:43.571684+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting","Output":"=== RUN   TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting\n"}
+{"Time":"2026-09-09T02:18:43.620239+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting","Output":"--- PASS: TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting (0.05s)\n"}
+{"Time":"2026-09-09T02:18:43.620261+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting","Elapsed":0.05}
+{"Time":"2026-09-09T02:18:43.620742+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:18:44.634557+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.630s\n"}
+{"Time":"2026-09-09T02:18:44.634667+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.63}

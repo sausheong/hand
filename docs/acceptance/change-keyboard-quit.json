@@ -1,0 +1,50 @@
+{
+  "status": "development_regression_passed",
+  "finding": "Busy Enter guards ignored /quit and /exit during session and profile changes. Dispatch now reaches existing cancellation and join handling.",
+  "runs": {
+    "before": {
+      "test_records": {
+        "pass": 0,
+        "fail": 5,
+        "skip": 0
+      },
+      "package_result": "fail",
+      "raw": "docs/acceptance/development-evidence/change-keyboard-quit-20260909/hand-change-quit-before-20260909.jsonl.gz",
+      "sha256": "56a0990f58d319ef63f160d28d50ec770ca22626c2a2420a498ec01006581810"
+    },
+    "after": {
+      "test_records": {
+        "pass": 315,
+        "fail": 0,
+        "skip": 0
+      },
+      "package_result": "pass",
+      "raw": "docs/acceptance/development-evidence/change-keyboard-quit-20260909/hand-change-quit-after-20260909.jsonl.gz",
+      "sha256": "6c79439e3cd991e021be58c8cfbb2f736abcf5fbfb4cb2994826b71b8a99df60"
+    }
+  },
+  "sources": [
+    {
+      "path": "internal/tui/model.go",
+      "sha256": "c665223817bf4b8b8d52343e3fc60b57c49614d01b4b32e3ecaffc27d7e7f5a2",
+      "archive": "docs/acceptance/development-evidence/change-keyboard-quit-20260909/model.go.txt"
+    },
+    {
+      "path": "internal/tui/change_quit_test.go",
+      "sha256": "f1c46c856c5da8f876f3b77b2f8ad49e0bf0e1b16aa0aa26723285a365e7cf91",
+      "archive": "docs/acceptance/development-evidence/change-keyboard-quit-20260909/change_quit_test.go.txt"
+    }
+  ],
+  "assertions": [
+    "Keyboard Enter schedules quit without exiting before worker join",
+    "Ordinary prompt cannot start during pending shutdown",
+    "Completed cancelled worker emits tea.QuitMsg",
+    "UI identity/model preserved and busy guards released",
+    "Cancelled profile preparation does not change backend model"
+  ],
+  "limitations": [
+    "Dirty development snapshot using unreleased local Harness",
+    "Held preparation callbacks test lifecycle ordering; not provider cancellation latency",
+    "Full coverage and final candidate/platform qualification remain open"
+  ]
+}

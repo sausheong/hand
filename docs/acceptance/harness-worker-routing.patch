@@ -1,0 +1,105 @@
+diff --git a/execution/backend.go b/execution/backend.go
+index 44d168f..0ba75cd 100644
+--- a/execution/backend.go
++++ b/execution/backend.go
+@@ -21,10 +21,11 @@ import (
+ )
+ 
+ type Request struct {
+-	OutputStore *process.ArtifactStore // caller-owned trusted capture store
+-	Argv        []string
+-	Env         map[string]string
+-	Stdin       []byte
++	CaptureLimit int                    // zero uses 64 KiB; bounded protocol callers may request up to 16 MiB
++	OutputStore  *process.ArtifactStore // caller-owned trusted capture store
++	Argv         []string
++	Env          map[string]string
++	Stdin        []byte
+ }
+ type Result struct {
+ 	StdoutTruncated, StderrTruncated bool
+@@ -45,13 +46,14 @@ func (h Host) Run(ctx context.Context, r Request) (Result, error) {
+ 	if err := validate(r); err != nil {
+ 		return Result{}, err
+ 	}
+-	return runCaptured(ctx, r.OutputStore, h.Workspace, environment(r.Env), r.Stdin, r.Argv[0], r.Argv[1:]...)
++	return runCaptured(ctx, r.OutputStore, r.CaptureLimit, h.Workspace, environment(r.Env), r.Stdin, r.Argv[0], r.Argv[1:]...)
+ }
+ 
+ var imageID = regexp.MustCompile(`^sha256:[0-9a-f]{64}$`)
+ var envName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
+ 
+ type Container struct {
++	WorkerPath                       string // optional trusted executable mounted read-only at /hand-worker
+ 	Docker, Socket, Image, Workspace string
+ 	Writable, Network                bool
+ }
+@@ -60,6 +62,9 @@ func (c Container) Boundary() string {
+ 	return fmt.Sprintf("container: workspace writable=%t; network=%t; other host paths unmounted", c.Writable, c.Network)
+ }
+ func validate(r Request) error {
++	if r.CaptureLimit < 0 || r.CaptureLimit > 16<<20 {
++		return errors.New("invalid capture limit")
++	}
+ 	if len(r.Argv) == 0 || r.Argv[0] == "" || len(r.Argv) > 1024 || len(r.Stdin) > 1<<20 {
+ 		return errors.New("invalid or oversized execution request")
+ 	}
+@@ -94,9 +99,9 @@ func environment(values map[string]string) []string {
+ 	return env
+ }
+ func run(ctx context.Context, dir string, env []string, input []byte, name string, args ...string) (Result, error) {
+-	return runCaptured(ctx, nil, dir, env, input, name, args...)
++	return runCaptured(ctx, nil, 0, dir, env, input, name, args...)
+ }
+-func runCaptured(ctx context.Context, store *process.ArtifactStore, dir string, env []string, input []byte, name string, args ...string) (Result, error) {
++func runCaptured(ctx context.Context, store *process.ArtifactStore, limit int, dir string, env []string, input []byte, name string, args ...string) (Result, error) {
+ 	cmd := process.Command(ctx, name, args...)
+ 	cmd.Dir = dir
+ 	cmd.Env = env
+@@ -105,10 +110,13 @@ func runCaptured(ctx context.Context, store *process.ArtifactStore, dir string,
+ 		Write([]byte) (int, error)
+ 		Snapshot() (string, int64, bool)
+ 	}
+-	var out, stderr capture = process.NewCapture(64 << 10), process.NewCapture(64 << 10)
++	if limit == 0 {
++		limit = 64 << 10
++	}
++	var out, stderr capture = process.NewCapture(limit), process.NewCapture(limit)
+ 	var diskOut, diskErr *process.OutputCapture
+ 	if store != nil {
+-		diskOut, diskErr = store.Capture(64<<10), store.Capture(64<<10)
++		diskOut, diskErr = store.Capture(limit), store.Capture(limit)
+ 		out, stderr = diskOut, diskErr
+ 	}
+ 	cmd.Stdout = out
+@@ -203,6 +211,21 @@ func (c Container) Run(ctx context.Context, r Request) (result Result, err error
+ 		uid, gid = 65534, 65534
+ 	}
+ 	args := append(append([]string{}, base...), "create", "--name", name, "--pull=never", "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges", "--network", network, "--pids-limit=128", "--memory=512m", "--memory-swap=512m", "--cpus=2", "--init", "--no-healthcheck", "--log-driver=none", "--user", strconv.Itoa(uid)+":"+strconv.Itoa(gid), "--mount", mount, "--tmpfs", "/tmp:rw,nosuid,nodev,size=64m,mode=1777", "--workdir", "/workspace", "--interactive", "--entrypoint", r.Argv[0])
++	if c.WorkerPath != "" {
++		worker, e := filepath.EvalSymlinks(c.WorkerPath)
++		if e != nil {
++			return result, e
++		}
++		worker, e = filepath.Abs(worker)
++		if e != nil {
++			return result, e
++		}
++		info, e := os.Stat(worker)
++		if e != nil || !info.Mode().IsRegular() || info.Mode().Perm()&0111 == 0 || strings.ContainsAny(worker, ",\n\r") {
++			return result, errors.New("worker must be a regular executable with a mount-safe path")
++		}
++		args = append(args, "--mount", "type=bind,src="+worker+",dst=/hand-worker,readonly")
++	}
+ 	for _, entry := range environment(r.Env) {
+ 		args = append(args, "--env", entry)
+ 	}
+@@ -220,7 +243,7 @@ func (c Container) Run(ctx context.Context, r Request) (result Result, err error
+ 	if err = ctx.Err(); err != nil {
+ 		return
+ 	}
+-	return runCaptured(ctx, r.OutputStore, "", environment(nil), r.Stdin, c.Docker, append(append([]string{}, base...), "start", "--attach", "--interactive", name)...)
++	return runCaptured(ctx, r.OutputStore, r.CaptureLimit, "", environment(nil), r.Stdin, c.Docker, append(append([]string{}, base...), "start", "--attach", "--interactive", name)...)
+ }
+ 
+ // Image-declared volumes otherwise create implicit writable disk mounts even

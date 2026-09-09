@@ -1,0 +1,88 @@
+{
+  "status": "development_passed",
+  "aggregate": "tui-evidence-integration.patch",
+  "report": {
+    "status": "passed",
+    "qualification": "development",
+    "command": [
+      "/private/tmp/hand-evidence-cli-20260908",
+      "--model",
+      "local/fixture",
+      "--base-url",
+      "http://127.0.0.1:1/v1",
+      "--checkpoint-dir",
+      "/private/tmp/hand-evidence-terminal-20260908/fixture/checkpoints",
+      "--verification-config",
+      "/private/tmp/hand-evidence-terminal-20260908/fixture/verification.json"
+    ],
+    "binary_sha256": "3df57a803f601792d176b888ca1f1143a05b36649777b6c357ee375333f84ab7",
+    "runner_sha256": "009da3d0149e29fbf662250b2608973ca9107058f6cebe8d7a849387c5187ea4",
+    "deleted_selected": true,
+    "snapshots_retained": true,
+    "reviewed": true,
+    "confirmed": true,
+    "saved_id": "47a811c802081795861ad492248eab6312748fe0a6e77f9eaed99e1029e84702",
+    "later_edit_stale": true,
+    "exit_code": 0,
+    "provider_calls": 0,
+    "terminal_sha256": "33fb6337edd92032fa99fde8191c678eb12ec02814c076256f4f4818bf52e027"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/checkpoints/0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d.json",
+      "sha256": "c6c6baafa0fef385711e0878cd672112f769eca983e70f1ebd1b5a4b3b470ed6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/evidence/.verification.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/home/.hand/authority/ee1904479454e2132afe17e72d7338c1202df0bc98adb6444585cdefd4c1e3d0/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/home/.hand/sessions/catalogues/ee1904479454e213/catalogue.json",
+      "sha256": "c9b182c84f2243eb8b1cc91fbb3ca7913496c8ed1f026bcbc1971a38c283a5ba"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/home/.hand/sessions/catalogues/ee1904479454e213/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/home/.hand/sessions/hand/.leases/workspace_ee1904479454e213_aeba1698e3598cff126c9a3fc87dc4b3.lock",
+      "sha256": "abb82260ab8a714ca94bff95a819ba17d17fb78c43b5593bec6b5d1b208c61f1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/home/.hand/sessions/hand/workspace_ee1904479454e213_aeba1698e3598cff126c9a3fc87dc4b3.jsonl",
+      "sha256": "bb3683eb388a6f16ce067239c993c112de17e839d7e9f4cb435858ea2c9a3856"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/verification.json",
+      "sha256": "cb44cc96c4f18c373bd01cdc58f0cefa0d904853823fa6cb3733d6101d6a8e04"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/fixture/workspace/source",
+      "sha256": "c788e2315fa2282f79146ae97215c0f34be5e3f3b22101fc983793911427bc44"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/run.json",
+      "sha256": "b8f554c4ac77955ff06525828082712d2e3dfba9822c09276eb5800759691778"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evidence-terminal-20260908/terminal.bin",
+      "sha256": "33fb6337edd92032fa99fde8191c678eb12ec02814c076256f4f4818bf52e027"
+    }
+  ],
+  "limitations": [
+    "macOS arm64 PTY development evidence, not final candidate.",
+    "Fixture reflects post-deletion state; earlier saved evidence hash verified by runner before deletion."
+  ]
+}

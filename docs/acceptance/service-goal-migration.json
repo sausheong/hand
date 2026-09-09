@@ -1,0 +1,55 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "migrated_tests": [
+    "TestMaybeContinueGoalLoop_ChecksThenStopsAtIterationCap",
+    "TestMaybeContinueGoalLoop_NoHooksConfigured",
+    "TestMaybeContinueGoalLoop_ReturnsCmdThatEvaluatesTheConfiguredHook",
+    "TestMaybeContinueGoalLoop_SkipsOnGoalCancelled",
+    "TestMaybeContinueGoalLoop_SkipsOnTurnErrored",
+    "TestStartAutoContinue_IncrementsIterationAndUsesDistinctTranscriptLine",
+    "TestUpdate_GoalLoopResultMsg_ContinuesWhenOutcomeSaysSo",
+    "TestUpdate_GoalLoopResultMsg_NoOpWhenOutcomeSaysDone",
+    "TestUpdate_RunEndedMsg_DispatchesGoalLoopCheckWhenHooksConfigured"
+  ],
+  "repetitions": 20,
+  "pass": 180,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "No configured checks produces one unverified answer.",
+    "Provider error or cancellation prevents Stop checks and continuation.",
+    "Final iteration runs validator before budget exhaustion; exactly two turns and checks at cap two.",
+    "Real Stop subprocess stdout becomes the next backend prompt.",
+    "Continuation records service iteration and is not rendered as user input.",
+    "Passing Stop result terminates without another backend turn.",
+    "Each journey publishes exactly one visible terminal result."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-goal-migration-20260909/hand-service-goal-migration-corrected-20260909.jsonl.gz",
+      "sha256": "3012acbc3c483cba59be2410ecbaec1f0edfca40b4a83976668af431132b2a1e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-goal-migration-20260909/hand-service-goal-migration-20260909.jsonl.gz",
+      "sha256": "fc5928f0bbba8e07342d8a0e565150949b72d628420a7c43f164c97801890efb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-goal-migration-20260909/hand-legacy-goal-tests-before-20260909.txt.gz",
+      "sha256": "29d625fba5d5a82a6d62915e673452dabe92ad398659788813afab3cfae027ab"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-goal-migration-20260909/service_goal_test.go.gz",
+      "sha256": "f60e2cfe12bd9458e302502bf117b04fe6279fe79e58b8327419461a03e66c3c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-goal-migration-20260909/model_test.go.gz",
+      "sha256": "ce8c984c44b2d2b771c8676604692f7c0c0af9d289047cafd64180562ba805a1"
+    }
+  ],
+  "limitations": [
+    "Test-only migration; legacy lifecycle/stale-event fixtures and production handler removal still pending.",
+    "Initial compile failure used sourceLayout fields directly; corrected to nested Block fields and retained failure log.",
+    "No full candidate/platform/coverage qualification."
+  ]
+}

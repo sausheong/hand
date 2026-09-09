@@ -1,0 +1,3307 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-session",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-session",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_fffe47cff5f3de1e"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "time-start",
+      "method": "budget.time.decide",
+      "params": {
+        "seconds": 2,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "time-start",
+      "result": {
+        "seconds": 2
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "configured",
+      "method": "budget.time",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "configured",
+      "result": {
+        "configured": true,
+        "decided_at": "2026-09-08T13:37:33.996571Z",
+        "deadline": "2026-09-08T13:37:35.996571Z",
+        "expired": false,
+        "remaining_millis": 1991,
+        "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang",
+      "method": "prompt",
+      "params": {
+        "text": "Wait for the deadline in the local fixture."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang",
+        "fingerprint": "feaf35bd7b27db3068fb3dadb79fbe3780545548db5796ecdd8a79c9a804475d",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "6XASHTGZAPOMPO75ZKPFWRSJKI:4",
+          "sequence": 4,
+          "session_id": "ses_fffe47cff5f3de1e",
+          "run_id": "WRAVV4Q5XMKYG7BYRWZVGZZKON:1",
+          "request_id": "hang",
+          "timestamp": "2026-09-08T13:37:36.008753Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "session time budget: budget_exhausted",
+            "iteration": 1,
+            "reason": "session_time_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "expired-state",
+      "method": "budget.time",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "expired-state",
+      "result": {
+        "configured": true,
+        "decided_at": "2026-09-08T13:37:33.996571Z",
+        "deadline": "2026-09-08T13:37:35.996571Z",
+        "expired": true,
+        "remaining_millis": 0,
+        "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+      }
+    }
+  }
+]

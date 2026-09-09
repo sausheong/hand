@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T22:56:55.443833+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T22:56:56.019088+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestContextStateRPCRevisionAndReplay"}
+{"Time":"2026-09-08T22:56:56.019129+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestContextStateRPCRevisionAndReplay","Output":"=== RUN   TestContextStateRPCRevisionAndReplay\n"}
+{"Time":"2026-09-08T22:56:56.125895+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestContextStateRPCRevisionAndReplay","Output":"--- PASS: TestContextStateRPCRevisionAndReplay (0.11s)\n"}
+{"Time":"2026-09-08T22:56:56.125992+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestContextStateRPCRevisionAndReplay","Elapsed":0.11}
+{"Time":"2026-09-08T22:56:56.127911+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay"}
+{"Time":"2026-09-08T22:56:56.127955+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"=== RUN   TestSkillsReloadRPCAndReplay\n"}
+{"Time":"2026-09-08T22:56:56.210297+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"--- PASS: TestSkillsReloadRPCAndReplay (0.08s)\n"}
+{"Time":"2026-09-08T22:56:56.21037+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Elapsed":0.08}
+{"Time":"2026-09-08T22:56:56.211312+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T22:56:57.215279+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.771s\n"}
+{"Time":"2026-09-08T22:56:57.215459+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.772}

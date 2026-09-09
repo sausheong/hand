@@ -1,0 +1,9 @@
+{"Time":"2026-09-08T13:16:34.558695+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T13:16:35.233466+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPermissionCommandsPersistRevocationAndPage"}
+{"Time":"2026-09-08T13:16:35.233533+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPermissionCommandsPersistRevocationAndPage","Output":"=== RUN   TestPermissionCommandsPersistRevocationAndPage\n"}
+{"Time":"2026-09-08T13:16:35.241594+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPermissionCommandsPersistRevocationAndPage","Output":"    permissions_test.go:26: grant authority context mismatch\n"}
+{"Time":"2026-09-08T13:16:35.24219+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPermissionCommandsPersistRevocationAndPage","Output":"--- FAIL: TestPermissionCommandsPersistRevocationAndPage (0.01s)\n"}
+{"Time":"2026-09-08T13:16:35.242202+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPermissionCommandsPersistRevocationAndPage","Elapsed":0.01}
+{"Time":"2026-09-08T13:16:35.242428+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\n"}
+{"Time":"2026-09-08T13:16:35.243698+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\tgithub.com/sausheong/hand/internal/tui\t0.684s\n"}
+{"Time":"2026-09-08T13:16:35.243721+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Elapsed":0.685}

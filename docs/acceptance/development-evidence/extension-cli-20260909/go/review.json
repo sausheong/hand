@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "snapshot_root": "/private/tmp/hand-extension-cli-journey-20260909/go/snapshots",
+  "identities": {
+    "task-note": "examples/go"
+  },
+  "reviews": [
+    {
+      "specification": {
+        "name": "task-note",
+        "digest": "711c6fdfbf266417bc1a706d7c9b447c4548ab3457c18b6976888d356dd7a5b4",
+        "capabilities": [
+          "commands",
+          "context.transform",
+          "questions",
+          "state"
+        ],
+        "order": 0,
+        "mandatory": false
+      },
+      "binary": {
+        "path": "/private/tmp/hand-extension-example-go-20260908",
+        "sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+        "size": 3040210,
+        "mode": 493
+      },
+      "assets": null,
+      "arguments": null,
+      "workspace": "/private/tmp/hand-extension-cli-journey-20260909/go/workspace",
+      "environment": {},
+      "boundary": "unrestricted host subprocess; capabilities are not an OS sandbox; runtime libraries are not snapshotted"
+    }
+  ]
+}

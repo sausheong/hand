@@ -1,0 +1,45 @@
+{
+  "status": "development_repetitions_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=2m -json ./internal/rpc -run '^TestBudgetRPCRejectionsPreserveDecisionsAndReplay$'",
+  "test_records": {
+    "pass": 180
+  },
+  "repetitions": {
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.tokens.decide": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.cost.decide": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.time.decide": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.tokens.decide": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.cost.decide": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.time.decide": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.select": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.prices.set": 20,
+    "TestBudgetRPCRejectionsPreserveDecisionsAndReplay": 20
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-charged-rejections-20260909/hand-budget-charged-rejections-20260909.jsonl.gz",
+      "sha256": "ad54ae3b65827148ffb80f407e3f7585081dce235968221432b1a9e54a389129"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-charged-rejections-20260909/budget_rejection_test.go.gz",
+      "sha256": "00234601102d05236faaebad00650dfd634f8e4ce2644093ea927853952f1b04"
+    }
+  ],
+  "fixture": {
+    "committed_tokens": 18,
+    "committed_cost_nano": 20,
+    "attempts_per_ledger": 2,
+    "uncertain_reservations_per_ledger": 1
+  },
+  "assertions": [
+    "All existing budget rejection paths preserve charged token/cost views and session entries",
+    "Missing confirmation, malformed fields, wrong types and invalid decisions rejected",
+    "Durable-control error responses stable on same-ID replay",
+    "No backend calls; outstanding retry and settled compaction charges retained"
+  ],
+  "limitations": [
+    "Real budget ledger admissions/settlement against in-memory session; physical restart/crash proof remains separate",
+    "Session-level charged ledgers; run-scoped rejection inputs tested but no run-scoped charged fixture added",
+    "No production change or full coverage refresh; final candidate qualification remains"
+  ]
+}

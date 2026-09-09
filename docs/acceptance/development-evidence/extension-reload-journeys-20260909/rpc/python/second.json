@@ -1,0 +1,1178 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "extension.command",
+          "extension.questions",
+          "extension.answer",
+          "extension.reload",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:35N57AWBP6IQJCMOJXNQKXSKTX",
+        "id": "note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Task note saved."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-note",
+      "method": "request.get",
+      "params": {
+        "id": "note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:35N57AWBP6IQJCMOJXNQKXSKTX",
+        "id": "note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Task note saved."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "no-replay-question",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "no-replay-question",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-same",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/python/review.json",
+        "digest": "e4b52e740528c4993d653ab3a0d8ddb364370d4cda8e6c4194da6ce0ff270f38"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-same",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:HQIVU6NQKP5A7NHQULIULTLNC2",
+        "id": "reload-same",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-same",
+      "method": "request.get",
+      "params": {
+        "id": "reload-same"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-same",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:HQIVU6NQKP5A7NHQULIULTLNC2",
+        "id": "reload-same",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-same",
+      "method": "request.get",
+      "params": {
+        "id": "reload-same"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-same",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:HQIVU6NQKP5A7NHQULIULTLNC2",
+        "id": "reload-same",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-same",
+          "result": {
+            "completed": true,
+            "reload": {
+              "committed": true,
+              "started": null,
+              "reused": [
+                "task-note"
+              ],
+              "removed": null
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-bad",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/python/bad-review.json",
+        "digest": "416746d39c28a2398d0268746ecc3784d90a3b6c300b4f1a67dcdd48a8c36140"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:NIFTPI2WC6LZZ2WMAM63PBYG5G",
+        "id": "reload-bad",
+        "fingerprint": "cb3580d2ea6cd638083c62e5b4a4b487b31788c8e77d86466346f5bb7af19b63",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-bad",
+          "result": {
+            "completed": false,
+            "error": "extension capability not approved: questions\nextension capability not approved: questions",
+            "reload": {
+              "committed": false,
+              "started": null,
+              "reused": null,
+              "removed": null
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel-note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5EUSRJWB3ZHTPBIEOAK2ONHWFH",
+        "id": "cancel-note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": [
+        {
+          "token": "LZDMVGE7BWBGRQL4DQSVHZRU74",
+          "extension": "task-note",
+          "question": {
+            "id": "note",
+            "title": "What task note should be remembered?",
+            "allow_free_text": true
+          },
+          "sequence": 1
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-cancel-note",
+      "method": "request.get",
+      "params": {
+        "id": "cancel-note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-cancel-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5EUSRJWB3ZHTPBIEOAK2ONHWFH",
+        "id": "cancel-note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-cancel-note",
+      "method": "request.get",
+      "params": {
+        "id": "cancel-note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-cancel-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5EUSRJWB3ZHTPBIEOAK2ONHWFH",
+        "id": "cancel-note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "cancel-note",
+          "error": {
+            "code": "extension_failed",
+            "message": "context canceled"
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "no-cancelled-question",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "no-cancelled-question",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-cancelled",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/python/review.json",
+        "digest": "e4b52e740528c4993d653ab3a0d8ddb364370d4cda8e6c4194da6ce0ff270f38"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3WXKXVY2HR26VPJ3Z5TYO57TKV",
+        "id": "reload-cancelled",
+        "fingerprint": "3af2612d046095a38d2a64cba7b994e84737c0b726f62fd11db2e829d6c44761",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-cancelled",
+          "result": {
+            "completed": true,
+            "reload": {
+              "committed": true,
+              "started": [
+                "task-note"
+              ],
+              "reused": null,
+              "removed": null
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "recovered-note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "recovered-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:DJNTJDHIKUHDY3LLSRXKRCXWS7",
+        "id": "recovered-note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": [
+        {
+          "token": "KNKOZOMQ5YD43YYR4Q7HOSC27C",
+          "extension": "task-note",
+          "question": {
+            "id": "note",
+            "title": "What task note should be remembered?",
+            "allow_free_text": true
+          },
+          "sequence": 2
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "recovered-answer",
+      "method": "extension.answer",
+      "params": {
+        "token": "KNKOZOMQ5YD43YYR4Q7HOSC27C",
+        "answer": {
+          "id": "note",
+          "cancelled": true
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "recovered-answer",
+      "result": {
+        "answered": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-recovered-note",
+      "method": "request.get",
+      "params": {
+        "id": "recovered-note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-recovered-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:DJNTJDHIKUHDY3LLSRXKRCXWS7",
+        "id": "recovered-note",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "recovered-note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Note cancelled."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-empty",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/python/empty-review.json",
+        "digest": "1acaa377eb90f73f1f41db223f9b2fa2aa1db87071628a1ea169f55421cd9937"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-empty",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:Z4EHMJQRUMNWWWCRC26ZSDTNM2",
+        "id": "reload-empty",
+        "fingerprint": "65c53a0654ebfbbcbbb051e211a211155ef2c43c30213c89c71b20c93f3388f8",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-empty",
+      "method": "request.get",
+      "params": {
+        "id": "reload-empty"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-empty",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:Z4EHMJQRUMNWWWCRC26ZSDTNM2",
+        "id": "reload-empty",
+        "fingerprint": "65c53a0654ebfbbcbbb051e211a211155ef2c43c30213c89c71b20c93f3388f8",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-empty",
+      "method": "request.get",
+      "params": {
+        "id": "reload-empty"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-empty",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:Z4EHMJQRUMNWWWCRC26ZSDTNM2",
+        "id": "reload-empty",
+        "fingerprint": "65c53a0654ebfbbcbbb051e211a211155ef2c43c30213c89c71b20c93f3388f8",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-empty",
+          "result": {
+            "completed": true,
+            "reload": {
+              "committed": true,
+              "started": null,
+              "reused": null,
+              "removed": [
+                "task-note"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "removed-command",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "removed-command",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:ASAM6A2QDRTNJNOR35NL4X2REE",
+        "id": "removed-command",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-removed-command",
+      "method": "request.get",
+      "params": {
+        "id": "removed-command"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-removed-command",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:ASAM6A2QDRTNJNOR35NL4X2REE",
+        "id": "removed-command",
+        "fingerprint": "baadb4ae8be2b8fb075fa49ec536ac05740ff819aeec90a5c051ee96b0cae08a",
+        "session_id": "ses_45416b8693a9cdd6",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "removed-command",
+          "error": {
+            "code": "extension_failed",
+            "message": "extension not active"
+          }
+        }
+      }
+    }
+  }
+]

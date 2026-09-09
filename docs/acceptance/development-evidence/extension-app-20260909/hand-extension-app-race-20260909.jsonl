@@ -1,0 +1,9 @@
+{"Time":"2026-09-09T00:01:23.812489+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T00:01:24.410076+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding"}
+{"Time":"2026-09-09T00:01:24.410128+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"=== RUN   TestApplicationExtensionOwnershipQuestionsAndSessionBinding\n"}
+{"Time":"2026-09-09T00:01:24.85367+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"    extensions_test.go:128: owner did not cancel\n"}
+{"Time":"2026-09-09T00:01:24.856176+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"--- FAIL: TestApplicationExtensionOwnershipQuestionsAndSessionBinding (0.45s)\n"}
+{"Time":"2026-09-09T00:01:24.856198+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Elapsed":0.45}
+{"Time":"2026-09-09T00:01:24.856316+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\n"}
+{"Time":"2026-09-09T00:01:24.857548+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\tgithub.com/sausheong/hand/internal/app\t1.044s\n"}
+{"Time":"2026-09-09T00:01:24.857566+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.045}

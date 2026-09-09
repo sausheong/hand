@@ -1,0 +1,63 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "bugs": [
+    "Expiry could be reversed after clock rollback because it was not persisted.",
+    "Malformed negative reservation values could be accepted on reopen and increase available budget."
+  ],
+  "changes": [
+    "Observed expiry commits permanent run revocation before returning denial.",
+    "SQLite integrity, foreign keys, typed nonnegative limits, finite expiries and reservation state consistency are checked on open and before writes."
+  ],
+  "tests": {
+    "evaluation_suite": 95,
+    "critical_cases": 6,
+    "repetitions_per_case": 20,
+    "critical_trials": 120,
+    "final_failures": 0,
+    "final_skips": 0
+  },
+  "limitations": [
+    "This validates ledger recovery, not live gateway or spending authorisation.",
+    "Private trusted storage and authenticated schedule/usage inputs remain required; logical validation is not protection against an actor rewriting valid ledger data.",
+    "Monotonic in-flight request deadlines remain an executor responsibility."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-recovery-20260909/evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_budget.py",
+      "sha256": "0a64792fbe9284b40dea82c70d956082252777da0c996b7898718e79e79cd5f1",
+      "uncompressed_sha256": "034a280eb55d007badd843cd3e2c302a5daed98c33aae9d467ab6edb1c77bc57"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-recovery-20260909/test_evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_budget.py",
+      "sha256": "0b25a3e51a7622e5976e350eaeb00e6626ed49b3c831c0d2015c100664cd21dd",
+      "uncompressed_sha256": "cb1a21cdf60fe6473528682a316de2c5118e6db17022c9099360e15bbe6e029e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-recovery-20260909/hand-budget-recovery-before-20260909.log.gz",
+      "source": "/private/tmp/hand-budget-recovery-before-20260909.log",
+      "sha256": "b95d1b22bedaa02713524775f2605e02b98cfa213054ccf7530251d5c3ef5785",
+      "uncompressed_sha256": "382ad94cffc27a67f99846832587736ee4bbbdd69c6e1600782e804dd54c6672"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-recovery-20260909/hand-budget-recovery-after-20260909.log.gz",
+      "source": "/private/tmp/hand-budget-recovery-after-20260909.log",
+      "sha256": "0109e6180ceb3383ae49ecc20d04004f7f4bfb47a4697b8fc0478f8514095349",
+      "uncompressed_sha256": "45a89532eff98580b6f01a0280d0c8ae3a36702f94dd8678878642405517ddb7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-recovery-20260909/hand-budget-recovery-all-20260909.log.gz",
+      "source": "/private/tmp/hand-budget-recovery-all-20260909.log",
+      "sha256": "e48b783b7a590b71e18f095e18b6c6cc2a5d8c45b0fa87db177291968372eb3d",
+      "uncompressed_sha256": "e43e11fb359387daac94db3e2e1cac7dd9c56f3fc78e025d9a3cdb509295ef5d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-recovery-20260909/hand-budget-recovery-repetitions-20260909.log.gz",
+      "source": "/private/tmp/hand-budget-recovery-repetitions-20260909.log",
+      "sha256": "1628dac53ac1ee3a78b3231a77e7703cb614e94769c436e7818837c117b4c4ed",
+      "uncompressed_sha256": "812200773642d1a81a8da7f13059fca3d0f8639712f21b1e9a76b7fb21d9e7c4"
+    }
+  ]
+}

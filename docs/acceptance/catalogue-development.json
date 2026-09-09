@@ -1,0 +1,48 @@
+{
+  "candidate_commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+  "clean_source": false,
+  "validated_source_sha256": "92edd735a280b59a571fd2141c117d9e0b54e7510efa6d9263998b96235bfed5",
+  "harness_version": "v0.3.9",
+  "wired_into_product": false,
+  "tests_passed": 482,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "sessionio_repeat_passes": 260,
+  "repetitions": 20,
+  "coverage_total": 85.7830433172899,
+  "coverage_changed": 86.32385120350109,
+  "artifacts": [
+    {
+      "path": "internal/sessionio/catalogue.go",
+      "sha256": "3cecf7f21e6503f4897bbc962605d4c1cabe7cd0598ffa7f32b4c7681b3226f5"
+    },
+    {
+      "path": "internal/sessionio/catalogue_unix.go",
+      "sha256": "88a1e239ea70136e8c02b76a61b6421e457377f0e7624dded6ac3a7c7b1183ee"
+    },
+    {
+      "path": "internal/sessionio/catalogue_test.go",
+      "sha256": "d9983befa6cda9f945c88afcac2f2abca88641a3597b0c9648c7a93d5d5d98b6"
+    },
+    {
+      "path": "internal/sessionio/catalogue_process_test.go",
+      "sha256": "434fe2edf2de634705771416b7bdb39196d75b56194040bd6ff3331e87e75657"
+    },
+    {
+      "path": "/private/tmp/hand-m3-catalogue-validation-20260908-02/report.json",
+      "sha256": "e4b4b8d03d6ce17adc13acfae331ed2977596be65c0a3fcc317e1f62568ee8a8"
+    },
+    {
+      "path": "/private/tmp/hand-catalogue-verified-repeat-20260908.jsonl",
+      "sha256": "0e80b8eb9355ea7a1b79e478ec809e630a5fc232ebb2c9bde7790449419fcb71"
+    },
+    {
+      "path": "/private/tmp/hand-catalogue-verified-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-m3-catalogue-validation-20260908-01/report.json",
+      "sha256": "515a0ec071324fb179ffd75fc41ea9ec263e5c5b1d13b92e02df8da1b35fc49c"
+    }
+  ]
+}

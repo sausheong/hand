@@ -1,63 +1,61 @@
 package tui
 
 import (
-	"sync"
+	"context"
+	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/app"
 	"testing"
-	"time"
-
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/sausheong/harness/runtime"
 )
 
-type fakeProgramSender struct {
-	mu   sync.Mutex
-	sent []tea.Msg
-}
-
-func (f *fakeProgramSender) Send(msg tea.Msg) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	f.sent = append(f.sent, msg)
-}
-
-func (f *fakeProgramSender) snapshot() []tea.Msg {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	out := make([]tea.Msg, len(f.sent))
-	copy(out, f.sent)
-	return out
-}
-
 func TestStreamEvents_ForwardsEventsThenRunEnded(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 2)
-	events <- runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "hi"}
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
-	close(events)
-
-	sender := &fakeProgramSender{}
-	done := make(chan struct{})
-	go func() {
-		StreamEvents(sender, events)
-		close(done)
-	}()
-
+	backend := applicationBackend{run: func(context.Context, string) (<-chan app.BackendEvent, error) {
+		events := make(chan app.BackendEvent, 2)
+		events <- app.BackendEvent{Text: "hi"}
+		events <- app.BackendEvent{Kind: "usage", Done: true, Details: app.Details{UsageKnown: true, InputTokens: 1}}
+		close(events)
+		return events, nil
+	}}
+	stream, err := app.New(backend, app.Options{SessionID: "session", MaxIterations: 1}).Start(context.Background(), "hello", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer stream.Cancel()
+	var sequence uint64
+	text, usage, terminal := 0, 0, 0
+	for {
+		msg := nextApplicationEvent(stream)().(applicationMsg)
+		if msg.outcome != nil {
+			terminal++
+			if msg.event.Kind != "terminal" || msg.event.Sequence <= sequence || msg.outcome.Status != agentio.Completed {
+				t.Fatal("invalid final event", msg)
+			}
+			break
+		}
+		for _, event := range append([]app.Event{msg.event}, msg.following...) {
+			if event.Sequence <= sequence || event.SessionID != "session" || event.RunID != 1 {
+				t.Fatal("event identity/order lost", event)
+			}
+			sequence = event.Sequence
+			if event.Kind == "text" {
+				if event.Text != "hi" {
+					t.Fatal(event)
+				}
+				text++
+			}
+			if event.Kind == "usage" {
+				if !event.Details.UsageKnown || event.Details.InputTokens != 1 {
+					t.Fatal(event)
+				}
+				usage++
+			}
+		}
+	}
+	if text != 1 || usage != 1 || terminal != 1 {
+		t.Fatal(text, usage, terminal)
+	}
 	select {
-	case <-done:
-	case <-time.After(2 * time.Second):
-		t.Fatal("StreamEvents did not return after the channel closed")
-	}
-
-	got := sender.snapshot()
-	if len(got) != 3 {
-		t.Fatalf("sent %d messages, want 3 (2 events + runEndedMsg): %+v", len(got), got)
-	}
-	if ev, ok := got[0].(runtime.AgentEvent); !ok || ev.Text != "hi" {
-		t.Errorf("first message = %+v, want AgentEvent{Text: \"hi\"}", got[0])
-	}
-	if ev, ok := got[1].(runtime.AgentEvent); !ok || ev.Type != runtime.EventDone {
-		t.Errorf("second message = %+v, want AgentEvent{Type: EventDone}", got[1])
-	}
-	if _, ok := got[2].(runEndedMsg); !ok {
-		t.Errorf("third message = %+v (%T), want runEndedMsg", got[2], got[2])
+	case <-stream.Done:
+	default:
+		t.Fatal("terminal delivered before worker joined")
 	}
 }

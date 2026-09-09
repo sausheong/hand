@@ -1,0 +1,118 @@
+{
+  "status": "requests_captured",
+  "version": "0.85.1",
+  "cases": [
+    {
+      "name": "text",
+      "captures": [
+        {
+          "url": "https://api.anthropic.com/v1/messages?beta=true",
+          "method": "POST",
+          "headers": {
+            "accept": "application/json",
+            "anthropic-dangerous-direct-browser-access": "true",
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "user-agent": "pi (darwin 25.6.0; arm64)",
+            "x-stainless-arch": "arm64",
+            "x-stainless-lang": "js",
+            "x-stainless-os": "MacOS",
+            "x-stainless-package-version": "0.123.0",
+            "x-stainless-retry-count": "0",
+            "x-stainless-runtime": "node",
+            "x-stainless-runtime-version": "v25.8.1",
+            "x-stainless-timeout": "3"
+          },
+          "body": "text-1.json",
+          "body_sha256": "39d7bb1182f5ccbbf4986b06a7db0967a0c9d770356f0806a2d3f98b21371f3b"
+        }
+      ],
+      "event_types": [
+        "error"
+      ],
+      "stop_reason": "error"
+    },
+    {
+      "name": "tool-roundtrip",
+      "captures": [
+        {
+          "url": "https://api.anthropic.com/v1/messages?beta=true",
+          "method": "POST",
+          "headers": {
+            "accept": "application/json",
+            "anthropic-dangerous-direct-browser-access": "true",
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "user-agent": "pi (darwin 25.6.0; arm64)",
+            "x-stainless-arch": "arm64",
+            "x-stainless-lang": "js",
+            "x-stainless-os": "MacOS",
+            "x-stainless-package-version": "0.123.0",
+            "x-stainless-retry-count": "0",
+            "x-stainless-runtime": "node",
+            "x-stainless-runtime-version": "v25.8.1",
+            "x-stainless-timeout": "3"
+          },
+          "body": "tool-roundtrip-1.json",
+          "body_sha256": "1eaa07c99896fcdea1d7eeee34e52d2323a4544cba4e63765afff40adfa2a5ef"
+        }
+      ],
+      "event_types": [
+        "error"
+      ],
+      "stop_reason": "error"
+    },
+    {
+      "name": "thinking",
+      "captures": [
+        {
+          "url": "https://api.anthropic.com/v1/messages?beta=true",
+          "method": "POST",
+          "headers": {
+            "accept": "application/json",
+            "anthropic-beta": "interleaved-thinking-2025-05-14",
+            "anthropic-dangerous-direct-browser-access": "true",
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "user-agent": "pi (darwin 25.6.0; arm64)",
+            "x-stainless-arch": "arm64",
+            "x-stainless-lang": "js",
+            "x-stainless-os": "MacOS",
+            "x-stainless-package-version": "0.123.0",
+            "x-stainless-retry-count": "0",
+            "x-stainless-runtime": "node",
+            "x-stainless-runtime-version": "v25.8.1",
+            "x-stainless-timeout": "3"
+          },
+          "body": "thinking-1.json",
+          "body_sha256": "88df916ca810923a04641797152a21a86debb622682d0eccec5fd078c033e23f"
+        }
+      ],
+      "event_types": [
+        "error"
+      ],
+      "stop_reason": "error"
+    }
+  ],
+  "limitations": [
+    "Actual installed Pi provider and SDK serialize requests, but fetch is injected and returns HTTP 400.",
+    "No HTTP socket, full agent session, provider call, model quality or billing verification.",
+    "Catalogue model is an offline probe input, not an approved comparison model."
+  ],
+  "unexpected_fetches": 0,
+  "runtime_sources": [
+    {
+      "file": "package.json",
+      "sha256": "b54df5a36d523febdeebfc5682dc4faed101fee10aba913d5f3679582f018da3"
+    },
+    {
+      "file": "dist/api/anthropic-messages.js",
+      "sha256": "f748560c80fe91bb5736b62f6f34c5e2e2bfa224cd5eb959134ca903c226b604"
+    },
+    {
+      "file": "dist/providers/data/anthropic.json",
+      "sha256": "c0e1cfcef8531b5d0852c0e74790290f130dbcb4591b6578bb0d8a4b464231c0"
+    }
+  ],
+  "probe_sha256": "09e46273de4e45602a47c97a0cf57091b287e06924f5482f592ce51bbefd3d42"
+}

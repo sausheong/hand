@@ -1,0 +1,60 @@
+{
+  "status": "development_fix_passed",
+  "test_records": {
+    "hand-capture-allocation-before-20260909.jsonl": {
+      "fail": 1
+    },
+    "hand-capture-allocation-after-20260909.jsonl": {
+      "pass": 14
+    },
+    "hand-capture-allocation-integrated-20260909.jsonl": {
+      "pass": 1
+    }
+  },
+  "before_allocations_per_saturated_write": 1,
+  "after_allocations_per_saturated_write": 0,
+  "prefix_bytes": 65536,
+  "observed_backing_capacity_bytes": 81920,
+  "tested_backing_capacity_allowance_bytes": 139264,
+  "implementation": [
+    "process/capture.go",
+    "process/artifacts.go",
+    "process/capture_allocation_test.go"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/capture.go.gz",
+      "sha256": "26304506f9cc97d43f4e2bde8d963458107402d73467c959622f16685d5ac818"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/artifacts.go.gz",
+      "sha256": "d906689f86404c74b1eb6a5e368f57e267d41b1de944cba11cdc8d669c4f7e39"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/harness-tracked-diff.patch.gz",
+      "sha256": "5e71590cdae16ffe5ff1380f6dc7855ca6875c91e5a68e70e26d39e229b8241c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/hand-capture-allocation-after-20260909.jsonl.gz",
+      "sha256": "26caf3980ef1dd232d248452cbe651789f36a490b311cd14bc1b15c3fa62c131"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/hand-capture-allocation-integrated-20260909.jsonl.gz",
+      "sha256": "b6cf20891314169e7019be056a019a85d4b22eddd57a0090fe86ac817694e4f6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/capture_allocation_test.go.gz",
+      "sha256": "54cecdfb4aab110ad1880541ca3ace7b4bdcee2d7cdc9d3a4391021ee7939dae"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/capture-memory-20260909/hand-capture-allocation-before-20260909.jsonl.gz",
+      "sha256": "3b112ea39db9d370e38a6b3b11a3a1e29752c8e36525d9c73fc975e845253f36"
+    }
+  ],
+  "limitations": [
+    "Reusable fix is in local unreleased Harness; release/integration required",
+    "Tracks allocations and retained backing capacity, not total application RSS",
+    "Temporary prefix copy still needed once at spill boundary; caller-owned Snapshot copies remain bounded by prefix size",
+    "Tracked diff is against Harness HEAD and may include prior edits in those files; archived source includes the new untracked regression"
+  ]
+}

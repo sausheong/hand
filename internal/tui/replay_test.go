@@ -149,7 +149,7 @@ func TestReplayHistory_MultipleEntriesPreserveOrder(t *testing.T) {
 }
 
 func TestModel_LoadHistory_PopulatesTranscript(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.LoadHistory([]session.SessionEntry{
 		{Type: session.EntryTypeMessage, Role: "user", Data: mustMarshal(t, session.MessageData{Text: "resumed message"})},
 	})
@@ -161,5 +161,49 @@ func TestModel_LoadHistory_PopulatesTranscript(t *testing.T) {
 	}
 	if !found {
 		t.Fatalf("transcript = %v, want a line containing \"resumed message\"", m.transcript)
+	}
+}
+
+func TestReplayMalformedHistoryRemainsVisibleAndOrdered(t *testing.T) {
+	cases := []struct {
+		kind  session.EntryType
+		label string
+	}{
+		{session.EntryTypeMessage, "message"},
+		{session.EntryTypeToolCall, "tool call"},
+		{session.EntryTypeToolResult, "tool result"},
+		{session.EntryTypeCompaction, "compaction"},
+		{session.EntryTypeMeta, "note"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.label, func(t *testing.T) {
+			for _, raw := range []string{`null`, `{`, `[]`, `{"text":123,"tool":123,"output":123,"summary":123}`, "{\x1b]52;c;attack\x07"} {
+				entries := []session.SessionEntry{session.UserMessageEntry("before"), {Type: tc.kind, Data: json.RawMessage(raw)}, session.UserMessageEntry("after")}
+				lines := ReplayHistory(entries, 80, "dark")
+				if len(lines) != 3 || !strings.Contains(lines[0], "before") || !strings.Contains(lines[2], "after") || !strings.Contains(lines[1], "could not replay "+tc.label) {
+					t.Fatalf("malformed history hidden or reordered: %q", lines)
+				}
+				m := NewModel(nil, t.TempDir())
+				m.LoadHistory(entries)
+				if len(m.toolOutputs) != 0 {
+					t.Fatal("malformed result became an inspectable successful output")
+				}
+				if len(m.transcript) != 3 || !strings.Contains(m.transcript[1], "could not replay "+tc.label) {
+					t.Fatal("model lost error", m.transcript)
+				}
+				m.termWidth = 42
+				m.refreshSourceBlocks()
+				if !strings.Contains(m.transcript[1], "could not replay "+tc.label) {
+					t.Fatal("resize lost replay error")
+				}
+				if strings.Contains(m.transcript[1], "\x1b]52;") || strings.ContainsRune(m.transcript[1], '\x07') {
+					t.Fatal("replay error emitted terminal control")
+				}
+			}
+		})
+	}
+	unknown := session.SessionEntry{Type: "future-entry", Data: json.RawMessage(`{}`)}
+	if lines := ReplayHistory([]session.SessionEntry{unknown}, 80, "dark"); len(lines) != 0 {
+		t.Fatal("unknown entry rendered", lines)
 	}
 }

@@ -1,0 +1,64 @@
+{
+  "status": "development_linux_checkpoint_passed",
+  "test_records": {
+    "pass": 93
+  },
+  "coverage": {
+    "total": {
+      "statements": 1011,
+      "covered": 830,
+      "percentage": 82.09693372898121
+    },
+    "packages": {
+      "github.com/sausheong/hand/internal/checkpoints": {
+        "statements": 1011,
+        "covered": 830,
+        "percentage": 82.09693372898121
+      }
+    }
+  },
+  "linux_rename_coverage": {
+    "statements": 6,
+    "covered": 6,
+    "percentage": 100.0
+  },
+  "sources_unchanged": true,
+  "binary_sha256": "22c8a088a210437d11909584b8e500206d19bd1a7fbb27ef9a94131ce168c3a6",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/report.json.gz",
+      "sha256": "ed43eab01a41e7c1721aaa09b16f09ebf43bc3b6c5817badad300619ce455d3c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/suite.log.gz",
+      "sha256": "a0b095e2c1a7d904e907bddfed3ab40642f0e6fb4ebb0b3227ded64a4e8e5bc5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/coverage.out.gz",
+      "sha256": "462e994bf53ee35c836ad85dd0a77b22034a6c81822e43a57b7fb5a07a69ef14"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/image.log.gz",
+      "sha256": "0c4d94a06ed6c963b692772863cc74ab5f78baacb940ad7103a4ac8594f704e0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/toolchain.log.gz",
+      "sha256": "92776006a621951d3e149adf57022ea97e11d0feae77fb01e728e780cf8cd536"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-20260909/check_checkpoint_linux.py.gz",
+      "sha256": "d84d4e82d05a5c779d2cc78f01bb9ef815daa632b5d8ed91dd0a4993ba798072"
+    }
+  ],
+  "limitations": [
+    "Linux arm64 checkpoint package only, not full Linux qualification",
+    "Cross-compiled without race instrumentation; runtime executed in container",
+    "No Docker socket mounted, no network, non-root user",
+    "Supplementary package coverage only; not merged into final aggregate coverage",
+    "Dirty Hand development checkout, not clean released candidate"
+  ]
+}

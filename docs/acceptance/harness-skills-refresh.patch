@@ -1,0 +1,118 @@
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -223,7 +223,11 @@
+ 		AgentLoop:          loop,
+ 		StaticSystemPrompt: staticPrompt,
+ 		refreshToolPrompt: func(names []string) string {
+-			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, skillsIndex, memoryIndex, deps.MemoryFiles)
++			currentSkills := ""
++			if deps.Skills != nil {
++				currentSkills = deps.Skills.FormatIndex()
++			}
++			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, currentSkills, memoryIndex, deps.MemoryFiles)
+ 		},
+ 		CalibratorStore: deps.CalibratorStore,
+ 		mcpClients:      mcpClients,
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -504,6 +504,11 @@
+ 
+ 			dynamicSuffix := buildDynamicSystemPromptSuffix(r.DynamicIdentityHint, dateLine, kgContext)
+ 
++			// Tool execution from the previous round has joined here. Refresh
++			// self-authored skills before assembling the next model request.
++			if r.Skills != nil {
++				r.refreshSkills()
++			}
+ 			staticText := r.StaticSystemPrompt
+ 			parts := []llm.SystemPromptPart{
+ 				{Text: staticText, Cache: true},
+--- a/runtime/types.go
++++ b/runtime/types.go
+@@ -133,7 +133,7 @@
+ // static system prompt and resolve a skill body on demand via the
+ // load_skill tool. Optional — pass nil on Deps.Skills to disable.
+ //
+-// FormatIndex is called once at BuildRuntime time; the returned string
++// FormatIndex is called at BuildRuntime time and safe request boundaries; the returned string
+ // is concatenated into the cacheable static system prompt. Get is wired
+ // through tool.LoadSkillTool's Lookup closure; load_skill.Execute
+ // calls it at agent-loop time.
+--- /dev/null
++++ b/runtime/skills_refresh.go
+@@ -0,0 +1,26 @@
++package runtime
++
++import "fmt"
++
++// RefreshSkills refreshes discovery while idle. Run also refreshes between
++// model requests, after preceding tool calls have joined. Providers must bound
++// filesystem work; callers cannot refresh concurrently with an active run.
++func (r *Runtime) RefreshSkills() error {
++	if !r.runMu.TryLock() {
++		return fmt.Errorf("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	r.refreshSkills()
++	return nil
++}
++
++func (r *Runtime) refreshSkills() {
++	if r.refreshToolPrompt == nil {
++		return
++	}
++	var names []string
++	if r.Tools != nil {
++		names = r.Tools.Names()
++	}
++	r.StaticSystemPrompt = r.refreshToolPrompt(names)
++}
+--- /dev/null
++++ b/runtime/skills_refresh_test.go
+@@ -0,0 +1,46 @@
++package runtime
++
++import (
++	"context"
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tool/skills"
++	"github.com/sausheong/harness/tool/skills/disk"
++	"strings"
++	"testing"
++)
++
++func TestRefreshSkillsDiscoversAuthoredAndRemovedSkills(t *testing.T) {
++	store := disk.NewStore(t.TempDir())
++	rt, err := BuildRuntime(RuntimeDeps{Skills: store.AsSkillProvider(), ConfigSummary: "configuration retained", MemoryFiles: "memory retained"}, RuntimeInputs{Tools: tool.NewRegistry()}, AgentSpec{ID: "test", SystemPrompt: "identity retained"})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	initial := rt.StaticSystemPrompt
++	if _, err = store.Create(context.Background(), skills.Skill{Name: "new-skill", Description: "new description", Body: "procedure"}); err != nil {
++		t.Fatal(err)
++	}
++	rt.runMu.Lock()
++	err = rt.RefreshSkills()
++	rt.runMu.Unlock()
++	if err == nil || rt.StaticSystemPrompt != initial {
++		t.Fatal("busy refresh mutated prompt")
++	}
++	if err = rt.RefreshSkills(); err != nil {
++		t.Fatal(err)
++	}
++	for _, want := range []string{"new-skill", "new description", "identity retained", "configuration retained", "memory retained"} {
++		if !strings.Contains(rt.StaticSystemPrompt, want) {
++			t.Fatalf("missing %s", want)
++		}
++	}
++	if err = store.Remove(context.Background(), "new-skill"); err != nil {
++		t.Fatal(err)
++	}
++	if err = rt.RefreshSkills(); err != nil {
++		t.Fatal(err)
++	}
++	if rt.StaticSystemPrompt != initial {
++		t.Fatal("removed skill remains or unrelated context changed")
++	}
++}

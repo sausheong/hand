@@ -1,0 +1,51 @@
+{
+  "status": "development_documentation_and_packaging_passed",
+  "requirements": [
+    "M7.2",
+    "M8.2"
+  ],
+  "document": "docs/extensions.md",
+  "checks": {
+    "documented_package_commands": [
+      "inspect",
+      "review-install",
+      "review-archive",
+      "review-git",
+      "apply",
+      "list",
+      "show",
+      "review-remove",
+      "review-rollback",
+      "review-runtimes",
+      "review-extensions"
+    ],
+    "links": "resolve",
+    "native_task_note_package": "built and inspected",
+    "extension_executions": 0
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-guide-20260909/commands.json",
+      "sha256": "143c603bbdccc067a672b2cd00bacf9aa2c9e2e4a2b9450a7ad6cf1d3eab27a5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-guide-20260909/hand-package.json",
+      "sha256": "d12ea78bdd9f622c27aa40d38d5612a75f098fe0a6db71ea56a4c56a43e2c687"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-guide-20260909/run.json",
+      "sha256": "9b3fa64e9b8bb9b954a3b84c080cbbc104b338a26705ac1e57de0a452b88eb9d"
+    }
+  ],
+  "source_review": [
+    "cmd/hand/packages.go",
+    "internal/app/package_extensions.go",
+    "cmd/hand/package_container.go",
+    "scripts/package_extension_example.py"
+  ],
+  "limitations": [
+    "No extension activated in this documentation check",
+    "Uses prior development Hand binary; final candidate and release compatibility remain pending",
+    "Container and interpreted activation journeys retain their separate acceptance requirements"
+  ]
+}

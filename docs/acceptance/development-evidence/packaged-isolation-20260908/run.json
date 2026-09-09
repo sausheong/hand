@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "archive": "/private/tmp/hand-worker-dist-20260908/hand-development-worker-darwin-arm64.tar.gz",
+  "archive_sha256": "d3b3888b78423c08e6f8c9114209923bad3dd42b1e5a4dcbb4c13e166e07412c",
+  "worker": {
+    "schema_version": 1,
+    "file": "hand-tool-worker-linux",
+    "os": "linux",
+    "arch": "arm64",
+    "sha256": "226a00c1ad6f6667543df9e366b46640063711e797461aaf2fe922c91b8e6d82",
+    "commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+    "version": "development-worker",
+    "protocol_version": 1
+  },
+  "target": "darwin-arm64",
+  "command": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "/Users/sausheong/projects/hand/scripts/check_rpc_client.py",
+    "--hand-binary",
+    "/private/tmp/hand-packaged-isolation-final-20260908/hand",
+    "--execution-config",
+    "/private/tmp/hand-packaged-isolation-final-20260908/execution.json",
+    "--out",
+    "/private/tmp/hand-packaged-isolation-final-20260908/rpc"
+  ],
+  "returncode": 0,
+  "runner_sha256": "c2a3d55f43c0cf15b1540c781ec91868c23048356ca4e400184dbd7a67f8dcc0",
+  "wrapper_sha256": "228fa61a77d998590d5828e4bd17014949c8a80bcfbbb03a19dd5b45cc145a98",
+  "rpc_evidence": "/private/tmp/hand-packaged-isolation-final-20260908/rpc/run.json"
+}

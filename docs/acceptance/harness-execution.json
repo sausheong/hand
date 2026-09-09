@@ -1,0 +1,42 @@
+{
+  "qualification": "development",
+  "harness_commit": "50445a5",
+  "parent": "a111b33b826dd22713ef755d403516c28edf8133",
+  "published": false,
+  "hand_integrated": false,
+  "patch_sha256": "40c9d927c7b70b6263a78c9356e7eb5dcd5ae90dce0628e7954a129afafadfad",
+  "platform": "macOS host; Docker Desktop Linux arm64 engine 29.5.3",
+  "image": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+  "results": {
+    "hand-container-backend-fixed-20260908.jsonl": {
+      "pass": 3,
+      "fail": 0,
+      "skip": 0
+    },
+    "hand-container-backend-native-20260908.jsonl": {
+      "pass": 2,
+      "fail": 1,
+      "skip": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-backend-20260908/hand-container-backend-fixed-20260908.jsonl",
+      "sha256": "bb47950e0c06b665bb5e4d9c5280642fa150b06059c2f76e3102057eda1ae794"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-backend-20260908/hand-container-backend-native-20260908.jsonl",
+      "sha256": "ad8f1f450bf511d885081da6444f0a686c09bd840e65fdebfb2e8fdffff94b52"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-backend-20260908/hand-container-backend-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "cleanup": "docker ps -a --filter name=harness-exec- returned no containers after tests",
+  "limitations": [
+    "Execution package only; Hand built-in, background, MCP and extension routing remains pending.",
+    "No Linux-host qualification; cancellation during daemon create may take its bounded 30-second timeout and cleanup failures remain explicit.",
+    "Root filesystem and workspace restrictions do not constitute a complete final isolation acceptance run."
+  ]
+}

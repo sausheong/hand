@@ -1,0 +1,64 @@
+{
+  "status": "development_passed",
+  "full_test_records": 134,
+  "inventory_count": 44,
+  "repetitions": 20,
+  "harness_module": {
+    "Path": "github.com/sausheong/harness",
+    "Main": true,
+    "Dir": "/private/tmp/hand-harness-persistence-20260908",
+    "GoMod": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+    "GoVersion": "1.25.1"
+  },
+  "harness_source_sha256": "94d7b04316cab30fdf614e2f6db6bc6328091be5082cca562b51688c600487f9",
+  "go_environment": {
+    "CGO_ENABLED": "0",
+    "GOARCH": "arm64",
+    "GOOS": "linux",
+    "GOVERSION": "go1.25.1",
+    "GOWORK": "/Users/sausheong/projects/hand/go.work"
+  },
+  "raw_report": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/run.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/build-note.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/build-tests.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/check_rpc_linux.py.txt",
+      "sha256": "cb59b14e5a92e988c1a0056a6e9e0a1fc4105fccbf5fa828a10a22e1aa3fa71b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/full.log",
+      "sha256": "37b1dbb327c2ab90ff27df757ab0424e69e97777ca46ae79d9c91385b193e0ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/go-environment.log",
+      "sha256": "5c681379909a7a55ce72499e3cea79efa5849d730cf524635621f706ebe270a4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/harness-module.log",
+      "sha256": "f0f6c6127782e5b3dbe43b51cd0fe2afd4c3a1f3d8cd8cca6f84ca486cbc4ba7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/inventory.log",
+      "sha256": "22057d06a6bbbda874377880498d720dc5325d76ec683d1279e3d8c15a74b44b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/repeated.log",
+      "sha256": "882b445978f0ae83dedeb664ccf6aea70b2df6e6df8365f15b22cb2bcd2b39e3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-bound-20260909/run.json",
+      "sha256": "98ccb420842da00da29564f2e1dbad7ce05a8109638d38299978596d1ca8b373"
+    }
+  ],
+  "limitations": [
+    "Harness is explicitly a local workspace module, not a released dependency",
+    "Linux arm64 container, no race instrumentation; final candidate qualification pending"
+  ]
+}

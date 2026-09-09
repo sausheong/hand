@@ -1,0 +1,1 @@
+{"version": 1, "tool": "edit_file", "input": {"path": "nested/deep/new/child.txt", "old_string": "CREATED_CONTENT", "new_string": "EDITED_CONTENT", "instruction_digest": "b06008463dd8caf03ef0f3381499c4b551a7991a3e44351403418d5d985082ad"}}

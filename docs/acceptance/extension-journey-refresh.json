@@ -1,0 +1,68 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenario": "extension_reload_failure",
+  "repetitions": 20,
+  "language_journeys": 40,
+  "sources_unchanged": true,
+  "source_hashes": {
+    "/Users/sausheong/projects/hand": "34918dd0cd7759e70959d39b1b5be305edf4d17f9186eddab4c4b927e8dcbf40",
+    "/private/tmp/hand-harness-persistence-20260908": "c52ab17e0f872e75f337d82107817e96418bab6e16220cd9021b4b3f2a6e6a4b"
+  },
+  "checks": {
+    "go": {
+      "status": "passed",
+      "review_digest": "9d715e743a9ba339e762f912274a04be9ce8f272a973114b7868f37f28a1d89d",
+      "wrong_approval_rejected": true,
+      "command_question_answer": true,
+      "durable_replay_after_restart": true,
+      "cancellation_joined": true,
+      "snapshots_removed": true,
+      "reload_reuses": true,
+      "failed_reload_preserves_peer": true,
+      "cancelled_peer_recovers": true,
+      "remove_all_joined": true
+    },
+    "python": {
+      "status": "passed",
+      "review_digest": "0f1fa272b290d74f0d5d3ad4beba47495c54d8c706f5c43667944e41b43bed38",
+      "wrong_approval_rejected": true,
+      "command_question_answer": true,
+      "durable_replay_after_restart": true,
+      "cancellation_joined": true,
+      "snapshots_removed": true,
+      "reload_reuses": true,
+      "failed_reload_preserves_peer": true,
+      "cancelled_peer_recovers": true,
+      "remove_all_joined": true
+    }
+  },
+  "binary_sha256": "a7a5b0fae05b1c680daaaddcc7d5c2922613e1b3bfb8cda2c3ea6c452d331e18",
+  "runner_sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-journey-refresh-20260909/hand-extension-refresh-20260909.py.gz",
+      "sha256": "0f4982e780599b6b1172413d16b4d37c93e2bc2afbafc60de783c7aef12a6ae7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-journey-refresh-20260909/hand-extension-refresh-result-20260909.json.gz",
+      "sha256": "6f6f51521b5486e10e72a592b6f4f19d2dbb7ac030cbe28c127200c194c3c071"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-journey-refresh-20260909/hand-extension-repeat-20260909.py.gz",
+      "sha256": "13e4e0969ca266545885192646627ff97ed2c4d7703469647340ad768ca1f1df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-journey-refresh-20260909/hand-extension-repeat-result-20260909.json.gz",
+      "sha256": "6432e2a95f19e51aed72a1592f805bc5e5c71e8f6282816072df29abc40e4b3c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-journey-refresh-20260909/raw-runs.tar.gz",
+      "sha256": "6c838e745a5996e7ef5987665f7676c5f2eb60c57ea9bf726a18881dd73dad98"
+    }
+  ],
+  "limitations": [
+    "Current dirty development checkout with local Harness; not final candidate/platform qualification",
+    "No model prompts sent; extension protocol and filesystem/process lifecycle evidence only"
+  ]
+}

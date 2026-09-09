@@ -1,0 +1,160 @@
+{
+  "status": "development_pi_sdk_gateway_passed",
+  "candidate_qualified": false,
+  "initial_failure": "Real Node fetch added accept-language:* and sec-fetch-mode:cors; strict header policy rejected before any reservation or upstream call.",
+  "fix": "Accept only the observed values unchanged and retain real network headers as permanent fixtures.",
+  "tests": {
+    "actual_sdk_cases": 3,
+    "evaluation_suite": 153,
+    "failures": 0,
+    "skips": 0
+  },
+  "verified": [
+    "Installed Pi AI 0.85.1 provider uses real guarded loopback fetch",
+    "Text/tool-roundtrip/thinking requests traverse TCP gateway",
+    "All three complete streamed fixture responses reach SDK",
+    "Exact response bytes pass explicit usage validation",
+    "All three reservations remain uncertain, no settlement",
+    "Server and upstream threads joined"
+  ],
+  "limitations": [
+    "Synthetic upstream responses and synthetic pricing/contracts only; no real provider or paid model calls.",
+    "Probe is provider-SDK integration, not a complete Pi coding-agent session or Hand runtime network qualification.",
+    "Guarded fetch permits the configured loopback origin only; this is not container network isolation evidence.",
+    "Real pricing, approved budget, authentic billing and full comparison remain pending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/0-check_pi_gateway.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pi_gateway.py",
+      "sha256": "348bd1e194691f3a922eb1c0771f560da753a1177453cd281263d5cae0d18182",
+      "uncompressed_sha256": "d27002d816c64c13c55f1ab9feb66a031ad6c391626eae87fa1ec31c043d5ccc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/1-check_pi_gateway.mjs.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pi_gateway.mjs",
+      "sha256": "7b82e12b14c9c6ea81fefe445dc01a9df4d051b0b18ff35c8ccc0f5815193232",
+      "uncompressed_sha256": "5f4bdd3853bfdfe04b104ebc901aa8690e65d55d2e161373e0a8f358984f0b5e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/2-evaluation_http_policy.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_http_policy.py",
+      "sha256": "b6459e78e5101f8c03faaeb8b0d1beb817cb61570acdc875d64631efc8e0463a",
+      "uncompressed_sha256": "11d0291f8f4b269ad1af35650ff6b6e409e826620a7e827b2cdc4f9b17ee7ae7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/3-test_evaluation_http_policy.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_http_policy.py",
+      "sha256": "9fadf170fd4aaa0f751e9cf7cbf4bbdf275972c745d77404206461d597243e8b",
+      "uncompressed_sha256": "b4794c644bf7f5441d209641955cd554eac7872017c12d4507978ff2bff7f439"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/4-headers.json.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/pi-network-v0.85.1/headers.json",
+      "sha256": "409e902688105ec1ed758e18534236464b64c5ae7e06aaebb9ca87626f5a5b9e",
+      "uncompressed_sha256": "fc6ebdac45989868534400c6a111bfa2a01a520c2043b6de01adf77f32f165ac"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/5-hand-pi-gateway-network-tests-20260909.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-tests-20260909.log",
+      "sha256": "0d3bee881040c79f55535f05d7f387515ccebb58da0b10fc406e6a19d84c25d7",
+      "uncompressed_sha256": "2ab9a86c18bd347851e07fe46f86c8d2b6b7b86d6827f8fe256565aaaac7c51a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/6-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-20260909/report.json",
+      "sha256": "59d23a3664030c4de8b990748c3cd3a116f9e42f99905cf06cc50a6f6eaa33a1",
+      "uncompressed_sha256": "3baa52ace40a85612798fd0fac0d0292e3288bd6f6142c541a39c5810e6d8baf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/7-sdk-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-20260909/sdk-report.json",
+      "sha256": "942cb70e4cba04728b0a05e1003d7b0e2afe40fb98d3341d503a0de809e82b3a",
+      "uncompressed_sha256": "80f395f2e684f2f74475dcafb8e3bebad4e581556eb9dd89fe5fd0541b13a07d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/8-stdout.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-20260909/stdout.log",
+      "sha256": "f4db5817a89cbd9ca07d74b63beea6cd9177eb6ed14f9fe3bf9335fdf91b09eb",
+      "uncompressed_sha256": "d727d364cb55fb35c3b77afeb5976988d5bd3c3d20a766d3e8888ba4c85238db"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/9-stderr.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-20260909/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/10-budget.sqlite.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-20260909/budget.sqlite",
+      "sha256": "6076f07b85b45c6214fa0f893ddd12042580f4f69922c0c3938b0460bb94a186",
+      "uncompressed_sha256": "7e7878b0423621c6606440e140a375f0edb82ec302989402cd2a9c7f82e8487f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/11-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/report.json",
+      "sha256": "3bf9733986aba0deac5ceb910b0c8c0aa26dee3bdc045a727de43bb277d40e0e",
+      "uncompressed_sha256": "308382b89f574cc178debc4eb4cd4a4d3ff746c7eea90b829ce6010209683d7f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/12-sdk-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/sdk-report.json",
+      "sha256": "6e5b482339f804ed28a3d4beb1f0ac6ec24e227f1df7ced7d8510df6a44bce8b",
+      "uncompressed_sha256": "5dad0e6b9f418d58bb89c95966cff526d8f43a952eaf093fa53a366883289062"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/13-stdout.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/stdout.log",
+      "sha256": "a102b2c0ceb786e7a5256d5cf2c4c84ef521ce7d14bb2b34dcce8695ddc26b40",
+      "uncompressed_sha256": "26a9d682bb43c39d1a9eb34901558e9c90192237cee3062943b1f90602e10b87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/14-stderr.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/15-budget.sqlite.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/budget.sqlite",
+      "sha256": "d9b429466b50717bf165e3141d5281efa8b45ceeca472accd3c697b7e8f42918",
+      "uncompressed_sha256": "f78d13b8612dad3584703e1c933ae2210e37b24edcee03cde05fed75d1a39275"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/16-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/requests/00779f98d52c4bf5892ed8768db10869/report.json",
+      "sha256": "c680bdd4c3ec1e413e6ee2ade30ae914db62e78dcfd430caa722959f73081407",
+      "uncompressed_sha256": "d5518613669282e5fca9ac39d2dd5a7dc44866779075e41f3773f9bb042f7bb7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/17-response.bin.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/requests/00779f98d52c4bf5892ed8768db10869/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/18-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/requests/57617a90b0164867bdcc77b5f49601b6/report.json",
+      "sha256": "608999aaa465b52572124caa2431b06519ad0d057b8bc8e8f587ef033fc38573",
+      "uncompressed_sha256": "9432e50f09ce399dd77e02b2df9d947369bc2a095ba08aadbcf7fee6416f773d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/19-response.bin.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/requests/57617a90b0164867bdcc77b5f49601b6/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/20-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/requests/bd82c8ab2e1742e4a7250ae94a5acde1/report.json",
+      "sha256": "85b5b11fae3e323145cf858829d829ecd8de2aafee54af271af579d85f389fe1",
+      "uncompressed_sha256": "3df84013bc223f57114f05d8447042f49ce29b8ed421b78614ad9fdad3ac322f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-gateway-network-20260909/21-response.bin.gz",
+      "source": "/private/tmp/hand-pi-gateway-network-fixed-20260909/requests/bd82c8ab2e1742e4a7250ae94a5acde1/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "status": "development_run_journal_reopen_integrity_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/app -run '^TestRunJournalAmbiguitySurvivesReopenWithoutMutation$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 60
+  },
+  "assertions": [
+    "Duplicate outcome status and verified flags physically present in session JSONL",
+    "Exclusive close/reopen retains malformed annotations",
+    "Controller returns error and no run list on repeated reads",
+    "New run append rejected after reopen",
+    "Raw session file bytes unchanged after read/rejection/close"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-reopen-integrity-20260909/hand-run-reopen-integrity-20260909.jsonl.gz",
+      "sha256": "b72087edc30e131859478368e2e143db3680aee2a86621b1afd3c63ccaf86a90"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-reopen-integrity-20260909/run_journal.go.txt",
+      "sha256": "0029b393cff710961e68eb1bfe33c5aa38e8326606cdce3564ef641368ce778c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-reopen-integrity-20260909/run_journal_json.go.txt",
+      "sha256": "73e287320337cbdc989506b400c0c17f7ff3ca82b8b30d31c2df34fe4ff27200"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-reopen-integrity-20260909/run_journal_reopen_integrity_test.go.txt",
+      "sha256": "137ae1d763294fe118457e06508a1ea06f110144189119c0085e931bfc7ae37a"
+    }
+  ],
+  "limitations": [
+    "Clean close/reopen, not SIGKILL or power-loss recovery",
+    "Malformed annotation fixtures, not filesystem corruption of session framing",
+    "Native development snapshot with local Harness; final acceptance remains open"
+  ]
+}

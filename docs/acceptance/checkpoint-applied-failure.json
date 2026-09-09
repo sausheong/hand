@@ -1,0 +1,37 @@
+{
+  "status": "development_fault_tests_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/checkpoints",
+  "test_records": {
+    "pass": 93,
+    "fail": 0,
+    "skip": 0
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-checkpoint-applied-failure-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/checkpoint-applied-failure-20260909/hand-checkpoint-applied-failure-20260909.jsonl.gz",
+      "sha256": "1467cdc40dbd352d4b497b28acc00685f80b297b03fce9900169a379c0a7478c",
+      "uncompressed_sha256": "3e2cc8f55005668651434372d0cedda96d0ffc45904fa17a5fb1bedce204f894"
+    },
+    {
+      "source": "internal/checkpoints/restore_journal_test.go",
+      "path": "docs/acceptance/development-evidence/checkpoint-applied-failure-20260909/restore_journal_test.go.gz",
+      "sha256": "32eb2bc89a42cf3758fdd3416769a821ac821866d4b4ee0228b4cf419be9e3dd",
+      "uncompressed_sha256": "5edc65ba9208e9647cf821f7f7e1183d2d21824d58bff030cbde2cfaff1bede3"
+    }
+  ],
+  "faults": [
+    "EIO on completion journal file sync after durable prepared intent",
+    "EIO on completion journal directory sync after durable prepared intent"
+  ],
+  "assertions": [
+    "Applied result and retained recovery path survive error",
+    "Restored and displaced file bytes remain available",
+    "Uncertain store rejects further reads until reopened",
+    "Written records replay on reopen and stale restore plan is rejected"
+  ],
+  "limitations": [
+    "Injected sync failures retain OS-visible written bytes; this is not a power-loss durability test",
+    "Native macOS development evidence; final candidate and cross-platform fault qualification remain open"
+  ]
+}

@@ -1,0 +1,44 @@
+{"Time":"2026-09-08T16:43:09.636104+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T16:43:10.388106+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryDisplayResolutionScope"}
+{"Time":"2026-09-08T16:43:10.388174+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryDisplayResolutionScope","Output":"=== RUN   TestRecoveryDisplayResolutionScope\n"}
+{"Time":"2026-09-08T16:43:10.388218+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryDisplayResolutionScope","Output":"--- PASS: TestRecoveryDisplayResolutionScope (0.00s)\n"}
+{"Time":"2026-09-08T16:43:10.388225+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryDisplayResolutionScope","Elapsed":0}
+{"Time":"2026-09-08T16:43:10.38827+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryConfirmationConsumesDisplayedRecord"}
+{"Time":"2026-09-08T16:43:10.388276+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryConfirmationConsumesDisplayedRecord","Output":"=== RUN   TestRecoveryConfirmationConsumesDisplayedRecord\n"}
+{"Time":"2026-09-08T16:43:10.458426+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryConfirmationConsumesDisplayedRecord","Output":"--- PASS: TestRecoveryConfirmationConsumesDisplayedRecord (0.07s)\n"}
+{"Time":"2026-09-08T16:43:10.45844+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRecoveryConfirmationConsumesDisplayedRecord","Elapsed":0.07}
+{"Time":"2026-09-08T16:43:10.459236+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewExactPathParsing"}
+{"Time":"2026-09-08T16:43:10.459248+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewExactPathParsing","Output":"=== RUN   TestRestorePreviewExactPathParsing\n"}
+{"Time":"2026-09-08T16:43:10.459315+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewExactPathParsing","Output":"--- PASS: TestRestorePreviewExactPathParsing (0.00s)\n"}
+{"Time":"2026-09-08T16:43:10.459325+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewExactPathParsing","Elapsed":0}
+{"Time":"2026-09-08T16:43:10.459378+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewConflictPresentation"}
+{"Time":"2026-09-08T16:43:10.459385+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewConflictPresentation","Output":"=== RUN   TestRestorePreviewConflictPresentation\n"}
+{"Time":"2026-09-08T16:43:10.459452+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewConflictPresentation","Output":"--- PASS: TestRestorePreviewConflictPresentation (0.00s)\n"}
+{"Time":"2026-09-08T16:43:10.45946+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewConflictPresentation","Elapsed":0}
+{"Time":"2026-09-08T16:43:10.459525+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewOwnedWorker"}
+{"Time":"2026-09-08T16:43:10.459531+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewOwnedWorker","Output":"=== RUN   TestRestorePreviewOwnedWorker\n"}
+{"Time":"2026-09-08T16:43:10.51358+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewOwnedWorker","Output":"--- PASS: TestRestorePreviewOwnedWorker (0.05s)\n"}
+{"Time":"2026-09-08T16:43:10.513604+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestorePreviewOwnedWorker","Elapsed":0.05}
+{"Time":"2026-09-08T16:43:10.513696+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreConfirmationConsumedAndCancellation"}
+{"Time":"2026-09-08T16:43:10.513725+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreConfirmationConsumedAndCancellation","Output":"=== RUN   TestRestoreConfirmationConsumedAndCancellation\n"}
+{"Time":"2026-09-08T16:43:10.577152+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreConfirmationConsumedAndCancellation","Output":"--- PASS: TestRestoreConfirmationConsumedAndCancellation (0.06s)\n"}
+{"Time":"2026-09-08T16:43:10.577178+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreConfirmationConsumedAndCancellation","Elapsed":0.06}
+{"Time":"2026-09-08T16:43:10.577239+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreFailureDisplaysPartialResults"}
+{"Time":"2026-09-08T16:43:10.577248+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreFailureDisplaysPartialResults","Output":"=== RUN   TestRestoreFailureDisplaysPartialResults\n"}
+{"Time":"2026-09-08T16:43:10.630036+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreFailureDisplaysPartialResults","Output":"--- PASS: TestRestoreFailureDisplaysPartialResults (0.05s)\n"}
+{"Time":"2026-09-08T16:43:10.630049+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRestoreFailureDisplaysPartialResults","Elapsed":0.05}
+{"Time":"2026-09-08T16:43:10.633736+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation"}
+{"Time":"2026-09-08T16:43:10.633749+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation","Output":"=== RUN   TestVerificationEvidencePageAndConfirmation\n"}
+{"Time":"2026-09-08T16:43:10.688921+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation","Output":"--- PASS: TestVerificationEvidencePageAndConfirmation (0.06s)\n"}
+{"Time":"2026-09-08T16:43:10.688941+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation","Elapsed":0.06}
+{"Time":"2026-09-08T16:43:10.688967+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationReviewAndStalePresentation"}
+{"Time":"2026-09-08T16:43:10.688976+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationReviewAndStalePresentation","Output":"=== RUN   TestVerificationReviewAndStalePresentation\n"}
+{"Time":"2026-09-08T16:43:10.689383+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationReviewAndStalePresentation","Output":"--- PASS: TestVerificationReviewAndStalePresentation (0.00s)\n"}
+{"Time":"2026-09-08T16:43:10.689398+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationReviewAndStalePresentation","Elapsed":0}
+{"Time":"2026-09-08T16:43:10.689443+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationConfirmationConsumed"}
+{"Time":"2026-09-08T16:43:10.689453+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationConfirmationConsumed","Output":"=== RUN   TestVerificationConfirmationConsumed\n"}
+{"Time":"2026-09-08T16:43:10.744208+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationConfirmationConsumed","Output":"--- PASS: TestVerificationConfirmationConsumed (0.05s)\n"}
+{"Time":"2026-09-08T16:43:10.744276+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationConfirmationConsumed","Elapsed":0.05}
+{"Time":"2026-09-08T16:43:10.744388+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T16:43:11.753357+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t2.117s\n"}
+{"Time":"2026-09-08T16:43:11.7534+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":2.117}

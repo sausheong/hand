@@ -1,0 +1,32 @@
+{
+  "status": "development_oracle_hardened",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./examples/compatibility",
+  "test_pass_records": 3,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-compatibility-envelope-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/compatibility-envelope-20260909/hand-compatibility-envelope-20260909.jsonl.gz",
+      "sha256": "8b0fdc82bb16bc4cd0d43eda6f1b4bbba3e42e8240e5b404a74e927d40af90e4",
+      "uncompressed_sha256": "55332b32024376946ac7a02213fce068554f0006d8f575859cbba2b9ddf17cd9"
+    },
+    {
+      "source": "examples/compatibility/main.go",
+      "path": "docs/acceptance/development-evidence/compatibility-envelope-20260909/main.go.gz",
+      "sha256": "04d3b27b0a1ec6588217bf2d01091e85851278066ac6308c9feeb7159cfff0a8",
+      "uncompressed_sha256": "1dc931c9959ecd334efa3aeb456a6dd89c230daedb838511d8e7c635f67a6126"
+    },
+    {
+      "source": "examples/compatibility/main_test.go",
+      "path": "docs/acceptance/development-evidence/compatibility-envelope-20260909/main_test.go.gz",
+      "sha256": "07728e4f9791e9ffa98ef3c7f11858d9fc68549c9252b1ce8bb49f1952edbce6",
+      "uncompressed_sha256": "0d9d6d0f8d744d0b87b346c52e98a48b745a1f651bdb99a75de24d63a2f0dc65"
+    }
+  ],
+  "change": "Completion and cancellation CLI journeys share event validation for protocol version, request/run identity, kind and payload types. Invalid events cannot change accumulated observations; duplicate terminals remain visible to final exact-count assertions.",
+  "validation": "All six local-provider completion/cancellation journeys and malformed-envelope regression tests passed.",
+  "limitations": [
+    "Local deterministic provider, not live comparative evaluation",
+    "Prior compatibility coverage profile predates this production refactor and must not be merged as current coverage",
+    "Final candidate and released Harness qualification remain open"
+  ]
+}

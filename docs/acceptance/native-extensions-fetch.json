@@ -1,0 +1,53 @@
+{
+  "status": "development_native_and_public_tests_passed",
+  "tests": [
+    "TestContainerExtensionFileCallbackBoundary/read-only",
+    "TestContainerExtensionFileCallbackBoundary/writable",
+    "TestContainerExtensionFileCallbackBoundary/denied",
+    "TestContainerExtensionFileCallbackBoundary",
+    "TestContainerExtensionActivationAndReviewedReload",
+    "TestContainerExtensionRealExample",
+    "TestContainerPythonImageInterpreter",
+    "TestNativeContainerPythonRuntimeVersion",
+    "TestExtensionResourceIPC/network.fetch/public-fetch",
+    "TestExtensionResourceIPC"
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-native-extensions-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/native-extensions-fetch-20260909/hand-native-extensions-tests-20260909.jsonl.gz",
+      "sha256": "c9c356a97153671b42cfb747f50c0b4745a45bde1a80440074f06bfc65876758",
+      "uncompressed_sha256": "18248c9a8f3821303ca1bc5aa6be37b9bc9667a3d8c5ad9c0721da740e79f4c7"
+    },
+    {
+      "source": "/private/tmp/hand-native-extensions-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/native-extensions-fetch-20260909/hand-native-extensions-coverage-20260909.out.gz",
+      "sha256": "c5766f3e9dc7f2354f82a5bef1067a60eea6c1a46d540156847ae5accf6928c0",
+      "uncompressed_sha256": "b9ae7baa8c426418afc34cd8c2d44324a312ad397802fa4f81c577d6ccde9f67"
+    },
+    {
+      "source": "/private/tmp/hand-public-fetch-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/native-extensions-fetch-20260909/hand-public-fetch-tests-20260909.jsonl.gz",
+      "sha256": "1cea81e767fd0b7b3ad0a6a0fb671c89d9792ff306493960c60138c06808e65a",
+      "uncompressed_sha256": "c44550349453b0780005cb5af7f8f944b88710f54db833e110884d818121ae31"
+    },
+    {
+      "source": "/private/tmp/hand-public-fetch-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/native-extensions-fetch-20260909/hand-public-fetch-coverage-20260909.out.gz",
+      "sha256": "6744e4fa679ff2ff1e0aea813829e222a567d93b4273709105f62e0341e99188",
+      "uncompressed_sha256": "65bed796d4aec2ece748f0f9487fa5767cfe54355313769c97394a993df98c14"
+    }
+  ],
+  "peer_sha256": "2a002149f050d2b62671d161596d90334d2ccc68bb1ab35d135444f6cf9e022d",
+  "worker_sha256": "03adb99b60a7189bb686dea9230c8b8d5ac014646a71e212b8ac3b6e43787dd9",
+  "images": [
+    "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91"
+  ],
+  "public_url": "https://example.com/",
+  "limitations": [
+    "Separate development runs; not a zero-skip final-candidate full suite",
+    "Cross-compiled fixture peers lack race instrumentation; host tests use race detector",
+    "No paid model evaluation performed"
+  ]
+}

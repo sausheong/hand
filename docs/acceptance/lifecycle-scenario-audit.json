@@ -1,0 +1,255 @@
+{
+  "requirement": "M1.4",
+  "status": "incomplete",
+  "scenarios_mapped": 8,
+  "scenarios_qualified": 0,
+  "scenarios": [
+    {
+      "id": "stale_goal_after_new_or_cancel",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/tui/lifecycle_regression_test.go",
+          "name": "TestSupersededGoalCheckCannotContinue",
+          "sha256": "9ea389fa771405b94fda85624477d89b0e123d16131c08be2bd80f01c03d99ab",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/tui/lifecycle_regression_test.go",
+          "name": "TestCancelledGoalResultCannotContinue",
+          "sha256": "71f2a46d333de04128a2328518d5fba6054e306b3c27bbc9e72ffa3d899b762b",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/service-cleanup-migration.json"
+        },
+        {
+          "path": "internal/tui/lifecycle_regression_test.go",
+          "name": "TestNewSessionRejectsQueuedGoalContinuation",
+          "sha256": "65246682e92824bd33d590bc4f125e2b21dcdd5e7ccc2c844409935ecc3340fd",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/service-session-migration.json"
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required.",
+        "Current coverage includes in-process tests; built client end-to-end coverage must match the entire scenario before qualification."
+      ]
+    },
+    {
+      "id": "stale_goal_after_newer_run",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/tui/lifecycle_regression_test.go",
+          "name": "TestSupersededGoalCheckCannotContinue",
+          "sha256": "9ea389fa771405b94fda85624477d89b0e123d16131c08be2bd80f01c03d99ab",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required.",
+        "Current coverage includes in-process tests; built client end-to-end coverage must match the entire scenario before qualification."
+      ]
+    },
+    {
+      "id": "responsive_cancel_compact",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/tui/compaction_lifecycle_test.go",
+          "name": "TestManualCompactionCancellationPreservesTranscript",
+          "sha256": "590cb7bb8cfa95ae123f1c354d38daea6c4c50145a415365679ed8a3febc811d",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/tui/compaction_lifecycle_test.go",
+          "name": "TestManualCompactionCancelBeforeDispatchAndStaleResults",
+          "sha256": "590cb7bb8cfa95ae123f1c354d38daea6c4c50145a415365679ed8a3febc811d",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required.",
+        "Current coverage includes in-process tests; built client end-to-end coverage must match the entire scenario before qualification."
+      ]
+    },
+    {
+      "id": "exactly_one_terminal_outcome",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/tui/outcome_test.go",
+          "name": "TestTUIOneTerminalOutcome",
+          "sha256": "26a2d95e6a7ff296377fe0d8babfcbe461ef6213f2a83026f9fdc9025f274fc2",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/outcome-service-migration.json"
+        },
+        {
+          "path": "internal/tui/outcome_test.go",
+          "name": "TestTUICancelledCheckCannotPublishSuccess",
+          "sha256": "26a2d95e6a7ff296377fe0d8babfcbe461ef6213f2a83026f9fdc9025f274fc2",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/outcome-service-migration.json"
+        },
+        {
+          "path": "cmd/hand/jsonl_test.go",
+          "name": "TestJSONLOneShotOrderedSingleTerminal",
+          "sha256": "ec2bc07879ade4b27c4adb066789928a55d8563a4e47d51dbd011b148531a09e",
+          "repetitions": 20
+        },
+        {
+          "path": "cmd/hand/signal_binary_test.go",
+          "name": "TestBinarySignalsCancelStreamingRequest",
+          "sha256": "a0afe307da2d951e7ce70976af2099ec46e57bfe9cd18eac0eeb4aa80ea4eb5b",
+          "repetitions": 20
+        },
+        {
+          "path": "cmd/hand/outcome_binary_test.go",
+          "name": "TestBinaryOutcomeExitCodeMatrix",
+          "sha256": "f5a5118d1bd6c5b2a4f294b3d722a7e176da3d5e18efd5cad3b53f9febde238c",
+          "repetitions": 1,
+          "evidence": "docs/acceptance/outcome-binary.json"
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required.",
+        "Current coverage includes in-process tests; built client end-to-end coverage must match the entire scenario before qualification."
+      ]
+    },
+    {
+      "id": "exit_code_matrix",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "cmd/hand/outcomes_test.go",
+          "name": "TestOneShotOutcomeMatrix",
+          "sha256": "6893a28e9c2f4c3473527d37b6db03e5c365d5fbe7388ccd0299d19e3f3def6c",
+          "repetitions": 20
+        },
+        {
+          "path": "cmd/hand/outcome_binary_test.go",
+          "name": "TestBinaryOutcomeExitCodeMatrix",
+          "sha256": "f5a5118d1bd6c5b2a4f294b3d722a7e176da3d5e18efd5cad3b53f9febde238c",
+          "repetitions": 1,
+          "evidence": "docs/acceptance/outcome-binary.json"
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required."
+      ]
+    },
+    {
+      "id": "large_hook_json_stdin",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/hooks_regression_test.go",
+          "name": "TestHookLargePayloadUsesJSONStdin",
+          "sha256": "9508654da935d0ea29e42325a5245845499a1342063ae2b7f70371614715e15c",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required.",
+        "Current coverage includes in-process tests; built client end-to-end coverage must match the entire scenario before qualification."
+      ]
+    },
+    {
+      "id": "mandatory_hook_timeout_denies",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/hooks_regression_test.go",
+          "name": "TestMandatoryStopFailuresAreErrors",
+          "sha256": "9508654da935d0ea29e42325a5245845499a1342063ae2b7f70371614715e15c",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/agentio/hooks_regression_test.go",
+          "name": "TestMandatoryPreToolFailureDeniesByDefault",
+          "sha256": "9508654da935d0ea29e42325a5245845499a1342063ae2b7f70371614715e15c",
+          "repetitions": 20
+        },
+        {
+          "path": "cmd/hand/hook_timeout_binary_test.go",
+          "name": "TestBinaryMandatoryToolTimeoutPreventsMutation",
+          "sha256": "8679b199fa3d76bd24a6465094fd0e3fa833beea26aee7b596d17dff3cbe1512",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/lifecycle-gap-tests.json"
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required.",
+        "Current coverage includes in-process tests; built client end-to-end coverage must match the entire scenario before qualification."
+      ]
+    },
+    {
+      "id": "signal_shutdown",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "cmd/hand/signal_binary_test.go",
+          "name": "TestBinarySignalsCancelStreamingRequest",
+          "sha256": "a0afe307da2d951e7ce70976af2099ec46e57bfe9cd18eac0eeb4aa80ea4eb5b",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean Hand candidate with released Harness and supported-platform evidence required."
+      ]
+    }
+  ],
+  "pass_records": {
+    "hand-binary-signals-20260909": 60,
+    "hand-lifecycle-audit-20260909": 740
+  },
+  "signal_journeys": 40,
+  "max_observed_signal_shutdown_ms": 30.151,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/hand-binary-signals-20260909.jsonl.gz",
+      "sha256": "911f5654ff6019eb57c91460916611d07cded91b6f3528f872c08f655fac6fc6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/hand-lifecycle-audit-20260909.jsonl.gz",
+      "sha256": "2b702a8d2d1dc2bf5387644bf5478aee9d8d7ec9772ae3ce08409bc9619e3a28"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/cmd_hand_jsonl_test.go.gz",
+      "sha256": "4ebd5ff68c7855c21b1ceeb2790241084964ae5fd829971d02142263f9d8f22d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/cmd_hand_outcomes_test.go.gz",
+      "sha256": "365259a648e1035f412d736a9db1f454a5423cdc8ccb9d3513872180bbaf68bc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/cmd_hand_signal_binary_test.go.gz",
+      "sha256": "4c940fa21d9729ccfed1afd45f04e84672b10340c519939971f09fd9e54a53cd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/internal_agentio_hooks_regression_test.go.gz",
+      "sha256": "f28d122de01d1eba01133ca56fdce78e785358af60057a83a37eeb8db15d49f1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/internal_tui_compaction_lifecycle_test.go.gz",
+      "sha256": "c22c9f3282e42b66133e24d36afb3c6ef466b79f43be249a5a04bfdf4283989e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/internal_tui_lifecycle_regression_test.go.gz",
+      "sha256": "c0f52c1ba99ca9eb66d8123e67370153f98125519e6b111c4233d1b42ebe57e5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-audit-20260909/internal_tui_outcome_test.go.gz",
+      "sha256": "ef159badb4b4cced3f0d54d6d4a54b36a5743e5f2ebe320c3e25df4ba2917c00"
+    }
+  ],
+  "limitations": [
+    "Development macOS checkout/local Harness only; not final candidate qualification.",
+    "Race-enabled parent tests build ordinary child binaries.",
+    "Local fake provider, no paid calls.",
+    "Signal timing is process shutdown, not the separate 30-trial UI initiation benchmark."
+  ],
+  "followup_evidence": [
+    "docs/acceptance/lifecycle-gap-tests.json",
+    "docs/acceptance/outcome-binary.json"
+  ]
+}

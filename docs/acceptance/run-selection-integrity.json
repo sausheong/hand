@@ -1,0 +1,61 @@
+{
+  "status": "development_persistence_regression_passed",
+  "defect": "Duplicate and case-alias selection fields could select a more permissive saved run budget after reopen.",
+  "change": "Exact fields, duplicate detection and logical ID validation precede budget binding; invalid latest records fail without fallback or mutation.",
+  "persisted_invalid_cases": 15,
+  "runs": [
+    {
+      "source": "/private/tmp/hand-run-selection-after-20260909.jsonl",
+      "test_records": {
+        "pass": 20,
+        "fail": 0,
+        "skip": 0
+      }
+    },
+    {
+      "source": "/private/tmp/hand-run-selection-budget-suite-20260909.jsonl",
+      "test_records": {
+        "pass": 61,
+        "fail": 0,
+        "skip": 0
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-run-selection-before-20260909.log",
+      "path": "docs/acceptance/development-evidence/run-selection-integrity-20260909/hand-run-selection-before-20260909.log.gz",
+      "sha256": "beb49e12d23a6c55086453f05e706828925c1a4e1729c15e737ce1fc9eedb65f",
+      "uncompressed_sha256": "cea1df7bf280f3f164611379432a6595055cba75ea7ebe25a3a0a479f02a0622"
+    },
+    {
+      "source": "/private/tmp/hand-run-selection-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/run-selection-integrity-20260909/hand-run-selection-after-20260909.jsonl.gz",
+      "sha256": "3cb0558dffd0a3a1b4fac0abead97090b8ad32c41ccbac986a516f0250f2e1a3",
+      "uncompressed_sha256": "a0e53ddc44c228d48e387e8ebb324fc340302c91b1c04f1ec30047df12501bf1"
+    },
+    {
+      "source": "/private/tmp/hand-run-selection-budget-suite-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/run-selection-integrity-20260909/hand-run-selection-budget-suite-20260909.jsonl.gz",
+      "sha256": "fc7708fdf636b8c47cef4fc31c46e7fbe2eccb5e378a55e2f214827d1fd033ff",
+      "uncompressed_sha256": "f3d4d83a78c4842762bc49a5edb4650dc582286d6096978404b5f7aee01d4582"
+    },
+    {
+      "source": "internal/app/run_budget.go",
+      "path": "docs/acceptance/development-evidence/run-selection-integrity-20260909/run_budget.go.gz",
+      "sha256": "836b64cb1f0e5cb80adade0eeb7027f1d51eb33d3588759334ef1473da2a0aaf",
+      "uncompressed_sha256": "b9eb7bf3c09416f9309b30fb63e49b9ba853dd042f571fac6f5dd4ef4544da8c"
+    },
+    {
+      "source": "internal/app/run_budget_selection_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/run-selection-integrity-20260909/run_budget_selection_integrity_test.go.gz",
+      "sha256": "c65017357adb9b1d15fed83e847f95a83dbde0ef07b92bd159d494a4cbaddae3",
+      "uncompressed_sha256": "ab8006aa9f9d3c74cc4f765e6fb209e1e38609cb71f5e1e0c61a9f65a6d0fddb"
+    }
+  ],
+  "limitations": [
+    "Application/RPC budget suites only, not full final acceptance",
+    "Logical corruption and actual close/reopen tested; no power-loss simulation",
+    "Dirty Hand and unreleased Harness; prior coverage profiles predate this production change"
+  ]
+}

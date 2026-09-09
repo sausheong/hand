@@ -1,0 +1,122 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "summary-startup-integration.patch",
+  "harness_delta": "harness-summary-budget.patch",
+  "result": {
+    "status": "development_passed",
+    "qualification": "development",
+    "binary_sha256": "d264dc1b64de844ca9e2a3d9b5587413710543c8c63e5e062ba4c5217bd025b0",
+    "runner_sha256": "668cfdb82f19ce311df391cba1e5acea792ec3f90bf829a9dcc7d89d22c7e239",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "model_runs_requested": 0,
+    "restored": {
+      "independent": true,
+      "selection": {
+        "options": {
+          "profile": "summary",
+          "max_output_tokens": 512,
+          "timeout_seconds": 20
+        },
+        "provider": "local",
+        "model": "summary-fixture",
+        "destination": "http://127.0.0.1:1/v1",
+        "disclosure": "Compaction sends session history and pinned guidance to this destination. This selection stays independent of the main model. Output and timeout limits apply per summariser attempt; retries can add usage.",
+        "digest": "88361f597a573a3e8cd2035649b408386c0877d8ced0299003b435740be1a3c9"
+      }
+    },
+    "following": {
+      "independent": false,
+      "selection": {
+        "options": {
+          "follow_main": true,
+          "profile": "",
+          "max_output_tokens": 4096,
+          "timeout_seconds": 60
+        },
+        "provider": "local",
+        "model": "fixture",
+        "destination": "http://127.0.0.1:1/v1",
+        "disclosure": "Compaction sends session history and pinned guidance to the current main-model destination and follows subsequent main-model changes. Output and timeout limits apply per attempt; retries can add usage.",
+        "digest": "512646efa595f1ba6c6029a1dad8f1c255cb622eade0432e5e7133f9983ca4eb"
+      }
+    },
+    "stale_exit_code": 5,
+    "clean_rpc_exits": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/authority/5b33e905224348ec37236e5b4bc770f990298cb8bb9dd03c1c8cedf5592ba5fe/6e92cf81f880accee7888de5c677471855eb1d7328a38f8e87265d823e7122ab/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/authority/5b33e905224348ec37236e5b4bc770f990298cb8bb9dd03c1c8cedf5592ba5fe/71ded2f235db8bf8188e65dfd3fe7f72572e0f93f734be9338c72667d7447a2c/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/config.json",
+      "sha256": "11714ae9ba737cc5cad71cfc099caad60c746ee577864135f6ec65054872ee4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/sessions/catalogues/5b33e905224348ec/catalogue.json",
+      "sha256": "f8a8314589e48931ebcd8f103488eea1c57ca5a2c7d34feb993f06195742421d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/sessions/catalogues/5b33e905224348ec/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_5b33e905224348ec_0ac23c315d64b95e154dc6f83e1f135f.lock",
+      "sha256": "44a8339e9813dd68eac855f821386bd95546c960b7e708f599cd2132448195dc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/sessions/hand/workspace_5b33e905224348ec_0ac23c315d64b95e154dc6f83e1f135f.jsonl",
+      "sha256": "554f410bd261a5a54d36054081ac9fe5c2a71d46d386427277d0dd652c6666c7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/home/.hand/sessions/rpc-5b33e905224348ec37236e5b4bc770f990298cb8bb9dd03c1c8cedf5592ba5fe/requests.jsonl",
+      "sha256": "38cb613b8c1805d358abd9ebdbfa321cbdfc8858c3dbb34ccf5431302a5654de"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/restart.json",
+      "sha256": "609cdf4e4ba2ffeb89523cb2440862c269044ff3fe2ef8e6dfa3cbb4f8ea7c33"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/review.json",
+      "sha256": "ec33fd2a52e7961074831dd3f6febccc5e10a5296dbf66c91036595f09aacd28"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/review.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/run.json",
+      "sha256": "9f2d72f32796a757976a3ef8937890bc329433e00617a06bc1c01e7b9c35741c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/stale.stderr",
+      "sha256": "b830a66f82bc51f6a01f7227bddd7308ae0fced6fdaf621230e0707a3f6c85ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/stale.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/summary-rpc-20260908/summary.json",
+      "sha256": "0e3ceeb69b4797d3df822c41c5155308c52abb2b1091acd863f5de1dcac995e4"
+    }
+  ],
+  "limitations": [
+    "Dirty development build, not a clean release candidate.",
+    "Native macOS ARM64 CLI journey only.",
+    "No model requests: this verifies routing configuration and persistence, not live summarisation quality.",
+    "Terminal review journey and final acceptance remain pending."
+  ]
+}

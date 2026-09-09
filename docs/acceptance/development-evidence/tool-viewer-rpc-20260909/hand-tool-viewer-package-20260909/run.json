@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "example": "tool-viewer",
+  "source_root": "/private/tmp/hand-session-integration-20260908",
+  "hand_binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+  "script_sha256": "47d26b348c20f7c20d895cab1e7b448b4b557312e56024af78b8fa993b8f784c",
+  "extension_executions": 0,
+  "package_directory": "/private/tmp/hand-tool-viewer-package-20260909/package",
+  "package_digest": "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d",
+  "executable_sha256": "73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9",
+  "manifest_sha256": "fea8bef3064e210ddf94f272b1bc5762cdce7a25c622dd38a5284649661cdab0",
+  "capabilities": [
+    "commands",
+    "presentation"
+  ],
+  "limitations": [
+    "Native build for the selected Go environment; not a signed release or cross-platform archive.",
+    "Pin identifies these built bytes. Reproduce with the same source, Go toolchain and dependencies.",
+    "Verification-hook additionally requires host Git; no example is executed during packaging."
+  ]
+}

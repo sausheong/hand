@@ -1,0 +1,57 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M6.3",
+    "M4.1"
+  ],
+  "scope": "RPC price table uses shared canonical tariff decoder before session mutation",
+  "final_rpc_test_records": 14,
+  "app_price_and_seed_records": 24,
+  "failures_in_final_runs": 0,
+  "skips_in_final_runs": 0,
+  "assertions": [
+    "Duplicate rate, case alias and null rate rejected",
+    "Identical request retries retain rejection",
+    "Rejected requests leave session tariff table unchanged",
+    "Existing explicit-price confirmation and replay tests still pass"
+  ],
+  "initial_failures": [
+    "New fixture omitted service owner; original before/fixed logs therefore do not establish a before-regression result",
+    "Intermediate build failed on unused import, subsequently removed"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/after.jsonl",
+      "sha256": "2a6e8674464d51ea7a637d5fe745ba8fb2370f5708f3cb78b71b8c1cc437dc8c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/before.jsonl",
+      "sha256": "69d73a7518b30e4b2b823db0edcc76e13a62c252135000504a693d70623c4068"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/dispatcher.go.txt",
+      "sha256": "fd2e5a95c74f9c1a5bd6270ba7d1593451e159cf265e2f4af2046894cafa17ab"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/final.jsonl",
+      "sha256": "a61c12a26c8ffc2349a52cfb421d42d6e5219d83d7e279af9937919af8ba25c2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/fixed.jsonl",
+      "sha256": "81bdd094731fec68c2296e04541e5dc0d2370d78c6650c262220be4f7195b1d1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/price_ambiguity_test.go.txt",
+      "sha256": "f258c57ea0c48fdf53741c865eb570c2a058afefeedae3c1535b54f162a22a9f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-price-20260909/price_review_json.go.txt",
+      "sha256": "0aa5f346e0a99d6c3295a3eca796f4fe87791723ec1208880bf84de1ae9afdff"
+    }
+  ],
+  "limitations": [
+    "Targeted RPC dispatch evidence, not complete budget scenario audit",
+    "Full-suite, coverage and fuzz profiles predate shared-decoder RPC integration",
+    "Top-level RPC parameter ambiguity remains separate from tariff object validation"
+  ]
+}

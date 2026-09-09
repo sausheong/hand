@@ -1,0 +1,347 @@
+{
+  "status": "development_passed",
+  "scope": "Cumulative development delta including protocol streams and verified read-only container resource bundles",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "69374a0a0dac1b7a489ce64c94d4d521038f5ca192cd0299386b56ae36ca20ba",
+  "sources": [
+    {
+      "path": "execution/backend.go",
+      "before_sha256": "9adaf4a1decc546ab5a0024f9d9b5b5e572b99b8bdaa9fef9cb78b6815bff66b",
+      "after_sha256": "5f1cc4a3ff9a639c526692f2a5f54cc56c00f538796ffed824d55a5223ee6a01"
+    },
+    {
+      "path": "execution/resources.go",
+      "before_sha256": null,
+      "after_sha256": "b0fa1e4c52496d9bec9d4545310ee3bba8d37628e185afacaa1c5cca1297f54a"
+    },
+    {
+      "path": "execution/resources_test.go",
+      "before_sha256": null,
+      "after_sha256": "90881d932486ac357029717ed7b8db69c32814cc2a8c2127878c35ee07c7793d"
+    },
+    {
+      "path": "execution/stream.go",
+      "before_sha256": null,
+      "after_sha256": "38af4006b755c41a8c17145c7b0312d714db73c568e68b06c5f67085e24fcf44"
+    },
+    {
+      "path": "execution/stream_test.go",
+      "before_sha256": null,
+      "after_sha256": "f9a232364c04b954b45ca9ead63a772eccba57e1ac3d434a92cbb236a9d29d49"
+    },
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "c6cd5c014b9d2d1da50834efc24b343f844b23fa55ebef5a3ad745903543215b"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "dbf5a532fb5a0195e1d79bc41c7b03ede239ad24c52b279268c3a21807a1a9a3"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "bb728f93b018f028221955c21f0e86554415e36a3d143c578bd29e0c08b68855"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "87a82403e316b38f02aa6d4a206f1ba3760ec31da7633e023d6c73ccda6591fc"
+    },
+    {
+      "path": "runtime/skills_authoring_test.go",
+      "before_sha256": null,
+      "after_sha256": "4d9e44d05e3ae8813c5f5ed590883f970256ded90d9caaad7581b74022278263"
+    },
+    {
+      "path": "runtime/context_inspect.go",
+      "before_sha256": null,
+      "after_sha256": "963fbd520a9d071f27b5959b5208e9f82613599f5ca354233bbcab1f61e099b6"
+    },
+    {
+      "path": "runtime/context_inspect_test.go",
+      "before_sha256": null,
+      "after_sha256": "d728bd3d9136db6477958a6a09b626521dbf5d1edc15a12abf1a00d0b3dd97b0"
+    },
+    {
+      "path": "runtime/context_pins.go",
+      "before_sha256": null,
+      "after_sha256": "b62d1c6065a7050817268785de466047c060413843e7801a468e806fd4d16273"
+    },
+    {
+      "path": "runtime/context_pins_test.go",
+      "before_sha256": null,
+      "after_sha256": "b72bdc9c09240138c4ae54f02fb43c6e4cc51523d3145645921b0d238e069c90"
+    },
+    {
+      "path": "compaction/summarizer.go",
+      "before_sha256": "391ce9710753a198751bc5fef5b9a71eed3e4fb2cc40c5b3c06fa02a4c4c1917",
+      "after_sha256": "531698c4677aa876fd9ab3b7fe31269737a922de5e9e66b5506a462ecd35b9a6"
+    },
+    {
+      "path": "compaction/compaction.go",
+      "before_sha256": "a8d11813e855dc3123008c33670c262e76e52612a70afec002b85e606fdfdc48",
+      "after_sha256": "6f3afe1e43a4e3e74c8e9a5523150db00be0f2c05183f91a20365a0f236e2531"
+    },
+    {
+      "path": "compaction/summarizer_test.go",
+      "before_sha256": "5ce65821aca9178dd2c6db66d0e32b116ae1f1785249d7e4ff6504feef477a04",
+      "after_sha256": "d513dd672e4e8060d21fec1486cb3845618bb138fb2a2cc40bf56493ee9ba495"
+    },
+    {
+      "path": "compaction/compaction_test.go",
+      "before_sha256": "dccaa035270edf0a16cb37758aef19dad46837f68f54fbabcec61e13ce133de1",
+      "after_sha256": "b706ba4011b850ebb7a7f746656bbc740492b2cfe8bb51ccb5eef093e200c281"
+    },
+    {
+      "path": "compaction/preserve_failure_test.go",
+      "before_sha256": null,
+      "after_sha256": "8dd3b0d98eb418c59ebd94b2cad59834458176de691cf998e37724595d70062a"
+    },
+    {
+      "path": "compaction/guidance.go",
+      "before_sha256": null,
+      "after_sha256": "2d894bb2bf067639cc00c3f18413bee056b93f9c26397fc70eff981f89c3d624"
+    },
+    {
+      "path": "runtime/compaction_guidance_test.go",
+      "before_sha256": null,
+      "after_sha256": "50cd0e03485a2c4918c669680c9b921136f3ae4e3cd31371c7c2f0fc5ea9fcc3"
+    },
+    {
+      "path": "compaction/budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "ea25de9a58a8ed27d2e700178b7518c46711b03505b25beeabc351d122d43694"
+    },
+    {
+      "path": "llm/admission.go",
+      "before_sha256": null,
+      "after_sha256": "c67f53acf3f5d7050c611df5fd8272ff1de011404538d00f81ae27a2f83edf29"
+    },
+    {
+      "path": "llm/admission_test.go",
+      "before_sha256": null,
+      "after_sha256": "136074bc9c1491ebc5d68a0b2a2b737218f10a0c64589f1e17d94671ae61bc1f"
+    },
+    {
+      "path": "llm/usage_observer.go",
+      "before_sha256": "0669f14791c785476b942786b73eb9f6b4446d59b9e380b1ebaf99f9ae2baf32",
+      "after_sha256": "4a712b9e7800bc6748a2dfcd204c4dc0eb06783bc6262c0492d10cdb096f9915"
+    },
+    {
+      "path": "session/annotation.go",
+      "before_sha256": "362b1d16e3c3dbe5b8b25b428caa0b2f87ec568b74c2471ee7abca8954d21d72",
+      "after_sha256": "95b1f8d3dbfc62495c1ed97f9b3970743f230fa727d05aeb2d58baaf31546d5b"
+    },
+    {
+      "path": "budget/tokens.go",
+      "before_sha256": null,
+      "after_sha256": "53d1560cf38f2535476418de646cbb439112fd898a2988753ed87410830f9428"
+    },
+    {
+      "path": "budget/tokens_test.go",
+      "before_sha256": null,
+      "after_sha256": "cd6211c71a93e02355fc9799eaa55f770fe662987354c127469ee0a32840952f"
+    },
+    {
+      "path": "runtime/token_budget.go",
+      "before_sha256": null,
+      "after_sha256": "a7da3e3c5467766edf45e9c01925855622d3082abf373c4374b7d1e8f5a1fb0b"
+    },
+    {
+      "path": "runtime/token_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "a1059a1b0ac57049711cf0b4f291c87640444e4e58ffdd11fa632b4995dc4b84"
+    },
+    {
+      "path": "budget/pricing.go",
+      "before_sha256": null,
+      "after_sha256": "2b6b97b9bfefd823b4d8321ae83b9d0e6e073f494f3e3f7d38974435ba3a1355"
+    },
+    {
+      "path": "budget/pricing_test.go",
+      "before_sha256": null,
+      "after_sha256": "a714e84ee971f24941a0659a4f06fd39b78a3cb29ecdb8caf0f55c55946a53f6"
+    },
+    {
+      "path": "budget/cost.go",
+      "before_sha256": null,
+      "after_sha256": "a88850bca53b99226acb127f1dc6e3d2b03fcbf8ffdb329650f2e726a6e8c465"
+    },
+    {
+      "path": "budget/cost_test.go",
+      "before_sha256": null,
+      "after_sha256": "93fbc32f536cd728323455916daf29e00d2a35b764ed19de30a1ce966d41950f"
+    },
+    {
+      "path": "llm/provider.go",
+      "before_sha256": "45cf35b1c87da7e6e06cc7949922afae32c46a6c047c409b7847bd2ff9a40fe7",
+      "after_sha256": "092ac90aa56e2e2e0972c03b264869ad22cd0e8215b38ff05a4d0c400d7f392b"
+    },
+    {
+      "path": "runtime/runturn.go",
+      "before_sha256": "079f968381e167c29000705c19ba82faa576c9c1b70f2e9b479a5f569483fadd",
+      "after_sha256": "071b3c395dd928ff13055ee8c4435e6a473fbb12c9c55f638e1abb7638f54730"
+    },
+    {
+      "path": "runtime/cost_budget.go",
+      "before_sha256": null,
+      "after_sha256": "263db35742be7780923cc5e1e2cb9e63582f447ba0e862bb15242bfeab644b70"
+    },
+    {
+      "path": "runtime/cost_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "40db1b64a3ef636c626fec49ab70785fc4ff89cd93bf683b137709c1e7e9755a"
+    },
+    {
+      "path": "budget/deadline.go",
+      "before_sha256": null,
+      "after_sha256": "b0896c7d09662a072b18a93c9cdad834ace0a871fba0a056f185da31b10a29fd"
+    },
+    {
+      "path": "budget/deadline_test.go",
+      "before_sha256": null,
+      "after_sha256": "a7ea0dfed4cd53ce96acfc0f50f45bd13a3e0a902f962843bf3626f4866f6f4e"
+    },
+    {
+      "path": "runtime/time_budget.go",
+      "before_sha256": null,
+      "after_sha256": "b3a1949171f3e7e415f8833d96c68db2c0a9bd37fc9a84d2404ceaa51f711930"
+    },
+    {
+      "path": "runtime/time_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "411738f28594cdc929a8df8b896f7da48f1dc149f9ed28ddc0ead02ccd2d680b"
+    },
+    {
+      "path": "runtime/time_budget_process_test.go",
+      "before_sha256": null,
+      "after_sha256": "d8c57365574806a3bcf56b7dab0e255094d3b94a4e56ab6f268b48c872de612e"
+    },
+    {
+      "path": "session/session.go",
+      "before_sha256": "33be35c0a65274d0ab98de16ac6f140c684a40f6b281454f1e56e5e73809f9c9",
+      "after_sha256": "adbab6c83277602062fb24e8cf8199522d58209298605bfab301ad74340b09b4"
+    },
+    {
+      "path": "runtime/streaming_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "d1c300f064a40c066521b9f724fe033598f58377fcb089dc3709cbd949b2e874"
+    },
+    {
+      "path": "runtime/streaming.go",
+      "before_sha256": "f4cd39f1d8ab16eb4977d9115bacea77222c600898b81440efd3c57af473530c",
+      "after_sha256": "aabfa591c38a96ff691472ff53633629b6d9ed3bf271f4e546e198de6c988a8c"
+    },
+    {
+      "path": "runtime/streaming_reconcile_test.go",
+      "before_sha256": null,
+      "after_sha256": "b86f83dbd89a471bacb84ee065e6569f88a300fad8507ec982c32cf8d9a7e5e9"
+    },
+    {
+      "path": "runtime/tool_call_identity.go",
+      "before_sha256": null,
+      "after_sha256": "bc7bf9134f88ee5e348cf6ac047ff6fd4e371034b2e5fbbf6b9ebbdedc61a460"
+    },
+    {
+      "path": "runtime/tool_call_identity_test.go",
+      "before_sha256": null,
+      "after_sha256": "47018a42b98d642d7389a162db3fffd2517b584960f38ad7aab545f81ceb4b26"
+    },
+    {
+      "path": "budget/run.go",
+      "before_sha256": null,
+      "after_sha256": "fa731ff039712632434500af78c003bc7a7ecd494c27c40fa1c93a1f7abdf252"
+    },
+    {
+      "path": "budget/run_test.go",
+      "before_sha256": null,
+      "after_sha256": "c420d74b2288d10eaadee7178d5613a57d9cc84499fb180c68dcdb3fb8cab76d"
+    },
+    {
+      "path": "runtime/run_budget.go",
+      "before_sha256": null,
+      "after_sha256": "903b66580528c2b499259a137d223ec04bdbf3c80e98ba2cac3b80efed5e45e5"
+    },
+    {
+      "path": "runtime/run_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "28916f16cd5ffa946b5bc0892f7197c95ab692197ffece322f518d3fa0d3429c"
+    },
+    {
+      "path": "tool/tool.go",
+      "before_sha256": "937649625de2c8a41aa47e674a72b1b0b0146e771beb75b67072dcea1d6d8afa",
+      "after_sha256": "a445c0adc5ab2a2bbd120349402e433b6bdc904c86cbb062b8f06008e0457512"
+    },
+    {
+      "path": "tool/creation_path_test.go",
+      "before_sha256": null,
+      "after_sha256": "06e0be2c4c29475dd1d639f2116a3fe9214bf1cc7cf662ecc25467aa568d4dc3"
+    },
+    {
+      "path": "runtime/runturn_pins_test.go",
+      "before_sha256": null,
+      "after_sha256": "eab94ac00328650f19dac38a2221182c3ac4adae2877afb356595e499b5357f8"
+    },
+    {
+      "path": "runtime/context_state.go",
+      "before_sha256": null,
+      "after_sha256": "0a1604a192ea4cf46b11f2c659cb9c22e7dcebb2901fb19defa1cff2458fae7d"
+    },
+    {
+      "path": "runtime/context_state_test.go",
+      "before_sha256": null,
+      "after_sha256": "b08dd7cb78b5d905514544cdcd2dc73a3417a628d9709d980e1db5bbf27126a5"
+    },
+    {
+      "path": "runtime/tool_context.go",
+      "before_sha256": null,
+      "after_sha256": "7c46634c08921bed50f5661c4115051d62daf52f124fe2242c400a90f562031d"
+    },
+    {
+      "path": "runtime/tool_context_test.go",
+      "before_sha256": null,
+      "after_sha256": "1e47ef0daa1bde8fbdebc077e0cb6cb9179aef07d9a3ebe83698261f11249585"
+    },
+    {
+      "path": "runtime/run_lifecycle.go",
+      "before_sha256": null,
+      "after_sha256": "b577cef55d2bd7f2b57ef4eba21a23a40d9e8f7a861904a29c1dd257487adaef"
+    },
+    {
+      "path": "runtime/run_lifecycle_test.go",
+      "before_sha256": null,
+      "after_sha256": "31f5fc00214293bdfc7b82503b55d00280a962c26ce6f7d6e32d8871757f1117"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-container-stream-20260909/hand-harness-container-stream-vet-20260909.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-container-stream-20260909/hand-harness-container-stream-tests-20260909.jsonl",
+      "sha256": "b266265bfbec9a4b7045a0b82b289dfe59d8e64ea09b2da29ac2068595879bac"
+    }
+  ],
+  "results": {
+    "hand-harness-container-stream-tests-20260909.jsonl": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Unreleased development source; final integration pending. Owned stream cancellation suppresses the expected child exit error while preserving backend cleanup errors. Focused host stream race tests and execution vet passed. Hand container-factory native tests exercise this stream with an actual reviewed Linux extension executable. Final candidate and platform qualification remain pending."
+  ]
+}

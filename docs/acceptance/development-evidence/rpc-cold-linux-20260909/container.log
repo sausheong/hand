@@ -1,0 +1,107 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "214c399a45b683d2336a9227d5a86857a16be84a14cd85a504a4c1c79afe6de2",
+  "runner_sha256": "4b1fd3d9f83e85261b87901bb0051f29601ffe9b50c1c05859c776750b9988df",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "rounds": [
+    {
+      "decision": "deny",
+      "hello_seconds": 0.03719612502027303,
+      "terminal": {
+        "id": "untrusted-0",
+        "fingerprint": "a16740f2f75c3d95e33c01f6cb3fc1a3fc24ab9377a8203a5ecc7250ee69ae02",
+        "session_id": "ses_23cf226634053043",
+        "run_id": "NRJORX6AXVIAR2JNEYVYJMU6SL:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "YOA4FUBGJFTXTXQJ4XXD7RU6SG:11",
+          "sequence": 11,
+          "session_id": "ses_23cf226634053043",
+          "run_id": "NRJORX6AXVIAR2JNEYVYJMU6SL:1",
+          "request_id": "untrusted-0",
+          "timestamp": "2026-09-09T01:28:27.263398961Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      },
+      "explicit_approval": true
+    },
+    {
+      "decision": "cancel",
+      "hello_seconds": 0.030062041012570262,
+      "terminal": {
+        "id": "untrusted-1",
+        "fingerprint": "e15152fd695a8a610ba311312c237ea040ccf0716e8bbbe11000dd41917e07f6",
+        "session_id": "ses_b2529bfa76ce8b11",
+        "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "XDPATCFNADOXDW7MN3NS5GTUIF:6",
+          "sequence": 6,
+          "session_id": "ses_b2529bfa76ce8b11",
+          "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+          "request_id": "untrusted-1",
+          "timestamp": "2026-09-09T01:28:27.322744211Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      },
+      "explicit_approval": true
+    }
+  ],
+  "provider_calls": 3,
+  "workspace_settings_unchanged": true,
+  "no_side_effect": true,
+  "no_terminal_prompt": true,
+  "restart_requires_approval": true,
+  "artifacts": {
+    "cold-0.json": "b16c2a085ab6b054f8f096774bb33895c9f177f987bbf3dd1973f79cb8d6fdc0",
+    "cold-1.json": "fc005d926fbff29d96cd09f03bdb3f9bb1d08e9b295ed032a9f10f6e0db37f52",
+    "provider-requests.json": "dc3accef902518274fd2f645766ecb71b465d657af6ec14e415a4f0f1790e0fe",
+    "cold-0.stderr": "377147521daf06372b6e57c22dcdd07ee326f9c2ef09eadce7b32ff50fa78cfa",
+    "cold-1.stderr": "df687688a4e9f536a283d6587fb6f5bd03372242a853c6f0033c1c91b4c252e3"
+  }
+}

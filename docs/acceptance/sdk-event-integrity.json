@@ -1,0 +1,65 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "before": {
+    "pass": 1,
+    "fail": 7
+  },
+  "after": {
+    "pass": 30
+  },
+  "command": "go test -race -count=1 -json ./sdk",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HAND_TEST_PYTHON_IMAGE": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "HAND_TEST_CONTAINER_ARCH": "arm64",
+    "HAND_TEST_WORKER_BINARY": "/private/tmp/hand-budget-worker-20260909",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "/private/tmp/hand-budget-peer-20260909.test",
+    "HAND_TEST_PUBLIC_FETCH_URL": "https://example.com/"
+  },
+  "exit_code": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/hand-sdk-event-20260909.jsonl",
+      "sha256": "d1c7e04d39d6c43af891b79826b89f2a422460a289f6f5cbd8b664aa71e6a859"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/hand-sdk-event-before-20260909.jsonl",
+      "sha256": "c2464cd9732c9af398e5dab6f37b2db893912f75caac5020cfe491e5ccbddcf7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/hand-sdk-event-final-20260909.cover",
+      "sha256": "ec59f3d0825c2626cd25fab7dd5e4e420cab3227cb36ab3cd74376b8aa81b509"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/hand-sdk-event-final-20260909.jsonl",
+      "sha256": "74f84ae12a95550e4f88604e43ce72f8b7374c76704acca0ca4e53fa6c36047e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/hand-sdk-event-native-20260909.jsonl",
+      "sha256": "6d3ac288d860a2cd57596418b0fd7a21265838038d5d99357e3a838c0ca53187"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/snapshot_integrity_test.go.txt",
+      "sha256": "8ffd57785aecebc39d094790746731cbb564bb725c9d3b6c3b9cffe701a57537"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/snapshot_json.go.txt",
+      "sha256": "e3a9dc7ec0e41d1325f1558b417630cd217b0ebf84945def14b2f188cde5c5be"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-event-integrity-20260909/snapshots.go.txt",
+      "sha256": "5c2a1b11073d0faf9f5d9845b4fb56d702c88cdd1ae34b662b5f19a125db2832"
+    }
+  ],
+  "limits": [
+    "Initial sandbox run denied loopback binding; first expanded run skipped two container tests; final explicit fixture run has zero skips",
+    "Unknown event kinds and extra fields remain supported; their nested schemas are not validated",
+    "Outer execution/page schemas still require audit",
+    "Full coverage, released dependency, final candidate and platform acceptance pending"
+  ]
+}

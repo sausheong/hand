@@ -1,0 +1,3 @@
+hand: execution boundary: container: workspace writable=true; network=false; other host paths unmounted; model-provider requests remain on host
+time=2026-09-08T14:09:33.418+08:00 level=WARN msg="openai chat error" model=fixture msg_count=2 tool_count=11 max_completion_tokens=8192 temperature=0 stream=true err="context canceled"
+time=2026-09-08T14:09:33.542+08:00 level=WARN msg="openai chat error" model=fixture msg_count=2 tool_count=11 max_completion_tokens=8192 temperature=0 stream=true err="context canceled"

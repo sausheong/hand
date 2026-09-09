@@ -1,0 +1,147 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "042cad5221fac294cf8617aae0b3c91a23a179026fd9e8cbd2065b70f60211aa",
+        "session_id": "ses_e7e2a05a7b899875",
+        "run_id": "4DPVF2XPQXIYMFUYBNE3YUJPB5:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "RRCNF7SV6VEU62QJ3YT7RUXNYX:21",
+          "sequence": 21,
+          "session_id": "ses_e7e2a05a7b899875",
+          "run_id": "4DPVF2XPQXIYMFUYBNE3YUJPB5:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T04:31:01.660189Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "ae35a251bc52e1fefcd0d60102bf2931890d739dd3e29d7ae6956e6039181fde",
+        "session_id": "ses_e7c1558b4618c4f7",
+        "run_id": "4DPVF2XPQXIYMFUYBNE3YUJPB5:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "ISKLM5CPCWFPD2DCZGNWVUDP6N:12",
+          "sequence": 12,
+          "session_id": "ses_e7c1558b4618c4f7",
+          "run_id": "4DPVF2XPQXIYMFUYBNE3YUJPB5:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T04:31:01.563173Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

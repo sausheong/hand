@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-budget-rpc-local-20260908/workspace",
+  "generation": 6,
+  "lastActiveId": "ses_d055d09780f5de42",
+  "sessions": [
+    {
+      "id": "ses_b6ef370ebb148cd9",
+      "agentId": "hand",
+      "storeKey": "workspace_ce41641b8822abac_45c2548c95ecb2603a6dc81e2eeec500",
+      "name": "",
+      "createdAt": "2026-09-08T13:01:38.525663Z",
+      "lastActive": "2026-09-08T13:01:38.526212Z"
+    },
+    {
+      "id": "ses_d055d09780f5de42",
+      "agentId": "hand",
+      "storeKey": "workspace_ce41641b8822abac_60e2b11df967032815b7a778eef73dca",
+      "name": "",
+      "createdAt": "2026-09-08T13:01:38.55757Z",
+      "lastActive": "2026-09-08T13:01:38.88344Z"
+    }
+  ]
+}

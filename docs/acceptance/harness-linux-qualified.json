@@ -1,0 +1,63 @@
+{
+  "status": "development_linux_passed",
+  "test_records": {
+    "pass": 1114
+  },
+  "package_records": {
+    "pass": 32
+  },
+  "sources_unchanged": true,
+  "platform": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "linux",
+    "GOVERSION": "go1.25.1"
+  },
+  "source_fingerprint": "c04759d354adec6b17dbdb13c7da27c24b41e55d6c080699569bfde66096fe33",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/run.json.gz",
+      "sha256": "0d82e5e56b0a3b0781f07a8e6dbd99b8b79e0921822d2c8bc4afdf8d5573988d",
+      "uncompressed_sha256": "d2a7b49f68af449ebae5ffdf3da2ccfcf1fe6a7bd0ed42fd17bbf0e2be7ca8b8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/suite.log.gz",
+      "sha256": "b1a253c29a26257a1ec6c17b5430f6a9ad7418b590c18fd42b9ebecf52fdeff9",
+      "uncompressed_sha256": "8c405619c48ab1a4ef28e8eed329a5570f4c7e00c98278a7d3d17bff8c40b98b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/environment.log.gz",
+      "sha256": "65dabe45cbceb7c03e3c64749e10e1dde6c86e4bd85a6e2f4eb64c9a3317ca28",
+      "uncompressed_sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/boundary-smoke.log.gz",
+      "sha256": "d91bc86b8aef23ffa9cbf5523e7431980dcabad4b22c8d6827bd13130d3f6f02",
+      "uncompressed_sha256": "1ac354efe3cdb6e16b100b991d5cc5095292e510fbb59c80cdfd82ddb7d7ff1e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/coverage.out.gz",
+      "sha256": "036bdafbec713a1e4bdc48ab706737c5284a2f4fa3250830810eb7fd5e7acdd4",
+      "uncompressed_sha256": "0b30493b706875ec5c217f683dc6d743b869e435e293e901dcc1986aec8ae4d8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/harness-linux-qualified-gate-20260909.json.gz",
+      "sha256": "279c7c6396c5bdd9599a5c5eed8e0e88429eb2a96e7bc968df613d69fbce1dc0",
+      "uncompressed_sha256": "b815efd679e715553633d180fb6888fda52d32997be857a27b71f30a7fb12cd4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-qualified-20260909/check_harness_linux.py.gz",
+      "sha256": "1e6e15f3f30ef203b979e9e5613e23520a3f4c9302780b45ac7749f804899402",
+      "uncompressed_sha256": "69f947ba5653767212b6ab3dc92fdf8d533f938a3ec9b079ca865f4b619ea45d"
+    }
+  ],
+  "limitations": [
+    "Linux ARM64 runtime in Docker on macOS with host-shared temporary storage.",
+    "This development run used source identical to the frozen candidate; fresh exact-candidate runs are separately underway."
+  ]
+}

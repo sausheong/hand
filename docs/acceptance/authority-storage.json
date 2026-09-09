@@ -1,0 +1,65 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scope": "Unsafe authority storage rejection preserves evidence and permits authentic repair/reopen",
+  "macos_race_records": {
+    "pass": 56
+  },
+  "linux_records": {
+    "pass": 56,
+    "fail": 0,
+    "skip": 0
+  },
+  "linux_race_instrumented": false,
+  "fixture_failure": "Initial Linux trailing-JSON fixture append reused the valid slice backing array. Fixed with bytes.Clone; original failure retained.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/authority.go.txt",
+      "sha256": "30ae575bb54ba9d5db3104976eb5cfec6793d1137f1cfc56a0f1ba4e69f45f4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/authority_json.go.txt",
+      "sha256": "785394520b9695fd4032e91ef4da85f9b25daa626ce1396099b63c4adf7f6792"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/authority_storage_test.go.txt",
+      "sha256": "353005ae52f208f3e01d8ed3c09e00a38ba7322bd0400874c41829d61be71b02"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/hand-authority-storage-20260909.jsonl",
+      "sha256": "73b9c2ac096019a2bb6e724774f2e40de9083d0381021dc7aeeda5630c9821ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/hand-authority-storage-fixed-20260909.jsonl",
+      "sha256": "5c3b19a43466c516491d2e1cb9a032477dfef423bd05a94538a24337781ca6ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/linux-corrected/run.json",
+      "sha256": "4cdb6ff9398f84ccabc3f0e39a287fae1261b8bb85a9806c9a0ca8aeb471963b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/linux-corrected/test.log",
+      "sha256": "630d93b9ddb5a8e267f3ff194df203376cbe81ff1eb5deeeb7309a57bf950e69"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/linux-initial/run.json",
+      "sha256": "a19223057f0d7672d3a87e786eef574fd3934fc40c86821895d18b1fcb16bb47"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/linux-initial/test.log",
+      "sha256": "e7a390ac501ef68fabd058d7250bd917a5e8025fc61c36a65abc8ea233ab6a1a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/linux-json/run.json",
+      "sha256": "b26ac55fa30152ee742517eb6de36c7262c0d79dd24c3a930a38c94cb9b4e0ed"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-storage-20260909/linux-json/test.log",
+      "sha256": "1146781c5a214ef5f785e822b8389b791dbc4567d2dba62109db6f74a748acf8"
+    }
+  ],
+  "limitations": [
+    "Development package suites, local Harness workspace",
+    "Final clean candidate, full aggregate coverage and released Harness remain pending"
+  ]
+}

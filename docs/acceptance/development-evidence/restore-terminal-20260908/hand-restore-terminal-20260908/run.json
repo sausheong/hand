@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-tui-restore-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--session",
+    "ses_02f7db4d4109c47c",
+    "--checkpoint-dir",
+    "/private/tmp/hand-tui-restore-fixture-20260908/checkpoints"
+  ],
+  "binary_sha256": "f68692b54a02bfbbb75c563ef94ab3b356b885c70445c58a026c014d79e0825e",
+  "runner_sha256": "609f4eaa40054e3584a9f514705b48d0164a49ef926ba1640912ae458057c24d",
+  "preview_preserved_file": true,
+  "confirmed": true,
+  "removed_selected": true,
+  "recovery_preserved": true,
+  "exit_code": 0,
+  "terminal_sha256": "01c91a2e1b4e8a86e1b5d38120b345eabf6dad0e099e4c13930acabce5c39071"
+}

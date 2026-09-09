@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--tmpfs",
+    "/tmp:rw,exec,size=128m,mode=1777",
+    "--mount",
+    "type=bind,source=/private/tmp/hand-authority-storage-linux-fixed-20260909.test,target=/test,readonly",
+    "--entrypoint",
+    "/test",
+    "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "-test.v",
+    "-test.timeout=1m"
+  ],
+  "exit_code": 0,
+  "seconds": 0.2397200829582289,
+  "binary_sha256": "673cfe675e54f9e0086134abe1918fa9cf90644b48d9a402ab985aab869cd026",
+  "test_records": 56,
+  "failed_records": 0,
+  "skipped_records": 0
+}

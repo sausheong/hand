@@ -1,0 +1,39 @@
+{
+  "status": "development_fault_repetitions_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=2m -json ./internal/rpc -run '^TestLedgerWriteFailurePoisonsOwnerAndPreservesDurableState$'",
+  "test_records": {
+    "pass": 80
+  },
+  "repetitions": {
+    "TestLedgerWriteFailurePoisonsOwnerAndPreservesDurableState/begin": 20,
+    "TestLedgerWriteFailurePoisonsOwnerAndPreservesDurableState/bind": 20,
+    "TestLedgerWriteFailurePoisonsOwnerAndPreservesDurableState/complete": 20,
+    "TestLedgerWriteFailurePoisonsOwnerAndPreservesDurableState": 20
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/ledger-write-failure-20260909/hand-ledger-write-repeat-20260909.jsonl.gz",
+      "sha256": "5997af750033697555e4888d11b165b2b54a063791458455c2860d2cdde60e6f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/ledger-write-failure-20260909/ledger_write_failure_test.go.gz",
+      "sha256": "0ca404795d76baee6bf1e0f8153a26bea8b02915a92819cc62523c7f49c7926f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/ledger-write-failure-20260909/ledger.go.gz",
+      "sha256": "102fb383dae02e974f28e8b4bb5d0e8cbe76a67f28dadd73911fd3e3654b66a7"
+    }
+  ],
+  "assertions": [
+    "Failed begin never grants execution",
+    "Write error poisons owner and prevents retries/new work/bind/completion",
+    "Failed writes preserve durable bytes",
+    "Reopened durable intent or accepted run remains uncertain with no completion",
+    "Unwritten intent may be admitted once by new owner; duplicate cannot execute"
+  ],
+  "limitations": [
+    "Real closed-descriptor write errors only; not partial writes, fsync failure, disk full, or power loss",
+    "In-process ledger test with close/reopen; separate dispatcher and process-crash journeys remain",
+    "No production changes or refreshed coverage; dirty development evidence not final qualification"
+  ]
+}

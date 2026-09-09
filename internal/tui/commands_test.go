@@ -33,7 +33,7 @@ func TestIsCommand(t *testing.T) {
 }
 
 func TestHandleCommand_Help(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.handleCommand("/help")
 	if len(m.transcript) != 1 || !strings.Contains(m.transcript[0], "/exit") {
 		t.Fatalf("expected help text in transcript, got %v", m.transcript)
@@ -41,7 +41,7 @@ func TestHandleCommand_Help(t *testing.T) {
 }
 
 func TestHandleCommand_Exit(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	cmd := m.handleCommand("/exit")
 	if cmd == nil {
 		t.Fatal("expected a tea.Cmd for /exit")
@@ -52,7 +52,7 @@ func TestHandleCommand_Exit(t *testing.T) {
 }
 
 func TestHandleCommand_Clear(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.transcript = []string{"some line"}
 	m.handleCommand("/clear")
 	if len(m.transcript) != 0 {
@@ -61,7 +61,7 @@ func TestHandleCommand_Clear(t *testing.T) {
 }
 
 func TestHandleCommand_Unknown(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.handleCommand("/nope")
 	if len(m.transcript) != 1 || !strings.Contains(m.transcript[0], "unknown command") {
 		t.Fatalf("expected unknown-command message, got %v", m.transcript)
@@ -70,7 +70,7 @@ func TestHandleCommand_Unknown(t *testing.T) {
 
 func TestHandleCommand_WithoutControllerReportUnavailable(t *testing.T) {
 	for _, cmdText := range []string{"/model", "/new", "/compact"} {
-		m := NewModel(&fakeRunner{}, t.TempDir())
+		m := NewModel(nil, t.TempDir())
 		m.handleCommand(cmdText)
 		if len(m.transcript) != 1 || !strings.Contains(m.transcript[0], "not available") {
 			t.Fatalf("%s: expected unavailable message, got %v", cmdText, m.transcript)
@@ -305,7 +305,7 @@ func TestMatchingCommands(t *testing.T) {
 // direct, synchronous Update call is both correct and simpler here.
 
 func TestModel_SlashTriggersDropdown(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.textarea.SetValue("/mo")
 
 	suggestions := m.commandSuggestions()
@@ -315,7 +315,7 @@ func TestModel_SlashTriggersDropdown(t *testing.T) {
 }
 
 func TestModel_DropdownTabCompletes(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.textarea.SetValue("/mo")
 
 	m.Update(tea.KeyMsg{Type: tea.KeyTab})
@@ -326,7 +326,7 @@ func TestModel_DropdownTabCompletes(t *testing.T) {
 }
 
 func TestModel_DropdownEnterRunsHighlighted(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.textarea.SetValue("/hel")
 
 	m.Update(tea.KeyMsg{Type: tea.KeyEnter})
@@ -337,7 +337,7 @@ func TestModel_DropdownEnterRunsHighlighted(t *testing.T) {
 }
 
 func TestModel_DropdownEscDismisses(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.textarea.SetValue("/mo")
 
 	m.Update(tea.KeyMsg{Type: tea.KeyEsc})
@@ -348,7 +348,7 @@ func TestModel_DropdownEscDismisses(t *testing.T) {
 }
 
 func TestModel_DropdownArrowKeysMoveSelection(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.textarea.SetValue("/")
 
 	m.Update(tea.KeyMsg{Type: tea.KeyDown})

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-pins-rpc-20260908/workspace",
+  "generation": 4,
+  "lastActiveId": "ses_e9c6d18366c8b567",
+  "sessions": [
+    {
+      "id": "ses_f67f8dc43d39e49e",
+      "agentId": "hand",
+      "storeKey": "workspace_4480be089bef54cb_15b25bb3174d56ea927ed6600c7e5179",
+      "name": "",
+      "createdAt": "2026-09-08T09:26:39.373343Z",
+      "lastActive": "2026-09-08T09:26:39.375353Z"
+    },
+    {
+      "id": "ses_e9c6d18366c8b567",
+      "agentId": "hand",
+      "storeKey": "workspace_4480be089bef54cb_10477696fec7894b7c5f9e82b5847433",
+      "name": "",
+      "createdAt": "2026-09-08T09:26:39.415744Z",
+      "lastActive": "2026-09-08T09:26:39.540009Z"
+    }
+  ]
+}

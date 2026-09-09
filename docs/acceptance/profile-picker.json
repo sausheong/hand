@@ -1,0 +1,58 @@
+{
+  "status": "development_passed",
+  "pass_records": {
+    "hand-profile-picker-initial-20260909": 11,
+    "hand-profile-picker-suite-20260909": 336,
+    "hand-profile-picker-final-suite-20260909": 336
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/hand-profile-picker-initial-20260909.jsonl.gz",
+      "sha256": "db1d092538931949a4c81983c996caa3bbaa4d20dca92046af3f916600839809"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/hand-profile-picker-suite-20260909.jsonl.gz",
+      "sha256": "a84f7298e476e0e8fa02a7096778167840552ebaea90cf3db002951d628e7570"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/hand-profile-picker-final-suite-20260909.jsonl.gz",
+      "sha256": "1ffb86bfff0645912768752d92e3c4a447d74a5bc6efdd13321e4b467edfab0a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/internal_tui_profile_picker.go.gz",
+      "sha256": "81905badca174fb946a3882b3a370cb33da62661fb6594a2ecfc2fa37d4a2fbe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/internal_tui_profile_picker_test.go.gz",
+      "sha256": "cd3b0a3721d67cb10b021c08fb20afff891c642f15c5a4783934fc44eb828d19"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/internal_tui_model.go.gz",
+      "sha256": "7f6550a0a52342a625e501824db60e096ed24f4362db6f68eb273e6bc4be8cea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/internal_tui_commands.go.gz",
+      "sha256": "078b56e4883493bc2781caef861d5c6c113c4cf990a4fec8635c82ca1b6b815a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/internal_app_profiles.go.gz",
+      "sha256": "9d0fd25e2cbb2ba06fe3a1a899a0f029529c9e9cbe139b32ba06e4e92e2f4cf8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-20260909/internal_tui_profile_test.go.gz",
+      "sha256": "3184bd63d2f8215ebecea95b9586c4251178f8ec8a8ed2597cb0c8aab38994ff"
+    }
+  ],
+  "changes": [
+    "Interactive /profile selector with up/down, home/end, Enter and Escape/Ctrl-C",
+    "Bounded list and model/configured context/output/reasoning preview",
+    "Exact profile names including spaces use asynchronous atomic switch",
+    "Selection does not construct providers until Enter; cancel preserves draft",
+    "Opening selection invalidates obsolete queued goal checks"
+  ],
+  "limitations": [
+    "In-process UI validation; compiled PTY picker journey still pending",
+    "Production changes invalidate earlier full coverage/current candidate evidence",
+    "No paid calls"
+  ]
+}

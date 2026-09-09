@@ -1,0 +1,242 @@
+{
+  "status": "development_suite_passed_with_required_gaps",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -p=1 -race -count=1 -timeout=15m -coverpkg=./... -coverprofile=/private/tmp/hand-current-authorised-coverage-20260909.out -json ./...",
+  "source_unchanged": {
+    "hand": true,
+    "harness": true
+  },
+  "test_records": {
+    "pass": 1291,
+    "fail": 0,
+    "skip": 12
+  },
+  "packages_passed": 26,
+  "skips": [
+    {
+      "package": "github.com/sausheong/hand/cmd/hand",
+      "test": "TestNativePackageCLIContainerRuntimeAndLaunchReviews"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestContainerExtensionFileCallbackBoundary"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestContainerExtensionActivationAndReviewedReload"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestExtensionResourceIPC/network.fetch/public-fetch"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestNativeContainerPackagePythonReviewAndLaunch"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestNativeBackgroundContainerInputOutputAndShutdown"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/extensions",
+      "test": "TestContainerExtensionRealExample"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/extensions",
+      "test": "TestContainerPythonImageInterpreter"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/packages",
+      "test": "TestNativeContainerPythonRuntimeVersion"
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/toolproxy",
+      "test": "TestNativeProxyWorkerRoundtrip"
+    },
+    {
+      "package": "github.com/sausheong/hand/sdk",
+      "test": "TestNativeScopedSDKContainerJourney"
+    },
+    {
+      "package": "github.com/sausheong/hand/sdk",
+      "test": "TestNativeSDKRejectsChangedWorker"
+    }
+  ],
+  "coverage": {
+    "total": {
+      "statements": 15495,
+      "covered": 12078,
+      "percentage": 77.94772507260407
+    },
+    "packages": {
+      "github.com/sausheong/hand/cmd/hand": {
+        "statements": 967,
+        "covered": 616,
+        "percentage": 63.70217166494312
+      },
+      "github.com/sausheong/hand/cmd/hand-tool-worker": {
+        "statements": 11,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/compatibility": {
+        "statements": 211,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/embedded": {
+        "statements": 19,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-task-note": {
+        "statements": 66,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-tool-policy": {
+        "statements": 35,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-tool-viewer": {
+        "statements": 48,
+        "covered": 18,
+        "percentage": 37.5
+      },
+      "github.com/sausheong/hand/examples/extensions/go-verification-hook": {
+        "statements": 62,
+        "covered": 28,
+        "percentage": 45.16129032258065
+      },
+      "github.com/sausheong/hand/examples/rpc": {
+        "statements": 17,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/extension/protocol": {
+        "statements": 204,
+        "covered": 174,
+        "percentage": 85.29411764705883
+      },
+      "github.com/sausheong/hand/internal/agentio": {
+        "statements": 1254,
+        "covered": 1088,
+        "percentage": 86.76236044657097
+      },
+      "github.com/sausheong/hand/internal/app": {
+        "statements": 3132,
+        "covered": 2600,
+        "percentage": 83.01404853128992
+      },
+      "github.com/sausheong/hand/internal/checkpoints": {
+        "statements": 1011,
+        "covered": 822,
+        "percentage": 81.30563798219585
+      },
+      "github.com/sausheong/hand/internal/config": {
+        "statements": 278,
+        "covered": 234,
+        "percentage": 84.1726618705036
+      },
+      "github.com/sausheong/hand/internal/extensions": {
+        "statements": 1117,
+        "covered": 891,
+        "percentage": 79.76723366159355
+      },
+      "github.com/sausheong/hand/internal/isolation": {
+        "statements": 35,
+        "covered": 18,
+        "percentage": 51.42857142857143
+      },
+      "github.com/sausheong/hand/internal/packages": {
+        "statements": 1302,
+        "covered": 1020,
+        "percentage": 78.3410138248848
+      },
+      "github.com/sausheong/hand/internal/permissions": {
+        "statements": 383,
+        "covered": 318,
+        "percentage": 83.02872062663185
+      },
+      "github.com/sausheong/hand/internal/rpc": {
+        "statements": 1075,
+        "covered": 820,
+        "percentage": 76.27906976744185
+      },
+      "github.com/sausheong/hand/internal/sessionio": {
+        "statements": 652,
+        "covered": 536,
+        "percentage": 82.20858895705521
+      },
+      "github.com/sausheong/hand/internal/toolproxy": {
+        "statements": 57,
+        "covered": 43,
+        "percentage": 75.43859649122807
+      },
+      "github.com/sausheong/hand/internal/toolworker": {
+        "statements": 44,
+        "covered": 38,
+        "percentage": 86.36363636363636
+      },
+      "github.com/sausheong/hand/internal/tui": {
+        "statements": 2688,
+        "covered": 2171,
+        "percentage": 80.76636904761905
+      },
+      "github.com/sausheong/hand/internal/verification": {
+        "statements": 395,
+        "covered": 295,
+        "percentage": 74.68354430379746
+      },
+      "github.com/sausheong/hand/protocol": {
+        "statements": 83,
+        "covered": 73,
+        "percentage": 87.95180722891567
+      },
+      "github.com/sausheong/hand/sdk": {
+        "statements": 349,
+        "covered": 275,
+        "percentage": 78.79656160458453
+      }
+    }
+  },
+  "additional_statements_to_reach_80_at_current_size": 318,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-current-test-inputs-20260909.json",
+      "path": "docs/acceptance/development-evidence/current-coverage-20260909/hand-current-test-inputs-20260909.json.gz",
+      "sha256": "1635b58df610b4dd4f3fbf337331fec05b9f6dc2b3a5b9a1301f5a3d9d89378a",
+      "uncompressed_sha256": "669b31755e9cd2ffc54b59c61f4f68395a5a242b42a75e18cf3e48c66d5b0ee1"
+    },
+    {
+      "source": "/private/tmp/hand-current-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/current-coverage-20260909/hand-current-tests-20260909.jsonl.gz",
+      "sha256": "47b030b963a6d60887e84223da697d83fde7aa0b71d09400161532efed1b6f81",
+      "uncompressed_sha256": "8b05e1a991982a482d9dbd292a6cf28d3f992f6062ff20c67a69dad6a0016057"
+    },
+    {
+      "source": "/private/tmp/hand-current-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/current-coverage-20260909/hand-current-coverage-20260909.out.gz",
+      "sha256": "d934ab165f839465d3cf24dc14b5270b287576e81a54959ce07e201a3aa725f1",
+      "uncompressed_sha256": "863622c6a835070361a63e570a0fe057a3461cba52ddc9fdbf5a604d21315d2a"
+    },
+    {
+      "source": "/private/tmp/hand-current-authorised-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/current-coverage-20260909/hand-current-authorised-tests-20260909.jsonl.gz",
+      "sha256": "c2934d9f19cb7e11eb82ffe7f86965b56c35bbc9be685022ef38a423c72f4b93",
+      "uncompressed_sha256": "87df47aa296bb47de70155bdaa7d01b54e80c378990a8a561e3ae80768aefb7c"
+    },
+    {
+      "source": "/private/tmp/hand-current-authorised-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/current-coverage-20260909/hand-current-authorised-coverage-20260909.out.gz",
+      "sha256": "a0e8748eff51de3026e6d5cf3deb104748370a4fddee4ed1b90f14eb2dea89cd",
+      "uncompressed_sha256": "a37348245be53384c52f93a13f357560b4e9071c5e6ee65034c8a69419a07319"
+    }
+  ],
+  "initial_failure": "Restricted run panicked in three HTTP-fixture tests because local loopback binding was denied; complete suite rerun with authorised local sockets.",
+  "limitations": [
+    "12 skipped tests remain unqualified",
+    "Coverage below overall80, changed90 and critical90 gates",
+    "Local unreleased Harness and dirty Hand workspace; final candidate evidence required"
+  ]
+}

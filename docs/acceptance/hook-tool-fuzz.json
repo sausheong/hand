@@ -1,0 +1,73 @@
+{
+  "status": "development_tests_passed",
+  "targets": [
+    {
+      "target": "FuzzHookPayload",
+      "seconds_requested": 60,
+      "executions": 1034479,
+      "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./internal/agentio -run ^$ -fuzz ^FuzzHookPayload$ -fuzztime=60s -parallel=2"
+    },
+    {
+      "target": "FuzzPackageSkillToolInput",
+      "seconds_requested": 60,
+      "executions": 681546,
+      "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./internal/app -run ^$ -fuzz ^FuzzPackageSkillToolInput$ -fuzztime=60s -parallel=2"
+    }
+  ],
+  "test_records": {
+    "pass": 63,
+    "fail": 0,
+    "skip": 0
+  },
+  "regression_command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/agentio -run 'Hook|Goal'",
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-hook-payload-fuzz-20260909.log",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/hand-hook-payload-fuzz-20260909.log.gz",
+      "sha256": "a1dad0ee330f526dbb26bcb6efdb109514c3959b5dec300c56dff67f44c2ee26",
+      "uncompressed_sha256": "920f54d6892273cdcd27736c88039e7eaa8f9e02e56e72701a3cd72dfdecc2b9"
+    },
+    {
+      "source": "/private/tmp/hand-skill-input-fuzz-20260909.log",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/hand-skill-input-fuzz-20260909.log.gz",
+      "sha256": "c9da42860942819cdc3020d126a0557247aa681f96858cd4004a265c6698cb6b",
+      "uncompressed_sha256": "fac945eaee5aef7b163c2e4e7f5da2c365f48f87a6582b9ad7e9adcb3f7df89e"
+    },
+    {
+      "source": "/private/tmp/hand-hook-normal-exit-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/hand-hook-normal-exit-tests-20260909.jsonl.gz",
+      "sha256": "0452ae5b80d1461ced601339a21e4c33c05292293738d576f6ca1dab6a9049ea",
+      "uncompressed_sha256": "c400b730afc2573afa6bf79804f7c75b3293f3dbf21e9a3e6039d59922b770e8"
+    },
+    {
+      "source": "internal/agentio/hooks.go",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/hooks.go.gz",
+      "sha256": "d85d29c4422de0611ad17518dd07fc1fe8c5c9e72656ff5a1901331e6a3cd287",
+      "uncompressed_sha256": "4872b13679cc8814b480937b0369b1bf684976efc95bec9e6f8910719eaa5d37"
+    },
+    {
+      "source": "internal/agentio/hooks_fuzz_test.go",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/hooks_fuzz_test.go.gz",
+      "sha256": "432e53359785cc41e1c8bb43970e69474c946e730af0569537bda0c117b8c7cf",
+      "uncompressed_sha256": "4d223048383eb6385301ca8f32a897b96ee110564e5d01a058e9957cc7c1354e"
+    },
+    {
+      "source": "internal/agentio/hooks_process_test.go",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/hooks_process_test.go.gz",
+      "sha256": "cfe651465ef5a6b8c259ec00c92d8ef14d13887b22393bdeacf0e62f19160884",
+      "uncompressed_sha256": "e3e306b5195c4f152b1c7d64d6a391ed7b882cac644e1429e43bfa536a3f13ee"
+    },
+    {
+      "source": "internal/app/package_skill_resources_fuzz_test.go",
+      "path": "docs/acceptance/development-evidence/hook-tool-fuzz-20260909/package_skill_resources_fuzz_test.go.gz",
+      "sha256": "4c596da685fe3102d6d85fb792baf8f1a01ac01c63bbffb0b2a028bf81319042",
+      "uncompressed_sha256": "f5df253433e58b2cb2bf0a0bb9e12d9dd413b804ba299b0dc40df2d788e4b0ab"
+    }
+  ],
+  "additional_assertion": "Successful hook exit terminates an already-started background child before its scheduled late write, preserving successful outcome.",
+  "limitations": [
+    "Native macOS development evidence, unreleased Harness",
+    "Final candidate fuzz rerun and platform qualification remain pending",
+    "Tool input fuzzing covers selected package-skill loader; other parser boundaries still require audit"
+  ]
+}

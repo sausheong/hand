@@ -1,0 +1,151 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-verification-pty-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1"
+  ],
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "d538b4c1290054d0cc22b3d5048530db6d7d31ba3a6694b0f2bb90443d9bed33",
+  "terminal_echo_disabled": true,
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "restarted_budget": {
+    "id": "repair",
+    "selected": true,
+    "configured": true,
+    "tokens": {
+      "limit": 100000,
+      "committed": 0,
+      "exhausted": false,
+      "attempts": 0,
+      "uncertain_attempts": 0,
+      "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+    },
+    "cost": {
+      "currency": "USD",
+      "limit_nano": 1000000001,
+      "committed_nano": 0,
+      "compaction_nano": 0,
+      "strict": true,
+      "exhausted": false,
+      "attempts": 0,
+      "unpriced_attempts": 0,
+      "uncertain_attempts": 0,
+      "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+    },
+    "time": {
+      "configured": true,
+      "decided_at": "2026-09-09T00:38:45.203105Z",
+      "deadline": "2026-09-09T00:48:45.203105Z",
+      "expired": false,
+      "remaining_millis": 599717,
+      "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+    },
+    "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+  },
+  "inspection_preserved_journal": true,
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "completed_commands": [
+    "/run-budget",
+    "/run-budget tokens repair 0",
+    "/run-budget tokens repair 100000",
+    "/run-budget cost repair USD 1.000000001 strict",
+    "/run-budget time repair 600",
+    "/run-budget select repair",
+    "/run-budget"
+  ],
+  "exit_code": 0,
+  "token_decision": {
+    "version": 1,
+    "kind": "limit",
+    "tokens": 100000
+  },
+  "cost_decision": {
+    "version": 1,
+    "kind": "decision",
+    "currency": "USD",
+    "limit_nano": 1000000001,
+    "strict": true
+  },
+  "deadline": {
+    "version": 1,
+    "decided_at": "2026-09-09T00:38:45.203105Z",
+    "deadline": "2026-09-09T00:48:45.203105Z"
+  },
+  "selected": {
+    "version": 1,
+    "id": "repair"
+  },
+  "terminal_sha256": "78f73eef1a4701a8a4af31773a6dd65cfae11a813bd7a8afa78a26fe281a0ff9",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/check_rpc_client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/check_run_budget_terminal.py",
+      "sha256": "d538b4c1290054d0cc22b3d5048530db6d7d31ba3a6694b0f2bb90443d9bed33"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/authority/9288e95bc0cfc7a7ea6eadcfde9a38afdddb9b92a3232726f8cfdc147e6e46ce/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/sessions/catalogues/9288e95bc0cfc7a7/catalogue.json",
+      "sha256": "519108f2e62ee6a061dcfd4c6d4fed8115eedbe1315d3a857b8c06c53dd1fa5c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/sessions/catalogues/9288e95bc0cfc7a7/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/sessions/hand/.leases/workspace_9288e95bc0cfc7a7_0caac69f0f55e3d4af34d69d43351368.lock",
+      "sha256": "812375ad12ba07bc0fa99627a78ecb0bcdec3e99dfeecc9cf83a33887ef7dd00"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/sessions/hand/workspace_9288e95bc0cfc7a7_0caac69f0f55e3d4af34d69d43351368.jsonl",
+      "sha256": "7c0ddba0fa9b8b9d940a36a5608d357042f00c6d6e419cefc72fd0195e000ca6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/home/.hand/sessions/rpc-9288e95bc0cfc7a7ea6eadcfde9a38afdddb9b92a3232726f8cfdc147e6e46ce/requests.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/restarted.json",
+      "sha256": "e54246367cff817a4969b0bdf723a323ea9d67b276975b576ba9924952d14ccf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/restarted.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/run.json",
+      "sha256": "084591ba35aa50ce446cc6bbcd4b4b1e889c5e09edd043fb74ba3c121c2521b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-pty-rpc-20260909/terminal.bin",
+      "sha256": "78f73eef1a4701a8a4af31773a6dd65cfae11a813bd7a8afa78a26fe281a0ff9"
+    }
+  ],
+  "limitations": [
+    "Native macOS development binary with local Harness; clean candidate and released dependency pending",
+    "Decision persistence and inspection only; no model admission, spending or crash interruption in this journey",
+    "Other platform and full acceptance gates remain open"
+  ]
+}

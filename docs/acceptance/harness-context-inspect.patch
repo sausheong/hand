@@ -1,0 +1,318 @@
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -223,7 +223,11 @@
+ 		AgentLoop:          loop,
+ 		StaticSystemPrompt: staticPrompt,
+ 		refreshToolPrompt: func(names []string) string {
+-			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, skillsIndex, memoryIndex, deps.MemoryFiles)
++			currentSkills := ""
++			if deps.Skills != nil {
++				currentSkills = deps.Skills.FormatIndex()
++			}
++			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, currentSkills, memoryIndex, deps.MemoryFiles)
+ 		},
+ 		CalibratorStore: deps.CalibratorStore,
+ 		mcpClients:      mcpClients,
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -504,6 +504,11 @@
+ 
+ 			dynamicSuffix := buildDynamicSystemPromptSuffix(r.DynamicIdentityHint, dateLine, kgContext)
+ 
++			// Tool execution from the previous round has joined here. Refresh
++			// self-authored skills before assembling the next model request.
++			if r.Skills != nil {
++				r.refreshSkills()
++			}
+ 			staticText := r.StaticSystemPrompt
+ 			parts := []llm.SystemPromptPart{
+ 				{Text: staticText, Cache: true},
+--- a/runtime/types.go
++++ b/runtime/types.go
+@@ -133,7 +133,7 @@
+ // static system prompt and resolve a skill body on demand via the
+ // load_skill tool. Optional — pass nil on Deps.Skills to disable.
+ //
+-// FormatIndex is called once at BuildRuntime time; the returned string
++// FormatIndex is called at BuildRuntime time and safe request boundaries; the returned string
+ // is concatenated into the cacheable static system prompt. Get is wired
+ // through tool.LoadSkillTool's Lookup closure; load_skill.Execute
+ // calls it at agent-loop time.
+--- /dev/null
++++ b/runtime/skills_refresh.go
+@@ -0,0 +1,26 @@
++package runtime
++
++import "fmt"
++
++// RefreshSkills refreshes discovery while idle. Run also refreshes between
++// model requests, after preceding tool calls have joined. Providers must bound
++// filesystem work; callers cannot refresh concurrently with an active run.
++func (r *Runtime) RefreshSkills() error {
++	if !r.runMu.TryLock() {
++		return fmt.Errorf("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	r.refreshSkills()
++	return nil
++}
++
++func (r *Runtime) refreshSkills() {
++	if r.refreshToolPrompt == nil {
++		return
++	}
++	var names []string
++	if r.Tools != nil {
++		names = r.Tools.Names()
++	}
++	r.StaticSystemPrompt = r.refreshToolPrompt(names)
++}
+--- /dev/null
++++ b/runtime/skills_refresh_test.go
+@@ -0,0 +1,46 @@
++package runtime
++
++import (
++	"context"
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tool/skills"
++	"github.com/sausheong/harness/tool/skills/disk"
++	"strings"
++	"testing"
++)
++
++func TestRefreshSkillsDiscoversAuthoredAndRemovedSkills(t *testing.T) {
++	store := disk.NewStore(t.TempDir())
++	rt, err := BuildRuntime(RuntimeDeps{Skills: store.AsSkillProvider(), ConfigSummary: "configuration retained", MemoryFiles: "memory retained"}, RuntimeInputs{Tools: tool.NewRegistry()}, AgentSpec{ID: "test", SystemPrompt: "identity retained"})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	initial := rt.StaticSystemPrompt
++	if _, err = store.Create(context.Background(), skills.Skill{Name: "new-skill", Description: "new description", Body: "procedure"}); err != nil {
++		t.Fatal(err)
++	}
++	rt.runMu.Lock()
++	err = rt.RefreshSkills()
++	rt.runMu.Unlock()
++	if err == nil || rt.StaticSystemPrompt != initial {
++		t.Fatal("busy refresh mutated prompt")
++	}
++	if err = rt.RefreshSkills(); err != nil {
++		t.Fatal(err)
++	}
++	for _, want := range []string{"new-skill", "new description", "identity retained", "configuration retained", "memory retained"} {
++		if !strings.Contains(rt.StaticSystemPrompt, want) {
++			t.Fatalf("missing %s", want)
++		}
++	}
++	if err = store.Remove(context.Background(), "new-skill"); err != nil {
++		t.Fatal(err)
++	}
++	if err = rt.RefreshSkills(); err != nil {
++		t.Fatal(err)
++	}
++	if rt.StaticSystemPrompt != initial {
++		t.Fatal("removed skill remains or unrelated context changed")
++	}
++}
+--- /dev/null
++++ b/runtime/skills_authoring_test.go
+@@ -0,0 +1,81 @@
++package runtime
++
++import (
++	"context"
++	"encoding/json"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/llm/llmtest"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tool/skills"
++	"github.com/sausheong/harness/tool/skills/disk"
++	"strings"
++	"testing"
++	"time"
++)
++
++type authoringProvider struct {
++	llmtest.Base
++	prompts []string
++}
++
++func (p *authoringProvider) ChatStream(_ context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.prompts = append(p.prompts, llm.JoinSystemPromptParts(req.SystemPromptParts))
++	ch := make(chan llm.ChatEvent, 2)
++	switch len(p.prompts) {
++	case 1:
++		ch <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: "author", Name: "skill_manage", Input: json.RawMessage(`{"action":"create","name":"authored-skill","body":"---\ndescription: newly authored workflow\n---\nunique procedure body"}`)}}
++	case 2:
++		ch <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: "load", Name: "load_skill", Input: json.RawMessage(`{"name":"authored-skill"}`)}}
++	}
++	ch <- llm.ChatEvent{Type: llm.EventDone}
++	close(ch)
++	return ch, nil
++}
++
++func TestSkillAuthoringRefreshesNextModelRequest(t *testing.T) {
++	store := disk.NewStore(t.TempDir())
++	reg := tool.NewRegistry()
++	reg.Register(&skills.SkillTool{Store: store})
++	provider := &authoringProvider{}
++	rt, err := BuildRuntime(RuntimeDeps{Skills: store.AsSkillProvider()}, RuntimeInputs{Tools: reg, Session: session.NewSession("test", "skills")}, AgentSpec{ID: "test", SystemPrompt: "fixed identity", MaxTurns: 4})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	rt.LLM = provider
++	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++	defer cancel()
++	events, err := rt.Run(ctx, "create then load the workflow", nil)
++	if err != nil {
++		t.Fatal(err)
++	}
++	done := false
++	loaded := false
++	for event := range events {
++		if event.Type == EventError {
++			t.Errorf("runtime error: %v", event.Error)
++		}
++		if event.Type == EventDone {
++			done = true
++		}
++		if event.Type == EventToolResult && event.ToolCall != nil && event.ToolCall.Name == "load_skill" {
++			encoded, _ := json.Marshal(event)
++			loaded = strings.Contains(string(encoded), "unique procedure body")
++		}
++	}
++	if !done || !loaded || len(provider.prompts) != 3 {
++		t.Fatalf("done=%v loaded=%v requests=%d", done, loaded, len(provider.prompts))
++	}
++	if strings.Contains(provider.prompts[0], "newly authored workflow") {
++		t.Fatal("skill existed before authoring")
++	}
++	for _, prompt := range provider.prompts[1:] {
++		if !strings.Contains(prompt, "newly authored workflow") || !strings.Contains(prompt, "fixed identity") {
++			t.Fatalf("next request omitted refreshed skill: %s", prompt)
++		}
++	}
++	if _, ok, err := store.Get(ctx, "authored-skill"); err != nil || !ok {
++		t.Fatalf("skill not persisted: %v", err)
++	}
++}
+--- /dev/null
++++ b/runtime/context_inspect.go
+@@ -0,0 +1,66 @@
++package runtime
++
++import (
++	"context"
++	"fmt"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/tokens"
++)
++
++// ContextContribution describes size, never the potentially sensitive body.
++type ContextContribution struct {
++	Kind            string `json:"kind"`
++	Name            string `json:"name"`
++	Count           int    `json:"count"`
++	EstimatedTokens int    `json:"estimated_tokens"`
++}
++
++type ContextInspection struct {
++	EstimateMethod  string                `json:"estimate_method"`
++	EstimatedTokens int                   `json:"estimated_tokens"`
++	Contributions   []ContextContribution `json:"contributions"`
++	Limitations     []string              `json:"limitations"`
++}
++
++// InspectContext measures the installed static prompt, current effective history
++// and registered schemas while idle. It does not make provider calls or refresh
++// discovery. Dynamic retrieval and a future user message are not included.
++func (r *Runtime) InspectContext(ctx context.Context) (ContextInspection, error) {
++	var out ContextInspection
++	if !r.runMu.TryLock() {
++		return out, fmt.Errorf("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	if err := ctx.Err(); err != nil {
++		return out, err
++	}
++	var messages []llm.Message
++	if r.Session != nil {
++		history, err := r.Session.ResolveImages(ctx, r.Session.View())
++		if err != nil {
++			return out, err
++		}
++		messages = assembleMessages(history)
++	}
++	var defs []llm.ToolDef
++	if r.Tools != nil {
++		defs = r.Tools.ToolDefs()
++	}
++	out.EstimateMethod = "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage"
++	out.EstimatedTokens = tokens.Estimate(messages, r.StaticSystemPrompt, defs)
++	out.Contributions = append(out.Contributions, ContextContribution{Kind: "static_prompt", Name: "Installed identity, guidance, skills and memory", Count: 1, EstimatedTokens: tokens.Estimate(nil, r.StaticSystemPrompt, nil)})
++	var ordinary, results []llm.Message
++	for _, m := range messages {
++		if m.Role == "tool" {
++			results = append(results, m)
++		} else {
++			ordinary = append(ordinary, m)
++		}
++	}
++	out.Contributions = append(out.Contributions,
++		ContextContribution{Kind: "messages", Name: "Effective conversation", Count: len(ordinary), EstimatedTokens: tokens.Estimate(ordinary, "", nil)},
++		ContextContribution{Kind: "tool_results", Name: "Effective tool results", Count: len(results), EstimatedTokens: tokens.Estimate(results, "", nil)},
++		ContextContribution{Kind: "tool_schemas", Name: "Registered tool schemas", Count: len(defs), EstimatedTokens: tokens.Estimate(nil, "", defs)})
++	out.Limitations = []string{"Excludes the next user message, per-request date/identity suffix and dynamic retrieval.", "Estimates include only effective history after compaction; raw archived history is not counted.", "Image estimates use a fixed allowance, not provider-specific tiles or resolution.", "Components round down individually; their sum can differ slightly from the total."}
++	return out, nil
++}
+--- /dev/null
++++ b/runtime/context_inspect_test.go
+@@ -0,0 +1,44 @@
++package runtime
++
++import (
++	"context"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tokens"
++	"github.com/sausheong/harness/tool"
++	"strings"
++	"testing"
++)
++
++func TestInspectContextEstimatesWithoutChangingHistory(t *testing.T) {
++	s := session.NewSession("test", "inspect")
++	s.Append(session.UserMessageEntry("private content must not be returned"))
++	reg := tool.NewRegistry()
++	reg.Register(echoTool{})
++	r := &Runtime{Session: s, Tools: reg, StaticSystemPrompt: strings.Repeat("a", 100)}
++	got, err := r.InspectContext(context.Background())
++	if err != nil {
++		t.Fatal(err)
++	}
++	want := tokens.Estimate([]llm.Message{{Role: "user", Content: "private content must not be returned"}}, r.StaticSystemPrompt, reg.ToolDefs())
++	if got.EstimatedTokens != want || len(got.Contributions) != 4 {
++		t.Fatalf("inspection: %+v want %d", got, want)
++	}
++	if got.Contributions[1].Count != 1 || got.Contributions[3].Count != 1 || !strings.Contains(got.EstimateMethod, "not provider-reported") {
++		t.Fatalf("metadata: %+v", got)
++	}
++	if len(s.View()) != 1 {
++		t.Fatal("inspection changed history")
++	}
++	r.runMu.Lock()
++	_, err = r.InspectContext(context.Background())
++	r.runMu.Unlock()
++	if err == nil {
++		t.Fatal("busy inspection accepted")
++	}
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if _, err = r.InspectContext(ctx); err == nil {
++		t.Fatal("cancelled inspection accepted")
++	}
++}

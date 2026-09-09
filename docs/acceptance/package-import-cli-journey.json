@@ -1,0 +1,148 @@
+{
+  "status": "passed",
+  "provider_calls": 0,
+  "extension_executions": 0,
+  "commands": 23,
+  "imports": [
+    {
+      "kind": "archive",
+      "origin": {
+        "kind": "archive",
+        "location": "/private/tmp/hand-package-import-cli-journey-20260909/package.tar",
+        "reference": "1a2b36afcf9925ec6d55c765ae5424bac526547b9eac18431e75ea58ae5e6d11"
+      },
+      "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    },
+    {
+      "kind": "git",
+      "origin": {
+        "kind": "git",
+        "location": "/private/tmp/hand-package-import-cli-journey-20260909/source",
+        "reference": "8064e0d1949c4c542798fd55215a988b44ddc9f2"
+      },
+      "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    }
+  ],
+  "binary": "/private/tmp/hand-package-import-cli-20260909",
+  "binary_sha256": "c3f53f848371c9b4ffae3a39eb533526cd29f0a80983ccb95dca6492d89d88e9",
+  "runner_sha256": "5676d149419455addf91bf9fdedf6a4febbb6f9d7056016099f2cbf6afc03b20",
+  "initial_package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "updated_package_digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484",
+  "final_generation": 4,
+  "limitations": [
+    "Development binary and local Harness replacement; not final acceptance.",
+    "Local directory, archive and local Git commands exercised; remote Git and activation remain pending."
+  ],
+  "git_bundle": "source.bundle",
+  "git_bundle_export": "git bundle create source.bundle HEAD, run in the fixture repository after the journey",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/archive-review.json",
+      "sha256": "8d47354cb5f34a19a20d147b45032bfc0698bc84c8ebfc2fada6da5b7556082b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/archive-store/lock.json",
+      "sha256": "b621b00ecf474046c5d79aaff3c404f63b23c6a274b67a913cef0b280bc88d1b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/archive-store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/hand-package.json",
+      "sha256": "9a70fdcb739469f8c6ef9cf89d0dd6157f89621a4446420c5d194d72bf79e499"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/archive-store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/archive-store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/commands.json",
+      "sha256": "4fe6d18279bc2ea13a11b9557bfa8ad9e670c107692e5ce20f989b2ac67c314a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/git-fixture.json",
+      "sha256": "c2c5ebc06bc18b333294a82694edf68bacb13b5f34b7c1aed42539cb2cb3be3a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/git-review.json",
+      "sha256": "181b5e312650fedaf15f4f5ed7ad68ffd6f64568e029170de9eec0c79bad1efa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/git-store/lock.json",
+      "sha256": "aa32605259a595cd31f4208e78070637971eea95af7f6758ba44d3397e1b0ec3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/git-store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/hand-package.json",
+      "sha256": "9a70fdcb739469f8c6ef9cf89d0dd6157f89621a4446420c5d194d72bf79e499"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/git-store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/git-store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/install.json",
+      "sha256": "4ce3a5a60409c432cddbf6c9cb090beeffbd2901920de7b94dba6abae68a85de"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/package.tar",
+      "sha256": "1a2b36afcf9925ec6d55c765ae5424bac526547b9eac18431e75ea58ae5e6d11"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/remove.json",
+      "sha256": "3e1fdfb9dca3416ed6aad224cb5e4ffe762a6382e644bc054f39d020d54196fd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/rollback.json",
+      "sha256": "3a40901389957c21f1d24d02601606ee8bfbd9c6ef8d627bfb4017caecec23da"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/run.json",
+      "sha256": "65aee968f277cb051f57d85ad4673f92ca6566b2efa027b1f1fee74aecb4e902"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/source/hand-package.json",
+      "sha256": "59306e09776e71daaa5ab0cdc2fd0ed2c9dec91c61060a8ce30aa16b3537accc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/source/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/source.bundle",
+      "sha256": "79cfc7e6b568a2a43fcc4a2f66c5956f95cf8723e92ce22ff75e00daf1d14a5d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/store/lock.json",
+      "sha256": "961022fcadba05f7fde9e80d864e08055203b7f097ed01a70b289ebd1f75f49c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/hand-package.json",
+      "sha256": "6c01fe91966a8f78213cf0cad2152b44f2e08cd1844828d09c97503845958989"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/hand-package.json",
+      "sha256": "9a70fdcb739469f8c6ef9cf89d0dd6157f89621a4446420c5d194d72bf79e499"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-import-cli-journey-20260909/update.json",
+      "sha256": "0a6b1bc7183798a9a0f641a876e24a448b5ff492e7f1fd5f279802d62076ecc5"
+    }
+  ]
+}

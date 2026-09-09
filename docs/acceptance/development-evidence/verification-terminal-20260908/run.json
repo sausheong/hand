@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-tui-verification-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--checkpoint-dir",
+    "/private/tmp/hand-verification-terminal-20260908/fixture/checkpoints",
+    "--verification-config",
+    "/private/tmp/hand-verification-terminal-20260908/fixture/verification.json"
+  ],
+  "binary_sha256": "281e9234d56d3ee979f46507772dc678e3b0ff017d639d1d65a8bcc012777a90",
+  "runner_sha256": "65b27c805108945e1a685f01bfc4f510e0150d86e9ffc60740088c044d08142b",
+  "reviewed": true,
+  "confirmed": true,
+  "saved_id": "2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29",
+  "later_edit_stale": true,
+  "exit_code": 0,
+  "provider_calls": 0,
+  "terminal_sha256": "0946f1223bf16261239ebaa3bdd5c27663746a4d5a76666b5f19c057006983ae"
+}

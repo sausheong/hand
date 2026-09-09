@@ -1,0 +1,30 @@
+{
+  "status": "development_fixture_prepared_and_tested",
+  "result": "Loaded fixture images validated; network-disabled build created immutable implicit-volume image; actual native rejection test passes.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-fixture-preparer-20260909/prepare_container_fixtures.py.gz",
+      "sha256": "e4a9c27035cd5585c2cc15aa93beb4931d1365f69774d7977fac685349ca9a2d",
+      "uncompressed_sha256": "2821b303b013804b0d8e93b736b8b38ebd3062ed2d69dd73eb589e6bf31978e0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-fixture-preparer-20260909/fixtures.json.gz",
+      "sha256": "bfc5ee766aa910e7099ee925955b192d29310050d82447b7e3db295d60928676",
+      "uncompressed_sha256": "46c787252834ccf1eb492e9d555a212af80c12c6e189e89a602856099031fe9d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-fixture-preparer-20260909/fixtures.env.gz",
+      "sha256": "f8cecf14959659fbcb95029284cc2c7abd62dd39cbd8f4aff4ce8ed95e7a85f1",
+      "uncompressed_sha256": "01dc07b11807f1a6f6899cf4abf75fd4f8c035df7a379d4b3fda0e65f5788026"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-fixture-preparer-20260909/harness-prepared-volume-test-20260909.jsonl.gz",
+      "sha256": "901ad8e041a4ad84dcd87ecaa97949569465745d700ebd2623e626af6670c012",
+      "uncompressed_sha256": "1e3ccd33c2ea61661eff6fa90cf15f6d97a8d86125d5d584f1ea80fd98060055"
+    }
+  ],
+  "limitations": [
+    "Workflow daemon/bootstrap integration is still pending.",
+    "Helper added after frozen candidate; candidate update and applicable verification are required before release."
+  ]
+}

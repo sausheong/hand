@@ -1,0 +1,74 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-extension-terminal-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--extension-config",
+    "/private/tmp/hand-extension-pty-20260909/review.json",
+    "--approve-extension-config",
+    "54274353e68ed63356478c417cc9c217f0fadec8e74e99d8f3db07394ae9cc5e"
+  ],
+  "binary_sha256": "9ff74af1e3816679c518b599365e92dc177ef1a3f3c738c600d2b6d8aa03a2a8",
+  "runner_sha256": "932fab87e6ec2d1ad08b440ede27936360aed01cb91c44826e858f08f59f1a23",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "peer_sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+  "review_digest": "54274353e68ed63356478c417cc9c217f0fadec8e74e99d8f3db07394ae9cc5e",
+  "completed_commands": [
+    "/extension task-note note",
+    "Remember the native terminal",
+    "/extension task-note note",
+    "ESC",
+    "/extension task-note note",
+    "CTRL_C",
+    "/state"
+  ],
+  "exit_code": 0,
+  "persisted_revisions": 1,
+  "final_state": {
+    "version": 1,
+    "data": {
+      "note": "Remember the native terminal"
+    }
+  },
+  "snapshot_cleanup": true,
+  "terminal_sha256": "513594beedff8ed5ee348a7529cd2b6461837bf023dadf794aafa8e01390f2f4",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-terminal-20260909/run.json",
+      "sha256": "084a3ab739e9a20d24503de36d774188567ba457df86d6911589aa29760e6a2b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-terminal-20260909/terminal.bin",
+      "sha256": "513594beedff8ed5ee348a7529cd2b6461837bf023dadf794aafa8e01390f2f4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-terminal-20260909/input.json",
+      "sha256": "707765e0e4fb1f482acdfd868b9763d8c96321843033f7287400c243a8051607"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-terminal-20260909/review.json",
+      "sha256": "54274353e68ed63356478c417cc9c217f0fadec8e74e99d8f3db07394ae9cc5e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-terminal-20260909/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    }
+  ],
+  "implementation": "docs/acceptance/extension-tui-integration.patch",
+  "harness_delta": "docs/acceptance/harness-context-state.patch",
+  "primary_integrated": false,
+  "limitations": [
+    "Native macOS development PTY evidence; not a final clean candidate or Linux qualification.",
+    "Approval applies only to the isolated task-note fixture.",
+    "Rich rendering, reload integration, runtime hooks, container extension execution and full acceptance remain pending."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "ca84370fccc74ec240b4f7dc18b63502e1155263e08ea2d7d6b5c0159cc8db2d",
+  "go_sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+  "python_sha256": "cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43",
+  "source_sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+  "runner_sha256": "6f90b9e397b2b119ce0db6d313a2caa444a872b5b0937156dd2a9c7912a570e0",
+  "client_runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "languages": {
+    "go": {
+      "status": "passed",
+      "review_digest": "72306ae8125b187e48f7095b6e23c73c97216d57eb3313438c09316a047cbc60",
+      "wrong_approval_rejected": true,
+      "command_question_answer": true,
+      "durable_replay_after_restart": true,
+      "cancellation_joined": true,
+      "snapshots_removed": true
+    },
+    "python": {
+      "status": "passed",
+      "review_digest": "3019bbdb95be640acd2b3dfe830f01f7af1d21cb3389ed189c2dc5c6a2af3b19",
+      "wrong_approval_rejected": true,
+      "command_question_answer": true,
+      "durable_replay_after_restart": true,
+      "cancellation_joined": true,
+      "snapshots_removed": true
+    }
+  },
+  "provider_calls": 0
+}

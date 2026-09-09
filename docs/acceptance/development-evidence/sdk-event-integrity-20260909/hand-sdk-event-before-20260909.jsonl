@@ -1,0 +1,42 @@
+{"Time":"2026-09-09T08:45:33.319069+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T08:45:33.997506+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields"}
+{"Time":"2026-09-09T08:45:33.997575+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields\n"}
+{"Time":"2026-09-09T08:45:33.99783+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload"}
+{"Time":"2026-09-09T08:45:33.997843+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/null-payload\n"}
+{"Time":"2026-09-09T08:45:33.998072+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/null-payload (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998083+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.998092+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version"}
+{"Time":"2026-09-09T08:45:33.998096+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/version\n"}
+{"Time":"2026-09-09T08:45:33.998203+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Output":"    snapshot_integrity_test.go:22: ambiguous event accepted\n"}
+{"Time":"2026-09-09T08:45:33.998219+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields/version (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998227+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.998236+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity"}
+{"Time":"2026-09-09T08:45:33.998244+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/identity\n"}
+{"Time":"2026-09-09T08:45:33.998298+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Output":"    snapshot_integrity_test.go:22: ambiguous event accepted\n"}
+{"Time":"2026-09-09T08:45:33.998312+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields/identity (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.99832+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.998329+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity"}
+{"Time":"2026-09-09T08:45:33.998333+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/escaped-identity\n"}
+{"Time":"2026-09-09T08:45:33.998393+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Output":"    snapshot_integrity_test.go:22: ambiguous event accepted\n"}
+{"Time":"2026-09-09T08:45:33.998411+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields/escaped-identity (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998428+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.998432+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias"}
+{"Time":"2026-09-09T08:45:33.998434+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/identity-alias\n"}
+{"Time":"2026-09-09T08:45:33.998488+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Output":"    snapshot_integrity_test.go:22: ambiguous event accepted\n"}
+{"Time":"2026-09-09T08:45:33.998507+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields/identity-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998513+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.998517+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome"}
+{"Time":"2026-09-09T08:45:33.998519+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/outcome\n"}
+{"Time":"2026-09-09T08:45:33.998582+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Output":"    snapshot_integrity_test.go:22: ambiguous event accepted\n"}
+{"Time":"2026-09-09T08:45:33.998596+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields/outcome (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998606+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.998615+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias"}
+{"Time":"2026-09-09T08:45:33.998624+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/outcome-alias\n"}
+{"Time":"2026-09-09T08:45:33.998674+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Output":"    snapshot_integrity_test.go:22: ambiguous event accepted\n"}
+{"Time":"2026-09-09T08:45:33.998688+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields/outcome-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998692+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.99876+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields","Output":"--- FAIL: TestSnapshotRejectsAmbiguousEventFields (0.00s)\n"}
+{"Time":"2026-09-09T08:45:33.998766+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields","Elapsed":0}
+{"Time":"2026-09-09T08:45:33.99882+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\n"}
+{"Time":"2026-09-09T08:45:33.999752+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\tgithub.com/sausheong/hand/sdk\t0.680s\n"}
+{"Time":"2026-09-09T08:45:33.999782+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Elapsed":0.681}

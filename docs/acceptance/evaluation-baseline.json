@@ -1,0 +1,130 @@
+{
+  "status": "development_baseline_cli_calibrated",
+  "python_runner_tests": 93,
+  "integrated_baseline_tests": 3,
+  "real_cli_runs": [
+    {
+      "task": "preserve-write-mode",
+      "command": [
+        "python3",
+        "scripts/evaluation_baseline.py",
+        "/Users/sausheong/projects/hand/docs/acceptance/evaluation/calibration.json",
+        "--task",
+        "preserve-write-mode",
+        "--repository",
+        "/private/tmp/hand-harness-persistence-20260908",
+        "--output",
+        "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/preserve-write-mode",
+        "--environment",
+        "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/environment.json"
+      ],
+      "exit_code": 1,
+      "stdout": "{\"status\": \"baseline_tests_failed\", \"report\": \"/private/tmp/hand-baseline-cli-20260909-0wynp5_s/preserve-write-mode/report.json\"}\n",
+      "report": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/preserve-write-mode/report.json"
+    },
+    {
+      "task": "cancel-shell-descendants",
+      "command": [
+        "python3",
+        "scripts/evaluation_baseline.py",
+        "/Users/sausheong/projects/hand/docs/acceptance/evaluation/calibration.json",
+        "--task",
+        "cancel-shell-descendants",
+        "--repository",
+        "/private/tmp/hand-harness-persistence-20260908",
+        "--output",
+        "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/cancel-shell-descendants",
+        "--environment",
+        "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/environment.json"
+      ],
+      "exit_code": 1,
+      "stdout": "{\"status\": \"baseline_tests_failed\", \"report\": \"/private/tmp/hand-baseline-cli-20260909-0wynp5_s/cancel-shell-descendants/report.json\"}\n",
+      "report": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/cancel-shell-descendants/report.json"
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-evaluation-baseline-cli-20260909.json",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/0-hand-evaluation-baseline-cli-20260909.json.gz",
+      "sha256": "acc1bfb76c9ad2a2870654c6c23d6a796dc0321b0d42bf820165386b05d4fad3",
+      "uncompressed_sha256": "a7e0a0f62eed212aed93bbf0a0e369a361b55476e05c2ccf2bf4c3f7197b7d6e"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-baseline-all-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/1-hand-evaluation-baseline-all-tests-20260909.log.gz",
+      "sha256": "d28b7e89c3f438bd2a6499da8f4c5a036d8a0da0ecfb78df72fba85695562b12",
+      "uncompressed_sha256": "3de7aab36bf255ddc3b5f3e950e53908efa03f797a88f3653bee47fd1b5c6e11"
+    },
+    {
+      "source": "scripts/evaluation_baseline.py",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/2-evaluation_baseline.py.gz",
+      "sha256": "bc52f88627897018b64ee0037d42d89ae63fc8279a7c32e864e3937f6e45f9fe",
+      "uncompressed_sha256": "e90b61fe4bf7c2d72deb59e7e3b918ee97c854a4fc933998afefecc6d89d65e3"
+    },
+    {
+      "source": "scripts/test_evaluation_baseline.py",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/3-test_evaluation_baseline.py.gz",
+      "sha256": "04f3a1e280bad69b0c03d122f709c5597374fe60c762a2af64c2c7e4e0f60455",
+      "uncompressed_sha256": "11180f3e776c6413a494867f633793194dcefa82d9a550c18121c29b9719a242"
+    },
+    {
+      "source": "scripts/evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/4-evaluation_manifest.py.gz",
+      "sha256": "57a8c95b499d4bcd3591c31064408720501024712352238759366f3a38d628ad",
+      "uncompressed_sha256": "8f86ea47b9a15dfd492786b23799b7407c67c760e047785f43814142ac454aae"
+    },
+    {
+      "source": "scripts/test_evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/5-test_evaluation_manifest.py.gz",
+      "sha256": "08d86cbdb9503c04663eb4a3423ca96fe1f590744d5700d2624e3f0df5452add",
+      "uncompressed_sha256": "4814d10e05b39a3814c4644ce08ddc6c416efab835f1c485f994f8303145ec1c"
+    },
+    {
+      "source": "docs/acceptance/evaluation/calibration.json",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/6-calibration.json.gz",
+      "sha256": "7d7a286b9e369a0e7d1d39764dc517ce25671c635bef0544e89eaf3f6fdff026",
+      "uncompressed_sha256": "d600ced3ec7784d1354a2684d18b140070b40bd3ff62526595cc27b59d128766"
+    },
+    {
+      "source": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/preserve-write-mode/report.json",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/7-report.json.gz",
+      "sha256": "9c68f16d8386b85b265725721a4274328447beb37a9484d9f8e881dbc3e97a69",
+      "uncompressed_sha256": "023f3f6ced56bea672fb3b4cd95356e77e2f93928567e1f18421a71b6f12bdb8"
+    },
+    {
+      "source": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/preserve-write-mode/check-0/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/8-stdout.log.gz",
+      "sha256": "b8fbe2e7c3fe9f4d5498885ba26dd3d472ba3986b7f2c41ef64cf7e004d265cc",
+      "uncompressed_sha256": "6f64dcd4a626720039ecfb3cd8fb1f8e7e8665548b563e7294e2b3706deed213"
+    },
+    {
+      "source": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/preserve-write-mode/check-0/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/9-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/cancel-shell-descendants/report.json",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/10-report.json.gz",
+      "sha256": "99c952d13955305ad98b5963fd213f62c8c59e262b5d288b0fb9e983e94bf930",
+      "uncompressed_sha256": "524d3b1169699756e22c682aa83d09c1d8d2c92b0e96a6b03f4e6bcc7eacf9ad"
+    },
+    {
+      "source": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/cancel-shell-descendants/check-0/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/11-stdout.log.gz",
+      "sha256": "532f1a451f586a37eff1d9b19e475acc97e17f79d3f358d4f7b990c5539bde6f",
+      "uncompressed_sha256": "e167e82188990e1478c23b2810c9962faf2b97f59ad54fb4678a9485423daa36"
+    },
+    {
+      "source": "/private/tmp/hand-baseline-cli-20260909-0wynp5_s/cancel-shell-descendants/check-0/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-baseline-20260909/12-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Expected baseline failures on known defective commits; no agent or model execution",
+    "Only Go JSON verification is currently supported; other language adapters remain required for the final diverse corpus",
+    "Comparative scheduling exists but agent execution, budget enforcement, review and final acceptance remain outstanding"
+  ]
+}

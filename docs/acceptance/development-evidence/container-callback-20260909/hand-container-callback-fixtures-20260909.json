@@ -1,0 +1,14 @@
+{
+  "fixtures": [
+    {
+      "path": "/private/tmp/hand-container-app-peer-20260909",
+      "sha256": "ea4c84c6033265780ae4f2c2c5dd64421b20e05407a4f66b6d5c3f0ef48c70d2"
+    },
+    {
+      "path": "/private/tmp/hand-container-worker-20260909",
+      "sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b"
+    }
+  ],
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "architecture": "linux/arm64"
+}

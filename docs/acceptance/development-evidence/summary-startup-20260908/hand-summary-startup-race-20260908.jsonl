@@ -1,0 +1,69 @@
+{"Time":"2026-09-08T20:44:18.091256+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T20:44:18.166162+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-08T20:44:18.702583+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile"}
+{"Time":"2026-09-08T20:44:18.702666+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile","Output":"=== RUN   TestSummarizerStartupStrictFile\n"}
+{"Time":"2026-09-08T20:44:18.702703+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/follow"}
+{"Time":"2026-09-08T20:44:18.702712+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/follow","Output":"=== RUN   TestSummarizerStartupStrictFile/follow\n"}
+{"Time":"2026-09-08T20:44:18.703583+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/follow","Output":"--- PASS: TestSummarizerStartupStrictFile/follow (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.703602+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/follow","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.703611+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown"}
+{"Time":"2026-09-08T20:44:18.703615+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown","Output":"=== RUN   TestSummarizerStartupStrictFile/unknown\n"}
+{"Time":"2026-09-08T20:44:18.704254+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown","Output":"--- PASS: TestSummarizerStartupStrictFile/unknown (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.704272+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.704279+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown_option"}
+{"Time":"2026-09-08T20:44:18.704284+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown_option","Output":"=== RUN   TestSummarizerStartupStrictFile/unknown_option\n"}
+{"Time":"2026-09-08T20:44:18.704695+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown_option","Output":"--- PASS: TestSummarizerStartupStrictFile/unknown_option (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.704703+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/unknown_option","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.704724+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/digest"}
+{"Time":"2026-09-08T20:44:18.704729+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/digest","Output":"=== RUN   TestSummarizerStartupStrictFile/digest\n"}
+{"Time":"2026-09-08T20:44:18.70512+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/digest","Output":"--- PASS: TestSummarizerStartupStrictFile/digest (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.70513+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/digest","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.70514+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/both"}
+{"Time":"2026-09-08T20:44:18.705143+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/both","Output":"=== RUN   TestSummarizerStartupStrictFile/both\n"}
+{"Time":"2026-09-08T20:44:18.705584+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/both","Output":"--- PASS: TestSummarizerStartupStrictFile/both (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.705596+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/both","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.705602+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/negative"}
+{"Time":"2026-09-08T20:44:18.705606+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/negative","Output":"=== RUN   TestSummarizerStartupStrictFile/negative\n"}
+{"Time":"2026-09-08T20:44:18.706154+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/negative","Output":"--- PASS: TestSummarizerStartupStrictFile/negative (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.706162+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/negative","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.706174+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/tokens"}
+{"Time":"2026-09-08T20:44:18.706177+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/tokens","Output":"=== RUN   TestSummarizerStartupStrictFile/tokens\n"}
+{"Time":"2026-09-08T20:44:18.706596+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/tokens","Output":"--- PASS: TestSummarizerStartupStrictFile/tokens (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.706605+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/tokens","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.706616+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/trailing"}
+{"Time":"2026-09-08T20:44:18.706619+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/trailing","Output":"=== RUN   TestSummarizerStartupStrictFile/trailing\n"}
+{"Time":"2026-09-08T20:44:18.706997+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/trailing","Output":"--- PASS: TestSummarizerStartupStrictFile/trailing (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.707012+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/trailing","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.70703+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/valid"}
+{"Time":"2026-09-08T20:44:18.707034+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/valid","Output":"=== RUN   TestSummarizerStartupStrictFile/valid\n"}
+{"Time":"2026-09-08T20:44:18.707505+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/valid","Output":"--- PASS: TestSummarizerStartupStrictFile/valid (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.707511+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/valid","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.707532+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/version"}
+{"Time":"2026-09-08T20:44:18.707535+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/version","Output":"=== RUN   TestSummarizerStartupStrictFile/version\n"}
+{"Time":"2026-09-08T20:44:18.707991+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/version","Output":"--- PASS: TestSummarizerStartupStrictFile/version (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.708001+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/version","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.708009+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/neither"}
+{"Time":"2026-09-08T20:44:18.708011+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/neither","Output":"=== RUN   TestSummarizerStartupStrictFile/neither\n"}
+{"Time":"2026-09-08T20:44:18.708444+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/neither","Output":"--- PASS: TestSummarizerStartupStrictFile/neither (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.708448+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/neither","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.70865+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/oversize"}
+{"Time":"2026-09-08T20:44:18.708653+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/oversize","Output":"=== RUN   TestSummarizerStartupStrictFile/oversize\n"}
+{"Time":"2026-09-08T20:44:18.709932+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/oversize","Output":"--- PASS: TestSummarizerStartupStrictFile/oversize (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.709948+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile/oversize","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.710509+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile","Output":"--- PASS: TestSummarizerStartupStrictFile (0.01s)\n"}
+{"Time":"2026-09-08T20:44:18.710523+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupStrictFile","Elapsed":0.01}
+{"Time":"2026-09-08T20:44:18.710544+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupRestartRevalidatesDestination"}
+{"Time":"2026-09-08T20:44:18.710547+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupRestartRevalidatesDestination","Output":"=== RUN   TestSummarizerStartupRestartRevalidatesDestination\n"}
+{"Time":"2026-09-08T20:44:18.711275+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupRestartRevalidatesDestination","Output":"--- PASS: TestSummarizerStartupRestartRevalidatesDestination (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.711285+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSummarizerStartupRestartRevalidatesDestination","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.71129+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch"}
+{"Time":"2026-09-08T20:44:18.711293+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Output":"=== RUN   TestSeparateSummarizerReviewAtomicityAndModelSwitch\n"}
+{"Time":"2026-09-08T20:44:18.711693+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Output":"--- PASS: TestSeparateSummarizerReviewAtomicityAndModelSwitch (0.00s)\n"}
+{"Time":"2026-09-08T20:44:18.711699+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Elapsed":0}
+{"Time":"2026-09-08T20:44:18.711743+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T20:44:19.41919+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T20:44:19.419251+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-08T20:44:19.72237+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.630s\n"}
+{"Time":"2026-09-08T20:44:19.722506+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.631}
+{"Time":"2026-09-08T20:44:20.428983+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t2.263s [no tests to run]\n"}
+{"Time":"2026-09-08T20:44:20.429108+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":2.263}

@@ -1,0 +1,57 @@
+{"Time":"2026-09-08T17:06:24.54142+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T17:06:24.541633+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolworker"}
+{"Time":"2026-09-08T17:06:24.867744+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T17:06:24.867824+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"PASS\n"}
+{"Time":"2026-09-08T17:06:25.403504+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence"}
+{"Time":"2026-09-08T17:06:25.403594+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence","Output":"=== RUN   TestNestedReadGuidanceScopeAndPrecedence\n"}
+{"Time":"2026-09-08T17:06:25.407862+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence","Output":"--- PASS: TestNestedReadGuidanceScopeAndPrecedence (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.40791+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.40792+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes"}
+{"Time":"2026-09-08T17:06:25.407938+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes","Output":"=== RUN   TestNestedReadRejectsOutsideAndRefreshes\n"}
+{"Time":"2026-09-08T17:06:25.410351+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes","Output":"--- PASS: TestNestedReadRejectsOutsideAndRefreshes (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.410366+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.410707+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryPrecedenceAndProvenance"}
+{"Time":"2026-09-08T17:06:25.410714+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryPrecedenceAndProvenance","Output":"=== RUN   TestInstructionDiscoveryPrecedenceAndProvenance\n"}
+{"Time":"2026-09-08T17:06:25.412344+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryPrecedenceAndProvenance","Output":"--- PASS: TestInstructionDiscoveryPrecedenceAndProvenance (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.412358+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryPrecedenceAndProvenance","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.4124+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions"}
+{"Time":"2026-09-08T17:06:25.412414+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions","Output":"=== RUN   TestInstructionDiscoveryExclusions\n"}
+{"Time":"2026-09-08T17:06:25.412872+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/oversized"}
+{"Time":"2026-09-08T17:06:25.412885+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/oversized","Output":"=== RUN   TestInstructionDiscoveryExclusions/oversized\n"}
+{"Time":"2026-09-08T17:06:25.414549+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/oversized","Output":"--- PASS: TestInstructionDiscoveryExclusions/oversized (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.414568+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/oversized","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.414633+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/directory"}
+{"Time":"2026-09-08T17:06:25.414637+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/directory","Output":"=== RUN   TestInstructionDiscoveryExclusions/directory\n"}
+{"Time":"2026-09-08T17:06:25.415174+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/directory","Output":"--- PASS: TestInstructionDiscoveryExclusions/directory (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.415184+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/directory","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.415235+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/symlink"}
+{"Time":"2026-09-08T17:06:25.415241+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/symlink","Output":"=== RUN   TestInstructionDiscoveryExclusions/symlink\n"}
+{"Time":"2026-09-08T17:06:25.416595+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/symlink","Output":"--- PASS: TestInstructionDiscoveryExclusions/symlink (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.416606+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions/symlink","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.416791+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions","Output":"--- PASS: TestInstructionDiscoveryExclusions (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.416804+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryExclusions","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.416876+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryTotalBound"}
+{"Time":"2026-09-08T17:06:25.416882+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryTotalBound","Output":"=== RUN   TestInstructionDiscoveryTotalBound\n"}
+{"Time":"2026-09-08T17:06:25.421442+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryTotalBound","Output":"--- PASS: TestInstructionDiscoveryTotalBound (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.421469+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestInstructionDiscoveryTotalBound","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.427295+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_NoFileReturnsBaseOnly"}
+{"Time":"2026-09-08T17:06:25.427317+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_NoFileReturnsBaseOnly","Output":"=== RUN   TestBuildSystemPrompt_NoFileReturnsBaseOnly\n"}
+{"Time":"2026-09-08T17:06:25.427923+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_NoFileReturnsBaseOnly","Output":"--- PASS: TestBuildSystemPrompt_NoFileReturnsBaseOnly (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.427933+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_NoFileReturnsBaseOnly","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.427991+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdAppended"}
+{"Time":"2026-09-08T17:06:25.427997+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdAppended","Output":"=== RUN   TestBuildSystemPrompt_HandMdAppended\n"}
+{"Time":"2026-09-08T17:06:25.428566+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdAppended","Output":"--- PASS: TestBuildSystemPrompt_HandMdAppended (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.428573+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdAppended","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.428629+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd"}
+{"Time":"2026-09-08T17:06:25.428633+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd","Output":"=== RUN   TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd\n"}
+{"Time":"2026-09-08T17:06:25.429254+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd","Output":"--- PASS: TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.429268+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_AgentsMdAppendedWhenNoHandMd","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.429328+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdWinsOverAgentsMd"}
+{"Time":"2026-09-08T17:06:25.429331+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdWinsOverAgentsMd","Output":"=== RUN   TestBuildSystemPrompt_HandMdWinsOverAgentsMd\n"}
+{"Time":"2026-09-08T17:06:25.43009+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdWinsOverAgentsMd","Output":"--- PASS: TestBuildSystemPrompt_HandMdWinsOverAgentsMd (0.00s)\n"}
+{"Time":"2026-09-08T17:06:25.430103+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSystemPrompt_HandMdWinsOverAgentsMd","Elapsed":0}
+{"Time":"2026-09-08T17:06:25.430312+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"PASS\n"}
+{"Time":"2026-09-08T17:06:25.875571+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"ok  \tgithub.com/sausheong/hand/internal/toolworker\t1.334s [no tests to run]\n"}
+{"Time":"2026-09-08T17:06:25.875743+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Elapsed":1.334}
+{"Time":"2026-09-08T17:06:26.43851+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"ok  \tgithub.com/sausheong/hand/internal/agentio\t1.897s\n"}
+{"Time":"2026-09-08T17:06:26.438563+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":1.897}

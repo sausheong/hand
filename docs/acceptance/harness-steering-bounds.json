@@ -1,0 +1,159 @@
+{
+  "base": "3cdb3a37b7073203fdcf51c8e0d1030028289625",
+  "candidate": "a70fab4c661cdb24529e57647dda15c89bf59571",
+  "patch_sha256": "b5d741ea7e3fba5de3c7019c1f1bb06e2fdc22c2d9eb044d88f08b13e8df238d",
+  "results": {
+    "hand-steering-snapshot-first-20260908.jsonl": {
+      "tests_and_subtests": {
+        "fail": 0,
+        "skip": 0,
+        "pass": 9
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "pass"
+      }
+    },
+    "hand-steering-snapshot-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "fail": 0,
+        "skip": 0,
+        "pass": 639
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "pass",
+        "github.com/sausheong/hand/internal/permissions": "pass",
+        "github.com/sausheong/hand/internal/config": "pass",
+        "github.com/sausheong/hand/internal/agentio": "pass",
+        "github.com/sausheong/hand/cmd/hand": "pass",
+        "github.com/sausheong/hand/internal/tui": "pass",
+        "github.com/sausheong/hand/internal/sessionio": "pass"
+      }
+    },
+    "hand-steering-snapshot-repeat-20260908.jsonl": {
+      "tests_and_subtests": {
+        "fail": 0,
+        "skip": 0,
+        "pass": 220
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "pass"
+      }
+    },
+    "hand-steering-bounds-harness-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "fail": 0,
+        "skip": 0,
+        "pass": 921
+      },
+      "packages": {
+        "github.com/sausheong/harness/examples/data-agent": "skip",
+        "github.com/sausheong/harness/examples/lta-agent": "skip",
+        "github.com/sausheong/harness/examples/minimal": "skip",
+        "github.com/sausheong/harness/examples/self-improving-agent": "skip",
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    },
+    "hand-steering-bounds-repeat-20260908.jsonl": {
+      "tests_and_subtests": {
+        "fail": 0,
+        "skip": 0,
+        "pass": 220
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-first-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-first-20260908.jsonl",
+      "sha256": "cd33a3a1acd174d25249fb7c6e81fbdafa5b445460c4475f7480d7c6a0f1e64c"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-first-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-first-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-full-20260908.jsonl",
+      "sha256": "17260ed60cdd06d70e0fc8f1e883e58af7703739e3bf7c22fdbf359c80c42fa5"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-repeat-20260908.jsonl",
+      "sha256": "663bc87feec84ca4dbc4d90b4b05d7f34468fa7f8757f63989d0e3175b56f0fc"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-snapshot-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-steering-snapshot-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-bounds-harness-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-bounds-harness-full-20260908.jsonl",
+      "sha256": "81ee7f7af45ccce3217f818905eedef4e810d77e36d9fb638dcfc5f606416d71"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-bounds-harness-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-bounds-harness-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-bounds-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-bounds-repeat-20260908.jsonl",
+      "sha256": "c196ce681beb0acd0fa276d96be578ecbf81fb01c3e4d5f56652ebac09c0e98b"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-bounds-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-bounds-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-snapshot-20260908/hand-steering-bounds-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-steering-bounds-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Development checkout uses an unpublished Harness candidate; primary Hand remains on v0.3.9.",
+    "Native platform, process-kill steering recovery and final acceptance qualification remain pending.",
+    "External attachment permission and complete M3.2 acceptance remain pending."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "status": "development_passed",
+  "harness_source_fingerprint": "acc9b6412bd83a0ca33b9161b820d9cad130bdeb4a1ccba538bea611cb541b4f",
+  "source_files": [
+    {
+      "path": "budget/json.go",
+      "sha256": "fd9a3978eabc862616e4092e82a92120abae99b006882c24313229b501e0360a"
+    },
+    {
+      "path": "budget/json_integrity_test.go",
+      "sha256": "2e274ad2123db823b9be71f66bbc9cee7a106dcfd0c9b6a80d33e51ff2daf726"
+    }
+  ],
+  "results": {
+    "before": {
+      "fail": 1
+    },
+    "after": {
+      "pass": 384
+    },
+    "integration": {
+      "pass": 82
+    },
+    "nested": {
+      "pass": 8
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-required-fields-20260909/hand-budget-missing-before-20260909.jsonl.gz",
+      "sha256": "b3d53ec137707379814c1786948e90c8565089ca6048c9a64dcd35956895ee11",
+      "uncompressed_sha256": "df9452b337e2b0157d89b6d457393457e2f5bddfc8cb6fdabe4634398d575c10"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-required-fields-20260909/hand-budget-missing-after-20260909.jsonl.gz",
+      "sha256": "e04c13be254de2e2f27ea2faf432150e6ce0427dc1d283cb0bdbd77d2041a3e6",
+      "uncompressed_sha256": "92ee0478a8a1b94865c357facc248c74d22ff39784b2c095e0b093f3e197d508"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-required-fields-20260909/hand-budget-missing-integration-20260909.jsonl.gz",
+      "sha256": "56457e3866f17b4c9db49ee43a724a2491c6074d7d614a58a0ad09c32fb20164",
+      "uncompressed_sha256": "0068c4d1fc624ee838c892e171158aa631a1df079cd0946bf619406cbd19b127"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-required-fields-20260909/hand-budget-missing-nested-20260909.jsonl.gz",
+      "sha256": "276e5bb72821e5149ebb8e3c4a43b182fbcedb75d75a5ee1248a0e6a19cd2a6d",
+      "uncompressed_sha256": "6d559daf4ddaa8c37ff5d2fad97f44231816e8d17ba571bed78327eeaaa0b750"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-required-fields-20260909/harness-required-field-sources.tar.gz",
+      "sha256": "e2858d2accb95a132da15d2bd2bfff5761044ee2af5823526e1648c7e3d8644c"
+    }
+  ],
+  "defect": "A persisted reported settlement with no tokens field changed 20 reserved tokens to zero committed after restart.",
+  "correction": "Require every non-omitempty field in the version-1 writer schema recursively before typed decoding. Explicit zero and optional omitted fields remain valid.",
+  "assertions": [
+    "Missing charge rejected after restart; next admission refused; journal bytes unchanged",
+    "Missing nested charged amount, quote amount/known flag and snapshot rates/bounded flag rejected",
+    "Writer-produced explicit zero settlement and omitted optional advisory fields accepted"
+  ],
+  "limitations": [
+    "Requires refreshed full Harness coverage and cumulative release review bundle",
+    "Focused tests do not qualify final clean candidate or platforms"
+  ]
+}

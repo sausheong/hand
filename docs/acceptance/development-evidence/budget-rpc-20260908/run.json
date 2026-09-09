@@ -1,0 +1,61 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "paid_calls": 0,
+  "binary_sha256": "e99f6ede56afe2f7423436620a4df214c363f2d24d10ad24206d0b1499ac0585",
+  "runner_sha256": "5f7e6ff9be18356f85c26500d5b2af298af469a134a759d5ca1dcb1000bb4651",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "session_id": "ses_d055d09780f5de42",
+  "exhausted": {
+    "approval_id": "",
+    "error": "llm error: provider admission: budget_exhausted",
+    "iteration": 1,
+    "reason": "session_token_budget",
+    "state": "idle",
+    "status": "budget_exhausted",
+    "text": "",
+    "truncated": false,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 0,
+      "known": true,
+      "output_tokens": 0,
+      "prior_unknown": false,
+      "requests": 0,
+      "unknown_requests": 0
+    },
+    "verified": false
+  },
+  "charged": {
+    "limit": 100000,
+    "committed": 15,
+    "exhausted": false,
+    "attempts": 1,
+    "uncertain_attempts": 0,
+    "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+  },
+  "completed": {
+    "approval_id": "",
+    "error": "",
+    "iteration": 1,
+    "reason": "answer_completed",
+    "state": "idle",
+    "status": "completed",
+    "text": "",
+    "truncated": false,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 10,
+      "known": true,
+      "output_tokens": 5,
+      "prior_unknown": false,
+      "requests": 1,
+      "unknown_requests": 0
+    },
+    "verified": false
+  },
+  "clean_exits": 3,
+  "local_provider_requests": 1
+}

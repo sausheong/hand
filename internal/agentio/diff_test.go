@@ -116,3 +116,15 @@ func TestBuildPreview_EditFile_UnreadableFileOmitsPreview(t *testing.T) {
 		t.Fatalf("preview = %q, want empty when the file can't be read", got)
 	}
 }
+
+func TestLineDiffSeparatesDistantHunks(t *testing.T) {
+	old := "first\n" + strings.Repeat("unchanged\n", 30) + "last\n"
+	next := "FIRST\n" + strings.Repeat("unchanged\n", 30) + "LAST\n"
+	diff := lineDiff(old, next)
+	if strings.Count(diff, "@@ -") != 2 {
+		t.Fatalf("want two separated hunks: %s", diff)
+	}
+	if strings.Contains(diff, "- unchanged") || strings.Contains(diff, "+ unchanged") {
+		t.Fatal("unchanged gap marked replaced")
+	}
+}

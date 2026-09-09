@@ -1,0 +1,196 @@
+{
+  "status": "development_full_suite_passed",
+  "command": "go test -p=1 -race -count=1 -timeout=15m -coverpkg=./... -coverprofile=/private/tmp/hand-full-native-coverage-20260909.out -json ./...",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HAND_TEST_PYTHON_IMAGE": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "HAND_TEST_CONTAINER_ARCH": "arm64",
+    "HAND_TEST_WORKER_BINARY": "/private/tmp/hand-current-container-worker-20260909",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "/private/tmp/hand-current-extension-peer-20260909.test",
+    "HAND_TEST_PUBLIC_FETCH_URL": "https://example.com/"
+  },
+  "source_unchanged_during_run": {
+    "hand": true,
+    "harness": true
+  },
+  "fixture_sha256": {
+    "HAND_TEST_WORKER_BINARY": "03adb99b60a7189bb686dea9230c8b8d5ac014646a71e212b8ac3b6e43787dd9",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "2a002149f050d2b62671d161596d90334d2ccc68bb1ab35d135444f6cf9e022d"
+  },
+  "test_records": {
+    "pass": 1368,
+    "fail": 0,
+    "skip": 0
+  },
+  "packages_passed": 26,
+  "coverage": {
+    "total": {
+      "statements": 15494,
+      "covered": 12415,
+      "percentage": 80.1277914031238
+    },
+    "packages": {
+      "github.com/sausheong/hand/cmd/hand": {
+        "statements": 967,
+        "covered": 670,
+        "percentage": 69.28645294725956
+      },
+      "github.com/sausheong/hand/cmd/hand-tool-worker": {
+        "statements": 11,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/compatibility": {
+        "statements": 210,
+        "covered": 160,
+        "percentage": 76.19047619047619
+      },
+      "github.com/sausheong/hand/examples/embedded": {
+        "statements": 19,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-task-note": {
+        "statements": 66,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-tool-policy": {
+        "statements": 35,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-tool-viewer": {
+        "statements": 48,
+        "covered": 18,
+        "percentage": 37.5
+      },
+      "github.com/sausheong/hand/examples/extensions/go-verification-hook": {
+        "statements": 62,
+        "covered": 28,
+        "percentage": 45.16129032258065
+      },
+      "github.com/sausheong/hand/examples/rpc": {
+        "statements": 17,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/extension/protocol": {
+        "statements": 204,
+        "covered": 176,
+        "percentage": 86.27450980392157
+      },
+      "github.com/sausheong/hand/internal/agentio": {
+        "statements": 1254,
+        "covered": 1087,
+        "percentage": 86.68261562998406
+      },
+      "github.com/sausheong/hand/internal/app": {
+        "statements": 3132,
+        "covered": 2649,
+        "percentage": 84.57854406130268
+      },
+      "github.com/sausheong/hand/internal/checkpoints": {
+        "statements": 1011,
+        "covered": 831,
+        "percentage": 82.19584569732937
+      },
+      "github.com/sausheong/hand/internal/config": {
+        "statements": 278,
+        "covered": 234,
+        "percentage": 84.1726618705036
+      },
+      "github.com/sausheong/hand/internal/extensions": {
+        "statements": 1117,
+        "covered": 903,
+        "percentage": 80.84153983885408
+      },
+      "github.com/sausheong/hand/internal/isolation": {
+        "statements": 35,
+        "covered": 28,
+        "percentage": 80.0
+      },
+      "github.com/sausheong/hand/internal/packages": {
+        "statements": 1302,
+        "covered": 1041,
+        "percentage": 79.95391705069125
+      },
+      "github.com/sausheong/hand/internal/permissions": {
+        "statements": 383,
+        "covered": 318,
+        "percentage": 83.02872062663185
+      },
+      "github.com/sausheong/hand/internal/rpc": {
+        "statements": 1075,
+        "covered": 836,
+        "percentage": 77.76744186046511
+      },
+      "github.com/sausheong/hand/internal/sessionio": {
+        "statements": 652,
+        "covered": 536,
+        "percentage": 82.20858895705521
+      },
+      "github.com/sausheong/hand/internal/toolproxy": {
+        "statements": 57,
+        "covered": 43,
+        "percentage": 75.43859649122807
+      },
+      "github.com/sausheong/hand/internal/toolworker": {
+        "statements": 44,
+        "covered": 38,
+        "percentage": 86.36363636363636
+      },
+      "github.com/sausheong/hand/internal/tui": {
+        "statements": 2688,
+        "covered": 2171,
+        "percentage": 80.76636904761905
+      },
+      "github.com/sausheong/hand/internal/verification": {
+        "statements": 395,
+        "covered": 295,
+        "percentage": 74.68354430379746
+      },
+      "github.com/sausheong/hand/protocol": {
+        "statements": 83,
+        "covered": 73,
+        "percentage": 87.95180722891567
+      },
+      "github.com/sausheong/hand/sdk": {
+        "statements": 349,
+        "covered": 280,
+        "percentage": 80.22922636103152
+      }
+    }
+  },
+  "overall_80_gate_observed": true,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-full-native-inputs-20260909.json",
+      "path": "docs/acceptance/development-evidence/full-native-suite-20260909/hand-full-native-inputs-20260909.json.gz",
+      "sha256": "9b8a341c1ca3304a4e3ec22545dcadc5d147719332a748b3bc45e91a43305c08",
+      "uncompressed_sha256": "0722bc42a9fe0d20c3efe0faceb8a74cd3176becc4f840822c68c4709e852ef4"
+    },
+    {
+      "source": "/private/tmp/hand-full-native-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/full-native-suite-20260909/hand-full-native-tests-20260909.jsonl.gz",
+      "sha256": "84f6b5cb27d22b122e1dc94fc70806bdabc2801d795e0635a3c60db9f50326bc",
+      "uncompressed_sha256": "b467fbd970cc0e4318cab75ff02fe2521ef80dc7bffd41631a7eb59415565fe1"
+    },
+    {
+      "source": "/private/tmp/hand-full-native-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/full-native-suite-20260909/hand-full-native-coverage-20260909.out.gz",
+      "sha256": "562b142a5990d19b1502432efffc63b5cd53094d833fab480fa010584e9035cf",
+      "uncompressed_sha256": "93bd7705f280974c18673e2e2ad1c9ee186f85ccc3571e2676f39f8c70ffe2d0"
+    }
+  ],
+  "limitations": [
+    "Dirty Hand and local unreleased Harness workspace; this is not final candidate qualification",
+    "Changed-code90 and all critical-group90 gates remain open",
+    "Additional platform/fuzz/repetition/performance evidence must match final frozen candidate",
+    "Paid comparative evaluation and full acceptance review remain outstanding"
+  ]
+}

@@ -1,0 +1,600 @@
+diff --git a/compaction/compaction.go b/compaction/compaction.go
+index 4477753..e2d6c33 100644
+--- a/compaction/compaction.go
++++ b/compaction/compaction.go
+@@ -172,14 +172,8 @@ func (m *Manager) MaybeCompact(ctx context.Context, sess *session.Session, reaso
+ 	// compaction at the leaf and View() would terminate on it immediately,
+ 	// silently dropping every preserved turn.
+ 	entry.ParentID = toPreserve[0].ParentID
+-	sess.Append(entry)
+-	for i, e := range toPreserve {
+-		if i == 0 {
+-			e.ParentID = entry.ID
+-		}
+-		// Re-append with same ID — Session.Append's entryMap overwrite and
+-		// the loader's last-write-wins behaviour both make this safe.
+-		sess.Append(e)
++	if err := sess.CommitCompaction(view[len(view)-1].ID, entry, toPreserve); err != nil {
++		return Result{}, err
+ 	}
+ 
+ 	dur := time.Since(start).Milliseconds()
+diff --git a/session/branch_persistence_test.go b/session/branch_persistence_test.go
+new file mode 100644
+index 0000000..10b6df1
+--- /dev/null
++++ b/session/branch_persistence_test.go
+@@ -0,0 +1,178 @@
++package session
++
++import (
++	"os"
++	"reflect"
++	"sync"
++	"testing"
++)
++
++func TestSelectedBranchSurvivesRestartAndRewrite(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	sess.Append(AssistantMessageEntry("first branch"))
++	first := sess.LeafID()
++	if err := sess.Branch(root); err != nil {
++		t.Fatal(err)
++	}
++	sess.Append(AssistantMessageEntry("second branch"))
++	second := sess.LeafID()
++	if err := sess.Branch(first); err != nil {
++		t.Fatal(err)
++	}
++	for _, rewrite := range []bool{false, true} {
++		if rewrite {
++			store.Rewrite(sess)
++		}
++		loaded, err := store.Load("agent", "key")
++		if err != nil || loaded.LeafID() != first {
++			t.Fatal("selected branch lost on restart", err)
++		}
++		history := loaded.History()
++		if len(history) != 2 || history[0].ID != root || history[1].ID != first {
++			t.Fatal("selection leaked into history", history)
++		}
++		if !reflect.DeepEqual(loaded.View(), history) {
++			t.Fatal("view differs from selected branch")
++		}
++	}
++	sess.Append(UserMessageEntry("continue first"))
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	history := loaded.History()
++	if len(history) != 3 || history[1].ID != first || history[2].ParentID != first {
++		t.Fatal("append ignored selected parent")
++	}
++	if err := sess.Branch(second); err != nil {
++		t.Fatal("other branch lost", err)
++	}
++}
++
++func TestLegacyCompactionPreservesOriginalBranches(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	for _, msg := range []string{"root", "middle", "last"} {
++		sess.Append(UserMessageEntry(msg))
++	}
++	original := sess.History()
++	if err := sess.Branch(original[0].ID); err != nil {
++		t.Fatal(err)
++	}
++	sess.Append(AssistantMessageEntry("alternative"))
++	other := sess.LeafID()
++	if err := sess.Branch(original[2].ID); err != nil {
++		t.Fatal(err)
++	}
++	sess.Compact("summary", 1)
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	current := sess.History()
++	if len(current) != 2 || current[1].ID == original[2].ID {
++		t.Fatal("compaction must clone retained nodes")
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err := loaded.Branch(original[2].ID); err == nil {
++		t.Fatal("legacy writer bypassed active lease")
++	}
++	sess.Close()
++	loaded, err = store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer loaded.Close()
++	if err := loaded.Branch(original[2].ID); err != nil {
++		t.Fatal("original history discarded", err)
++	}
++	if !reflect.DeepEqual(loaded.History(), original) {
++		t.Fatal("original graph mutated")
++	}
++	if err := loaded.Branch(other); err != nil || len(loaded.History()) != 2 {
++		t.Fatal("unselected branch discarded", err)
++	}
++}
++
++func TestFailedBranchPersistenceIsVisible(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	sess.Append(UserMessageEntry("tail"))
++	previous := sess.LeafID()
++	path := store.sessionPath("agent", "key")
++	if err := os.Rename(path, path+".original"); err != nil {
++		t.Fatal(err)
++	}
++	if err := os.Mkdir(path, 0700); err != nil {
++		t.Fatal(err)
++	}
++	if err := sess.Branch(root); err == nil || sess.PersistenceError() == nil {
++		t.Fatal("branch storage failure hidden")
++	}
++	if sess.LeafID() != previous {
++		t.Fatal("failed selection changed memory leaf")
++	}
++}
++
++func TestConcurrentBranchAppendAndViews(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	var wg sync.WaitGroup
++	wg.Add(3)
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 30; i++ {
++			if err := sess.Branch(root); err != nil {
++				t.Error(err)
++				return
++			}
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 30; i++ {
++			sess.Append(UserMessageEntry("append"))
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 100; i++ {
++			sess.History()
++			sess.View()
++			sess.Entries()
++		}
++	}()
++	wg.Wait()
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || !reflect.DeepEqual(loaded.Entries(), sess.Entries()) || loaded.LeafID() != sess.LeafID() {
++		t.Fatal("concurrent graph differs on disk", err)
++	}
++}
+diff --git a/session/graph.go b/session/graph.go
+new file mode 100644
+index 0000000..2c6c7a6
+--- /dev/null
++++ b/session/graph.go
+@@ -0,0 +1,98 @@
++package session
++
++import (
++	"encoding/json"
++	"errors"
++	"fmt"
++)
++
++// validateGraphNode requires parents to precede children in the append log.
++// This rejects missing links, duplicate IDs and cycles before graph traversal.
++func validateGraphNode(entry SessionEntry, lookup func(string) (EntryType, bool)) error {
++	if entry.ID == "" {
++		return errors.New("session entry ID is empty")
++	}
++	if _, exists := lookup(entry.ID); exists {
++		return fmt.Errorf("duplicate session entry ID %q", entry.ID)
++	}
++	if entry.ParentID != "" {
++		parent, exists := lookup(entry.ParentID)
++		if !exists || parent == EntryTypeSelection {
++			return errors.New("session parent is missing or is a selection control record")
++		}
++	}
++	if entry.Type == EntryTypeSelection {
++		var selection struct {
++			Version int `json:"version"`
++		}
++		if entry.ParentID == "" {
++			return errors.New("selection record has no target")
++		}
++		if err := json.Unmarshal(entry.Data, &selection); err != nil {
++			return fmt.Errorf("invalid selection record: %w", err)
++		}
++		if selection.Version != 1 {
++			return fmt.Errorf("unsupported selection record version %d", selection.Version)
++		}
++	}
++	return nil
++}
++
++var ErrSessionChanged = errors.New("session branch changed while preparing compaction")
++
++// CommitCompaction installs a summary and preserved messages as one graph
++// mutation. The caller supplies the leaf of the view it summarised. Concurrent
++// appends or branch selections invalidate that snapshot instead of losing work.
++// Original nodes remain immutable; cloned messages have fresh graph IDs while
++// their tool-call IDs and content remain unchanged.
++func (s *Session) CommitCompaction(expectedLeaf string, summary SessionEntry, preserved []SessionEntry) error {
++	s.mu.Lock()
++	if s.leafID != expectedLeaf {
++		s.mu.Unlock()
++		return ErrSessionChanged
++	}
++	if err := s.PersistenceError(); err != nil {
++		s.mu.Unlock()
++		return err
++	}
++	if summary.Type != EntryTypeCompaction {
++		s.mu.Unlock()
++		return errors.New("expected compaction summary")
++	}
++	summary.ID = generateID("compact")
++	if err := validateGraphNode(summary, func(id string) (EntryType, bool) {
++		node, ok := s.entryMap[id]
++		if !ok {
++			return "", false
++		}
++		return node.Type, true
++	}); err != nil {
++		s.mu.Unlock()
++		return err
++	}
++	for _, node := range preserved {
++		if node.Type == EntryTypeSelection {
++			s.mu.Unlock()
++			return errors.New("selection record cannot be preserved as a message")
++		}
++	}
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	s.entries = append(s.entries, summary)
++	s.entryMap[summary.ID] = &s.entries[len(s.entries)-1]
++	s.leafID = summary.ID
++	for _, node := range preserved {
++		node.ID = generateID("e")
++		node.ParentID = s.leafID
++		s.entries = append(s.entries, node)
++		s.entryMap[node.ID] = &s.entries[len(s.entries)-1]
++		s.leafID = node.ID
++	}
++	entries := append([]SessionEntry(nil), s.entries...)
++	store := s.store
++	s.mu.Unlock()
++	if store != nil {
++		store.rewriteEntries(s, entries)
++	}
++	return s.PersistenceError()
++}
+diff --git a/session/graph_test.go b/session/graph_test.go
+new file mode 100644
+index 0000000..9cb5e07
+--- /dev/null
++++ b/session/graph_test.go
+@@ -0,0 +1,118 @@
++package session
++
++import (
++	"context"
++	"errors"
++	"os"
++	"reflect"
++	"strings"
++	"testing"
++)
++
++func TestGraphCorruptionRejectedWithoutTailRepair(t *testing.T) {
++	root := `{"id":"root","type":"message"}` + "\n"
++	for name, raw := range map[string]string{
++		"missing ID":               `{}`,
++		"duplicate ID":             root + root,
++		"self cycle":               `{"id":"a","parentId":"a"}`,
++		"future parent":            `{"id":"a","parentId":"b"}` + "\n" + `{"id":"b","parentId":"a"}`,
++		"selection missing target": root + `{"id":"s","type":"selection","data":{"version":1}}`,
++		"selection future version": root + `{"id":"s","parentId":"root","type":"selection","data":{"version":2}}`,
++		"selection invalid data":   root + `{"id":"s","parentId":"root","type":"selection","data":"bad"}`,
++		"selection parent":         root + `{"id":"s","parentId":"root","type":"selection","data":{"version":1}}` + "\n" + `{"id":"child","parentId":"s"}`,
++	} {
++		t.Run(name, func(t *testing.T) {
++			store, path := recoveryFixture(t, raw)
++			sess, report, err := store.LoadRecovering(context.Background(), "agent", "key")
++			var record *RecordError
++			if sess != nil || !errors.As(err, &record) || record.RecoverableTail || report.Repaired {
++				t.Fatal("graph corruption accepted or repaired", err)
++			}
++			after, _ := os.ReadFile(path)
++			if string(after) != raw {
++				t.Fatal("graph corruption modified")
++			}
++		})
++	}
++}
++
++func TestAppendRejectsDuplicateAndMissingParent(t *testing.T) {
++	for _, duplicate := range []bool{false, true} {
++		sess := NewSession("agent", "key")
++		sess.Append(UserMessageEntry("root"))
++		before := sess.Entries()
++		entry := UserMessageEntry("invalid")
++		if duplicate {
++			entry.ID = sess.LeafID()
++		} else {
++			entry.ParentID = "missing"
++		}
++		sess.Append(entry)
++		if sess.PersistenceError() == nil || !reflect.DeepEqual(before, sess.Entries()) {
++			t.Fatal("invalid append changed graph")
++		}
++	}
++}
++
++func TestCommitCompactionPreservesOriginalGraphAndRestart(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	for _, text := range []string{"one", "two", "three"} {
++		sess.Append(UserMessageEntry(text))
++	}
++	original := sess.History()
++	summary := CompactionEntry("summary", original[0].ID, original[1].ID, "model", 0, 0, 2)
++	summary.ParentID = original[1].ID
++	if err := sess.CommitCompaction(original[2].ID, summary, original[2:]); err != nil {
++		t.Fatal(err)
++	}
++	view := sess.View()
++	if len(view) != 2 || view[0].Type != EntryTypeCompaction || view[1].ID == original[2].ID || view[1].ParentID != view[0].ID {
++		t.Fatal("compaction view invalid", view)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || !reflect.DeepEqual(loaded.View(), view) {
++		t.Fatal("compaction restart differs", err)
++	}
++	if err := sess.Branch(original[2].ID); err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(sess.History(), original) {
++		t.Fatal("compaction mutated old graph")
++	}
++}
++
++func TestCommitCompactionRejectsStaleView(t *testing.T) {
++	sess := NewSession("agent", "key")
++	sess.Append(UserMessageEntry("original"))
++	previous := sess.LeafID()
++	sess.Append(UserMessageEntry("new work"))
++	before := sess.Entries()
++	err := sess.CommitCompaction(previous, CompactionEntry("obsolete", previous, previous, "model", 0, 0, 1), nil)
++	if !errors.Is(err, ErrSessionChanged) || !reflect.DeepEqual(sess.Entries(), before) {
++		t.Fatal("stale compaction changed graph", err)
++	}
++}
++
++func TestSelectionControlVersionRoundTrip(t *testing.T) {
++	sess := NewSession("agent", "key")
++	sess.Append(UserMessageEntry("root"))
++	root := sess.LeafID()
++	if err := sess.Branch(root); err != nil {
++		t.Fatal(err)
++	}
++	marker := sess.Entries()[1]
++	if marker.Type != EntryTypeSelection || string(marker.Data) != `{"version":1}` {
++		t.Fatal("invalid marker", marker)
++	}
++	if err := sess.Branch(marker.ID); err == nil {
++		t.Fatal("selected control record")
++	}
++	if _, err := decodeSessionRecords(strings.NewReader(`{"id":"legacy","type":"message"}`)); err != nil {
++		t.Fatal("ordinary legacy record rejected", err)
++	}
++}
+diff --git a/session/records.go b/session/records.go
+index c717f9e..05856eb 100644
+--- a/session/records.go
++++ b/session/records.go
+@@ -50,6 +50,8 @@ func readSessionRecord(r *bufio.Reader) ([]byte, bool, error) {
+ func decodeSessionRecords(reader io.Reader) ([]SessionEntry, error) {
+ 	r := bufio.NewReaderSize(reader, 64<<10)
+ 	var entries []SessionEntry
++	seen := make(map[string]EntryType)
++	lookup := func(id string) (EntryType, bool) { kind, ok := seen[id]; return kind, ok }
+ 	var offset int64
+ 	for number := 1; ; number++ {
+ 		line, final, err := readSessionRecord(r)
+@@ -74,6 +76,10 @@ func decodeSessionRecords(reader io.Reader) ([]SessionEntry, error) {
+ 			if err := decoder.Decode(&extra); err != io.EOF {
+ 				return nil, &RecordError{Line: number, Offset: offset, Cause: errors.New("record contains trailing JSON data")}
+ 			}
++			if err := validateGraphNode(entry, lookup); err != nil {
++				return nil, &RecordError{Line: number, Offset: offset, Cause: err}
++			}
++			seen[entry.ID] = entry.Type
+ 			entries = append(entries, entry)
+ 		}
+ 		offset += int64(len(line))
+diff --git a/session/session.go b/session/session.go
+index 86eb318..d9a801d 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -19,6 +19,7 @@ const (
+ 	EntryTypeToolResult EntryType = "tool_result"
+ 	EntryTypeMeta       EntryType = "meta"
+ 	EntryTypeCompaction EntryType = "compaction"
++	EntryTypeSelection  EntryType = "selection" // versioned control record; never part of conversation history
+ )
+ 
+ // SessionEntry is a single node in the session DAG.
+@@ -129,6 +130,25 @@ func (s *Session) Append(entry SessionEntry) {
+ 		entry.ParentID = s.leafID
+ 	}
+ 
++	if err := validateGraphNode(entry, func(id string) (EntryType, bool) {
++		node, ok := s.entryMap[id]
++		if !ok {
++			return "", false
++		}
++		return node.Type, true
++	}); err != nil {
++		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{err})
++		s.mu.Unlock()
++		return
++	}
++	// Selection control records must use Branch so their durability and leaf
++	// semantics cannot be bypassed through the generic append API.
++	if entry.Type == EntryTypeSelection {
++		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("selection records require Branch")})
++		s.mu.Unlock()
++		return
++	}
++
+ 	s.entries = append(s.entries, entry)
+ 	s.entryMap[entry.ID] = &s.entries[len(s.entries)-1]
+ 	s.leafID = entry.ID
+@@ -233,14 +253,30 @@ func (s *Session) LeafID() string {
+ 	return s.leafID
+ }
+ 
+-// Branch moves the leaf pointer to the specified entry ID, creating a branch.
+-// New entries appended after this will have the branch point as their parent.
+-//
+-// NOTE: not lock-guarded — see Phase B spec, runs during /resume or DAG branching, never from parallel dispatch goroutines.
++// Branch durably selects an existing conversation node. Selection is an
++// append-only control record, so copying/renaming/exporting the JSONL also
++// preserves the selected branch. It is excluded from History and View.
+ func (s *Session) Branch(entryID string) error {
+-	if _, ok := s.entryMap[entryID]; !ok {
+-		return fmt.Errorf("entry %q not found in session", entryID)
++	s.mu.Lock()
++	defer s.mu.Unlock()
++	target, ok := s.entryMap[entryID]
++	if !ok || target.Type == EntryTypeSelection {
++		return fmt.Errorf("entry %q is not a conversation node", entryID)
++	}
++	if err := s.PersistenceError(); err != nil {
++		return err
+ 	}
++	marker := SessionEntry{ID: generateID("select"), ParentID: entryID, Type: EntryTypeSelection, Timestamp: time.Now().Unix(), Data: json.RawMessage(`{"version":1}`)}
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	if s.store != nil {
++		s.store.AppendEntry(s, marker)
++		if err := s.Flush(); err != nil {
++			return err
++		}
++	}
++	s.entries = append(s.entries, marker)
++	s.entryMap[marker.ID] = &s.entries[len(s.entries)-1]
+ 	s.leafID = entryID
+ 	return nil
+ }
+@@ -257,16 +293,10 @@ func (s *Session) EstimateTokens() int {
+ 	return totalChars / 4
+ }
+ 
+-// Compact replaces older history entries with a summary entry.
+-// It keeps the most recent keepEntries entries and replaces everything
+-// before them with a single summary meta entry.
+-// The summary text should be generated by the caller (typically by asking
+-// the LLM to summarize).
+-//
+-// NOTE: not lock-guarded — runs between turns only. Calls History() and
+-// Entries() (via store.Rewrite) internally; do NOT wrap in s.mu.Lock()
+-// without also restructuring those calls, or you will deadlock on the
+-// non-recursive sync.RWMutex.
++// Compact creates a new summarised branch while retaining all original
++// records and branches. Kept messages receive new IDs and parents; the original
++// nodes are immutable and remain available for branching and export. The
++// replacement is atomic on disk and keeps appends ordered behind the snapshot.
+ func (s *Session) Compact(summary string, keepEntries int) {
+ 	if keepEntries < 0 {
+ 		keepEntries = 0
+@@ -294,23 +324,16 @@ func (s *Session) Compact(summary string, keepEntries int) {
+ 
+ 	s.writeMu.Lock()
+ 	defer s.writeMu.Unlock()
+-	// Rebuild the session with summary + recent entries
+-	s.entries = nil
+-	s.entryMap = make(map[string]*SessionEntry)
+-	s.leafID = ""
+-
+ 	// Add summary entry
+ 	s.entries = append(s.entries, summaryEntry)
+-	s.entryMap[summaryEntry.ID] = &s.entries[0]
++	s.entryMap[summaryEntry.ID] = &s.entries[len(s.entries)-1]
+ 	s.leafID = summaryEntry.ID
+ 
+-	// Add recent entries, re-parenting the first one to the summary
+-	for i, entry := range recentEntries {
+-		if i == 0 {
+-			entry.ParentID = summaryEntry.ID
+-		} else {
+-			entry.ParentID = recentEntries[i-1].ID
+-		}
++	// Clone recent entries onto the new summary branch. Never rewrite the
++	// identities or parent links of records in the original graph.
++	for _, entry := range recentEntries {
++		entry.ID = generateID("e")
++		entry.ParentID = s.leafID
+ 		s.entries = append(s.entries, entry)
+ 		s.entryMap[entry.ID] = &s.entries[len(s.entries)-1]
+ 		s.leafID = entry.ID
+diff --git a/session/store.go b/session/store.go
+index 6c819f6..a3f90ff 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -106,7 +106,11 @@ func (s *Store) loadContext(ctx context.Context, agentID, key string) (*Session,
+ 	for _, entry := range entries {
+ 		sess.entries = append(sess.entries, entry)
+ 		sess.entryMap[entry.ID] = &sess.entries[len(sess.entries)-1]
+-		sess.leafID = entry.ID
++		if entry.Type == EntryTypeSelection {
++			sess.leafID = entry.ParentID
++		} else {
++			sess.leafID = entry.ID
++		}
+ 	}
+ 
+ 	return sess, nil

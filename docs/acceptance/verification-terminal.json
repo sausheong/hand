@@ -1,0 +1,88 @@
+{
+  "status": "development_passed",
+  "aggregate": "tui-verification-integration.patch",
+  "development_harness_candidate": "5998569d24ce063207cc237263d89f22d532e25f",
+  "report": {
+    "status": "passed",
+    "qualification": "development",
+    "command": [
+      "/private/tmp/hand-tui-verification-cli-20260908",
+      "--model",
+      "local/fixture",
+      "--base-url",
+      "http://127.0.0.1:1/v1",
+      "--checkpoint-dir",
+      "/private/tmp/hand-verification-terminal-20260908/fixture/checkpoints",
+      "--verification-config",
+      "/private/tmp/hand-verification-terminal-20260908/fixture/verification.json"
+    ],
+    "binary_sha256": "281e9234d56d3ee979f46507772dc678e3b0ff017d639d1d65a8bcc012777a90",
+    "runner_sha256": "65b27c805108945e1a685f01bfc4f510e0150d86e9ffc60740088c044d08142b",
+    "reviewed": true,
+    "confirmed": true,
+    "saved_id": "2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29",
+    "later_edit_stale": true,
+    "exit_code": 0,
+    "provider_calls": 0,
+    "terminal_sha256": "0946f1223bf16261239ebaa3bdd5c27663746a4d5a76666b5f19c057006983ae"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/checkpoints/0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d.json",
+      "sha256": "c6c6baafa0fef385711e0878cd672112f769eca983e70f1ebd1b5a4b3b470ed6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/evidence/2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29.json",
+      "sha256": "2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/home/.hand/authority/3ce82abbfebe664ec8c6326c1e094dedcbee099c8fe9f9f64a847f2032001a79/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/home/.hand/sessions/catalogues/3ce82abbfebe664e/catalogue.json",
+      "sha256": "a8ec33d3116dddf63e2cbe2fd280191860619a0c496ac08082253896ed5d0a7c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/home/.hand/sessions/catalogues/3ce82abbfebe664e/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/home/.hand/sessions/hand/.leases/workspace_3ce82abbfebe664e_b7dfa7050bf60b2a71c35732978b0f18.lock",
+      "sha256": "e20c0cedf2a15c44e0a5c493c486326e8e83df2487ef9d9cc28447938f88cde2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/home/.hand/sessions/hand/workspace_3ce82abbfebe664e_b7dfa7050bf60b2a71c35732978b0f18.jsonl",
+      "sha256": "a3cb002b3553c9722cf23cfd2d634980d2d8651dc013ddc8191c8dee828f0a64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/verification.json",
+      "sha256": "ff83a3e0924fec8a9d16bd36a7de30bfd860293b184450fb2fdc094c27f3f18b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/fixture/workspace/source",
+      "sha256": "c788e2315fa2282f79146ae97215c0f34be5e3f3b22101fc983793911427bc44"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/run.json",
+      "sha256": "b5fc6c82052b6ca88363e7d134e4ee6bfbd32c3ebeeae1442c8a3bc85d31f0cc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-terminal-20260908/terminal.bin",
+      "sha256": "0946f1223bf16261239ebaa3bdd5c27663746a4d5a76666b5f19c057006983ae"
+    }
+  ],
+  "limitations": [
+    "macOS arm64 140x45 PTY development binary; not native Linux or final qualification.",
+    "No provider calls. Terminal cancellation/failure paths have targeted tests but are not exercised in this positive PTY journey.",
+    "Retention and remaining M5-M8/full acceptance gates remain pending."
+  ]
+}

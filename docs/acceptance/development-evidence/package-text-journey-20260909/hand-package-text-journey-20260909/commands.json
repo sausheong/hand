@@ -1,0 +1,30 @@
+[
+  {
+    "arguments": [
+      "packages",
+      "inspect",
+      "--source",
+      "/private/tmp/hand-package-text-journey-20260909/source"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"text-journey\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"1.0.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"SKILL.md\",\n        \"kind\": \"skill\",\n        \"sha256\": \"4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4\",\n        \"size\": 67\n      },\n      {\n        \"path\": \"review.md\",\n        \"kind\": \"prompt\",\n        \"sha256\": \"95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308\",\n        \"size\": 80\n      }\n    ]\n  },\n  \"package_digest\": \"d29f9d9cfe3cfe38e521562af16eee6db1c7d46e92a70c1e1ba806062ec1c304\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "packages",
+      "review-install",
+      "--source",
+      "/private/tmp/hand-package-text-journey-20260909/source",
+      "--pin",
+      "d29f9d9cfe3cfe38e521562af16eee6db1c7d46e92a70c1e1ba806062ec1c304",
+      "--store",
+      "/private/tmp/hand-package-text-journey-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-text-journey-20260909/install.json"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "hand: package text-journey requires Hand >= 1.0.0; selected 1.0.0-dev.package-text\n"
+  }
+]

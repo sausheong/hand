@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "binary_sha256": "fcaa371ab89be9b645253226c618a7b268da16ee433330aa14db4d1d26c23196",
+  "runner_sha256": "eaad990ea989061b82bad7aaa6859c58a22f35c638904f3b6b3f043fa12b8ca8",
+  "client_sha256": "b84ae210254dafad761fef7c3780af4777d153817ecdb25b7883bc430efc8085",
+  "error": "KeyError('operation')"
+}

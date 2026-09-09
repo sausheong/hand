@@ -1,0 +1,44 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "repetitions": 20,
+  "pass": 80,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "Real Bubble Tea input responds through Service approval broker for y, n, Enter and a.",
+    "Backend approval hook cannot return before decision.",
+    "Bash command preview rendered from actual hook input.",
+    "Pending request and broker state settle before completed terminal.",
+    "Always decision survives permission store reopen; once/deny do not persist.",
+    "Exactly one terminal result displayed."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-approval-terminal-20260909/hand-service-approval-terminal-corrected-20260909.jsonl.gz",
+      "sha256": "6f4a8e582dd55c08a8a786a95bce1ea8f190c6d936560a20efc58c7a5a3405f5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-approval-terminal-20260909/hand-service-approval-terminal-20260909.jsonl.gz",
+      "sha256": "834cdfedc36980de6c4474302506697d5c5088173ed2b635bc7ae799ae081c20"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-approval-terminal-20260909/hand-approval-fixtures-before-20260909.txt.gz",
+      "sha256": "3da3e4f3bf25bec2e76df5dd9df179a5683706c079706683d2f159b3db1affdb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-approval-terminal-20260909/service_approval_terminal_test.go.gz",
+      "sha256": "47fa336c15b820856312a754851d23dbc3a420fec26e5c5590f0b4c5013802ee"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-approval-terminal-20260909/model_test.go.gz",
+      "sha256": "810bea69d0e03d3f61c51377ecff8df72a847899c28510be2dd651ac9ce06656"
+    }
+  ],
+  "limitations": [
+    "Uses application broker with legacy permission-store adapter; scoped-authority journeys are separate evidence.",
+    "No requested tool is executed; only hook decision and temporary permission persistence are exercised.",
+    "Initial compile failure from unused import retained; corrected before successful test run.",
+    "Test-only migration, not full candidate/platform/coverage qualification."
+  ]
+}

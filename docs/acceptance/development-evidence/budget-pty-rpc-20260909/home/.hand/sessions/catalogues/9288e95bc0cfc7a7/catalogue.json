@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-budget-pty-rpc-20260909/workspace",
+  "generation": 2,
+  "lastActiveId": "ses_11cdc344992a068a",
+  "sessions": [
+    {
+      "id": "ses_11cdc344992a068a",
+      "agentId": "hand",
+      "storeKey": "workspace_9288e95bc0cfc7a7_0caac69f0f55e3d4af34d69d43351368",
+      "name": "",
+      "createdAt": "2026-09-09T00:38:42.92391Z",
+      "lastActive": "2026-09-09T00:38:45.463417Z"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/private/tmp/hand-container-extension-20260909",
+      "--review-extensions",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/input.json",
+      "--extension-review-output",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/review.json"
+    ],
+    "exit_code": 0,
+    "stdout": "ec708b31c52f09da5fd9e622042d720ee1a6615ab77da40350414e52c4a2bf0f\n",
+    "stderr": "Review created without execution. Inspect the file and its unrestricted host boundary before supplying --approve-extension-config.\n"
+  },
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "afad9913cd90\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "inspect",
+      "afad9913cd90"
+    ],
+    "exit_code": 0,
+    "stdout": "[\n    {\n        \"Id\": \"afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c\",\n        \"Created\": \"2026-09-08T19:36:26.446336255Z\",\n        \"Path\": \"/harness-resources/executable\",\n        \"Args\": [],\n        \"State\": {\n            \"Status\": \"running\",\n            \"Running\": true,\n            \"Paused\": false,\n            \"Restarting\": false,\n            \"OOMKilled\": false,\n            \"Dead\": false,\n            \"Pid\": 67535,\n            \"ExitCode\": 0,\n            \"Error\": \"\",\n            \"StartedAt\": \"2026-09-08T19:36:26.490281172Z\",\n            \"FinishedAt\": \"0001-01-01T00:00:00Z\"\n        },\n        \"Image\": \"sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818\",\n        \"ResolvConfPath\": \"/var/lib/docker/containers/afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c/resolv.conf\",\n        \"HostnamePath\": \"/var/lib/docker/containers/afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c/hostname\",\n        \"HostsPath\": \"/var/lib/docker/containers/afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c/hosts\",\n        \"LogPath\": \"\",\n        \"Name\": \"/harness-exec-lzwmq2yyyg5jsxckjthbylsitt\",\n        \"RestartCount\": 0,\n        \"Driver\": \"overlayfs\",\n        \"Platform\": \"linux\",\n        \"MountLabel\": \"\",\n        \"ProcessLabel\": \"\",\n        \"AppArmorProfile\": \"\",\n        \"ExecIDs\": null,\n        \"HostConfig\": {\n            \"Binds\": null,\n            \"ContainerIDFile\": \"\",\n            \"LogConfig\": {\n                \"Type\": \"none\",\n                \"Config\": {}\n            },\n            \"NetworkMode\": \"none\",\n            \"PortBindings\": {},\n            \"RestartPolicy\": {\n                \"Name\": \"no\",\n                \"MaximumRetryCount\": 0\n            },\n            \"AutoRemove\": false,\n            \"VolumeDriver\": \"\",\n            \"VolumesFrom\": null,\n            \"ConsoleSize\": [\n                0,\n                0\n            ],\n            \"CapAdd\": null,\n            \"CapDrop\": [\n                \"ALL\"\n            ],\n            \"CgroupnsMode\": \"private\",\n            \"Dns\": null,\n            \"DnsOptions\": [],\n            \"DnsSearch\": [],\n            \"ExtraHosts\": null,\n            \"GroupAdd\": null,\n            \"IpcMode\": \"private\",\n            \"Cgroup\": \"\",\n            \"Links\": null,\n            \"OomScoreAdj\": 0,\n            \"PidMode\": \"\",\n            \"Privileged\": false,\n            \"PublishAllPorts\": false,\n            \"ReadonlyRootfs\": true,\n            \"SecurityOpt\": [\n                \"no-new-privileges\"\n            ],\n            \"Tmpfs\": {\n                \"/tmp\": \"rw,nosuid,nodev,size=64m,mode=1777\"\n            },\n            \"UTSMode\": \"\",\n            \"UsernsMode\": \"\",\n            \"ShmSize\": 67108864,\n            \"Runtime\": \"runc\",\n            \"Isolation\": \"\",\n            \"CpuShares\": 0,\n            \"Memory\": 536870912,\n            \"NanoCpus\": 2000000000,\n            \"CgroupParent\": \"\",\n            \"BlkioWeight\": 0,\n            \"BlkioWeightDevice\": [],\n            \"BlkioDeviceReadBps\": [],\n            \"BlkioDeviceWriteBps\": [],\n            \"BlkioDeviceReadIOps\": [],\n            \"BlkioDeviceWriteIOps\": [],\n            \"CpuPeriod\": 0,\n            \"CpuQuota\": 0,\n            \"CpuRealtimePeriod\": 0,\n            \"CpuRealtimeRuntime\": 0,\n            \"CpusetCpus\": \"\",\n            \"CpusetMems\": \"\",\n            \"Devices\": [],\n            \"DeviceCgroupRules\": null,\n            \"DeviceRequests\": null,\n            \"MemoryReservation\": 0,\n            \"MemorySwap\": 536870912,\n            \"MemorySwappiness\": null,\n            \"OomKillDisable\": null,\n            \"PidsLimit\": 128,\n            \"Ulimits\": [],\n            \"CpuCount\": 0,\n            \"CpuPercent\": 0,\n            \"IOMaximumIOps\": 0,\n            \"IOMaximumBandwidth\": 0,\n            \"Mounts\": [\n                {\n                    \"Type\": \"bind\",\n                    \"Source\": \"/private/tmp/hand-container-extension-rpc-corrected-20260909/workspace\",\n                    \"Target\": \"/workspace\",\n                    \"ReadOnly\": true,\n                    \"BindOptions\": {\n                        \"Propagation\": \"rprivate\",\n                        \"NonRecursive\": true\n                    }\n                },\n                {\n                    \"Type\": \"bind\",\n                    \"Source\": \"/tmp/harness-docker-config-970481645/verified-resources-2606986672\",\n                    \"Target\": \"/harness-resources\",\n                    \"ReadOnly\": true,\n                    \"BindOptions\": {\n                        \"NonRecursive\": true\n                    }\n                }\n            ],\n            \"MaskedPaths\": [\n                \"/proc/acpi\",\n                \"/proc/asound\",\n                \"/proc/interrupts\",\n                \"/proc/kcore\",\n                \"/proc/keys\",\n                \"/proc/latency_stats\",\n                \"/proc/sched_debug\",\n                \"/proc/scsi\",\n                \"/proc/timer_list\",\n                \"/proc/timer_stats\",\n                \"/sys/devices/virtual/powercap\",\n                \"/sys/firmware\"\n            ],\n            \"ReadonlyPaths\": [\n                \"/proc/bus\",\n                \"/proc/fs\",\n                \"/proc/irq\",\n                \"/proc/sys\",\n                \"/proc/sysrq-trigger\"\n            ],\n            \"Init\": true\n        },\n        \"Storage\": {\n            \"RootFS\": {\n                \"Snapshot\": {\n                    \"Name\": \"overlayfs\"\n                }\n            }\n        },\n        \"Mounts\": [\n            {\n                \"Type\": \"bind\",\n                \"Source\": \"/private/tmp/hand-container-extension-rpc-corrected-20260909/workspace\",\n                \"Destination\": \"/workspace\",\n                \"Mode\": \"\",\n                \"RW\": false,\n                \"Propagation\": \"rprivate\"\n            },\n            {\n                \"Type\": \"bind\",\n                \"Source\": \"/tmp/harness-docker-config-970481645/verified-resources-2606986672\",\n                \"Destination\": \"/harness-resources\",\n                \"Mode\": \"\",\n                \"RW\": false,\n                \"Propagation\": \"rprivate\"\n            }\n        ],\n        \"Config\": {\n            \"Hostname\": \"afad9913cd90\",\n            \"Domainname\": \"\",\n            \"User\": \"501:20\",\n            \"AttachStdin\": true,\n            \"AttachStdout\": true,\n            \"AttachStderr\": true,\n            \"Tty\": false,\n            \"OpenStdin\": true,\n            \"StdinOnce\": true,\n            \"Env\": [\n                \"PATH=/usr/local/bin:/usr/bin:/bin\"\n            ],\n            \"Cmd\": null,\n            \"Healthcheck\": {\n                \"Test\": [\n                    \"NONE\"\n                ]\n            },\n            \"Image\": \"sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818\",\n            \"Volumes\": null,\n            \"WorkingDir\": \"/workspace\",\n            \"Entrypoint\": [\n                \"/harness-resources/executable\"\n            ],\n            \"Labels\": {},\n            \"StopTimeout\": 1\n        },\n        \"NetworkSettings\": {\n            \"SandboxID\": \"a52f9aaeff2e176ab5bde9544c077e7e82b22818d8f47d138fe2e46c52310fc6\",\n            \"SandboxKey\": \"/var/run/docker/netns/a52f9aaeff2e\",\n            \"Ports\": {},\n            \"Networks\": {\n                \"none\": {\n                    \"IPAMConfig\": null,\n                    \"Links\": null,\n                    \"Aliases\": null,\n                    \"DriverOpts\": null,\n                    \"GwPriority\": 0,\n                    \"NetworkID\": \"055797024dca142b2d15108902f78301d35c532ed43216678c57d914eeb263a3\",\n                    \"EndpointID\": \"9a066dbe7243143e9f2f157ea04c434e16cd2ee5fbb807b839a069fb86489d8c\",\n                    \"Gateway\": \"\",\n                    \"IPAddress\": \"\",\n                    \"MacAddress\": \"\",\n                    \"IPPrefixLen\": 0,\n                    \"IPv6Gateway\": \"\",\n                    \"GlobalIPv6Address\": \"\",\n                    \"GlobalIPv6PrefixLen\": 0,\n                    \"DNSNames\": null\n                }\n            }\n        },\n        \"ImageManifestDescriptor\": {\n            \"mediaType\": \"application/vnd.oci.image.manifest.v1+json\",\n            \"digest\": \"sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0\",\n            \"size\": 1041,\n            \"annotations\": {\n                \"com.docker.official-images.bashbrew.arch\": \"arm64v8\",\n                \"org.opencontainers.image.base.name\": \"scratch\",\n                \"org.opencontainers.image.created\": \"2026-07-13T00:00:00Z\",\n                \"org.opencontainers.image.revision\": \"fb7215b47dab72bdbdd59204a7b7914311431d90\",\n                \"org.opencontainers.image.source\": \"https://github.com/debuerreotype/docker-debian-artifacts.git\",\n                \"org.opencontainers.image.url\": \"https://hub.docker.com/_/debian\",\n                \"org.opencontainers.image.version\": \"bookworm-slim\"\n            },\n            \"platform\": {\n                \"architecture\": \"arm64\",\n                \"os\": \"linux\",\n                \"variant\": \"v8\"\n            }\n        }\n    }\n]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-corrected-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

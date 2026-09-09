@@ -1,0 +1,56 @@
+{
+  "status": "environment_verified",
+  "image": {
+    "Id": "sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee",
+    "RepoDigests": [
+      "golang@sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee"
+    ],
+    "Architecture": "arm64",
+    "Os": "linux"
+  },
+  "environment": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "linux",
+    "GOVERSION": "go1.25.1"
+  },
+  "initial_failure": "Public image pull stalled in docker-credential-desktop get. Parent/child relationship verified; stalled pull and helper terminated. Public pull completed using isolated empty Docker configuration. Personal Docker configuration unchanged.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/checks.json",
+      "sha256": "b76ed9a54afca20d051b21eb25359b98ecf5ebd75ed184de8f4514a60f44d018"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/environment.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/environment.stdout",
+      "sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/gcc.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/gcc.stdout",
+      "sha256": "8c59c3b7b9051484db9a6b6576edf12a3aca7381a06a174a2d4dbfd6ce08681f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/go.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/go.stdout",
+      "sha256": "6413b896d68b41ad741a8ccc0858e0a0e7bc06d79b15089a98d8b806c42c249e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-toolchain-20260909/image.json",
+      "sha256": "511654e71ebad853d3fac25b13b5b02cc6cd1d5ce6a40ace7b9d16f579009180"
+    }
+  ],
+  "limitations": [
+    "Toolchain verified only; full Linux Hand/Harness suite not yet executed",
+    "Nested-container fixture mounts and native filesystem coverage must be configured explicitly"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/usr/local/bin/docker",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--read-only",
+    "--tmpfs",
+    "/tmp:rw,exec,size=128m,mode=1777",
+    "--mount",
+    "type=bind,source=/private/tmp/hand-authority-linux-20260909.test,target=/test,readonly",
+    "--entrypoint",
+    "/test",
+    "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "-test.v",
+    "-test.timeout=1m"
+  ],
+  "exit_code": 0,
+  "seconds": 0.23719224997330457,
+  "binary_sha256": "47e68d5bbf18401ecce49e58466556011ff59122511a7554c0a2a50bab848f84"
+}

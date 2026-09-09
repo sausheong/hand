@@ -1,0 +1,717 @@
+diff --git a/SESSION_FORMAT.md b/SESSION_FORMAT.md
+index adebc35..2fb4b11 100644
+--- a/SESSION_FORMAT.md
++++ b/SESSION_FORMAT.md
+@@ -67,3 +67,19 @@ request deduplication and inherited-versus-new accounting semantics for forks.
+ This extension is part of the unpublished session format candidate. The older
+ 5cc93a3 development snapshot does not implement annotation control semantics and
+ must not be used to load files created by this candidate.
++
++## Attachment references (unpublished development format)
++
++New persistent message/tool-result images store `attachment: {sha256, size}`
++instead of base64 `data`. Blobs live in the agent session directory's private
++`.attachments` directory. Legacy inline data remains readable. Image MIME type
++and unknown payload fields remain in JSONL. AppendContext publishes and syncs
++blobs before the referring record; ResolveImages verifies and hydrates them for
++model replay. Missing/corrupt references are errors. In-memory sessions retain
++inline data. This extension requires the corresponding runtime; older loaders
++must not be used for image replay on these unpublished candidates.
++
++CopyAttachments publishes only referenced blobs into a target store before its
++session JSONL is published. Portable JSONL copies must travel together with their
++sibling `.attachments` directory. Copying JSONL alone is insufficient when it
++contains references. Blob quotas do not evict existing session data.
+diff --git a/attachment/README.md b/attachment/README.md
+new file mode 100644
+index 0000000..f3ad502
+--- /dev/null
++++ b/attachment/README.md
+@@ -0,0 +1,26 @@
++# Session attachment storage
++
++`Open(directory, quotaBytes)` opens a private (0700) content store. Its parent directory must already exist;
++the store directory and its parent publication are synced before use. Use
++`DefaultStoreBytes` for a 1 GiB quota. `Put(ctx, data)` publishes a synced 0600
++blob and returns a `Ref` containing its lowercase SHA-256 digest and exact byte
++length. `Read(ctx, ref)` verifies regular-file identity, size and digest. Blobs
++are limited to 32 MiB; MIME type belongs in the referring session record.
++
++Publication uses a synced temporary file, exclusive hard link and directory
++sync. A cross-process lock serialises deduplication, quota admission and
++publication on Linux/macOS. Interrupted pending files are removed under that
++lock on a later new-content put. Existing published attachments are never
++evicted. A full store fails admission. Directory scanning is bounded to 8192
++entries, including control files; oversized stores require explicit maintenance.
++
++References contain no caller-chosen filesystem path. File operations use
++`os.Root`; external symlinks cannot escape that root. The caller owns the
++configured private root and must not replace it with an untrusted directory.
++Do not close the store until its operations have joined. Cancellation interrupts
++lock waits and chunked I/O; the caller still owns its input byte slice until Put
++returns. Other platforms reject writer locking explicitly.
++
++This package is the storage foundation. Session image references, runtime
++hydration, legacy inline-image conversion, fork copying and portable export
++packaging must be integrated before claiming attachment workflow completion.
+diff --git a/attachment/store.go b/attachment/store.go
+index d23f498..2fbf7d6 100644
+--- a/attachment/store.go
++++ b/attachment/store.go
+@@ -10,6 +10,7 @@ import (
+ 	"fmt"
+ 	"io"
+ 	"os"
++	"path/filepath"
+ 	"strings"
+ )
+ 
+@@ -46,7 +47,7 @@ func Open(dir string, limit int64) (*Store, error) {
+ 	if limit <= 0 {
+ 		return nil, errors.New("attachment quota must be positive")
+ 	}
+-	if err := os.MkdirAll(dir, 0700); err != nil {
++	if err := os.Mkdir(dir, 0700); err != nil && !errors.Is(err, os.ErrExist) {
+ 		return nil, err
+ 	}
+ 	info, err := os.Lstat(dir)
+@@ -60,6 +61,17 @@ func Open(dir string, limit int64) (*Store, error) {
+ 	if err != nil {
+ 		return nil, err
+ 	}
++	// A durable blob directory also needs its name synced in the parent before
++	// any session record can refer to a blob inside it. The parent must exist.
++	parent, err := os.Open(filepath.Dir(dir))
++	if err != nil {
++		root.Close()
++		return nil, err
++	}
++	if err = errors.Join(parent.Sync(), parent.Close()); err != nil {
++		root.Close()
++		return nil, err
++	}
+ 	return &Store{root: root, limit: limit}, nil
+ }
+ func (s *Store) Close() error { return s.root.Close() }
+diff --git a/runtime/attachment_replay_test.go b/runtime/attachment_replay_test.go
+new file mode 100644
+index 0000000..0324df2
+--- /dev/null
++++ b/runtime/attachment_replay_test.go
+@@ -0,0 +1,80 @@
++package runtime
++
++import (
++	"context"
++	"encoding/base64"
++	"encoding/json"
++	"os"
++	"path/filepath"
++	"testing"
++
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/llm/llmtest"
++	"github.com/sausheong/harness/session"
++)
++
++type attachmentReplayProvider struct {
++	llmtest.Base
++	calls  int
++	images []llm.ImageContent
++}
++
++func (p *attachmentReplayProvider) ChatStream(_ context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.calls++
++	for _, msg := range req.Messages {
++		p.images = append(p.images, msg.Images...)
++	}
++	events := make(chan llm.ChatEvent, 1)
++	events <- llm.ChatEvent{Type: llm.EventDone}
++	close(events)
++	return events, nil
++}
++
++func TestRuntimeReplaysAttachmentsAndRejectsMissingBlobs(t *testing.T) {
++	for _, missing := range []bool{false, true} {
++		name := "replay"
++		if missing {
++			name = "missing"
++		}
++		t.Run(name, func(t *testing.T) {
++			dir := t.TempDir()
++			store := session.NewStore(dir)
++			if err := store.Create("agent", "key"); err != nil {
++				t.Fatal(err)
++			}
++			sess, err := store.LoadExclusive("agent", "key")
++			if err != nil {
++				t.Fatal(err)
++			}
++			sess.Append(session.UserMessageWithImagesEntry("original", []session.ImageData{{MimeType: "image/png", Data: base64.StdEncoding.EncodeToString([]byte("original image"))}}))
++			if err := sess.Flush(); err != nil {
++				t.Fatal(err)
++			}
++			sess.Close()
++			sess, err = store.LoadExclusive("agent", "key")
++			if err != nil {
++				t.Fatal(err)
++			}
++			defer sess.Close()
++			if missing {
++				var data session.MessageData
++				json.Unmarshal(sess.History()[0].Data, &data)
++				if err := os.Remove(filepath.Join(dir, "agent", ".attachments", data.Images[0].Reference.SHA256)); err != nil {
++					t.Fatal(err)
++				}
++			}
++			provider := &attachmentReplayProvider{}
++			rt := &Runtime{Session: sess, LLM: provider, Tools: usageNoopExecutor{}, Model: "model", MaxTurns: 1}
++			_, err = rt.RunSync(context.Background(), "continue", nil)
++			if missing {
++				if err == nil || provider.calls != 0 {
++					t.Fatal("missing image silently omitted", err, provider.calls)
++				}
++				return
++			}
++			if err != nil || provider.calls != 1 || len(provider.images) != 1 || string(provider.images[0].Data) != "original image" {
++				t.Fatal(provider, err)
++			}
++		})
++	}
++}
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index 48ac678..48fac5f 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -387,7 +387,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 					Data:     base64.StdEncoding.EncodeToString(img.Data),
+ 				})
+ 			}
+-			r.Session.Append(session.UserMessageWithImagesEntry(userMsg, imgData))
++			r.Session.AppendContext(ctx, session.UserMessageWithImagesEntry(userMsg, imgData))
+ 		} else {
+ 			r.Session.Append(session.UserMessageEntry(userMsg))
+ 		}
+@@ -505,7 +505,12 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 				parts = append(parts, llm.SystemPromptPart{Text: dynamicSuffix, Cache: false})
+ 			}
+ 
+-			history := r.Session.View()
++			history, imageErr := r.Session.ResolveImages(ctx, r.Session.View())
++			if imageErr != nil {
++				stopReason = "error"
++				r.emit(AgentEvent{Type: EventError, Error: imageErr})
++				return
++			}
+ 			msgs := assembleMessages(history)
+ 
+ 			spillCfg := spillConfig{Workspace: r.Workspace, SessionKey: r.Session.Key}
+@@ -868,7 +873,7 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 						return
+ 					}
+ 					imgData := convertToolResultImages(kp.result.Images)
+-					r.Session.Append(session.ToolResultEntry(kp.tc.ID, kp.result.Output, kp.result.Error, imgData))
++					r.Session.AppendContext(ctx, session.ToolResultEntry(kp.tc.ID, kp.result.Output, kp.result.Error, imgData))
+ 					if r.KG != nil {
+ 						content := kp.result.Output
+ 						if kp.result.Error != "" {
+@@ -1032,7 +1037,7 @@ func (r *Runtime) dispatchTool(
+ 	}
+ 
+ 	imgData := convertToolResultImages(result.Images)
+-	r.Session.Append(session.ToolResultEntry(tc.ID, result.Output, result.Error, imgData))
++	r.Session.AppendContext(ctx, session.ToolResultEntry(tc.ID, result.Output, result.Error, imgData))
+ 	if kgThread != nil {
+ 		content := result.Output
+ 		if result.Error != "" {
+diff --git a/runtime/runturn.go b/runtime/runturn.go
+index 06ac239..6d6ada3 100644
+--- a/runtime/runturn.go
++++ b/runtime/runturn.go
+@@ -66,7 +66,7 @@ func (r *Runtime) RunTurn(ctx context.Context, userMsg string, images []llm.Imag
+ 					Data:     base64.StdEncoding.EncodeToString(img.Data),
+ 				})
+ 			}
+-			r.Session.Append(session.UserMessageWithImagesEntry(userMsg, imgData))
++			r.Session.AppendContext(ctx, session.UserMessageWithImagesEntry(userMsg, imgData))
+ 		} else {
+ 			r.Session.Append(session.UserMessageEntry(userMsg))
+ 		}
+@@ -76,7 +76,13 @@ func (r *Runtime) RunTurn(ctx context.Context, userMsg string, images []llm.Imag
+ 		return r.turnSlice(startLen, true, "aborted", nil, ctx.Err()), nil
+ 	}
+ 
+-	history := r.Session.View()
++	if err := r.Session.PersistenceError(); err != nil {
++		return r.turnSlice(startLen, true, "error", nil, err), nil
++	}
++	history, imageErr := r.Session.ResolveImages(ctx, r.Session.View())
++	if imageErr != nil {
++		return r.turnSlice(startLen, true, "error", nil, imageErr), nil
++	}
+ 	msgs := assembleMessages(history)
+ 	toolDefs := r.Tools.ToolDefs()
+ 	if r.Permission != nil {
+diff --git a/session/attachments.go b/session/attachments.go
+new file mode 100644
+index 0000000..0e151f0
+--- /dev/null
++++ b/session/attachments.go
+@@ -0,0 +1,233 @@
++package session
++
++import (
++	"context"
++	"encoding/base64"
++	"encoding/json"
++	"errors"
++	"path/filepath"
++
++	"github.com/sausheong/harness/attachment"
++)
++
++func (s *Store) OpenAttachments(agentID string) (*attachment.Store, error) {
++	if err := validateStoreComponent("agent ID", agentID); err != nil {
++		return nil, err
++	}
++	return attachment.Open(filepath.Join(s.sessionDir(agentID), ".attachments"), attachment.DefaultStoreBytes)
++}
++
++func mapImages(entry SessionEntry, transform func(ImageData) (ImageData, error)) (SessionEntry, error) {
++	if entry.Type != EntryTypeMessage && entry.Type != EntryTypeToolResult {
++		return entry, nil
++	}
++	var fields map[string]json.RawMessage
++	if err := json.Unmarshal(entry.Data, &fields); err != nil {
++		return entry, err
++	}
++	raw, ok := fields["images"]
++	if !ok {
++		return entry, nil
++	}
++	var images []map[string]json.RawMessage
++	if err := json.Unmarshal(raw, &images); err != nil {
++		return entry, err
++	}
++	for _, fields := range images {
++		encoded, err := json.Marshal(fields)
++		if err != nil {
++			return entry, err
++		}
++		var img ImageData
++		if err := json.Unmarshal(encoded, &img); err != nil {
++			return entry, err
++		}
++		img, err = transform(img)
++		if err != nil {
++			return entry, err
++		}
++		delete(fields, "data")
++		delete(fields, "attachment")
++		if img.Reference != nil {
++			fields["attachment"], err = json.Marshal(img.Reference)
++		} else {
++			fields["data"], err = json.Marshal(img.Data)
++		}
++		if err != nil {
++			return entry, err
++		}
++	}
++	encoded, err := json.Marshal(images)
++	if err != nil {
++		return entry, err
++	}
++	fields["images"] = encoded
++	entry.Data, err = json.Marshal(fields)
++	return entry, err
++}
++
++// externalizeImages runs while the caller holds the session write fence.
++func (s *Session) externalizeImages(ctx context.Context, entry SessionEntry) (SessionEntry, error) {
++	var blobs *attachment.Store
++	defer func() {
++		if blobs != nil {
++			blobs.Close()
++		}
++	}()
++	return mapImages(entry, func(img ImageData) (ImageData, error) {
++		if img.Reference != nil && img.Data != "" {
++			return img, errors.New("image has both inline data and attachment reference")
++		}
++		if s.store == nil {
++			if img.Reference != nil {
++				return img, errors.New("attachment reference requires a persistent session store")
++			}
++			return img, nil
++		}
++		if blobs == nil {
++			var err error
++			blobs, err = s.store.OpenAttachments(s.AgentID)
++			if err != nil {
++				return img, err
++			}
++		}
++		if img.Reference != nil {
++			if _, err := blobs.Read(ctx, *img.Reference); err != nil {
++				return img, err
++			}
++			return img, nil
++		}
++		if int64(base64.StdEncoding.DecodedLen(len(img.Data))) > attachment.MaxBlobBytes {
++			return img, errors.New("inline image exceeds attachment limit")
++		}
++		data, err := base64.StdEncoding.DecodeString(img.Data)
++		if err != nil {
++			return img, err
++		}
++		ref, err := blobs.Put(ctx, data)
++		if err != nil {
++			return img, err
++		}
++		img.Data = ""
++		img.Reference = &ref
++		return img, nil
++	})
++}
++
++// ResolveImages returns independent replay entries. Stored records retain
++// references. Missing/corrupt blobs are errors, never silently omitted images.
++func (s *Session) ResolveImages(ctx context.Context, entries []SessionEntry) ([]SessionEntry, error) {
++	var blobs *attachment.Store
++	defer func() {
++		if blobs != nil {
++			blobs.Close()
++		}
++	}()
++	resolved := make([]SessionEntry, 0, len(entries))
++	for _, entry := range entries {
++		if err := ctx.Err(); err != nil {
++			return nil, err
++		}
++		next, err := mapImages(entry, func(img ImageData) (ImageData, error) {
++			if img.Reference == nil {
++				return img, nil
++			}
++			if img.Data != "" {
++				return img, errors.New("ambiguous image representation")
++			}
++			if s.store == nil {
++				return img, errors.New("attachment store unavailable")
++			}
++			if blobs == nil {
++				var err error
++				blobs, err = s.store.OpenAttachments(s.AgentID)
++				if err != nil {
++					return img, err
++				}
++			}
++			data, err := blobs.Read(ctx, *img.Reference)
++			if err != nil {
++				return img, err
++			}
++			img.Data = base64.StdEncoding.EncodeToString(data)
++			img.Reference = nil
++			return img, nil
++		})
++		if err != nil {
++			return nil, err
++		}
++		resolved = append(resolved, next)
++	}
++	return resolved, nil
++}
++
++// AttachmentReferences returns unique validated references across all supplied
++// branches. Inline legacy images are not references and remain in their record.
++func AttachmentReferences(entries []SessionEntry) ([]attachment.Ref, error) {
++	var refs []attachment.Ref
++	seen := map[string]int64{}
++	for _, entry := range entries {
++		_, err := mapImages(entry, func(img ImageData) (ImageData, error) {
++			if img.Reference == nil {
++				return img, nil
++			}
++			if img.Data != "" {
++				return img, errors.New("ambiguous image representation")
++			}
++			ref := *img.Reference
++			if err := ref.Validate(); err != nil {
++				return img, err
++			}
++			if size, ok := seen[ref.SHA256]; ok {
++				if size != ref.Size {
++					return img, errors.New("conflicting attachment sizes")
++				}
++				return img, nil
++			}
++			seen[ref.SHA256] = ref.Size
++			refs = append(refs, ref)
++			return img, nil
++		})
++		if err != nil {
++			return nil, err
++		}
++	}
++	return refs, nil
++}
++
++// CopyAttachments copies referenced blobs before publishing a copied session.
++// At most one blob is materialised at a time; existing content is verified and
++// reused. Unreferenced source-store content is never copied.
++func (s *Store) CopyAttachments(ctx context.Context, agentID string, target *Store, targetAgent string, entries []SessionEntry) error {
++	refs, err := AttachmentReferences(entries)
++	if err != nil {
++		return err
++	}
++	if len(refs) == 0 {
++		return ctx.Err()
++	}
++	from, err := s.OpenAttachments(agentID)
++	if err != nil {
++		return err
++	}
++	defer from.Close()
++	to, err := target.OpenAttachments(targetAgent)
++	if err != nil {
++		return err
++	}
++	defer to.Close()
++	for _, ref := range refs {
++		data, err := from.Read(ctx, ref)
++		if err != nil {
++			return err
++		}
++		got, err := to.Put(ctx, data)
++		if err != nil {
++			return err
++		}
++		if got != ref {
++			return errors.New("copied attachment reference changed")
++		}
++	}
++	return nil
++}
+diff --git a/session/attachments_test.go b/session/attachments_test.go
+new file mode 100644
+index 0000000..33c440c
+--- /dev/null
++++ b/session/attachments_test.go
+@@ -0,0 +1,117 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"encoding/base64"
++	"encoding/json"
++	"os"
++	"testing"
++)
++
++func TestSessionAttachmentReferencesSurviveRestart(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	data := bytes.Repeat([]byte{42}, 12<<20)
++	image := ImageData{MimeType: "image/png", Data: base64.StdEncoding.EncodeToString(data)}
++	if err := sess.AppendContext(context.Background(), UserMessageWithImagesEntry("large image", []ImageData{image})); err != nil {
++		t.Fatal(err)
++	}
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	raw, err := os.ReadFile(store.sessionPath("agent", "key"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(raw) > 4096 || bytes.Contains(raw, []byte(image.Data[:128])) {
++		t.Fatal("inline blob persisted")
++	}
++	leaf := sess.LeafID()
++	sess.Close()
++	sess, err = store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	var saved MessageData
++	if err := json.Unmarshal(sess.History()[0].Data, &saved); err != nil {
++		t.Fatal(err)
++	}
++	if saved.Images[0].Reference == nil || saved.Images[0].Data != "" {
++		t.Fatal("reference missing")
++	}
++	resolved, err := sess.ResolveImages(context.Background(), sess.View())
++	if err != nil {
++		t.Fatal(err)
++	}
++	var replay MessageData
++	if err := json.Unmarshal(resolved[0].Data, &replay); err != nil {
++		t.Fatal(err)
++	}
++	decoded, err := base64.StdEncoding.DecodeString(replay.Images[0].Data)
++	if err != nil || !bytes.Equal(decoded, data) || sess.LeafID() != leaf {
++		t.Fatal("replay changed content or graph", err)
++	}
++	if bytes.Equal(resolved[0].Data, sess.History()[0].Data) {
++		t.Fatal("replay mutated stored reference")
++	}
++}
++
++func TestSessionAttachmentWriteFailurePreservesLeaf(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("original"))
++	leaf := sess.LeafID()
++	err = sess.AppendContext(context.Background(), UserMessageWithImagesEntry("bad image", []ImageData{{MimeType: "image/png", Data: "%%%"}}))
++	if err == nil || sess.PersistenceError() == nil || sess.LeafID() != leaf {
++		t.Fatal("failed attachment published message", err)
++	}
++}
++
++func TestToolAttachmentPreservesUnknownPayloadFields(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	entry := ToolResultEntry("call", "image", "", []ImageData{{MimeType: "image/png", Data: base64.StdEncoding.EncodeToString([]byte("image"))}})
++	var fields map[string]json.RawMessage
++	json.Unmarshal(entry.Data, &fields)
++	fields["future_field"] = json.RawMessage(`{"x":1}`)
++	entry.Data, _ = json.Marshal(fields)
++	if err := sess.AppendContext(context.Background(), entry); err != nil {
++		t.Fatal(err)
++	}
++	var saved map[string]json.RawMessage
++	json.Unmarshal(sess.History()[0].Data, &saved)
++	if string(saved["future_field"]) != `{"x":1}` {
++		t.Fatal("unknown payload lost")
++	}
++	replay, err := sess.ResolveImages(context.Background(), sess.History())
++	if err != nil {
++		t.Fatal(err)
++	}
++	var result ToolResultData
++	json.Unmarshal(replay[0].Data, &result)
++	if len(result.Images) != 1 || result.Images[0].Data != base64.StdEncoding.EncodeToString([]byte("image")) {
++		t.Fatal(result)
++	}
++}
+diff --git a/session/session.go b/session/session.go
+index ce3640e..8794ba0 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -1,10 +1,12 @@
+ package session
+ 
+ import (
++	"context"
+ 	"crypto/rand"
+ 	"encoding/hex"
+ 	"encoding/json"
+ 	"fmt"
++	"github.com/sausheong/harness/attachment"
+ 	"sync"
+ 	"sync/atomic"
+ 	"time"
+@@ -35,10 +37,11 @@ type SessionEntry struct {
+ 	Data          json.RawMessage `json:"data"`
+ }
+ 
+-// ImageData holds a base64-encoded image for session persistence.
++// ImageData holds a legacy inline image or a durable attachment reference.
+ type ImageData struct {
+-	MimeType string `json:"mime_type"`
+-	Data     string `json:"data"` // base64-encoded
++	MimeType  string          `json:"mime_type"`
++	Data      string          `json:"data,omitempty"` // base64-encoded legacy representation
++	Reference *attachment.Ref `json:"attachment,omitempty"`
+ }
+ 
+ // ThinkingBlockData stores a thinking block from a model response.
+@@ -118,8 +121,40 @@ func NewSession(agentID, key string) *Session {
+ }
+ 
+ // Append adds an entry to the session.
+-func (s *Session) Append(entry SessionEntry) {
++func (s *Session) Append(entry SessionEntry) { _ = s.AppendContext(context.Background(), entry) }
++
++// AppendContext persists image blobs before publishing their referencing entry.
++// Cancellation during blob I/O is exposed as a sticky persistence failure.
++func (s *Session) AppendContext(ctx context.Context, entry SessionEntry) error {
+ 	s.mu.Lock()
++	fail := func(err error) error {
++		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{err})
++		s.mu.Unlock()
++		return err
++	}
++	if err := ctx.Err(); err != nil {
++		return fail(err)
++	}
++	if err := s.PersistenceError(); err != nil {
++		return fail(err)
++	}
++	if s.store != nil {
++		s.writeMu.Lock()
++		s.leaseMu.Lock()
++		closed := s.writerClosed
++		s.leaseMu.Unlock()
++		if closed {
++			s.writeMu.Unlock()
++			return fail(ErrSessionClosed)
++		}
++		var err error
++		entry, err = s.externalizeImages(ctx, entry)
++		s.writeMu.Unlock()
++		if err != nil {
++			return fail(err)
++		}
++	}
++
+ 	if entry.ID == "" {
+ 		entry.ID = generateID("e")
+ 	}
+@@ -140,16 +175,12 @@ func (s *Session) Append(entry SessionEntry) {
+ 		}
+ 		return node.Type, true
+ 	}); err != nil {
+-		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{err})
+-		s.mu.Unlock()
+-		return
++		return fail(err)
+ 	}
+ 	// Selection control records must use Branch so their durability and leaf
+ 	// semantics cannot be bypassed through the generic append API.
+ 	if entry.Type == EntryTypeSelection || entry.Type == EntryTypeHeader || entry.Type == EntryTypeAnnotation {
+-		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("control records require their dedicated API")})
+-		s.mu.Unlock()
+-		return
++		return fail(fmt.Errorf("control records require their dedicated API"))
+ 	}
+ 
+ 	s.entries = append(s.entries, entry)
+@@ -170,6 +201,7 @@ func (s *Session) Append(entry SessionEntry) {
+ 	} else {
+ 		s.mu.Unlock()
+ 	}
++	return s.PersistenceError()
+ }
+ 
+ // History walks the DAG from root to current leaf and returns the path.

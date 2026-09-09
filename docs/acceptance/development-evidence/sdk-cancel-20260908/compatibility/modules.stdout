@@ -1,0 +1,27 @@
+{
+	"Path": "github.com/sausheong/hand",
+	"Version": "v0.0.0",
+	"Replace": {
+		"Path": "/private/tmp/hand-session-integration-20260908",
+		"Dir": "/private/tmp/hand-session-integration-20260908",
+		"GoMod": "/private/tmp/hand-session-integration-20260908/go.mod",
+		"GoVersion": "1.25.1"
+	},
+	"Dir": "/private/tmp/hand-session-integration-20260908",
+	"GoMod": "/private/tmp/hand-session-integration-20260908/go.mod",
+	"GoVersion": "1.25.1"
+}
+{
+	"Path": "github.com/sausheong/harness",
+	"Version": "v0.3.9",
+	"Replace": {
+		"Path": "/private/tmp/hand-harness-persistence-20260908",
+		"Dir": "/private/tmp/hand-harness-persistence-20260908",
+		"GoMod": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+		"GoVersion": "1.25.1"
+	},
+	"Indirect": true,
+	"Dir": "/private/tmp/hand-harness-persistence-20260908",
+	"GoMod": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+	"GoVersion": "1.25.1"
+}

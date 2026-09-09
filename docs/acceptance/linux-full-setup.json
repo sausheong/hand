@@ -1,0 +1,161 @@
+{
+  "status": "development_linux_qualification_incomplete",
+  "runs": {
+    "hand-linux-full-20260909": {
+      "test_records": {
+        "pass": 1616,
+        "fail": 44
+      },
+      "failed_tests": [
+        "TestNativePackageCLIContainerRuntimeAndLaunchReviews",
+        "TestSearchReportsUnreadableFile",
+        "TestContainerExtensionFileCallbackBoundary/read-only",
+        "TestContainerExtensionFileCallbackBoundary/writable",
+        "TestContainerExtensionFileCallbackBoundary/denied",
+        "TestContainerExtensionFileCallbackBoundary",
+        "TestContainerExtensionActivationAndReviewedReload",
+        "TestNativeContainerPackagePythonReviewAndLaunch",
+        "TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval",
+        "TestNativeBackgroundContainerInputOutputAndShutdown",
+        "TestRestoreAtomicExchangeRetainsDisplacedFile",
+        "TestRestoreExchangeDoesNotFollowSymlink",
+        "TestApplyRestoreReviewedSelection/apply",
+        "TestApplyRestoreReviewedSelection",
+        "TestRestoreFileTransactionsPreserveStartingState/replace",
+        "TestRestoreFileTransactionsPreserveStartingState",
+        "TestRestoreJournalTransactionSurvivesReopen",
+        "TestRestoreAppliedJournalFailurePreservesRecoveryAndPoisonsStore/file",
+        "TestRestoreAppliedJournalFailurePreservesRecoveryAndPoisonsStore/directory",
+        "TestRestoreAppliedJournalFailurePreservesRecoveryAndPoisonsStore",
+        "TestRestoreKilledAtJournalBoundary/replace/applied_unrecorded",
+        "TestRestoreKilledAtJournalBoundary/replace/applied",
+        "TestRestoreKilledAtJournalBoundary",
+        "TestRestoreRecoveryClassifiesActualTransactionStates/applied_unrecorded",
+        "TestRestoreRecoveryClassifiesActualTransactionStates/applied",
+        "TestRestoreRecoveryClassifiesActualTransactionStates",
+        "TestStoreLockAndWorkspaceBoundary",
+        "TestContainerExtensionRealExample",
+        "TestContainerPythonImageInterpreter",
+        "TestNativeContainerPythonRuntimeVersion",
+        "TestResolveInstalledSelectionRevalidatesContentAndIdentity/content",
+        "TestResolveInstalledSelectionRevalidatesContentAndIdentity",
+        "TestInstalledTextResources/corrupt",
+        "TestInstalledTextResources",
+        "TestPackageStoreInstallUpdateRollbackRemoveAndReopen",
+        "TestPackageStoreRejectsChangedSourceAndCorruptRetainedObject",
+        "TestAuthorityPersistRevokeAndExclusiveOwnership",
+        "TestLedgerExclusiveWriterAndTruncatedTail",
+        "TestWorkspaceLedgerIdentityAndIsolation",
+        "TestForkStagingCleanupProtectsActiveAndSymlink",
+        "TestNativeProxyWorkerRoundtrip",
+        "TestCancelledRunRetainsFollowupForExplicitRun",
+        "TestNativeScopedSDKContainerJourney",
+        "TestNativeSDKRejectsChangedWorker"
+      ],
+      "report": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/run.json"
+    },
+    "hand-linux-native-volume-20260909": {
+      "test_records": {
+        "pass": 1646,
+        "fail": 14
+      },
+      "failed_tests": [
+        "TestNativePackageCLIContainerRuntimeAndLaunchReviews",
+        "TestContainerExtensionFileCallbackBoundary/read-only",
+        "TestContainerExtensionFileCallbackBoundary/writable",
+        "TestContainerExtensionFileCallbackBoundary/denied",
+        "TestContainerExtensionFileCallbackBoundary",
+        "TestContainerExtensionActivationAndReviewedReload",
+        "TestNativeContainerPackagePythonReviewAndLaunch",
+        "TestNativeBackgroundContainerInputOutputAndShutdown",
+        "TestContainerExtensionRealExample",
+        "TestContainerPythonImageInterpreter",
+        "TestNativeContainerPythonRuntimeVersion",
+        "TestNativeProxyWorkerRoundtrip",
+        "TestNativeScopedSDKContainerJourney",
+        "TestNativeSDKRejectsChangedWorker"
+      ],
+      "report": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/run.json"
+    }
+  },
+  "environment_findings": [
+    "Initial run lacked Linux Docker CLI and used macOS bind mount for Linux test temporary files",
+    "Second run used native Linux volume and non-root UID; container tests failed on socket access",
+    "Observed Docker socket inside Linux has mode 660, uid 0, gid 0"
+  ],
+  "approval_required": "Automatic approval review rejected giving the full test process supplementary GID 0 for Docker socket access. Explicit authorization required because this grants root-equivalent daemon control. No permission change or rejected rerun executed.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/check_linux_full.py.txt",
+      "sha256": "9554f4660d8defbdb532fb3fdf6e4bcd9963d8c98eabfb4de52aa68265ffc7bb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/docker-cli-run.json",
+      "sha256": "7e236acdf8b1a9ec41eb9c68d280ea9790e8c67d258bcd630020ae773b0ccc1d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/docker-cli-version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/docker-cli-version.stdout",
+      "sha256": "0d5dda818b1a2eb5629b30c7bb2c575e78231436e2e236d51beb14de1d8cf163"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/build-hand.log",
+      "sha256": "71d41bcf1f712df155bf1d1ff24c1e81b77f21a45f41890403fc3ec7fd8e48a4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/build-peer.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/build-worker.log",
+      "sha256": "60e4cb6a2a50a4d68d63c2a2a657a02d7532d2ce8e797e05a352b0f7cbf210ac"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/coverage.out",
+      "sha256": "c1a21032d8c9d65e023e40d10d4ef0eab33e8f580d0382b8c5d2d79e06531da9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/environment.log",
+      "sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/run.json",
+      "sha256": "3c490f40841c2a7799f52c034ec468f1b0a60688a7fa7638246f4eab1dd91300"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-full-20260909/suite.log.gz",
+      "sha256": "437f94a8874c7b7bbb88818a62b37a145b5d1f648c2914e5aa8f0ead68a4e175"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/build-hand.log",
+      "sha256": "25019748f6074a5159a81b5b2692f8f813ac522d939783022831494e9d6f009d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/build-peer.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/build-worker.log",
+      "sha256": "2c3c737ce3ba62fc19aaca16835f2536373da42335f45041e9a6a0678b8ab6be"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/coverage.out",
+      "sha256": "3704534cbef9c607c696d7c677c079a32eec33896ef7716983eccfae318246db"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/environment.log",
+      "sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/run.json",
+      "sha256": "2354aabcde0514421d62c0fd79805b4af484711988ee7d6e89261eb9df09dce9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-full-setup-20260909/hand-linux-native-volume-20260909/suite.log.gz",
+      "sha256": "965d41f010a30c75a420878437aace45588675d882ecb158b8f64d44abf108d2"
+    }
+  ]
+}

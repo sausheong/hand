@@ -1,0 +1,20 @@
+{"Time":"2026-09-08T17:08:38.061549+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolworker"}
+{"Time":"2026-09-08T17:08:38.594335+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests"}
+{"Time":"2026-09-08T17:08:38.594404+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"=== RUN   TestWorkerRealFileRoundtripAndRejectedRequests\n"}
+{"Time":"2026-09-08T17:08:38.617869+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"--- PASS: TestWorkerRealFileRoundtripAndRejectedRequests (0.02s)\n"}
+{"Time":"2026-09-08T17:08:38.617906+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Elapsed":0.02}
+{"Time":"2026-09-08T17:08:38.617932+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput"}
+{"Time":"2026-09-08T17:08:38.617937+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"=== RUN   TestWorkerCancellationAndBrokenOutput\n"}
+{"Time":"2026-09-08T17:08:38.629362+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"--- PASS: TestWorkerCancellationAndBrokenOutput (0.01s)\n"}
+{"Time":"2026-09-08T17:08:38.629391+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Elapsed":0.01}
+{"Time":"2026-09-08T17:08:38.629416+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes"}
+{"Time":"2026-09-08T17:08:38.629431+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes","Output":"=== RUN   TestWorkerPreservesImageBytes\n"}
+{"Time":"2026-09-08T17:08:38.631134+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes","Output":"--- PASS: TestWorkerPreservesImageBytes (0.00s)\n"}
+{"Time":"2026-09-08T17:08:38.631151+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes","Elapsed":0}
+{"Time":"2026-09-08T17:08:38.631163+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerDoesNotSubstituteUnapprovedPathSpelling"}
+{"Time":"2026-09-08T17:08:38.631171+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerDoesNotSubstituteUnapprovedPathSpelling","Output":"=== RUN   TestWorkerDoesNotSubstituteUnapprovedPathSpelling\n"}
+{"Time":"2026-09-08T17:08:38.632746+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerDoesNotSubstituteUnapprovedPathSpelling","Output":"--- PASS: TestWorkerDoesNotSubstituteUnapprovedPathSpelling (0.00s)\n"}
+{"Time":"2026-09-08T17:08:38.632777+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerDoesNotSubstituteUnapprovedPathSpelling","Elapsed":0}
+{"Time":"2026-09-08T17:08:38.632798+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"PASS\n"}
+{"Time":"2026-09-08T17:08:39.641052+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"ok  \tgithub.com/sausheong/hand/internal/toolworker\t1.579s\n"}
+{"Time":"2026-09-08T17:08:39.641233+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Elapsed":1.58}

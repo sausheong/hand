@@ -1,0 +1,52 @@
+{
+  "status": "development_passed",
+  "requirement": "M3.1",
+  "scenario": "disk_full_visible",
+  "platform": "linux/arm64",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "network": "none",
+  "root_filesystem": "read-only",
+  "fault_filesystem": {
+    "type": "tmpfs",
+    "path": "/case",
+    "max_bytes": 2097152
+  },
+  "test": "TestBinaryExportReportsRealENOSPC",
+  "test_exit_code": 0,
+  "cli_failure_exit_code": 5,
+  "cli_diagnostic": "no space left on device",
+  "source": {
+    "path": "cmd/hand/session_enospc_linux_test.go",
+    "sha256": "f5e22b4a3522f16909b7568eb4d8a1cace27ba184db2892cc46c52b50addc7ea"
+  },
+  "binaries": [
+    {
+      "path": "/private/tmp/hand-enospc-20260909",
+      "sha256": "0c0069048d22395207793ab92e8854320758ebc677916054ac779084e3fb38f9"
+    },
+    {
+      "path": "/private/tmp/hand-enospc-20260909.test",
+      "sha256": "e1c6a2728e0c9aa966f8a2fd6d4c1727928b9bd88c680196fbb180ccb2160565"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/session-enospc-20260909/hand-enospc-container-20260909.log",
+      "sha256": "b3cf5aec5a45f5d6af922a7fd9d72dede8bc31f748a66d2b26f39bcfbce0ae0c"
+    }
+  ],
+  "assertions": [
+    "Kernel filesystem exhaustion returns ENOSPC",
+    "Built Hand CLI surfaces exit 5 and no-space diagnostic without provider initialisation",
+    "No final or temporary partial export remains",
+    "Original journal bytes and catalogue snapshot unchanged",
+    "After deleting filler, retry succeeds with byte-identical journal"
+  ],
+  "limitations": [
+    "Linux/arm64 Docker filesystem evidence, not a native macOS full-disk run",
+    "Tests and Hand child were cross-built CGO_ENABLED=0 without race instrumentation",
+    "This covers export failure before publication, not every active conversation persistence write",
+    "Explicit tmpfs and binary inputs required; an unconfigured Linux test skip does not satisfy this gate",
+    "Exact clean candidate and released Harness qualification remain pending"
+  ]
+}

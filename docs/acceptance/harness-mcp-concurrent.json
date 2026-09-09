@@ -1,0 +1,128 @@
+{
+  "candidate": "daa305d55640a6ca135437b285ae4265da5596a5",
+  "base": "fd9ee98d2bef92fee2658eabc5b4da49038fcc22",
+  "patch_sha256": "e07875ad0354fdd48362345312dc3b14f1afac3818e151c22178e2d0669c015c",
+  "results": {
+    "harness-mcp-concurrent-verified-20260908.jsonl": {
+      "test_events": {
+        "pass": 933,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/examples/data-agent": "skip",
+        "github.com/sausheong/harness/examples/lta-agent": "skip",
+        "github.com/sausheong/harness/examples/minimal": "skip",
+        "github.com/sausheong/harness/examples/self-improving-agent": "skip",
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    },
+    "harness-mcp-concurrent-full-20260908.jsonl": {
+      "test_events": {
+        "pass": 932,
+        "fail": 1,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/examples/data-agent": "skip",
+        "github.com/sausheong/harness/examples/lta-agent": "skip",
+        "github.com/sausheong/harness/examples/minimal": "skip",
+        "github.com/sausheong/harness/examples/self-improving-agent": "skip",
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/runtime": "fail",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    },
+    "harness-mcp-concurrent-tests-20260908.jsonl": {
+      "test_events": {
+        "pass": 8,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    }
+  },
+  "full_initial_exit_code": 1,
+  "full_verified_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-verified-20260908.jsonl",
+      "sha256": "f0d1a291775a71b685ba1179771d5f0c1c740e934351eead5f5a94e279f26a87"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-verified-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-tests-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-full-20260908.jsonl",
+      "sha256": "0319318c2fcb5b401e7d4081542d1471e8b95990dfaa6800c526c89c5cb1f6af"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-concurrent-20260908/harness-mcp-concurrent-tests-20260908.jsonl",
+      "sha256": "575c126895fc3ca55f523df87bb9f277724fcf38f37cef2131174a94fcb68e35"
+    }
+  ],
+  "limitation": "Local development suites only; native platform and released candidate qualification pending. Initial full failure was error diagnostic casing and was fixed in a separate commit."
+}

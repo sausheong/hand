@@ -1,0 +1,1 @@
+time=2026-09-08T13:28:01.558+08:00 level=WARN msg="tool error" tool=write_file id=profile-write error="user denied scoped operation"

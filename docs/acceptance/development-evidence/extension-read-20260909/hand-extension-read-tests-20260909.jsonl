@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T03:06:28.633512+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T03:06:29.194369+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionFileReadUsesHostApprovalAndRootedTool"}
+{"Time":"2026-09-09T03:06:29.194433+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionFileReadUsesHostApprovalAndRootedTool","Output":"=== RUN   TestExtensionFileReadUsesHostApprovalAndRootedTool\n"}
+{"Time":"2026-09-09T03:06:29.195547+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionFileReadUsesHostApprovalAndRootedTool","Output":"--- PASS: TestExtensionFileReadUsesHostApprovalAndRootedTool (0.00s)\n"}
+{"Time":"2026-09-09T03:06:29.195566+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionFileReadUsesHostApprovalAndRootedTool","Elapsed":0}
+{"Time":"2026-09-09T03:06:29.19647+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T03:06:30.203438+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.570s\n"}
+{"Time":"2026-09-09T03:06:30.203634+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.5699999999999998}

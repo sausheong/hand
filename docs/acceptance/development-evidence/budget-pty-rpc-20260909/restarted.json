@@ -1,0 +1,125 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restored-budget",
+      "method": "budget.run",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restored-budget",
+      "result": {
+        "id": "repair",
+        "selected": true,
+        "configured": true,
+        "tokens": {
+          "limit": 100000,
+          "committed": 0,
+          "exhausted": false,
+          "attempts": 0,
+          "uncertain_attempts": 0,
+          "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+        },
+        "cost": {
+          "currency": "USD",
+          "limit_nano": 1000000001,
+          "committed_nano": 0,
+          "compaction_nano": 0,
+          "strict": true,
+          "exhausted": false,
+          "attempts": 0,
+          "unpriced_attempts": 0,
+          "uncertain_attempts": 0,
+          "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+        },
+        "time": {
+          "configured": true,
+          "decided_at": "2026-09-09T00:38:45.203105Z",
+          "deadline": "2026-09-09T00:48:45.203105Z",
+          "expired": false,
+          "remaining_millis": 599717,
+          "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+        },
+        "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+      }
+    }
+  }
+]

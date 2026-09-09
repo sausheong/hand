@@ -1,0 +1,37 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "test_records": {
+    "pass": 115,
+    "fail": 0,
+    "skip": 0
+  },
+  "failure_injection": "Close the real owned journal descriptor before grant/revoke writes",
+  "assertions": [
+    "Existing grant initially authorises",
+    "Failed grant or revocation reports error and poisons live authority",
+    "Both Allowed and AllowedTool deny after write failure",
+    "Subsequent mutations fail and durable bytes remain unchanged",
+    "Reopen retains original grant and does not invent successful mutation",
+    "Explicit revocation retry after reopen succeeds"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/authority-write-failure-20260909/authority.go.txt",
+      "sha256": "30ae575bb54ba9d5db3104976eb5cfec6793d1137f1cfc56a0f1ba4e69f45f4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-write-failure-20260909/authority_write_failure_test.go.txt",
+      "sha256": "28c7a1fe16c9db94eb56b7ecc04e48eddb582de736a2eda385f1e9833233980b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-write-failure-20260909/tests.jsonl",
+      "sha256": "8d95d11639d014c8b1cfc318e14aafec137f864edf90519407a1a7bbeb663828"
+    }
+  ],
+  "limitations": [
+    "Closed-descriptor write failure only; not disk-full, fsync failure or power-loss coverage",
+    "Full permissions race package passed; final all-package/platform qualification remains open",
+    "No production change required"
+  ]
+}

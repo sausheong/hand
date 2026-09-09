@@ -1,0 +1,56 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "tests": {
+    "focused": 5,
+    "evaluation_suite": 111,
+    "failures": 0,
+    "skips": 0
+  },
+  "implemented": [
+    "Strict bounded UTF-8 JSON with duplicate-field/nonfinite/nesting rejection",
+    "Exact POST /v1/messages route and frozen model",
+    "Text/custom tool/thinking/cache request validation with explicit field allowlists",
+    "Output cap quote and atomic exact-byte digest reservation",
+    "Unknown billing extensions, multimodal input and provider-side tools rejected before admission"
+  ],
+  "limitations": [
+    "Hand/Pi actual wire requests have not yet been passed through this validator; tests construct source-informed request objects.",
+    "Origin, HTTP headers/betas, authentication, redirects, network isolation, forwarding and provider usage reconciliation remain pending.",
+    "Query parameters including beta=true are rejected pending explicit reviewed transport support; do not strip or silently alter product defaults.",
+    "Only text-token/custom-client-tool Messages semantics covered; unsupported product behaviour requires adapter work and fair experimental disclosure, not silent removal.",
+    "No real model calls, authentic pricing or paid approval."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-anthropic-request-20260909/validator.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_anthropic_request.py",
+      "sha256": "a061a142dd32b05903b64250cae2664a928c0d6c40c92a6ed6c3831b6510bba0",
+      "uncompressed_sha256": "27a67c3ae97b21a3b852c94885d86f87008690326f819cc0e0f4d2134c93a285"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-anthropic-request-20260909/tests.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_anthropic_request.py",
+      "sha256": "bbd3f558cdde467f2878214a6fb9c884eccaa06cacf125aee6bacfa95d81ff95",
+      "uncompressed_sha256": "40c2a5f7895e849dfd872ae5c58e963e056259f1242a8246329cbb70740d5102"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-anthropic-request-20260909/tests.log.gz",
+      "source": "/private/tmp/hand-evaluation-anthropic-request-20260909.log",
+      "sha256": "f092cd2a9e698f4210089373786c0837056c2b8bcfa9ecebde149f6d084c908a",
+      "uncompressed_sha256": "1cf9937e4de750d12a3b9252123852ff698d57ba593f22684f0101387021f437"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-anthropic-request-20260909/harness-builder.go.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/providers/anthropic/anthropic.go",
+      "sha256": "15b1087b94ebc9b7dbe2e8e6de512841c7e85852813c6cd7678bbebeff54967e",
+      "uncompressed_sha256": "b0cb79d5d9649e854f679cee64f32959b53f4febaf13ef57492704563871545c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-anthropic-request-20260909/pi-builder.ts.gz",
+      "source": "/private/tmp/hand-pi-v0.85.1-20260909/packages/ai/src/api/anthropic-messages.ts",
+      "sha256": "1d35014624f48b5aa71dcf6d6aa36738676ae29cc53c83e62ec3e0253408f7fa",
+      "uncompressed_sha256": "9abf35ebe5dbe3a9d7a621c420aa0cbf474eb2ec7c79e1bea8e28966c564b7ab"
+    }
+  ]
+}

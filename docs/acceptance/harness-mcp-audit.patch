@@ -1,0 +1,44 @@
+diff --git a/runtime/runturn.go b/runtime/runturn.go
+index 6d6ada3..b6dd372 100644
+--- a/runtime/runturn.go
++++ b/runtime/runturn.go
+@@ -41,6 +41,10 @@ type TurnEmit func(AgentEvent)
+ // the first round of an exchange (folding the hint into the system prompt) and
+ // async knowledge-graph ingest on the completing round.
+ func (r *Runtime) RunTurn(ctx context.Context, userMsg string, images []llm.ImageContent, emit TurnEmit) (TurnResult, error) {
++	if !r.runMu.TryLock() {
++		return TurnResult{}, fmt.Errorf("runtime is already running")
++	}
++	defer r.runMu.Unlock()
+ 	if emit == nil {
+ 		emit = func(AgentEvent) {}
+ 	}
+diff --git a/runtime/runturn_test.go b/runtime/runturn_test.go
+index 78f5cfc..d1348fb 100644
+--- a/runtime/runturn_test.go
++++ b/runtime/runturn_test.go
+@@ -163,3 +163,24 @@ func TestRunTurn_PreCancelledContext(t *testing.T) {
+ 	require.Error(t, res.Err)
+ 	require.EqualValues(t, 0, llmProvider.calls.Load(), "LLM must not be called when context is pre-cancelled")
+ }
++
++func TestRunTurnExcludesConcurrentRuntimeOperations(t *testing.T) {
++	rt := &Runtime{LLM: &scriptedStreamLLM{events: []scriptedStreamEvent{{typ: llm.EventTextDelta, text: "hello"}, {typ: llm.EventDone}}}, Tools: newEchoRegistry(), Session: session.NewSession("a", "k"), AgentID: "a", Model: "test"}
++	rt.runMu.Lock()
++	_, err := rt.RunTurn(context.Background(), "rejected", nil, nil)
++	rt.runMu.Unlock()
++	require.Error(t, err)
++	require.Empty(t, rt.Session.Entries())
++	observed := false
++	_, err = rt.RunTurn(context.Background(), "accepted", nil, func(AgentEvent) {
++		observed = true
++		if rt.runMu.TryLock() {
++			rt.runMu.Unlock()
++			t.Error("runtime lock released during RunTurn")
++		}
++	})
++	require.NoError(t, err)
++	require.True(t, observed)
++	require.True(t, rt.runMu.TryLock(), "runtime lock not released after RunTurn")
++	rt.runMu.Unlock()
++}

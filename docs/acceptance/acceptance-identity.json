@@ -1,0 +1,56 @@
+{
+  "status": "development_checker_hardening_passed",
+  "tests": {
+    "runner": 122,
+    "checker_after_fix": 20
+  },
+  "failures": 0,
+  "skips": 0,
+  "checker_current_checkout_status": "not_complete",
+  "fixes": [
+    "Reject evidence paths inside the candidate checkout, including outside symlinks resolving into it",
+    "Resolve effective Harness with Go tooling; reject workspace main module, replacement, version mismatch and resolution errors"
+  ],
+  "limitations": [
+    "Checker unit fixtures are synthetic and do not qualify product scenarios",
+    "Current checkout invocation has no evidence bundle and establishes rejection only",
+    "Effective dependency identity does not independently prove upstream publication or release provenance",
+    "Full Harness suite remains unstarted after automatic approval usage-limit rejection"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/hand-acceptance-runner-refresh-20260909.log.gz",
+      "sha256": "05ceefde9063b1145f09a5b0bd3eef9c5e5cfbfd3efd6d5d9e632dc4a22718a7",
+      "uncompressed_sha256": "e6bc538e49b66ff83f48dfab9749b4770ac39737442b8b5aeef6746babfa19b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/hand-acceptance-checker-refresh-20260909.log.gz",
+      "sha256": "c1f5df93e2281ca515d0e508317a735640d698156822dfeb5226ceebf26cda41",
+      "uncompressed_sha256": "cb8a0253fba7819da4ecf60fac420e2a5ddca6d62ca3c09c78af8bc498c6684c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/hand-acceptance-checker-identity-20260909.log.gz",
+      "sha256": "9d252e781c4080bfd5203d27de45bf2f129d210dadfd2fc44125dda64d16bcb2",
+      "uncompressed_sha256": "c2aeb72ea240767af57eb6c96ab84fc7557bdc2a62f658164bf3e7743ba005bf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/hand-acceptance-current-identity-20260909.json.gz",
+      "sha256": "c95a8a562423de52f6aa5226e4848c9a427055e33bfffca120c7843c6c16f4cc",
+      "uncompressed_sha256": "e5324d19c7d9869234eaef5f167f63d885de5de92802df9a681d3604f205c08f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/check.py.gz",
+      "sha256": "4a171d612a7ff503c3329a0f52398a19f4464fd8013885f5bfec8169a9b57f1d",
+      "uncompressed_sha256": "44919233d5e0c8bee964780b886153e1c012bd0b9944c134ad27309358af37b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/test_check.py.gz",
+      "sha256": "e870db844f6908c214a0ac6835d6390299819666fcfc5809ac817f4fa4cd4ea2",
+      "uncompressed_sha256": "1f88f5a8a6a3dc32e409a28e54a7e941f5bb5409200a0b0101e7df2368deedc9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/acceptance-identity-20260909/python-source-hashes.json",
+      "sha256": "f2c1ffaf8534d7da4f8f9306415e1a8609e7f926f70a319054a2173034cba093"
+    }
+  ]
+}

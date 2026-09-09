@@ -1,0 +1,1 @@
+{"directory": "/private/tmp/hand-verification-context-rpc-20260908/verification", "profiles": [{"name": "pass", "command": ["/bin/sh", "-c", "cat source"]}, {"name": "fail", "command": ["/bin/sh", "-c", "printf diagnostic >&2; exit 7"]}, {"name": "hang", "command": ["/bin/sh", "-c", "printf %s \"$$\" > marker; exec sleep 30"]}]}

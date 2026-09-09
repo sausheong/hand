@@ -1,0 +1,361 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "invalid",
+      "method": "context.inspect",
+      "params": {
+        "unknown": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "invalid",
+      "error": {
+        "code": "invalid_params",
+        "message": "json: unknown field \"unknown\""
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "initial",
+      "method": "context.inspect",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "initial",
+      "result": {
+        "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+        "estimated_tokens": 2074,
+        "contributions": [
+          {
+            "kind": "static_prompt",
+            "name": "Installed identity, guidance, skills and memory",
+            "count": 1,
+            "estimated_tokens": 157
+          },
+          {
+            "kind": "messages",
+            "name": "Effective conversation",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_results",
+            "name": "Effective tool results",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_schemas",
+            "name": "Registered tool schemas",
+            "count": 11,
+            "estimated_tokens": 1916
+          }
+        ],
+        "limitations": [
+          "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+          "Estimates include only effective history after compaction; raw archived history is not counted.",
+          "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+          "Components round down individually; their sum can differ slightly from the total."
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "before-reload",
+      "method": "context.inspect",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "before-reload",
+      "result": {
+        "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+        "estimated_tokens": 2074,
+        "contributions": [
+          {
+            "kind": "static_prompt",
+            "name": "Installed identity, guidance, skills and memory",
+            "count": 1,
+            "estimated_tokens": 157
+          },
+          {
+            "kind": "messages",
+            "name": "Effective conversation",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_results",
+            "name": "Effective tool results",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_schemas",
+            "name": "Registered tool schemas",
+            "count": 11,
+            "estimated_tokens": 1916
+          }
+        ],
+        "limitations": [
+          "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+          "Estimates include only effective history after compaction; raw archived history is not counted.",
+          "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+          "Components round down individually; their sum can differ slightly from the total."
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload",
+      "method": "skills.reload",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload",
+      "result": {
+        "reloaded": "skills"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "refreshed",
+      "method": "context.inspect",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "refreshed",
+      "result": {
+        "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+        "estimated_tokens": 2290,
+        "contributions": [
+          {
+            "kind": "static_prompt",
+            "name": "Installed identity, guidance, skills and memory",
+            "count": 1,
+            "estimated_tokens": 373
+          },
+          {
+            "kind": "messages",
+            "name": "Effective conversation",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_results",
+            "name": "Effective tool results",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_schemas",
+            "name": "Registered tool schemas",
+            "count": 11,
+            "estimated_tokens": 1916
+          }
+        ],
+        "limitations": [
+          "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+          "Estimates include only effective history after compaction; raw archived history is not counted.",
+          "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+          "Components round down individually; their sum can differ slightly from the total."
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload",
+      "method": "skills.reload",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload",
+      "result": {
+        "reloaded": "skills"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "after-replay",
+      "method": "context.inspect",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "after-replay",
+      "result": {
+        "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+        "estimated_tokens": 2290,
+        "contributions": [
+          {
+            "kind": "static_prompt",
+            "name": "Installed identity, guidance, skills and memory",
+            "count": 1,
+            "estimated_tokens": 373
+          },
+          {
+            "kind": "messages",
+            "name": "Effective conversation",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_results",
+            "name": "Effective tool results",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_schemas",
+            "name": "Registered tool schemas",
+            "count": 11,
+            "estimated_tokens": 1916
+          }
+        ],
+        "limitations": [
+          "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+          "Estimates include only effective history after compaction; raw archived history is not counted.",
+          "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+          "Components round down individually; their sum can differ slightly from the total."
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-fresh",
+      "method": "skills.reload",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-fresh",
+      "result": {
+        "reloaded": "skills"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "removed",
+      "method": "context.inspect",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "removed",
+      "result": {
+        "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+        "estimated_tokens": 2074,
+        "contributions": [
+          {
+            "kind": "static_prompt",
+            "name": "Installed identity, guidance, skills and memory",
+            "count": 1,
+            "estimated_tokens": 157
+          },
+          {
+            "kind": "messages",
+            "name": "Effective conversation",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_results",
+            "name": "Effective tool results",
+            "count": 0,
+            "estimated_tokens": 0
+          },
+          {
+            "kind": "tool_schemas",
+            "name": "Registered tool schemas",
+            "count": 11,
+            "estimated_tokens": 1916
+          }
+        ],
+        "limitations": [
+          "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+          "Estimates include only effective history after compaction; raw archived history is not counted.",
+          "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+          "Components round down individually; their sum can differ slightly from the total."
+        ]
+      }
+    }
+  }
+]

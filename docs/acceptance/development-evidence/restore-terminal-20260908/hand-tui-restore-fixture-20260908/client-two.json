@@ -1,0 +1,208 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "7eb4059afcaf9d3ecc6c7cb87ec084a49bd8bf1767fc03db494220c84d1ec919",
+        "session_id": "ses_ce75421b196dceb0",
+        "run_id": "O3BR5CMDIITKEXAKKTFE3Q7TGU:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "RYEKI435TXHIBKVWEQ5T5VWL3L:21",
+          "sequence": 21,
+          "session_id": "ses_ce75421b196dceb0",
+          "run_id": "O3BR5CMDIITKEXAKKTFE3Q7TGU:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T07:57:57.774842Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "659658369044be5f0683113c54de4f6c18d44947e559bcf962349dd7e81b47c4",
+        "session_id": "ses_02f7db4d4109c47c",
+        "run_id": "O3BR5CMDIITKEXAKKTFE3Q7TGU:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "HKGGCY3H4FFH5JSRQGYR4G232Y:12",
+          "sequence": 12,
+          "session_id": "ses_02f7db4d4109c47c",
+          "run_id": "O3BR5CMDIITKEXAKKTFE3Q7TGU:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T07:57:57.571678Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-select-original",
+      "method": "session.select",
+      "params": {
+        "id": "ses_02f7db4d4109c47c"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-select-original",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_02f7db4d4109c47c"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-reconnected",
+      "method": "checkpoint.changes",
+      "params": {
+        "run_id": "ELWFUWX6RBZWF5LKMQI3JIKHPS"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-reconnected",
+      "result": {
+        "run_id": "ELWFUWX6RBZWF5LKMQI3JIKHPS",
+        "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+        "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+        "changes": [
+          {
+            "Path": "approved.txt",
+            "Before": null,
+            "After": {
+              "path": "approved.txt",
+              "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+              "mode": 384,
+              "size": 13,
+              "kind": "regular"
+            }
+          }
+        ],
+        "next": 1,
+        "total": 1,
+        "before_omissions": 0,
+        "after_omissions": 0
+      }
+    }
+  }
+]

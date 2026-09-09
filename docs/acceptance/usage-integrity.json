@@ -1,0 +1,899 @@
+{
+  "status": "development_passed",
+  "scope": "Persisted usage annotation and origin schema integrity after real store reopen",
+  "source_files": [
+    {
+      "path": "internal/sessionio/usage.go",
+      "sha256": "7368be71b7c6896033d3868baceab4e8ae6beada386d2797d93987a21185ef40"
+    },
+    {
+      "path": "internal/sessionio/usage_tracking.go",
+      "sha256": "72344e2af4f3478d9d99a340cecd37767b9326cf84ff757f176e735101b5acdc"
+    },
+    {
+      "path": "internal/sessionio/usage_json.go",
+      "sha256": "ed92137353ccf8594e19efb5a5ed2f6c20be7c47c7b54e8d0b0c7fee18b467fd"
+    },
+    {
+      "path": "internal/sessionio/usage_integrity_test.go",
+      "sha256": "3bdf76be25e2cabee11f03aabe7d768356248e2dec9d309199b73e1361f8e3bb"
+    }
+  ],
+  "results": {
+    "before": {
+      "counts": {
+        "fail": 13
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/duplicate-input",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/escaped-duplicate",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/input-case-alias",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/null-input",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/missing-input",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/null-cache",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/request-case-alias",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/duplicate-version",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/unknown-record-field",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/duplicate-origin",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/origin-case-alias",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/unknown-origin-field",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation",
+          "outcome": "fail"
+        }
+      ]
+    },
+    "after": {
+      "counts": {
+        "pass": 90
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestAttachmentForkExportAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestAttachmentExportMissingBlobDoesNotPublish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueFailuresBeforeRenamePreserveOldIndex/file_sync",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueFailuresBeforeRenamePreserveOldIndex/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueFailuresBeforeRenamePreserveOldIndex",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueIdempotentRetryReestablishesDurability",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueIdempotentRetryReportsFileSyncFailure",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueBoundsAndGenerationExhaustion",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueLockHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueLockReleasedOnProcessDeath",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueCommitHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueCommitSurvivesProcessDeath/before",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueCommitSurvivesProcessDeath/after",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueCommitSurvivesProcessDeath",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCataloguePreservesSessionsAcrossRegisterSelectRenameAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueCanonicalWorkspaceAlias",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueRejectsInvalidMutationsWithoutChangingDisk",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueLockPreventsLostUpdate",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueRejectsFutureCorruptAndWrongWorkspace",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueRejectsSymlinkMetadata",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCatalogueAnchorsRelativeStoreRoot",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerRecoversLegacyClonesAndTail",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/exact",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/record",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/total",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/large",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/large_record",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/copied_entry",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/before_catalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupProtectsActiveAndSymlink",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupBoundedAndCancelled",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupBeforeFirstSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkFailureDoesNotPublishPartialCopy",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/copied_entry",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_catalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerImportsOversizedLegacyImage",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerNewPreservesLegacyAndResumesLastActive",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerReconcilesOrphanAndExcludesForeignWorkspace",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerWriterOwnershipAndIndependentNewSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerDetectsMissingAndReplacedBackend",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerRecoversTailAndRejectsInteriorCorruption",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerRejectsCancelledAndConflictingSelection",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionWriteLimitHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/duplicate-input",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/escaped-duplicate",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/input-case-alias",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/null-input",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/missing-input",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/null-cache",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/request-case-alias",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/duplicate-version",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/unknown-record-field",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/duplicate-origin",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/origin-case-alias",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation/unknown-origin-field",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageAmbiguousFieldsRejectedAfterRestartWithoutMutation",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageSummaryPersistsUnknownAndDeduplicates",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageRejectsInvalidAndFutureRecords",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart/fresh",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart/legacy",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkAccountingExcludesInheritedConsumption",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageTrackingRejectsFutureAndConflictingOrigins",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageWriteRejectsOverflowWithoutChangingDurableJournal",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageWriteRefusesInvalidExistingJournal/future",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageWriteRefusesInvalidExistingJournal/malformed",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageWriteRefusesInvalidExistingJournal/conflicting",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestUsageWriteRefusesInvalidExistingJournal",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestKeyForWorkspace_StableForSamePath",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestKeyForWorkspace_DifferentForDifferentPaths",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestKeyForWorkspace_ValidSinglePathComponent",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestStoreDir_ReturnsPathUnderHome",
+          "outcome": "pass"
+        }
+      ]
+    },
+    "integration": {
+      "counts": {
+        "pass": 62
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.tokens.decide",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.cost.decide",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.time.decide",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.tokens.decide",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.cost.decide",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.time.decide",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.run.select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay/budget.prices.set",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestBudgetRPCRejectionsPreserveDecisionsAndReplay",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/session_token_budget_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/session_token_budget_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/run_token_budget_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/run_token_budget_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/run_cost_budget_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/run_cost_budget_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/run_time_budget_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/run_time_budget_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/session_time_budget_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/session_time_budget_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/session_cost_budget_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/session_cost_budget_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/cost_price_unknown_start_false",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification/cost_price_unknown_start_true",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestManualCompactionForwardsPinsFocusAndBudget",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestHarnessUsageAndCompactionDetails",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestGoalStreamPublishesBoundedToolDetailsAndUsageInOrder",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSelectedRunBudgetGovernsManualCompaction",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSelectedRunBudgetGovernsControllerAdapter",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestCostBudgetRPCDecisionsPricesAndReplay",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRunBudgetRPCDecisionsSelectionAndReplay",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestTimeBudgetRPCExplicitDecisionAndReplay",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestTokenBudgetRPCExplicitDecisionAndReplay",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestDirectBudgetAdaptersRetainDeadlineCause/backend",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestDirectBudgetAdaptersRetainDeadlineCause/controller",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestDirectBudgetAdaptersRetainDeadlineCause",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/null",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/wrong_id_type",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/invalid_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/array",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/wrong_version_type",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/empty_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/oversized_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/duplicate_version",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/case_alias_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/missing_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/missing_version",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/unknown_field",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/duplicate_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/escaped_duplicate_id",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords/case_alias_version",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestRunBudgetSelectionRejectsAmbiguousPersistedRecords",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSelectedRunBudgetPersistsAcrossContinuationAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestHarnessBackendPersistsAttemptUsageBeforeCompletion/reported",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestHarnessBackendPersistsAttemptUsageBeforeCompletion/unknown",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestHarnessBackendPersistsAttemptUsageBeforeCompletion/failed",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestHarnessBackendPersistsAttemptUsageBeforeCompletion",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestConcurrentUsageObserversRejectOverflowWithoutPoisoningJournal",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": "TestBinaryExportWithoutProviderPreservesSelection",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": "TestExportInvocationRejectsMissingIdentityAndPrompt/--export-session=out.jsonl",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": "TestExportInvocationRejectsMissingIdentityAndPrompt/--export-session=out.jsonl#01",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": "TestExportInvocationRejectsMissingIdentityAndPrompt",
+          "outcome": "pass"
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/usage-integrity-20260909/hand-usage-integrity-before-20260909.jsonl.gz",
+      "sha256": "cff5aff37bd67539820459f76e7108270900a0bbd6d1b02ff85e176fe56c8a38",
+      "uncompressed_sha256": "d7fc3df801cd707bbdfc3e49c8dc0ba136f28bfdf529ab363ff8cb60b399473a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-integrity-20260909/hand-usage-integrity-after-20260909.jsonl.gz",
+      "sha256": "992538752b774e83f8b596cdb70049ad34e1bc63dba4139ebb110437cd559c89",
+      "uncompressed_sha256": "acbbff95dded236f9320e087ac839621af8ef126960ea4302f4808686f80f4df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-integrity-20260909/hand-usage-integrity-integration-20260909.jsonl.gz",
+      "sha256": "66476468abfa1554bead190047c2e1f691294edfdac44f474e2e3fac70142d23",
+      "uncompressed_sha256": "442b376a86cad43b4b0c6ee053a498e1b55f7e9250a5af83578405928594757d"
+    }
+  ],
+  "defect": "Duplicate or aliased input_tokens fields could reduce 100 to 1; missing/null numeric fields and ambiguous origin fields were silently normalised.",
+  "correction": "Validate exact canonical unique object keys at each owned schema level, require emitted request/input/output fields, reject null numeric counts, retain explicit null usage for unavailable accounting, then apply typed semantic validation.",
+  "assertions": [
+    "12 corrupted-record cases rejected after durable session restart",
+    "Attempting to append new usage after corruption returns error",
+    "Rejected reads and writes preserve exact journal bytes",
+    "Normal usage, unknown accounting, budgets, exports and forks retain compatibility in focused integration suites"
+  ],
+  "limitations": [
+    "No automatic repair of ambiguous accounting; original records preserved for inspection",
+    "Final platform, coverage thresholds and exact candidate qualification remain pending"
+  ]
+}

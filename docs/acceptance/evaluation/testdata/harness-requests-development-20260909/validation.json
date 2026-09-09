@@ -1,0 +1,17 @@
+[
+  {
+    "name": "text",
+    "status": "passed",
+    "output": 4096
+  },
+  {
+    "name": "tool-roundtrip",
+    "status": "passed",
+    "output": 4096
+  },
+  {
+    "name": "thinking",
+    "status": "passed",
+    "output": 4096
+  }
+]

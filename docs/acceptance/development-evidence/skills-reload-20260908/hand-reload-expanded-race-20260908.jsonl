@@ -1,0 +1,25 @@
+{"Time":"2026-09-08T17:02:17.261869+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:02:17.296519+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T17:02:17.296582+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T17:02:17.673925+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled"}
+{"Time":"2026-09-08T17:02:17.67399+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"=== RUN   TestReloadSkillsOwnedAndCancelled\n"}
+{"Time":"2026-09-08T17:02:17.698239+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"--- PASS: TestReloadSkillsOwnedAndCancelled (0.02s)\n"}
+{"Time":"2026-09-08T17:02:17.69827+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Elapsed":0.02}
+{"Time":"2026-09-08T17:02:17.698846+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T17:02:18.044098+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReloadCommandGuardsAndJoins"}
+{"Time":"2026-09-08T17:02:18.044144+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReloadCommandGuardsAndJoins","Output":"=== RUN   TestReloadCommandGuardsAndJoins\n"}
+{"Time":"2026-09-08T17:02:18.095876+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReloadCommandGuardsAndJoins","Output":"--- PASS: TestReloadCommandGuardsAndJoins (0.05s)\n"}
+{"Time":"2026-09-08T17:02:18.095901+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReloadCommandGuardsAndJoins","Elapsed":0.05}
+{"Time":"2026-09-08T17:02:18.096652+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T17:02:18.500877+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay"}
+{"Time":"2026-09-08T17:02:18.500915+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"=== RUN   TestSkillsReloadRPCAndReplay\n"}
+{"Time":"2026-09-08T17:02:18.515005+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"    skills_test.go:43: reload: {Version:1 RequestID:reload Result:[] Error:not_negotiated: send hello first}\n"}
+{"Time":"2026-09-08T17:02:18.516333+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"--- FAIL: TestSkillsReloadRPCAndReplay (0.02s)\n"}
+{"Time":"2026-09-08T17:02:18.516354+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Elapsed":0.02}
+{"Time":"2026-09-08T17:02:18.516649+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\n"}
+{"Time":"2026-09-08T17:02:18.517899+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\tgithub.com/sausheong/hand/internal/rpc\t1.221s\n"}
+{"Time":"2026-09-08T17:02:18.517927+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.221}
+{"Time":"2026-09-08T17:02:18.706989+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.445s\n"}
+{"Time":"2026-09-08T17:02:18.707068+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.445}
+{"Time":"2026-09-08T17:02:19.10706+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.810s\n"}
+{"Time":"2026-09-08T17:02:19.10733+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.811}

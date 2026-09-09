@@ -1,0 +1,24 @@
+{
+  "status": "published",
+  "candidate_commit": "5d4632ffe3fdfeb171bb217a45ae75bef056811e",
+  "candidate_clean": true,
+  "repository": "https://github.com/sausheong/harness",
+  "branch": "codex/hand-release-v0.4.0",
+  "proposed_tag": "v0.4.0",
+  "requested_actions": [
+    "Push the reviewed candidate branch",
+    "Open its release pull request",
+    "Merge and tag v0.4.0 only after required checks and review pass"
+  ],
+  "review": "docs/acceptance/harness-release-review-2026-09-10.md",
+  "evidence": "docs/acceptance/harness-revised-qualified.json",
+  "user_permission_received": true,
+  "scope_note": "User authorised Harness publication; hosted ephemeral macOS Docker setup added as a release CI fix. No self-hosted runner registered.",
+  "user_authorisation": "yes publish harness.",
+  "pull_request": "https://github.com/sausheong/harness/pull/4",
+  "current_workflow_runs": [
+    34379427112,
+    34379422297
+  ],
+  "release_url": "https://github.com/sausheong/harness/releases/tag/v0.4.0"
+}

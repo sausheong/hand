@@ -1,0 +1,456 @@
+{
+  "schema_version": 1,
+  "requirement": "M3.1",
+  "status": "in_progress",
+  "required_scenarios": 9,
+  "qualified_scenarios": 0,
+  "development_evidence_scenarios": 9,
+  "source_fingerprints": {
+    "/Users/sausheong/projects/hand": "003c5502a8546624d3ec51a680aa5f11f0b6e38c6da9fb1c023b2664cfad33f3",
+    "/private/tmp/hand-harness-persistence-20260908": "5039f98194c976cf54a7e9e1f2d3951138818cb4c09be5cc617582b0bb23a5be"
+  },
+  "sources_unchanged_during_suites": true,
+  "suites": {
+    "hand": {
+      "counts": {
+        "pass": 77
+      },
+      "tests": {
+        "TestAttachmentForkExportAndRestart": "pass",
+        "TestAttachmentExportMissingBlobDoesNotPublish": "pass",
+        "TestCatalogueFailuresBeforeRenamePreserveOldIndex/file_sync": "pass",
+        "TestCatalogueFailuresBeforeRenamePreserveOldIndex/rename": "pass",
+        "TestCatalogueFailuresBeforeRenamePreserveOldIndex": "pass",
+        "TestCatalogueIdempotentRetryReestablishesDurability": "pass",
+        "TestCatalogueIdempotentRetryReportsFileSyncFailure": "pass",
+        "TestCatalogueBoundsAndGenerationExhaustion": "pass",
+        "TestCatalogueLockHelper": "pass",
+        "TestCatalogueLockReleasedOnProcessDeath": "pass",
+        "TestCatalogueCommitHelper": "pass",
+        "TestCatalogueCommitSurvivesProcessDeath/before": "pass",
+        "TestCatalogueCommitSurvivesProcessDeath/after": "pass",
+        "TestCatalogueCommitSurvivesProcessDeath": "pass",
+        "TestCataloguePreservesSessionsAcrossRegisterSelectRenameAndRestart": "pass",
+        "TestCatalogueCanonicalWorkspaceAlias": "pass",
+        "TestCatalogueRejectsInvalidMutationsWithoutChangingDisk": "pass",
+        "TestCatalogueLockPreventsLostUpdate": "pass",
+        "TestCatalogueRejectsFutureCorruptAndWrongWorkspace": "pass",
+        "TestCatalogueRejectsSymlinkMetadata": "pass",
+        "TestCatalogueAnchorsRelativeStoreRoot": "pass",
+        "TestManagerRecoversLegacyClonesAndTail": "pass",
+        "TestExportProcessHelper": "pass",
+        "TestExportProcessDeathPublicationBoundaries/before_publish": "pass",
+        "TestExportProcessDeathPublicationBoundaries/after_publish": "pass",
+        "TestExportProcessDeathPublicationBoundaries": "pass",
+        "TestSessionExportCopyLimitsAndCancellation/exact": "pass",
+        "TestSessionExportCopyLimitsAndCancellation/record": "pass",
+        "TestSessionExportCopyLimitsAndCancellation/total": "pass",
+        "TestSessionExportCopyLimitsAndCancellation/large": "pass",
+        "TestSessionExportCopyLimitsAndCancellation/large_record": "pass",
+        "TestSessionExportCopyLimitsAndCancellation": "pass",
+        "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/before_publish": "pass",
+        "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/after_publish": "pass",
+        "TestExportBoundaryFailureReportsPublicationAndCleansTemporary": "pass",
+        "TestForkProcessHelper": "pass",
+        "TestForkProcessDeathPublicationBoundaries/copied_entry": "pass",
+        "TestForkProcessDeathPublicationBoundaries/before_publish": "pass",
+        "TestForkProcessDeathPublicationBoundaries/after_publish": "pass",
+        "TestForkProcessDeathPublicationBoundaries/before_catalogue": "pass",
+        "TestForkProcessDeathPublicationBoundaries": "pass",
+        "TestForkStagingCleanupProtectsActiveAndSymlink": "pass",
+        "TestForkStagingCleanupBoundedAndCancelled": "pass",
+        "TestForkStagingCleanupBeforeFirstSession": "pass",
+        "TestForkFailureDoesNotPublishPartialCopy": "pass",
+        "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/copied_entry": "pass",
+        "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_publish": "pass",
+        "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/after_publish": "pass",
+        "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_catalogue": "pass",
+        "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan": "pass",
+        "TestManagerImportsOversizedLegacyImage": "pass",
+        "TestManagerNewPreservesLegacyAndResumesLastActive": "pass",
+        "TestManagerReconcilesOrphanAndExcludesForeignWorkspace": "pass",
+        "TestManagerWriterOwnershipAndIndependentNewSession": "pass",
+        "TestManagerDetectsMissingAndReplacedBackend": "pass",
+        "TestManagerRecoversTailAndRejectsInteriorCorruption": "pass",
+        "TestManagerRejectsCancelledAndConflictingSelection": "pass",
+        "TestSessionWriteLimitHelper": "pass",
+        "TestSessionOperationsHandleRealWriteLimit/export": "pass",
+        "TestSessionOperationsHandleRealWriteLimit/fork": "pass",
+        "TestSessionOperationsHandleRealWriteLimit": "pass",
+        "TestUsageSummaryPersistsUnknownAndDeduplicates": "pass",
+        "TestUsageRejectsInvalidAndFutureRecords": "pass",
+        "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart/fresh": "pass",
+        "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart/legacy": "pass",
+        "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart": "pass",
+        "TestForkAccountingExcludesInheritedConsumption": "pass",
+        "TestUsageTrackingRejectsFutureAndConflictingOrigins": "pass",
+        "TestUsageWriteRejectsOverflowWithoutChangingDurableJournal": "pass",
+        "TestUsageWriteRefusesInvalidExistingJournal/future": "pass",
+        "TestUsageWriteRefusesInvalidExistingJournal/malformed": "pass",
+        "TestUsageWriteRefusesInvalidExistingJournal/conflicting": "pass",
+        "TestUsageWriteRefusesInvalidExistingJournal": "pass",
+        "TestKeyForWorkspace_StableForSamePath": "pass",
+        "TestKeyForWorkspace_DifferentForDifferentPaths": "pass",
+        "TestKeyForWorkspace_ValidSinglePathComponent": "pass",
+        "TestStoreDir_ReturnsPathUnderHome": "pass"
+      },
+      "raw": "hand-session-scenario-suite-20260909.jsonl"
+    },
+    "harness": {
+      "counts": {
+        "pass": 172
+      },
+      "tests": {
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/case_alias_kind": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/case_alias_version": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/duplicate_version": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/duplicate_payload": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/case_alias_payload": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/unknown_field": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/duplicate_kind": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad/escaped_kind": "pass",
+        "TestAmbiguousAnnotationEnvelopeCannotDisappearDuringLoad": "pass",
+        "TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction": "pass",
+        "TestAnnotationValidation": "pass",
+        "TestAnnotationConcurrentAppendAndClosedWriter": "pass",
+        "TestSessionAttachmentReferencesSurviveRestart": "pass",
+        "TestSessionAttachmentWriteFailurePreservesLeaf": "pass",
+        "TestToolAttachmentPreservesUnknownPayloadFields": "pass",
+        "TestImageAtExactAttachmentLimitIsAccepted": "pass",
+        "TestSelectedBranchSurvivesRestartAndRewrite": "pass",
+        "TestLegacyCompactionPreservesOriginalBranches": "pass",
+        "TestFailedBranchPersistenceIsVisible": "pass",
+        "TestConcurrentBranchAppendAndViews": "pass",
+        "TestPersistedSessionIdentity": "pass",
+        "TestFirstAppendPersistsIdentity": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/future": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/missing_version": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/late": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/second_header": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/header_parent": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/message_parent_header": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration/version_on_message": "pass",
+        "TestFormatHeadersRejectedWithoutRecoveryOrMigration": "pass",
+        "TestLegacyFormatUpgradeBackedUpAndStable": "pass",
+        "TestCreateDoesNotOverwriteExistingSession": "pass",
+        "TestAppendCannotReuseHeaderIdentity": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/selection_future_version": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/selection_invalid_data": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/selection_parent": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/missing_ID": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/self_cycle": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/future_parent": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/duplicate_ID": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair/selection_missing_target": "pass",
+        "TestGraphCorruptionRejectedWithoutTailRepair": "pass",
+        "TestAppendRejectsDuplicateAndMissingParent": "pass",
+        "TestCommitCompactionPreservesOriginalGraphAndRestart": "pass",
+        "TestCommitCompactionRejectsStaleView": "pass",
+        "TestSelectionControlVersionRoundTrip": "pass",
+        "TestExclusiveLeaseBlocksOtherWritersAndMutations": "pass",
+        "TestWriterLeaseCannotBeReusedForAnotherKey": "pass",
+        "TestWriterLeaseHelper": "pass",
+        "TestWriterLeaseRecoversAfterProcessDeath": "pass",
+        "TestConvertLegacyCompactionRetainsEveryVersion": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/future_selection": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/conflicting_duplicate": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/tail": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/interior": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/self_range": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/unrelated_duplicate": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption/missing_parent": "pass",
+        "TestConvertLegacyRejectsUnrelatedCorruption": "pass",
+        "TestConvertValidLegacyPreservesExactBytes": "pass",
+        "TestLegacyConversionRemapsCompactionRanges": "pass",
+        "TestLegacyConversionRecordLimit": "pass",
+        "TestListMetadataLargeLegacyAndDamage": "pass",
+        "TestMetadataScanFailsWithoutPartialCounts": "pass",
+        "TestMigrateLargeLegacyImagePreservesOriginalAndRestarts": "pass",
+        "TestImageMigrationRejectsOversizedTextAndMalformedImage/text": "pass",
+        "TestImageMigrationRejectsOversizedTextAndMalformedImage/bad_image": "pass",
+        "TestImageMigrationRejectsOversizedTextAndMalformedImage": "pass",
+        "TestImageMigrationPreservesLegacyCompactionClones": "pass",
+        "TestMigrationProcessHelper": "pass",
+        "TestMigrationSurvivesProcessDeath/1": "pass",
+        "TestMigrationSurvivesProcessDeath/2": "pass",
+        "TestMigrationSurvivesProcessDeath": "pass",
+        "TestCombinedMigrationSurvivesProcessDeath/1": "pass",
+        "TestCombinedMigrationSurvivesProcessDeath/2": "pass",
+        "TestCombinedMigrationSurvivesProcessDeath": "pass",
+        "TestCombinedMigrationRecoveryValidatesEntirePrefix/clones": "pass",
+        "TestCombinedMigrationRecoveryValidatesEntirePrefix/image_clones": "pass",
+        "TestCombinedMigrationRecoveryValidatesEntirePrefix/versioned": "pass",
+        "TestCombinedMigrationRecoveryValidatesEntirePrefix": "pass",
+        "TestCombinedRecoveryRejectsCorruptPrefixesAndTerminatedDamage": "pass",
+        "TestLegacyMigrationBackupRestartAndIdempotence": "pass",
+        "TestLegacyMigrationFailureBoundaries": "pass",
+        "TestLegacyMigrationCancelledAfterBackup": "pass",
+        "TestPersistenceErrorIsStickyAndSessionScoped": "pass",
+        "TestPersistenceCapturesMarshalAndFlushFailures": "pass",
+        "TestPersistenceErrorConcurrentReaders": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/unfinished_tail": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/unfinished_interior": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/terminated_corrupt_tail": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/invalid_tail": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/trailing_object": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/null_record": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior/oversized": "pass",
+        "TestSessionRecordErrorsDistinguishTailFromInterior": "pass",
+        "TestCompleteFinalRecordWithoutNewlineLoads": "pass",
+        "TestAppendDelimitsCompleteUnterminatedRecord": "pass",
+        "TestRecoveryProcessHelper": "pass",
+        "TestRecoverySurvivesProcessDeath/1": "pass",
+        "TestRecoverySurvivesProcessDeath/2": "pass",
+        "TestRecoverySurvivesProcessDeath": "pass",
+        "TestRecoveryPreservesBackupAndExactPrefix": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation/{\"id\":_{\"id\":\"good\"}": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation/{\"id\":_": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation/not_JSON": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation/null": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation/{}_{}": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation/xxxxxxxxxxxxxxxxxxxxxxxxx": "pass",
+        "TestRecoveryRejectsCorruptionWithoutMutation": "pass",
+        "TestRecoveryCancellationAndBusyLeaveOriginal": "pass",
+        "TestRecoveryRejectsSymlink": "pass",
+        "TestRecoveryEmptyPrefixAndMissingSession": "pass",
+        "TestRecoveryDirectorySyncFailures/1": "pass",
+        "TestRecoveryDirectorySyncFailures/2": "pass",
+        "TestRecoveryDirectorySyncFailures": "pass",
+        "TestRecoveryCancellationAfterBackupPreservesOriginal": "pass",
+        "TestRewriteMarshalFailurePreservesOriginal": "pass",
+        "TestAtomicRewriteIsPrivateAndReloadable": "pass",
+        "TestConcurrentRewriteAndAppendPreserveDiskOrder": "pass",
+        "TestConcurrentLegacyCompactionAndAppendRemainConsistent": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/duplicate_parent": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/escaped_parent": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/case_alias_parent": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/duplicate_data": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/case_alias_data": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/case_alias_version": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/unknown_selection_field": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/duplicate_type": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch/duplicate_version": "pass",
+        "TestSelectionRecordAmbiguityCannotRedirectRestoredBranch": "pass",
+        "TestSessionAppendAndHistory": "pass",
+        "TestSessionDAGTraversal": "pass",
+        "TestStorePersistence": "pass",
+        "TestToolCallEntries": "pass",
+        "TestToolCallEntrySanitisesEmptyInput/nil_input": "pass",
+        "TestToolCallEntrySanitisesEmptyInput/empty_non_nil_input": "pass",
+        "TestToolCallEntrySanitisesEmptyInput/truncated_object": "pass",
+        "TestToolCallEntrySanitisesEmptyInput/plain_text": "pass",
+        "TestToolCallEntrySanitisesEmptyInput": "pass",
+        "TestSessionBranch": "pass",
+        "TestSessionBranchInvalidID": "pass",
+        "TestSessionCompact": "pass",
+        "TestSessionCompactNoOp": "pass",
+        "TestSessionCompactWithStore": "pass",
+        "TestEstimateTokens": "pass",
+        "TestSessionViewWithoutCompactionMatchesHistory": "pass",
+        "TestSessionViewWithSingleCompaction": "pass",
+        "TestSessionViewWithMultipleCompactions": "pass",
+        "TestCompactionEntryHasCorrectFields": "pass",
+        "TestToolResultData_AbortedFieldRoundTrip": "pass",
+        "TestToolResultData_OldJSONLWithoutAbortedField": "pass",
+        "TestSession_AppendConcurrent": "pass",
+        "TestSession_ViewReturnsCopy": "pass",
+        "TestConcurrentAppendAndViewNoRace": "pass",
+        "TestAppendPreservesDiskOrder": "pass",
+        "TestStore_DegradedPersistenceWarnsOnce": "pass",
+        "TestStore_RewriteDegradedWarns": "pass",
+        "TestStoreRejectsPathTraversalIdentifiers": "pass",
+        "FuzzLegacyConversion/seed#0": "pass",
+        "FuzzLegacyConversion/seed#1": "pass",
+        "FuzzLegacyConversion/seed#2": "pass",
+        "FuzzLegacyConversion/seed#3": "pass",
+        "FuzzLegacyConversion": "pass",
+        "FuzzSessionRecords/seed#0": "pass",
+        "FuzzSessionRecords/seed#1": "pass",
+        "FuzzSessionRecords/seed#2": "pass",
+        "FuzzSessionRecords/seed#3": "pass",
+        "FuzzSessionRecords/seed#4": "pass",
+        "FuzzSessionRecords/seed#5": "pass",
+        "FuzzSessionRecords/seed#6": "pass",
+        "FuzzSessionRecords/seed#7": "pass",
+        "FuzzSessionRecords": "pass"
+      },
+      "raw": "hand-harness-session-scenario-suite-20260909.jsonl"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "legacy_backup_idempotent_import",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "hand",
+          "test": "TestManagerNewPreservesLegacyAndResumesLastActive"
+        },
+        {
+          "suite": "hand",
+          "test": "TestManagerRecoversLegacyClonesAndTail"
+        }
+      ],
+      "proves": "Legacy bytes preserved in a backup; import retains old and new sessions; repeat reconciliation creates neither duplicate sessions nor backups.",
+      "remaining_evidence": "Run the same import through the released Hand binary on both supported native platforms."
+    },
+    {
+      "id": "interrupted_migration",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "harness",
+          "test": "TestMigrationSurvivesProcessDeath"
+        },
+        {
+          "suite": "harness",
+          "test": "TestCombinedMigrationSurvivesProcessDeath"
+        }
+      ],
+      "proves": "Killed child at backup and replacement durability boundaries; original backup preserved; replacement complete; restart repair idempotent and writable.",
+      "remaining_evidence": "Qualify the Hand startup import boundary as well as these Harness migration boundaries on the final candidate."
+    },
+    {
+      "id": "branch_restart_compaction",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "harness",
+          "test": "TestCommitCompactionPreservesOriginalGraphAndRestart"
+        },
+        {
+          "suite": "harness",
+          "test": "TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction"
+        }
+      ],
+      "proves": "Compaction view survives reload and original branch history remains selectable; annotation persistence preserves branch selection.",
+      "remaining_evidence": "One final built-Hand journey must combine branch creation, compaction, process restart and continuation of the selected branch."
+    },
+    {
+      "id": "selected_leaf_persisted",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "harness",
+          "test": "TestSelectedBranchSurvivesRestartAndRewrite"
+        },
+        {
+          "suite": "hand",
+          "test": "TestManagerRecoversLegacyClonesAndTail"
+        }
+      ],
+      "proves": "Selected older branch survives reload/rewrite and future append uses that parent; other branch retained; repaired Hand session preserves selected leaf on reopen.",
+      "remaining_evidence": "Exercise branch selection and restart through the final Hand RPC or TUI interface."
+    },
+    {
+      "id": "new_preserves_history",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "hand",
+          "test": "TestManagerNewPreservesLegacyAndResumesLastActive"
+        }
+      ],
+      "proves": "Creating a new session retains legacy history and independent session records; reopening old and latest sessions preserves their separate histories.",
+      "remaining_evidence": "Requalify the existing controller/binary journeys against the released dependency and clean candidate."
+    },
+    {
+      "id": "two_process_writer_lock",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "harness",
+          "test": "TestWriterLeaseRecoversAfterProcessDeath"
+        },
+        {
+          "suite": "hand",
+          "test": "TestManagerWriterOwnershipAndIndependentNewSession"
+        },
+        {
+          "suite": "hand",
+          "test": "TestCatalogueLockReleasedOnProcessDeath"
+        }
+      ],
+      "proves": "Second process denied a live Harness writer lease; death releases lease; recovered writer persists; catalogue lock also recovers after process death.",
+      "remaining_evidence": "Run simultaneous final Hand processes against the same selected session, verifying visible refusal and subsequent recovery."
+    },
+    {
+      "id": "truncated_tail_vs_interior_corruption",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "hand",
+          "test": "TestManagerRecoversTailAndRejectsInteriorCorruption"
+        },
+        {
+          "suite": "harness",
+          "test": "TestRecoveryRejectsCorruptionWithoutMutation"
+        }
+      ],
+      "proves": "Truncated final record recovered with backup; interior corruption refused with original bytes unchanged.",
+      "remaining_evidence": "Verify final client diagnostics and backup paths on both platforms, in addition to these storage checks."
+    },
+    {
+      "id": "disk_full_visible",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "hand",
+          "test": "TestSessionOperationsHandleRealWriteLimit"
+        },
+        {
+          "suite": "harness",
+          "test": "TestFailedBranchPersistenceIsVisible"
+        }
+      ],
+      "proves": "Disposable child imposes a real file-size limit; fork/export receive EFBIG, preserve source and selection, leave no partial publication and retry after restoring limit. Branch persistence failure is returned. Supplemental Linux built-CLI test fills a bounded tmpfs to real ENOSPC; export visibly fails without partial output or source/catalogue mutation and retries after space is freed. Active conversation CLI now also reaches kernel ENOSPC after its provider request, reports exit 5/no-space, preserves saved questions and recovers a usable writer after space is freed.",
+      "remaining_evidence": "Final exact-candidate platform qualification and interactive TUI visibility; export and active-conversation CLI ENOSPC are established in Linux container development evidence.",
+      "enospc_evidence": "docs/acceptance/session-enospc.json",
+      "active_conversation_evidence": "docs/acceptance/conversation-enospc.json"
+    },
+    {
+      "id": "usage_attachments_export_restart",
+      "status": "development_evidence_partial",
+      "tests": [
+        {
+          "suite": "hand",
+          "test": "TestAttachmentForkExportAndRestart"
+        },
+        {
+          "suite": "hand",
+          "test": "TestUsageTrackingPreservesLegacyUncertaintyAcrossRestart"
+        },
+        {
+          "suite": "hand",
+          "test": "TestForkAccountingExcludesInheritedConsumption"
+        }
+      ],
+      "proves": "Combined attachment and usage journey preserves images, exact reported totals and unknown accounting through standalone export, deduplicated replay, continuation and a second reopen; fork excludes inherited consumption.",
+      "remaining_evidence": "Final exact-candidate platform reruns and client-visible usage/image rendering remain pending; built CLI export and restarted re-export are now covered with explicit API-based catalogue reconstruction.",
+      "supplemental_evidence": "docs/acceptance/combined-session-export.json",
+      "client_export_evidence": "docs/acceptance/binary-combined-export.json"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/session-scenario-audit-20260909/hand-session-scenario-suite-20260909.jsonl.gz",
+      "sha256": "09efb7b6f862d8d1a51da370b622a7c5a4b15d9aed8b0a096813a2077febc700",
+      "uncompressed_sha256": "2c89714a0773df2341c898d8247d5eb8d8077422664b16981b0a33e3990a6bf8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/session-scenario-audit-20260909/hand-harness-session-scenario-suite-20260909.jsonl.gz",
+      "sha256": "a46eb5ae3f7b3f90974b86a12bbc7c373c712c9df2cba8a2166060815d5b3e95",
+      "uncompressed_sha256": "9efe59abea7a702d8855d8438cd5a29ed19f9163cb0db07c97493d3cc5b5f649"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/session-scenario-audit-20260909/hand-session-scenario-sources-20260909.json.gz",
+      "sha256": "a87cd7165186e3220f4190ae8c0a55ff51e0b889e4ca175bfc244a31524977ba",
+      "uncompressed_sha256": "d7283149b97e49788bf1f443d1f3ef7c8955fffd1f43acdd116971528257970f"
+    }
+  ],
+  "qualification_gaps": [
+    "Exact clean Hand candidate and actual released Harness version",
+    "Native platform qualification and integrated journey gaps listed per scenario",
+    "Final acceptance review and checker"
+  ]
+}

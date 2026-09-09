@@ -1,0 +1,26 @@
+{
+  "status": "frozen_local_unpublished",
+  "commit": "cc756425e8b0c2366b08d33f3184cf9ede3e6f7e",
+  "branch": "codex/hand-release-v0.4.0",
+  "checkout": "/private/tmp/hand-harness-gate-review-20260909-27_gtk26/reconstructed",
+  "base_commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+  "source_fingerprint": "a8711b65b69550c0712825c754c85322bb836e5470e8d84fe6db2c767e2bb5bd",
+  "clean": true,
+  "bundle": {
+    "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/candidate.bundle",
+    "sha256": "65784e9af908369563c2cef7c686e8087806f47e3e79d1d53b4544ca75aee547"
+  },
+  "proposed_version": "v0.4.0",
+  "qualification": "Fresh macOS and Linux native suites each pass 1114 test records; 20 cancellation repetitions pass; clean candidate unchanged.",
+  "publication_authorised": false,
+  "previous_candidate": "0972eed3eabe53dd310239bc66643aa89b915bd0",
+  "release_review": "docs/acceptance/harness-release-review-2026-09-10.md",
+  "qualification_evidence": "docs/acceptance/harness-revised-qualified.json",
+  "released_successor": {
+    "commit": "5d4632ffe3fdfeb171bb217a45ae75bef056811e",
+    "tag": "v0.4.0",
+    "release_url": "https://github.com/sausheong/harness/releases/tag/v0.4.0",
+    "evidence": "docs/acceptance/harness-publication-status.json",
+    "note": "Original frozen-candidate fields above remain historical; the successor contains verified CI setup fixes."
+  }
+}

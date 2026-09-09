@@ -1,0 +1,32 @@
+{"Time":"2026-09-08T11:21:28.6663+08:00","Action":"start","Package":"github.com/sausheong/hand/protocol"}
+{"Time":"2026-09-08T11:21:29.149312+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"TestRequestFramingAndValidation"}
+{"Time":"2026-09-08T11:21:29.149377+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestRequestFramingAndValidation","Output":"=== RUN   TestRequestFramingAndValidation\n"}
+{"Time":"2026-09-08T11:21:29.149557+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestRequestFramingAndValidation","Output":"--- PASS: TestRequestFramingAndValidation (0.00s)\n"}
+{"Time":"2026-09-08T11:21:29.149568+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"TestRequestFramingAndValidation","Elapsed":0}
+{"Time":"2026-09-08T11:21:29.149574+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"TestFrameLimitsAndTruncatedDisconnect"}
+{"Time":"2026-09-08T11:21:29.149578+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestFrameLimitsAndTruncatedDisconnect","Output":"=== RUN   TestFrameLimitsAndTruncatedDisconnect\n"}
+{"Time":"2026-09-08T11:21:29.162693+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestFrameLimitsAndTruncatedDisconnect","Output":"--- PASS: TestFrameLimitsAndTruncatedDisconnect (0.01s)\n"}
+{"Time":"2026-09-08T11:21:29.162739+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"TestFrameLimitsAndTruncatedDisconnect","Elapsed":0.01}
+{"Time":"2026-09-08T11:21:29.162766+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"TestWriterPoisonedAfterPartialFrame"}
+{"Time":"2026-09-08T11:21:29.16277+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestWriterPoisonedAfterPartialFrame","Output":"=== RUN   TestWriterPoisonedAfterPartialFrame\n"}
+{"Time":"2026-09-08T11:21:29.162962+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestWriterPoisonedAfterPartialFrame","Output":"--- PASS: TestWriterPoisonedAfterPartialFrame (0.00s)\n"}
+{"Time":"2026-09-08T11:21:29.163038+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"TestWriterPoisonedAfterPartialFrame","Elapsed":0}
+{"Time":"2026-09-08T11:21:29.163049+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"TestConcurrentFramesDoNotInterleave"}
+{"Time":"2026-09-08T11:21:29.163054+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestConcurrentFramesDoNotInterleave","Output":"=== RUN   TestConcurrentFramesDoNotInterleave\n"}
+{"Time":"2026-09-08T11:21:29.164158+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"TestConcurrentFramesDoNotInterleave","Output":"--- PASS: TestConcurrentFramesDoNotInterleave (0.00s)\n"}
+{"Time":"2026-09-08T11:21:29.164171+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"TestConcurrentFramesDoNotInterleave","Elapsed":0}
+{"Time":"2026-09-08T11:21:29.164197+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest"}
+{"Time":"2026-09-08T11:21:29.164204+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest","Output":"=== RUN   FuzzDecodeRequest\n"}
+{"Time":"2026-09-08T11:21:29.164349+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#0"}
+{"Time":"2026-09-08T11:21:29.164357+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#0","Output":"=== RUN   FuzzDecodeRequest/seed#0\n"}
+{"Time":"2026-09-08T11:21:29.164442+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#0","Output":"--- PASS: FuzzDecodeRequest/seed#0 (0.00s)\n"}
+{"Time":"2026-09-08T11:21:29.16445+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#0","Elapsed":0}
+{"Time":"2026-09-08T11:21:29.16447+08:00","Action":"run","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#1"}
+{"Time":"2026-09-08T11:21:29.164493+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#1","Output":"=== RUN   FuzzDecodeRequest/seed#1\n"}
+{"Time":"2026-09-08T11:21:29.164524+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#1","Output":"--- PASS: FuzzDecodeRequest/seed#1 (0.00s)\n"}
+{"Time":"2026-09-08T11:21:29.164535+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest/seed#1","Elapsed":0}
+{"Time":"2026-09-08T11:21:29.164565+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest","Output":"--- PASS: FuzzDecodeRequest (0.00s)\n"}
+{"Time":"2026-09-08T11:21:29.164582+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Test":"FuzzDecodeRequest","Elapsed":0}
+{"Time":"2026-09-08T11:21:29.164588+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Output":"PASS\n"}
+{"Time":"2026-09-08T11:21:30.172598+08:00","Action":"output","Package":"github.com/sausheong/hand/protocol","Output":"ok  \tgithub.com/sausheong/hand/protocol\t1.506s\n"}
+{"Time":"2026-09-08T11:21:30.172665+08:00","Action":"pass","Package":"github.com/sausheong/hand/protocol","Elapsed":1.506}

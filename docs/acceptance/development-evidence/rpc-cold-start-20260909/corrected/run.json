@@ -1,0 +1,107 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "4b1fd3d9f83e85261b87901bb0051f29601ffe9b50c1c05859c776750b9988df",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "rounds": [
+    {
+      "decision": "deny",
+      "hello_seconds": 0.05175604100804776,
+      "terminal": {
+        "id": "untrusted-0",
+        "fingerprint": "a5e47ae8ff42f41f50487db5a3f321dbdeb9a6db7ab9f6242511243ce1557128",
+        "session_id": "ses_4703e88b6c749aee",
+        "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "6FG5SLOHGYT5VI2EBBUOF2ANMM:11",
+          "sequence": 11,
+          "session_id": "ses_4703e88b6c749aee",
+          "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+          "request_id": "untrusted-0",
+          "timestamp": "2026-09-09T01:26:59.304203Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      },
+      "explicit_approval": true
+    },
+    {
+      "decision": "cancel",
+      "hello_seconds": 0.03521274996455759,
+      "terminal": {
+        "id": "untrusted-1",
+        "fingerprint": "1a888cb719ddd09249f3a7f87319d2bc24fe0a55a0d73d4fc57810149ee4e2d2",
+        "session_id": "ses_b25eb7d01149ceeb",
+        "run_id": "3ASPCPNNTDCVYINDNXUPRCDSYM:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "6KHPJJ6PN4TYYKCGNU7GY3FXSH:6",
+          "sequence": 6,
+          "session_id": "ses_b25eb7d01149ceeb",
+          "run_id": "3ASPCPNNTDCVYINDNXUPRCDSYM:1",
+          "request_id": "untrusted-1",
+          "timestamp": "2026-09-09T01:26:59.441351Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      },
+      "explicit_approval": true
+    }
+  ],
+  "provider_calls": 3,
+  "workspace_settings_unchanged": true,
+  "no_side_effect": true,
+  "no_terminal_prompt": true,
+  "restart_requires_approval": true,
+  "artifacts": {
+    "cold-0.json": "172838fb9fcb99794e8de8608e29c827bbf3ebd22207faf5189d72130fda00a3",
+    "cold-1.json": "47b5eb8757ba07a90ec7849a3ccc1268e7e824561a94b30519861f0f2944bb67",
+    "provider-requests.json": "dc3accef902518274fd2f645766ecb71b465d657af6ec14e415a4f0f1790e0fe",
+    "cold-0.stderr": "cac39ff176b9ea745f0bc75e0ebbf09ecd074c6a11fa68baa036d455ddaf7d3b",
+    "cold-1.stderr": "9c395c6095b29fe35a1ce336195284bdcdd81e9666a3c4f61d786e437b165d45"
+  }
+}

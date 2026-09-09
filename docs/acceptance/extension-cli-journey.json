@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "ca84370fccc74ec240b4f7dc18b63502e1155263e08ea2d7d6b5c0159cc8db2d",
+  "go_sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+  "python_sha256": "cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43",
+  "source_sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+  "runner_sha256": "6f90b9e397b2b119ce0db6d313a2caa444a872b5b0937156dd2a9c7912a570e0",
+  "client_runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "languages": {
+    "go": {
+      "status": "passed",
+      "review_digest": "72306ae8125b187e48f7095b6e23c73c97216d57eb3313438c09316a047cbc60",
+      "wrong_approval_rejected": true,
+      "command_question_answer": true,
+      "durable_replay_after_restart": true,
+      "cancellation_joined": true,
+      "snapshots_removed": true
+    },
+    "python": {
+      "status": "passed",
+      "review_digest": "3019bbdb95be640acd2b3dfe830f01f7af1d21cb3389ed189c2dc5c6a2af3b19",
+      "wrong_approval_rejected": true,
+      "command_question_answer": true,
+      "durable_replay_after_restart": true,
+      "cancellation_joined": true,
+      "snapshots_removed": true
+    }
+  },
+  "provider_calls": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/run.json",
+      "sha256": "28ba246ef2cf934694ad399ff2b6dfe3927470c4a721c773375a8609ad5c189a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/first.json",
+      "sha256": "8cb11c2d355cf33a55c8746ca7eea44e3b6e00a1a35c636480647e8d3da25f29"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/second.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/rejection.stderr",
+      "sha256": "67390bce4579177f1426341139a0c98f84116b657f66f291f417f706ba783ad0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/second.json",
+      "sha256": "e75997b68c4565a389e460dc3c4021d1331593ecd15fef17773898682b1130e2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/input.json",
+      "sha256": "73c5a2d12ed1e08a31ab9d683bc7f71999cd860a45e0857808ff2d5bb3b99375"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/go/review.json",
+      "sha256": "72306ae8125b187e48f7095b6e23c73c97216d57eb3313438c09316a047cbc60"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/first.json",
+      "sha256": "d9397ef02fd28ee2cdb41e4dfd8219cf185f8fdc3c56b07b7732ef88a7b5dcca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/second.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/rejection.stderr",
+      "sha256": "67390bce4579177f1426341139a0c98f84116b657f66f291f417f706ba783ad0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/second.json",
+      "sha256": "23721b5071fa3b11ced33f0ccee2c69710a025fdb24563332964dbf193d1cc75"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/input.json",
+      "sha256": "c94a338ae11f5d32149d4ec9b5237b7d225ff5635ca91aca05c173f0fa303cec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-cli-20260909/python/review.json",
+      "sha256": "3019bbdb95be640acd2b3dfe830f01f7af1d21cb3389ed189c2dc5c6a2af3b19"
+    }
+  ],
+  "implementation": "docs/acceptance/extension-review-integration.patch",
+  "harness_delta": "docs/acceptance/harness-context-state.patch",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "limitations": [
+    "Development binary uses staged dirty Harness; this is not final candidate evidence.",
+    "Review and approval apply only to isolated test fixtures. No production extension authority was granted.",
+    "TUI, runtime hooks, container extension launch and full acceptance remain pending."
+  ]
+}

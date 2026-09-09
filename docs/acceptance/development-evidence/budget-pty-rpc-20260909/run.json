@@ -1,0 +1,88 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-verification-pty-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1"
+  ],
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "d538b4c1290054d0cc22b3d5048530db6d7d31ba3a6694b0f2bb90443d9bed33",
+  "terminal_echo_disabled": true,
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "restarted_budget": {
+    "id": "repair",
+    "selected": true,
+    "configured": true,
+    "tokens": {
+      "limit": 100000,
+      "committed": 0,
+      "exhausted": false,
+      "attempts": 0,
+      "uncertain_attempts": 0,
+      "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+    },
+    "cost": {
+      "currency": "USD",
+      "limit_nano": 1000000001,
+      "committed_nano": 0,
+      "compaction_nano": 0,
+      "strict": true,
+      "exhausted": false,
+      "attempts": 0,
+      "unpriced_attempts": 0,
+      "uncertain_attempts": 0,
+      "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+    },
+    "time": {
+      "configured": true,
+      "decided_at": "2026-09-09T00:38:45.203105Z",
+      "deadline": "2026-09-09T00:48:45.203105Z",
+      "expired": false,
+      "remaining_millis": 599717,
+      "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+    },
+    "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+  },
+  "inspection_preserved_journal": true,
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "completed_commands": [
+    "/run-budget",
+    "/run-budget tokens repair 0",
+    "/run-budget tokens repair 100000",
+    "/run-budget cost repair USD 1.000000001 strict",
+    "/run-budget time repair 600",
+    "/run-budget select repair",
+    "/run-budget"
+  ],
+  "exit_code": 0,
+  "token_decision": {
+    "version": 1,
+    "kind": "limit",
+    "tokens": 100000
+  },
+  "cost_decision": {
+    "version": 1,
+    "kind": "decision",
+    "currency": "USD",
+    "limit_nano": 1000000001,
+    "strict": true
+  },
+  "deadline": {
+    "version": 1,
+    "decided_at": "2026-09-09T00:38:45.203105Z",
+    "deadline": "2026-09-09T00:48:45.203105Z"
+  },
+  "selected": {
+    "version": 1,
+    "id": "repair"
+  },
+  "terminal_sha256": "78f73eef1a4701a8a4af31773a6dd65cfae11a813bd7a8afa78a26fe281a0ff9"
+}

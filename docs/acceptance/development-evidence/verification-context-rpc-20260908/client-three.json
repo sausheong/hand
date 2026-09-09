@@ -1,0 +1,148 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-disconnect",
+      "method": "request.get",
+      "params": {
+        "id": "disconnect"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-disconnect",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:RPTQ4ND4DU36ME57X5KD63LRTE",
+        "id": "disconnect",
+        "fingerprint": "892ad178d0db182dd2e7678dec0d1a3d5ded988c1d7e4aebbe3abe1737e3e834",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "disconnect",
+          "result": {
+            "completed": false,
+            "error": "signal: killed",
+            "verification": {
+              "id": "912494e79ac20420c1f4574988909e7932e3c4b7b34d57755388704e890ae979",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "printf %s \"$$\" > marker; exec sleep 30"
+                ],
+                "profile": "hang",
+                "profile_digest": "3560815fcec4bdb10d83bba5d21ed5119e6411b296b8e10903801b850dd6bdf3",
+                "workspace": "/private/tmp/hand-verification-context-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "ab87e6c83a2b3edb7219e5b5461f23204dd3a9e218262f14c766dfeaa70167e8",
+                "omissions": null,
+                "started": "2026-09-08T15:08:55.87736Z",
+                "finished": "2026-09-08T15:08:55.889436Z",
+                "exit_code": -1,
+                "run_error": "signal: killed",
+                "snapshot_error": "context canceled",
+                "stdout": "",
+                "stderr": "",
+                "stdout_bytes": 0,
+                "stderr_bytes": 0,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "unverified",
+                "reason": "context canceled"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

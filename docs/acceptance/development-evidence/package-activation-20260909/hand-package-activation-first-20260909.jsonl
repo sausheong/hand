@@ -1,0 +1,7 @@
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-output","Output":"internal/app/package_extensions_test.go:172:40: invalid operation: before.Revision != uint64(round) (mismatched types int and uint64)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-output","Output":"internal/app/package_extensions_test.go:211:39: invalid operation: saved.Revision != uint64(round + 1) (mismatched types int and uint64)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-fail"}
+{"Time":"2026-09-09T02:20:32.435656+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:20:32.435713+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\tgithub.com/sausheong/hand/internal/app [build failed]\n"}
+{"Time":"2026-09-09T02:20:32.435726+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]"}

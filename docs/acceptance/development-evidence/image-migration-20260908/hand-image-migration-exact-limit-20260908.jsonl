@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T07:10:46.259387+08:00","Action":"start","Package":"github.com/sausheong/harness/session"}
+{"Time":"2026-09-08T07:10:46.790891+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted"}
+{"Time":"2026-09-08T07:10:46.790966+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Output":"=== RUN   TestImageAtExactAttachmentLimitIsAccepted\n"}
+{"Time":"2026-09-08T07:10:53.46243+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Output":"--- PASS: TestImageAtExactAttachmentLimitIsAccepted (6.67s)\n"}
+{"Time":"2026-09-08T07:10:53.462459+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Elapsed":6.67}
+{"Time":"2026-09-08T07:10:53.462618+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"PASS\n"}
+{"Time":"2026-09-08T07:10:54.510331+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"ok  \tgithub.com/sausheong/harness/session\t8.251s\n"}
+{"Time":"2026-09-08T07:10:54.510423+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Elapsed":8.251}

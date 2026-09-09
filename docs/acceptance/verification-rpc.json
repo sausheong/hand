@@ -1,0 +1,130 @@
+{
+  "status": "development_passed",
+  "aggregate": "verification-disconnect-integration.patch",
+  "development_harness_candidate": "5998569d24ce063207cc237263d89f22d532e25f",
+  "report": {
+    "status": "passed",
+    "qualification": "development",
+    "binary_sha256": "dc3ceb1b07ef28b19b795b91fc6fe65d785b1824072c03568d628fb5498cb0b7",
+    "runner_sha256": "554668714109a6e18dae81f1b1b76983fd11c7920b09543450109e1891f6e6e2",
+    "client_runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "passed_id": "f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87",
+    "failed_id": "6b4be0e8cdba5277dc42f1964f96d2fa922fd3765608970cbadc797cebe098b4",
+    "later_edit_stale": true,
+    "replay_after_restart": true,
+    "cancel_joined": true,
+    "disconnect_joined": true,
+    "command_pids": [
+      22305,
+      22306
+    ],
+    "provider_calls": 0
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/checkpoints/0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d.json",
+      "sha256": "c6c6baafa0fef385711e0878cd672112f769eca983e70f1ebd1b5a4b3b470ed6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/checkpoints/ab87e6c83a2b3edb7219e5b5461f23204dd3a9e218262f14c766dfeaa70167e8.json",
+      "sha256": "aba975792a4beeed548b4f86c3f53e596779283abc30023147470f55444358ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/client-one.json",
+      "sha256": "2d4ce06abc790528117623ec00ebd6df0af6a21efea4b0704a564bab1e313d0e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/client-one.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/client-three.json",
+      "sha256": "fa814ada6cb388759d056e55bd1d4371b514c676c9c5c1da1ce99cad6685e01e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/client-three.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/client-two.json",
+      "sha256": "d906f914c91d3b70b84bcfbb77fcaa3cd3422a2c22195839ed68700e6b970126"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/client-two.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/authority/b178f267766eee0131bd3d1c4d2d7ca1965329119e823baa2170e9ba5163e725/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/sessions/catalogues/b178f267766eee01/catalogue.json",
+      "sha256": "7c0c8c17e2aca2420ea0eb5de45ec05437777291bdab2351a9550dfc24263449"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/sessions/catalogues/b178f267766eee01/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_b178f267766eee01_aaf8615c84242fb5215c493579d163bc.lock",
+      "sha256": "4ca3927837d872fe6e82efd9eec0f0ddce42c21218612729ac6eff2256c4c31c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/sessions/hand/workspace_b178f267766eee01_aaf8615c84242fb5215c493579d163bc.jsonl",
+      "sha256": "6f44031f979076c996cc5ea1a1e45c5a7bd95860d91b4c7a235642f9404e1779"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/home/.hand/sessions/rpc-b178f267766eee0131bd3d1c4d2d7ca1965329119e823baa2170e9ba5163e725/requests.jsonl",
+      "sha256": "8ff08f508442e4c8f9a5b1343a60784e15306bdbbec428d458188530324a48d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/run.json",
+      "sha256": "fd0e597b80663242922d50ba340eef467e9b96a34b1955eb1e398ab54206ddf8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/verification/3057f13f06174ea2b8f364c2555fd2c32dac4cea041cefcafbe9abce460d4127.json",
+      "sha256": "3057f13f06174ea2b8f364c2555fd2c32dac4cea041cefcafbe9abce460d4127"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/verification/5bb3b9c1dc2c985692a5236a2e26d6ad60597ec3e75f33b21b8e3747f4bda826.json",
+      "sha256": "5bb3b9c1dc2c985692a5236a2e26d6ad60597ec3e75f33b21b8e3747f4bda826"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/verification/6b4be0e8cdba5277dc42f1964f96d2fa922fd3765608970cbadc797cebe098b4.json",
+      "sha256": "6b4be0e8cdba5277dc42f1964f96d2fa922fd3765608970cbadc797cebe098b4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/verification/f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87.json",
+      "sha256": "f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/verification.json",
+      "sha256": "e6290ca6a352336b47fffbe7bad7356d55bd7195a7a3e6870e7b3ffb11d68bf4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/workspace/marker",
+      "sha256": "04789ca7f08bbde14cacf098ddbac2e90c028828c68afd446a7fe7d8b3b8cb2e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-rpc-20260908/workspace/source",
+      "sha256": "c788e2315fa2282f79146ae97215c0f34be5e3f3b22101fc983793911427bc44"
+    }
+  ],
+  "limitations": [
+    "macOS arm64 development binary and unpublished Harness; not final candidate evidence.",
+    "No provider calls. Command process termination checked after joins; not full process-tree/performance qualification.",
+    "Terminal verification, retention and final gates remain pending."
+  ]
+}

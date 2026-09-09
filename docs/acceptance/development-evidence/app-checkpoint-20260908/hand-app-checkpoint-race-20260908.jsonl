@@ -1,0 +1,20 @@
+{"Time":"2026-09-08T14:57:19.887+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T14:57:20.461668+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering"}
+{"Time":"2026-09-08T14:57:20.461735+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering","Output":"=== RUN   TestCheckpointBoundaryVetoAndTerminalOrdering\n"}
+{"Time":"2026-09-08T14:57:20.461951+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering","Output":"--- PASS: TestCheckpointBoundaryVetoAndTerminalOrdering (0.00s)\n"}
+{"Time":"2026-09-08T14:57:20.461965+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering","Elapsed":0}
+{"Time":"2026-09-08T14:57:20.46201+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestWorkspaceCheckpointAroundApplicationRun"}
+{"Time":"2026-09-08T14:57:20.462017+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestWorkspaceCheckpointAroundApplicationRun","Output":"=== RUN   TestWorkspaceCheckpointAroundApplicationRun\n"}
+{"Time":"2026-09-08T14:57:20.500289+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestWorkspaceCheckpointAroundApplicationRun","Output":"--- PASS: TestWorkspaceCheckpointAroundApplicationRun (0.04s)\n"}
+{"Time":"2026-09-08T14:57:20.500333+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestWorkspaceCheckpointAroundApplicationRun","Elapsed":0.04}
+{"Time":"2026-09-08T14:57:20.507756+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestGoalEventOrderingAndFinalIterationVerification"}
+{"Time":"2026-09-08T14:57:20.507786+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestGoalEventOrderingAndFinalIterationVerification","Output":"=== RUN   TestGoalEventOrderingAndFinalIterationVerification\n"}
+{"Time":"2026-09-08T14:57:20.507914+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestGoalEventOrderingAndFinalIterationVerification","Output":"--- PASS: TestGoalEventOrderingAndFinalIterationVerification (0.00s)\n"}
+{"Time":"2026-09-08T14:57:20.507923+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestGoalEventOrderingAndFinalIterationVerification","Elapsed":0}
+{"Time":"2026-09-08T14:57:20.508017+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCancellationRetainsOwnershipUntilBackendJoins"}
+{"Time":"2026-09-08T14:57:20.508026+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCancellationRetainsOwnershipUntilBackendJoins","Output":"=== RUN   TestCancellationRetainsOwnershipUntilBackendJoins\n"}
+{"Time":"2026-09-08T14:57:20.508127+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCancellationRetainsOwnershipUntilBackendJoins","Output":"--- PASS: TestCancellationRetainsOwnershipUntilBackendJoins (0.00s)\n"}
+{"Time":"2026-09-08T14:57:20.508139+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCancellationRetainsOwnershipUntilBackendJoins","Elapsed":0}
+{"Time":"2026-09-08T14:57:20.511125+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T14:57:21.519257+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.632s\n"}
+{"Time":"2026-09-08T14:57:21.519306+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.6320000000000001}

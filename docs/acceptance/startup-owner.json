@@ -1,0 +1,43 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "command": "go test -race -count=20 -run ^Test(Startup|RuntimeStartup) -json ./internal/app ./cmd/hand",
+  "tests": {
+    "pass": 120
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/internal__app__startup.go.gz",
+      "sha256": "37422eea8d3b0bbdb1b4c0502190c1d381f9a2a11e9d661672a58f8151bd63d6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/internal__app__startup_test.go.gz",
+      "sha256": "3a97e6deb8ec76dd67420527c9817f2239fe8ae6c2edc6cc2c1857970ecfb34f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/cmd__hand__startup.go.gz",
+      "sha256": "9c868380653f4585061eabf095b9dbfc2d682778f5cdb6d0578ed4a063ef4261"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/cmd__hand__startup_test.go.gz",
+      "sha256": "64202ed4bd7c342a7d1f50b5a0864d7e6f0b859b0fc9f2aed2b1ede595fe630d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/hand-startup-final-20260909.jsonl.gz",
+      "sha256": "0646c3d22edf734c5677ef0420de70673519e6fd7515cbbdd4ed9f071e678e1e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/hand-startup-owner-20260909.jsonl.gz",
+      "sha256": "e865d4f5e12f6b85edb5d6e2ed4d481d11f73ea1e88dadc2eb85bde82c3cc336"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-owner-20260909/hand-startup-app-20260909.jsonl.gz",
+      "sha256": "16d2f52f27221acdebb983e4eb26d06bab76414b04e31bf1396bfc467e84e835"
+    }
+  ],
+  "limitations": [
+    "Focused development race tests; no real MCP cleanup integration in this run",
+    "Source copies captured after tests; not immutable candidate provenance",
+    "CLI still composes runtime dependencies; full factory extraction and final qualification remain"
+  ]
+}

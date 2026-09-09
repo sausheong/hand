@@ -1,0 +1,40 @@
+{"ImportPath":"github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]","Action":"build-output","Output":"internal/extensions/connection.go:72:5: c.waitError undefined (type *Connection has no field or method waitError)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]","Action":"build-output","Output":"internal/extensions/connection.go:223:18: c.waitError undefined (type *Connection has no field or method waitError)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]","Action":"build-output","Output":"internal/extensions/connection.go:224:13: c.waitError undefined (type *Connection has no field or method waitError)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]","Action":"build-fail"}
+{"Time":"2026-09-08T23:48:17.381441+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-08T23:48:17.38148+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"FAIL\tgithub.com/sausheong/hand/internal/extensions [build failed]\n"}
+{"Time":"2026-09-08T23:48:17.381512+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/extensions [github.com/sausheong/hand/internal/extensions.test]"}
+{"Time":"2026-09-08T23:48:17.610711+08:00","Action":"start","Package":"github.com/sausheong/hand/extension/protocol"}
+{"Time":"2026-09-08T23:48:18.107703+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures"}
+{"Time":"2026-09-08T23:48:18.107755+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Output":"=== RUN   TestFramesAndTerminalFailures\n"}
+{"Time":"2026-09-08T23:48:18.108701+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Output":"--- PASS: TestFramesAndTerminalFailures (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.10872+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.108728+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite"}
+{"Time":"2026-09-08T23:48:18.108732+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Output":"=== RUN   TestWriterRejectsAmbiguousPayloadAndShortWrite\n"}
+{"Time":"2026-09-08T23:48:18.108816+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Output":"--- PASS: TestWriterRejectsAmbiguousPayloadAndShortWrite (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.108822+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.108832+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities"}
+{"Time":"2026-09-08T23:48:18.108836+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities","Output":"=== RUN   TestHelloCannotExpandHostCapabilities\n"}
+{"Time":"2026-09-08T23:48:18.10887+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities","Output":"--- PASS: TestHelloCannotExpandHostCapabilities (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.108889+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.108897+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority"}
+{"Time":"2026-09-08T23:48:18.108902+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority","Output":"=== RUN   TestDeclarativePresentationRejectsTerminalAuthority\n"}
+{"Time":"2026-09-08T23:48:18.10907+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority","Output":"--- PASS: TestDeclarativePresentationRejectsTerminalAuthority (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.109077+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.109087+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound"}
+{"Time":"2026-09-08T23:48:18.109089+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound","Output":"=== RUN   TestQuestionAnswersAreExplicitAndBound\n"}
+{"Time":"2026-09-08T23:48:18.109147+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound","Output":"--- PASS: TestQuestionAnswersAreExplicitAndBound (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.109155+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.109181+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader"}
+{"Time":"2026-09-08T23:48:18.109185+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Output":"=== RUN   FuzzFrameReader\n"}
+{"Time":"2026-09-08T23:48:18.109258+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0"}
+{"Time":"2026-09-08T23:48:18.109262+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Output":"=== RUN   FuzzFrameReader/seed#0\n"}
+{"Time":"2026-09-08T23:48:18.109687+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Output":"--- PASS: FuzzFrameReader/seed#0 (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.109699+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.10971+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Output":"--- PASS: FuzzFrameReader (0.00s)\n"}
+{"Time":"2026-09-08T23:48:18.109715+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Elapsed":0}
+{"Time":"2026-09-08T23:48:18.10972+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Output":"PASS\n"}
+{"Time":"2026-09-08T23:48:19.115766+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Output":"ok  \tgithub.com/sausheong/hand/extension/protocol\t1.505s\n"}
+{"Time":"2026-09-08T23:48:19.115867+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Elapsed":1.505}

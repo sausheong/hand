@@ -1,0 +1,114 @@
+{"Time":"2026-09-09T00:30:25.514231+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-09T00:30:26.110427+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets"}
+{"Time":"2026-09-09T00:30:26.110478+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Output":"=== RUN   TestRunTurnCannotBypassSessionBudgets\n"}
+{"Time":"2026-09-09T00:30:26.111214+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Output":"--- PASS: TestRunTurnCannotBypassSessionBudgets (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.111234+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.112719+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelRetriesOnRetryableError"}
+{"Time":"2026-09-09T00:30:26.112729+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelRetriesOnRetryableError","Output":"=== RUN   TestRuntimeFallbackModelRetriesOnRetryableError\n"}
+{"Time":"2026-09-09T00:30:26.1134+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelRetriesOnRetryableError","Output":"2026/09/09 00:30:26 INFO llm fallback model engaged agent=a primary=claude-sonnet-4-5 fallback=claude-haiku-3-5 err=\"anthropic 529 overloaded — try again\"\n"}
+{"Time":"2026-09-09T00:30:26.113879+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelRetriesOnRetryableError","Output":"--- PASS: TestRuntimeFallbackModelRetriesOnRetryableError (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.113889+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelRetriesOnRetryableError","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.113989+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelDoesNotEngageOnNonRetryableError"}
+{"Time":"2026-09-09T00:30:26.113996+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelDoesNotEngageOnNonRetryableError","Output":"=== RUN   TestRuntimeFallbackModelDoesNotEngageOnNonRetryableError\n"}
+{"Time":"2026-09-09T00:30:26.114525+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelDoesNotEngageOnNonRetryableError","Output":"--- PASS: TestRuntimeFallbackModelDoesNotEngageOnNonRetryableError (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.114533+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRuntimeFallbackModelDoesNotEngageOnNonRetryableError","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.116606+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnUsageIncludesRefusedAttempt"}
+{"Time":"2026-09-09T00:30:26.116614+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnUsageIncludesRefusedAttempt","Output":"=== RUN   TestRunTurnUsageIncludesRefusedAttempt\n"}
+{"Time":"2026-09-09T00:30:26.116745+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnUsageIncludesRefusedAttempt","Output":"--- PASS: TestRunTurnUsageIncludesRefusedAttempt (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.11676+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnUsageIncludesRefusedAttempt","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.118484+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallInjectedIntoPrompt"}
+{"Time":"2026-09-09T00:30:26.118493+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallInjectedIntoPrompt","Output":"=== RUN   TestRunTurn_RecallInjectedIntoPrompt\n"}
+{"Time":"2026-09-09T00:30:26.118648+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallInjectedIntoPrompt","Output":"--- PASS: TestRunTurn_RecallInjectedIntoPrompt (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.11877+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallInjectedIntoPrompt","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.118779+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallWhenShouldRecallFalse"}
+{"Time":"2026-09-09T00:30:26.118784+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallWhenShouldRecallFalse","Output":"=== RUN   TestRunTurn_NoRecallWhenShouldRecallFalse\n"}
+{"Time":"2026-09-09T00:30:26.118788+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallWhenShouldRecallFalse","Output":"--- PASS: TestRunTurn_NoRecallWhenShouldRecallFalse (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.118795+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallWhenShouldRecallFalse","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.11882+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallOnContinuationRound"}
+{"Time":"2026-09-09T00:30:26.118825+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallOnContinuationRound","Output":"=== RUN   TestRunTurn_NoRecallOnContinuationRound\n"}
+{"Time":"2026-09-09T00:30:26.118873+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallOnContinuationRound","Output":"--- PASS: TestRunTurn_NoRecallOnContinuationRound (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.118885+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoRecallOnContinuationRound","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.118918+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallTimeoutInjectsNothing"}
+{"Time":"2026-09-09T00:30:26.118922+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallTimeoutInjectsNothing","Output":"=== RUN   TestRunTurn_RecallTimeoutInjectsNothing\n"}
+{"Time":"2026-09-09T00:30:26.921021+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallTimeoutInjectsNothing","Output":"--- PASS: TestRunTurn_RecallTimeoutInjectsNothing (0.80s)\n"}
+{"Time":"2026-09-09T00:30:26.921069+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_RecallTimeoutInjectsNothing","Elapsed":0.8}
+{"Time":"2026-09-09T00:30:26.921173+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_IngestOnCompletion"}
+{"Time":"2026-09-09T00:30:26.92119+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_IngestOnCompletion","Output":"=== RUN   TestRunTurn_IngestOnCompletion\n"}
+{"Time":"2026-09-09T00:30:26.921633+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_IngestOnCompletion","Output":"--- PASS: TestRunTurn_IngestOnCompletion (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.921696+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_IngestOnCompletion","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.921797+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestOnToolRound"}
+{"Time":"2026-09-09T00:30:26.921809+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestOnToolRound","Output":"=== RUN   TestRunTurn_NoIngestOnToolRound\n"}
+{"Time":"2026-09-09T00:30:26.922406+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestOnToolRound","Output":"--- PASS: TestRunTurn_NoIngestOnToolRound (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.92243+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestOnToolRound","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.922552+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestWhenKGNil"}
+{"Time":"2026-09-09T00:30:26.922563+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestWhenKGNil","Output":"=== RUN   TestRunTurn_NoIngestWhenKGNil\n"}
+{"Time":"2026-09-09T00:30:26.922788+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestWhenKGNil","Output":"--- PASS: TestRunTurn_NoIngestWhenKGNil (0.00s)\n"}
+{"Time":"2026-09-09T00:30:26.922812+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_NoIngestWhenKGNil","Elapsed":0}
+{"Time":"2026-09-09T00:30:26.922883+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption"}
+{"Time":"2026-09-09T00:30:26.922892+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption","Output":"=== RUN   TestRunTurnPinsAfterCompactionRestartAndCorruption\n"}
+{"Time":"2026-09-09T00:30:27.011495+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption","Output":"--- PASS: TestRunTurnPinsAfterCompactionRestartAndCorruption (0.09s)\n"}
+{"Time":"2026-09-09T00:30:27.011527+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption","Elapsed":0.09}
+{"Time":"2026-09-09T00:30:27.011642+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_TextOnly_IsDone"}
+{"Time":"2026-09-09T00:30:27.011656+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_TextOnly_IsDone","Output":"=== RUN   TestRunTurn_TextOnly_IsDone\n"}
+{"Time":"2026-09-09T00:30:27.01193+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_TextOnly_IsDone","Output":"--- PASS: TestRunTurn_TextOnly_IsDone (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.011951+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_TextOnly_IsDone","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.012021+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_ToolCall_NotDone_ThenDone"}
+{"Time":"2026-09-09T00:30:27.012029+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_ToolCall_NotDone_ThenDone","Output":"=== RUN   TestRunTurn_ToolCall_NotDone_ThenDone\n"}
+{"Time":"2026-09-09T00:30:27.012463+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_ToolCall_NotDone_ThenDone","Output":"--- PASS: TestRunTurn_ToolCall_NotDone_ThenDone (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.01248+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_ToolCall_NotDone_ThenDone","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.012652+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_LLMError"}
+{"Time":"2026-09-09T00:30:27.012667+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_LLMError","Output":"=== RUN   TestRunTurn_LLMError\n"}
+{"Time":"2026-09-09T00:30:27.012865+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_LLMError","Output":"--- PASS: TestRunTurn_LLMError (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.012899+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_LLMError","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.013004+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_PreCancelledContext"}
+{"Time":"2026-09-09T00:30:27.013015+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_PreCancelledContext","Output":"=== RUN   TestRunTurn_PreCancelledContext\n"}
+{"Time":"2026-09-09T00:30:27.013107+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_PreCancelledContext","Output":"--- PASS: TestRunTurn_PreCancelledContext (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.013117+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurn_PreCancelledContext","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.013198+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnExcludesConcurrentRuntimeOperations"}
+{"Time":"2026-09-09T00:30:27.013209+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnExcludesConcurrentRuntimeOperations","Output":"=== RUN   TestRunTurnExcludesConcurrentRuntimeOperations\n"}
+{"Time":"2026-09-09T00:30:27.013373+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnExcludesConcurrentRuntimeOperations","Output":"--- PASS: TestRunTurnExcludesConcurrentRuntimeOperations (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.013385+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnExcludesConcurrentRuntimeOperations","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.014122+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestSteeringImagesPersistAndRetryWithoutDuplicate"}
+{"Time":"2026-09-09T00:30:27.014137+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestSteeringImagesPersistAndRetryWithoutDuplicate","Output":"=== RUN   TestSteeringImagesPersistAndRetryWithoutDuplicate\n"}
+{"Time":"2026-09-09T00:30:27.051613+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestSteeringImagesPersistAndRetryWithoutDuplicate","Output":"--- PASS: TestSteeringImagesPersistAndRetryWithoutDuplicate (0.04s)\n"}
+{"Time":"2026-09-09T00:30:27.051668+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestSteeringImagesPersistAndRetryWithoutDuplicate","Elapsed":0.04}
+{"Time":"2026-09-09T00:30:27.054608+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorRetryableEngagesFallback"}
+{"Time":"2026-09-09T00:30:27.054629+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorRetryableEngagesFallback","Output":"=== RUN   TestStreamErrorRetryableEngagesFallback\n"}
+{"Time":"2026-09-09T00:30:27.055358+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorRetryableEngagesFallback","Output":"2026/09/09 00:30:27 INFO llm fallback model engaged (stream error) agent=a primary=claude-opus-4-8 fallback=claude-sonnet-4-5 err=\"429 rate limit exceeded\"\n"}
+{"Time":"2026-09-09T00:30:27.055926+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorRetryableEngagesFallback","Output":"--- PASS: TestStreamErrorRetryableEngagesFallback (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.055946+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorRetryableEngagesFallback","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.056024+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorNonRetryableStillAborts"}
+{"Time":"2026-09-09T00:30:27.056034+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorNonRetryableStillAborts","Output":"=== RUN   TestStreamErrorNonRetryableStillAborts\n"}
+{"Time":"2026-09-09T00:30:27.057266+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorNonRetryableStillAborts","Output":"--- PASS: TestStreamErrorNonRetryableStillAborts (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.057295+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamErrorNonRetryableStillAborts","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.058292+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextProjectionPreservesProtectedRequest"}
+{"Time":"2026-09-09T00:30:27.058324+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextProjectionPreservesProtectedRequest","Output":"=== RUN   TestToolContextProjectionPreservesProtectedRequest\n"}
+{"Time":"2026-09-09T00:30:27.058389+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextProjectionPreservesProtectedRequest","Output":"--- PASS: TestToolContextProjectionPreservesProtectedRequest (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.058404+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextProjectionPreservesProtectedRequest","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.058412+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider"}
+{"Time":"2026-09-09T00:30:27.058426+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider","Output":"=== RUN   TestToolContextRejectsInvalidBatchBeforeProvider\n"}
+{"Time":"2026-09-09T00:30:27.058468+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/protected-index"}
+{"Time":"2026-09-09T00:30:27.058479+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/protected-index","Output":"=== RUN   TestToolContextRejectsInvalidBatchBeforeProvider/protected-index\n"}
+{"Time":"2026-09-09T00:30:27.058528+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/protected-index","Output":"--- PASS: TestToolContextRejectsInvalidBatchBeforeProvider/protected-index (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.058537+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/protected-index","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.058577+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/missing"}
+{"Time":"2026-09-09T00:30:27.058589+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/missing","Output":"=== RUN   TestToolContextRejectsInvalidBatchBeforeProvider/missing\n"}
+{"Time":"2026-09-09T00:30:27.058619+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/missing","Output":"--- PASS: TestToolContextRejectsInvalidBatchBeforeProvider/missing (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.058633+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/missing","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.058655+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/large"}
+{"Time":"2026-09-09T00:30:27.05866+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/large","Output":"=== RUN   TestToolContextRejectsInvalidBatchBeforeProvider/large\n"}
+{"Time":"2026-09-09T00:30:27.058942+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/large","Output":"--- PASS: TestToolContextRejectsInvalidBatchBeforeProvider/large (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.058953+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/large","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.058978+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/error"}
+{"Time":"2026-09-09T00:30:27.058982+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/error","Output":"=== RUN   TestToolContextRejectsInvalidBatchBeforeProvider/error\n"}
+{"Time":"2026-09-09T00:30:27.059035+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/error","Output":"--- PASS: TestToolContextRejectsInvalidBatchBeforeProvider/error (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.059041+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/error","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.059064+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/cancel"}
+{"Time":"2026-09-09T00:30:27.05907+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/cancel","Output":"=== RUN   TestToolContextRejectsInvalidBatchBeforeProvider/cancel\n"}
+{"Time":"2026-09-09T00:30:27.059116+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/cancel","Output":"--- PASS: TestToolContextRejectsInvalidBatchBeforeProvider/cancel (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.059133+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider/cancel","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.059161+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider","Output":"--- PASS: TestToolContextRejectsInvalidBatchBeforeProvider (0.00s)\n"}
+{"Time":"2026-09-09T00:30:27.059177+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestToolContextRejectsInvalidBatchBeforeProvider","Elapsed":0}
+{"Time":"2026-09-09T00:30:27.059567+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-09T00:30:28.065501+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t2.551s\n"}
+{"Time":"2026-09-09T00:30:28.065543+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":2.551}

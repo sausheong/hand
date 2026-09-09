@@ -1,0 +1,47 @@
+{
+  "status": "development_fallback_budget_accounting_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/app -run '^TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen$'",
+  "test_records": {
+    "pass": 20
+  },
+  "repetitions": 20,
+  "assertions": [
+    "Actual fallback runs under configured token ceiling and strict route-specific cost tariffs",
+    "Unknown failed primary retains positive original token reservation",
+    "Reported fallback charges exactly 45 tokens; cache subset not added",
+    "Two fixed tariff attempts retain 200 nano-units with one uncertain attempt and none unpriced",
+    "Controller token/cost views identical after disk close/reopen",
+    "Existing usage provenance, wire uncertainty and idempotent replay checks remain passing"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/fallback-budget-20260909/cost_budget.go.txt",
+      "sha256": "5c5b550c473fe9ee5580f90a4b965f25adeeda9ca4cd9ae0793893b58a0d7012"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-budget-20260909/fallback_usage_test.go.txt",
+      "sha256": "e87575f35d9eb35cd0a6eb8ac3b4fedea68ee210086f6e3428b639ad63191fff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-budget-20260909/hand-fallback-budget-20260909.jsonl.gz",
+      "sha256": "f0706d19c4960d59ed2e4d32ee65062530f11a1db01f79811549817b40e33d6a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-budget-20260909/harness.go.txt",
+      "sha256": "8fd43d465c99034876e129cf25421a552e0d2fc4a2c11498f24388c2da98a84e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-budget-20260909/session_usage_test.go.txt",
+      "sha256": "faa8da4377b03d43531acb99bd572834c7238c0c32de8bf6fac7a091a4f55830"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-budget-20260909/token_budget.go.txt",
+      "sha256": "9cd7996a9d5f4aef10df89b1682f8c9c18738df8339c24ac8335880562fc3021"
+    }
+  ],
+  "limitations": [
+    "Deterministic provider and explicitly artificial test tariffs; no paid calls or invoice validation",
+    "Clean close/reopen, not process crash",
+    "Native development snapshot with local Harness; final acceptance remains open"
+  ]
+}

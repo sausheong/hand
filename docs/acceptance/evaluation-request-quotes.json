@@ -1,0 +1,43 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "tests": {
+    "focused": 6,
+    "evaluation_suite": 101,
+    "failures": 0,
+    "skips": 0,
+    "synthetic_allocation_cases": 4550
+  },
+  "capability": "Exact conservative text-request quotes covering full-context input/cache rates, enforced output cap, all declared price sets and request fee; integrated reservation denial/settlement tests.",
+  "limitations": [
+    "Synthetic rates only; no real provider price or model limits verified by this test.",
+    "Gateway payload validation/output enforcement, authentic pricing/usage evidence and spending authorisation remain required.",
+    "Conservative quotes can deny requests whose actual cost would fit; bounds are never silently lowered."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-request-quotes-20260909/evaluation_quote.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_quote.py",
+      "sha256": "c1a3a3b3d14434d7db918a715b429cc791d5dcb8c309699786df0b454178d1bc",
+      "uncompressed_sha256": "0fc5463af837da76e775fe7525b84623da2633141357b6e5e73ee415f8ed5677"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-request-quotes-20260909/test_evaluation_quote.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_quote.py",
+      "sha256": "5f193a3e5500b1f5ac03ce79aa494d69cf1680cb1a084c4989bf8460dbdc5f8a",
+      "uncompressed_sha256": "30c195d97ed1072255a82ec2eed35bf792e8fd0b2893631d3c1299f217f99008"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-request-quotes-20260909/hand-evaluation-quote-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-quote-20260909.log",
+      "sha256": "dc43ffc032a64da73dc1ff97466487ac11344498e84190832fdf2fd875c90614",
+      "uncompressed_sha256": "0a9207ae852759ac7ee93fbf51c1cbba3bdf60211c698bb8a544323e96753c17"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-request-quotes-20260909/hand-evaluation-quote-all-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-quote-all-20260909.log",
+      "sha256": "957f38d2abd387495006566175c77e6a638171c5e57a667d3e56afbbb29ea8c5",
+      "uncompressed_sha256": "c302758c8ce8ecf8a3b6f667672464ad5b62ebc8506fa64c911cea9a571f6457"
+    }
+  ]
+}

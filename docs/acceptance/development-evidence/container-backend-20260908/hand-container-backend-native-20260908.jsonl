@@ -1,0 +1,20 @@
+{"Time":"2026-09-08T13:32:08.989594+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-08T13:32:09.724271+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments"}
+{"Time":"2026-09-08T13:32:09.724339+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Output":"=== RUN   TestHostExplicitEnvironmentAndExactArguments\n"}
+{"Time":"2026-09-08T13:32:09.731294+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Output":"--- PASS: TestHostExplicitEnvironmentAndExactArguments (0.01s)\n"}
+{"Time":"2026-09-08T13:32:09.73132+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Elapsed":0.01}
+{"Time":"2026-09-08T13:32:09.731356+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand"}
+{"Time":"2026-09-08T13:32:09.731362+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Output":"=== RUN   TestMissingContainerNeverExecutesHostCommand\n"}
+{"Time":"2026-09-08T13:32:09.732113+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Output":"--- PASS: TestMissingContainerNeverExecutesHostCommand (0.00s)\n"}
+{"Time":"2026-09-08T13:32:09.732128+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Elapsed":0}
+{"Time":"2026-09-08T13:32:09.732145+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary"}
+{"Time":"2026-09-08T13:32:09.732152+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"=== RUN   TestNativeContainerBoundary\n"}
+{"Time":"2026-09-08T13:32:10.15285+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"    backend_test.go:56: boundary: {Stdout: Stderr:touch: /workspace/denied: Read-only file system\n"}
+{"Time":"2026-09-08T13:32:10.152901+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"        touch: /etc/denied: Read-only file system\n"}
+{"Time":"2026-09-08T13:32:10.152914+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"        touch: /etc/child-denied: Read-only file system\n"}
+{"Time":"2026-09-08T13:32:10.152924+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"         ExitCode:1 Truncated:false} exit status 1\n"}
+{"Time":"2026-09-08T13:32:10.153623+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"--- FAIL: TestNativeContainerBoundary (0.42s)\n"}
+{"Time":"2026-09-08T13:32:10.153688+08:00","Action":"fail","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Elapsed":0.42}
+{"Time":"2026-09-08T13:32:10.153745+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"FAIL\n"}
+{"Time":"2026-09-08T13:32:10.155298+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"FAIL\tgithub.com/sausheong/harness/execution\t1.165s\n"}
+{"Time":"2026-09-08T13:32:10.155329+08:00","Action":"fail","Package":"github.com/sausheong/harness/execution","Elapsed":1.166}

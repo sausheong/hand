@@ -1,0 +1,145 @@
+{
+  "status": "development_incomplete",
+  "profiles_current": false,
+  "groups": {
+    "lifecycle": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.56867112100966,
+      "statements": 6735,
+      "covered": 5561,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": [
+        {
+          "path": "internal/tui/events.go",
+          "sha256": "32bc67344075feb9122dc606e980a4c7c7b7970afa244242d1ee9be14b9c2d81",
+          "instrumented_sha256": "e941e4c4885fed5d0508a34618ed7076c4a7ce7cc76ca57050410443d7b494e6",
+          "counters": 0,
+          "method": "go tool cover -mode=atomic",
+          "module": "github.com/sausheong/hand"
+        }
+      ]
+    },
+    "permissions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 91.3265306122449,
+      "statements": 588,
+      "covered": 537,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "persistence": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.89412852519649,
+      "statements": 2163,
+      "covered": 1793,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "execution": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.61474269819193,
+      "statements": 1438,
+      "covered": 1188,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "checkpoints": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.08527131782945,
+      "statements": 1290,
+      "covered": 1046,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "budgets": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.48514851485149,
+      "statements": 1010,
+      "covered": 823,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "protocol": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.92419825072886,
+      "statements": 1715,
+      "covered": 1405,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "extensions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.44959733407387,
+      "statements": 3601,
+      "covered": 2933,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "accounting": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 83.68404014244092,
+      "statements": 3089,
+      "covered": 2585,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    }
+  },
+  "mapping_sha256": "da28201c1106eb9fa028b6e8814394906c015e58d6a08d517b716327cd19a718",
+  "evidence": [
+    "docs/acceptance/startup-journey-native-suite.json",
+    "docs/acceptance/catalogue-harness-suite.json"
+  ],
+  "limitations": [
+    "Native macOS development suite using local Harness; no clean candidate or released dependency",
+    "Linux-specific tests and archive runtime qualification remain separate",
+    "Critical and changed coverage thresholds remain unmet; absent platform profiles remain open"
+  ],
+  "refresh_reason": "Runtime startup ownership, signals, early RPC transport and pollable stdio changed Hand after prior profiles; Harness capture fix also needs full refresh.",
+  "stale_reason": "Production changed after catalogue suite: interactive profile picker and service-required terminal constructor.",
+  "accounting_evidence": "docs/acceptance/critical-zero-counter-accounting.json"
+}

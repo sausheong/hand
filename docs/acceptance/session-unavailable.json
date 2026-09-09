@@ -1,0 +1,504 @@
+{
+  "status": "development_passed",
+  "scope": "Missing-runtime session admission and existing app/RPC/sessionio session regressions",
+  "source_files": [
+    {
+      "path": "internal/app/controller.go",
+      "sha256": "7afee32b0d9218b92816b4bc4952ee4afc4258fca187d3815e3283c443d1ff1c"
+    },
+    {
+      "path": "internal/app/sessions.go",
+      "sha256": "168af3142f61c9de91269f1b7c2ef68ab16be3b717a0786a04368d041f68df36"
+    },
+    {
+      "path": "internal/app/session_export.go",
+      "sha256": "23905f6351f2bcede1064016f66e0c2db3514ee56bc915d15f9a0cb3c24448af"
+    },
+    {
+      "path": "internal/app/session_fork.go",
+      "sha256": "029943fbe7e42e9d5d2bbc1c5e6cb19df3ef85a6c5a8a363ac70e812b41cb68a"
+    },
+    {
+      "path": "internal/app/session_tree.go",
+      "sha256": "c9007395352f4227087cb218e8f24eda06bbffde758c0328fe03cc5e9bb4f3da"
+    },
+    {
+      "path": "internal/app/session_usage.go",
+      "sha256": "dc325ccb489b0a6a89dd50464d35e054ea9df5502b3c9711da25d90fedaccdad"
+    },
+    {
+      "path": "internal/app/session_unavailable_test.go",
+      "sha256": "b414282f507ba9178551e566bcd967818496e4c65371b8b176215cd616d7c76e"
+    }
+  ],
+  "results": {
+    "before": {
+      "counts": {
+        "fail": 11
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/list",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/rename",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/fork",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/select",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/resume",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/new",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/export",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/tree",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/usage",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/history",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue",
+          "outcome": "fail"
+        }
+      ]
+    },
+    "after": {
+      "counts": {
+        "pass": 18
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerRunBlocksConfigurationUntilCancellationJoins",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerManualCompactionBlocksSwitchUntilJoin",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestExtensionSessionEventsFollowCommittedTransitions",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestExtensionSessionShutdownBoundsHungObserver",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerContextMatchesRuntimeFallbackCalculation",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerNewUsesCatalogueAndPreservesPriorSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerResumeFailureKeepsCurrentLeaseAndSameSessionIsIdempotent",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/list",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/resume",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/usage",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/history",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue",
+          "outcome": "pass"
+        }
+      ]
+    },
+    "integration": {
+      "counts": {
+        "pass": 56
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.new/0",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/1",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/2",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/3",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/4",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.name/5",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.name/6",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/profile.select/7",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/profile.select/8",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/profile.select/9",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/10",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/11",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/12",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/13",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/14",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCSessionAndProfileControls",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestAutomaticCancellationRequiresResumeAndReplayStillWorks",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestAttachmentForkExportAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestAttachmentExportMissingBlobDoesNotPublish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCataloguePreservesSessionsAcrossRegisterSelectRenameAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/exact",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/record",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/total",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/large",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/large_record",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/copied_entry",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/before_catalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupProtectsActiveAndSymlink",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupBoundedAndCancelled",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupBeforeFirstSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkFailureDoesNotPublishPartialCopy",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/copied_entry",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_catalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerNewPreservesLegacyAndResumesLastActive",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerWriterOwnershipAndIndependentNewSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionWriteLimitHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkAccountingExcludesInheritedConsumption",
+          "outcome": "pass"
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/session-unavailable-20260909/hand-session-unavailable-before-20260909.jsonl.gz",
+      "sha256": "4a9ce69d7fc481e510a23b54ac5307fc2e577ddce574620e3ee444c8af82dc5a",
+      "uncompressed_sha256": "b4f0adf5b3cdc57cb17ab50be33f0d29871659ae9949b9b311eee8b0065dd72d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/session-unavailable-20260909/hand-session-unavailable-after-20260909.jsonl.gz",
+      "sha256": "2df5e6ee76fc4a02a68dd19448bfa1917223f3d691514fb69b4369f3d48314fa",
+      "uncompressed_sha256": "b8b9c544e9fdbabae102531115cc31c09a86a67c80aa564a27cad210041c8062"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/session-unavailable-20260909/hand-session-unavailable-integration-20260909.jsonl.gz",
+      "sha256": "90e9df7d861ec3f9b4b066c2e09a59b7a5766ee32bbedd75d9770c73b53ee706",
+      "uncompressed_sha256": "d4de740b672e8dee0e2854be74c70a492474498d786421292b7f1149384e62fc"
+    }
+  ],
+  "limitations": [
+    "Focused race suites, not whole-repository coverage or final candidate evidence",
+    "No change to session availability or cataloguing semantics when runtime exists",
+    "Remaining scenario, release, platform and final acceptance gates are pending"
+  ]
+}

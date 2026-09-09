@@ -1,0 +1,42 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M2.1",
+    "M1.4"
+  ],
+  "repetitions": 20,
+  "pass": 60,
+  "fail": 0,
+  "skip": 0,
+  "changes": [
+    "Removed unused production SetGoalLoop method.",
+    "Migrated three legacy lifecycle regressions to the production service constructor."
+  ],
+  "assertions": [
+    "Backend done event does not release ownership or publish terminal before channel cleanup; overlapping Start returns ErrBusy.",
+    "Ctrl-C reaches checker context, retains Cancelling ownership until checker joins, and rejects its obsolete continuation.",
+    "Cancelled stream continuation and forged late success cannot start backend work, change outcome or append transcript."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-cleanup-migration-20260909/hand-service-cleanup-stale-migration-20260909.jsonl.gz",
+      "sha256": "88cc7e4708e2d685d59a231e78f6e431883407aa84007235e2b1965b9d721907"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-cleanup-migration-20260909/hand-service-cleanup-migration-20260909.jsonl.gz",
+      "sha256": "67d1ef4c5f2e4c9a33b884c075f3829deda3482d28c80c60576ea723eab05eea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-cleanup-migration-20260909/lifecycle_regression_test.go.gz",
+      "sha256": "b3a80eef6bdc836032c23e7925e338c038a3dc33aba0ae5b1571462398b617cf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-cleanup-migration-20260909/model.go.gz",
+      "sha256": "9b4ed5a81e3b804f5c2ca0067ac37c5884327c59d6e4387bd342490e6ec3c05c"
+    }
+  ],
+  "limitations": [
+    "Other legacy stale-session/model fixtures and duplicate handlers remain.",
+    "Targeted development race tests; no final candidate/platform/aggregate coverage qualification."
+  ]
+}

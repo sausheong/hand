@@ -1,0 +1,280 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-session-1",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-session-1",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_b2529bfa76ce8b11"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "untrusted-1",
+      "method": "prompt",
+      "params": {
+        "text": "write the requested fixture file"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "untrusted-1",
+      "result": {
+        "id": "untrusted-1",
+        "fingerprint": "e15152fd695a8a610ba311312c237ea040ccf0716e8bbbe11000dd41917e07f6",
+        "session_id": "ses_b2529bfa76ce8b11",
+        "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "XDPATCFNADOXDW7MN3NS5GTUIF:3",
+            "sequence": 3,
+            "session_id": "ses_b2529bfa76ce8b11",
+            "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+            "request_id": "untrusted-1",
+            "timestamp": "2026-09-09T01:28:27.313299169Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "IQORTDXJMNTYT4M2YZHSN7KBRJ",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /evidence/journey/workspace/must-not-exist.txt\nArguments: {\"path\": \"must-not-exist.txt\", \"content\": \"unauthorised\"}\nBefore: exists=false mode=---------- bytes=0 sha256=",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"must-not-exist.txt\", \"content\": \"unauthorised\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "untrusted-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "untrusted-1",
+        "fingerprint": "e15152fd695a8a610ba311312c237ea040ccf0716e8bbbe11000dd41917e07f6",
+        "session_id": "ses_b2529bfa76ce8b11",
+        "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "untrusted-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "untrusted-1",
+        "fingerprint": "e15152fd695a8a610ba311312c237ea040ccf0716e8bbbe11000dd41917e07f6",
+        "session_id": "ses_b2529bfa76ce8b11",
+        "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "XDPATCFNADOXDW7MN3NS5GTUIF:6",
+          "sequence": 6,
+          "session_id": "ses_b2529bfa76ce8b11",
+          "run_id": "DYQKBDHXXADALSU3ZTP7FW6UPL:1",
+          "request_id": "untrusted-1",
+          "timestamp": "2026-09-09T01:28:27.322744211Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending-after",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending-after",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-output","Output":"internal/packages/runtime.go:168:69: stdout.String undefined (type *process.Capture has no field or method String)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-output","Output":"internal/packages/runtime.go:168:90: stderr.String undefined (type *process.Capture has no field or method String)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-fail"}
+{"Time":"2026-09-09T01:19:33.868675+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/packages"}
+{"Time":"2026-09-09T01:19:33.868715+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"FAIL\tgithub.com/sausheong/hand/internal/packages [build failed]\n"}
+{"Time":"2026-09-09T01:19:33.868722+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/packages","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]"}

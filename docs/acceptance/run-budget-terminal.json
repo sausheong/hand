@@ -1,0 +1,163 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "run-terminal-integration.patch",
+  "harness_delta": "harness-run-binding.patch",
+  "result": {
+    "status": "development_passed",
+    "qualification": "development",
+    "command": [
+      "/private/tmp/hand-run-budget-cli-20260908",
+      "--model",
+      "local/fixture",
+      "--base-url",
+      "http://127.0.0.1:1/v1"
+    ],
+    "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+    "runner_sha256": "ce0f8969148254f66151ed98eab844a3994fd0f9d68ea30335ea82fef513e75e",
+    "paid_calls": 0,
+    "model_prompts_sent": 0,
+    "terminal_size": [
+      140,
+      45
+    ],
+    "completed_commands": [
+      "/run-budget",
+      "/run-budget tokens repair 0",
+      "/run-budget tokens repair 100000",
+      "/run-budget cost repair USD 1.000000001 strict",
+      "/run-budget time repair 600",
+      "/run-budget select repair",
+      "/run-budget"
+    ],
+    "exit_code": 0,
+    "token_decision": {
+      "version": 1,
+      "kind": "limit",
+      "tokens": 100000
+    },
+    "cost_decision": {
+      "version": 1,
+      "kind": "decision",
+      "currency": "USD",
+      "limit_nano": 1000000001,
+      "strict": true
+    },
+    "deadline": {
+      "version": 1,
+      "decided_at": "2026-09-08T14:24:03.621783Z",
+      "deadline": "2026-09-08T14:34:03.621783Z"
+    },
+    "selected": {
+      "version": 1,
+      "id": "repair"
+    },
+    "terminal_sha256": "cb74541190afd45af30e19630d2680ece0275fd4efdf3078b080397fefec17fe"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/home/.hand/authority/c231fe6649b3cf526cc0b3144ca8deef8d619a2f96f7fc530180abf4b8cef883/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/home/.hand/sessions/catalogues/c231fe6649b3cf52/catalogue.json",
+      "sha256": "edfc4f5f6b97030c92f976d10fcaa4e9b564e63a1493749e758710a6a2472731"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/home/.hand/sessions/catalogues/c231fe6649b3cf52/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/home/.hand/sessions/hand/.leases/workspace_c231fe6649b3cf52_f42a2e3dd2739244b7baa87a213bfd58.lock",
+      "sha256": "555de397beefc3f1669cbc4cec8145ccbf7bf245f4548dec0d69a87e06ea03c2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/home/.hand/sessions/hand/workspace_c231fe6649b3cf52_f42a2e3dd2739244b7baa87a213bfd58.jsonl",
+      "sha256": "f9de2bc6fe6d14872458ef19d9361bfeaeb2ddb67204f01dc235e3f061f71b2e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/run.json",
+      "sha256": "133f2013111164e0b773a68c7400dbce0b0c293227d4deff2e40f0a56cadaf31"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/drained-exit/terminal.bin",
+      "sha256": "2f1e4f7a54f1460a42d089daf1e8667c7457ab68b4afcd2c888fbbcba057e3b4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/home/.hand/authority/333a5088370659ad19d7ab5694c26ba56fb73efb1d6e56b3390a60560a296875/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/home/.hand/sessions/catalogues/333a5088370659ad/catalogue.json",
+      "sha256": "cfb21af8468123dce004cca85388a021b32833688c3fa74b78686fb2d20f2ee6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/home/.hand/sessions/catalogues/333a5088370659ad/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/home/.hand/sessions/hand/.leases/workspace_333a5088370659ad_41f9144122f9d025a9055d9519d7a34f.lock",
+      "sha256": "179d1a785be1f75811037b4a0b74f139f8378131bd6e393ccdf03566aba02cd5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/home/.hand/sessions/hand/workspace_333a5088370659ad_41f9144122f9d025a9055d9519d7a34f.jsonl",
+      "sha256": "0d32308e2e185243c42463a51ea517f9b09f2e8e7cdd8f9cf6d7e8ff917b6623"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/run.json",
+      "sha256": "c1e33d5da4330facf8fa8fdbf70da92f258d55d2270d4f4f4ee32ed8e0975f65"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/initial-runner-failure/terminal.bin",
+      "sha256": "3a2ad376cf16ed6406471623c367f8375afa98066f0c87a76b7c18cfbe90e0c7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/runner.py",
+      "sha256": "ce0f8969148254f66151ed98eab844a3994fd0f9d68ea30335ea82fef513e75e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/home/.hand/authority/de53a2781f7aef6978a1333a3d84968120ccdc142e75f9bc5fcce5dfe0f6a546/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/home/.hand/sessions/catalogues/de53a2781f7aef69/catalogue.json",
+      "sha256": "c97efb013e2ebaa09b165bf55608e02440467100250fd8b526886ca894619d87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/home/.hand/sessions/catalogues/de53a2781f7aef69/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/home/.hand/sessions/hand/.leases/workspace_de53a2781f7aef69_ea279da4e4addb27ca90aee8fc09cc2c.lock",
+      "sha256": "ec22e76d1f67fc4fe04f01aebcca706d68c615295caae54a171f234968913fa6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/home/.hand/sessions/hand/workspace_de53a2781f7aef69_ea279da4e4addb27ca90aee8fc09cc2c.jsonl",
+      "sha256": "96ee10d6cb63fde9f1fd41797e2645c9fc7ce1804cecf80229853c4503cadd55"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/run.json",
+      "sha256": "d9cabc0e318931742d70225278b5045f4cd6a97c0202b2994cf48bc6febb8a67"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-terminal-20260908/verified/terminal.bin",
+      "sha256": "cb74541190afd45af30e19630d2680ece0275fd4efdf3078b080397fefec17fe"
+    }
+  ],
+  "runner_correction": "Initial runner stopped draining PTY output after sending quit, causing its own wait timeout. Corrected runner drains until CLI exit. A subsequent version additionally asserts rendered totals/deadline. All attempts retained.",
+  "limitations": [
+    "Native macOS ARM64 development build at 140x45 terminal size, not final candidate/platform or accessibility qualification.",
+    "Controls and persistence journey only; no model prompts or paid calls."
+  ]
+}

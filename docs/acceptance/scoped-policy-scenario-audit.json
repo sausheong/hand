@@ -1,0 +1,205 @@
+{
+  "status": "development_audit_incomplete",
+  "requirement": "M5.1",
+  "required_scenarios": 9,
+  "mapped_scenarios": 9,
+  "qualified_scenarios": 0,
+  "basis": "Direct inspection of policy, authority, hook, RPC tests and built CLI runner; development evidence is not final candidate qualification.",
+  "scenarios": [
+    {
+      "scenario": "grant_scope_lifetime",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/permissions/scoped_test.go",
+          "sha256": "5a1bcf92887407790fbe190010b78686a17854885cbaf2700a15219e82e7d5ed"
+        },
+        {
+          "path": "internal/permissions/authority_test.go",
+          "sha256": "129241cef6c33a8544f2e14f6fc182bf0883847a654446cfca1d116d70f7fe37"
+        },
+        {
+          "path": "internal/permissions/lifetime_matrix_test.go",
+          "sha256": "58b521e31bbe41716c9264705d88463e488a6ae5485e8467f7ddfe969088fec5"
+        },
+        {
+          "path": "internal/permissions/rejection_test.go",
+          "sha256": "9a14e29d10b064bcb3c8e0d7aa6a5143fad90e4be1116ac37977e58b020f2ef3"
+        }
+      ],
+      "development_scope": "Invocation/config/session mismatch, persistent replay and revoke have direct policy assertions. Eight operation types across three lifetimes now check six identity contexts, resource/operation mismatch and revocation.",
+      "remaining_proof": "Final built-client platform qualification; core operation-by-lifetime matrix now covered."
+    },
+    {
+      "scenario": "provenance_inspect_revoke",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/permissions/scoped_test.go",
+          "sha256": "5a1bcf92887407790fbe190010b78686a17854885cbaf2700a15219e82e7d5ed"
+        },
+        {
+          "path": "internal/rpc/permission_test.go",
+          "sha256": "4f35538b2743c3328c1ce97ddcd9cc3bc798305ec59525b408e6b503ac65afca"
+        },
+        {
+          "path": "scripts/check_permission_migration.py",
+          "sha256": "ad65f18ad1b0df5e5205ae8fcea62b2c0caec88baa469abcc59a505ed16783bf"
+        }
+      ],
+      "development_scope": "Copied inspection, provenance rejection, durable revocation and RPC replay; built CLI migration runner verifies restart.",
+      "remaining_proof": "Fresh final-candidate CLI/TUI/RPC inspection and revocation journeys."
+    },
+    {
+      "scenario": "project_cannot_self_authorise",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/permissions/authority_test.go",
+          "sha256": "129241cef6c33a8544f2e14f6fc182bf0883847a654446cfca1d116d70f7fe37"
+        },
+        {
+          "path": "internal/permissions/authority_storage_test.go",
+          "sha256": "353005ae52f208f3e01d8ed3c09e00a38ba7322bd0400874c41829d61be71b02"
+        },
+        {
+          "path": "scripts/check_rpc_cold_start.py",
+          "sha256": "4b1fd3d9f83e85261b87901bb0051f29601ffe9b50c1c05859c776750b9988df"
+        },
+        {
+          "path": "cmd/hand/legacy_settings_rejection_test.go",
+          "sha256": "d646c25b14b567f5f5064bf6ff322ce4250c23ad7e22c86d33ddd7703f07b890"
+        }
+      ],
+      "development_scope": "External private journal storage, symlink/mode rejection; cold-start legacy grants remain proposals on macOS/Linux.",
+      "remaining_proof": "Final source-bound candidate/platform evidence; review authority boundary against actual execution backend."
+    },
+    {
+      "scenario": "legacy_broad_grant_ack",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/permissions/migration.go",
+          "sha256": "908ab3bba7e8e599de83081f835edf266fbafdec0dd2d6b2d9982976f1095ac1"
+        },
+        {
+          "path": "scripts/check_permission_migration.py",
+          "sha256": "ad65f18ad1b0df5e5205ae8fcea62b2c0caec88baa469abcc59a505ed16783bf"
+        },
+        {
+          "path": "docs/permission-migration.md",
+          "sha256": "778586a67b18b10cc656ed1d1cb8eb93f648de9af665aedcf781d34a8a6b08e9"
+        },
+        {
+          "path": "scripts/check_permission_interrupt.py",
+          "sha256": "c07a70a7306c7a278336276a5f9f5564ac94e35c832354bcea076ecf4899bbfc"
+        }
+      ],
+      "development_scope": "Exact fingerprint, broad tool meaning, repeat import, revocation and quarantine recovery exercised with built CLI. Built CLI resumes from each nonempty proper record prefix of a three-grant import, preserves existing records and avoids duplicates. Actual importer SIGKILL after partial import passed on macOS (1 grant) and Linux (6 grants), each resumed to 256 without duplicates.",
+      "remaining_proof": "Final exact-candidate/released-Harness platform qualification; power-loss/all write-boundary coverage is not established by these process-kill runs."
+    },
+    {
+      "scenario": "changed_scope_reapproval",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "cmd/hand/scoped_permissions_test.go",
+          "sha256": "677c95d8feb6e22e23dbe7dc339c8a73599e7e8b74c0d5bd8641db05f5fbb13c"
+        },
+        {
+          "path": "cmd/hand/permission_binding_test.go",
+          "sha256": "f0545ea4d97dda4f2846446883b7b445153a93797df3a40d98edd320c545d1f8"
+        },
+        {
+          "path": "internal/app/permission_binding_test.go",
+          "sha256": "a26bbbb91fe80022908b6819163a9f4f62f9928ea715b9080105dcfbb092391a"
+        }
+      ],
+      "development_scope": "Configuration-dependent authority and proposal fingerprints; profile permission preparation tested.",
+      "remaining_proof": "Final integrated changed-capability/profile workflow and all binding inputs reconciled."
+    },
+    {
+      "scenario": "stale_preview_revalidation",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/agentio/scoped_approval_test.go",
+          "sha256": "095aa8059bf5802b0503f50d901d99e3868adc109d77edae1b8eed7f73e21780"
+        },
+        {
+          "path": "internal/agentio/approval_snapshot_test.go",
+          "sha256": "1b0e62bbf4436d28d54c414ea0e78cf3c8186ed886be6edf62348badc8917e53"
+        }
+      ],
+      "development_scope": "Pending approval rejects changed file content/mode, newly created file and swapped symlink; snapshot bounds tested.",
+      "remaining_proof": "Final built-client mutation-boundary race/repetition evidence; hook checks alone do not establish atomic filesystem safety."
+    },
+    {
+      "scenario": "shell_not_prefix_sandbox",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/permissions/scoped_test.go",
+          "sha256": "5a1bcf92887407790fbe190010b78686a17854885cbaf2700a15219e82e7d5ed"
+        },
+        {
+          "path": "docs/permission-migration.md",
+          "sha256": "778586a67b18b10cc656ed1d1cb8eb93f648de9af665aedcf781d34a8a6b08e9"
+        }
+      ],
+      "development_scope": "Exact command/shell/MCP/network identities reject extended strings; guide states host command is not a sandbox.",
+      "remaining_proof": "Trace selected tools through actual execution backend and final candidate malicious-command journey."
+    },
+    {
+      "scenario": "symlink_escape_refused",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/permissions/scoped_test.go",
+          "sha256": "5a1bcf92887407790fbe190010b78686a17854885cbaf2700a15219e82e7d5ed"
+        },
+        {
+          "path": "internal/permissions/authority_test.go",
+          "sha256": "129241cef6c33a8544f2e14f6fc182bf0883847a654446cfca1d116d70f7fe37"
+        },
+        {
+          "path": "internal/agentio/scoped_approval_test.go",
+          "sha256": "095aa8059bf5802b0503f50d901d99e3868adc109d77edae1b8eed7f73e21780"
+        }
+      ],
+      "development_scope": "External/dangling links and component-prefix escapes refused; active saved target changes require reapproval.",
+      "remaining_proof": "Final integrated filesystem mutation and container boundary qualification."
+    },
+    {
+      "scenario": "routine_work_prompt_count",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/agentio/scoped_approval_test.go",
+          "sha256": "095aa8059bf5802b0503f50d901d99e3868adc109d77edae1b8eed7f73e21780"
+        },
+        {
+          "path": "scripts/check_permission_prompts.py",
+          "sha256": "6fefca53be8bc26aef331958134b994c91ac138b1e5daad01774be0f6e20cb34"
+        }
+      ],
+      "development_scope": "Built RPC client performs two writes and two shell checks with two exact persistent approvals; four broader operations prompt independently and are refused. Actual outputs and exact grant count asserted on macOS and Linux.",
+      "remaining_proof": "Final source-bound clean-candidate and released Harness runs under documented policy; fixture is not a general UX study."
+    }
+  ],
+  "development_evidence": [
+    "docs/acceptance/authority-json.json",
+    "docs/acceptance/authority-storage.json",
+    "docs/acceptance/authority-fuzz.json",
+    "docs/acceptance/permission-migration.json",
+    "docs/acceptance/rpc-cold-start.json",
+    "docs/acceptance/rpc-cold-linux.json",
+    "docs/acceptance/permission-partial-import.json",
+    "docs/acceptance/permission-prompt-count.json",
+    "docs/acceptance/permission-lifetime-matrix.json",
+    "docs/acceptance/permission-interruption.json",
+    "docs/acceptance/permission-rejections.json",
+    "docs/acceptance/legacy-settings-rejection.json",
+    "docs/acceptance/permission-binding-failure.json"
+  ]
+}

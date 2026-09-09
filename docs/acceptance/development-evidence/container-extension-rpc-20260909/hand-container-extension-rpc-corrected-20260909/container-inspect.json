@@ -1,0 +1,250 @@
+{
+  "Id": "afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c",
+  "Created": "2026-09-08T19:36:26.446336255Z",
+  "Path": "/harness-resources/executable",
+  "Args": [],
+  "State": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 67535,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-09-08T19:36:26.490281172Z",
+    "FinishedAt": "0001-01-01T00:00:00Z"
+  },
+  "Image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "ResolvConfPath": "/var/lib/docker/containers/afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c/resolv.conf",
+  "HostnamePath": "/var/lib/docker/containers/afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c/hostname",
+  "HostsPath": "/var/lib/docker/containers/afad9913cd90499a5ca1d429b70d7e1d9ddde1a7f13b3e0adc578ec2547fb81c/hosts",
+  "LogPath": "",
+  "Name": "/harness-exec-lzwmq2yyyg5jsxckjthbylsitt",
+  "RestartCount": 0,
+  "Driver": "overlayfs",
+  "Platform": "linux",
+  "MountLabel": "",
+  "ProcessLabel": "",
+  "AppArmorProfile": "",
+  "ExecIDs": null,
+  "HostConfig": {
+    "Binds": null,
+    "ContainerIDFile": "",
+    "LogConfig": {
+      "Type": "none",
+      "Config": {}
+    },
+    "NetworkMode": "none",
+    "PortBindings": {},
+    "RestartPolicy": {
+      "Name": "no",
+      "MaximumRetryCount": 0
+    },
+    "AutoRemove": false,
+    "VolumeDriver": "",
+    "VolumesFrom": null,
+    "ConsoleSize": [
+      0,
+      0
+    ],
+    "CapAdd": null,
+    "CapDrop": [
+      "ALL"
+    ],
+    "CgroupnsMode": "private",
+    "Dns": null,
+    "DnsOptions": [],
+    "DnsSearch": [],
+    "ExtraHosts": null,
+    "GroupAdd": null,
+    "IpcMode": "private",
+    "Cgroup": "",
+    "Links": null,
+    "OomScoreAdj": 0,
+    "PidMode": "",
+    "Privileged": false,
+    "PublishAllPorts": false,
+    "ReadonlyRootfs": true,
+    "SecurityOpt": [
+      "no-new-privileges"
+    ],
+    "Tmpfs": {
+      "/tmp": "rw,nosuid,nodev,size=64m,mode=1777"
+    },
+    "UTSMode": "",
+    "UsernsMode": "",
+    "ShmSize": 67108864,
+    "Runtime": "runc",
+    "Isolation": "",
+    "CpuShares": 0,
+    "Memory": 536870912,
+    "NanoCpus": 2000000000,
+    "CgroupParent": "",
+    "BlkioWeight": 0,
+    "BlkioWeightDevice": [],
+    "BlkioDeviceReadBps": [],
+    "BlkioDeviceWriteBps": [],
+    "BlkioDeviceReadIOps": [],
+    "BlkioDeviceWriteIOps": [],
+    "CpuPeriod": 0,
+    "CpuQuota": 0,
+    "CpuRealtimePeriod": 0,
+    "CpuRealtimeRuntime": 0,
+    "CpusetCpus": "",
+    "CpusetMems": "",
+    "Devices": [],
+    "DeviceCgroupRules": null,
+    "DeviceRequests": null,
+    "MemoryReservation": 0,
+    "MemorySwap": 536870912,
+    "MemorySwappiness": null,
+    "OomKillDisable": null,
+    "PidsLimit": 128,
+    "Ulimits": [],
+    "CpuCount": 0,
+    "CpuPercent": 0,
+    "IOMaximumIOps": 0,
+    "IOMaximumBandwidth": 0,
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "/private/tmp/hand-container-extension-rpc-corrected-20260909/workspace",
+        "Target": "/workspace",
+        "ReadOnly": true,
+        "BindOptions": {
+          "Propagation": "rprivate",
+          "NonRecursive": true
+        }
+      },
+      {
+        "Type": "bind",
+        "Source": "/tmp/harness-docker-config-970481645/verified-resources-2606986672",
+        "Target": "/harness-resources",
+        "ReadOnly": true,
+        "BindOptions": {
+          "NonRecursive": true
+        }
+      }
+    ],
+    "MaskedPaths": [
+      "/proc/acpi",
+      "/proc/asound",
+      "/proc/interrupts",
+      "/proc/kcore",
+      "/proc/keys",
+      "/proc/latency_stats",
+      "/proc/sched_debug",
+      "/proc/scsi",
+      "/proc/timer_list",
+      "/proc/timer_stats",
+      "/sys/devices/virtual/powercap",
+      "/sys/firmware"
+    ],
+    "ReadonlyPaths": [
+      "/proc/bus",
+      "/proc/fs",
+      "/proc/irq",
+      "/proc/sys",
+      "/proc/sysrq-trigger"
+    ],
+    "Init": true
+  },
+  "Storage": {
+    "RootFS": {
+      "Snapshot": {
+        "Name": "overlayfs"
+      }
+    }
+  },
+  "Mounts": [
+    {
+      "Type": "bind",
+      "Source": "/private/tmp/hand-container-extension-rpc-corrected-20260909/workspace",
+      "Destination": "/workspace",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    },
+    {
+      "Type": "bind",
+      "Source": "/tmp/harness-docker-config-970481645/verified-resources-2606986672",
+      "Destination": "/harness-resources",
+      "Mode": "",
+      "RW": false,
+      "Propagation": "rprivate"
+    }
+  ],
+  "Config": {
+    "Hostname": "afad9913cd90",
+    "Domainname": "",
+    "User": "501:20",
+    "AttachStdin": true,
+    "AttachStdout": true,
+    "AttachStderr": true,
+    "Tty": false,
+    "OpenStdin": true,
+    "StdinOnce": true,
+    "Env": [
+      "PATH=/usr/local/bin:/usr/bin:/bin"
+    ],
+    "Cmd": null,
+    "Healthcheck": {
+      "Test": [
+        "NONE"
+      ]
+    },
+    "Image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "Volumes": null,
+    "WorkingDir": "/workspace",
+    "Entrypoint": [
+      "/harness-resources/executable"
+    ],
+    "Labels": {},
+    "StopTimeout": 1
+  },
+  "NetworkSettings": {
+    "SandboxID": "a52f9aaeff2e176ab5bde9544c077e7e82b22818d8f47d138fe2e46c52310fc6",
+    "SandboxKey": "/var/run/docker/netns/a52f9aaeff2e",
+    "Ports": {},
+    "Networks": {
+      "none": {
+        "IPAMConfig": null,
+        "Links": null,
+        "Aliases": null,
+        "DriverOpts": null,
+        "GwPriority": 0,
+        "NetworkID": "055797024dca142b2d15108902f78301d35c532ed43216678c57d914eeb263a3",
+        "EndpointID": "9a066dbe7243143e9f2f157ea04c434e16cd2ee5fbb807b839a069fb86489d8c",
+        "Gateway": "",
+        "IPAddress": "",
+        "MacAddress": "",
+        "IPPrefixLen": 0,
+        "IPv6Gateway": "",
+        "GlobalIPv6Address": "",
+        "GlobalIPv6PrefixLen": 0,
+        "DNSNames": null
+      }
+    }
+  },
+  "ImageManifestDescriptor": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "digest": "sha256:9b67294679b30e5d6ab257b40594feeb4a4b81f7fcf4131f4decf0d6a212a9b0",
+    "size": 1041,
+    "annotations": {
+      "com.docker.official-images.bashbrew.arch": "arm64v8",
+      "org.opencontainers.image.base.name": "scratch",
+      "org.opencontainers.image.created": "2026-07-13T00:00:00Z",
+      "org.opencontainers.image.revision": "fb7215b47dab72bdbdd59204a7b7914311431d90",
+      "org.opencontainers.image.source": "https://github.com/debuerreotype/docker-debian-artifacts.git",
+      "org.opencontainers.image.url": "https://hub.docker.com/_/debian",
+      "org.opencontainers.image.version": "bookworm-slim"
+    },
+    "platform": {
+      "architecture": "arm64",
+      "os": "linux",
+      "variant": "v8"
+    }
+  }
+}

@@ -1,0 +1,149 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "a93d54258527d604d0dea750f5d478ffdb07f679d763e88dc9e7a3b1c433d006",
+        "session_id": "ses_d7b46ba989ee7c26",
+        "run_id": "6XQM5NI7Q3WVORCWUEEVSEZACM:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "PNX2YKXCJYEXLCXW35M7WTWVTK:21",
+          "sequence": 21,
+          "session_id": "ses_d7b46ba989ee7c26",
+          "run_id": "6XQM5NI7Q3WVORCWUEEVSEZACM:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T05:26:36.184915Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "676cbe0bba5bb9af441d27983ed1c82c1f221c5f1e877f2f39703b0b9a1cd619",
+        "session_id": "ses_4b369e2d0e4a0c81",
+        "run_id": "6XQM5NI7Q3WVORCWUEEVSEZACM:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "I7QXS4H5X4UTINK2NSUSRSBBHT:12",
+          "sequence": 12,
+          "session_id": "ses_4b369e2d0e4a0c81",
+          "run_id": "6XQM5NI7Q3WVORCWUEEVSEZACM:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T05:26:36.001386Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

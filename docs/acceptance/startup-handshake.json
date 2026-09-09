@@ -1,0 +1,47 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "command": "go test -race -count=20 -timeout=3m -run ^TestStartup(CancellationDuringHandshakeJoinsAllChildren|MCPRuntimeOwnership)$ -json ./internal/app",
+  "tests": {
+    "pass": 120
+  },
+  "repetitions": 20,
+  "assertions": [
+    "Cancellation occurs while a real MCP child is alive and its handshake remains unfinished",
+    "Both concurrently started MCP child PIDs are reaped before Finish returns",
+    "Cancellation retains context.Canceled, transfers no runtime and publishes no partial tools",
+    "Cleanup completes within two seconds",
+    "Prior four connected-runtime ownership cases remain passing"
+  ],
+  "initial_failure": "Incorrect test assumed sequential server connection and required graceful healthy-server shutdown marker. Harness connects concurrently; corrected to observe both spawned PIDs and assert ESRCH after cancellation. Initial failures retained.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/startup-handshake-20260909/hand-startup-handshake-fixed-20260909.jsonl.gz",
+      "sha256": "1bafd6353f2edf776328035764676f6affad2fe1a5bf48918df2e48782ddc4b8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-handshake-20260909/hand-startup-handshake-20260909.jsonl.gz",
+      "sha256": "0dc50d6d02474155be70afe5ecba463b20cbf3480b410ae034b3d56928d9df24"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-handshake-20260909/internal__app__startup_handshake_test.go.gz",
+      "sha256": "ccfa31f423b55a7395a3078940259a1203a1dc2e9d660e9ba97279a888531161"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-handshake-20260909/internal__app__startup_test.go.gz",
+      "sha256": "1f7cbc62fd5c4b89a07c670974853df00441967eaecad16df6cf6fa7977d18c0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-handshake-20260909/internal__app__mcp_test.go.gz",
+      "sha256": "eb06e9579c4365793ecbbdf7158bd245ba1db3a667192637a0571fbaa9efda60"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-handshake-20260909/internal__app__startup.go.gz",
+      "sha256": "37422eea8d3b0bbdb1b4c0502190c1d381f9a2a11e9d661672a58f8151bd63d6"
+    }
+  ],
+  "limitations": [
+    "Native development evidence with local Harness; not final candidate or all supported platforms",
+    "Source copies captured after tests; no immutable candidate provenance"
+  ]
+}

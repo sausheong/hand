@@ -1,0 +1,38 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M2.1",
+    "M1.4"
+  ],
+  "repetitions": 20,
+  "pass_including_subtests": 260,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "All five terminal outcome tests now construct the production service-backed terminal.",
+    "Final allowed iteration executes a real Stop validator and records verified completion.",
+    "Eight-case outcome matrix preserves completed, verification failure, turn/iteration budget, provider error, cancellation and malformed completion outcomes.",
+    "Duplicate service terminal messages do not produce duplicate visible results.",
+    "Cancellation after real successful validator but before service commit cannot publish success.",
+    "Interactive Bubble Tea one-turn and two-turn Stop-hook continuation journeys each show one terminal result."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/outcome-service-migration-20260909/hand-outcome-service-complete-migration-20260909.jsonl.gz",
+      "sha256": "93f4e4ecf2906360244e0a81f8dda9b9e8d87d887a43d60b550b1dacaa621ed4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/outcome-service-migration-20260909/hand-outcome-service-migration-20260909.jsonl.gz",
+      "sha256": "9911e4aad754c085315b6361b33f55aaf487db43a81b337fa9eb4d45451b98b8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/outcome-service-migration-20260909/outcome_test.go.gz",
+      "sha256": "6d98310ce2cbabaee74524189af4ccda3b7e266422f3f5f69cfd379e9eb0503d"
+    }
+  ],
+  "limitations": [
+    "Test-only migration; legacy event and goal handlers elsewhere still await removal.",
+    "Fake application backend and real local Stop subprocesses; no paid provider evidence.",
+    "Development targeted race suite, not full candidate/platform qualification."
+  ]
+}

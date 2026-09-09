@@ -1,0 +1,14 @@
+{"Time":"2026-09-08T17:36:25.499048+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:36:26.07493+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestManualCompactionForwardsPinsFocusAndBudget"}
+{"Time":"2026-09-08T17:36:26.075015+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestManualCompactionForwardsPinsFocusAndBudget","Output":"=== RUN   TestManualCompactionForwardsPinsFocusAndBudget\n"}
+{"Time":"2026-09-08T17:36:26.076059+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestManualCompactionForwardsPinsFocusAndBudget","Output":"2026/09/08 17:36:26 INFO compaction triggered session_id=ses_3fca5e7b525b8506 reason=manual\n"}
+{"Time":"2026-09-08T17:36:26.076818+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestManualCompactionForwardsPinsFocusAndBudget","Output":"2026/09/08 17:36:26 INFO compaction complete session_id=ses_3fca5e7b525b8506 reason=manual turns_compacted=16 duration_ms=1\n"}
+{"Time":"2026-09-08T17:36:26.077031+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestManualCompactionForwardsPinsFocusAndBudget","Output":"--- PASS: TestManualCompactionForwardsPinsFocusAndBudget (0.00s)\n"}
+{"Time":"2026-09-08T17:36:26.077056+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestManualCompactionForwardsPinsFocusAndBudget","Elapsed":0}
+{"Time":"2026-09-08T17:36:26.07858+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins"}
+{"Time":"2026-09-08T17:36:26.078594+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins","Output":"=== RUN   TestContextPinUpdatesPreserveOtherPins\n"}
+{"Time":"2026-09-08T17:36:26.079614+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins","Output":"--- PASS: TestContextPinUpdatesPreserveOtherPins (0.00s)\n"}
+{"Time":"2026-09-08T17:36:26.079623+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins","Elapsed":0}
+{"Time":"2026-09-08T17:36:26.081169+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T17:36:27.088481+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.589s\n"}
+{"Time":"2026-09-08T17:36:27.088547+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.5899999999999999}

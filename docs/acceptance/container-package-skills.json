@@ -1,0 +1,302 @@
+{
+  "status": "development_fix_verified",
+  "problem": "Container tool installation replaced the already configured package loader, so selected package skills were unavailable to the worker.",
+  "resolution": "Configure the execution backend before selecting packages; serve explicitly pinned package bodies/resources through the bounded data loader while delegating ordinary skills to the existing backend. Preserve its concurrency contract and restore it on deselection.",
+  "sources": [
+    {
+      "path": "cmd/hand/main.go",
+      "sha256": "cb305fa60b0702930e4d7c24d284cf5c48fad028c9ba1cee4ec0d3850490c3b6"
+    },
+    {
+      "path": "internal/app/package_skills.go",
+      "sha256": "feacae713b182420940450f5f24410985fd48f269adf56a064e3695488e39e22"
+    },
+    {
+      "path": "internal/app/package_skill_resources.go",
+      "sha256": "3e90211a04f46319f7cd78d0a3cb1067230e95cf6d1fc783fd182cf9be07f23b"
+    },
+    {
+      "path": "internal/app/package_skills_test.go",
+      "sha256": "d213ac04d2b6bc5e0c2f2e5dece10b0518c58cb45a87689a611accaceffe1c75"
+    },
+    {
+      "path": "scripts/check_package_text_cli.py",
+      "sha256": "442e6b6ff2318de5763b3386117a94b415eb9dc3a76010e5309aa14c531cf523"
+    },
+    {
+      "path": "docs/package-skills.md",
+      "sha256": "0cc1c3f4e1fba0d7d077877e04814f7a8a4637270fdf2799b52de6a7a535e463"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-journey-20260909-run.json.gz",
+      "sha256": "6dd1637a59bf57673cce1ef30f7d40d3b2e2acb6ff14796ecef173222e48b9a8",
+      "raw_sha256": "5074eb4e4945e27fde93300eef919a28660a77d7ec8fe322e4c83dcb9cffbe8e",
+      "raw_bytes": 1981,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-journey-20260909-commands.json.gz",
+      "sha256": "14b3fa2af48e8f92c2d79e455da0c9e8ecbd01447cef8e07ce677488911cf44a",
+      "raw_sha256": "16a752c1dbedc4371489ffea91194a1dec0bcea6c0f2beb64bb2a1af33659063",
+      "raw_bytes": 4701,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-journey-20260909-provider-requests.json.gz",
+      "sha256": "f0381d3fe81f66f2aefb297971da72275d66c498665dbd20204190f036b426ce",
+      "raw_sha256": "76a34fad5a770af837b5c26cc6bde53b16a51f611a3633059b293a3d9f855c18",
+      "raw_bytes": 32662,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-journey-20260909-container-commands.json.gz",
+      "sha256": "4a725f3cae23def95a27541c9e972365e90df7c307a60b26798a45ef40c57254",
+      "raw_sha256": "1cc509323f3865e3ae066e70165d5af5094b7189d045ec7246dbe4b8ca7a216d",
+      "raw_bytes": 705,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-journey-20260909-skills.json.gz",
+      "sha256": "a0ce9472a2c5b9e71b4f64d9bc769b48cbb86b614e017fcf9e29c9da2cdcc552",
+      "raw_sha256": "980a7fed28568d7721d1090ae75071742f82f9ad1ffb9c76ac9928e5b28d2532",
+      "raw_bytes": 248,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-journey-20260909-prompt.json.gz",
+      "sha256": "1dd0399d9fcc42543e22b8b415e2a2a5bb2656d6b767d0434c09e35977fee49a",
+      "raw_sha256": "347d6925c18e57d32835fa9d415d1ad941286d6be6ba6f343c96a0699129bbdd",
+      "raw_bytes": 209,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-fixed-journey-20260909-run.json.gz",
+      "sha256": "1c9a89cb58ba424149f11e27088e6dc1307bcd257a2cd71787332f6ee12bb5fb",
+      "raw_sha256": "c9cad87424ba4a5e111284cca06f935aafb4f1126a619372897f5366d584b4b0",
+      "raw_bytes": 1325,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-fixed-journey-20260909-commands.json.gz",
+      "sha256": "4ce462de24c9e057072adbb7f9d3e98e25f1316a37d62bbdcae6b4cba0f5ae0d",
+      "raw_sha256": "a3111f6dd09e848a7503980d78ba5dd6420d50fe8eccd2b1ce985cd57ec09a0b",
+      "raw_bytes": 4824,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-fixed-journey-20260909-provider-requests.json.gz",
+      "sha256": "29cf90070f85bf1ff2223b75edb3601293fbb9604cbb067b8fbfb5894edac3fb",
+      "raw_sha256": "dcb028fdd73f8fd9be1797998cc4345c33867e2c32e360f1600b98f0be336b7d",
+      "raw_bytes": 70583,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-fixed-journey-20260909-container-commands.json.gz",
+      "sha256": "db1f509764c1e233ac58ff5cece27a32252f1ab85244413478f570b81c2e6a52",
+      "raw_sha256": "ea29f5effd2cca07dea763b75302e3a607ddb98d731ec55a60e047ab89fc6e17",
+      "raw_bytes": 1074,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-fixed-journey-20260909-skills.json.gz",
+      "sha256": "ac4860345f422a4aac801826313e2103996d1bba8ce64a11669df7ef40163478",
+      "raw_sha256": "f9cee099c49b214ae4594188856f49255144a78cd84234770595131e64cb954c",
+      "raw_bytes": 254,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-fixed-journey-20260909-prompt.json.gz",
+      "sha256": "cd8194153c3615bf791d8cde8c48baa96ce437111f4659fb4d576add8fb803eb",
+      "raw_sha256": "ff24a77d00f3948d0d0e11acf86bfe3e6ccc85f6d638047e8488d1d95dde9420",
+      "raw_bytes": 215,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-host-regression-journey-20260909-run.json.gz",
+      "sha256": "622b804e2cff8e2565f4101f9b4153bb4e9fc91801151c5195b3bbde1b8cb26f",
+      "raw_sha256": "def91dbb42269608cf92c26e2cc6e952e87ceb8279584213d854b38757eed241",
+      "raw_bytes": 733,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-host-regression-journey-20260909-commands.json.gz",
+      "sha256": "1ca18d98687e59aced4d5386b138d5f98cc5a82efb0526bb96e87b66e8cc3341",
+      "raw_sha256": "8c704f1a23e5432c7b15994bb85a8e275f3b5e46cfab29976145348a421b3d45",
+      "raw_bytes": 4723,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-host-regression-journey-20260909-provider-requests.json.gz",
+      "sha256": "9cad46dbca65da8ccabcbecd5678562a4e9cb8bb6796f0f9b7b01d457c234f32",
+      "raw_sha256": "a03e0da9c4bf82fc8b7dd09183e1d9b8a12b1585a7dc57929f57ba70065ac2c7",
+      "raw_bytes": 50667,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-host-regression-journey-20260909-skills.json.gz",
+      "sha256": "f9e3310fe9a42f8456ce83f2d8af0c3b79580efe017ad28fc22ecfca9de4594b",
+      "raw_sha256": "0326ca872abc9450422512de89ca878c4b02b866f367d9b6a0ddefdaa0f39041",
+      "raw_bytes": 254,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-host-regression-journey-20260909-prompt.json.gz",
+      "sha256": "cf85d8359db99fa9402110c00a38ea76ee315d753b807186fadc9484f467d5d1",
+      "raw_sha256": "a3e015a330a92a143fbe5146cae85418241858d5dfd198bb70d54f64fd4fe75f",
+      "raw_bytes": 215,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-all-runner-tests-20260909.log.gz",
+      "sha256": "e7603c62b8fdad7548551b59a37503b78a2ebe9f9367ae24bbddd2b2909fe7d1",
+      "raw_sha256": "c6fd567081d7f54270b4c45be7630efb68f6e765f1a4e60b02247c475872c7a4",
+      "raw_bytes": 178,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-container-skill-loader-tests-20260909.jsonl.gz",
+      "sha256": "264c70e9cae6131299c331bd314b1ad67004c6fef824d77ce7278213c0877e32",
+      "raw_sha256": "f9d77d4d5f91a108ddec923b2748d9d8f7e5985dfae3028d5418b22188e5bd12",
+      "raw_bytes": 1450,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-container-skill-cli-tests-20260909.jsonl.gz",
+      "sha256": "b2b77885563f75818a1ef5eac86489d1ee37cdcde0574bcb0770e66ef0132361",
+      "raw_sha256": "45d2a95c7f03270035b05067fe300e1d1159c74e06b6e44a55636e1eafad773d",
+      "raw_bytes": 1267,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/hand-skill-container-config-20260909.json.gz",
+      "sha256": "91d6c7130efe7ef061ea64d0de2d69ca30006bc2dac6efe2b62b0c33c43d4ba2",
+      "raw_sha256": "1ff2a046149bb566797ec134c2def5c7cbdb3e1b14e80e65d34b5629f193669c",
+      "raw_bytes": 401,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/cmd-hand-main.go.gz",
+      "sha256": "0cab10d10334f0e844e4bb5baa301322832c2b8c44b400fefe99c8d68aa2d4f4",
+      "raw_sha256": "cb305fa60b0702930e4d7c24d284cf5c48fad028c9ba1cee4ec0d3850490c3b6",
+      "raw_bytes": 31695,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/internal-app-package_skills.go.gz",
+      "sha256": "b0be187442e82d65515db0b66c8259ea407afd2344a43646aed626e578156588",
+      "raw_sha256": "feacae713b182420940450f5f24410985fd48f269adf56a064e3695488e39e22",
+      "raw_bytes": 5025,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/internal-app-package_skill_resources.go.gz",
+      "sha256": "4ff0880457329a76a5ffa3b06ffb8c4cc828588ef57404089e2533a3c403a605",
+      "raw_sha256": "3e90211a04f46319f7cd78d0a3cb1067230e95cf6d1fc783fd182cf9be07f23b",
+      "raw_bytes": 3217,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/internal-app-package_skills_test.go.gz",
+      "sha256": "ed8c3126fd1fb5ac7fd93e311a8c714301b1ae77279552f87c2dd285a592f47c",
+      "raw_sha256": "d213ac04d2b6bc5e0c2f2e5dece10b0518c58cb45a87689a611accaceffe1c75",
+      "raw_bytes": 8681,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/scripts-check_package_text_cli.py.gz",
+      "sha256": "255eaa91beb506ecf85758becf93fc7fdfae3a8e81a67c3803f337d8050e8f31",
+      "raw_sha256": "442e6b6ff2318de5763b3386117a94b415eb9dc3a76010e5309aa14c531cf523",
+      "raw_bytes": 10999,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-skills-20260909/docs-package-skills.md.gz",
+      "sha256": "c146c41222631771ffad761e8b9d3a009fd4aa4ec070c7ea4c2e208a8041db5c",
+      "raw_sha256": "0cc1c3f4e1fba0d7d077877e04814f7a8a4637270fdf2799b52de6a7a535e463",
+      "raw_bytes": 5117,
+      "encoding": "gzip"
+    }
+  ],
+  "journeys": {
+    "hand-skill-container-journey-20260909": {
+      "status": "failed",
+      "qualification": "development",
+      "binary_sha256": "084d7183394ab01680b85bb03383825423af8ca1d85949bf33fa3d5936e5817b",
+      "runner_sha256": "442e6b6ff2318de5763b3386117a94b415eb9dc3a76010e5309aa14c531cf523",
+      "paid_provider_calls": 0,
+      "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill for the selected body and its declared text resource; container fixture also approves uname -s through bash",
+      "execution": {
+        "backend": "container",
+        "docker": "/usr/local/bin/docker",
+        "socket": "/Users/sausheong/.docker/run/docker.sock",
+        "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+        "worker": "/private/tmp/hand-skill-container-worker-20260909",
+        "worker_sha256": "659ff77a485597033178617ef48b11e06094a79bb4ecc3d24e49d504dd565239",
+        "writable": false,
+        "network": false
+      },
+      "host_platform": "Darwin",
+      "error": "AssertionError({'arguments': ['--model', 'local/fixture', '--base-url', 'http://127.0.0.1:51324/v1', '--yes', '--package-skills', '/private/tmp/hand-skill-container-journey-20260909/skills.json', '--package-prompt', '/private/tmp/hand-skill-container-journey-20260909/prompt.json', '-p', 'Use package-review and explain the change.'], 'exit_code': 5, 'stdout': '\\n', 'stderr': 'hand: execution boundary: container: workspace writable=false; network=false; other host paths unmounted; model-provider requests remain on host\\ntime=2026-09-09T05:07:28.939+08:00 level=WARN msg=\"tool error\" tool=load_skill id=load-package-skill error=\"skill not found: \\\\\"package-review\\\\\"\"\\ntime=2026-09-09T05:07:28.943+08:00 level=WARN msg=\"openai chat error\" model=fixture msg_count=4 tool_count=11 max_completion_tokens=8192 temperature=0 stream=true err=\"Post \\\\\"http://127.0.0.1:51324/v1/chat/completions\\\\\": EOF\"\\nhand: infrastructure_error (runtime_error): llm error: Post \"http://127.0.0.1:51324/v1/chat/completions\": EOF\\n'})"
+    },
+    "hand-skill-container-fixed-journey-20260909": {
+      "status": "passed",
+      "qualification": "development",
+      "binary_sha256": "495efcd35c7f4d10f47b22136cc899684ccf31629511c7ebccf8cccdf55ecc0a",
+      "runner_sha256": "442e6b6ff2318de5763b3386117a94b415eb9dc3a76010e5309aa14c531cf523",
+      "paid_provider_calls": 0,
+      "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill for the selected body and its declared text resource; container fixture also approves uname -s through bash",
+      "execution": {
+        "backend": "container",
+        "docker": "/usr/local/bin/docker",
+        "socket": "/Users/sausheong/.docker/run/docker.sock",
+        "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+        "worker": "/private/tmp/hand-skill-container-worker-20260909",
+        "worker_sha256": "659ff77a485597033178617ef48b11e06094a79bb4ecc3d24e49d504dd565239",
+        "writable": false,
+        "network": false
+      },
+      "host_platform": "Darwin",
+      "container_process_reported_linux": true,
+      "container_cleanup": true,
+      "local_provider_requests": 4,
+      "package_digest": "4b08bfc41dfd4779a1e577900f494b7291774a1bb719f9614091fab7fecabdba",
+      "prompt_reached_user_message": true,
+      "skill_loaded_by_tool": true,
+      "relative_resource_read_by_tool": true,
+      "source_removed": true,
+      "literal_prompt": true,
+      "wrong_pin_preprovider_rejection": true
+    },
+    "hand-skill-host-regression-journey-20260909": {
+      "status": "passed",
+      "qualification": "development",
+      "binary_sha256": "495efcd35c7f4d10f47b22136cc899684ccf31629511c7ebccf8cccdf55ecc0a",
+      "runner_sha256": "442e6b6ff2318de5763b3386117a94b415eb9dc3a76010e5309aa14c531cf523",
+      "paid_provider_calls": 0,
+      "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill for the selected body and its declared text resource",
+      "local_provider_requests": 3,
+      "package_digest": "4b08bfc41dfd4779a1e577900f494b7291774a1bb719f9614091fab7fecabdba",
+      "prompt_reached_user_message": true,
+      "skill_loaded_by_tool": true,
+      "relative_resource_read_by_tool": true,
+      "source_removed": true,
+      "literal_prompt": true,
+      "wrong_pin_preprovider_rejection": true
+    }
+  },
+  "tests": {
+    "reporter_suite_passed": 47,
+    "targeted_application_test": "TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval",
+    "targeted_cli_test": "TestPackageCLIReadInstalledPrompt",
+    "race_detection": true
+  },
+  "limitations": [
+    "Dirty Hand and unreleased Harness remain development inputs; no final-candidate qualification.",
+    "The first native fixture failure is retained. Corrected container and host journeys use the same Hand binary.",
+    "The container fixture uses a fresh Linux arm64 worker, pinned image, read-only workspace and disabled container network; model requests use a local provider fixture on the host.",
+    "No paid model calls occurred. These journeys do not establish the remaining coverage, scenario, platform, release or live-comparison gates.",
+    "Broader authored-skill discovery/resource consistency outside the container workspace still requires review; this fix concerns explicitly selected package resources."
+  ]
+}

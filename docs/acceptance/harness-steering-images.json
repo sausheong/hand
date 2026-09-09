@@ -1,0 +1,123 @@
+{
+  "development_harness_candidate": "3cdb3a37b7073203fdcf51c8e0d1030028289625",
+  "harness_base": "f7614ba75e963a4e5de71a25151e3e1af55f172a",
+  "patch_sha256": "c7b0ae88ad212b450fcb46467b61bb421536b91d83b0d2a50fef0886b8a849eb",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "hand_source_manifest": "docs/acceptance/queued-attachment-integration.json",
+  "results": {
+    "hand-steering-images-hand-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 637,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/config": "pass",
+        "github.com/sausheong/hand/internal/app": "pass",
+        "github.com/sausheong/hand/internal/permissions": "pass",
+        "github.com/sausheong/hand/cmd/hand": "pass",
+        "github.com/sausheong/hand/internal/tui": "pass",
+        "github.com/sausheong/hand/internal/agentio": "pass",
+        "github.com/sausheong/hand/internal/sessionio": "pass"
+      }
+    },
+    "hand-steering-images-harness-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 915,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    },
+    "hand-steering-images-repeat-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 100,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    }
+  },
+  "repeat_count": 20,
+  "harness_full_exit_code": 0,
+  "hand_full_exit_code": 0,
+  "harness_vet_exit_code": 0,
+  "hand_vet_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-hand-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-images-hand-full-20260908.jsonl",
+      "sha256": "37e79bcc26c7b0aee8a9558ec9b51037ae7bbac1294249eb48c64839c1e07dd0"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-hand-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-images-hand-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-hand-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-steering-images-hand-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-harness-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-images-harness-full-20260908.jsonl",
+      "sha256": "4c8337423dcbb98c25e3aa6d689b30644831024d19adf43ca02ae86e8fd7f497"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-harness-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-images-harness-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-harness-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-steering-images-harness-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-images-repeat-20260908.jsonl",
+      "sha256": "79bf6486b220a318ae1f3ec1c22ee89dcf405ea98242b1d617cba1e1290f07f3"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-images-20260908/hand-steering-images-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-images-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Harness image-capable boundary only; Hand steering snapshot resolution remains pending.",
+    "Additional adversarial hydration-bound review remains pending for delivered payload comparison.",
+    "No process-kill steering-image delivery evidence or final native/released-candidate qualification."
+  ]
+}

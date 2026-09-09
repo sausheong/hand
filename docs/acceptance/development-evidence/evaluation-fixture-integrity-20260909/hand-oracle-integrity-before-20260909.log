@@ -1,0 +1,20 @@
+test_passing_candidate_that_mutates_oracle_is_rejected (test_evaluation_baseline.BaselineTests.test_passing_candidate_that_mutates_oracle_is_rejected) ... FAIL
+
+======================================================================
+FAIL: test_passing_candidate_that_mutates_oracle_is_rejected (test_evaluation_baseline.BaselineTests.test_passing_candidate_that_mutates_oracle_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sausheong/projects/hand/scripts/test_evaluation_baseline.py", line 106, in test_passing_candidate_that_mutates_oracle_is_rejected
+    self.assertEqual(report['status'],'candidate_tests_failed')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'candidate_tests_passed' != 'candidate_tests_failed'
+- candidate_tests_passed
+?                 ^ ^^
++ candidate_tests_failed
+?                 ^ ^^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 2.691s
+
+FAILED (failures=1)

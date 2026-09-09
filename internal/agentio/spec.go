@@ -1,9 +1,6 @@
 package agentio
 
 import (
-	"os"
-	"path/filepath"
-
 	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/tools/mcp"
 )
@@ -16,30 +13,10 @@ const baseSystemPrompt = `You are Hand, a terminal-based coding assistant. You c
 // Hand actually uses, since it also appends any project instructions.
 const SystemPrompt = baseSystemPrompt
 
-// projectInstructionFiles are checked in order; the first one found
-// wins. HAND.md is hand-specific and takes precedence over the more
-// widely-adopted AGENTS.md convention, so a repo that already has an
-// AGENTS.md for other tools works with hand too without duplication.
-var projectInstructionFiles = []string{"HAND.md", "AGENTS.md"}
-
-// BuildSystemPrompt returns hand's fixed identity plus, if present, one
-// project instruction file's content appended underneath. Only one
-// workspace-root file is ever read — no merging across multiple
-// directories (parent dirs, $HOME).
-//
-// The active model is deliberately NOT named here — see
-// ModelIdentityHint's doc comment for why that line has to live in the
-// per-turn dynamic prompt instead of this cached static one.
+// BuildSystemPrompt appends bounded personal and ancestor guidance, with source
+// provenance and visible exclusions. Directory-specific access is handled separately.
 func BuildSystemPrompt(workspace string) string {
-	prompt := baseSystemPrompt
-	for _, name := range projectInstructionFiles {
-		data, err := os.ReadFile(filepath.Join(workspace, name))
-		if err != nil {
-			continue
-		}
-		return prompt + "\n\n---\n\nProject instructions (" + name + "):\n\n" + string(data)
-	}
-	return prompt
+	return baseSystemPrompt + DiscoverInstructions(workspace).Format()
 }
 
 // ModelIdentityHint returns the per-turn (uncached) text naming the
@@ -78,15 +55,21 @@ func ModelIdentityHint(model string) string {
 // BuildRuntime to connect; nil/empty preserves today's zero-servers
 // behavior unchanged.
 func BuildAgentSpec(model, workspace string, maxTurns int, fallbackModel string, mcpServers []mcp.ServerConfig, hooks runtime.LifecycleHooks) runtime.AgentSpec {
+	report := DiscoverInstructions(workspace)
+	var sources []runtime.ContextSource
+	for _, source := range report.Sources {
+		sources = append(sources, runtime.ContextSource{Kind: "instruction", Path: source.Path, EstimatedTokens: len(source.Body) / 4})
+	}
 	return runtime.AgentSpec{
-		ID:            "hand",
-		Name:          "Hand",
-		Model:         model,
-		FallbackModel: fallbackModel,
-		Workspace:     workspace,
-		SystemPrompt:  BuildSystemPrompt(workspace),
-		MaxTurns:      maxTurns,
-		MCPServers:    mcpServers,
+		ID:                  "hand",
+		Name:                "Hand",
+		Model:               model,
+		FallbackModel:       fallbackModel,
+		Workspace:           workspace,
+		SystemPrompt:        baseSystemPrompt + report.Format(),
+		SystemPromptSources: sources,
+		MaxTurns:            maxTurns,
+		MCPServers:          mcpServers,
 		Loop: runtime.LoopConfig{
 			Hooks: hooks,
 		},

@@ -1,0 +1,21 @@
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-output","Output":"internal/app/extension_policy_test.go:54:75: cannot use executor (variable of type *policyExecution) as tool.Executor value in struct literal: *policyExecution does not implement tool.Executor (missing method Get)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]","Action":"build-fail"}
+{"Time":"2026-09-09T00:38:18.943656+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T00:38:18.943863+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\tgithub.com/sausheong/hand/internal/app [build failed]\n"}
+{"Time":"2026-09-09T00:38:18.94387+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/app [github.com/sausheong/hand/internal/app.test]"}
+{"Time":"2026-09-09T00:38:19.227067+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-09T00:38:19.227109+08:00","Action":"start","Package":"github.com/sausheong/hand/examples/extensions/go-tool-policy"}
+{"Time":"2026-09-09T00:38:19.227121+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-policy","Output":"?   \tgithub.com/sausheong/hand/examples/extensions/go-tool-policy\t[no test files]\n"}
+{"Time":"2026-09-09T00:38:19.227129+08:00","Action":"skip","Package":"github.com/sausheong/hand/examples/extensions/go-tool-policy","Elapsed":0}
+{"Time":"2026-09-09T00:38:19.458861+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen"}
+{"Time":"2026-09-09T00:38:19.458914+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen","Output":"=== RUN   TestPolicyHooksCannotOverrideHostOrFailOpen\n"}
+{"Time":"2026-09-09T00:38:19.492637+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen","Output":"--- PASS: TestPolicyHooksCannotOverrideHostOrFailOpen (0.03s)\n"}
+{"Time":"2026-09-09T00:38:19.492666+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen","Elapsed":0.03}
+{"Time":"2026-09-09T00:38:19.493935+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission"}
+{"Time":"2026-09-09T00:38:19.493948+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission","Output":"=== RUN   TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission\n"}
+{"Time":"2026-09-09T00:38:19.506231+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission","Output":"--- PASS: TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission (0.01s)\n"}
+{"Time":"2026-09-09T00:38:19.506256+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission","Elapsed":0.01}
+{"Time":"2026-09-09T00:38:19.507015+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-09T00:38:20.518074+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t1.291s\n"}
+{"Time":"2026-09-09T00:38:20.518103+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":1.291}

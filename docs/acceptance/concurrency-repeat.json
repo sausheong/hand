@@ -1,0 +1,123 @@
+{
+  "status": "development_repeated_scenarios_passed",
+  "suites": {
+    "rpc": {
+      "test_pass_counts": {
+        "TestControlQueueReplayPersistsAcrossReopen": 20,
+        "TestControlUncertainDoesNotExecute": 20,
+        "TestDispatcherPromptReplayAndBoundedPoll": 20,
+        "TestDispatcherDisconnectCancelsAndPersistsTerminal": 20,
+        "TestAutomaticFollowupsFIFOAndDurablePredecessor": 20,
+        "TestAutomaticCancellationRequiresResumeAndReplayStillWorks": 20,
+        "TestLedgerExclusiveWriterAndTruncatedTail": 20,
+        "TestLedgerConcurrentDuplicateHasOneExecutionGrant": 20
+      },
+      "top_level_tests": 8,
+      "repetitions": 20,
+      "race": true,
+      "failures": 0,
+      "skips": 0
+    },
+    "app": {
+      "test_pass_counts": {
+        "TestApplicationApprovalLifetime/decision": 20,
+        "TestApplicationApprovalLifetime/cancel": 20,
+        "TestApplicationApprovalLifetime": 20,
+        "TestControllerRunBlocksConfigurationUntilCancellationJoins": 20,
+        "TestReviewedReloadReuseFailureAndRemove": 20,
+        "TestFollowupConcurrentEditCannotDeliverStaleAttachments": 20,
+        "TestCancellationRetainsOwnershipUntilBackendJoins": 20,
+        "TestCancellationJoinsCompletionChecker": 20,
+        "TestCompletionCommitRejectsLateCancelAndAdvancesIdentity": 20,
+        "TestFullProgressQueueCannotBlockCancellationOrTerminal": 20,
+        "TestOldStreamCannotCancelNewRunAndStartClaimsSynchronously": 20,
+        "TestOldStreamCannotCancelLaterCompactionReservation": 20
+      },
+      "top_level_tests": 10,
+      "repetitions": 20,
+      "race": true,
+      "failures": 0,
+      "skips": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/hand-rpc-concurrency-repeat-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-concurrency-repeat-20260909.jsonl",
+      "sha256": "5226374288db155ca4641c69930180d5bf874e5b227e311b82be76401607067b",
+      "uncompressed_sha256": "b7f4e7cfc43cc662855ec0b70c9514d3883e691a40ef84b3fb12b610fe7e9d26"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/hand-app-concurrency-repeat-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-app-concurrency-repeat-20260909.jsonl",
+      "sha256": "1a55d0b4af8aae97ad19474f439deb82770c8fa45df00767693519a9c94dae17",
+      "uncompressed_sha256": "af6d22f337b40dd77e9b90626170e5b6140e58b9ebc8fc5cebc6530e70227cc4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-rpc-dispatcher_test.go.gz",
+      "source": "internal/rpc/dispatcher_test.go",
+      "sha256": "0bbd6986791aaa66e0827cc0e2d4e63d08b20b65f8a0e652f37b4dae53ed1c74",
+      "uncompressed_sha256": "84d0a4d47eaf6236ab2cad3ed3667aab4af0336695765b894eac3c5d5241b95d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-rpc-ledger_test.go.gz",
+      "source": "internal/rpc/ledger_test.go",
+      "sha256": "bc55bd85df39c8c31bf77b1ca167d4a5f710e81df66828b1656d1d1845e1d8c6",
+      "uncompressed_sha256": "bea441d0d7c63be46415eaa1faa1e81e7a061394bc452dc51413204a0b5e995a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-rpc-followup_test.go.gz",
+      "source": "internal/rpc/followup_test.go",
+      "sha256": "61cfa5d18ad7532819cbd13546933ec5df996cba28395ca4c87ad79c74ca9f59",
+      "uncompressed_sha256": "8cf4688e9031ad92f54ca27d488d76a91f823b0082add54a5b7478ba3878044b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-rpc-control_ledger_test.go.gz",
+      "source": "internal/rpc/control_ledger_test.go",
+      "sha256": "39d27c5478cf6e9bf5b9b2725494ebe847187c008c75def919061d49eb26a097",
+      "uncompressed_sha256": "f64d98b22a9010f337b81f82362ad7c52fb639e7f0319c61efaecdae21886c0c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-app-service_test.go.gz",
+      "source": "internal/app/service_test.go",
+      "sha256": "cf697af218325a7ca1b5b8638c6d8700353fca47ec2419072774312b06372118",
+      "uncompressed_sha256": "b85922dade0ca6cf4f4ded631e14e75a2e422da63c078d41291e463d1909cd20"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-app-approval_test.go.gz",
+      "source": "internal/app/approval_test.go",
+      "sha256": "b7f618e77649e6d5c13866a021404a8bf5f329b0e4571ab70dd9829707ab6c54",
+      "uncompressed_sha256": "7aa250ef4ddae4f82884bf8906fdedb1b4278b314f0fc67f199619f663570805"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-app-controller_test.go.gz",
+      "source": "internal/app/controller_test.go",
+      "sha256": "6a4c36c33ff04ecc3b0d067161567aface4145dac5d1500e209ea47f6c51b0c3",
+      "uncompressed_sha256": "84fc460144470faee6d8ab7e9ae0b2e65ae44fe6a945c7826b0937f7e2d5fb9f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-app-stream_test.go.gz",
+      "source": "internal/app/stream_test.go",
+      "sha256": "4009176afe880595ed7c1236cab9d11e7921e8fe7bfb1ac8758b6b2258ccba1b",
+      "uncompressed_sha256": "ab020e35e815d5cd2cda00b3fcc1b322fa38b9a1d68eaa4ee1bd99ec4a168c87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-app-queued_attachments_test.go.gz",
+      "source": "internal/app/queued_attachments_test.go",
+      "sha256": "5242377335750c0dadad66bb79290cd3689050ff0e0af5e893353f15cfb79c85",
+      "uncompressed_sha256": "bec8d4d0e6b7646f6dba39e35c67d91b2162081fefb54581f32e953eab4c1c22"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/concurrency-repeat-20260909/internal-app-extension_reload_test.go.gz",
+      "source": "internal/app/extension_reload_test.go",
+      "sha256": "5796b0de43322621dcb231f2c4f377791e4a48f1fceccc9ed8d91da78621c139",
+      "uncompressed_sha256": "78b9fb64cdebe0989b74c7ce1c2f484dd49b79baad5a94175f8c196c1d4251d3"
+    }
+  ],
+  "reproduction": "For each package, run GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -json ./internal/<package> -run with an anchored alternation of the top-level test names recorded in suites.",
+  "limitations": [
+    "Selected 18 top-level tests, not all required concurrency and fault scenarios",
+    "macOS development workspace and local unreleased Harness; exact final candidate rerun remains required",
+    "These runs do not replace native platform and final coverage gates"
+  ]
+}

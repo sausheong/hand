@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T22:50:49.582166+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T22:50:50.152106+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsSurviveCompactionAndRestart"}
+{"Time":"2026-09-08T22:50:50.152164+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsSurviveCompactionAndRestart","Output":"=== RUN   TestContextPinsSurviveCompactionAndRestart\n"}
+{"Time":"2026-09-08T22:50:50.220672+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsSurviveCompactionAndRestart","Output":"--- PASS: TestContextPinsSurviveCompactionAndRestart (0.07s)\n"}
+{"Time":"2026-09-08T22:50:50.220702+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsSurviveCompactionAndRestart","Elapsed":0.07}
+{"Time":"2026-09-08T22:50:50.220802+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsValidationAndCorruptRecord"}
+{"Time":"2026-09-08T22:50:50.220813+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsValidationAndCorruptRecord","Output":"=== RUN   TestContextPinsValidationAndCorruptRecord\n"}
+{"Time":"2026-09-08T22:50:50.221054+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsValidationAndCorruptRecord","Output":"--- PASS: TestContextPinsValidationAndCorruptRecord (0.00s)\n"}
+{"Time":"2026-09-08T22:50:50.221069+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestContextPinsValidationAndCorruptRecord","Elapsed":0}
+{"Time":"2026-09-08T22:50:50.228896+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption"}
+{"Time":"2026-09-08T22:50:50.228925+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption","Output":"=== RUN   TestRunTurnPinsAfterCompactionRestartAndCorruption\n"}
+{"Time":"2026-09-08T22:50:50.285998+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption","Output":"--- PASS: TestRunTurnPinsAfterCompactionRestartAndCorruption (0.06s)\n"}
+{"Time":"2026-09-08T22:50:50.286024+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnPinsAfterCompactionRestartAndCorruption","Elapsed":0.06}
+{"Time":"2026-09-08T22:50:50.288985+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T22:50:51.302701+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t1.720s\n"}
+{"Time":"2026-09-08T22:50:51.302816+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":1.721}

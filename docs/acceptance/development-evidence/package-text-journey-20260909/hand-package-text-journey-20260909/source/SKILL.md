@@ -1,0 +1,1 @@
+Package skill marker: inspect tests before changing implementation.

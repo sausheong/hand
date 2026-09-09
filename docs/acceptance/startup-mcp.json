@@ -1,0 +1,45 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "command": "go test -race -count=20 -timeout=3m -run ^TestStartupMCPRuntimeOwnership$ -json ./internal/app",
+  "tests": {
+    "pass": 100
+  },
+  "journeys": 80,
+  "repetitions": 20,
+  "cases": [
+    "transfer",
+    "disconnect",
+    "late_cancel",
+    "partial_failure"
+  ],
+  "assertions": [
+    "Actual MCP stdio child connects and registers its tool",
+    "Successful transfer leaves child connection open until runtime owner closes it",
+    "Cancellation, disconnect and partial failure preserve their error causes and transfer no runtime",
+    "Child shutdown marker exists before Finish or successful owner Close returns"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/startup-mcp-20260909/hand-startup-mcp-20260909.jsonl.gz",
+      "sha256": "fe28a045fcb0561046d44ca63fb27ac4a57345a5a2d21b4ab8966b74069e9e4a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-mcp-20260909/internal__app__startup.go.gz",
+      "sha256": "37422eea8d3b0bbdb1b4c0502190c1d381f9a2a11e9d661672a58f8151bd63d6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-mcp-20260909/internal__app__startup_test.go.gz",
+      "sha256": "1f7cbc62fd5c4b89a07c670974853df00441967eaecad16df6cf6fa7977d18c0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-mcp-20260909/internal__app__mcp_test.go.gz",
+      "sha256": "f2958023b79118195afb5075f38f58ebdf6ce3f8f1425bcdd86a867ce8bb4833"
+    }
+  ],
+  "limitations": [
+    "Development native process integration with local Harness, not final released candidate",
+    "BuildRuntimeContext completes connection before cancellation in late_cancel case; mid-handshake cancellation is outside this test",
+    "Source copies captured after test execution; not immutable candidate provenance"
+  ]
+}

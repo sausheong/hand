@@ -1,0 +1,2 @@
+go: github.com/sergi/go-diff@v1.4.0 requires
+	github.com/kr/pretty@v0.1.0: module lookup disabled by GOPROXY=off

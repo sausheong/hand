@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "status": "source_and_offline_rpc_checked_not_comparison_qualified",
+  "review_date": "2026-09-09",
+  "repository": "https://github.com/earendil-works/pi.git",
+  "release": "v0.85.1",
+  "commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+  "package": {
+    "name": "@earendil-works/pi-coding-agent",
+    "version": "0.85.1",
+    "node_engine": ">=22.19.0",
+    "cli": "dist/bundle/cli.js"
+  },
+  "sources": [
+    {
+      "url": "https://pi.dev",
+      "purpose": "Official project entrypoint and repository links"
+    },
+    {
+      "url": "https://github.com/earendil-works/pi/releases/tag/v0.85.1",
+      "purpose": "Release candidate selection"
+    },
+    {
+      "url": "https://github.com/earendil-works/pi/commit/d981de1229ef899957bbe968bc8dcda02a21f477",
+      "purpose": "Full commit identity linked by release"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/earendil-works/pi/d981de1229ef899957bbe968bc8dcda02a21f477/packages/coding-agent/package.json",
+      "purpose": "Package identity, CLI path and Node engine"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/earendil-works/pi/v0.85.1/packages/coding-agent/docs/rpc.md",
+      "purpose": "Release RPC lifecycle and accounting contract"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/earendil-works/pi/v0.85.1/packages/coding-agent/docs/models.md",
+      "purpose": "Release provider routing configuration"
+    }
+  ],
+  "runtime_verified": false,
+  "binary_sha256": "e6d7fcf36a239cf3746e67ddf4222081ac01a601b85a3ee688bdfe9c161d754c",
+  "model_selection": null,
+  "paid_authorisation": null,
+  "remaining": [
+    "Resolve downloaded source tree and archive/package bytes against this commit and lock data.",
+    "Install/build in an isolated evaluation environment and record actual runtime version and binary hashes.",
+    "Verify RPC settlement, cancellation and accounting behaviour on the actual released runtime.",
+    "Freeze both agents, model settings and modes together before paid scheduling.",
+    "Verify all provider traffic passes the enforced spending boundary, including retries, summaries and tool-originated model calls."
+  ],
+  "offline_runtime_evidence": "docs/acceptance/pi-runtime.json",
+  "offline_rpc_cases_verified": [
+    "success",
+    "retry",
+    "abort"
+  ],
+  "runtime_verified_meaning": "Full evaluation/runtime qualification remains incomplete; three deterministic local RPC cases now pass."
+}

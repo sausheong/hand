@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+"""Measure approval reuse and scope boundaries through built Hand RPC."""
+import argparse
+import hashlib
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import json
+from pathlib import Path
+import threading
+import time
+from check_rpc_client import Client
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--hand-binary', type=Path, required=True)
+    parser.add_argument('--out', type=Path, required=True)
+    args = parser.parse_args()
+    binary = args.hand_binary.resolve(strict=True)
+    out = args.out.absolute()
+    out.mkdir(parents=True, exist_ok=False)
+    workspace = out/'workspace'
+    workspace.mkdir()
+    sentinel = out/'external-private.txt'
+    sentinel.write_text('private sentinel')
+    command = 'test "$(cat note.txt)" = two && printf "passed\\n" >> checks.txt'
+    steps = [('write_file', {'path': 'note.txt', 'content': 'one'}),
+             ('write_file', {'path': 'note.txt', 'content': 'two'}),
+             ('bash', {'command': command}), ('bash', {'command': command}),
+             ('write_file', {'path': 'other.txt', 'content': 'must be refused'}),
+             ('bash', {'command': command+'; touch forbidden.txt'}),
+             ('web_fetch', {}), ('read_file', {'path': str(sentinel)})]
+    requests, fetches = [], []
+
+    class Provider(BaseHTTPRequestHandler):
+        def log_message(self, *args):
+            pass
+
+        def do_GET(self):
+            fetches.append(self.path)
+            self.send_response(500)
+            self.end_headers()
+
+        def do_POST(self):
+            body = json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+            requests.append(body)
+            index = sum(m['role'] == 'tool' for m in body['messages'])
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/event-stream')
+            self.end_headers()
+            if index < len(steps):
+                name, arguments = steps[index]
+                delta = {'tool_calls': [{'index': 0, 'id': 'step-'+str(index), 'type': 'function',
+                         'function': {'name': name, 'arguments': json.dumps(arguments)}}]}
+                finish = 'tool_calls'
+            else:
+                delta, finish = {'content': 'The edit and checks finished; broader operations were refused.'}, 'stop'
+            for payload in [dict(choices=[dict(index=0, delta=delta, finish_reason=None)]),
+                            dict(choices=[dict(index=0, delta={}, finish_reason=finish)])]:
+                self.wfile.write(('data: '+json.dumps(payload)+'\n\n').encode())
+            self.wfile.write(b'data: [DONE]\n\n')
+            self.wfile.flush()
+
+    server = ThreadingHTTPServer(('127.0.0.1', 0), Provider)
+    steps[6][1]['url'] = 'http://127.0.0.1:'+str(server.server_port)+'/must-not-fetch'
+    thread = threading.Thread(target=server.serve_forever)
+    thread.start()
+    report = dict(status='failed', qualification='development', approvals=[],
+                  binary_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(),
+                  runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  client_sha256=hashlib.sha256(Path(__file__).with_name('check_rpc_client.py').read_bytes()).hexdigest())
+    client = None
+    try:
+        client = Client(binary, workspace, 'http://127.0.0.1:'+str(server.server_port)+'/v1', out, 'prompts')
+        client.call('hello', 'hello')
+        client.call('workflow', 'prompt', {'text': 'Edit note.txt twice and run the check twice, then exercise broader permission boundaries.'})
+        seen = set()
+        deadline = time.monotonic()+30
+        terminal = None
+        while time.monotonic() < deadline:
+            for event in client.call('pending', 'approval.pending')['approvals']:
+                payload = event['payload']
+                identifier = payload['approval_id']
+                if identifier in seen:
+                    continue
+                seen.add(identifier)
+                tool = payload['tool']
+                arguments = json.loads(tool['input'])
+                position = len(report['approvals'])
+                expected = [0, 2, 4, 5, 6, 7][position] if position < 6 else None
+                assert expected is not None and (tool['name'], arguments) == steps[expected], 'unexpected repeated or broadened approval'
+                decision = 'always' if expected in [0, 2] else 'deny'
+                if expected == 0:
+                    assert not (workspace/'note.txt').exists()
+                if expected == 2:
+                    assert (workspace/'note.txt').read_text() == 'two'
+                    assert not (workspace/'checks.txt').exists()
+                client.call('decision-'+str(position), 'approval.respond', dict(run_id=event['run_id'], approval_id=identifier, decision=decision))
+                report['approvals'].append(dict(step=expected, tool=tool['name'], decision=decision))
+            record = client.call('lookup', 'request.get', {'id': 'workflow'})
+            if record['state'] == 'completed':
+                terminal = record
+                break
+            time.sleep(.01)
+        assert terminal and terminal['result']['payload']['status'] == 'completed', 'workflow did not complete'
+        assert len(report['approvals']) == 6
+        assert (workspace/'note.txt').read_text() == 'two'
+        assert (workspace/'checks.txt').read_text() == 'passed\npassed\n'
+        assert not (workspace/'other.txt').exists() and not (workspace/'forbidden.txt').exists()
+        assert not fetches and sentinel.read_text() == 'private sentinel'
+        assert len(requests) == 9
+        results = [m for m in requests[-1]['messages'] if m['role'] == 'tool']
+        assert len(results) == 8 and all('denied' in str(m).lower() for m in results[4:])
+        grants = client.call('grants', 'permission.list')['grants']
+        assert len(grants) == 2
+        assert {g['Operation'] for g in grants} == {'file.write', 'shell.exec'}
+        assert all(g['Scope'] == 'exact' for g in grants)
+        report.update(status='passed', routine_operations=4, routine_prompts=2,
+                      broader_operations=4, broader_prompts=4, provider_calls=9,
+                      exact_persistent_grants=2, terminal=terminal)
+    except Exception as exc:
+        report['error'] = repr(exc)
+    finally:
+        if client:
+            try:
+                client.close()
+            except Exception as exc:
+                report.update(status='failed', cleanup_error=repr(exc))
+        server.shutdown()
+        server.server_close()
+        thread.join()
+        (out/'provider-requests.json').write_text(json.dumps(requests, indent=2)+'\n')
+        report['artifacts'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                               for p in out.iterdir() if p.is_file()}
+        (out/'run.json').write_text(json.dumps(report, indent=2)+'\n')
+    print(json.dumps({k:report[k] for k in ['status','routine_prompts','broader_prompts','error'] if k in report}))
+    return 0 if report['status'] == 'passed' else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

@@ -1,0 +1,20 @@
+{"Time":"2026-09-09T03:48:17.290761+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T03:48:17.884404+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting"}
+{"Time":"2026-09-09T03:48:17.884462+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting","Output":"=== RUN   TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting\n"}
+{"Time":"2026-09-09T03:48:17.949319+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting","Output":"--- PASS: TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting (0.06s)\n"}
+{"Time":"2026-09-09T03:48:17.949353+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPackageLaunchReviewRetainsExecutableResourcesWithoutExecuting","Elapsed":0.06}
+{"Time":"2026-09-09T03:48:17.949431+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney"}
+{"Time":"2026-09-09T03:48:17.949441+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney\n"}
+{"Time":"2026-09-09T03:48:17.949466+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go"}
+{"Time":"2026-09-09T03:48:17.949473+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney/go\n"}
+{"Time":"2026-09-09T03:48:18.798942+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney/go (0.85s)\n"}
+{"Time":"2026-09-09T03:48:18.798979+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go","Elapsed":0.85}
+{"Time":"2026-09-09T03:48:18.799046+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python"}
+{"Time":"2026-09-09T03:48:18.799054+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney/python\n"}
+{"Time":"2026-09-09T03:48:19.358568+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney/python (0.56s)\n"}
+{"Time":"2026-09-09T03:48:19.358591+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python","Elapsed":0.56}
+{"Time":"2026-09-09T03:48:19.358599+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney (1.41s)\n"}
+{"Time":"2026-09-09T03:48:19.358629+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Elapsed":1.41}
+{"Time":"2026-09-09T03:48:19.361458+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T03:48:20.376402+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t3.085s\n"}
+{"Time":"2026-09-09T03:48:20.376547+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":3.086}

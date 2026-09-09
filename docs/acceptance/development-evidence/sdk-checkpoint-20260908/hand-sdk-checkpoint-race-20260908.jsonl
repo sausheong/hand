@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T15:08:37.56208+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-08T15:08:38.313989+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease"}
+{"Time":"2026-09-08T15:08:38.314056+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Output":"=== RUN   TestEmbeddedSessionLifecycleAndRelease\n"}
+{"Time":"2026-09-08T15:08:38.411775+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Output":"--- PASS: TestEmbeddedSessionLifecycleAndRelease (0.10s)\n"}
+{"Time":"2026-09-08T15:08:38.411803+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Elapsed":0.1}
+{"Time":"2026-09-08T15:08:38.411929+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime"}
+{"Time":"2026-09-08T15:08:38.411945+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime","Output":"=== RUN   TestEmbeddedPromptUsesRealRuntime\n"}
+{"Time":"2026-09-08T15:08:38.582131+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime","Output":"--- PASS: TestEmbeddedPromptUsesRealRuntime (0.17s)\n"}
+{"Time":"2026-09-08T15:08:38.58217+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime","Elapsed":0.17}
+{"Time":"2026-09-08T15:08:38.582265+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory"}
+{"Time":"2026-09-08T15:08:38.582277+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory","Output":"=== RUN   TestEmbeddedCheckpointRejectsWorkspaceDirectory\n"}
+{"Time":"2026-09-08T15:08:38.613432+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory","Output":"--- PASS: TestEmbeddedCheckpointRejectsWorkspaceDirectory (0.03s)\n"}
+{"Time":"2026-09-08T15:08:38.613475+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory","Elapsed":0.03}
+{"Time":"2026-09-08T15:08:38.614804+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"PASS\n"}
+{"Time":"2026-09-08T15:08:39.623835+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"ok  \tgithub.com/sausheong/hand/sdk\t2.061s\n"}
+{"Time":"2026-09-08T15:08:39.623901+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Elapsed":2.062}

@@ -1,0 +1,58 @@
+[
+  {
+    "arguments": [
+      "inspect",
+      "--source",
+      "/private/tmp/hand-tool-viewer-package-20260909/package"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"tool-viewer\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"tool-viewer\",\n        \"kind\": \"extension\",\n        \"sha256\": \"73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9\",\n        \"size\": 3023154,\n        \"executable\": true\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"tool-viewer\",\n        \"entrypoint\": \"tool-viewer\",\n        \"capabilities\": [\n          \"commands\",\n          \"presentation\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-install",
+      "--source",
+      "/private/tmp/hand-tool-viewer-package-20260909/package",
+      "--pin",
+      "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d",
+      "--store",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/store",
+      "--out",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/install.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-tool-viewer-rpc-20260909/install.json\",\n  \"approval_digest\": \"5486cd6fd4ed860309e86312b1304dc2897903a196186197541252debf93226e\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-tool-viewer-package-20260909/package\"\n    },\n    \"action\": \"install\",\n    \"store\": \"/private/tmp/hand-tool-viewer-rpc-20260909/store\",\n    \"generation\": 0,\n    \"name\": \"tool-viewer\",\n    \"previous\": \"\",\n    \"digest\": \"f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d\",\n    \"source\": \"/private/tmp/hand-tool-viewer-package-20260909/package\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"tool-viewer\",\n      \"version\": \"1.0.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"tool-viewer\",\n          \"kind\": \"extension\",\n          \"sha256\": \"73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9\",\n          \"size\": 3023154,\n          \"executable\": true\n        }\n      ],\n      \"extensions\": [\n        {\n          \"name\": \"tool-viewer\",\n          \"entrypoint\": \"tool-viewer\",\n          \"capabilities\": [\n            \"commands\",\n            \"presentation\"\n          ]\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/install.json",
+      "--approve",
+      "5486cd6fd4ed860309e86312b1304dc2897903a196186197541252debf93226e"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 1\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-extensions",
+      "--store",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/store",
+      "--names",
+      "tool-viewer",
+      "--workspace",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/workspace",
+      "--snapshots",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/snapshots",
+      "--out",
+      "/private/tmp/hand-tool-viewer-rpc-20260909/startup.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-tool-viewer-rpc-20260909/startup.json\",\n  \"approval_digest\": \"60949dea75609522d29cc59ae3c523336c20a74dae720e204c700aff13ac57c4\",\n  \"review\": {\n    \"version\": 1,\n    \"snapshot_root\": \"/private/tmp/hand-tool-viewer-rpc-20260909/snapshots\",\n    \"identities\": {\n      \"tool-viewer\": \"package:tool-viewer:tool-viewer\"\n    },\n    \"reviews\": [\n      {\n        \"specification\": {\n          \"name\": \"tool-viewer\",\n          \"digest\": \"ed57c966d7beea93a7d0491815c695db1c3f9034604fcff382a899afb4402250\",\n          \"capabilities\": [\n            \"commands\",\n            \"presentation\"\n          ],\n          \"order\": 0,\n          \"mandatory\": false\n        },\n        \"binary\": {\n          \"path\": \"/private/tmp/hand-tool-viewer-rpc-20260909/store/objects/f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d/tool-viewer\",\n          \"sha256\": \"73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9\",\n          \"size\": 3023154,\n          \"mode\": 320\n        },\n        \"assets\": null,\n        \"arguments\": null,\n        \"workspace\": \"/private/tmp/hand-tool-viewer-rpc-20260909/workspace\",\n        \"environment\": {},\n        \"boundary\": \"unrestricted host subprocess; capabilities are not an OS sandbox; runtime libraries are not snapshotted\"\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  }
+]

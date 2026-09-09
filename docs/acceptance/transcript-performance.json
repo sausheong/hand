@@ -1,0 +1,215 @@
+{
+  "status": "development_workload_passed",
+  "blocks": 10000,
+  "runs": [
+    {
+      "events": 1000,
+      "p95_ms": 0.924959,
+      "max_ms": 1.364375
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.948875,
+      "max_ms": 1.365458
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.89975,
+      "max_ms": 1.406458
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.940375,
+      "max_ms": 2.014667
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.953042,
+      "max_ms": 1.5035
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.952167,
+      "max_ms": 1.755167
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.919291,
+      "max_ms": 1.281333
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.9515,
+      "max_ms": 1.478417
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.926417,
+      "max_ms": 1.305125
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.92075,
+      "max_ms": 1.447166
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.922125,
+      "max_ms": 1.210917
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.926458,
+      "max_ms": 1.35
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.955083,
+      "max_ms": 1.328416
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.933708,
+      "max_ms": 1.345667
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.929584,
+      "max_ms": 1.353583
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.9335,
+      "max_ms": 1.287875
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.942792,
+      "max_ms": 1.39725
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.96525,
+      "max_ms": 1.517959
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.956042,
+      "max_ms": 1.472541
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.929667,
+      "max_ms": 2.549042
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.930083,
+      "max_ms": 1.259625
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.972167,
+      "max_ms": 1.373
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.904417,
+      "max_ms": 1.352708
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.943083,
+      "max_ms": 1.500792
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.962959,
+      "max_ms": 1.476292
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.970958,
+      "max_ms": 1.404334
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.983583,
+      "max_ms": 1.604958
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.997708,
+      "max_ms": 1.51175
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.963875,
+      "max_ms": 1.458917
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.988083,
+      "max_ms": 1.449417
+    }
+  ],
+  "total_events": 30000,
+  "ui_key_p95_ms": 0.947917,
+  "worst_run_p95_ms": 0.997708,
+  "max_ms": 2.549042,
+  "calibration_groups": 30,
+  "workload_sufficient": true,
+  "threshold_ms": 100,
+  "scope": "In-process stream refresh, key handling and View; excludes terminal display and OS event delivery.",
+  "raw_sha256": "91b93060eea92148d88562917a70e21f19cd3747145669f9a3a3808e408c5bb2",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./internal/tui -run '^$' -bench '^BenchmarkTranscript10000Blocks$' -benchtime=1000x -count=30 -timeout=15m",
+  "hardware": {
+    "cpu": "Apple M4 Max",
+    "memory_bytes": 68719476736,
+    "os": "darwin",
+    "architecture": "arm64"
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-transcript-performance-20260909.log",
+      "path": "docs/acceptance/development-evidence/transcript-performance-20260909/hand-transcript-performance-20260909.log.gz",
+      "uncompressed_sha256": "91b93060eea92148d88562917a70e21f19cd3747145669f9a3a3808e408c5bb2",
+      "sha256": "2d56a1a367184190d0d0a6ca681a8e9a1aa7123be0e6a2105876fd5f0bc64880"
+    },
+    {
+      "source": "/private/tmp/hand-transcript-performance-source-20260909.json",
+      "path": "docs/acceptance/development-evidence/transcript-performance-20260909/hand-transcript-performance-source-20260909.json.gz",
+      "uncompressed_sha256": "1cd8cffbf7d6d2ca9377719ee6b96c6b2257842a93656bcccb9307e0a2402e1a",
+      "sha256": "8ae1b4dc5e08d11772518e04f7a36a1a5837e123f1af27337e6a253d2ebc7fa1"
+    },
+    {
+      "source": "/private/tmp/hand-transcript-reporter-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/transcript-performance-20260909/hand-transcript-reporter-tests-20260909.log.gz",
+      "uncompressed_sha256": "44ce4db675bcd35211b311f2a61efcd1ab989898e53ab88e5d94fd767396641d",
+      "sha256": "189eebae181f2b3e83b3d3ea14a492001aab22d15532ec6c5b7bf32a7e0a3df0"
+    },
+    {
+      "source": "internal/tui/transcript_benchmark_test.go",
+      "path": "docs/acceptance/development-evidence/transcript-performance-20260909/transcript_benchmark_test.go.gz",
+      "uncompressed_sha256": "28668f48e6ca6f1e2b273f722a0ef2ea3005576843fee7f1ca0115153993091c",
+      "sha256": "01296bd194a520409045dc1d832a14be645f853ded62c4577ff4d31899fe315c"
+    },
+    {
+      "source": "scripts/transcript_performance.py",
+      "path": "docs/acceptance/development-evidence/transcript-performance-20260909/transcript_performance.py.gz",
+      "uncompressed_sha256": "556aa293399a9bc21375970496c66f5c1ae4af98031ffaeebfb451b54b70a3b1",
+      "sha256": "6780d0bbe56cde52713d11d66c0c7bb4ae62584c3f27f73d901a27bb9fb97b01"
+    },
+    {
+      "source": "scripts/test_transcript_performance.py",
+      "path": "docs/acceptance/development-evidence/transcript-performance-20260909/test_transcript_performance.py.gz",
+      "uncompressed_sha256": "3b3a179c766b4ca4e04c88493f730447afc944b12ca38a761fd3368cbe8a815d",
+      "sha256": "9601fc68cfef584223c8c2241e7ed3c1762ff3e061963fa96a9de9454f103d93"
+    }
+  ],
+  "limitations": [
+    "Dirty development Hand and local Harness workspace; not released candidate qualification",
+    "Source snapshot captured after run; no source edits during measurement",
+    "Terminal display and OS input delivery excluded; cancellation and cleanup performance remain unmeasured by this workload"
+  ]
+}

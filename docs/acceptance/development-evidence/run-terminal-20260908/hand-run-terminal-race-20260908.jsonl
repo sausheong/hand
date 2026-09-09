@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T22:17:20.041313+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T22:17:20.827822+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRunBudgetTerminalDecisionsSelectionAndInspection"}
+{"Time":"2026-09-08T22:17:20.827891+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRunBudgetTerminalDecisionsSelectionAndInspection","Output":"=== RUN   TestRunBudgetTerminalDecisionsSelectionAndInspection\n"}
+{"Time":"2026-09-08T22:17:20.902506+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRunBudgetTerminalDecisionsSelectionAndInspection","Output":"--- PASS: TestRunBudgetTerminalDecisionsSelectionAndInspection (0.07s)\n"}
+{"Time":"2026-09-08T22:17:20.902548+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestRunBudgetTerminalDecisionsSelectionAndInspection","Elapsed":0.07}
+{"Time":"2026-09-08T22:17:20.904636+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTimeBudgetTerminalDecisionAndStatus"}
+{"Time":"2026-09-08T22:17:20.904657+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTimeBudgetTerminalDecisionAndStatus","Output":"=== RUN   TestTimeBudgetTerminalDecisionAndStatus\n"}
+{"Time":"2026-09-08T22:17:20.957271+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTimeBudgetTerminalDecisionAndStatus","Output":"--- PASS: TestTimeBudgetTerminalDecisionAndStatus (0.05s)\n"}
+{"Time":"2026-09-08T22:17:20.957321+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTimeBudgetTerminalDecisionAndStatus","Elapsed":0.05}
+{"Time":"2026-09-08T22:17:20.957369+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTokenBudgetTerminalDecisionAndInspection"}
+{"Time":"2026-09-08T22:17:20.957378+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTokenBudgetTerminalDecisionAndInspection","Output":"=== RUN   TestTokenBudgetTerminalDecisionAndInspection\n"}
+{"Time":"2026-09-08T22:17:21.008597+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTokenBudgetTerminalDecisionAndInspection","Output":"--- PASS: TestTokenBudgetTerminalDecisionAndInspection (0.05s)\n"}
+{"Time":"2026-09-08T22:17:21.008624+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestTokenBudgetTerminalDecisionAndInspection","Elapsed":0.05}
+{"Time":"2026-09-08T22:17:21.009376+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T22:17:22.017656+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.976s\n"}
+{"Time":"2026-09-08T22:17:22.017704+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.976}

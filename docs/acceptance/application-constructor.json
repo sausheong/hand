@@ -1,0 +1,144 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "changes": [
+    "NewApplicationModel requires a non-nil application service and installs no legacy Runner.",
+    "Compiled terminal main constructs with controller.Owner and no longer calls SetService or SetGoalLoop.",
+    "Continuation display uses service event iteration, avoiding dependency on legacy goal configuration."
+  ],
+  "tests": [
+    {
+      "run": "hand-application-constructor-authorised-20260909",
+      "pass_including_subtests": 28,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "run": "hand-application-constructor-tui-20260909",
+      "pass_including_subtests": 337,
+      "fail": 0,
+      "skip": 0
+    }
+  ],
+  "pty": {
+    "status": "development_passed",
+    "sources_unchanged": true,
+    "results": [
+      {
+        "decision": "select",
+        "status": "passed",
+        "error": null,
+        "phase": "exit",
+        "requests": [
+          {
+            "model": "selected",
+            "output": 512,
+            "authorization": null
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "decision": "escape",
+        "status": "passed",
+        "error": null,
+        "phase": "exit",
+        "requests": [
+          {
+            "model": "original",
+            "output": 123,
+            "authorization": null
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "decision": "cancel",
+        "status": "passed",
+        "error": null,
+        "phase": "exit",
+        "requests": [
+          {
+            "model": "original",
+            "output": 123,
+            "authorization": null
+          }
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/0-hand-application-constructor-20260909.jsonl.gz",
+      "sha256": "b8819754597565be60e8c45a2754316d279be819187e5eacb97b58a3f962257d",
+      "source": "/private/tmp/hand-application-constructor-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/1-hand-application-constructor-authorised-20260909.jsonl.gz",
+      "sha256": "96e72dfa1c57509777ff284184994a6fbd203114831c2b591071963f5d5646fc",
+      "source": "/private/tmp/hand-application-constructor-authorised-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/2-hand-application-constructor-tui-20260909.jsonl.gz",
+      "sha256": "8008eb1a2facb14b83a4571b0cdf6063e1c4cc10a1da628c47a54123abdbde11",
+      "source": "/private/tmp/hand-application-constructor-tui-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/3-application.go.gz",
+      "sha256": "ef2f052e744fb9d47d778cefa50d07720b8d769d6b6fad4c2d548c760ca3a769",
+      "source": "internal/tui/application.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/4-application_test.go.gz",
+      "sha256": "b729e62ec698656949263b2994d2503a6dba34051a460a967ac114ab896fc960",
+      "source": "internal/tui/application_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/5-main.go.gz",
+      "sha256": "34063e8fadea5abd38a14260c06e2a434aee8cc3d70f19ff408827c46fcc5f84",
+      "source": "cmd/hand/main.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/6-report.json.gz",
+      "sha256": "409b3ec9bba610c69d00c8d4d2b6131b2ade13740f9ef0ac261b68838840a2e7",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/report.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/7-terminal.pty.gz",
+      "sha256": "082d5b0e6906edfebd14c5fc159d9b97037c08dcf820ac4e86770ea1ed88c6b2",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/escape/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/8-requests.json.gz",
+      "sha256": "777dc4cced88d92936dbb746c3b3ab266e2f04c1b8dd0e37c5663a73dfc4872c",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/escape/requests.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/9-terminal.pty.gz",
+      "sha256": "48f5220ff50129c447ddcbdd207999445f8300a58b80ae305a92d37d9a6caf81",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/cancel/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/10-requests.json.gz",
+      "sha256": "777dc4cced88d92936dbb746c3b3ab266e2f04c1b8dd0e37c5663a73dfc4872c",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/cancel/requests.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/11-terminal.pty.gz",
+      "sha256": "420147bff7ffda711d1fa70e243b03f5322a5dd6c2b79351b9330716913df642",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/select/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/application-constructor-20260909/12-requests.json.gz",
+      "sha256": "1413e173269bdcc97e7aa18e447d74d22d05d3dea9c979118458abe7085c4e6f",
+      "source": "/private/tmp/hand-constructor-picker-pty-20260909/select/requests.json"
+    }
+  ],
+  "limitations": [
+    "Legacy NewModel/Runner and goal loop remain for existing callers/tests; M2.1 is incomplete.",
+    "Initial sandbox test attempt failed on denied local listener; raw failure retained and authorised rerun passed.",
+    "Dirty development Hand/local Harness; not final candidate or supported-platform qualification.",
+    "Full aggregate coverage remains stale."
+  ]
+}

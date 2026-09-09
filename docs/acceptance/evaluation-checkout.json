@@ -1,0 +1,149 @@
+{
+  "status": "development_preparation_calibrated",
+  "python_runner_tests": 72,
+  "checkout_tests": 7,
+  "real_calibration_runs": [
+    {
+      "task": "preserve-write-mode",
+      "preparation_command": [
+        "python3",
+        "scripts/evaluation_checkout.py",
+        "--repository",
+        "/private/tmp/hand-harness-persistence-20260908",
+        "--commit",
+        "09c30fe2d529d6125f423593f621e970a7ce8735",
+        "--destination",
+        "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode"
+      ],
+      "fixture_command": [
+        "python3",
+        "scripts/evaluation_workspace.py",
+        "/Users/sausheong/projects/hand/docs/acceptance/evaluation/calibration.json",
+        "--task",
+        "preserve-write-mode",
+        "--workspace",
+        "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode"
+      ],
+      "verification_command": [
+        "go",
+        "test",
+        "-count=1",
+        "./tools/file",
+        "-run",
+        "^TestAcceptanceWriteMode$"
+      ],
+      "verification_exit": 1,
+      "log": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode-verification.log"
+    },
+    {
+      "task": "cancel-shell-descendants",
+      "preparation_command": [
+        "python3",
+        "scripts/evaluation_checkout.py",
+        "--repository",
+        "/private/tmp/hand-harness-persistence-20260908",
+        "--commit",
+        "09c30fe2d529d6125f423593f621e970a7ce8735",
+        "--destination",
+        "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants"
+      ],
+      "fixture_command": [
+        "python3",
+        "scripts/evaluation_workspace.py",
+        "/Users/sausheong/projects/hand/docs/acceptance/evaluation/calibration.json",
+        "--task",
+        "cancel-shell-descendants",
+        "--workspace",
+        "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants"
+      ],
+      "verification_command": [
+        "go",
+        "test",
+        "-count=1",
+        "./tools/bash",
+        "-run",
+        "^TestAcceptanceBashCancellationOwnsDescendants$"
+      ],
+      "verification_exit": 1,
+      "log": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants-verification.log"
+    }
+  ],
+  "observations": [
+    "File mode oracle failed on the pinned defective source for both 0640 and 0751",
+    "Cancellation oracle failed because joining exceeded one second and a descendant wrote after cancellation"
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-evaluation-checkout-calibration-20260909.json",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/hand-evaluation-checkout-calibration-20260909.json.gz",
+      "sha256": "ebe183ae1e60b39b75d301412c0f4f7e12d96ac39b6cd32f7b2e7d1623cc9d0d",
+      "uncompressed_sha256": "9299f8b763328694bbfbdda3fdcfdcddb7bffa683ddc24b2514e05e082dcf7f7"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-checkout-all-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/hand-evaluation-checkout-all-tests-20260909.log.gz",
+      "sha256": "26a8510747baee4cf9dbf0553f0fc5d7df011fc9bc7e4ff949d922aee53ce7d7",
+      "uncompressed_sha256": "44526504901de61b47e4e1c62b69a01b0bf5c9c7d99c77fe9e4866067fabfeff"
+    },
+    {
+      "source": "scripts/evaluation_checkout.py",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/evaluation_checkout.py.gz",
+      "sha256": "8780aa9afe59f89c00ca7424cb00bc2a7e2c188affb21200f3847368c71dda29",
+      "uncompressed_sha256": "7a43ba301d0e4f8dfa31d780035cb097b1aa1f3996f36c16856bea12a7fa0fbf"
+    },
+    {
+      "source": "scripts/test_evaluation_checkout.py",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/test_evaluation_checkout.py.gz",
+      "sha256": "d9000cfa2e61b97ea2a37bcf45139c425aa321b8b50e4b7715a6aa505297d913",
+      "uncompressed_sha256": "aa5d406f20f252f7f1b1147d8f395c6a55ba5ac68fc33126cff1dd1f69744f6d"
+    },
+    {
+      "source": "scripts/evaluation_sources.py",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/evaluation_sources.py.gz",
+      "sha256": "7cac1225addb8ba99c1e5f32d8a973e1b24ae98b6085ff8064758a6db336f0e4",
+      "uncompressed_sha256": "c160e22d7b095403250dd9844d8facebc0d1abd6d4ce8d9026689d4d1746cc14"
+    },
+    {
+      "source": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode-verification.log",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/preserve-write-mode-verification.log.gz",
+      "sha256": "242ce8cdeccb138684a4c1bdec73ee9f3e5387d71b4e07c21dc0394f9c8d8252",
+      "uncompressed_sha256": "82dd3e96de482104fae99545855eac8a67b37981249bf5c1cc5d6b0fe200fd45"
+    },
+    {
+      "source": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode-checkout.json",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/preserve-write-mode-checkout.json.gz",
+      "sha256": "3363c82dc2231623462e611f497a4414f5fed994ff7e5fad46c449b46b82d94d",
+      "uncompressed_sha256": "c0865a986aa990e21c162d4eaf3ae735a2a25e1b27da4cd971dd28a1cdca81fc"
+    },
+    {
+      "source": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode-fixtures.json",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/preserve-write-mode-fixtures.json.gz",
+      "sha256": "1d669af3d9fda8521c789a263deb0133a904c601131145b6709dcae10cb0a77e",
+      "uncompressed_sha256": "6091fd8606cc0ed95427ff71e735ec705cbaf1ebcce0a858829598b4a5381185"
+    },
+    {
+      "source": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants-verification.log",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/cancel-shell-descendants-verification.log.gz",
+      "sha256": "15b3ac4575182ca54d752f515be5ce370a34bf010f183c3552ef82de33537fdc",
+      "uncompressed_sha256": "2efc602cbfc03d282098394c5aa8add681f683c29bcfcb25d217e9fbc68fe751"
+    },
+    {
+      "source": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants-checkout.json",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/cancel-shell-descendants-checkout.json.gz",
+      "sha256": "6691d67b9f5bb8470d48202677071eb648f39c92531001ec6cf5510a966e6494",
+      "uncompressed_sha256": "017c5051f2edd349dac5146430fe0c7da5be9490ede02e7d2f2a449d24888bdc"
+    },
+    {
+      "source": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants-fixtures.json",
+      "path": "docs/acceptance/development-evidence/evaluation-checkout-20260909/cancel-shell-descendants-fixtures.json.gz",
+      "sha256": "bd4cf10bfde94aa6f98af0bdac318670dc459bb229a4b2281e9e1a80e6d9ce4c",
+      "uncompressed_sha256": "e98883f1b8222fc5f5a93c54f2bbee9cb1d1b617e54df276cf83d5cf881dffbd"
+    }
+  ],
+  "limitations": [
+    "No agent or paid model calls; these expected baseline failures are not task-success evidence",
+    "Full task corpus, model pins, execution budgets and comparative executor remain outstanding",
+    "Checkout preparation currently rejects symlinks/submodules and bounded size violations",
+    "Final exact-candidate acceptance remains open"
+  ]
+}

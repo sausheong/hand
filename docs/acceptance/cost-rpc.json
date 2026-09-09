@@ -1,0 +1,188 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "cost-controls-integration.patch",
+  "harness_delta": "harness-cost-controls.patch",
+  "result": {
+    "status": "development_passed",
+    "qualification": "development",
+    "paid_calls": 0,
+    "binary_sha256": "9f1203c4944ee107cc0517e3c53ef798b210ae00159853a55b7560159c2c3b51",
+    "runner_sha256": "e49d3916e5593da3f933dbfb6753809ce3600131f3a10bedf52cc21976b60ecd",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "session_id": "ses_01fc0f36ac6d9fe0",
+    "exhausted": {
+      "approval_id": "",
+      "error": "llm error: provider admission: session cost budget: budget_exhausted",
+      "iteration": 1,
+      "reason": "session_cost_budget",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "charged": {
+      "currency": "USD",
+      "limit_nano": 1000000,
+      "committed_nano": 15,
+      "compaction_nano": 0,
+      "strict": true,
+      "exhausted": false,
+      "attempts": 1,
+      "unpriced_attempts": 0,
+      "uncertain_attempts": 0,
+      "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+    },
+    "completed": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 10,
+        "known": true,
+        "output_tokens": 5,
+        "prior_unknown": false,
+        "requests": 1,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "unknown_price": {
+      "approval_id": "",
+      "error": "llm error: provider admission: request price is unknown or unbounded: no route price supplied",
+      "iteration": 1,
+      "reason": "cost_price_unknown",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "installed_prices": [
+      {
+        "provider": "local",
+        "model": "fixture",
+        "destination": "http://127.0.0.1:50129/v1",
+        "currency": "USD",
+        "source": "scripted local fixture; not a market tariff",
+        "version": "fixture-1",
+        "effective_at": "2026-09-08T12:23:28.338839Z",
+        "expires_at": "2026-09-08T14:23:28.338839Z",
+        "input_nano_per_million": 1000000,
+        "output_nano_per_million": 1000000,
+        "cache_write_nano_per_million": 1000000,
+        "cache_read_nano_per_million": 1000000,
+        "fixed_nano": 0,
+        "all_charges_bounded": true
+      }
+    ],
+    "clean_exits": 3,
+    "local_provider_requests": 1
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/charged-restart.json",
+      "sha256": "aeca41d623af95fa8dae4baa0d7a3106d63b240ba27bbeadc4879d7cff6d14a1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/charged-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/first.json",
+      "sha256": "fed1cd5a0cf6c1bb16e6ac7c705c00809d363d62dd4c22f22fcab9442b0055fd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/authority/7c2d5a9017936d3980a0b0d5362cdf07520903280ee7f6693130decde50abfff/2a000a25b4e33b90529cc8c1d4b2ce3bc099b70e654cb1f56ec5191814d90e28/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/catalogues/7c2d5a9017936d39/catalogue.json",
+      "sha256": "f36806260e4b934ea9bc30279354cab1a69bb7618b7ad7f6f640419061c671df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/catalogues/7c2d5a9017936d39/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_7c2d5a9017936d39_a20583247db5648de948e5adb705d4b0.lock",
+      "sha256": "e4d186737d7b20dc8ec6643c156e29f558704a8b01298e145a5d8b2115331998"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_7c2d5a9017936d39_e15253b16d8ec336b2742b101260ac0f.lock",
+      "sha256": "2f1328454aa5fbe0dd0d629c4080e7f2d978d2d3bb3edfe84e79ddc4f91fd87f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/hand/workspace_7c2d5a9017936d39_a20583247db5648de948e5adb705d4b0.jsonl",
+      "sha256": "f917102519e43be14d9b9d74a879c9e17ea69a4f256ac719e116e5b2abe219db"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/hand/workspace_7c2d5a9017936d39_e15253b16d8ec336b2742b101260ac0f.jsonl",
+      "sha256": "0a8b551054ea10f95d513f2d0c32410d1760557e9f76d70c4db4a86b53a9132b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/home/.hand/sessions/rpc-7c2d5a9017936d3980a0b0d5362cdf07520903280ee7f6693130decde50abfff/requests.jsonl",
+      "sha256": "426474efba431f8a1a2a5bfd31fd8df0afd0f31575ec07ba0e5a2a0570f9754a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/provider-requests.json",
+      "sha256": "ca469e985a6656f96f350f1f8a13396a9b3139cac5ad3f6798730b8be4441da9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/restart.json",
+      "sha256": "e602d42fbdf206933b35adc8d49aea0084b07f0c6a0cccf2a8a9eadefd575741"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-rpc-20260908/run.json",
+      "sha256": "9b8b1c6a56da7b69fcb6e8e9b4c5a219327346028a45c7fb7487ee72ad8f0ff1"
+    }
+  ],
+  "limitations": [
+    "Dirty native macOS ARM64 development build, not final candidate qualification.",
+    "One local scripted request with test tariffs; no real provider prices or paid calls.",
+    "Terminal monetary controls, time/run limits, cancellation and final qualification remain pending."
+  ]
+}

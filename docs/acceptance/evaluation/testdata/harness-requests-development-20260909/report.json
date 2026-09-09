@@ -1,0 +1,150 @@
+{
+  "cases": [
+    {
+      "captures": [
+        {
+          "body": "text-1.json",
+          "body_sha256": "6c5a5d7fc39c3373ddec48f76d4f20f8ca8f7d430a75b6fe9ba3efa1f67d8fca",
+          "headers": {
+            "Accept": [
+              "application/json"
+            ],
+            "Anthropic-Version": [
+              "2023-06-01"
+            ],
+            "Content-Type": [
+              "application/json"
+            ],
+            "User-Agent": [
+              "Anthropic/Go 1.35.0"
+            ],
+            "X-Stainless-Arch": [
+              "arm64"
+            ],
+            "X-Stainless-Lang": [
+              "go"
+            ],
+            "X-Stainless-Os": [
+              "MacOS"
+            ],
+            "X-Stainless-Package-Version": [
+              "1.35.0"
+            ],
+            "X-Stainless-Retry-Count": [
+              "0"
+            ],
+            "X-Stainless-Runtime": [
+              "go"
+            ],
+            "X-Stainless-Runtime-Version": [
+              "go1.25.1"
+            ]
+          },
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages"
+        }
+      ],
+      "error_events": 1,
+      "name": "text"
+    },
+    {
+      "captures": [
+        {
+          "body": "tool-roundtrip-1.json",
+          "body_sha256": "6d3976e031bcbab56d273c04cccd1de8db6490e618512373b3103042a9afcb3d",
+          "headers": {
+            "Accept": [
+              "application/json"
+            ],
+            "Anthropic-Version": [
+              "2023-06-01"
+            ],
+            "Content-Type": [
+              "application/json"
+            ],
+            "User-Agent": [
+              "Anthropic/Go 1.35.0"
+            ],
+            "X-Stainless-Arch": [
+              "arm64"
+            ],
+            "X-Stainless-Lang": [
+              "go"
+            ],
+            "X-Stainless-Os": [
+              "MacOS"
+            ],
+            "X-Stainless-Package-Version": [
+              "1.35.0"
+            ],
+            "X-Stainless-Retry-Count": [
+              "0"
+            ],
+            "X-Stainless-Runtime": [
+              "go"
+            ],
+            "X-Stainless-Runtime-Version": [
+              "go1.25.1"
+            ]
+          },
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages"
+        }
+      ],
+      "error_events": 1,
+      "name": "tool-roundtrip"
+    },
+    {
+      "captures": [
+        {
+          "body": "thinking-1.json",
+          "body_sha256": "6e7d9fa00f5157ebcbe6bb5feb130e81d68dd5925760d3820d11e871ad6ee80d",
+          "headers": {
+            "Accept": [
+              "application/json"
+            ],
+            "Anthropic-Version": [
+              "2023-06-01"
+            ],
+            "Content-Type": [
+              "application/json"
+            ],
+            "User-Agent": [
+              "Anthropic/Go 1.35.0"
+            ],
+            "X-Stainless-Arch": [
+              "arm64"
+            ],
+            "X-Stainless-Lang": [
+              "go"
+            ],
+            "X-Stainless-Os": [
+              "MacOS"
+            ],
+            "X-Stainless-Package-Version": [
+              "1.35.0"
+            ],
+            "X-Stainless-Retry-Count": [
+              "0"
+            ],
+            "X-Stainless-Runtime": [
+              "go"
+            ],
+            "X-Stainless-Runtime-Version": [
+              "go1.25.1"
+            ]
+          },
+          "method": "POST",
+          "url": "https://api.anthropic.com/v1/messages"
+        }
+      ],
+      "error_events": 1,
+      "name": "thinking"
+    }
+  ],
+  "limitations": [
+    "Actual local Harness provider/SDK serialize requests into an injected HTTP transport returning 400.",
+    "No socket, full Hand agent session, actual provider call, billing or comparative quality evidence."
+  ],
+  "status": "requests_captured"
+}

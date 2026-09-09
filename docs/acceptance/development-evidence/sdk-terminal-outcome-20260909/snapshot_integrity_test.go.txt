@@ -1,0 +1,58 @@
+package sdk
+
+import (
+	"encoding/json"
+	"strings"
+	"testing"
+)
+
+func TestSnapshotRejectsAmbiguousEventFields(t *testing.T) {
+	base := string(snapshotFixture(t))
+	for name, raw := range map[string]string{
+		"version":          strings.Replace(base, `"version":1`, `"version":2,"version":1`, 1),
+		"identity":         strings.Replace(base, `"run_id":"run"`, `"run_id":"other","run_id":"run"`, 1),
+		"escaped-identity": strings.Replace(base, `"run_id":"run"`, `"run_id":"other","run_\u0069d":"run"`, 1),
+		"identity-alias":   strings.Replace(base, `"run_id":"run"`, `"RUN_ID":"other","run_id":"run"`, 1),
+		"outcome":          strings.Replace(base, `"status":"completed"`, `"status":"cancelled","status":"completed"`, 1),
+		"outcome-alias":    strings.Replace(base, `"status":"completed"`, `"STATUS":"cancelled","status":"completed"`, 1),
+		"null-payload":     strings.Replace(base, `{"status":"completed","text":"answer","reason":"stop","verified":false}`, `null`, 1),
+	} {
+		t.Run(name, func(t *testing.T) {
+			if _, err := decodeEvent(json.RawMessage(raw)); err == nil {
+				t.Fatal("ambiguous event accepted")
+			}
+			execution := `{"id":"request","session_id":"session","run_id":"run","state":"completed","result":` + raw + `}`
+			if _, err := decodeExecution(json.RawMessage(execution)); err == nil {
+				t.Fatal("ambiguous terminal execution accepted")
+			}
+		})
+	}
+	future := strings.Replace(base, `"kind":"terminal"`, `"kind":"future-event","future_envelope":true`, 1)
+	future = strings.Replace(future, `"status":"completed"`, `"status":"completed","future_payload":42`, 1)
+	if event, err := decodeEvent(json.RawMessage(future)); err != nil || event.Kind() != "future-event" {
+		t.Fatal("forward-compatible event rejected", err)
+	}
+}
+
+func TestSnapshotRejectsAmbiguousExecutionFields(t *testing.T) {
+	for name, raw := range map[string]string{
+		"state":            `{"id":"request","session_id":"session","state":"completed","state":"pending"}`,
+		"identity":         `{"id":"other","id":"request","session_id":"session","state":"pending"}`,
+		"escaped-identity": `{"id":"other","\u0069d":"request","session_id":"session","state":"pending"}`,
+		"state-alias":      `{"id":"request","session_id":"session","STATE":"completed","state":"pending"}`,
+		"session-alias":    `{"id":"request","SESSION_ID":"other","session_id":"session","state":"pending"}`,
+	} {
+		t.Run(name, func(t *testing.T) {
+			if _, err := decodeExecution(json.RawMessage(raw)); err == nil {
+				t.Fatal("ambiguous execution accepted")
+			}
+		})
+	}
+	for _, state := range []string{"pending", "uncertain", "accepted"} {
+		raw := `{"id":"request","session_id":"session","run_id":"run","state":"` + state + `","future_field":true}`
+		e, err := decodeExecution(json.RawMessage(raw))
+		if err != nil || e.ID() != "request" || e.SessionID() != "session" || e.RunID() != "run" || e.State() != state {
+			t.Fatal("valid future-compatible snapshot rejected", e, err)
+		}
+	}
+}

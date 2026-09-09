@@ -1,0 +1,215 @@
+{
+  "status": "development_built_cli_passed",
+  "requirement": "M6.3",
+  "scenarios": [
+    "strict_unknown_price_blocks",
+    "advisory_unknown_visible",
+    "exhaustion_stops_new_work",
+    "explicit_resume_budget",
+    "ledger_restart",
+    "pricing_provenance",
+    "in_flight_uncertainty"
+  ],
+  "run": {
+    "status": "development_passed",
+    "qualification": "development",
+    "paid_calls": 0,
+    "binary_sha256": "2ca4966e87b7a858716f76abc0337c978a83107c338de7fcd9ebd1aa07d51106",
+    "runner_sha256": "8b9a5794853f6216c2f205b1598099ec86f9866ee638cf447f4367e3960711c5",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "advisory": {
+      "currency": "USD",
+      "limit_nano": 1000000,
+      "committed_nano": 15,
+      "compaction_nano": 0,
+      "strict": false,
+      "exhausted": false,
+      "attempts": 2,
+      "unpriced_attempts": 1,
+      "uncertain_attempts": 1,
+      "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+    },
+    "advisory_terminal": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 20,
+        "known": true,
+        "output_tokens": 10,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 2,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "strict_refusal_cases": [
+      "missing",
+      "expired",
+      "unbounded"
+    ],
+    "session_id": "ses_31eeed5c6a62f65f",
+    "exhausted": {
+      "approval_id": "",
+      "error": "llm error: provider admission: session cost budget: budget_exhausted",
+      "iteration": 1,
+      "reason": "session_cost_budget",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "charged": {
+      "currency": "USD",
+      "limit_nano": 1000000,
+      "committed_nano": 15,
+      "compaction_nano": 0,
+      "strict": true,
+      "exhausted": false,
+      "attempts": 1,
+      "unpriced_attempts": 0,
+      "uncertain_attempts": 0,
+      "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+    },
+    "completed": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 10,
+        "known": true,
+        "output_tokens": 5,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 1,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "unknown_price": {
+      "approval_id": "",
+      "error": "llm error: provider admission: request price is unknown or unbounded: no route price supplied",
+      "iteration": 1,
+      "reason": "cost_price_unknown",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "installed_prices": [
+      {
+        "provider": "local",
+        "model": "fixture",
+        "destination": "http://127.0.0.1:65399/v1",
+        "currency": "USD",
+        "source": "scripted local fixture; not a market tariff",
+        "version": "fixture-1",
+        "effective_at": "2026-09-09T02:06:33.752066Z",
+        "expires_at": "2026-09-09T04:06:33.752066Z",
+        "input_nano_per_million": 1000000,
+        "output_nano_per_million": 1000000,
+        "cache_write_nano_per_million": 1000000,
+        "cache_read_nano_per_million": 1000000,
+        "fixed_nano": 0,
+        "all_charges_bounded": true
+      }
+    ],
+    "clean_exits": 4,
+    "local_provider_requests": 2
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/advisory-restart.json",
+      "sha256": "58694552d6861d433bc9a0985b39958cbd04e1cf1c8c3af14ca65e08968f9f85"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/advisory-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/charged-restart.json",
+      "sha256": "ad725add49539238f4eef876681fe8b72c7434d63d1f8ffc149bd5ce2c6a2628"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/charged-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/check_cost_rpc.py.txt",
+      "sha256": "8b9a5794853f6216c2f205b1598099ec86f9866ee638cf447f4367e3960711c5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/check_rpc_client.py.txt",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/first.json",
+      "sha256": "7778694be60cb3767d6d2fb9fa0d1546e2b13e8483d895620da68340fd8d29fb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/provider-requests.json",
+      "sha256": "d43113f8339975d91248d0955d37499a7993b37ce8b60d5a1adc4b7885c00f17"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/restart.json",
+      "sha256": "95fa10a128426f769565c6483a823c25fe2150903ca9259da95d337b48937b9b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-20260909/run.json",
+      "sha256": "4c297e66236ae2f79693c1508752d3d30d40052113eb8573f9375faf110cfd06"
+    }
+  ],
+  "limitations": [
+    "Native macOS development binary with local unreleased Harness",
+    "Local deterministic SSE provider, no paid model or billing evidence",
+    "Advisory uncertainty from missing prices; non-cancellable in-flight provider cases remain separate",
+    "Final platform/candidate acceptance still required"
+  ]
+}

@@ -1,0 +1,554 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "tests": {
+    "scripts": 144,
+    "acceptance_checker": 20,
+    "failures": 0,
+    "skips": 0
+  },
+  "commands": [
+    [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_*.py"
+    ],
+    [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "docs/acceptance",
+      "-p",
+      "test_*.py"
+    ]
+  ],
+  "limitations": [
+    "Tooling tests include synthetic fixtures and do not prove Hand/Harness runtime acceptance.",
+    "Full current-source Harness suite did not start; Docker access awaits explicit approval."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/hand-all-python-refresh-20260909.log.gz",
+      "source": "/private/tmp/hand-all-python-refresh-20260909.log",
+      "sha256": "5505176c4aa1ce0ba1f64b789734ed1cbffb518eb04aae2491e58e86ec4cafe9",
+      "uncompressed_sha256": "74f47b0d02d2c06dad995cd15f5ee6c218a0d9dcf6b02e929f7e0096f125dd93"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/hand-checker-refresh-20260909.log.gz",
+      "source": "/private/tmp/hand-checker-refresh-20260909.log",
+      "sha256": "86c2b6f7b51f6deafa49547414c0593db0ef14d4ec25ac7bfa588c080b92598e",
+      "uncompressed_sha256": "ba69fffed8115c6d30884b92cbd41b39ee48a020472e50818d38197fd42ed1b7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__benchmark_extension_processes.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/benchmark_extension_processes.py",
+      "sha256": "a78ff099f3fa7898b918cbda8c32c2ed2dafdaae7103d1476787006655b3c504",
+      "uncompressed_sha256": "197ceebca41818ad3dbe91ec062cf16d94f510651b1fd50a227f7a83a29c0232"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__benchmark_startup.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/benchmark_startup.py",
+      "sha256": "b9b1dc36038a90d306ac7eed07556de480ddd984b79cdaad1b666c0fac6cb139",
+      "uncompressed_sha256": "7dfcf7e956922d1470f563bd828114adf8487dd8b8558059e86c0a91907c293c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__build_dist.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/build_dist.py",
+      "sha256": "b53c98c745d992f81ec509e6db9182de24054a66c533dcd54b3938b0d2cab081",
+      "uncompressed_sha256": "403d1f16da73684481fab2bc195bced1099174a87586fe6221e4887921d80121"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_background_server.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_background_server.py",
+      "sha256": "8452634d9e57a78d21d3ba07e3474679539de71df183d67127f1984e4c1de74e",
+      "uncompressed_sha256": "7cb55244434264a22fadde216d7acc0ab1b8ea47d48adea3e6e5cad0e05279f5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_budget_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_budget_rpc.py",
+      "sha256": "47df9fb4038ffb4083c7a47e7458316e038d358bb69284e4b22df423c9f33cbd",
+      "uncompressed_sha256": "5f7e6ff9be18356f85c26500d5b2af298af469a134a759d5ca1dcb1000bb4651"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_changes_terminal.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_changes_terminal.py",
+      "sha256": "d389930038ac1504191efdf29cb717229a1a8b0c0b5b72da6f6a70f10ae6484b",
+      "uncompressed_sha256": "609f4eaa40054e3584a9f514705b48d0164a49ef926ba1640912ae458057c24d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_checkpoint_linux.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_checkpoint_linux.py",
+      "sha256": "d84d4e82d05a5c779d2cc78f01bb9ef815daa632b5d8ed91dd0a4993ba798072",
+      "uncompressed_sha256": "6b0a1965cd9006883589de70326cf626d32ec29dc0b8b371e44ab4fdfa33cdfb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_container_extension_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_container_extension_rpc.py",
+      "sha256": "9d1e2239fbe5ca7711c798eaf30dd7a1d5d223a730dc07cfd6da44fbf10493a8",
+      "uncompressed_sha256": "fb864fc1a18f3174872d32a612c890abb398cbb077a45045e842f1074681980c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_context_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_context_rpc.py",
+      "sha256": "7b042d397a74f7191028ad3594a810d7e8d668c359da81e554cf779e31333940",
+      "uncompressed_sha256": "38dc86de62c76d6d09bed8a2941dcbfe4aae2c8b030073614f5c1fe61a5edbb3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_context_state_terminal.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_context_state_terminal.py",
+      "sha256": "2a88516ce56d2db20643750683b6d312f3f9ce3185696f60caf5034ef9bb42d5",
+      "uncompressed_sha256": "a983ee489fa6eb40804a3827e28804802792b05010644ae0c7f856d2258db49a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_cost_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_cost_rpc.py",
+      "sha256": "e53579bc9ccecf16a738835b0442c89cef93eaaf9e1fee44f061601886630eb3",
+      "uncompressed_sha256": "8b9a5794853f6216c2f205b1598099ec86f9866ee638cf447f4367e3960711c5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_extension_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_extension_rpc.py",
+      "sha256": "c3c30c66ed6db12a65480caf6c752323300b7568f6dcab2119dc84618baf3854",
+      "uncompressed_sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_extension_terminal.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_extension_terminal.py",
+      "sha256": "f1da9751fb252c7ed8e1b38d5939b6474b0c825e84e5b59abebbbdba7bd1bdd0",
+      "uncompressed_sha256": "79508ceb9ce74d70e09e2713eaf8cf7f77498c7c54650c9052555e6b2a04a939"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_guidance_worker.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_guidance_worker.py",
+      "sha256": "078c0d9b73edca92636bd21e6a30ff0fce9163b9b1aec25bee3dbc4146d002dc",
+      "uncompressed_sha256": "7d28b9dd53e96801d57abe48fe0ae0ea04f89d68e6fb0014571ee3b35f08742c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_linux_full.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_linux_full.py",
+      "sha256": "12c5010be6bc5cb5674f1a70281bde8cfc91d234b62218a4d4e20478de04cf68",
+      "uncompressed_sha256": "6a98977bd19e425ce5102ccf0051cfa52934e591123e0bda9115778d2dc99ff8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_package_activation_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_package_activation_rpc.py",
+      "sha256": "192fcdd275416d95c3f9f6f9ff822d715538ea2e018690aa2bc5355a419a1e3c",
+      "uncompressed_sha256": "62445026e0feb8184216cb0a0cf0ce5698f8da8d17edda38b0fd713f2167d22b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_package_cli.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_package_cli.py",
+      "sha256": "50aadaa4fca7551c0029c2e24ebf60920f19d22f854ec380fee07b72bfcd9b03",
+      "uncompressed_sha256": "d40f336add6df3ca38e09ae3a9d49df1c9f8eb5123a46e1dc3fab59c772a51c8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_package_text_cli.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_package_text_cli.py",
+      "sha256": "255eaa91beb506ecf85758becf93fc7fdfae3a8e81a67c3803f337d8050e8f31",
+      "uncompressed_sha256": "442e6b6ff2318de5763b3386117a94b415eb9dc3a76010e5309aa14c531cf523"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_packaged_isolation.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_packaged_isolation.py",
+      "sha256": "29aba2c1078f5fa95cfc9673a5e621f8c3d23bf9fd6b2c84aa4f3766372df25d",
+      "uncompressed_sha256": "228fa61a77d998590d5828e4bd17014949c8a80bcfbbb03a19dd5b45cc145a98"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_permission_interrupt.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_permission_interrupt.py",
+      "sha256": "d436b673be38104f34eb41972cdfb4d31f88af4b23e137ad4422cc4eba936edc",
+      "uncompressed_sha256": "c07a70a7306c7a278336276a5f9f5564ac94e35c832354bcea076ecf4899bbfc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_permission_migration.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_permission_migration.py",
+      "sha256": "417c99982bc8b5f21d8778dbcc4847a10b89bd25e12aca8de7325d28229942db",
+      "uncompressed_sha256": "ad65f18ad1b0df5e5205ae8fcea62b2c0caec88baa469abcc59a505ed16783bf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_permission_profiles.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_permission_profiles.py",
+      "sha256": "d307120e381fbab3bad725e1c0733705c0009f592904a7a916eced1e543ef943",
+      "uncompressed_sha256": "80486fbc753a776a939629cce92b1ff0e2c7da0bfe2c8359f649e3b7642ea08e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_permission_prompts.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_permission_prompts.py",
+      "sha256": "c6ed92b9d2dab83575a7be8cd3c71f176133accdfcdb1f6b453994d846cd1936",
+      "uncompressed_sha256": "123f6c201f47ddd85168380de094d3c83d47cc9cb2cdbb0bf0fe416ff1487659"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_pi_offline.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pi_offline.py",
+      "sha256": "f9eab0cecacbf606012c5e77fc0b2e606a463ad63b0b0a0dc505bac059b62877",
+      "uncompressed_sha256": "4359bd7a8ac93b36afdcfff076e288bd9ad2928a7a87edfa1eb46c69ed53a14d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_pins_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pins_rpc.py",
+      "sha256": "aaf7d3f292c296205a32cf6e8bf400601b0067afa3ea1b895095348120f2e8e5",
+      "uncompressed_sha256": "807515879a243b0a2f845baf9dee72cb6ae25ee1e3bf3883f5181815bba90dd6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_profile_picker_pty.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_profile_picker_pty.py",
+      "sha256": "4fb1287b76ef4c77ba75022597cfed55b123d4e5dbdf5b2a0f8a91df5afc5c74",
+      "uncompressed_sha256": "528c873dba466b1822973439d6a3eae312ea0bd6ea04ed3202a5c206dd2a99d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_rpc_client.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_rpc_client.py",
+      "sha256": "18ab38273b4961be99ce6f3ab360067a61210c40fab561e88c1908bc6c54d9ae",
+      "uncompressed_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_rpc_cold_start.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_rpc_cold_start.py",
+      "sha256": "965a4e0130a09208cd7aa2d6eba586e9ce40f2160ec5dd76606fbe26ad917e2f",
+      "uncompressed_sha256": "4b1fd3d9f83e85261b87901bb0051f29601ffe9b50c1c05859c776750b9988df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_rpc_linux.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_rpc_linux.py",
+      "sha256": "b5ebab74e04944adc5eceb103139cb31a09a51c78abd3b2b07e48c42f819d096",
+      "uncompressed_sha256": "9f3fbf589ab86aeae090ba0af1bfbb2411f0c4b854f2b2b0d3aff94adbcd0e5d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_run_budget_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_run_budget_rpc.py",
+      "sha256": "023f524b1f10bc1ad0129c16944388e544299724f6114a4a23391a7a27f569b0",
+      "uncompressed_sha256": "500bbc8ea61fdc41477c6b3a3162ddd9efcc7b0818ad8f857530db66685aa256"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_run_budget_terminal.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_run_budget_terminal.py",
+      "sha256": "d202ee33a5dd90ed1cb448779e382cd83785b06d667d0269d16616b0a6c60d84",
+      "uncompressed_sha256": "d538b4c1290054d0cc22b3d5048530db6d7d31ba3a6694b0f2bb90443d9bed33"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_run_time_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_run_time_rpc.py",
+      "sha256": "b5f9b9c30fd192f821b1b0b8c122d230b747409510674d753d1bf31052123e46",
+      "uncompressed_sha256": "53595904d996a03c3dc995e59f36d05babfd2749e2efeac54d19964b8ef15adb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_sdk_compatibility.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_sdk_compatibility.py",
+      "sha256": "b3c76491305287f758062f8ccdf29f7782d17a7b6da68472244caa9769b1d21d",
+      "uncompressed_sha256": "323f05ae8da14742f8291deefa5f8b4f8c75ac80259172d273cc3337aad5ebde"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_skill_approval_pty.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_skill_approval_pty.py",
+      "sha256": "625e0cd336df26bf51ef21f2696714917fd0bb863010041cb8c8f48b39fe3f41",
+      "uncompressed_sha256": "cb8011cfeec80999529626b65cf8d9db511c0a886440f7353d317fe8485b863a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_summarizer_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_summarizer_rpc.py",
+      "sha256": "c970725368361f7a939524bcea7e131e290c9fd2c9ea7b3c5d4485ec067fc483",
+      "uncompressed_sha256": "668cfdb82f19ce311df391cba1e5acea792ec3f90bf829a9dcc7d89d22c7e239"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_time_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_time_rpc.py",
+      "sha256": "29e48d0f2c3a3f48e6b748497579ecea36c587fbe089fc828e6de0fe40e1d9d0",
+      "uncompressed_sha256": "adeb12c15bf827fa76402f256e3283aaedae484a4f2ca1bcfb690e415cb836ab"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_tool_viewer_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_tool_viewer_rpc.py",
+      "sha256": "b381e09af5466c0e811a8d0c31ee4499c98f46e9a3d5cd55a75e670fc0e64011",
+      "uncompressed_sha256": "d1f9d5a93fe97c95d6b4fab4f123cc7a1454b711977b28cd4bf178a68e855f99"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_transcript_performance.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_transcript_performance.py",
+      "sha256": "8dc351edaef4c5427ac30b8e30f6133f1553b77548594e7161e0b1534b1e9806",
+      "uncompressed_sha256": "2ff71047dd4c5042eb96c9888748017054031dd9849d5a040d577a16f04bd5df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_verification_rpc.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_verification_rpc.py",
+      "sha256": "87034125aee27b5c1754dc8817093733e11e317ff7e4f1219da3da151dce8d2c",
+      "uncompressed_sha256": "654dfee9614448210594f9881ea78208bebcedeef5471d9d7739654de946ff7a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__check_verification_terminal.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_verification_terminal.py",
+      "sha256": "fb0dfeda849adf89de480b56cf7c0c91d8aa240e81b8563328bacb747440f376",
+      "uncompressed_sha256": "b7c664d0d01da567a5d3765ad2b2a17233e40784f8a280e16318e5f455e3afc0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__coverage_changes.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/coverage_changes.py",
+      "sha256": "84d5e04e2629b2056e0a75bad1758f5139df1e2528e3c8df427d8bbd135d409b",
+      "uncompressed_sha256": "00866ff44e47a62f67d06c207f01f7307c87f626fe2c3ceb741f903243b7111a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__critical_coverage.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/critical_coverage.py",
+      "sha256": "15c952678979b263e15949e5ae6327cc461e8f69cf1abc0d53780accd7cb8cd1",
+      "uncompressed_sha256": "e13b0aa46e28772d8925af3370d7d2837b4ac09413d50dc4fa3612dffd4ed805"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_baseline.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_baseline.py",
+      "sha256": "566ad024012d03e68174856e1df2972b00574c2fbaad3e5e7088f92ff0198647",
+      "uncompressed_sha256": "9212d0796f149c97b1848ee712664c0efc9bb6efd1218e80a2442779e8d0fb4e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_checkout.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_checkout.py",
+      "sha256": "1207fe96f0c074e597fad41f6992c07d6d178bbc027c5864051a49d40b4a4bc0",
+      "uncompressed_sha256": "2541f718d1c7ca63ce71e88ec87a6493be123b99ce1ac2973b579069db1e46f3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_go_tests.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_go_tests.py",
+      "sha256": "3c94a610a72db692f4f2a21fe5f43d0a65d4e73d921b54bf21081cce2e2ace11",
+      "uncompressed_sha256": "2c1309af985c9cc1ae767ebefb0d1222ee98aa452f7282017f99e24d5e879b4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_manifest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_manifest.py",
+      "sha256": "19bdaf9827a08c41eb473808cab08e7b7fa5d81b68bd8373b9cdc04d3cf5100b",
+      "uncompressed_sha256": "e99c86d902cd03794654994c4cffbe43c144c0fc8de0160911e83e183603f542"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_pi_events.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_pi_events.py",
+      "sha256": "955baa2d31caf6d046fa98e78a5570a6025aa51f149bd957c56f5b2ac77a08a1",
+      "uncompressed_sha256": "1b20a189ea1783bf7519c60f5805b34a52367bf8e98213f7ca759149a21fa788"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_process.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_process.py",
+      "sha256": "38022a2539dd060cdfba2063407195f48ba2f56f565558bf4be20fc7849edf13",
+      "uncompressed_sha256": "68b151114a32ac3e6903d1c0e35c866c2d8a5bf1377c5605595750a4e8ea3082"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_results.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_results.py",
+      "sha256": "cc902c9ee8825af678e45721174d955ef9ab11c7c861bcb5747a99a1808d342d",
+      "uncompressed_sha256": "ba862b2cb0e4cc87557e924a012a80e5c6ebc32ef23a0050b5c88738fffae8dc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_schedule.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_schedule.py",
+      "sha256": "363a1a25f7d9a160af50922055ffead8656c2d61a11d641517f82027f30470cd",
+      "uncompressed_sha256": "49a4d4ad4d7fe100714b41bdcf41178f608c573592d3773ba90ff6e7b0bbcc4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_sources.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_sources.py",
+      "sha256": "7cac1225addb8ba99c1e5f32d8a973e1b24ae98b6085ff8064758a6db336f0e4",
+      "uncompressed_sha256": "c160e22d7b095403250dd9844d8facebc0d1abd6d4ce8d9026689d4d1746cc14"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_unittest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_unittest.py",
+      "sha256": "06669d47861675fdc358266fb8d5ae51e99824765faec30a2da7b79609e8227e",
+      "uncompressed_sha256": "f8e350fda7e54c80ca77dcf0e38bb34c321eb1ff0ab7a5a138a0b25b0c8460f8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evaluation_workspace.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_workspace.py",
+      "sha256": "cc03f059eff07fb97dcaa6e77e2b619e706fba95bb84744268f4fa8ffbb6b8ea",
+      "uncompressed_sha256": "38bf14d57c75e0983ef98f736ee98e5225e182ae8c92a92b603b10cedaa87dbd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__evidence.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evidence.py",
+      "sha256": "0e31df1bde52244041aca40f5fbefdec32852d43461b0cfce986bcf8e19dd2a1",
+      "uncompressed_sha256": "362db8b15749e22e7e67aeadb8c01de06ef76af968499a6c6c25f796bb627040"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__package_extension_example.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/package_extension_example.py",
+      "sha256": "ccee37b4d9074724b2bfd010037c20f15e097c9f3b132b2b1225f4251bc9ae64",
+      "uncompressed_sha256": "47d26b348c20f7c20d895cab1e7b448b4b557312e56024af78b8fa993b8f784c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__smoke_dist.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/smoke_dist.py",
+      "sha256": "a41bd8fed02dcfccac2e875c5a988fae9f9efdb36f022b782191b074bef9756d",
+      "uncompressed_sha256": "c9088046b4d4e19854a382b33eb0313955d8e48314c8d81ae7b0cb208b5e2656"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_archive_contents.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_archive_contents.py",
+      "sha256": "f3d8ad53816247d291bfcb8215c9540e9b99e94f202414638c080b90ba3c3839",
+      "uncompressed_sha256": "76d7c59de3b1c98a55af6e9c42d75d42ae671608f93ca9576eb736dc7a5cf0d9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_benchmark_startup.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_benchmark_startup.py",
+      "sha256": "1cc02af106a80558810bf70507c343c47718bdf06096a173201e525dcbfcd8c6",
+      "uncompressed_sha256": "79f21f1e44283e272a3ec8188c93b30a71997499679bc55d42e157fa65ede04d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_coverage_changes.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_coverage_changes.py",
+      "sha256": "e1f5041ba404caee96d6aeab8b4c69e52da9c01934c52a3bf417cbbecae8dfcf",
+      "uncompressed_sha256": "b30ae242d7626b53a262d547ee1b9c3cf61a6fef4e9d6012c81f42231d50af1d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_critical_coverage.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_critical_coverage.py",
+      "sha256": "dd4fb56651ea58859d205c68e36f885f9ea5954807bb7bbccf0a016618e7f6b0",
+      "uncompressed_sha256": "38b7830f825ae8f25892b7d2e407fa5f4c9d160f35eb0a374afdf98641c7377b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_baseline.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_baseline.py",
+      "sha256": "a7fef1428763e51472c27b0efb374a0d1dab0f8811cb21afc7b804fed4ac8470",
+      "uncompressed_sha256": "a7398c7e3dccf6ee81225a6c15acdaf48fae96def03f1490d7a0a5084fb5a35b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_checkout.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_checkout.py",
+      "sha256": "c62ac9a45819f8b69c6e9c02645c6de758cddc74dc7614689974b069eeaa1e60",
+      "uncompressed_sha256": "beb50087a9fa840d8f1d07a6fabab89af064a46486bad0e1c4183a47cd3f25bf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_fixture_integrity.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_fixture_integrity.py",
+      "sha256": "a731dbdcc6a1b579707e92d6c8cbf87cc97595a9bce116e7f0b445897825e8ff",
+      "uncompressed_sha256": "15deff7dc673bb1239c3b6949352ed7c512a04f00a5293cde184821f60264638"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_go_tests.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_go_tests.py",
+      "sha256": "dd0fccca7cbcee154746c8fdf2fbbd8f793046cb5f3a3c6454eb3ae0a37d10b0",
+      "uncompressed_sha256": "bc1906fdeb776ba89348d2fdce684f5aa0412fa4bcfa25aa22e5032061ef07bc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_manifest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_manifest.py",
+      "sha256": "474ee0f9e74d9feb76330a264b1bad8b740807a2fc1db8e7faacb97c924462be",
+      "uncompressed_sha256": "544f1f2159497f4cfab5bbb6c19c011104fe14d31c5ed6cec135c6ec2da33c59"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_pi_events.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_pi_events.py",
+      "sha256": "d10bf52602605788f6a2e0933d7e4f010038ec7226b6a9e23570f0b76dba35f9",
+      "uncompressed_sha256": "a3897428eafd9b0c840a3feac2b9e6d29c80f26f15bd474dce5dc79317ad17b3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_process.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_process.py",
+      "sha256": "19c0714994b1b601f2caba968f9d860738e81c9c7b971755099cd943a8b86fd0",
+      "uncompressed_sha256": "c67c2f43047f5887a3f44eb35005db961b32579095a9f1c8be65bd86500bb713"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_results.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_results.py",
+      "sha256": "78c1bba1ad30e8bc1a7a2d218157179220ae34c3ab6738ac3f047d7e331ac008",
+      "uncompressed_sha256": "72b5742cbb9fd2fe9daf436ad5a8d23b0f30c6a5f66ebeefa172e3826a5dc27d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_schedule.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_schedule.py",
+      "sha256": "03adf3e7aa8fe1217cf084606c3c8c4166ca18d28e26f276acd65b2e0b04ab94",
+      "uncompressed_sha256": "d25e578bf21b1f3abdd9a69136b927a41a23fc56418cf2cc8fd7197c4d89301c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_sources.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_sources.py",
+      "sha256": "6e5eed3da3e50f199e800c65291a3ff8643c52c05521a84df01fa1ff9acc6517",
+      "uncompressed_sha256": "96c6eff9b77f1eb6708fc8244df1fbdc7011b29f14cbf2dd19e708c6fb90dfd3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_unittest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_unittest.py",
+      "sha256": "fcb96aa069f86d502be52f93f49e6c44d19b7aa464502d044d36759ade48afe9",
+      "uncompressed_sha256": "a1c5135b49c2ea1f6b4e454d8a69ef479aa71050e8d1816c8a1280a9f0c64880"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evaluation_workspace.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_workspace.py",
+      "sha256": "adce5dc74170a2b014d19f01491a76e17f9a03aca366c6deee6dc9110c1d738c",
+      "uncompressed_sha256": "9cdb20737311d645f0beafe4a0114ea583d3c52443d28642a495d233180f2fff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_evidence.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evidence.py",
+      "sha256": "82ddd2dc37b003806804a885c5a0e81d4d172e8da895814bdb4850888f4386ce",
+      "uncompressed_sha256": "a7ea4aacdcef80b63036716f2228243ab44da40d1428df4db19f0a031eacc5b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_linux_full_reporting.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_linux_full_reporting.py",
+      "sha256": "0ac5a9d45b0d8b932fb7944c594e17c7da80a6b41f2f235d69d969d1b6a52a82",
+      "uncompressed_sha256": "77595e51148d73f915410b903324d1a16ded438f0f31af9bce5c59046cb46c79"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_rpc_linux_runner.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_rpc_linux_runner.py",
+      "sha256": "7c1de91b7358adfcd38515d0b935d3a1dfff4f456ad50af4681e91f8e6339046",
+      "uncompressed_sha256": "e317ccea31e2b1498462fa296c688ce56e6381301ce85f8a90fc345c4bb11d60"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_skill_approval_pty.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_skill_approval_pty.py",
+      "sha256": "ca6fc39cd8401b3d38b639a011f4d79e8300294e2b38453041ad892dea6f919a",
+      "uncompressed_sha256": "5bb49652fcb3c209f0a4d5a50d005900cc4a51ace024041682bd8fdd7a76d3de"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_transcript_performance.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_transcript_performance.py",
+      "sha256": "9601fc68cfef584223c8c2241e7ed3c1762ff3e061963fa96a9de9454f103d93",
+      "uncompressed_sha256": "3b3a179c766b4ca4e04c88493f730447afc944b12ca38a761fd3368cbe8a815d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_transcript_provenance.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_transcript_provenance.py",
+      "sha256": "a8b2b4121b002eed0a976caf518a875da3d298f8a452fb55beae69bdfcb58c66",
+      "uncompressed_sha256": "a539811cac4dd9d91325a0e73d4adacfe1781bda4bb54eccb583208bd9f02301"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_validate.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_validate.py",
+      "sha256": "ce08b9fa410ed21ffe99a4a98a92f71f3acde4171d15a937c3db628947e0eb61",
+      "uncompressed_sha256": "88d2383304219192a03d5dd87806f195755edb80e2af61d69113e0f6beb0b732"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__test_worker_dist.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_worker_dist.py",
+      "sha256": "1ef988c18c977470e4fe38a1bcd2e80adaacb34912f227a1b5a80bac36af00af",
+      "uncompressed_sha256": "a1980ed4154245e3462a3919e3518d47b6c5695350cb7e61600793fe1bb19c79"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__transcript_performance.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/transcript_performance.py",
+      "sha256": "6780d0bbe56cde52713d11d66c0c7bb4ae62584c3f27f73d901a27bb9fb97b01",
+      "uncompressed_sha256": "556aa293399a9bc21375970496c66f5c1ae4af98031ffaeebfb451b54b70a3b1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/scripts__validate.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/validate.py",
+      "sha256": "c0382b0562bee61f022367b671078e017215009b4ec2a62404d110032b74be6b",
+      "uncompressed_sha256": "d1ccb9f02b5cf892d8f3e95bb92dd763a6b6056d1afd9395d4efd8f97e7de9cc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/docs__acceptance__check.py.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/check.py",
+      "sha256": "4a171d612a7ff503c3329a0f52398a19f4464fd8013885f5bfec8169a9b57f1d",
+      "uncompressed_sha256": "44919233d5e0c8bee964780b886153e1c012bd0b9944c134ad27309358af37b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/python-tooling-refresh-20260909/docs__acceptance__test_check.py.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/test_check.py",
+      "sha256": "e870db844f6908c214a0ac6835d6390299819666fcfc5809ac817f4fa4cd4ea2",
+      "uncompressed_sha256": "1f88f5a8a6a3dc32e409a28e54a7e941f5bb5409200a0b0101e7df2368deedc9"
+    }
+  ]
+}

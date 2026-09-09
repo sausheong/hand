@@ -1,0 +1,576 @@
+diff --git a/SESSION_FORMAT.md b/SESSION_FORMAT.md
+new file mode 100644
+index 0000000..0319dcd
+--- /dev/null
++++ b/SESSION_FORMAT.md
+@@ -0,0 +1,51 @@
++# Session JSONL format, version 1
++
++New sessions begin with one `session_header` record. Its nonempty `id` is the
++session identity, `schemaVersion` is 1, and `timestamp` records creation time.
++The header has no parent. It is independent of agent/key names and survives
++renaming the file. Copying a file preserves identity; a product-level fork must
++assign a new identity explicitly rather than pretending the copy is a new session.
++
++```json
++{"id":"ses_example","type":"session_header","schemaVersion":1,"timestamp":1788796800,"data":null}
++{"id":"e_example","type":"message","role":"user","timestamp":1788796801,"data":{"text":"Hello"}}
++```
++
++The header must be the first nonblank record and cannot occur again. Unsupported
++header versions, a version field on a conversation record, and graph links to
++headers or selection controls are errors. No loader, recovery or migration path
++silently accepts an unsupported version. Entry IDs are unique within the log;
++parents precede children. Selection controls use `type: selection`, their target
++in `parentId`, and `data: {"version":1}`. They select a conversation node without
++becoming part of its history. Ordinary appends subsequently select the new node.
++
++`Session.Entries` contains graph entries and selection controls, excluding the
++format header. `History` and `View` exclude both kinds of control record. A raw
++file export must retain the header; serialising `Entries` alone is not a complete
++identity-preserving session export. Store.List exposes the stored session ID and
++excludes the header from EntryCount.
++
++Store.Create commits a complete synced header file without overwriting an
++existing key. First append to a new/empty file writes the header before the entry.
++Rewrite retains the same header. Use an exclusive session lease and Flush/Close
++according to their documented producer-joining contract. A failed append may
++leave an incomplete final record and must be treated as degraded persistence.
++
++Legacy headerless files remain readable without implicit modification. Their
++historical format has no persisted session ID, so ordinary Load still assigns
++an ephemeral ID. Use MigrateLegacy before exposing durable session identity:
++it adds the version-1 header, corrects supported old compaction duplicate IDs,
++and retains a synced complete-original backup before atomic replacement. The
++report distinguishes format upgrade from duplicate-ID remapping. Repeating the
++migration on a valid version-1 file preserves its exact bytes and ID.
++
++Recovery repairs only incomplete final JSON objects and retains its own backup.
++A future-version or structurally invalid complete record is never a recoverable
++tail. Truncated first-header recovery yields an empty log; without a complete
++header there was no recoverable durable identity. Unsupported versions require
++an explicit future migration implementation.
++
++Payload-specific schemas, application session catalogues, attachment/export
++policies and cross-platform release qualification remain separate work. Unknown
++JSON fields are retained by the legacy converter; generic typed rewrites do not
++promise lossless preservation of arbitrary unknown fields.
+diff --git a/session/format_test.go b/session/format_test.go
+new file mode 100644
+index 0000000..e3bfa02
+--- /dev/null
++++ b/session/format_test.go
+@@ -0,0 +1,154 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"os"
++	"strings"
++	"testing"
++)
++
++func TestPersistedSessionIdentity(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	first, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer first.Close()
++	id := first.ID
++	empty, err := store.Load("agent", "key")
++	if err != nil || empty.ID != id || len(empty.Entries()) != 0 || empty.LeafID() != "" {
++		t.Fatal("empty identity or graph changed", err)
++	}
++	first.Append(UserMessageEntry("message"))
++	store.Rewrite(first)
++	if err := first.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || loaded.ID != id || len(loaded.Entries()) != 1 || len(loaded.History()) != 1 {
++		t.Fatal("header identity/history lost", err)
++	}
++	first.Close()
++	if err := store.Rename("agent", "key", "renamed"); err != nil {
++		t.Fatal(err)
++	}
++	renamed, err := store.Load("agent", "renamed")
++	if err != nil || renamed.ID != id {
++		t.Fatal("rename changed session identity", err)
++	}
++	list, err := store.List("agent")
++	if err != nil || len(list) != 1 || list[0].ID != id || list[0].EntryCount != 1 {
++		t.Fatal("catalogue metadata counts header as message", list, err)
++	}
++}
++
++func TestFirstAppendPersistsIdentity(t *testing.T) {
++	store := NewStore(t.TempDir())
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	sess.Append(UserMessageEntry("first"))
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || loaded.ID != sess.ID {
++		t.Fatal("first append lost identity", err)
++	}
++	raw, err := os.ReadFile(store.sessionPath("agent", "key"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(raw))
++	if err != nil || len(entries) != 2 || entries[0].Type != EntryTypeHeader || entries[0].SchemaVersion != 1 {
++		t.Fatal("first append lacks format header", err)
++	}
++}
++
++func TestFormatHeadersRejectedWithoutRecoveryOrMigration(t *testing.T) {
++	for name, raw := range map[string]string{
++		"future":                `{"id":"s","type":"session_header","schemaVersion":2}`,
++		"missing version":       `{"id":"s","type":"session_header"}`,
++		"late":                  `{"id":"a"}` + "\n" + `{"id":"s","type":"session_header","schemaVersion":1}`,
++		"second header":         `{"id":"s","type":"session_header","schemaVersion":1}` + "\n" + `{"id":"s2","type":"session_header","schemaVersion":1}`,
++		"header parent":         `{"id":"s","type":"session_header","schemaVersion":1,"parentId":"a"}`,
++		"message parent header": `{"id":"s","type":"session_header","schemaVersion":1}` + "\n" + `{"id":"a","parentId":"s"}`,
++		"version on message":    `{"id":"a","type":"message","schemaVersion":2}`,
++	} {
++		t.Run(name, func(t *testing.T) {
++			store, path := recoveryFixture(t, raw)
++			if _, err := store.Load("agent", "key"); err == nil {
++				t.Fatal("invalid schema loaded")
++			}
++			if _, _, err := store.LoadRecovering(context.Background(), "agent", "key"); err == nil {
++				t.Fatal("invalid schema repaired")
++			}
++			if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); err == nil {
++				t.Fatal("invalid schema migrated")
++			}
++			after, _ := os.ReadFile(path)
++			if string(after) != raw {
++				t.Fatal("invalid schema modified")
++			}
++		})
++	}
++}
++
++func TestLegacyFormatUpgradeBackedUpAndStable(t *testing.T) {
++	for _, raw := range []string{"", `{"id":"old","type":"message","timestamp":123,"future":true}` + "\n"} {
++		store, path := recoveryFixture(t, raw)
++		sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++		if err != nil {
++			t.Fatal(err)
++		}
++		id := sess.ID
++		sess.Close()
++		if !report.Migrated || !report.FormatUpgraded || report.RemappedIDs != 0 || report.BackupPath == "" {
++			t.Fatal("legacy format upgrade unreported", report)
++		}
++		backup, _ := os.ReadFile(report.BackupPath)
++		if string(backup) != raw {
++			t.Fatal("format upgrade lost original")
++		}
++		before, _ := os.ReadFile(path)
++		again, second, err := store.MigrateLegacy(context.Background(), "agent", "key")
++		if err != nil {
++			t.Fatal(err)
++		}
++		again.Close()
++		after, _ := os.ReadFile(path)
++		if again.ID != id || second.Migrated || second.FormatUpgraded || !bytes.Equal(before, after) {
++			t.Fatal("format migration not idempotent", second)
++		}
++		if raw != "" && !strings.Contains(string(after), `"future":true`) {
++			t.Fatal("format upgrade dropped unknown field")
++		}
++	}
++}
++
++func TestCreateDoesNotOverwriteExistingSession(t *testing.T) {
++	store, path := recoveryFixture(t, `{"id":"existing"}`)
++	if err := store.Create("agent", "key"); err == nil {
++		t.Fatal("create overwrote existing session")
++	}
++	raw, _ := os.ReadFile(path)
++	if string(raw) != `{"id":"existing"}` {
++		t.Fatal("existing bytes changed")
++	}
++}
++
++func TestAppendCannotReuseHeaderIdentity(t *testing.T) {
++	sess := NewSession("agent", "key")
++	entry := UserMessageEntry("invalid")
++	entry.ID = sess.ID
++	sess.Append(entry)
++	if sess.PersistenceError() == nil || len(sess.Entries()) != 0 {
++		t.Fatal("header ID reused as graph node")
++	}
++}
+diff --git a/session/graph.go b/session/graph.go
+index 2c6c7a6..81a4c26 100644
+--- a/session/graph.go
++++ b/session/graph.go
+@@ -9,6 +9,16 @@ import (
+ // validateGraphNode requires parents to precede children in the append log.
+ // This rejects missing links, duplicate IDs and cycles before graph traversal.
+ func validateGraphNode(entry SessionEntry, lookup func(string) (EntryType, bool)) error {
++	if entry.Type == EntryTypeHeader {
++		if entry.SchemaVersion != 1 {
++			return fmt.Errorf("unsupported session schema version %d", entry.SchemaVersion)
++		}
++		if entry.ParentID != "" {
++			return errors.New("session header cannot have a parent")
++		}
++	} else if entry.SchemaVersion != 0 {
++		return errors.New("schema version belongs only on the session header")
++	}
+ 	if entry.ID == "" {
+ 		return errors.New("session entry ID is empty")
+ 	}
+@@ -17,7 +27,7 @@ func validateGraphNode(entry SessionEntry, lookup func(string) (EntryType, bool)
+ 	}
+ 	if entry.ParentID != "" {
+ 		parent, exists := lookup(entry.ParentID)
+-		if !exists || parent == EntryTypeSelection {
++		if !exists || parent == EntryTypeSelection || parent == EntryTypeHeader {
+ 			return errors.New("session parent is missing or is a selection control record")
+ 		}
+ 	}
+@@ -61,6 +71,9 @@ func (s *Session) CommitCompaction(expectedLeaf string, summary SessionEntry, pr
+ 	}
+ 	summary.ID = generateID("compact")
+ 	if err := validateGraphNode(summary, func(id string) (EntryType, bool) {
++		if id == s.header.ID {
++			return EntryTypeHeader, true
++		}
+ 		node, ok := s.entryMap[id]
+ 		if !ok {
+ 			return "", false
+@@ -71,7 +84,7 @@ func (s *Session) CommitCompaction(expectedLeaf string, summary SessionEntry, pr
+ 		return err
+ 	}
+ 	for _, node := range preserved {
+-		if node.Type == EntryTypeSelection {
++		if node.Type == EntryTypeSelection || node.Type == EntryTypeHeader {
+ 			s.mu.Unlock()
+ 			return errors.New("selection record cannot be preserved as a message")
+ 		}
+diff --git a/session/legacy.go b/session/legacy.go
+index d867ad4..14f36df 100644
+--- a/session/legacy.go
++++ b/session/legacy.go
+@@ -93,6 +93,9 @@ func ConvertLegacySession(reader io.Reader) ([]byte, LegacyConversion, error) {
+ 	previousConverted := ""
+ 	for index, rec := range records {
+ 		entry := rec.entry
++		if entry.Type == EntryTypeHeader && index != 0 {
++			return nil, report, errors.New("session header must be the first record")
++		}
+ 		oldID := entry.ID
+ 		if entry.ParentID != "" {
+ 			mapped, ok := latest[entry.ParentID]
+diff --git a/session/migration.go b/session/migration.go
+index 7bcea22..dfbedef 100644
+--- a/session/migration.go
++++ b/session/migration.go
+@@ -3,6 +3,7 @@ package session
+ import (
+ 	"bytes"
+ 	"context"
++	"encoding/json"
+ 	"errors"
+ 	"io"
+ 	"os"
+@@ -11,13 +12,14 @@ import (
+ 
+ type MigrationReport struct {
+ 	LegacyConversion
+-	BackupPath string
+-	Migrated   bool // replacement occurred; a later sync error still requires reconciliation
++	FormatUpgraded bool
++	BackupPath     string
++	Migrated       bool // replacement occurred; a later sync error still requires reconciliation
+ }
+ 
+ // MigrateLegacy converts historical duplicate-ID compaction logs in place,
+ // holding the lifetime writer lease. It preserves a private, synced original
+-// backup before atomic replacement. Valid unique-ID logs remain byte-identical.
++// backup before atomic replacement. Legacy logs receive a versioned identity header. Already-versioned valid logs remain byte-identical.
+ // The returned session owns the lease until Close. This is a log-format
+ // migration primitive, not a workspace/session catalogue importer.
+ func (s *Store) MigrateLegacy(ctx context.Context, agentID, key string) (*Session, MigrationReport, error) {
+@@ -67,7 +69,28 @@ func (s *Store) migrateLegacy(ctx context.Context, agentID, key string, syncDire
+ 	if err := ctx.Err(); err != nil {
+ 		return nil, report, err
+ 	}
+-	if conversion.RemappedIDs > 0 {
++	entries, err := decodeSessionRecords(bytes.NewReader(converted))
++	if err != nil {
++		return nil, report, err
++	}
++	if len(entries) == 0 || entries[0].Type != EntryTypeHeader {
++		header := NewSession(agentID, key).header
++		if len(entries) > 0 && entries[0].Timestamp > 0 {
++			header.Timestamp = entries[0].Timestamp
++		} else {
++			header.Timestamp = info.ModTime().Unix()
++		}
++		encoded, err := json.Marshal(header)
++		if err != nil {
++			return nil, report, err
++		}
++		converted = append(append(encoded, '\n'), converted...)
++		if _, err := decodeSessionRecords(bytes.NewReader(converted)); err != nil {
++			return nil, report, err
++		}
++		report.FormatUpgraded = true
++	}
++	if conversion.RemappedIDs > 0 || report.FormatUpgraded {
+ 		dir := filepath.Dir(path)
+ 		backup, err := writeMigrationFile(ctx, dir, "."+key+".migration-backup-*", raw)
+ 		if err != nil {
+diff --git a/session/migration_process_test.go b/session/migration_process_test.go
+index 4a94c94..4178177 100644
+--- a/session/migration_process_test.go
++++ b/session/migration_process_test.go
+@@ -2,6 +2,7 @@ package session
+ 
+ import (
+ 	"bufio"
++	"bytes"
+ 	"context"
+ 	"errors"
+ 	"fmt"
+@@ -90,6 +91,13 @@ func TestMigrationSurvivesProcessDeath(t *testing.T) {
+ 			if stage == 2 {
+ 				expected = prefix
+ 			}
++			if stage == 2 {
++				entries, decodeErr := decodeSessionRecords(bytes.NewReader(raw))
++				if decodeErr != nil || len(entries) != 7 || entries[0].Type != EntryTypeHeader {
++					t.Fatal("missing durable format header", decodeErr)
++				}
++				raw = raw[bytes.IndexByte(raw, '\n')+1:]
++			}
+ 			if err != nil || string(raw) != expected {
+ 				t.Fatal("process death left partial replacement", err)
+ 			}
+diff --git a/session/records.go b/session/records.go
+index 5ffc763..10a3a8a 100644
+--- a/session/records.go
++++ b/session/records.go
+@@ -64,6 +64,9 @@ func decodeSessionRecords(reader io.Reader) ([]SessionEntry, error) {
+ 			if err != nil {
+ 				return nil, err
+ 			}
++			if entry.Type == EntryTypeHeader && len(entries) != 0 {
++				return nil, &RecordError{Line: number, Offset: offset, Cause: errors.New("session header must be the first record")}
++			}
+ 			if err := validateGraphNode(entry, lookup); err != nil {
+ 				return nil, &RecordError{Line: number, Offset: offset, Cause: err}
+ 			}
+diff --git a/session/session.go b/session/session.go
+index d9a801d..b6830d0 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -15,6 +15,7 @@ type EntryType string
+ 
+ const (
+ 	EntryTypeMessage    EntryType = "message"
++	EntryTypeHeader     EntryType = "session_header"
+ 	EntryTypeToolCall   EntryType = "tool_call"
+ 	EntryTypeToolResult EntryType = "tool_result"
+ 	EntryTypeMeta       EntryType = "meta"
+@@ -24,12 +25,13 @@ const (
+ 
+ // SessionEntry is a single node in the session DAG.
+ type SessionEntry struct {
+-	ID        string          `json:"id"`
+-	ParentID  string          `json:"parentId,omitempty"`
+-	Type      EntryType       `json:"type"`
+-	Role      string          `json:"role,omitempty"` // user, assistant, system
+-	Timestamp int64           `json:"timestamp"`
+-	Data      json.RawMessage `json:"data"`
++	SchemaVersion int             `json:"schemaVersion,omitempty"`
++	ID            string          `json:"id"`
++	ParentID      string          `json:"parentId,omitempty"`
++	Type          EntryType       `json:"type"`
++	Role          string          `json:"role,omitempty"` // user, assistant, system
++	Timestamp     int64           `json:"timestamp"`
++	Data          json.RawMessage `json:"data"`
+ }
+ 
+ // ImageData holds a base64-encoded image for session persistence.
+@@ -97,7 +99,8 @@ type Session struct {
+ 	mu       sync.RWMutex // guards entries / entryMap / leafID
+ 	entries  []SessionEntry
+ 	entryMap map[string]*SessionEntry
+-	leafID   string // current leaf for history traversal
++	header   SessionEntry // immutable after construction/load
++	leafID   string       // current leaf for history traversal
+ 	store    *Store
+ 
+ 	// writeMu serializes store writes and preserves their order. Acquired in
+@@ -109,12 +112,8 @@ type Session struct {
+ 
+ // NewSession creates a new empty session.
+ func NewSession(agentID, key string) *Session {
+-	return &Session{
+-		ID:       generateID("ses"),
+-		AgentID:  agentID,
+-		Key:      key,
+-		entryMap: make(map[string]*SessionEntry),
+-	}
++	id := generateID("ses")
++	return &Session{ID: id, AgentID: agentID, Key: key, entryMap: make(map[string]*SessionEntry), header: SessionEntry{ID: id, Type: EntryTypeHeader, SchemaVersion: 1, Timestamp: time.Now().Unix()}}
+ }
+ 
+ // Append adds an entry to the session.
+@@ -131,6 +130,9 @@ func (s *Session) Append(entry SessionEntry) {
+ 	}
+ 
+ 	if err := validateGraphNode(entry, func(id string) (EntryType, bool) {
++		if id == s.header.ID {
++			return EntryTypeHeader, true
++		}
+ 		node, ok := s.entryMap[id]
+ 		if !ok {
+ 			return "", false
+@@ -143,8 +145,8 @@ func (s *Session) Append(entry SessionEntry) {
+ 	}
+ 	// Selection control records must use Branch so their durability and leaf
+ 	// semantics cannot be bypassed through the generic append API.
+-	if entry.Type == EntryTypeSelection {
+-		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("selection records require Branch")})
++	if entry.Type == EntryTypeSelection || entry.Type == EntryTypeHeader {
++		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("control records require their dedicated API")})
+ 		s.mu.Unlock()
+ 		return
+ 	}
+@@ -260,7 +262,7 @@ func (s *Session) Branch(entryID string) error {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
+ 	target, ok := s.entryMap[entryID]
+-	if !ok || target.Type == EntryTypeSelection {
++	if !ok || target.Type == EntryTypeSelection || target.Type == EntryTypeHeader {
+ 		return fmt.Errorf("entry %q is not a conversation node", entryID)
+ 	}
+ 	if err := s.PersistenceError(); err != nil {
+diff --git a/session/store.go b/session/store.go
+index a3f90ff..7472de0 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -2,6 +2,7 @@ package session
+ 
+ import (
+ 	"bufio"
++	"bytes"
+ 	"context"
+ 	"encoding/json"
+ 	"fmt"
+@@ -18,6 +19,7 @@ import (
+ 
+ // SessionInfo describes a session without loading its full contents.
+ type SessionInfo struct {
++	ID           string    `json:"id,omitempty"`
+ 	Key          string    `json:"key"`
+ 	CreatedAt    time.Time `json:"createdAt"`
+ 	LastActivity time.Time `json:"lastActivity"`
+@@ -104,6 +106,11 @@ func (s *Store) loadContext(ctx context.Context, agentID, key string) (*Session,
+ 		return nil, err
+ 	}
+ 	for _, entry := range entries {
++		if entry.Type == EntryTypeHeader {
++			sess.ID = entry.ID
++			sess.header = entry
++			continue
++		}
+ 		sess.entries = append(sess.entries, entry)
+ 		sess.entryMap[entry.ID] = &sess.entries[len(sess.entries)-1]
+ 		if entry.Type == EntryTypeSelection {
+@@ -167,6 +174,14 @@ func (s *Store) AppendEntry(sess *Session, entry SessionEntry) {
+ 		s.recordPersistenceFailure(sess, "stat before append", err)
+ 		return
+ 	}
++	if info.Size() == 0 {
++		header, err := json.Marshal(sess.header)
++		if err != nil {
++			s.recordPersistenceFailure(sess, "marshal header", err)
++			return
++		}
++		data = append(append(header, '\n'), data...)
++	}
+ 	if info.Size() > 0 {
+ 		var last [1]byte
+ 		if _, err := f.ReadAt(last[:], info.Size()-1); err != nil {
+@@ -206,11 +221,21 @@ func (s *Store) Create(agentID, key string) error {
+ 	}
+ 
+ 	path := s.sessionPath(agentID, key)
+-	f, err := os.OpenFile(path, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0o600)
++	var encoded bytes.Buffer
++	if err := json.NewEncoder(&encoded).Encode(NewSession(agentID, key).header); err != nil {
++		return err
++	}
++	temporary, err := writeMigrationFile(context.Background(), dir, "."+key+".create-*", encoded.Bytes())
+ 	if err != nil {
++		return err
++	}
++	defer os.Remove(temporary)
++	// Link commits a complete synced file without overwriting an existing key.
++	if err := os.Link(temporary, path); err != nil {
+ 		return fmt.Errorf("create session file: %w", err)
+ 	}
+-	return f.Close()
++	return syncRecoveryDirectory(dir)
++
+ }
+ 
+ // List returns metadata for all sessions belonging to the given agent.
+@@ -255,13 +280,21 @@ func (s *Store) List(agentID string) ([]SessionInfo, error) {
+ 			}
+ 			lineCount++
+ 			var partial struct {
+-				Timestamp int64 `json:"timestamp"`
++				Timestamp int64     `json:"timestamp"`
++				Type      EntryType `json:"type"`
++				ID        string    `json:"id"`
+ 			}
+-			if json.Unmarshal(line, &partial) == nil && partial.Timestamp > 0 {
+-				if firstTS == 0 {
+-					firstTS = partial.Timestamp
++			if json.Unmarshal(line, &partial) == nil {
++				if partial.Type == EntryTypeHeader {
++					lineCount--
++					info.ID = partial.ID
++				}
++				if partial.Timestamp > 0 {
++					if firstTS == 0 {
++						firstTS = partial.Timestamp
++					}
++					lastTS = partial.Timestamp
+ 				}
+-				lastTS = partial.Timestamp
+ 			}
+ 		}
+ 		f.Close()
+@@ -399,6 +432,10 @@ func (s *Store) rewriteEntries(sess *Session, entries []SessionEntry) {
+ 	defer f.Close()
+ 	w := bufio.NewWriter(f)
+ 	encoder := json.NewEncoder(w)
++	if err := encoder.Encode(sess.header); err != nil {
++		fail("encode session header", err)
++		return
++	}
+ 	for _, entry := range entries {
+ 		if err := encoder.Encode(entry); err != nil {
+ 			fail("encode rewrite entry", err)

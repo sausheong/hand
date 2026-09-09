@@ -1,0 +1,777 @@
+// Command hand is an interactive terminal coding agent built on
+// harness. Run it from the directory you want it to work in.
+package main
+
+import (
+	"bufio"
+	"context"
+	"encoding/json"
+	"errors"
+	"flag"
+	"fmt"
+	"io"
+	"log/slog"
+	"os"
+	"os/signal"
+	"path/filepath"
+	"strings"
+	"syscall"
+	"time"
+
+	tea "github.com/charmbracelet/bubbletea"
+
+	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/app"
+	"github.com/sausheong/hand/internal/checkpoints"
+	"github.com/sausheong/hand/internal/config"
+	"github.com/sausheong/hand/internal/isolation"
+	"github.com/sausheong/hand/internal/packages"
+	"github.com/sausheong/hand/internal/permissions"
+	"github.com/sausheong/hand/internal/sessionio"
+	"github.com/sausheong/hand/internal/tui"
+	"github.com/sausheong/hand/protocol"
+	"github.com/sausheong/harness/llm"
+	"github.com/sausheong/harness/process"
+	"github.com/sausheong/harness/runtime"
+	"github.com/sausheong/harness/tools/mcp"
+)
+
+func runOneShot(ctx context.Context, rt *runtime.Runtime, prompt string, hooks []config.HookConfig, workspace string, stopReason *string, maxIterations int, profiles ...config.ModelProfile) error {
+	return runOneShotOutcome(ctx, rt, prompt, hooks, workspace, stopReason, maxIterations, profiles...).Err()
+}
+
+type jsonOutputKey struct{}
+type checkpointContextKey struct{}
+
+func runOneShotOutcome(ctx context.Context, rt *runtime.Runtime, prompt string, hooks []config.HookConfig, workspace string, stopReason *string, maxIterations int, profiles ...config.ModelProfile) agentio.RunOutcome {
+	service := app.NewHarnessWithAttachments(rt, stopReason, hooks, workspace, maxIterations, agentio.AttachmentPolicyFromContext(ctx), profiles...)
+	if boundary, ok := ctx.Value(checkpointContextKey{}).(*app.WorkspaceCheckpoints); ok {
+		if err := service.ConfigureCheckpoints(boundary); err != nil {
+			return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "checkpoint_configuration_failed", Cause: err}
+		}
+	}
+	if len(profiles) > 0 {
+		if err := service.ConfigureInputs(profiles[0].InputTypes); err != nil {
+			return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "profile_configuration_failed", Cause: err}
+		}
+	}
+	input, err := agentio.ParsePromptInput(ctx, workspace, prompt)
+	if err != nil {
+		if ctx.Err() != nil {
+			return agentio.RunOutcome{Status: agentio.Cancelled, Reason: "context_cancelled", Cause: ctx.Err()}
+		}
+		return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "attachment_input_failed", Cause: err}
+	}
+	stream, err := service.Start(ctx, input.Prompt, input.Images)
+	if err != nil {
+		return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "operation_rejected", Cause: err}
+	}
+	var writer *protocol.Writer
+	wire := app.NewWireEvents("oneshot")
+	if out, ok := ctx.Value(jsonOutputKey{}).(io.Writer); ok {
+		writer = protocol.NewWriter(out)
+	}
+	publish := func(event app.Event) error {
+		encoded, err := wire.Encode(event)
+		if err != nil {
+			return err
+		}
+		return writer.Write(encoded)
+	}
+	for event := range stream.Events {
+		if writer != nil {
+			if err := publish(event); err != nil {
+				stream.Close()
+				stream.Wait()
+				return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "event_output_failed", Cause: err}
+			}
+			continue
+		}
+
+		switch event.Kind {
+		case "text":
+			fmt.Print(event.Text)
+		case "turn_end":
+			fmt.Println()
+		case "continuation":
+			fmt.Fprintf(os.Stderr, "hand: goal not met, continuing (%d/%d)...\n", event.Iteration, maxIterations)
+		}
+	}
+	result, err := stream.Wait()
+	if err != nil {
+		return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "operation_rejected", Cause: err}
+	}
+	if writer != nil {
+		if err := publish(stream.FinalEvent()); err != nil {
+			return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "event_output_failed", Cause: err}
+		}
+	}
+	return result
+}
+
+func buildProvider(providerName, baseURL string) (llm.LLMProvider, error) {
+	return buildProfileProvider(config.ModelProfile{Provider: providerName, Endpoint: baseURL, CredentialEnv: config.DefaultCredentialEnv(providerName)})
+}
+
+func buildProfileProvider(profile config.ModelProfile) (llm.LLMProvider, error) {
+	return app.BuildProfileProvider(context.Background(), profile)
+}
+
+// loadTrustedPermissions loads workspace's .hand/settings.json and
+// returns a permissions.Store backed by it — but if that file grants any
+// always_allow entries and this workspace hasn't previously been marked
+// trusted (~/.hand/trust.json), it first asks the user for confirmation,
+// reading the answer from stdin (os.Stdin in production; a fake reader
+// in tests — see loadTrustedPermissions_test.go).
+//
+// This exists because .hand/settings.json lives inside the workspace
+// itself: a cloned or downloaded repo can ship one with
+// {"always_allow":["bash"]} committed, which would otherwise silently
+// disable hand's approval gate — including for a bash call whose
+// arguments were steered by a prompt injection in that same repo's
+// files — the very first time hand runs there, with no human checkpoint
+// at all. Declining doesn't touch the file; its entries are just not
+// honored for this run, and the user is asked again next time.
+func loadTrustedPermissions(workspace string, stdin io.Reader) (*permissions.Store, error) {
+	return loadPermissionsForInterface(workspace, stdin, true)
+}
+
+func loadPermissionsForInterface(workspace string, stdin io.Reader, interactive bool) (*permissions.Store, error) {
+	settingsPath := permissions.DefaultPath(workspace)
+	settings, err := permissions.Load(settingsPath)
+	if err != nil {
+		return nil, err
+	}
+	if len(settings.AlwaysAllow) == 0 {
+		return permissions.NewStoreFromSettings(settingsPath, settings), nil
+	}
+
+	trustPath, err := permissions.TrustPath()
+	if err != nil {
+		return nil, fmt.Errorf("resolve trust store path: %w", err)
+	}
+	trust, err := permissions.LoadTrust(trustPath)
+	if err != nil {
+		return nil, fmt.Errorf("load trust store: %w", err)
+	}
+	if trust.IsTrusted(workspace) {
+		return permissions.NewStoreFromSettings(settingsPath, settings), nil
+	}
+
+	if !interactive {
+		fmt.Fprintln(os.Stderr, "hand: workspace grants are untrusted; JSONL mode will require explicit tool authorisation")
+		return permissions.NewEmptyStore(settingsPath), nil
+	}
+	trusted, err := promptWorkspaceTrust(stdin, settingsPath, settings.AlwaysAllow)
+	if err != nil {
+		return nil, fmt.Errorf("trust prompt: %w", err)
+	}
+	if !trusted {
+		fmt.Fprintln(os.Stderr, "hand: not trusting this workspace's always-allow settings for this run; approval prompts will apply as normal")
+		return permissions.NewEmptyStore(settingsPath), nil
+	}
+	if err := permissions.MarkTrusted(trustPath, workspace); err != nil {
+		return nil, fmt.Errorf("save trust decision: %w", err)
+	}
+	return permissions.NewStoreFromSettings(settingsPath, settings), nil
+}
+
+// promptWorkspaceTrust asks the user, on stderr/stdin, whether to honor
+// settingsPath's always-allow entries. Runs before the TUI (or one-shot
+// output) exists, so a plain synchronous read works for both modes.
+// stdin is a parameter (not a direct os.Stdin reference) so tests can
+// supply a strings.Reader instead of needing a real terminal — see
+// loadTrustedPermissions_test.go. Any read failure — including stdin
+// not being interactive, or a fake reader at EOF — fails closed (not
+// trusted), same as an explicit "no" answer.
+func promptWorkspaceTrust(stdin io.Reader, settingsPath string, tools []string) (bool, error) {
+	fmt.Fprintf(os.Stderr, "hand: %s grants always-allow (no approval prompt) for: %s\n", settingsPath, strings.Join(tools, ", "))
+	fmt.Fprint(os.Stderr, "hand: trust this workspace and skip approval prompts for those tools? [y/N] ")
+
+	line, err := bufio.NewReader(stdin).ReadString('\n')
+	if err != nil && line == "" {
+		return false, nil
+	}
+	answer := strings.ToLower(strings.TrimSpace(line))
+	return answer == "y" || answer == "yes", nil
+}
+
+func run() (runErr error) {
+	configurationReady := false
+	defer func() {
+		if runErr != nil && !configurationReady {
+			runErr = &invocationError{runErr}
+		}
+	}()
+
+	if len(os.Args) > 1 && os.Args[1] == "packages" {
+		ctx, cancel := oneShotSignalContext()
+		defer cancel()
+		return runPackages(ctx, os.Args[2:], os.Stdout, strings.Fields(versionString())[0])
+	}
+
+	var attachmentPaths []string
+	flag.Func("allow-attachment", "allow one exact file for explicit @ attachment in this invocation; repeatable", func(path string) error { attachmentPaths = append(attachmentPaths, path); return nil })
+	versionFlag := flag.Bool("version", false, "print version and source commit, then exit")
+	permissionsFlag := flag.Bool("permissions", false, "inspect scoped grants and legacy migration without running a model")
+	acknowledgeFlag := flag.String("ack-legacy-permissions", "", "acknowledge the reviewed legacy fingerprint; requires --permissions")
+	revokeFlag := flag.String("revoke-permission", "", "revoke a scoped grant ID; requires --permissions")
+
+	profileFlag := flag.String("profile", "", "named provider/model profile from config")
+	contextLimitFlag := flag.Int("context-limit", 0, "explicit active context limit in tokens for this invocation")
+	reasoningFlag := flag.String("reasoning", "", "reasoning level: off, low, medium or high; requires declared profile support")
+	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
+	baseURLFlag := flag.String("base-url", "", "custom API base URL (overrides ~/.hand/config.json for this run; required for litellm, optional for openai/openrouter/local, not supported for gemini)")
+	maxTurnsFlag := flag.Int("max-turns", 0, "cap the agent's tool-use loop for this run (overrides ~/.hand/config.json for this run; 0 means use the config/default)")
+	fallbackModelFlag := flag.String("fallback-model", "", "provider/model to retry against on a transient provider error, same provider as --model (overrides ~/.hand/config.json for this run)")
+	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
+	compactionThresholdFlag := flag.Float64("compaction-threshold", 0, fmt.Sprintf("fraction (0-1] of the context window that triggers preventive compaction (overrides ~/.hand/config.json for this run; 0 means use the config/default of %g)", config.DefaultCompactionThreshold))
+	maxIterationsFlag := flag.Int("max-iterations", 0, fmt.Sprintf("cap how many turns a Stop-hook-driven goal loop may chain automatically (overrides ~/.hand/config.json for this run; 0 means use the config/default of %d)", config.DefaultMaxGoalIterations))
+	newSessionFlag := flag.Bool("new-session", false, "create a new session while preserving existing history")
+	exportFlag := flag.String("export-session", "", "export --session ID to a new JSONL path without starting a model; keep sibling .attachments with the export")
+	sessionFlag := flag.String("session", "", "resume a saved session by its stable ID")
+	extensionReview := flag.String("review-extensions", "", "fingerprint explicit extension launch input without executing it")
+	extensionReviewOutput := flag.String("extension-review-output", "", "new file for reviewed extension configuration")
+	packagePromptFile := flag.String("package-prompt", "", "explicit JSON selection of a pinned installed prompt (with -p)")
+	packageSkillsFile := flag.String("package-skills", "", "explicit JSON selection of digest-pinned installed skills")
+	extensionFile := flag.String("extension-config", "", "explicit reviewed host-extension JSON (interactive/RPC)")
+	extensionApproval := flag.String("approve-extension-config", "", "approve unrestricted host execution for the exact extension-config SHA-256")
+	summarizerFile := flag.String("summarizer-config", "", "reviewed summariser startup JSON (interactive/RPC)")
+	verificationFile := flag.String("verification-config", "", "explicit named verification profiles JSON (requires checkpoints; interactive/RPC)")
+	checkpointDir := flag.String("checkpoint-dir", "", "capture run file checkpoints in a private directory outside workspace")
+	var checkpointOptions checkpoints.Options
+	flag.Func("checkpoint-exclude", "exclude an exact workspace-relative path/subtree (repeatable)", func(value string) error {
+		checkpointOptions.Exclude = append(checkpointOptions.Exclude, value)
+		return nil
+	})
+	flag.IntVar(&checkpointOptions.MaxEntries, "checkpoint-max-entries", 0, "maximum visited checkpoint entries (0 uses default)")
+	flag.Int64Var(&checkpointOptions.MaxFileBytes, "checkpoint-max-file-bytes", 0, "maximum bytes per captured file (0 uses default)")
+	flag.Int64Var(&checkpointOptions.MaxTotalBytes, "checkpoint-max-total-bytes", 0, "maximum captured bytes per snapshot (0 uses default)")
+	flag.IntVar(&checkpointOptions.MaxSnapshots, "checkpoint-max-snapshots", 0, "maximum stored snapshots (0 uses default)")
+	flag.Int64Var(&checkpointOptions.MaxStoreBytes, "checkpoint-max-store-bytes", 0, "maximum encoded store bytes (0 uses default)")
+	rpcFlag := flag.Bool("rpc", false, "serve versioned JSONL RPC on stdin/stdout")
+	jsonlFlag := flag.Bool("jsonl", false, "emit versioned JSONL events with -p")
+	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
+	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
+	flag.Parse()
+	if *newSessionFlag && *sessionFlag != "" {
+		return fmt.Errorf("--session and --new-session are mutually exclusive")
+	}
+	if *versionFlag {
+		fmt.Println(versionString())
+		return nil
+	}
+
+	if *extensionReview != "" || *extensionReviewOutput != "" {
+		if *extensionReview == "" || *extensionReviewOutput == "" || *rpcFlag || *printFlag != "" || *extensionFile != "" || *extensionApproval != "" {
+			return fmt.Errorf("extension review requires input and new output paths without execution flags")
+		}
+		digest, e := app.WriteExtensionReview(context.Background(), *extensionReview, *extensionReviewOutput)
+		if e != nil {
+			return e
+		}
+		fmt.Fprintln(os.Stdout, digest)
+		fmt.Fprintln(os.Stderr, "Review created without execution. Inspect the file and its unrestricted host boundary before supplying --approve-extension-config.")
+		return nil
+	}
+
+	checkpointLimits, checkpointStoreLimits, checkpointErr := checkpointOptions.Resolve()
+	if checkpointErr != nil {
+		return checkpointErr
+	}
+	var packagePrompt *packages.TextResource
+	if *packagePromptFile != "" {
+		if *printFlag == "" || *rpcFlag {
+			return errors.New("--package-prompt currently requires -p")
+		}
+		selected, e := readInstalledPackagePrompt(context.Background(), *packagePromptFile, strings.Fields(versionString())[0])
+		if e != nil {
+			return e
+		}
+		packagePrompt = &selected
+	}
+	var packageSkillsConfig *packageSkillStartup
+	if *packageSkillsFile != "" {
+		selected, e := readPackageSkillStartup(*packageSkillsFile)
+		if e != nil {
+			return e
+		}
+		packageSkillsConfig = &selected
+	}
+	var extensionConfig *app.ExtensionStartup
+	if *extensionFile != "" || *extensionApproval != "" {
+		if *printFlag != "" || *extensionFile == "" {
+			return fmt.Errorf("extension startup requires interactive or RPC mode and --extension-config")
+		}
+		selected, e := app.ReadExtensionStartup(*extensionFile, *extensionApproval)
+		if e != nil {
+			return e
+		}
+		extensionConfig = &selected
+	}
+	var summarizerConfig *app.SummarizerStartup
+	if *summarizerFile != "" {
+		if *printFlag != "" {
+			return fmt.Errorf("--summarizer-config requires interactive or RPC mode")
+		}
+		selected, e := app.ReadSummarizerStartup(*summarizerFile)
+		if e != nil {
+			return e
+		}
+		summarizerConfig = &selected
+	}
+	var verificationConfig *config.VerificationConfig
+	if *verificationFile != "" {
+		if *checkpointDir == "" || *printFlag != "" {
+			return fmt.Errorf("--verification-config requires --checkpoint-dir and interactive or RPC mode")
+		}
+		selected, e := config.ReadVerification(*verificationFile)
+		if e != nil {
+			return e
+		}
+		verificationConfig = &selected
+	}
+	if flag.NArg() != 0 {
+		return fmt.Errorf("unexpected positional arguments: use -p for a prompt")
+	}
+	if *contextLimitFlag < 0 {
+		return fmt.Errorf("context limit cannot be negative")
+	}
+	if *maxTurnsFlag < 0 || *maxIterationsFlag < 0 {
+		return fmt.Errorf("turn and iteration limits cannot be negative")
+	}
+	attachmentCtx, stopAttachments := oneShotSignalContext()
+	policy, err := agentio.NewAttachmentPolicy(attachmentCtx, attachmentPaths)
+	stopAttachments()
+	if err != nil {
+		return err
+	}
+	oneShot := *printFlag != ""
+	if *rpcFlag && (oneShot || *jsonlFlag) {
+		return fmt.Errorf("--rpc cannot be combined with -p or --jsonl")
+	}
+	if *jsonlFlag && !oneShot {
+		return fmt.Errorf("--jsonl requires -p")
+	}
+	if *yesFlag && !oneShot {
+		return fmt.Errorf("--yes only applies together with -p")
+	}
+
+	if (*acknowledgeFlag != "" || *revokeFlag != "") && !*permissionsFlag {
+		return fmt.Errorf("permission changes require --permissions")
+	}
+	if *permissionsFlag && (oneShot || *rpcFlag || *jsonlFlag || *exportFlag != "") {
+		return fmt.Errorf("--permissions cannot be combined with execution or export")
+	}
+
+	if *exportFlag != "" {
+		if *sessionFlag == "" {
+			return fmt.Errorf("--export-session requires --session ID")
+		}
+		var incompatible string
+		flag.Visit(func(f *flag.Flag) {
+			if f.Name != "export-session" && f.Name != "session" {
+				incompatible = f.Name
+			}
+		})
+		if incompatible != "" {
+			return fmt.Errorf("--export-session cannot be combined with --%s", incompatible)
+		}
+		configurationReady = true
+		ctx, cancel := oneShotSignalContext()
+		defer cancel()
+		workspace, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		storeDir, err := sessionio.StoreDir()
+		if err != nil {
+			return err
+		}
+		manager, err := sessionio.NewManager(storeDir, workspace, "hand")
+		if err != nil {
+			return err
+		}
+		return manager.ExportID(ctx, *sessionFlag, *exportFlag)
+	}
+
+	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelWarn})))
+
+	cfgPath, err := config.DefaultPath()
+	if err != nil {
+		return fmt.Errorf("resolve config path: %w", err)
+	}
+	cfg, err := config.Load(cfgPath)
+	if err != nil {
+		return fmt.Errorf("load config: %w", err)
+	}
+	if *profileFlag != "" && *modelFlag != "" {
+		return fmt.Errorf("choose --profile or --model, not both")
+	}
+	selectedConfig := cfg
+	if *modelFlag != "" {
+		selectedConfig.DefaultProfile = ""
+		oldProvider, _, _ := strings.Cut(cfg.Model, "/")
+		newProvider, _, _ := strings.Cut(*modelFlag, "/")
+		selectedConfig.Model = *modelFlag
+		if oldProvider != newProvider {
+			selectedConfig.BaseURL = ""
+		}
+	}
+	if *baseURLFlag != "" {
+		selectedConfig.BaseURL = *baseURLFlag
+	}
+	profile, err := config.SelectProfile(selectedConfig, *profileFlag)
+	if err != nil {
+		return err
+	}
+	if *baseURLFlag != "" {
+		profile.Endpoint = *baseURLFlag
+	}
+	if *contextLimitFlag > 0 {
+		profile.ContextLimit = *contextLimitFlag
+	}
+	if *reasoningFlag != "" {
+		profile.Reasoning = *reasoningFlag
+	}
+	if err := profile.Validate(); err != nil {
+		return err
+	}
+	if profile.MaxOutput != 0 && profile.MaxOutput != 8192 {
+		return fmt.Errorf("this Harness version fixes maximum output at 8192; configurable profile max_output requires the planned Harness integration")
+	}
+	if profile.Reasoning != "" && profile.Reasoning != "off" {
+		if _, err := config.ResolveProfile(profile, config.ProfileMetadata{}, config.ProfileMetadata{}); err != nil {
+			return err
+		}
+	}
+	model := profile.Provider + "/" + profile.Model
+	baseURL := profile.Endpoint
+	maxTurns := config.ResolveMaxTurns(*maxTurnsFlag, cfg)
+	fallbackModel := config.ResolveFallbackModel(*fallbackModelFlag, cfg)
+	markdownStyle := config.ResolveMarkdownStyle(*markdownStyleFlag, cfg)
+	compactionThreshold := config.ResolveCompactionThreshold(*compactionThresholdFlag, cfg)
+	maxIterations := config.ResolveMaxGoalIterations(*maxIterationsFlag, cfg)
+
+	providerName, bareModel := llm.ParseProviderModel(model)
+	if providerName == "" {
+		return fmt.Errorf("model %q must be in \"provider/model\" form, e.g. anthropic/claude-sonnet-5", model)
+	}
+	workspace, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	authority, legacyProposal, authorityDigest, err := openCLIAuth(workspace, cfg, profile)
+	if err != nil {
+		return fmt.Errorf("open scoped authority: %w", err)
+	}
+	defer authority.Close()
+	if *permissionsFlag {
+		if *acknowledgeFlag != "" {
+			if err = authority.AcknowledgeLegacy(legacyProposal, *acknowledgeFlag); err != nil {
+				return err
+			}
+		}
+		if *revokeFlag != "" {
+			if err = authority.Revoke(*revokeFlag); err != nil {
+				return err
+			}
+		}
+		return json.NewEncoder(os.Stdout).Encode(map[string]any{"grants": authority.Grants(), "legacy_proposal": legacyProposal.Grants(), "legacy_fingerprint": legacyProposal.Fingerprint(), "legacy_warning": "Legacy grants are broad per-tool authority and require explicit acknowledgement before import."})
+	}
+
+	profile, err = app.PrepareProfile(context.Background(), profile)
+	if err != nil {
+		return fmt.Errorf("prepare profile: %w", err)
+	}
+	provider, err := buildProfileProvider(profile)
+	if err != nil {
+		return fmt.Errorf("build provider %q: %w", providerName, err)
+	}
+
+	probeCtx, probeCancel := context.WithTimeout(context.Background(), 15*time.Second)
+	executionBackend, executionBoundary, err := isolation.Prepare(probeCtx, cfg, workspace)
+	probeCancel()
+	if err != nil {
+		return err
+	}
+	fmt.Fprintln(os.Stderr, "hand: execution boundary: "+executionBoundary)
+	configurationReady = true
+	initialPermissions := app.PermissionState{Authority: authority, Legacy: legacyProposal, Digest: authorityDigest}
+	bindings := &cliPermissionBindings{current: initialPermissions, states: map[string]app.PermissionState{authorityDigest: initialPermissions}, workspace: workspace, cfg: cfg}
+	defer bindings.close()
+
+	mcpServers := cfg.ToServerConfigs()
+	allMCPServerNames := cfg.AllMCPServerNames()
+
+	var hook func(ctx context.Context, name string, input json.RawMessage) (runtime.HookDecision, error)
+	if oneShot {
+		if *yesFlag {
+			hook = agentio.NewOneShotApprovalHook(nil, true, allMCPServerNames, nil)
+		} else {
+			hook = agentio.NewScopedApprovalHook(nil, authority, workspace, authorityDigest, allMCPServerNames)
+		}
+	} else {
+		hook = app.NewBoundApprovalHook(bindings.snapshot, workspace, allMCPServerNames)
+	}
+	var stopReason string
+	hooks := agentio.BuildLifecycleHooks(cfg.Hooks, workspace, hook, &stopReason)
+	spec := agentio.BuildAgentSpec(model, workspace, maxTurns, fallbackModel, mcpServers, hooks)
+
+	skillProvider, projectSkillStore, err := agentio.BuildSkillProvider(workspace)
+	if err != nil {
+		return fmt.Errorf("build skill provider: %w", err)
+	}
+	// reg must stay the concrete *tool.Registry type below (RuntimeInputs.Tools
+	// is the wider tool.Executor interface) — BuildRuntime type-asserts it to
+	// register spec.MCPServers' tools and silently skips registration
+	// otherwise, per harness's own comment in runtime/builder.go.
+	captureStore, err := process.NewArtifactStore(filepath.Join(os.TempDir(), fmt.Sprintf("harness-output-%d", os.Getuid())))
+	if err != nil {
+		return err
+	}
+	var background *app.Processes
+	if executionBackend != nil {
+		background, err = app.NewProcessesWithBackend(context.Background(), workspace, captureStore, executionBackend)
+	} else {
+		background, err = app.NewProcesses(context.Background(), workspace, captureStore)
+	}
+	if err != nil {
+		return err
+	}
+	defer background.Close()
+	reg := agentio.BuildRegistry(workspace, projectSkillStore)
+	reg.Register(&app.ProcessTool{Processes: background})
+	compactionMgr := agentio.BuildCompactionManager(provider, bareModel, compactionThreshold)
+
+	storeDir, err := sessionio.StoreDir()
+	if err != nil {
+		return fmt.Errorf("resolve session store directory: %w", err)
+	}
+	manager, err := sessionio.NewManager(storeDir, workspace, spec.ID)
+	if err != nil {
+		return fmt.Errorf("open workspace sessions: %w", err)
+	}
+	selected, err := manager.Open(context.Background(), *sessionFlag, *newSessionFlag)
+	if err != nil {
+		return fmt.Errorf("select workspace session: %w", err)
+	}
+	sess := selected.Session
+	defer func() {
+		if sess != nil {
+			runErr = errors.Join(runErr, sess.Close())
+		}
+	}()
+	for _, backup := range selected.Backups {
+		fmt.Fprintf(os.Stderr, "hand: preserved session backup at %s\n", backup)
+	}
+
+	deps := runtime.RuntimeDeps{Skills: skillProvider}
+	inputs := runtime.RuntimeInputs{Provider: provider, Tools: reg, Session: sess, Compaction: compactionMgr}
+	var rt *runtime.Runtime
+	var startupDraft string
+	var optionalServers []mcp.ServerConfig
+	if !oneShot && !*rpcFlag {
+		names := make(map[string]bool)
+		for _, server := range spec.MCPServers {
+			if server.Name == "" || names[server.Name] {
+				return fmt.Errorf("MCP server names must be nonempty and unique")
+			}
+			names[server.Name] = true
+		}
+		required := make([]mcp.ServerConfig, 0, len(spec.MCPServers))
+		for _, server := range spec.MCPServers {
+			if server.Optional {
+				optionalServers = append(optionalServers, server)
+			} else {
+				required = append(required, server)
+			}
+		}
+		spec.MCPServers = required
+	}
+	if oneShot || *rpcFlag {
+		if len(mcpServers) > 0 {
+			fmt.Fprintf(os.Stderr, "hand: connecting to %d configured MCP server(s)...\n", len(mcpServers))
+		}
+		rt, err = agentio.BuildRuntimeWithTimeout(deps, inputs, spec, agentio.DefaultMCPConnectTimeout)
+	} else {
+		rt, startupDraft, err = buildInteractiveRuntime(deps, inputs, spec)
+	}
+	if err != nil {
+		return fmt.Errorf("build runtime: %w", err)
+	}
+	defer rt.Close()
+	defer func() { runErr = errors.Join(runErr, rt.Session.Close()) }()
+	if err = isolation.Install(reg, executionBackend, workspace); err != nil {
+		return err
+	}
+	if packageSkillsConfig != nil {
+		if err = applyPackageSkillStartup(context.Background(), rt, *packageSkillsConfig, strings.Fields(versionString())[0]); err != nil {
+			return err
+		}
+	}
+
+	identityHint := agentio.ModelIdentityHint
+	if executionBackend != nil {
+		identityHint = func(name string) string {
+			return agentio.ModelIdentityHint(name) + "\nExecution boundary: " + executionBoundary + ". Shell commands run in /workspace inside the container. Use workspace-relative paths for file/search tools and shell commands; host absolute paths are not available to shell commands."
+		}
+	}
+	rt.DynamicIdentityHint = identityHint(model)
+	rt.ContextWindow = profile.ContextLimit
+	rt.Reasoning, _ = llm.ParseReasoningMode(profile.Reasoning)
+	var checkpointBoundary *app.WorkspaceCheckpoints
+	if *checkpointDir != "" {
+		checkpointStore, openErr := checkpoints.OpenStore(*checkpointDir, workspace, checkpointStoreLimits)
+		if openErr != nil {
+			return fmt.Errorf("open checkpoints: %w", openErr)
+		}
+		defer checkpointStore.Close()
+		checkpointBoundary = &app.WorkspaceCheckpoints{Workspace: workspace, Limits: checkpointLimits, Store: checkpointStore, Processes: background}
+	}
+
+	if oneShot {
+		for _, status := range rt.MCPStatus() {
+			if status.State == "unavailable" {
+				fmt.Fprintf(os.Stderr, "hand: optional MCP server %q unavailable\n", status.Name)
+			}
+		}
+		ctx, stop := oneShotSignalContext()
+		defer stop()
+		if packagePrompt != nil {
+			ctx, err = agentio.WithPackagePrompt(ctx, *packagePrompt)
+			if err != nil {
+				return err
+			}
+		}
+		if checkpointBoundary != nil {
+			ctx = context.WithValue(ctx, checkpointContextKey{}, checkpointBoundary)
+		}
+
+		if *jsonlFlag {
+			ctx = context.WithValue(ctx, jsonOutputKey{}, io.Writer(os.Stdout))
+		}
+		return runOneShot(agentio.WithAttachmentPolicy(ctx, policy), rt, *printFlag, cfg.Hooks, workspace, &stopReason, maxIterations, profile)
+	}
+
+	controller := &app.Controller{
+		ExecutionBoundary:      executionBoundary,
+		Authority:              authority,
+		LegacyPermissions:      legacyProposal,
+		ReadPermissions:        bindings.snapshot,
+		PermissionProfile:      profile,
+		PreparePermissions:     bindings.prepare,
+		Processes:              background,
+		OutputStore:            captureStore,
+		BuildProfileProvider:   buildProfileProvider,
+		Owner:                  app.NewHarnessWithAttachments(rt, &stopReason, cfg.Hooks, workspace, maxIterations, policy, profile),
+		Rt:                     rt,
+		Sessions:               manager,
+		SessionKey:             selected.Record.StoreKey,
+		BaseURL:                baseURL,
+		BuildProvider:          buildProvider,
+		BuildModelIdentityHint: identityHint,
+	}
+	if checkpointBoundary != nil {
+		if err := controller.Owner.ConfigureCheckpoints(checkpointBoundary); err != nil {
+			return err
+		}
+	}
+	if verificationConfig != nil {
+		if err := controller.ConfigureVerification(context.Background(), *verificationConfig); err != nil {
+			return err
+		}
+	}
+	profileName := *profileFlag
+	if profileName == "" && *modelFlag == "" {
+		profileName = cfg.DefaultProfile
+	}
+	if err := controller.ConfigureProfiles(cfg.Profiles, profileName); err != nil {
+		return err
+	}
+	if summarizerConfig != nil {
+		if err := controller.SelectSummarizer(context.Background(), summarizerConfig.Options, summarizerConfig.Digest); err != nil {
+			return fmt.Errorf("apply reviewed summariser configuration: %w", err)
+		}
+	}
+	if extensionConfig != nil {
+		host, e := controller.ActivateExtensionsWithBackend(context.Background(), *extensionConfig, workspace, executionBackend)
+		if e != nil {
+			return fmt.Errorf("activate reviewed extensions: %w", e)
+		}
+		controller.Extensions = host
+		defer func() { runErr = errors.Join(runErr, host.Close()) }()
+	}
+	if *rpcFlag {
+		return runRPC(controller, storeDir, workspace)
+	}
+	if len(optionalServers) > 0 {
+		controller.OptionalMCP, err = app.NewOptionalMCP(controller, optionalServers)
+		if err != nil {
+			return err
+		}
+		defer controller.OptionalMCP.Close()
+	}
+	m := tui.NewModel(controller, workspace)
+	m.SetAttachmentPolicy(policy)
+	m.SetMarkdownStyle(markdownStyle)
+	m.SetBanner(versionString(), model, workspace)
+	m.SetMCPStatus(rt.MCPStatus())
+	m.SetInputDraft(startupDraft)
+	if controller.OptionalMCP != nil {
+		m.SetOptionalMCPStatus()
+	}
+	m.SetContextLimit(controller.ContextLimit())
+	m.SetSkillsIndex(skillProvider.FormatIndex())
+	m.SetGoalLoop(cfg.Hooks, &stopReason, maxIterations)
+
+	m.SetController(controller)
+	m.SetService(controller.Owner)
+	defer m.CloseApplication()
+	if history := sess.History(); len(history) > 0 {
+		m.LoadHistory(history)
+	}
+	// No tea.WithMouseCellMotion(): enabling mouse tracking makes most
+	// terminal emulators hand every mouse event to the app instead of
+	// letting the user select/copy text natively — a worse trade than
+	// losing wheel-scroll, since pgup/pgdown/ctrl+u/ctrl+d already cover
+	// scrolling from the keyboard (see handleKey in internal/tui).
+	program := tea.NewProgram(m, tea.WithAltScreen())
+	m.BindProgram(program)
+
+	if _, err := program.Run(); err != nil {
+		return fmt.Errorf("run TUI: %w", err)
+	}
+	return nil
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, "hand:", err)
+		os.Exit(exitCode(err))
+	}
+}
+
+type invocationError struct{ error }
+
+func (e *invocationError) Unwrap() error { return e.error }
+func exitCode(err error) int {
+	if err == nil {
+		return 0
+	}
+	var invalid *invocationError
+	if errors.As(err, &invalid) {
+		return 2
+	}
+	var failure *agentio.RunFailure
+	if errors.As(err, &failure) {
+		return failure.Outcome.ExitCode()
+	}
+	if errors.Is(err, context.Canceled) {
+		return 130
+	}
+	return 5
+}
+func oneShotSignalContext() (context.Context, context.CancelFunc) {
+	return signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+}

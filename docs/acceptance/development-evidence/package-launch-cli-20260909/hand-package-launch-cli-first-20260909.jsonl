@@ -1,0 +1,24 @@
+{"Time":"2026-09-09T02:22:55.965596+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-09T02:22:56.703156+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup"}
+{"Time":"2026-09-09T02:22:56.703251+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup","Output":"=== RUN   TestPackageCLIImportedReviewSurvivesInspectionCleanup\n"}
+{"Time":"2026-09-09T02:22:56.703279+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/archive"}
+{"Time":"2026-09-09T02:22:56.703287+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/archive","Output":"=== RUN   TestPackageCLIImportedReviewSurvivesInspectionCleanup/archive\n"}
+{"Time":"2026-09-09T02:22:56.775596+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/archive","Output":"--- PASS: TestPackageCLIImportedReviewSurvivesInspectionCleanup/archive (0.07s)\n"}
+{"Time":"2026-09-09T02:22:56.775616+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/archive","Elapsed":0.07}
+{"Time":"2026-09-09T02:22:56.775641+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/git"}
+{"Time":"2026-09-09T02:22:56.775646+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/git","Output":"=== RUN   TestPackageCLIImportedReviewSurvivesInspectionCleanup/git\n"}
+{"Time":"2026-09-09T02:22:56.947245+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/git","Output":"--- PASS: TestPackageCLIImportedReviewSurvivesInspectionCleanup/git (0.17s)\n"}
+{"Time":"2026-09-09T02:22:56.947272+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup/git","Elapsed":0.17}
+{"Time":"2026-09-09T02:22:56.947281+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup","Output":"--- PASS: TestPackageCLIImportedReviewSurvivesInspectionCleanup (0.24s)\n"}
+{"Time":"2026-09-09T02:22:56.947305+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIImportedReviewSurvivesInspectionCleanup","Elapsed":0.24}
+{"Time":"2026-09-09T02:22:56.94737+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIInspectReviewInstallUpdateRollbackRemove"}
+{"Time":"2026-09-09T02:22:56.947377+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIInspectReviewInstallUpdateRollbackRemove","Output":"=== RUN   TestPackageCLIInspectReviewInstallUpdateRollbackRemove\n"}
+{"Time":"2026-09-09T02:22:57.053918+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIInspectReviewInstallUpdateRollbackRemove","Output":"--- PASS: TestPackageCLIInspectReviewInstallUpdateRollbackRemove (0.11s)\n"}
+{"Time":"2026-09-09T02:22:57.053938+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIInspectReviewInstallUpdateRollbackRemove","Elapsed":0.11}
+{"Time":"2026-09-09T02:22:57.053973+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIReviewRefusalsAndDevelopmentInspection"}
+{"Time":"2026-09-09T02:22:57.053984+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIReviewRefusalsAndDevelopmentInspection","Output":"=== RUN   TestPackageCLIReviewRefusalsAndDevelopmentInspection\n"}
+{"Time":"2026-09-09T02:22:57.065828+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIReviewRefusalsAndDevelopmentInspection","Output":"--- PASS: TestPackageCLIReviewRefusalsAndDevelopmentInspection (0.01s)\n"}
+{"Time":"2026-09-09T02:22:57.065877+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPackageCLIReviewRefusalsAndDevelopmentInspection","Elapsed":0.01}
+{"Time":"2026-09-09T02:22:57.065929+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-09T02:22:58.074714+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t2.109s\n"}
+{"Time":"2026-09-09T02:22:58.074813+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":2.109}

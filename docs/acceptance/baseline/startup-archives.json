@@ -1,0 +1,18 @@
+[
+  {
+    "path": "startup-original-20260908.tar.gz",
+    "sha256": "50cd66a8bac8bb3716fa5c4d350cb62b6adb7919a04cffa4fd9857acc8ba3cde",
+    "status": "measured",
+    "commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+    "source_sha256": "d6b03dbf1d7350478222839583b6ac0d8d1b0fff50a5e4d6be85506403154d80",
+    "original_location": "/private/tmp/hand-startup-original-baseline-20260908-01"
+  },
+  {
+    "path": "startup-development-20260908.tar.gz",
+    "sha256": "5e57e65a780c7178c6d55b0a02a9aeda0c9e6b70f2883ba4a86406ccefc0f01e",
+    "status": "measured",
+    "commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+    "source_sha256": "3bb7f7b14a28623f1dbdb3f489e09df484ccc639f48cdc4946f1261471dcd6a5",
+    "original_location": "/private/tmp/hand-startup-baseline-20260908-02"
+  }
+]

@@ -1,0 +1,12 @@
+{"Time":"2026-09-09T02:51:43.793039+08:00","Action":"start","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer"}
+{"Time":"2026-09-09T02:51:44.188417+08:00","Action":"run","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerPreservesLiteralRecordAndReportsScope"}
+{"Time":"2026-09-09T02:51:44.188459+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerPreservesLiteralRecordAndReportsScope","Output":"=== RUN   TestToolViewerPreservesLiteralRecordAndReportsScope\n"}
+{"Time":"2026-09-09T02:51:44.18883+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerPreservesLiteralRecordAndReportsScope","Output":"--- PASS: TestToolViewerPreservesLiteralRecordAndReportsScope (0.00s)\n"}
+{"Time":"2026-09-09T02:51:44.188844+08:00","Action":"pass","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerPreservesLiteralRecordAndReportsScope","Elapsed":0}
+{"Time":"2026-09-09T02:51:44.18886+08:00","Action":"run","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerRejectsMalformedAndOversizedRecords"}
+{"Time":"2026-09-09T02:51:44.188871+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerRejectsMalformedAndOversizedRecords","Output":"=== RUN   TestToolViewerRejectsMalformedAndOversizedRecords\n"}
+{"Time":"2026-09-09T02:51:44.188947+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerRejectsMalformedAndOversizedRecords","Output":"--- PASS: TestToolViewerRejectsMalformedAndOversizedRecords (0.00s)\n"}
+{"Time":"2026-09-09T02:51:44.188959+08:00","Action":"pass","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Test":"TestToolViewerRejectsMalformedAndOversizedRecords","Elapsed":0}
+{"Time":"2026-09-09T02:51:44.188964+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Output":"PASS\n"}
+{"Time":"2026-09-09T02:51:45.198392+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Output":"ok  \tgithub.com/sausheong/hand/examples/extensions/go-tool-viewer\t1.405s\n"}
+{"Time":"2026-09-09T02:51:45.198524+08:00","Action":"pass","Package":"github.com/sausheong/hand/examples/extensions/go-tool-viewer","Elapsed":1.405}

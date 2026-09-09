@@ -1,0 +1,42 @@
+{
+  "status": "development_built_cli_skill_permissions_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -timeout=3m -json ./cmd/hand -run '^TestBinarySkillMutationRequiresExplicitApproval$'",
+  "test_records": {
+    "pass": 5
+  },
+  "binary_invocations": 8,
+  "assertions": [
+    "Built CLI performs all four skill mutations through actual local provider protocol",
+    "Without approval, second provider request includes scoped denial and files remain unchanged",
+    "Fresh CLI invocation with explicit --yes permits same create/patch/replace/remove input",
+    "Successful permitted mutations verified on disk"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-binary-20260909/cmd_hand_main.go.txt",
+      "sha256": "cb305fa60b0702930e4d7c24d284cf5c48fad028c9ba1cee4ec0d3850490c3b6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-binary-20260909/cmd_hand_skill_permission_binary_test.go.txt",
+      "sha256": "da421ac660d5ac13ea78cf51f5a36120433b44b0f3e6a6fd515efac32c3ee480"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-binary-20260909/hand-skill-permission-binary-20260909.jsonl.gz",
+      "sha256": "d73543355cddc3adfbea440cf8d5ac646ace4478399bd42cc79305c1be1c62d4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-binary-20260909/internal_agentio_registry.go.txt",
+      "sha256": "14b29e8a53d3d65d5646eecd31791a605ed096ad5ef8bebac621e380614e657d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-binary-20260909/internal_agentio_scoped_approval.go.txt",
+      "sha256": "007de49fc43d162f69d9a5096e22eb200bd835905b68a92108506c29935d89fc"
+    }
+  ],
+  "limitations": [
+    "Native macOS development build, not final released-candidate or Linux evidence",
+    "Race-enabled parent test; child executable built with ordinary go build",
+    "One-shot --yes bypass, not persistent grant or interactive terminal decision journey",
+    "Local fake provider; no paid model calls"
+  ]
+}

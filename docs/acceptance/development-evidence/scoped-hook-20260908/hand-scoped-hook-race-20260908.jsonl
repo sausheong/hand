@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T12:53:38.828784+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T12:53:39.401854+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookPersistsOnlyApprovedResource"}
+{"Time":"2026-09-08T12:53:39.401902+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookPersistsOnlyApprovedResource","Output":"=== RUN   TestScopedHookPersistsOnlyApprovedResource\n"}
+{"Time":"2026-09-08T12:53:39.433968+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookPersistsOnlyApprovedResource","Output":"--- PASS: TestScopedHookPersistsOnlyApprovedResource (0.03s)\n"}
+{"Time":"2026-09-08T12:53:39.433993+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookPersistsOnlyApprovedResource","Elapsed":0.03}
+{"Time":"2026-09-08T12:53:39.434033+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookRejectsChangedSymlinkDuringApproval"}
+{"Time":"2026-09-08T12:53:39.434039+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookRejectsChangedSymlinkDuringApproval","Output":"=== RUN   TestScopedHookRejectsChangedSymlinkDuringApproval\n"}
+{"Time":"2026-09-08T12:53:39.440084+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookRejectsChangedSymlinkDuringApproval","Output":"--- PASS: TestScopedHookRejectsChangedSymlinkDuringApproval (0.01s)\n"}
+{"Time":"2026-09-08T12:53:39.4401+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookRejectsChangedSymlinkDuringApproval","Elapsed":0.01}
+{"Time":"2026-09-08T12:53:39.440126+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookExternalReadAndUnknownToolRequireDecision"}
+{"Time":"2026-09-08T12:53:39.440134+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookExternalReadAndUnknownToolRequireDecision","Output":"=== RUN   TestScopedHookExternalReadAndUnknownToolRequireDecision\n"}
+{"Time":"2026-09-08T12:53:39.441236+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookExternalReadAndUnknownToolRequireDecision","Output":"--- PASS: TestScopedHookExternalReadAndUnknownToolRequireDecision (0.00s)\n"}
+{"Time":"2026-09-08T12:53:39.441247+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestScopedHookExternalReadAndUnknownToolRequireDecision","Elapsed":0}
+{"Time":"2026-09-08T12:53:39.44159+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"PASS\n"}
+{"Time":"2026-09-08T12:53:40.455213+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"ok  \tgithub.com/sausheong/hand/internal/agentio\t1.626s\n"}
+{"Time":"2026-09-08T12:53:40.455273+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":1.626}

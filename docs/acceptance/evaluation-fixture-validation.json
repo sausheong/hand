@@ -1,0 +1,61 @@
+{
+  "status": "development_validation_passed",
+  "tests": {
+    "command": "PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'",
+    "passed": 50,
+    "failed": 0
+  },
+  "artifacts": [
+    {
+      "source": "scripts/evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-validation-20260909/evaluation_manifest.py",
+      "sha256": "c9beacbabf4dbe1d154646cc6a8c17f88efa20eb7931b8482372a2594b105e7e"
+    },
+    {
+      "source": "scripts/test_evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-validation-20260909/test_evaluation_manifest.py",
+      "sha256": "2fdcac91c0430504719cbc7ac0bb633a0827b8b7fc33e26ac8534f863ab69618"
+    },
+    {
+      "source": "docs/acceptance/evaluation/README.md",
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-validation-20260909/README.md",
+      "sha256": "2240c8050936df496271eec8ebb42d359414f072f21205d76f429e20e29873c7"
+    },
+    {
+      "source": "/private/tmp/hand-fixture-validation-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-fixture-validation-20260909/hand-fixture-validation-tests-20260909.log",
+      "sha256": "676c558f27496aa7a56c437868f7fccb77d921ca77369e63f115193d1c107c31"
+    }
+  ],
+  "calibration_validation": {
+    "status": "draft",
+    "planned_runs": 0,
+    "qualification_gaps": [
+      "fewer than 30 tasks",
+      "fewer than 10 held-out tasks",
+      "fewer than three repetitions",
+      "Hand and Pi revisions/model settings are not both pinned",
+      "both comparison modes are not configured",
+      "task categories are incomplete"
+    ],
+    "fixtures": [
+      {
+        "task": "preserve-write-mode",
+        "source": "testdata/write_mode_test.go",
+        "sha256": "5670bddc173fddb5e27e69bc9b076cbe9380ead243a084f3c2dfa6cc3b79ea17"
+      },
+      {
+        "task": "cancel-shell-descendants",
+        "source": "testdata/bash_cancel_test.go",
+        "sha256": "d108bc1b0cf6b7eee5aefa602b4766d52cd08097f8d9f26ceb1b4bdb1229a482"
+      }
+    ],
+    "authorisation": "Not granted by this manifest or validator. Paid execution requires separate user authorisation.",
+    "manifest_sha256": "8e33c03db22e869ded8c62ac67c02d53b4566dd12b96cfb18fc967f1b67109a4"
+  },
+  "limitations": [
+    "Runtime copying must separately reject destination symlinks and enforce checkout containment",
+    "No model runs or comparative performance evidence",
+    "Final candidate qualification remains pending"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "status": "development_passed",
+  "requirement": "M3.1",
+  "scenario": "usage_attachments_export_restart",
+  "source": {
+    "path": "cmd/hand/session_export_test.go",
+    "sha256": "2c49680085ef1678150e1abccadcc01f7b5d1682f4284fb61ff5b1839f40a83d"
+  },
+  "test": "github.com/sausheong/hand/cmd/hand::TestBinaryExportWithoutProviderPreservesSelection",
+  "results": {
+    "missing_catalogue": {
+      "fail": 1
+    },
+    "nonprivate_copy": {
+      "fail": 1,
+      "pass": 3
+    },
+    "corrected": {
+      "pass": 4
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/binary-combined-export-20260909/hand-binary-combined-export-20260909.jsonl.gz",
+      "sha256": "7d4b27bc7a151ec03754ae73be8937d8f44dd22aa678d8f992cc45c22fa3561b",
+      "uncompressed_sha256": "cadeea84b128f266730eeab883805a9b670b3a195d3830e5363be5ecca54262e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/binary-combined-export-20260909/hand-binary-combined-export-final-20260909.jsonl.gz",
+      "sha256": "43967cab888e458689c3601f6bd7d5c2daaa818c2dac19b4bb87459a3d96c2e9",
+      "uncompressed_sha256": "d68ac8c4e98d87fd0fcd77030f290e97f302b2bd26f1fede7831e427a4bc67b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/binary-combined-export-20260909/hand-binary-combined-export-corrected-20260909.jsonl.gz",
+      "sha256": "36bb2385944cc43be9e633e10a27f0879ba41680050aff92db42e33adedcb710",
+      "uncompressed_sha256": "8f9c9d381d465417b374cc715c0a33fab5676d768c5b0f0a5699e60d08b32f57"
+    }
+  ],
+  "assertions": [
+    "Built Hand exports a saved inactive session without changing selection or overwriting an existing destination",
+    "Malformed model configuration and empty standard provider credentials do not prevent offline export",
+    "Separate home is seeded with only exported journal and attachment sidecars, private modes restored, and existing reconciliation API reconstructs the catalogue",
+    "Original session store moved away before restarted binary export",
+    "Second real Hand process re-exports byte-identical journal from reconstructed independent store",
+    "Reopened exported session resolves exact 2 MiB image and reports 2 requests, 1 unknown, 19 input tokens and 5 output tokens"
+  ],
+  "limitations": [
+    "Catalogue reconstruction uses the existing API in test setup; export CLI is not an import command",
+    "The reopened usage summary and image are checked through storage APIs, not UI rendering",
+    "Built child binary is not race-instrumented; surrounding test process runs with race detection",
+    "Final exact-candidate native-platform qualification remains pending"
+  ]
+}

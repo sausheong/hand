@@ -1,0 +1,112 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restored-state",
+      "method": "context.state",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restored-state",
+      "result": {
+        "revision": 5,
+        "items": [
+          {
+            "id": "goal",
+            "kind": "objective",
+            "text": "Deliver migration"
+          },
+          {
+            "id": "choice",
+            "kind": "decision",
+            "text": "Retain old reader"
+          },
+          {
+            "id": "tests",
+            "kind": "verification_reference",
+            "text": "Unit tests at abc",
+            "reference": "evidence/run.json#abc"
+          }
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,3 @@
+# github.com/sausheong/hand/internal/app
+# [github.com/sausheong/hand/internal/app]
+internal/app/verification.go:51:4: github.com/sausheong/hand/internal/app.VerificationProfile struct literal uses unkeyed fields

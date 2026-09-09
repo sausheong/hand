@@ -1,0 +1,60 @@
+{"Time":"2026-09-09T01:12:41.273539+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/packages"}
+{"Time":"2026-09-09T01:12:41.721312+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestManifestStrictValidationAndDigest"}
+{"Time":"2026-09-09T01:12:41.721357+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestManifestStrictValidationAndDigest","Output":"=== RUN   TestManifestStrictValidationAndDigest\n"}
+{"Time":"2026-09-09T01:12:41.723645+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestManifestStrictValidationAndDigest","Output":"--- PASS: TestManifestStrictValidationAndDigest (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.72366+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestManifestStrictValidationAndDigest","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.723668+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges"}
+{"Time":"2026-09-09T01:12:41.723672+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges\n"}
+{"Time":"2026-09-09T01:12:41.723675+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/valid"}
+{"Time":"2026-09-09T01:12:41.723678+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/valid","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/valid\n"}
+{"Time":"2026-09-09T01:12:41.724867+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/valid","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/valid (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.724878+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/valid","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.724893+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/changed"}
+{"Time":"2026-09-09T01:12:41.724896+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/changed","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/changed\n"}
+{"Time":"2026-09-09T01:12:41.725854+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/changed","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/changed (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.725865+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/changed","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.725869+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/missing"}
+{"Time":"2026-09-09T01:12:41.725872+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/missing","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/missing\n"}
+{"Time":"2026-09-09T01:12:41.726853+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/missing","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/missing (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.726867+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/missing","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.726874+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/unlisted"}
+{"Time":"2026-09-09T01:12:41.726906+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/unlisted","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/unlisted\n"}
+{"Time":"2026-09-09T01:12:41.727885+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/unlisted","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/unlisted (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.727892+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/unlisted","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.727896+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/mode"}
+{"Time":"2026-09-09T01:12:41.7279+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/mode","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/mode\n"}
+{"Time":"2026-09-09T01:12:41.730097+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/mode","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/mode (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.730106+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/mode","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.730111+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/symlink"}
+{"Time":"2026-09-09T01:12:41.730114+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/symlink","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/symlink\n"}
+{"Time":"2026-09-09T01:12:41.731424+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/symlink","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/symlink (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.731433+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/symlink","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.73145+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/directory-symlink"}
+{"Time":"2026-09-09T01:12:41.731456+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/directory-symlink","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/directory-symlink\n"}
+{"Time":"2026-09-09T01:12:41.732803+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/directory-symlink","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/directory-symlink (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.732812+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/directory-symlink","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.73282+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/cancelled"}
+{"Time":"2026-09-09T01:12:41.732825+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/cancelled","Output":"=== RUN   TestVerifyDirectoryRejectsIntegrityChanges/cancelled\n"}
+{"Time":"2026-09-09T01:12:41.733469+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/cancelled","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges/cancelled (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.733481+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges/cancelled","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.733511+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges","Output":"--- PASS: TestVerifyDirectoryRejectsIntegrityChanges (0.01s)\n"}
+{"Time":"2026-09-09T01:12:41.733518+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestVerifyDirectoryRejectsIntegrityChanges","Elapsed":0.01}
+{"Time":"2026-09-09T01:12:41.733533+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestShippedPythonPackageIntegrity"}
+{"Time":"2026-09-09T01:12:41.733539+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestShippedPythonPackageIntegrity","Output":"=== RUN   TestShippedPythonPackageIntegrity\n"}
+{"Time":"2026-09-09T01:12:41.734393+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestShippedPythonPackageIntegrity","Output":"--- PASS: TestShippedPythonPackageIntegrity (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.734401+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestShippedPythonPackageIntegrity","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.734412+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest"}
+{"Time":"2026-09-09T01:12:41.734417+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest","Output":"=== RUN   FuzzManifest\n"}
+{"Time":"2026-09-09T01:12:41.734508+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#0"}
+{"Time":"2026-09-09T01:12:41.734512+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#0","Output":"=== RUN   FuzzManifest/seed#0\n"}
+{"Time":"2026-09-09T01:12:41.735494+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#0","Output":"--- PASS: FuzzManifest/seed#0 (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.735502+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#0","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.735516+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#1"}
+{"Time":"2026-09-09T01:12:41.73552+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#1","Output":"=== RUN   FuzzManifest/seed#1\n"}
+{"Time":"2026-09-09T01:12:41.735575+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#1","Output":"--- PASS: FuzzManifest/seed#1 (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.735581+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest/seed#1","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.735606+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest","Output":"--- PASS: FuzzManifest (0.00s)\n"}
+{"Time":"2026-09-09T01:12:41.735618+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"FuzzManifest","Elapsed":0}
+{"Time":"2026-09-09T01:12:41.735623+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"PASS\n"}
+{"Time":"2026-09-09T01:12:42.7398+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"ok  \tgithub.com/sausheong/hand/internal/packages\t1.466s\n"}
+{"Time":"2026-09-09T01:12:42.739876+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Elapsed":1.466}

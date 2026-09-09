@@ -1,0 +1,112 @@
+{
+  "status": "tooling_checks_passed_catalogue_incomplete",
+  "tests": 66,
+  "failures": 0,
+  "skips": 0,
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s scripts -p 'test_evaluation*.py'",
+    "python3 scripts/evaluation_manifest.py docs/acceptance/evaluation/calibration.json --qualification"
+  ],
+  "qualification_exit_code": 1,
+  "qualification_gaps": [
+    "fewer than 30 tasks",
+    "fewer than 10 held-out tasks",
+    "fewer than three repetitions",
+    "Hand and Pi revisions/model settings are not both pinned",
+    "both comparison modes are not configured",
+    "task categories are incomplete"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-tooling-refresh-20260909/hand-evaluation-suite-20260909.log.gz",
+      "sha256": "19da4c552bdd1714cbf2384c5bf008b3b21a401efee0165f3519fb5e50c55674"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-tooling-refresh-20260909/hand-evaluation-qualification-20260909.json.gz",
+      "sha256": "defa69ef75a9cd435c9e1edfed190a810a4898dd3a5fe3884b74afc6e3750ef7"
+    }
+  ],
+  "source_hashes": [
+    {
+      "path": "scripts/evaluation_baseline.py",
+      "sha256": "083859386cb7880aee8db3cde9db5673a783847be7e8616f2e2cb52032551d65"
+    },
+    {
+      "path": "scripts/evaluation_checkout.py",
+      "sha256": "2541f718d1c7ca63ce71e88ec87a6493be123b99ce1ac2973b579069db1e46f3"
+    },
+    {
+      "path": "scripts/evaluation_go_tests.py",
+      "sha256": "c60ad596d369627ce96dd464676fb5f5b594eeee393db076a318ee53e8bf6faf"
+    },
+    {
+      "path": "scripts/evaluation_manifest.py",
+      "sha256": "8f86ea47b9a15dfd492786b23799b7407c67c760e047785f43814142ac454aae"
+    },
+    {
+      "path": "scripts/evaluation_process.py",
+      "sha256": "68b151114a32ac3e6903d1c0e35c866c2d8a5bf1377c5605595750a4e8ea3082"
+    },
+    {
+      "path": "scripts/evaluation_results.py",
+      "sha256": "ba862b2cb0e4cc87557e924a012a80e5c6ebc32ef23a0050b5c88738fffae8dc"
+    },
+    {
+      "path": "scripts/evaluation_schedule.py",
+      "sha256": "49a4d4ad4d7fe100714b41bdcf41178f608c573592d3773ba90ff6e7b0bbcc4b"
+    },
+    {
+      "path": "scripts/evaluation_sources.py",
+      "sha256": "c160e22d7b095403250dd9844d8facebc0d1abd6d4ce8d9026689d4d1746cc14"
+    },
+    {
+      "path": "scripts/evaluation_workspace.py",
+      "sha256": "38bf14d57c75e0983ef98f736ee98e5225e182ae8c92a92b603b10cedaa87dbd"
+    },
+    {
+      "path": "scripts/test_evaluation_baseline.py",
+      "sha256": "a7398c7e3dccf6ee81225a6c15acdaf48fae96def03f1490d7a0a5084fb5a35b"
+    },
+    {
+      "path": "scripts/test_evaluation_checkout.py",
+      "sha256": "beb50087a9fa840d8f1d07a6fabab89af064a46486bad0e1c4183a47cd3f25bf"
+    },
+    {
+      "path": "scripts/test_evaluation_fixture_integrity.py",
+      "sha256": "15deff7dc673bb1239c3b6949352ed7c512a04f00a5293cde184821f60264638"
+    },
+    {
+      "path": "scripts/test_evaluation_go_tests.py",
+      "sha256": "bc1906fdeb776ba89348d2fdce684f5aa0412fa4bcfa25aa22e5032061ef07bc"
+    },
+    {
+      "path": "scripts/test_evaluation_manifest.py",
+      "sha256": "4814d10e05b39a3814c4644ce08ddc6c416efab835f1c485f994f8303145ec1c"
+    },
+    {
+      "path": "scripts/test_evaluation_process.py",
+      "sha256": "c67c2f43047f5887a3f44eb35005db961b32579095a9f1c8be65bd86500bb713"
+    },
+    {
+      "path": "scripts/test_evaluation_results.py",
+      "sha256": "72b5742cbb9fd2fe9daf436ad5a8d23b0f30c6a5f66ebeefa172e3826a5dc27d"
+    },
+    {
+      "path": "scripts/test_evaluation_schedule.py",
+      "sha256": "d25e578bf21b1f3abdd9a69136b927a41a23fc56418cf2cc8fd7197c4d89301c"
+    },
+    {
+      "path": "scripts/test_evaluation_sources.py",
+      "sha256": "96c6eff9b77f1eb6708fc8244df1fbdc7011b29f14cbf2dd19e708c6fb90dfd3"
+    },
+    {
+      "path": "scripts/test_evaluation_workspace.py",
+      "sha256": "9cdb20737311d645f0beafe4a0114ea583d3c52443d28642a495d233180f2fff"
+    }
+  ],
+  "limitations": [
+    "Runner/verifier regression tests are not product or live-agent evidence",
+    "Synthetic test fixtures used only to validate tooling contracts",
+    "Three calibration tasks remain below full comparative scope; no paid calls"
+  ]
+}

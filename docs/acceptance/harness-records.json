@@ -1,0 +1,45 @@
+{
+  "base": "dfae3db0f2f016089e4be29f14d97bee40f24e4b",
+  "candidate": "ce578590c0e38b3e204bc10b17fb995759449441",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 802,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_session_tests_passed": 980,
+  "fuzz": {
+    "name": "FuzzSessionRecords",
+    "requested_seconds": 60,
+    "elapsed_seconds": 61.01,
+    "executions": 3395073,
+    "passed": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-records.patch",
+      "sha256": "f9523dd90cd7f0e9dd222a685f7b0348046336cb6ef255e90006628c94661ca6"
+    },
+    {
+      "path": "/private/tmp/hand-harness-records-full-20260908.jsonl",
+      "sha256": "50e2f135488425c0550f97f971b3b5ff94c882ef04dd6b22772eb26f7073271f"
+    },
+    {
+      "path": "/private/tmp/hand-harness-records-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-records-coverage-20260908.out",
+      "sha256": "0c9e4b6324b57bc89742445abfbfc81e69c6292c80406a833ef0e0b9904e43f8"
+    },
+    {
+      "path": "/private/tmp/hand-harness-records-repeat-20260908.jsonl",
+      "sha256": "7de0a98dacd9f16553ec73a92e05b9768eb81311cf79144f05b1144506718f2c"
+    },
+    {
+      "path": "/private/tmp/hand-harness-records-fuzz-20260908.jsonl",
+      "sha256": "430f27a9dd3b4214a2cfb37559105831e71bc19bf9155a59cccd550c08d9c33e"
+    }
+  ]
+}

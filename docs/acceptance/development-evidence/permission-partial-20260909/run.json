@@ -1,0 +1,241 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "commands": [
+    {
+      "label": "inspect",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "reject-wrong-fingerprint",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "wrong"
+      ],
+      "exit_code": 2
+    },
+    {
+      "label": "unchanged-after-rejection",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "acknowledge",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "3ca4be0d16b7556a3c7244df82717adba730b2fd5e2795dbfa21ff7b541e9b4a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "idempotent-acknowledge",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "3ca4be0d16b7556a3c7244df82717adba730b2fd5e2795dbfa21ff7b541e9b4a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "partial-inspect-1",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "partial-resume-1",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "3ca4be0d16b7556a3c7244df82717adba730b2fd5e2795dbfa21ff7b541e9b4a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "partial-repeat-1",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "3ca4be0d16b7556a3c7244df82717adba730b2fd5e2795dbfa21ff7b541e9b4a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "partial-inspect-2",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "partial-resume-2",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "3ca4be0d16b7556a3c7244df82717adba730b2fd5e2795dbfa21ff7b541e9b4a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "partial-repeat-2",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "3ca4be0d16b7556a3c7244df82717adba730b2fd5e2795dbfa21ff7b541e9b4a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "revoke-0",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--revoke-permission",
+        "legacy-4e26921584da45c244e09b35568dd1c214459efaa299545e7ef37d0910ac516a"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "revoke-1",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--revoke-permission",
+        "legacy-548ce673bf56e26cca7f754e360394273edb840b61f546bb607de38a5647692d"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "revoke-2",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--revoke-permission",
+        "legacy-cabd594be79d7474c455517be39073380df5a441b6a3da48b238c0aa72aed61b"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "reopen-revoked",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "corrupt",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 2
+    },
+    {
+      "label": "fresh-authority",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "binary_sha256": "b3ca237a19ed01a122055ffb0aab0b7a74bbe0fc522cf33ffb8743077d123ef4",
+  "runner_sha256": "ad65f18ad1b0df5e5205ae8fcea62b2c0caec88baa469abcc59a505ed16783bf",
+  "partial_imports": [
+    {
+      "initial_grants": 1,
+      "final_grants": 3,
+      "prefix_preserved": true,
+      "repeated_resume_unchanged": true
+    },
+    {
+      "initial_grants": 2,
+      "final_grants": 3,
+      "prefix_preserved": true,
+      "repeated_resume_unchanged": true
+    }
+  ],
+  "no_credentials": true,
+  "no_model_calls": true,
+  "legacy_settings_unchanged": true,
+  "quarantine_preserved": true,
+  "fresh_authority_has_no_grants": true,
+  "artifacts": {
+    "reject-wrong-fingerprint.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "partial-resume-1.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "acknowledge.stdout": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea",
+    "inspect.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "partial-inspect-1.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fresh-authority.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "partial-repeat-1.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revoke-1.stdout": "4f367a9091935abcabc8c428bf84ee501d438531f6affd7ffad936d38bd784b0",
+    "idempotent-acknowledge.stdout": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea",
+    "idempotent-acknowledge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revoke-1.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "partial-repeat-1.stdout": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea",
+    "partial-inspect-1.stdout": "cc90dd336e775e4a1b7f1e6597134f4b915d22a9c7efd2e51fbaa28d2a97648e",
+    "fresh-authority.stdout": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096",
+    "reject-wrong-fingerprint.stderr": "c92ed546c648beb02ffe1283cf17c81880325e6002d6f9abd20acbc236af0ab8",
+    "inspect.stdout": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096",
+    "partial-resume-1.stdout": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea",
+    "acknowledge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revoke-2.stdout": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096",
+    "partial-repeat-2.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reopen-revoked.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-import.jsonl": "de452eb9843afcfde96d50c05a19ad91ceacd5ba403a86686586ad9e4d0c4dbb",
+    "prefix-1.jsonl": "251fbb32d558bbfc9ac55f6ae9600a05d8ea5f2bb90d638346bc5421f13a0302",
+    "partial-resume-2.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unchanged-after-rejection.stdout": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096",
+    "recovered-2.jsonl": "de452eb9843afcfde96d50c05a19ad91ceacd5ba403a86686586ad9e4d0c4dbb",
+    "corrupt.stderr": "4cfe037c25889512f9c765bc6fb799b1d5408cce34711756270726618b162210",
+    "revoke-0.stdout": "a0e71bd3a3027e118f4537ef709bcfd7bc6743e3e90bb7aeb29210afb93691c1",
+    "partial-inspect-2.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revoke-0.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "corrupt.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "partial-inspect-2.stdout": "68d7319687a29668033688ec1f7ca87a9d37236f68c52ea7e6ba55d00778d2e2",
+    "partial-resume-2.stdout": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea",
+    "prefix-2.jsonl": "130b31874f3abdaaf100e71ae8dee5a351eecdc6cb17b9e1db0a8db1573ace8f",
+    "unchanged-after-rejection.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reopen-revoked.stdout": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096",
+    "partial-repeat-2.stdout": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea",
+    "revoke-2.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "recovered-1.jsonl": "de452eb9843afcfde96d50c05a19ad91ceacd5ba403a86686586ad9e4d0c4dbb"
+  }
+}

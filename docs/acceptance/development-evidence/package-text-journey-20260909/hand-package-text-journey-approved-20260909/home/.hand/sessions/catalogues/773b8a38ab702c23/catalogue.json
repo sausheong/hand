@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-package-text-journey-approved-20260909/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_2b58557e1560b8b2",
+  "sessions": [
+    {
+      "id": "ses_2b58557e1560b8b2",
+      "agentId": "hand",
+      "storeKey": "workspace_773b8a38ab702c23_b301f5f4b7ac52fdcbee01477034e020",
+      "name": "",
+      "createdAt": "2026-09-08T18:45:50.697405Z",
+      "lastActive": "2026-09-08T18:45:50.697542Z"
+    }
+  ]
+}

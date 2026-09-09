@@ -1,0 +1,176 @@
+{
+  "status": "development_passed",
+  "aggregate": "sdk-checkpoint-options-integration.patch",
+  "development_harness_candidate": "5998569d24ce063207cc237263d89f22d532e25f",
+  "report": {
+    "status": "passed",
+    "qualification": "development",
+    "binary_sha256": "3f02d38deb7bc0b0e7402f3b022559470c0cf91f598b763aafe0a0bce6a8cf5c",
+    "runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "checkpoint_changes": {
+      "status": "passed",
+      "run_id": "EET5CRZG4AEHFTC6XX4GKTUPQL",
+      "changes": 1,
+      "recovered": true
+    },
+    "checkpoint_restore": {
+      "status": "passed",
+      "confirmed": true,
+      "replay_after_restart": true,
+      "later_edit_preserved": true,
+      "journal_records": 2
+    },
+    "scenarios": [
+      "non_go_client_lifecycle",
+      "approval_once_before_write",
+      "steering_delivery",
+      "followup_queue",
+      "duplicate_request_no_sideeffect_replay",
+      "version_error",
+      "cancel_terminal",
+      "disconnect_cleanup",
+      "reconnect_terminal_recovery"
+    ],
+    "provider_calls": 5,
+    "cancelled_provider_requests": 2,
+    "checkpoint_scope": {
+      "status": "passed",
+      "flags": [
+        "--checkpoint-exclude",
+        "private",
+        "--checkpoint-max-entries",
+        "20",
+        "--checkpoint-max-file-bytes",
+        "64",
+        "--checkpoint-max-total-bytes",
+        "128",
+        "--checkpoint-max-snapshots",
+        "4",
+        "--checkpoint-max-store-bytes",
+        "1048576"
+      ],
+      "excluded_payload_preserved": true
+    },
+    "checkpoints": {
+      "snapshots": 2,
+      "starts": 3,
+      "finishes": 3,
+      "status": "passed"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/checkpoints/108f0ae0221c34b2e2dbe7599e927b98e8a6eed036343e002602899feb41104e.json",
+      "sha256": "f77646db246f964fe7226192cdc21b3d707e5619f4e8ca17088561100a3cecf7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/checkpoints/3238b843151de3814ab822a4fa676d406049afc4b11d0038946e8816a1cf7e81.json",
+      "sha256": "2a460723643b11fb4637ba8350ad521b97a9b035eaf8924d85af195d40d6bb04"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/checkpoints/restore-journal.jsonl",
+      "sha256": "b37bbe92c3e4b6c292f959eac71d3b572ac9ed8f131caa3c9538d8004afc3910"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/client-one.json",
+      "sha256": "0df31e9a66554f3260be64166147528e0a9427619477cc8e0563c92d4e269fff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/client-one.stderr",
+      "sha256": "1847f2bf4e6335f7f19e253e81f3eabfafda3c83cbdc484f7c603bc56644454b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/client-three.json",
+      "sha256": "9defa0920958fba9abba300dd4d56623e1b4bd3e724c0fe20d151a8c787c7741"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/client-three.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/client-two.json",
+      "sha256": "6e7cf0d8722a75fb2c7484db1b2b86251da19a771105db95841c9c5032b6ffec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/client-two.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/authority/37f25ff18865a5eb064e594f1042e4a37b7a10b695e30b9e52ba3b604f276fe2/2523cf78e30478b43ab082420e1253c2660c6b287f3c49c92a82ba2566dde1cd/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/catalogues/37f25ff18865a5eb/catalogue.json",
+      "sha256": "a1619985444013f5968353907f52b19c1207540b8b2daa75d74d669f0e760680"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/catalogues/37f25ff18865a5eb/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_37f25ff18865a5eb_5e8bd15d6b1790a1c8311784c93df842.lock",
+      "sha256": "c90d0b6131fa223db362e366111aa72aedf6b65139555e375045e5ac28667473"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_37f25ff18865a5eb_98061c9e0ef60deec1da85492596214a.lock",
+      "sha256": "fdc868a9ca13e875063d805a83362571e20af114ae71a6e63b31b46c7d37be2e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_37f25ff18865a5eb_b775e560cc3f17ee399403b7e199837e.lock",
+      "sha256": "a8c6ed63a23f68ae3a2f2fbbc014ef8c48387ee742806198debe79a312416c40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/hand/workspace_37f25ff18865a5eb_5e8bd15d6b1790a1c8311784c93df842.jsonl",
+      "sha256": "a3b86893044efb7044f7d397af0ebbd6e57d1b0805c3f11679a723e2be47f1d5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/hand/workspace_37f25ff18865a5eb_98061c9e0ef60deec1da85492596214a.jsonl",
+      "sha256": "ff29db9512d4e02bea2e76c1bd9800e908eadde044ece697190c7cca281d04d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/hand/workspace_37f25ff18865a5eb_b775e560cc3f17ee399403b7e199837e.jsonl",
+      "sha256": "39cca0a24ba70f1e4273b2a8aa17878702d036289a47253fbf35bdf3c23ec12e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/home/.hand/sessions/rpc-37f25ff18865a5eb064e594f1042e4a37b7a10b695e30b9e52ba3b604f276fe2/requests.jsonl",
+      "sha256": "5f338a07ffa0b71561834cba652f32354a9fcb5f476252f08afc874de54aa17f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/provider-requests.json",
+      "sha256": "bd01b9ce556d53a8987680142f49b06dd2393b16c8f54c09eb80c979d35e33b6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/run.json",
+      "sha256": "be51a3cdf4676c49453ff2ff99a03b76f4b5723fecc946fa317b62d89b06860e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/workspace/.hand-restore-1ae3145b612731cf46e8d02c0f208fea",
+      "sha256": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/workspace/approved.txt",
+      "sha256": "c788e2315fa2282f79146ae97215c0f34be5e3f3b22101fc983793911427bc44"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-options-rpc-20260908/workspace/private/token",
+      "sha256": "50ac627c8861f762bf6e40e3ae614817fe4d641deab2d1a82885e8237fc2ed2f"
+    }
+  ],
+  "limitations": [
+    "macOS arm64 development binary with temporary Harness replacement.",
+    "Positive custom-scope journey; separate unit evidence covers invalid bounds and file-cap refusal.",
+    "Final platform/coverage/performance/live qualification remains pending."
+  ]
+}

@@ -1,0 +1,1309 @@
+{
+  "status": "development_passed",
+  "scope": "Parent-context cancellation after application ownership admission while waiting for controller mutex",
+  "source_files": [
+    {
+      "path": "internal/app/sessions.go",
+      "sha256": "efefe3192353c4f05363eba21b2eb66f5a58a99c8091d78376ce44e50bab39ce"
+    },
+    {
+      "path": "internal/app/session_tree.go",
+      "sha256": "714ad16969956c1a6966ba84f89f6981967ddfe7a982b6184e3d5e4840ff64e1"
+    },
+    {
+      "path": "internal/app/session_cancellation_admission_test.go",
+      "sha256": "fde09f8c95fd346c785eb7e9bc776a3586afdcd728f91be2ec475b82726aecbe"
+    }
+  ],
+  "results": {
+    "before": {
+      "counts": {
+        "fail": 3,
+        "pass": 5
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "fail"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "fail"
+        }
+      ]
+    },
+    "repeat": {
+      "counts": {
+        "pass": 160
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        }
+      ]
+    },
+    "integration": {
+      "counts": {
+        "pass": 81
+      },
+      "tests": [
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.new/0",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/1",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/2",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/3",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.select/4",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.name/5",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.name/6",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/profile.select/7",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/profile.select/8",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/profile.select/9",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/10",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/11",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/12",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/13",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute/session.list/14",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCRejectedControlsPreserveSessionAndDoNotExecute",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestRPCSessionAndProfileControls",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/rpc",
+          "test": "TestAutomaticCancellationRequiresResumeAndReplayStillWorks",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestExtensionSessionEventsFollowCommittedTransitions",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestExtensionSessionShutdownBoundsHungObserver",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestApplicationExtensionOwnershipQuestionsAndSessionBinding",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/resume-current",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionCancellationWhileWaitingForControllerLock",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerNewUsesCatalogueAndPreservesPriorSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestControllerResumeFailureKeepsCurrentLeaseAndSameSessionIsIdempotent",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/new",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/select",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/list",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/tree",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/usage",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/rename",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/resume",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue/history",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestSessionOperationsWithoutRuntimePreserveCatalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestStartInputRechecksSessionAfterResolution",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestAttachmentForkExportAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestAttachmentExportMissingBlobDoesNotPublish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestCataloguePreservesSessionsAcrossRegisterSelectRenameAndRestart",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportProcessDeathPublicationBoundaries",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/exact",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/record",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/total",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/large",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation/large_record",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionExportCopyLimitsAndCancellation",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestExportBoundaryFailureReportsPublicationAndCleansTemporary",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/copied_entry",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries/before_catalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkProcessDeathPublicationBoundaries",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupProtectsActiveAndSymlink",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupBoundedAndCancelled",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkStagingCleanupBeforeFirstSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkFailureDoesNotPublishPartialCopy",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/copied_entry",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/after_publish",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan/before_catalogue",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkBoundaryErrorsPreserveSourceAndRecoverCompleteOrphan",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerNewPreservesLegacyAndResumesLastActive",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestManagerWriterOwnershipAndIndependentNewSession",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionWriteLimitHelper",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit/export",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit/fork",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestSessionOperationsHandleRealWriteLimit",
+          "outcome": "pass"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/sessionio",
+          "test": "TestForkAccountingExcludesInheritedConsumption",
+          "outcome": "pass"
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/session-cancellation-admission-20260909/hand-session-cancel-before-20260909.jsonl.gz",
+      "sha256": "2a07108ae5e97a670f623c3f7a31996b5e2ceb3de100122d6bd716c57dd2fb48",
+      "uncompressed_sha256": "92432f4acce5b35682af23b570bdce96f08f152edb3c66e758f352a229194354"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/session-cancellation-admission-20260909/hand-session-cancel-repeat-20260909.jsonl.gz",
+      "sha256": "0132efdbad8d4a626f3fd59becd8853b2b16eb7f73ff70ff39aa13d08018b75c",
+      "uncompressed_sha256": "14216214ef740a87db6b136fcea52f757d86ef904478bba011e6152c5a16ed2b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/session-cancellation-admission-20260909/hand-session-cancel-integration-20260909.jsonl.gz",
+      "sha256": "de096ae6eb1b3df6f6389a680e878db7aa82e57d659e0a5387edf9243779f979",
+      "uncompressed_sha256": "e24be49fccac9b56b35eee0964bdd0a906f09fa0584270f08c8ddb6e6eb4d905"
+    }
+  ],
+  "limitations": [
+    "Does not promise interruption of an already committed persistence operation",
+    "Idle administrative operations retain existing Service.Cancel semantics; this verifies their parent context cancellation",
+    "Focused race suites, not final platform/candidate or whole critical-group coverage"
+  ]
+}

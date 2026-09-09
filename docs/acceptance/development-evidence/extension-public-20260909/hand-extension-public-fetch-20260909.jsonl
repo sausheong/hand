@@ -1,0 +1,12 @@
+{"Time":"2026-09-09T03:22:35.719954+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T03:22:36.029952+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC"}
+{"Time":"2026-09-09T03:22:36.029995+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC","Output":"=== RUN   TestExtensionResourceIPC\n"}
+{"Time":"2026-09-09T03:22:36.030582+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/public-fetch"}
+{"Time":"2026-09-09T03:22:36.030597+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/public-fetch","Output":"=== RUN   TestExtensionResourceIPC/network.fetch/public-fetch\n"}
+{"Time":"2026-09-09T03:22:36.489448+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/public-fetch","Output":"--- PASS: TestExtensionResourceIPC/network.fetch/public-fetch (0.46s)\n"}
+{"Time":"2026-09-09T03:22:36.489482+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/public-fetch","Elapsed":0.46}
+{"Time":"2026-09-09T03:22:36.489499+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC","Output":"--- PASS: TestExtensionResourceIPC (0.46s)\n"}
+{"Time":"2026-09-09T03:22:36.489519+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC","Elapsed":0.46}
+{"Time":"2026-09-09T03:22:36.48981+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T03:22:37.501885+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.782s\n"}
+{"Time":"2026-09-09T03:22:37.50193+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.782}

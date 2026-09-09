@@ -1,0 +1,145 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scenario": "legacy_broad_grant_ack",
+  "method": "SIGSTOP then SIGKILL actual CLI importer once a nonempty journal is observed; reopen and resume in new processes",
+  "platform_results": {
+    "macos": {
+      "interrupted_exit_code": -9,
+      "durable_partial_grants": 1,
+      "recovered_grants": 256,
+      "prefix_preserved": true,
+      "repeated_resume_unchanged": true
+    },
+    "linux": {
+      "interrupted_exit_code": -9,
+      "durable_partial_grants": 6,
+      "recovered_grants": 256,
+      "prefix_preserved": true,
+      "repeated_resume_unchanged": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/check_permission_interrupt.py.txt",
+      "sha256": "c07a70a7306c7a278336276a5f9f5564ac94e35c832354bcea076ecf4899bbfc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/container/container.json",
+      "sha256": "7e00d4fbfdc4a771fc9483d242c705c78407573e037077027720aad76160f97e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/container/container.log",
+      "sha256": "f83ac76efd18e5fe3d1313c0ceb5dda73f707f39b4f1399e742f765ce335b1ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/inspect.stdout",
+      "sha256": "c4c05a349444404282123385c555b961392d9d8169d09a1380b24fc4e2262c2b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/interrupted-grants.jsonl",
+      "sha256": "8ba497f7f6ff56da95c74e16a861e6af1a7a2ead7f0e3b08db074a30f057b1ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/interrupted.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/interrupted.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/partial-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/partial-inspect.stdout",
+      "sha256": "3389914de1a7717afa62353c8d4dc76125be45acf34f1fe50e72812b49140e71"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/recovered-grants.jsonl",
+      "sha256": "e5f44bd9577d909fa3f8e9bc0abde66434ba190a2f5a6a48185b4a1060779c90"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/repeat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/repeat.stdout",
+      "sha256": "f4e109fa901ca16b539205f7b716e6721a384cf9239fe2b2a5e3456756aba93a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/resume.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/resume.stdout",
+      "sha256": "f4e109fa901ca16b539205f7b716e6721a384cf9239fe2b2a5e3456756aba93a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/linux/run.json",
+      "sha256": "a2b301207e44530b2e2d8acbb46216243ab8455aabb6933146025328557ec40a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/inspect.stdout",
+      "sha256": "b986d6f887939c0c6148370d74157392852956813a4736e0588c9ba93d594fc0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/interrupted-grants.jsonl",
+      "sha256": "9ef29082d4efb838d06315ae8b1d689d789b15fbc459760cc5a72b0813971ee6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/interrupted.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/interrupted.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/partial-inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/partial-inspect.stdout",
+      "sha256": "db99eb1e4915bd33bc7ab8502d482463d3e1a801559df1428037babeab924677"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/recovered-grants.jsonl",
+      "sha256": "3acba8d3250396caf6a5f5a5f298bda73a5d9b30bfbb9123d2b6cb5d12ed5e2e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/repeat.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/repeat.stdout",
+      "sha256": "1d78440ce308340ce1d7b1c4f78bb66d2d6da30914b8314205d75e64800faec5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/resume.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/resume.stdout",
+      "sha256": "1d78440ce308340ce1d7b1c4f78bb66d2d6da30914b8314205d75e64800faec5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-interrupt-20260909/macos/run.json",
+      "sha256": "438b892b44db1a6b9394ea5034c2cb5a1fbe5002b71e998b00f28a730588c02b"
+    }
+  ],
+  "limitations": [
+    "One process-interruption journey per platform, not power-loss simulation or all write/fsync kill points",
+    "Development binaries; Linux binary predates unrelated wire usage encoding change",
+    "Final exact-candidate/released-Harness qualification pending"
+  ]
+}

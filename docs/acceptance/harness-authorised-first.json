@@ -1,0 +1,64 @@
+{
+  "status": "failed_then_targeted_fix_passed",
+  "authorisation": "authorise Docker use for these tests",
+  "first_run": {
+    "passed": 1113,
+    "failed": [
+      [
+        "github.com/sausheong/harness/execution",
+        "<package>"
+      ],
+      [
+        "github.com/sausheong/harness/execution",
+        "TestNativeContainerBoundary"
+      ]
+    ],
+    "skipped": [],
+    "sources_unchanged": true,
+    "coverage": {
+      "statements": 8922,
+      "covered": 6248,
+      "percentage": 70.0291414481058
+    }
+  },
+  "diagnosis": "ip exists at /sbin/ip, outside the restricted backend PATH. The new test prerequisite failed before network assertions.",
+  "fix": "Test explicitly resolves and invokes /sbin/ip; backend PATH remains unchanged.",
+  "targeted_test": "TestNativeContainerBoundary passed in Docker after correction.",
+  "full_corrected_run": {
+    "session_id": 68095,
+    "path": "/private/tmp/hand-harness-qualification-path-fixed-20260909",
+    "status": "running"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-first-20260909/report.json.gz",
+      "sha256": "c76635f797e62e78f35c28ce45b1983d165991157b329924ad73157be4a9008d",
+      "uncompressed_sha256": "def470a48a1b3d3bb7fbc3fa55f484ee75832767488404beec753dacd80949d1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-first-20260909/tests.jsonl.gz",
+      "sha256": "18bfd9c239af84fffc00b30ac67a97608fffc3e5f660e7f8954e22b74394001b",
+      "uncompressed_sha256": "3547c8ad6ca7f3b0390c6db495770fa4191ae3fa474127d4aaf4fcb92b6c7a2e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-first-20260909/inventory.json.gz",
+      "sha256": "d4b11d0944ba11ee4ebce0a41c8a96ba0db35fcfab3afb2bbcb2994cc2d84c3c",
+      "uncompressed_sha256": "2f7913a9b38c44cb76ba1415d8f107ad8852fd9ef1d7ed18c68f59be724829b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-first-20260909/coverage.out.gz",
+      "sha256": "4464a83e987af6078438b7af1fae686d6743cafc6559bcd07308c7e9c6a51e10",
+      "uncompressed_sha256": "ec1c54b1b18c5a4339d5a8be8fcd3f2859784d00dc9a242a247eae43fb8d7d1e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-first-20260909/packages.txt.gz",
+      "sha256": "a3bb5d66a6423cb447418957263d362b8f741fef98b2b8ec3ab3f5e40831a201",
+      "uncompressed_sha256": "996ee2b035ca271a96890f0a4effdc5dd24801ed598d5c39b1e835575a719849"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-first-20260909/harness-network-path-fix-20260909.jsonl.gz",
+      "sha256": "ef83958f9f2f7655e0e15334cb0a8b80b773cdbcb232ce247679538816784dbf",
+      "uncompressed_sha256": "2677f32efe9522ffad243d24ccb07e55f513bbc942123a64ac825f691e75e93e"
+    }
+  ]
+}

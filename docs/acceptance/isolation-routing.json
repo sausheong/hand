@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "status": "development_only",
+  "requirement": "M5.2",
+  "date": "2026-09-09",
+  "result": "Unsupported tools reject boundary installation atomically regardless of registry ordering. All nine worker tools receive the configured proxy without changing definitions.",
+  "tests": {
+    "command": "go test -count=1 -race -json ./internal/isolation ./internal/config ./internal/toolworker",
+    "passed_records": 77,
+    "failures": 0,
+    "skips": 0,
+    "packages": 3
+  },
+  "initial_failure": "New test attempted comparing a Container value containing a slice; changed fixture to a pointer for backend identity. Initial compile failure retained.",
+  "limitations": [
+    "No Docker invocation; actual filesystem/network/credential/process container probes remain pending authorisation.",
+    "Development working tree and local unreleased Harness, not release qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/isolation-routing-20260909/00-setup.go.gz",
+      "source": "internal/isolation/setup.go",
+      "sha256": "f913b38268754be0b6184bd09442d50c94d0840062aee53a2fe413b8a4934800",
+      "uncompressed_sha256": "e496be7e27d8227a2f45d39c49ce69fd4c2c615e8cae0603eb6987a84cfac365"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/isolation-routing-20260909/01-setup_test.go.gz",
+      "source": "internal/isolation/setup_test.go",
+      "sha256": "893cc27c3ec0a364390ffeb16c36e532b3461c2114df7e996d4f3761c3abbaff",
+      "uncompressed_sha256": "076e09b34c9ed5c95bed6741d9ad5f2eb74a9250f2d97ca170aba8fbcc91389f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/isolation-routing-20260909/02-execution.go.gz",
+      "source": "internal/config/execution.go",
+      "sha256": "eb18548b9324d02c9f2398dc6ca13491d99c64c5e6882c11effbc5d5a6807b8c",
+      "uncompressed_sha256": "cd98e848a007439b49e710c13560ad9015fb894c96bab9483913bd62b30814a1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/isolation-routing-20260909/03-hand-isolation-routing-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-isolation-routing-20260909.jsonl",
+      "sha256": "7800e5e4661e33f4b54fcb01be45f2b6d9aa052698343e9fa988b9d891a78ac4",
+      "uncompressed_sha256": "9e38b56116a99b0bd0313af8c2a8434915edb74614df96bbcc4e834a77e4bc5d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/isolation-routing-20260909/04-hand-isolation-routing-fixed-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-isolation-routing-fixed-20260909.jsonl",
+      "sha256": "d0d92fa942da7ed6397aa4ab7b38ef5dcd5873e16843fa5a98666bc148afce76",
+      "uncompressed_sha256": "a0c404cf7b652c95415566c8c47640bd9d01974d62aa65316ea9d03f2fceb18b"
+    }
+  ]
+}

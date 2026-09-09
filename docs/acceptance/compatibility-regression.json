@@ -1,0 +1,78 @@
+{
+  "status": "development_integrated_journeys_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -coverpkg=./... -coverprofile=/private/tmp/hand-compatibility-coverage-20260909.out -json ./examples/compatibility",
+  "observations": {
+    "cancelled_provider_requests": 3,
+    "observations": {
+      "cli_jsonl": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "cli_jsonl_cancel": {
+        "text": "cancel started",
+        "status": "cancelled",
+        "terminals": 1
+      },
+      "embedded_sdk": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "embedded_sdk_cancel": {
+        "text": "cancel started",
+        "status": "cancelled",
+        "terminals": 1
+      },
+      "subprocess_sdk": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "subprocess_sdk_cancel": {
+        "text": "cancel started",
+        "status": "cancelled",
+        "terminals": 1
+      }
+    },
+    "provider_calls": 6,
+    "scope": "local fixture completion and cancellation journeys; excludes live evaluation",
+    "status": "passed"
+  },
+  "example_package_coverage": {
+    "statements": 211,
+    "covered": 158,
+    "percentage": 74.88151658767772
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-compatibility-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/compatibility-regression-20260909/hand-compatibility-tests-20260909.jsonl.gz",
+      "sha256": "2b0640eebf15fc54f2e842390616a8a1476e61c27ff25a7bf0596af1a7177da4",
+      "uncompressed_sha256": "2dfc92463c48b840cb9257991f442937a20d935e17971311cd1837c3d98d1c3d"
+    },
+    {
+      "source": "/private/tmp/hand-compatibility-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/compatibility-regression-20260909/hand-compatibility-coverage-20260909.out.gz",
+      "sha256": "166a7926c00c40136adc24c3ba266ad0698953074b1a17b140bb01e135e3ce2e",
+      "uncompressed_sha256": "830aa992a1a7a4c2d69f750d23ee7cf8fa70f2fb90c701cafcb6b2730ff9f269"
+    },
+    {
+      "source": "examples/compatibility/main.go",
+      "path": "docs/acceptance/development-evidence/compatibility-regression-20260909/main.go.gz",
+      "sha256": "c5f426b5643438ac0a8adcbcb3b9c2f15f2f24ae6c56c9f2ff92a0c90de681ae",
+      "uncompressed_sha256": "abe53f67488b61dc0ccbec72d86cc4d41d36148b13c8805bac1956edfe20e855"
+    },
+    {
+      "source": "examples/compatibility/main_test.go",
+      "path": "docs/acceptance/development-evidence/compatibility-regression-20260909/main_test.go.gz",
+      "sha256": "7417150873bf1d0a78d04fb9ac2a1302bc94f3f1109b534c5d10121e623d257c",
+      "uncompressed_sha256": "68cc363733730edd4880a37aebed97ae74b882a78aeba48259a762de2f995c86"
+    }
+  ],
+  "limitations": [
+    "Local deterministic HTTP provider; no paid/live comparison",
+    "Test harness race-instrumented; separately built CLI binary is not race-instrumented",
+    "Development workspace and unreleased Harness; final candidate evidence remains required"
+  ]
+}

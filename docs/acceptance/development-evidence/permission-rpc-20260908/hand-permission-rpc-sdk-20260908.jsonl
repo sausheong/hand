@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T12:59:06.515874+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-08T12:59:07.090883+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease"}
+{"Time":"2026-09-08T12:59:07.090931+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Output":"=== RUN   TestEmbeddedSessionLifecycleAndRelease\n"}
+{"Time":"2026-09-08T12:59:07.190806+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Output":"--- PASS: TestEmbeddedSessionLifecycleAndRelease (0.10s)\n"}
+{"Time":"2026-09-08T12:59:07.190828+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Elapsed":0.1}
+{"Time":"2026-09-08T12:59:07.19085+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"PASS\n"}
+{"Time":"2026-09-08T12:59:08.203784+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"ok  \tgithub.com/sausheong/hand/sdk\t1.688s\n"}
+{"Time":"2026-09-08T12:59:08.203845+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Elapsed":1.688}

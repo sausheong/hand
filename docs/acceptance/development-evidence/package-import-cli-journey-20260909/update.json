@@ -1,0 +1,51 @@
+{
+  "origin": {
+    "kind": "local",
+    "location": "/private/tmp/hand-package-import-cli-journey-20260909/source"
+  },
+  "action": "install",
+  "store": "/private/tmp/hand-package-import-cli-journey-20260909/store",
+  "generation": 1,
+  "name": "python-task-note",
+  "previous": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484",
+  "source": "/private/tmp/hand-package-import-cli-journey-20260909/source",
+  "manifest": {
+    "schema": 1,
+    "name": "python-task-note",
+    "version": "1.1.0",
+    "compatibility": {
+      "minimum_hand": "0.1.0",
+      "extension_protocol": 1
+    },
+    "files": [
+      {
+        "path": "main.py",
+        "kind": "extension",
+        "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+        "size": 3339
+      }
+    ],
+    "runtimes": [
+      {
+        "name": "python",
+        "command": "python3",
+        "minimum_version": "3.9.0"
+      }
+    ],
+    "extensions": [
+      {
+        "name": "task-note",
+        "entrypoint": "main.py",
+        "runtime": "python",
+        "capabilities": [
+          "commands",
+          "questions",
+          "state",
+          "context.transform",
+          "file.read"
+        ]
+      }
+    ]
+  }
+}

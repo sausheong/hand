@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "name": "task-note",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum_hand": "0.1.0",
+    "extension_protocol": 1
+  },
+  "files": [
+    {
+      "path": "task-note",
+      "kind": "extension",
+      "sha256": "37610113a2f630bfd512f8f0b35759b8945f36834b0c3dc0fde206f88bd78f38",
+      "size": 3023650,
+      "executable": true
+    }
+  ],
+  "extensions": [
+    {
+      "name": "task-note",
+      "entrypoint": "task-note",
+      "capabilities": [
+        "commands",
+        "questions",
+        "state",
+        "context.transform"
+      ]
+    }
+  ]
+}

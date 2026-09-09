@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T22:34:02.891856+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T22:34:03.466933+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectedRunBudgetGovernsControllerAdapter"}
+{"Time":"2026-09-08T22:34:03.466985+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectedRunBudgetGovernsControllerAdapter","Output":"=== RUN   TestSelectedRunBudgetGovernsControllerAdapter\n"}
+{"Time":"2026-09-08T22:34:03.468688+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectedRunBudgetGovernsControllerAdapter","Output":"--- PASS: TestSelectedRunBudgetGovernsControllerAdapter (0.00s)\n"}
+{"Time":"2026-09-08T22:34:03.468699+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectedRunBudgetGovernsControllerAdapter","Elapsed":0}
+{"Time":"2026-09-08T22:34:03.468835+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T22:34:04.47604+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.584s\n"}
+{"Time":"2026-09-08T22:34:04.476085+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.584}

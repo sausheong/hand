@@ -1,0 +1,350 @@
+{
+  "status": "development_full_hand_suite_passed",
+  "command": [
+    "go",
+    "test",
+    "-p=1",
+    "-race",
+    "-count=1",
+    "-timeout=15m",
+    "-coverpkg=./...",
+    "-coverprofile=/private/tmp/hand-budget-native-coverage-20260909.out",
+    "-json",
+    "./..."
+  ],
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HAND_TEST_PYTHON_IMAGE": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "HAND_TEST_CONTAINER_ARCH": "arm64",
+    "HAND_TEST_WORKER_BINARY": "/private/tmp/hand-budget-worker-20260909",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "/private/tmp/hand-budget-peer-20260909.test",
+    "HAND_TEST_PUBLIC_FETCH_URL": "https://example.com/"
+  },
+  "seconds": 164.7603797080228,
+  "exit_code": 0,
+  "test_records": {
+    "pass": 1495
+  },
+  "packages": {
+    "pass": 26
+  },
+  "coverage": {
+    "total": {
+      "statements": 15661,
+      "covered": 12595,
+      "percentage": 80.42270608517974
+    },
+    "packages": {
+      "github.com/sausheong/hand/cmd/hand": {
+        "statements": 967,
+        "covered": 670,
+        "percentage": 69.28645294725956
+      },
+      "github.com/sausheong/hand/cmd/hand-tool-worker": {
+        "statements": 11,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/compatibility": {
+        "statements": 210,
+        "covered": 160,
+        "percentage": 76.19047619047619
+      },
+      "github.com/sausheong/hand/examples/embedded": {
+        "statements": 19,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-task-note": {
+        "statements": 66,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-tool-policy": {
+        "statements": 35,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/examples/extensions/go-tool-viewer": {
+        "statements": 48,
+        "covered": 18,
+        "percentage": 37.5
+      },
+      "github.com/sausheong/hand/examples/extensions/go-verification-hook": {
+        "statements": 62,
+        "covered": 28,
+        "percentage": 45.16129032258065
+      },
+      "github.com/sausheong/hand/examples/rpc": {
+        "statements": 17,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/hand/extension/protocol": {
+        "statements": 204,
+        "covered": 176,
+        "percentage": 86.27450980392157
+      },
+      "github.com/sausheong/hand/internal/agentio": {
+        "statements": 1254,
+        "covered": 1088,
+        "percentage": 86.76236044657097
+      },
+      "github.com/sausheong/hand/internal/app": {
+        "statements": 3159,
+        "covered": 2690,
+        "percentage": 85.15352959797404
+      },
+      "github.com/sausheong/hand/internal/checkpoints": {
+        "statements": 1011,
+        "covered": 831,
+        "percentage": 82.19584569732937
+      },
+      "github.com/sausheong/hand/internal/config": {
+        "statements": 278,
+        "covered": 234,
+        "percentage": 84.1726618705036
+      },
+      "github.com/sausheong/hand/internal/extensions": {
+        "statements": 1117,
+        "covered": 903,
+        "percentage": 80.84153983885408
+      },
+      "github.com/sausheong/hand/internal/isolation": {
+        "statements": 35,
+        "covered": 28,
+        "percentage": 80.0
+      },
+      "github.com/sausheong/hand/internal/packages": {
+        "statements": 1302,
+        "covered": 1041,
+        "percentage": 79.95391705069125
+      },
+      "github.com/sausheong/hand/internal/permissions": {
+        "statements": 383,
+        "covered": 318,
+        "percentage": 83.02872062663185
+      },
+      "github.com/sausheong/hand/internal/rpc": {
+        "statements": 1169,
+        "covered": 934,
+        "percentage": 79.89734816082121
+      },
+      "github.com/sausheong/hand/internal/sessionio": {
+        "statements": 698,
+        "covered": 576,
+        "percentage": 82.52148997134671
+      },
+      "github.com/sausheong/hand/internal/toolproxy": {
+        "statements": 57,
+        "covered": 43,
+        "percentage": 75.43859649122807
+      },
+      "github.com/sausheong/hand/internal/toolworker": {
+        "statements": 44,
+        "covered": 38,
+        "percentage": 86.36363636363636
+      },
+      "github.com/sausheong/hand/internal/tui": {
+        "statements": 2688,
+        "covered": 2171,
+        "percentage": 80.76636904761905
+      },
+      "github.com/sausheong/hand/internal/verification": {
+        "statements": 395,
+        "covered": 295,
+        "percentage": 74.68354430379746
+      },
+      "github.com/sausheong/hand/protocol": {
+        "statements": 83,
+        "covered": 73,
+        "percentage": 87.95180722891567
+      },
+      "github.com/sausheong/hand/sdk": {
+        "statements": 349,
+        "covered": 280,
+        "percentage": 80.22922636103152
+      }
+    }
+  },
+  "changed_coverage": {
+    "status": "missing_profile_files",
+    "statements": 14997,
+    "covered": 12040,
+    "percentage": 80.28272321130893,
+    "missing_profile_files": [
+      "cmd/hand/legacy_open_other.go",
+      "internal/agentio/approval_snapshot_other.go",
+      "internal/checkpoints/rename_linux.go",
+      "internal/checkpoints/rename_other.go",
+      "internal/permissions/authority_other.go",
+      "internal/rpc/ledger_other.go"
+    ],
+    "method": "entire instrumented block intersecting any added or changed line"
+  },
+  "critical_groups": {
+    "lifecycle": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.7058648407264,
+      "statements": 6718,
+      "covered": 5489,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "permissions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.8996282527881,
+      "statements": 538,
+      "covered": 446,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "persistence": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.89412852519649,
+      "statements": 2163,
+      "covered": 1793,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "execution": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.61474269819193,
+      "statements": 1438,
+      "covered": 1188,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "checkpoints": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.08527131782945,
+      "statements": 1290,
+      "covered": 1046,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "budgets": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 79.9009900990099,
+      "statements": 1010,
+      "covered": 807,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "protocol": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 79.83870967741936,
+      "statements": 1612,
+      "covered": 1287,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "extensions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.44959733407387,
+      "statements": 3601,
+      "covered": 2933,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "accounting": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 83.0354343054249,
+      "statements": 3189,
+      "covered": 2648,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    }
+  },
+  "source_fingerprints": {
+    "/Users/sausheong/projects/hand": "4db35c71cd3180a61dba041368911d5b03d1189826b880a2be45c5bc7ad8934c",
+    "/private/tmp/hand-harness-persistence-20260908": "94d7b04316cab30fdf614e2f6db6bc6328091be5082cca562b51688c600487f9"
+  },
+  "sources_unchanged_during_run": true,
+  "fixtures": {
+    "/private/tmp/hand-budget-worker-20260909": "ba8651eeded1ce24bab0ca7208452e8454a5da6c923db804f7cf750392cb8914",
+    "/private/tmp/hand-budget-peer-20260909.test": "581ff5de9df3f478633ea92781e22462b41b766e2affbb57da6e1102e5530564"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-native-20260909/hand-budget-native-20260909.jsonl.gz",
+      "sha256": "d1d4769556501f53921ebf59f56315d8c749a2c0d56e287c7fc5c566972feaa8",
+      "uncompressed_sha256": "5ca3659d64c33341a13a0bc87702363175a72692a6d5e272c4ce19fac1a97172"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-native-20260909/hand-budget-native-coverage-20260909.out.gz",
+      "sha256": "6614424069b2f798cbf39f9800e307c3be83471b73cf279616522219c666ae96",
+      "uncompressed_sha256": "29c735968992d035c771ecd256c1c72c646eeef87716bf7ffb17aa0b64df381b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-native-20260909/hand-budget-native-inputs-20260909.json.gz",
+      "sha256": "818c26681cb61cce66afad9d1e3a889c608313c98622ea6b0de411a4c44c2fff",
+      "uncompressed_sha256": "659571e2385562b66df2bc37ac68eb677dd475c02e202d3ce18c1c8a71a65788"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-native-20260909/hand-budget-native-result-20260909.json.gz",
+      "sha256": "a112e5a29ffdb374725f7243c6c297f8245cfdc091f88509b4a64356e41ba16c",
+      "uncompressed_sha256": "d14a8844914007875f91793975b4891ddf3552da793908196674151f0c37a147"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-native-20260909/hand-budget-enospc-20260909.log.gz",
+      "sha256": "7c21a240b8d362c3fc653e07fda0aaf4b23179e4ed21060f8a0063b4233f5935",
+      "uncompressed_sha256": "a940ae0d382566fe7584cb6f10f1e5f1c7bcbbb843526fc404b265285644fef8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-native-20260909/coverage-detail.json.gz",
+      "sha256": "0a8ba044d5915f6e52dff5ff7f6873f0152ba1597afe89f44ac09851d11cbc2d"
+    }
+  ],
+  "harness_coverage_evidence": "docs/acceptance/harness-current-native-suite.json",
+  "enospc_binaries": {
+    "/private/tmp/hand-budget-enospc-20260909": "2df6a18995124782a1fb1544c6657d6c9b33cf03c98c16fe3153e0c043ecafaa",
+    "/private/tmp/hand-budget-enospc-20260909.test": "bcc76dffc5c69820afc68002cdaf456b54c16933079f2fe4df99e903787d1dbe"
+  },
+  "limitations": [
+    "Local go.work integration; no released Harness version or clean final candidate",
+    "macOS host race suite plus separate non-race Linux/arm64 container ENOSPC fixtures",
+    "Platform-source coverage gaps and critical thresholds remain open",
+    "Native hosted release qualification and live task evaluation still pending"
+  ]
+}

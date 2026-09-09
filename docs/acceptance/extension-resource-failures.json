@@ -1,0 +1,76 @@
+{
+  "status": "development_passed",
+  "scope": "Focused app extension regression suite with explicit public HTTP fixture, real subprocess callbacks and post-effect error cases",
+  "test_records": {
+    "pass": 67
+  },
+  "resource_file_coverage": {
+    "covered": 79,
+    "total": 84,
+    "percentage": 94.04761904761905
+  },
+  "sources": [
+    {
+      "path": "internal/app/extension_resources.go",
+      "sha256": "c0634f2c954b9e9b21066bdc30321cb127db22cc7e85f52c077fb4cc9bb6405c"
+    },
+    {
+      "path": "internal/app/extension_resource_failure_test.go",
+      "sha256": "4ad32cedc82502dd7a6fdb38dd3c97c2b15366d80b1eb94c10fbf8cb9abeb3bb"
+    },
+    {
+      "path": "internal/app/extension_resource_ipc_test.go",
+      "sha256": "23329ffe0f5224e009ec1219629802c7388e567e261bcbcee42e6f0ec1dab765"
+    },
+    {
+      "path": "internal/app/extension_resources_test.go",
+      "sha256": "bac98e67a20e5ab2ac623edd63508178038eeec4450ea6b05dd5ea324e88c8cb"
+    },
+    {
+      "path": "internal/app/extension_network_process_test.go",
+      "sha256": "a892e3cfdcb694be068580d1565d6a8640e448a1fd2dc64d0a04f43f903b90b1"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-audit-20260909.jsonl.gz",
+      "sha256": "64691a4423988bd91abf693314f92fe14b0f52cd935d7505b7092baf4f14c51f",
+      "uncompressed_sha256": "f025b2e8beb2cb2cb85bc7851c999a14eba03f669d9aea0a39e95a8f5360ce12"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-public-audit-20260909.jsonl.gz",
+      "sha256": "a1b855e73190246c3081a1e94d37447637d554cb32385b3f409440d605f5213d",
+      "uncompressed_sha256": "6a1fb60d66c7ec5dd1227d028d6bfa7875a420d3829950a839b7cdee3283d3eb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-resource-failure-20260909.jsonl.gz",
+      "sha256": "673cf28dff2b7bb48ab2dabe79759b9471bf06ff89a8de79d3683de271cf3ca8",
+      "uncompressed_sha256": "49c54e433f1c112c6e50df5e620cd655cb932cd832ca7697719c041b210a65e5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-resource-failure-fixed-20260909.jsonl.gz",
+      "sha256": "528ca5a630f7658349a618f46968e8f726db361409525fdf4a5d90161939621a",
+      "uncompressed_sha256": "11973db2c2bea476e66b8ac807173fd341f89f65204bbecb892bbc5f3065ca0d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-audit-final-20260909.jsonl.gz",
+      "sha256": "1f1a57ecfa803dfff3e517ea7fbe74bac5b0ad118bbe67082bbb158d2813ce9e",
+      "uncompressed_sha256": "831b42ab2b448f810dc10527775f8269b3fe3491f0a3808572be3f5967df4968"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-audit-final-20260909.out.gz",
+      "sha256": "ea5b13c5fd02375ffa7460d0b57c22f188859a10f96a79ac0a52b99294a6f248",
+      "uncompressed_sha256": "51ca511780b1eb5e9fcac9bf5a1bf8488b0cd8b945419368608789597cbb08a8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-resource-failures-20260909/hand-extension-audit-sources-20260909.json.gz",
+      "sha256": "15b083375d7674b92d8b522697c2af0cb398e3c834d8a73267839cc6641865dd",
+      "uncompressed_sha256": "048fe5d5f6a40edc1263a883e2cd4513d6cc1e1f0f7665978cc8075b3d254034"
+    }
+  ],
+  "limitations": [
+    "Focused app extension tests, not whole-app coverage or final candidate evidence",
+    "Resource failure tests inject post-effect errors and limits; they do not prove every external operation outcome",
+    "Full extension critical coverage, native container qualification and final acceptance remain pending"
+  ]
+}

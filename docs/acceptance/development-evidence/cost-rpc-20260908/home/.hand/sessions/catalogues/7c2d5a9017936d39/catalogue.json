@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-cost-rpc-20260908/workspace",
+  "generation": 6,
+  "lastActiveId": "ses_01fc0f36ac6d9fe0",
+  "sessions": [
+    {
+      "id": "ses_b93fa54e8574d9b3",
+      "agentId": "hand",
+      "storeKey": "workspace_7c2d5a9017936d39_e15253b16d8ec336b2742b101260ac0f",
+      "name": "",
+      "createdAt": "2026-09-08T13:23:28.204097Z",
+      "lastActive": "2026-09-08T13:23:28.206422Z"
+    },
+    {
+      "id": "ses_01fc0f36ac6d9fe0",
+      "agentId": "hand",
+      "storeKey": "workspace_7c2d5a9017936d39_a20583247db5648de948e5adb705d4b0",
+      "name": "",
+      "createdAt": "2026-09-08T13:23:28.24398Z",
+      "lastActive": "2026-09-08T13:23:28.654731Z"
+    }
+  ]
+}

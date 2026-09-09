@@ -1,0 +1,114 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "a93ecd13058131a0d627207393329899969b05e2308686e57f5c7eb40ba620b4",
+  "runner_sha256": "3c8e40d49a7e75deb1f38267a571f718eca20a13c396a0c25171ddf45a57119e",
+  "provider_calls": 0,
+  "limitations": [
+    "Host Python package journey; not final candidate or platform qualification."
+  ],
+  "package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "startup_digest": "853f61c5f8037e6f09458a9be1ed0ef07d470b29cb80b0677bc5938634ee15cc",
+  "source_removed_before_review": true,
+  "real_question_answer": true,
+  "restart_replay": true,
+  "cancellation_joined": true,
+  "snapshots_removed": true,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/commands.json",
+      "sha256": "fdc596502dbeb880b48104184d7ac1448b8bbac65c7b40d2984aaae14211c222"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/authority/f4f163925312259cf142be79a57e19ac1ed198fd2457702d4e16675cd28a9db9/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/sessions/catalogues/f4f163925312259c/catalogue.json",
+      "sha256": "b82dbd9a84d23e26aec338a39f33f782ec7c5bc4d6b9dd7869333d6aedf7fa60"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/sessions/catalogues/f4f163925312259c/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/sessions/hand/.leases/workspace_f4f163925312259c_07d74db5c509f68432f6c06a25920200.lock",
+      "sha256": "0d37d0250f622dc2bfda4a23bf26da8d0f7f17aaeeaff6c1724ebd7597d86c04"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/sessions/hand/workspace_f4f163925312259c_07d74db5c509f68432f6c06a25920200.jsonl",
+      "sha256": "6c70054b91860f6c6a88e46208aad77480a815e02cfab213fdf3ed99cb14059b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/home/.hand/sessions/rpc-f4f163925312259cf142be79a57e19ac1ed198fd2457702d4e16675cd28a9db9/requests.jsonl",
+      "sha256": "6a1b78f47b4aa0b181a62401215ddac4a563f71a3e7938d712cbb75a6464ee0a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/install.json",
+      "sha256": "5d0514285d96f3b7065ae76165b103053d8b54776f11fd7f22ff40f0088ae134"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/rpc-0.json",
+      "sha256": "7e5404d2685abb681b9253d6b60e081c4421d5646bf43f9a3b4b2d00d521109c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/rpc-0.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/rpc-1.json",
+      "sha256": "452d5797d19f9a20439e79a82651eef3a32c4178ff2822f8aa8ee3fb62baf1a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/rpc-1.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/run.json",
+      "sha256": "8359d6449101c4cdc10b73d74d4d9eb749dfac7eb47de2776eb8f9b9e1aab43d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/runtime.json",
+      "sha256": "eced5fc8d14ea699574f37f4dfe54abe1b61d4a1881a23c8e9f259612ccaeda9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/startup.json",
+      "sha256": "853f61c5f8037e6f09458a9be1ed0ef07d470b29cb80b0677bc5938634ee15cc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/store/lock.json",
+      "sha256": "623717b3e2dd10970c48bfe436a6e8f2e25c7d8f6dff1be56a41085f9faf0c54"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/hand-package.json",
+      "sha256": "6c01fe91966a8f78213cf0cad2152b44f2e08cd1844828d09c97503845958989"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-activation-rpc-20260909/store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_aggregate": "docs/acceptance/package-launch-cli-integration.json",
+  "runner_dependencies": [
+    {
+      "path": "scripts/check_rpc_client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "scripts/check_extension_rpc.py",
+      "sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3"
+    }
+  ]
+}

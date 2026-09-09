@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "passed": true,
+  "records": [
+    {
+      "version": 1,
+      "request_id": "hello-1",
+      "result": {
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  ],
+  "scope": "Built CLI subprocess; local provider constructed but no model request or network evaluation performed.",
+  "binary_sha256": "37041273fbcb3202b8a2bf04f8f2c721b7fee818972fc7383f7a74adfea0af27"
+}

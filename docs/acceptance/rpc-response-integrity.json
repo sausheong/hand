@@ -1,0 +1,82 @@
+{
+  "status": "development_control_integrity_passed",
+  "control_response_cases": 10,
+  "ledger_envelope_cases": 8,
+  "test_records": {
+    "pass": 133,
+    "fail": 0,
+    "skip": 0
+  },
+  "coverage": {
+    "statements": 1169,
+    "covered": 920,
+    "percentage": 78.69974337040205
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-response-before-20260909.log",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/hand-rpc-response-before-20260909.log.gz",
+      "sha256": "4aed74bd1e8a781becfead1c9f34dee7461ef12b8da7468224b814ef1968fa67",
+      "uncompressed_sha256": "b7c9949835308b77b3b99bd22cae37aeda46d8dfa48342ee28aefb1301c72762"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-response-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/hand-rpc-response-after-20260909.jsonl.gz",
+      "sha256": "b67514de427b4003384d6e9f9388410eec12deaad8f8d60a80735989af74fa92",
+      "uncompressed_sha256": "41d97cece68e48481880931fa7e0237f65125312ed916d84811ba32d9bd7fec6"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-response-final-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/hand-rpc-response-final-20260909.jsonl.gz",
+      "sha256": "f4a162538675cbe96219ec77abe6854fb7b09394917a9e728cb99a20210b1931",
+      "uncompressed_sha256": "bbbea8fb176da665e854e86fa2dc0dadc98554f50da9a12f1472b9dc2419e5e4"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-response-final-20260909.out",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/hand-rpc-response-final-20260909.out.gz",
+      "sha256": "672e33271b3315d5e1415b1b1fca29b2028145aa6685cef149e731e24eefe709",
+      "uncompressed_sha256": "72d755e7be2b8072c72153c4d1cc26187fc3742be39dab93c3aa0ee0edd4015f"
+    },
+    {
+      "source": "internal/rpc/ledger.go",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/ledger.go.gz",
+      "sha256": "102fb383dae02e974f28e8b4bb5d0e8cbe76a67f28dadd73911fd3e3654b66a7",
+      "uncompressed_sha256": "820a2fe1ecce6bde4721444bbbc4bf118d2408ab298e4be9a5306b58e6d6c78a"
+    },
+    {
+      "source": "internal/rpc/ledger_json.go",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/ledger_json.go.gz",
+      "sha256": "6aa46942a19da1d8da341b8977bb7dc3d0e5a9a6ff8a392d11d1d06c563591c7",
+      "uncompressed_sha256": "6798bcfe2b4e34367d38e663a6f4c4b5ecf722ea8e4f8aa5f52187027f5fdb3a"
+    },
+    {
+      "source": "internal/rpc/terminal.go",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/terminal.go.gz",
+      "sha256": "6810a6f732e81d1a727167892908511e242710593ce92d7768baf4f6665de912",
+      "uncompressed_sha256": "0e03dbdcc150975626aa53c1786af867dd1cca0f46e39e206a07608c5bd915c5"
+    },
+    {
+      "source": "internal/rpc/control_response.go",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/control_response.go.gz",
+      "sha256": "9eba6f3e7a9bba8f492332d5a3477104a552775fbcee62ff758eca0e57cbdf36",
+      "uncompressed_sha256": "3a83b3262e325e451e3eebab6cd46b8107ef4ce53b31880f9ffc88890be0c4cd"
+    },
+    {
+      "source": "internal/rpc/control_response_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-response-integrity-20260909/control_response_integrity_test.go.gz",
+      "sha256": "6fa1738277760ee18549219bb4ec223bc7ef98ebc024e8a4d60ea2ab3299e415",
+      "uncompressed_sha256": "e538fa609dd736de7e55c5f3dfc6d027f406ef139366be047d30900b73b50642"
+    }
+  ],
+  "assertions": [
+    "Invalid responses cannot append bytes",
+    "Corrupt completed responses and ambiguous ledger envelopes cannot reopen",
+    "Failed reopening preserves file bytes and releases the lock",
+    "Restoring valid records preserves no-reexecution guarantees"
+  ],
+  "limitations": [
+    "RPC package suite only; not a refreshed full-product or critical-group coverage result",
+    "Record consistency does not authenticate result contents",
+    "Dirty Hand and unreleased Harness; final acceptance remains open"
+  ]
+}

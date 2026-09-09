@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T15:04:35.452809+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T15:04:36.062224+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair"}
+{"Time":"2026-09-08T15:04:36.062281+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair","Output":"=== RUN   TestCheckpointJournalPersistsRunPair\n"}
+{"Time":"2026-09-08T15:04:36.145495+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair","Output":"--- PASS: TestCheckpointJournalPersistsRunPair (0.08s)\n"}
+{"Time":"2026-09-08T15:04:36.145543+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair","Elapsed":0.08}
+{"Time":"2026-09-08T15:04:36.146681+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T15:04:37.154714+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.702s\n"}
+{"Time":"2026-09-08T15:04:37.154788+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.702}

@@ -1,0 +1,33 @@
+{"Time":"2026-09-09T08:48:24.324516+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T08:48:24.956957+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields"}
+{"Time":"2026-09-09T08:48:24.957017+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields\n"}
+{"Time":"2026-09-09T08:48:24.957034+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias"}
+{"Time":"2026-09-09T08:48:24.957041+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/state-alias\n"}
+{"Time":"2026-09-09T08:48:24.957246+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Output":"    snapshot_integrity_test.go:47: ambiguous execution accepted\n"}
+{"Time":"2026-09-09T08:48:24.957271+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Output":"--- FAIL: TestSnapshotRejectsAmbiguousExecutionFields/state-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:48:24.95728+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Elapsed":0}
+{"Time":"2026-09-09T08:48:24.957291+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias"}
+{"Time":"2026-09-09T08:48:24.957297+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/session-alias\n"}
+{"Time":"2026-09-09T08:48:24.957325+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Output":"    snapshot_integrity_test.go:47: ambiguous execution accepted\n"}
+{"Time":"2026-09-09T08:48:24.957348+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Output":"--- FAIL: TestSnapshotRejectsAmbiguousExecutionFields/session-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:48:24.957356+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Elapsed":0}
+{"Time":"2026-09-09T08:48:24.957367+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state"}
+{"Time":"2026-09-09T08:48:24.957373+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/state\n"}
+{"Time":"2026-09-09T08:48:24.957397+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Output":"    snapshot_integrity_test.go:47: ambiguous execution accepted\n"}
+{"Time":"2026-09-09T08:48:24.957418+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Output":"--- FAIL: TestSnapshotRejectsAmbiguousExecutionFields/state (0.00s)\n"}
+{"Time":"2026-09-09T08:48:24.957428+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Elapsed":0}
+{"Time":"2026-09-09T08:48:24.957437+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity"}
+{"Time":"2026-09-09T08:48:24.957445+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/identity\n"}
+{"Time":"2026-09-09T08:48:24.957475+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Output":"    snapshot_integrity_test.go:47: ambiguous execution accepted\n"}
+{"Time":"2026-09-09T08:48:24.95748+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Output":"--- FAIL: TestSnapshotRejectsAmbiguousExecutionFields/identity (0.00s)\n"}
+{"Time":"2026-09-09T08:48:24.957488+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Elapsed":0}
+{"Time":"2026-09-09T08:48:24.957499+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity"}
+{"Time":"2026-09-09T08:48:24.957503+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity\n"}
+{"Time":"2026-09-09T08:48:24.957533+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Output":"    snapshot_integrity_test.go:47: ambiguous execution accepted\n"}
+{"Time":"2026-09-09T08:48:24.95755+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Output":"--- FAIL: TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity (0.00s)\n"}
+{"Time":"2026-09-09T08:48:24.95756+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Elapsed":0}
+{"Time":"2026-09-09T08:48:24.95768+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields","Output":"--- FAIL: TestSnapshotRejectsAmbiguousExecutionFields (0.00s)\n"}
+{"Time":"2026-09-09T08:48:24.957686+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields","Elapsed":0}
+{"Time":"2026-09-09T08:48:24.957729+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\n"}
+{"Time":"2026-09-09T08:48:24.958533+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\tgithub.com/sausheong/hand/sdk\t0.634s\n"}
+{"Time":"2026-09-09T08:48:24.95855+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Elapsed":0.634}

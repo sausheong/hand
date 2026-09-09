@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T16:22:44.290415+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T16:22:44.862221+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit"}
+{"Time":"2026-09-08T16:22:44.862278+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Output":"=== RUN   TestVerificationOwnedCommandAndLaterEdit\n"}
+{"Time":"2026-09-08T16:22:44.91155+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Output":"--- PASS: TestVerificationOwnedCommandAndLaterEdit (0.05s)\n"}
+{"Time":"2026-09-08T16:22:44.911573+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Elapsed":0.05}
+{"Time":"2026-09-08T16:22:44.911598+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T16:22:45.927024+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.636s\n"}
+{"Time":"2026-09-08T16:22:45.927104+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.637}

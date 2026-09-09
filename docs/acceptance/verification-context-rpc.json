@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "833d9b7d63365ac86a952d58dc05c22d9e047db2e91aef93c688f1794d911d65",
+  "runner_sha256": "654dfee9614448210594f9881ea78208bebcedeef5471d9d7739654de946ff7a",
+  "client_runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "passed_id": "67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6",
+  "failed_id": "c7d5c10c7c993d014d84e4999b89caf38330819e1bdf9e0cef47d054fb3c95c6",
+  "later_edit_stale": true,
+  "replay_after_restart": true,
+  "structured_context_restart": true,
+  "replay_preserves_stale_context": true,
+  "cancel_joined": true,
+  "disconnect_joined": true,
+  "command_pids": [
+    15151,
+    15152
+  ],
+  "provider_calls": 0,
+  "hand_aggregate": "verification-context-integration.patch",
+  "harness_delta": "harness-context-state.patch",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/client-one.json",
+      "sha256": "1b38a8488bdb110f3a2f2e66e3608ec205424d456877ddb5f81cabe2e8b28207"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/client-one.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/client-three.json",
+      "sha256": "10e47bc05b0be29d99f6650a8824862085194af868f9d325595e7245c9119e0d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/client-three.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/client-two.json",
+      "sha256": "0da1ac81dfe0d83571a6d1a081e6254267da9a1823374bfe81c7e32de057f74b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/client-two.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/home/.hand/sessions/hand/workspace_de3b711c3cab4f6f_be7dcfd8d5abc632ec33dfb10f5181f8.jsonl",
+      "sha256": "607259a3de5c8a1b5e0ba285f132edbe40bbef154411deb59f368dbfeef5052a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/run.json",
+      "sha256": "3e223d2694b69ffb65d9ef00b5fd5682718a7c6c9751de484b208a332c947e3e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/verification/67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6.json",
+      "sha256": "67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/verification/912494e79ac20420c1f4574988909e7932e3c4b7b34d57755388704e890ae979.json",
+      "sha256": "912494e79ac20420c1f4574988909e7932e3c4b7b34d57755388704e890ae979"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/verification/a0cffa3d974313b6df7438af4d4e50082968273bba8a9f0ca7c625e3dd869714.json",
+      "sha256": "a0cffa3d974313b6df7438af4d4e50082968273bba8a9f0ca7c625e3dd869714"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/verification/c7d5c10c7c993d014d84e4999b89caf38330819e1bdf9e0cef47d054fb3c95c6.json",
+      "sha256": "c7d5c10c7c993d014d84e4999b89caf38330819e1bdf9e0cef47d054fb3c95c6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-context-rpc-20260908/verification.json",
+      "sha256": "05b16f3b1af470120e24bb71125eaffe576aa34304300c04fa1e1fc940a1bea4"
+    }
+  ],
+  "limitations": [
+    "Built native macOS CLI using staged source and unreleased local Harness.",
+    "Offline verification commands only; no provider calls. Final clean candidate qualification remains pending."
+  ]
+}

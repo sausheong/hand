@@ -1,0 +1,22 @@
+{
+  "candidate": "fd9ee98d2bef92fee2658eabc5b4da49038fcc22",
+  "base": "540dd08a6975ac0076f697668ca861468715cf44",
+  "patch_sha256": "8674aab96ff1073b7b8651c84ee98a7f79a8a926555f418a5d8dc13ad6b8ccae",
+  "test_events": {
+    "pass": 7,
+    "fail": 0,
+    "skip": 0
+  },
+  "exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-optional-20260908/harness-mcp-optional-tests-20260908.jsonl",
+      "sha256": "5709cfb23d096fb7bc0920d8c3a7d82c66e6874347c010ff371e2462e6dd9ea8"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-optional-20260908/harness-mcp-optional-tests-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Targeted runtime MCP construction tests only; full Harness and native qualification pending."
+}

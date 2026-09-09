@@ -1,0 +1,50 @@
+{
+  "status": "development_skill_permission_runtime_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/agentio -run '^TestRuntimeSkillDenialPreservesDiskInBothApprovalModes$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 180
+  },
+  "assertions": [
+    "Actual runtime dispatch denied for create/patch/replace/remove in one-shot and interactive approval hooks",
+    "Exactly one tool denial observed and interactive mode prompts once",
+    "Existing skill bytes unchanged and no new skill directory created",
+    "Same valid tool input succeeds through direct authorised fixture execution afterward and changes/removes target"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/approval.go.txt",
+      "sha256": "c70eb29ea491f591661e345496dd4cec459fb62782ef995e79343807bd41120a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/approval_regression_test.go.txt",
+      "sha256": "32600a27c5dd9388f09ef8ec5ed474b89a706387853da72ffc3d5faf90663eae"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/classification_test.go.txt",
+      "sha256": "abdea6a53d08ade76ba5bf3cae176bcf292cac93c09d3088076f0cdf0f520268"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/hand-skill-permission-runtime-20260909.jsonl.gz",
+      "sha256": "0d7bba296de9817ac72ea902baf6b7a606a098a7a6b3adf4a276b2286eb88a64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/hand-skill-permission-runtime-fixed-20260909.jsonl.gz",
+      "sha256": "04c5b87f2d04090263339c7d1c7ad75ee9ae2cd5bb9439d9b90c878f42cac028"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/registry.go.txt",
+      "sha256": "14b29e8a53d3d65d5646eecd31791a605ed096ad5ef8bebac621e380614e657d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-permission-runtime-20260909/skill_permission_integration_test.go.txt",
+      "sha256": "409c430be2e266a991c352f480d8020a89adaa342b6d114eef146b67d0e2b7e2"
+    }
+  ],
+  "limitations": [
+    "Interactive sender is deterministic; not a built terminal interaction",
+    "Allowed control invokes tool directly to prove mutation input validity; not an approval-grant journey",
+    "Initial test used wrong event constant and failed compilation; corrected log retained separately",
+    "Native local Harness development snapshot; final acceptance open"
+  ]
+}

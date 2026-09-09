@@ -1,0 +1,9 @@
+{"Time":"2026-09-08T07:11:17.72522+08:00","Action":"start","Package":"github.com/sausheong/harness/session"}
+{"Time":"2026-09-08T07:11:18.247957+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted"}
+{"Time":"2026-09-08T07:11:18.248001+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Output":"=== RUN   TestImageAtExactAttachmentLimitIsAccepted\n"}
+{"Time":"2026-09-08T07:11:24.577557+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Output":"    attachments_test.go:133: exact limit rejected inline image exceeds attachment limit\n"}
+{"Time":"2026-09-08T07:11:24.578668+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Output":"--- FAIL: TestImageAtExactAttachmentLimitIsAccepted (6.33s)\n"}
+{"Time":"2026-09-08T07:11:24.578683+08:00","Action":"fail","Package":"github.com/sausheong/harness/session","Test":"TestImageAtExactAttachmentLimitIsAccepted","Elapsed":6.33}
+{"Time":"2026-09-08T07:11:24.578886+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"FAIL\n"}
+{"Time":"2026-09-08T07:11:24.588808+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"FAIL\tgithub.com/sausheong/harness/session\t6.863s\n"}
+{"Time":"2026-09-08T07:11:24.588825+08:00","Action":"fail","Package":"github.com/sausheong/harness/session","Elapsed":6.864}

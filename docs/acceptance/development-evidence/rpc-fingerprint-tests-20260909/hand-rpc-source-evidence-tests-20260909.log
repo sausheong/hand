@@ -1,0 +1,11 @@
+test_conflicting_counts_rejected (test_evidence.CoverageTests.test_conflicting_counts_rejected) ... ok
+test_duplicate_blocks_count_once (test_evidence.CoverageTests.test_duplicate_blocks_count_once) ... ok
+test_empty_is_unknown (test_evidence.CoverageTests.test_empty_is_unknown) ... ok
+test_generated_python_cache_does_not_change_source_fingerprint (test_evidence.CoverageTests.test_generated_python_cache_does_not_change_source_fingerprint) ... ok
+test_negative_rejected (test_evidence.CoverageTests.test_negative_rejected) ... ok
+test_weighted_total_not_average_packages (test_evidence.CoverageTests.test_weighted_total_not_average_packages) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.049s
+
+OK

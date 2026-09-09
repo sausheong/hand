@@ -1,0 +1,58 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "paid_calls": 0,
+  "binary_sha256": "a5ada99b83225f077fa9b90554a300361f4537ddc9924c5cd89b1028d943904e",
+  "runner_sha256": "adeb12c15bf827fa76402f256e3283aaedae484a4f2ca1bcfb690e415cb836ab",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "session_id": "ses_fffe47cff5f3de1e",
+  "expired": {
+    "approval_id": "",
+    "error": "session time budget: budget_exhausted",
+    "iteration": 1,
+    "reason": "session_time_budget",
+    "state": "idle",
+    "status": "budget_exhausted",
+    "text": "",
+    "truncated": false,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 0,
+      "known": true,
+      "output_tokens": 0,
+      "prior_unknown": false,
+      "requests": 1,
+      "unknown_requests": 1
+    },
+    "verified": false
+  },
+  "configured": {
+    "configured": true,
+    "decided_at": "2026-09-08T13:37:33.996571Z",
+    "deadline": "2026-09-08T13:37:35.996571Z",
+    "expired": false,
+    "remaining_millis": 1991,
+    "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+  },
+  "restored": {
+    "configured": true,
+    "decided_at": "2026-09-08T13:37:33.996571Z",
+    "deadline": "2026-09-08T13:37:35.996571Z",
+    "expired": true,
+    "remaining_millis": 0,
+    "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+  },
+  "renewed": {
+    "configured": true,
+    "decided_at": "2026-09-08T13:37:36.197812Z",
+    "deadline": "2026-09-08T13:38:36.197812Z",
+    "expired": false,
+    "remaining_millis": 59990,
+    "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+  },
+  "expiry_elapsed_seconds": 2.01252129196655,
+  "provider_disconnected": true,
+  "clean_exits": 2,
+  "local_provider_requests": 2
+}

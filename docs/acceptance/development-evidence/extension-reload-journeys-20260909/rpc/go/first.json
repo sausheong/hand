@@ -1,0 +1,242 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "extension.command",
+          "extension.questions",
+          "extension.answer",
+          "extension.reload",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:VMMXNYKUHDKIKRVIWUKPOFBLF2",
+        "id": "note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": [
+        {
+          "token": "KPOV45XSGZ6MVCV3QLL4ML3OCS",
+          "extension": "task-note",
+          "question": {
+            "id": "note",
+            "title": "What task note should be remembered?",
+            "allow_free_text": true
+          },
+          "sequence": 1
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "answer",
+      "method": "extension.answer",
+      "params": {
+        "token": "KPOV45XSGZ6MVCV3QLL4ML3OCS",
+        "answer": {
+          "id": "note",
+          "text": "Remember the CLI regression"
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "answer",
+      "result": {
+        "answered": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "answer",
+      "method": "extension.answer",
+      "params": {
+        "token": "KPOV45XSGZ6MVCV3QLL4ML3OCS",
+        "answer": {
+          "id": "note",
+          "text": "Remember the CLI regression"
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "answer",
+      "result": {
+        "answered": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-note",
+      "method": "request.get",
+      "params": {
+        "id": "note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:VMMXNYKUHDKIKRVIWUKPOFBLF2",
+        "id": "note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-note",
+      "method": "request.get",
+      "params": {
+        "id": "note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:VMMXNYKUHDKIKRVIWUKPOFBLF2",
+        "id": "note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Task note saved."
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+]

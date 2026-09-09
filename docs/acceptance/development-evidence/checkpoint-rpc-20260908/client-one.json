@@ -1,0 +1,588 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 999,
+      "id": "version",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "",
+      "error": {
+        "code": "unsupported_version",
+        "message": "supported protocol version is 1"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approval-run",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-approve"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approval-run",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "ZOV6ZXC52R5ZPCUNY6DOQCBQLT:3",
+            "sequence": 3,
+            "session_id": "ses_431b8ea7ee49584c",
+            "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+            "request_id": "approval-run",
+            "timestamp": "2026-09-08T07:06:59.811438Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "ZNUW3M2A4CYMUAQANOY77OMBU4",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /private/tmp/hand-checkpoint-rpc-final-20260908/workspace/approved.txt\nArguments: {\"path\": \"approved.txt\", \"content\": \"approved once\"}\nBefore: exists=false mode=---------- bytes=0 sha256=",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"approved.txt\", \"content\": \"approved once\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "steer",
+      "method": "steer",
+      "params": {
+        "text": "steer note from Python"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "steer",
+      "result": {
+        "ID": "DJ5C5DHUMBSP7NLHUTHULRGO7M",
+        "SessionID": "ses_431b8ea7ee49584c",
+        "Queue": "steering",
+        "Text": "steer note from Python",
+        "Claimed": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "queue",
+      "method": "followup.enqueue",
+      "params": {
+        "text": "queued Python follow-up"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "queue",
+      "result": {
+        "ID": "RSOOHGBI4JQFLFFAQXVUTE3A6Y",
+        "SessionID": "ses_431b8ea7ee49584c",
+        "Queue": "followup",
+        "Text": "queued Python follow-up",
+        "Claimed": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approve",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "approval_id": "ZNUW3M2A4CYMUAQANOY77OMBU4",
+        "decision": "once"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approve",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "ZOV6ZXC52R5ZPCUNY6DOQCBQLT:12",
+          "sequence": 12,
+          "session_id": "ses_431b8ea7ee49584c",
+          "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T07:06:59.891274Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approval-run",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-approve"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approval-run",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "ZOV6ZXC52R5ZPCUNY6DOQCBQLT:12",
+          "sequence": 12,
+          "session_id": "ses_431b8ea7ee49584c",
+          "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T07:06:59.891274Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "remove",
+      "method": "queue.remove",
+      "params": {
+        "id": "RSOOHGBI4JQFLFFAQXVUTE3A6Y"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "remove",
+      "result": {
+        "removed": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-0",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-0",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_05e27085997eb5eb"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang-0",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang-0",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "e22df6cf166372617e9f257aa448844f99d898c4ff0ea30b1766cbf2c4b7d472",
+        "session_id": "ses_05e27085997eb5eb",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "e22df6cf166372617e9f257aa448844f99d898c4ff0ea30b1766cbf2c4b7d472",
+        "session_id": "ses_05e27085997eb5eb",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "e22df6cf166372617e9f257aa448844f99d898c4ff0ea30b1766cbf2c4b7d472",
+        "session_id": "ses_05e27085997eb5eb",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "CZAPSLD6PYVKKHSF3OBORBEKMA:17",
+          "sequence": 17,
+          "session_id": "ses_05e27085997eb5eb",
+          "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:2",
+          "request_id": "hang-0",
+          "timestamp": "2026-09-08T07:06:59.998306Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-1",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-1",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_6d5e244738d6d2d6"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang-1",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang-1",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "d3aab32434a362d3a96261cce3fa37f22f0db3264248f1577d5c7a381fbcf67a",
+        "session_id": "ses_6d5e244738d6d2d6",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:3",
+        "state": "accepted"
+      }
+    }
+  }
+]

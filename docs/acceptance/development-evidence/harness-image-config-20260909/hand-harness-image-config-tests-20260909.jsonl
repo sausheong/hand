@@ -1,0 +1,13 @@
+{"Time":"2026-09-09T03:45:11.99293+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-09T03:45:12.387882+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity"}
+{"Time":"2026-09-09T03:45:12.38795+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity","Output":"=== RUN   TestPinnedResourceSnapshotIntegrity\n"}
+{"Time":"2026-09-09T03:45:12.401424+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity","Output":"--- PASS: TestPinnedResourceSnapshotIntegrity (0.01s)\n"}
+{"Time":"2026-09-09T03:45:12.401458+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity","Elapsed":0.01}
+{"Time":"2026-09-09T03:45:12.401754+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources"}
+{"Time":"2026-09-09T03:45:12.401766+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Output":"=== RUN   TestContainerProtocolPinnedResources\n"}
+{"Time":"2026-09-09T03:45:12.401851+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Output":"    stream_test.go:112: native container fixture required\n"}
+{"Time":"2026-09-09T03:45:12.401896+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Output":"--- SKIP: TestContainerProtocolPinnedResources (0.00s)\n"}
+{"Time":"2026-09-09T03:45:12.401913+08:00","Action":"skip","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Elapsed":0}
+{"Time":"2026-09-09T03:45:12.402163+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"PASS\n"}
+{"Time":"2026-09-09T03:45:13.414299+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"ok  \tgithub.com/sausheong/harness/execution\t1.421s\n"}
+{"Time":"2026-09-09T03:45:13.414412+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Elapsed":1.422}

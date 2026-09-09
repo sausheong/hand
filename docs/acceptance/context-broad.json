@@ -1,0 +1,85 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "context-broad-integration.patch",
+  "harness_delta": "harness-context-state.patch",
+  "results": {
+    "hand-context-broad-container-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 1
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "pass"
+      }
+    },
+    "hand-context-broad-final-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 639,
+        "skip": 1
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/rpc": "pass",
+        "github.com/sausheong/hand/internal/app": "pass",
+        "github.com/sausheong/hand/internal/tui": "pass",
+        "github.com/sausheong/hand/internal/agentio": "pass"
+      }
+    },
+    "hand-context-broad-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 525,
+        "fail": 2
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "fail",
+        "github.com/sausheong/hand/internal/rpc": "pass",
+        "github.com/sausheong/hand/internal/tui": "fail",
+        "github.com/sausheong/hand/internal/agentio": "pass"
+      }
+    },
+    "harness-context-broad-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 383
+      },
+      "packages": {
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/context-broad-20260908/hand-context-broad-container-race-20260908.jsonl",
+      "sha256": "9b3703bf18b16a9da2f0aaac576764672ad05149a4e2adb7037083bb07dc57a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-broad-20260908/hand-context-broad-final-race-20260908.jsonl",
+      "sha256": "eab553a246091fb0215a5879f6c3afd4d812448022c3d82e621fb7420577e15d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-broad-20260908/hand-context-broad-race-20260908.jsonl",
+      "sha256": "497107c5808c53be8247caf5232cabb0993c78f9805e059cd0fe8c46eb8d8682"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-broad-20260908/hand-context-broad-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-broad-20260908/harness-context-broad-race-20260908.jsonl",
+      "sha256": "19071d86e6b146022fbe163b139eafec0e51cc167695f67cba35b250ee50386f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-broad-20260908/harness-context-broad-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "vet": "Hand four packages and Harness runtime/compaction exited 0",
+  "corrections": [
+    "Initial Hand app suite aborted because sandbox denied a loopback HTTP fixture. Re-executed with local fixture access.",
+    "Initial TUI test exposed a compaction no-op regression. Moved absent-manager handling ahead of session budget admission; the existing regression and configured compaction/budget tests pass.",
+    "Final broad Hand suite skipped one native container fixture. It passed in the separately recorded uncached run with the cached pinned image. The skip itself is not a pass."
+  ],
+  "limitations": [
+    "Dirty staged source and unreleased Harness replacement, not final clean candidate qualification.",
+    "Hand scope: internal/app, internal/tui, internal/rpc, internal/agentio. Harness scope: runtime and compaction. These are not whole-repository suites.",
+    "No quantitative coverage, cross-platform, performance or live evaluation claim."
+  ]
+}

@@ -1,0 +1,1200 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "extension.command",
+          "extension.questions",
+          "extension.answer",
+          "extension.reload",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:VMMXNYKUHDKIKRVIWUKPOFBLF2",
+        "id": "note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Task note saved."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-note",
+      "method": "request.get",
+      "params": {
+        "id": "note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:VMMXNYKUHDKIKRVIWUKPOFBLF2",
+        "id": "note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Task note saved."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "no-replay-question",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "no-replay-question",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-same",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/go/review.json",
+        "digest": "0e8111ad321bdee3165076a41464b79b3393f17f3c6d60f3b7c618d06baf167c"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-same",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:CEO5B65GX4CL6FJDZRPR342AXJ",
+        "id": "reload-same",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-same",
+      "method": "request.get",
+      "params": {
+        "id": "reload-same"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-same",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:CEO5B65GX4CL6FJDZRPR342AXJ",
+        "id": "reload-same",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-same",
+      "method": "request.get",
+      "params": {
+        "id": "reload-same"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-same",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:CEO5B65GX4CL6FJDZRPR342AXJ",
+        "id": "reload-same",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-same",
+          "result": {
+            "completed": true,
+            "reload": {
+              "committed": true,
+              "started": null,
+              "reused": [
+                "task-note"
+              ],
+              "removed": null
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-bad",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/go/bad-review.json",
+        "digest": "80187e0945ac7ee30361b9004fc032c2128cc5e48a83914cbaf9cf8019c28b16"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-bad",
+      "method": "request.get",
+      "params": {
+        "id": "reload-bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:5HVKWYL7I5CJ4J22Z3BNCT33NG",
+        "id": "reload-bad",
+        "fingerprint": "c0901e392f1b877493fe05f98cb94ca886842bf1057af9ef37547a5e248cab74",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-bad",
+          "result": {
+            "completed": false,
+            "error": "extension capability not approved: questions\nextension capability not approved: questions",
+            "reload": {
+              "committed": false,
+              "started": null,
+              "reused": null,
+              "removed": null
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel-note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:WBKGQH5W3QSUZITCQU5FL77FAA",
+        "id": "cancel-note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": [
+        {
+          "token": "VVKIJ6RSFFVS4Y4L25GJAUC3F3",
+          "extension": "task-note",
+          "question": {
+            "id": "note",
+            "title": "What task note should be remembered?",
+            "allow_free_text": true
+          },
+          "sequence": 1
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-cancel-note",
+      "method": "request.get",
+      "params": {
+        "id": "cancel-note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-cancel-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:WBKGQH5W3QSUZITCQU5FL77FAA",
+        "id": "cancel-note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-cancel-note",
+      "method": "request.get",
+      "params": {
+        "id": "cancel-note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-cancel-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:WBKGQH5W3QSUZITCQU5FL77FAA",
+        "id": "cancel-note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "cancel-note",
+          "error": {
+            "code": "extension_failed",
+            "message": "context canceled"
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "no-cancelled-question",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "no-cancelled-question",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-cancelled",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/go/review.json",
+        "digest": "0e8111ad321bdee3165076a41464b79b3393f17f3c6d60f3b7c618d06baf167c"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-cancelled",
+      "method": "request.get",
+      "params": {
+        "id": "reload-cancelled"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-cancelled",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GDI2K5P5DVTWEENLQ27WOIVWIR",
+        "id": "reload-cancelled",
+        "fingerprint": "2b89de5d11c81142390b72a4d289101c0a62650a4968bdf2a120cece3532521b",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-cancelled",
+          "result": {
+            "completed": true,
+            "reload": {
+              "committed": true,
+              "started": [
+                "task-note"
+              ],
+              "reused": null,
+              "removed": null
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "recovered-note",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "recovered-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:6GXCLDV5AJFBKQWHFDGXEFNOYY",
+        "id": "recovered-note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": []
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "questions",
+      "method": "extension.questions",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "questions",
+      "result": [
+        {
+          "token": "KFPZYOLA3KUJG2BOLOYKV5PRS4",
+          "extension": "task-note",
+          "question": {
+            "id": "note",
+            "title": "What task note should be remembered?",
+            "allow_free_text": true
+          },
+          "sequence": 2
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "recovered-answer",
+      "method": "extension.answer",
+      "params": {
+        "token": "KFPZYOLA3KUJG2BOLOYKV5PRS4",
+        "answer": {
+          "id": "note",
+          "cancelled": true
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "recovered-answer",
+      "result": {
+        "answered": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-recovered-note",
+      "method": "request.get",
+      "params": {
+        "id": "recovered-note"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-recovered-note",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:6GXCLDV5AJFBKQWHFDGXEFNOYY",
+        "id": "recovered-note",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "recovered-note",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Note cancelled."
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "reload-empty",
+      "method": "extension.reload",
+      "params": {
+        "path": "/private/tmp/hand-extension-reload-journey-20260909/go/empty-review.json",
+        "digest": "e1bdb62257e62f098d624ccd5d39d8100296c899ab6ccfd016aa77a513b3cb0a"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "reload-empty",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:SCDVRFA5JL427FQ33TBKRV46UA",
+        "id": "reload-empty",
+        "fingerprint": "89e3f7cd686178283bbc699bf9b1cf703adaa6b02e748af04fbc8eb9112dcbe9",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-empty",
+      "method": "request.get",
+      "params": {
+        "id": "reload-empty"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-empty",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:SCDVRFA5JL427FQ33TBKRV46UA",
+        "id": "reload-empty",
+        "fingerprint": "89e3f7cd686178283bbc699bf9b1cf703adaa6b02e748af04fbc8eb9112dcbe9",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-reload-empty",
+      "method": "request.get",
+      "params": {
+        "id": "reload-empty"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-reload-empty",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:SCDVRFA5JL427FQ33TBKRV46UA",
+        "id": "reload-empty",
+        "fingerprint": "89e3f7cd686178283bbc699bf9b1cf703adaa6b02e748af04fbc8eb9112dcbe9",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "reload-empty",
+          "result": {
+            "completed": true,
+            "reload": {
+              "committed": true,
+              "started": null,
+              "reused": null,
+              "removed": [
+                "task-note"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "removed-command",
+      "method": "extension.command",
+      "params": {
+        "name": "task-note",
+        "command": "note",
+        "arguments": ""
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "removed-command",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:255X4KJB6XEUQNKRANCCWHYWYE",
+        "id": "removed-command",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-removed-command",
+      "method": "request.get",
+      "params": {
+        "id": "removed-command"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-removed-command",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:255X4KJB6XEUQNKRANCCWHYWYE",
+        "id": "removed-command",
+        "fingerprint": "d7eef5ad9f60b39123746657f1dbf37f5189fbd00b9dc024fceaf71dbb42e22d",
+        "session_id": "ses_94497b724a489cfc",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "removed-command",
+          "error": {
+            "code": "extension_failed",
+            "message": "extension not active"
+          }
+        }
+      }
+    }
+  }
+]

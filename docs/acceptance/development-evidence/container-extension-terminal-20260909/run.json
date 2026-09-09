@@ -1,0 +1,58 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-container-extension-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--extension-config",
+    "/private/tmp/hand-container-extension-terminal-20260909/review.json",
+    "--approve-extension-config",
+    "e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0"
+  ],
+  "binary_sha256": "2f8988262e1419a0c2cc2665bb952aa97cb9fd57f1b9408e8c7931abccbba6aa",
+  "runner_sha256": "79508ceb9ce74d70e09e2713eaf8cf7f77498c7c54650c9052555e6b2a04a939",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "peer_sha256": "563d866b814cb3fbebdad56363d5b1a7e7c2ac3e342e0041609c63a02ec0f26d",
+  "review_digest": "e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0",
+  "container_execution": {
+    "backend": "container",
+    "docker": "/usr/local/bin/docker",
+    "socket": "/Users/sausheong/.docker/run/docker.sock",
+    "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "worker": "/private/tmp/hand-container-worker-20260909",
+    "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+    "writable": false,
+    "network": false
+  },
+  "container_cleanup": true,
+  "completed_commands": [
+    "/extension task-note note",
+    "Remember the native terminal",
+    "/extension task-note note",
+    "ESC",
+    "/extension task-note note",
+    "CTRL_C",
+    "/reload /private/tmp/hand-container-extension-terminal-20260909/review.json e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0",
+    "/extension task-note note",
+    "ESC",
+    "/state"
+  ],
+  "exit_code": 0,
+  "persisted_revisions": 1,
+  "final_state": {
+    "version": 1,
+    "data": {
+      "note": "Remember the native terminal"
+    }
+  },
+  "snapshot_cleanup": true,
+  "terminal_sha256": "be479cd8b52fb19418a964f6e400a0a901ab152053eb0c8cb1bdaa3bc21a2afc"
+}

@@ -1,0 +1,150 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "d3aab32434a362d3a96261cce3fa37f22f0db3264248f1577d5c7a381fbcf67a",
+        "session_id": "ses_6d5e244738d6d2d6",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "TYDVZIKRPABMCL3CITCYCBCHCR:21",
+          "sequence": 21,
+          "session_id": "ses_6d5e244738d6d2d6",
+          "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T07:07:00.074701Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "87d61e699f3baa3ae199ef7c0a0d316cdafb9c027432033c33b0a3fe06c36b35",
+        "session_id": "ses_431b8ea7ee49584c",
+        "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "ZOV6ZXC52R5ZPCUNY6DOQCBQLT:12",
+          "sequence": 12,
+          "session_id": "ses_431b8ea7ee49584c",
+          "run_id": "TNEBMHJAIUG3LEG7YU62N6N7JR:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T07:06:59.891274Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

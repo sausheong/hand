@@ -1,0 +1,46 @@
+{
+  "status": "development_fallback_cost_refusal_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/app -run '^TestFallbackCostAdmissionRefusesBeforeSecondProviderCall$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 80
+  },
+  "cases": [
+    "missing fallback tariff",
+    "expired fallback tariff",
+    "cost ceiling consumed by first reservation"
+  ],
+  "assertions": [
+    "Primary overload occurs under strict budget",
+    "Fallback provider never called and error emitted",
+    "Only primary provider attempt appears in usage snapshot",
+    "First attempt retains 100 nano-units and uncertainty; no unpriced admission"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/fallback-refusal-20260909/cost_budget.go.txt",
+      "sha256": "5c5b550c473fe9ee5580f90a4b965f25adeeda9ca4cd9ae0793893b58a0d7012"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-refusal-20260909/fallback_usage_test.go.txt",
+      "sha256": "b39500d72120c1bd57daa9b5ff8a475edff8389d046663fbafb0173069868fa7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-refusal-20260909/hand-fallback-refusal-20260909.jsonl.gz",
+      "sha256": "5c6774075e3a1801ee7cd0a01b758998628c9777b374aee734f9cb39f9597cc2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-refusal-20260909/harness.go.txt",
+      "sha256": "8fd43d465c99034876e129cf25421a552e0d2fc4a2c11498f24388c2da98a84e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-refusal-20260909/session_usage_test.go.txt",
+      "sha256": "faa8da4377b03d43531acb99bd572834c7238c0c32de8bf6fac7a091a4f55830"
+    }
+  ],
+  "limitations": [
+    "In-memory session with deterministic provider and artificial tariffs",
+    "Compaction, live-provider and restart qualification are separate",
+    "No production change; final acceptance remains open"
+  ]
+}

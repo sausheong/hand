@@ -1,0 +1,19 @@
+{
+  "reviews": [
+    {
+      "package": "python-task-note",
+      "review": {
+        "requirement": {
+          "name": "python",
+          "command": "python3",
+          "minimum_version": "3.9.0"
+        },
+        "executable": "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "sha256": "cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43",
+        "size": 52448,
+        "boundary": "host execution of reviewed interpreter --version; not an OS sandbox; runtime libraries are not snapshotted"
+      },
+      "approved_digest": "3e89669615c017604337e1262cd31ce0cf98e3fb64ca1a7c01bb6da659f4c81b"
+    }
+  ]
+}

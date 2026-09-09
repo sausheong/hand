@@ -1,0 +1,307 @@
+diff --git a/session/rewrite_atomic_test.go b/session/rewrite_atomic_test.go
+new file mode 100644
+index 0000000..7532536
+--- /dev/null
++++ b/session/rewrite_atomic_test.go
+@@ -0,0 +1,139 @@
++package session
++
++import (
++	"bytes"
++	"encoding/json"
++	"fmt"
++	"os"
++	"path/filepath"
++	"reflect"
++	"sync"
++	"testing"
++)
++
++func TestRewriteMarshalFailurePreservesOriginal(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	original := NewSession("agent", "key")
++	original.SetStore(store)
++	original.Append(UserMessageEntry("recoverable original"))
++	path := filepath.Join(root, "agent", "key.jsonl")
++	before, err := os.ReadFile(path)
++	if err != nil {
++		t.Fatal(err)
++	}
++	replacement := NewSession("agent", "key")
++	replacement.Append(UserMessageEntry("replacement prefix"))
++	replacement.Append(SessionEntry{Type: EntryTypeMessage, Data: json.RawMessage("invalid JSON")})
++	store.Rewrite(replacement)
++	after, err := os.ReadFile(path)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !bytes.Equal(before, after) {
++		t.Fatal("failed rewrite destroyed original session")
++	}
++	if replacement.PersistenceError() == nil {
++		t.Fatal("rewrite failure was hidden")
++	}
++	files, _ := os.ReadDir(filepath.Dir(path))
++	if len(files) != 1 {
++		t.Fatal("temporary rewrite leaked", files)
++	}
++}
++
++func TestAtomicRewriteIsPrivateAndReloadable(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	old := NewSession("agent", "key")
++	old.SetStore(store)
++	old.Append(UserMessageEntry("old"))
++	replacement := NewSession("agent", "key")
++	replacement.Append(UserMessageEntry("replacement"))
++	store.Rewrite(replacement)
++	if err := replacement.PersistenceError(); err != nil {
++		t.Fatal(err)
++	}
++	path := filepath.Join(root, "agent", "key.jsonl")
++	stat, err := os.Stat(path)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if stat.Mode().Perm() != 0600 {
++		t.Fatal("rewrite permissions", stat.Mode())
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(loaded.Entries(), replacement.Entries()) {
++		t.Fatal("rewrite did not survive reload")
++	}
++}
++
++func TestConcurrentRewriteAndAppendPreserveDiskOrder(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	s := NewSession("agent", "key")
++	s.SetStore(store)
++	s.Append(UserMessageEntry("initial"))
++	var wg sync.WaitGroup
++	wg.Add(2)
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 100; i++ {
++			s.Append(UserMessageEntry(fmt.Sprint(i)))
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 40; i++ {
++			store.Rewrite(s)
++		}
++	}()
++	wg.Wait()
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(loaded.Entries(), s.Entries()) || len(loaded.Entries()) != 101 {
++		t.Fatal("concurrent rewrite lost/duplicated entries")
++	}
++}
++
++func TestConcurrentLegacyCompactionAndAppendRemainConsistent(t *testing.T) {
++	root := t.TempDir()
++	store := NewStore(root)
++	s := NewSession("agent", "key")
++	s.SetStore(store)
++	s.Append(UserMessageEntry("initial"))
++	var wg sync.WaitGroup
++	wg.Add(2)
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 100; i++ {
++			s.Append(UserMessageEntry(fmt.Sprint(i)))
++		}
++	}()
++	go func() {
++		defer wg.Done()
++		for i := 0; i < 40; i++ {
++			s.Compact("summary", 4)
++			s.View()
++		}
++	}()
++	wg.Wait()
++	if err := s.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !reflect.DeepEqual(loaded.Entries(), s.Entries()) {
++		t.Fatal("compaction snapshot diverged from disk")
++	}
++}
+diff --git a/session/session.go b/session/session.go
+index e237c3b..b2b6ba2 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -150,6 +150,10 @@ func (s *Session) Append(entry SessionEntry) {
+ func (s *Session) History() []SessionEntry {
+ 	s.mu.RLock()
+ 	defer s.mu.RUnlock()
++	return s.historyLocked()
++}
++
++func (s *Session) historyLocked() []SessionEntry {
+ 	if len(s.entries) == 0 {
+ 		return nil
+ 	}
+@@ -261,8 +265,13 @@ func (s *Session) EstimateTokens() int {
+ // without also restructuring those calls, or you will deadlock on the
+ // non-recursive sync.RWMutex.
+ func (s *Session) Compact(summary string, keepEntries int) {
+-	history := s.History()
++	if keepEntries < 0 {
++		keepEntries = 0
++	}
++	s.mu.Lock()
++	history := s.historyLocked()
+ 	if len(history) <= keepEntries {
++		s.mu.Unlock()
+ 		return // nothing to compact
+ 	}
+ 
+@@ -280,6 +289,8 @@ func (s *Session) Compact(summary string, keepEntries int) {
+ 		Data:      summaryData,
+ 	}
+ 
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
+ 	// Rebuild the session with summary + recent entries
+ 	s.entries = nil
+ 	s.entryMap = make(map[string]*SessionEntry)
+@@ -302,9 +313,12 @@ func (s *Session) Compact(summary string, keepEntries int) {
+ 		s.leafID = entry.ID
+ 	}
+ 
+-	// Rewrite the session file if store is set
+-	if s.store != nil {
+-		s.store.Rewrite(s)
++	entries := append([]SessionEntry(nil), s.entries...)
++	store := s.store
++	s.mu.Unlock()
++	// Keep appends ordered behind the snapshot until its replacement commits.
++	if store != nil {
++		store.rewriteEntries(s, entries)
+ 	}
+ }
+ 
+diff --git a/session/store.go b/session/store.go
+index 6310e27..d9c1900 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -315,49 +315,73 @@ func (s *Store) Delete(agentID, key string) error {
+ // Rewrite replaces the entire session JSONL file with the current entries.
+ // Used after compaction to replace the old file.
+ func (s *Store) Rewrite(sess *Session) {
++	// Match Append's lock order, and take the snapshot before store.mu. Taking
++	// a session read lock while holding store.mu can deadlock a queued append.
++	sess.mu.Lock()
++	sess.writeMu.Lock()
++	entries := append([]SessionEntry(nil), sess.entries...)
++	sess.mu.Unlock()
++	defer sess.writeMu.Unlock()
++	s.rewriteEntries(sess, entries)
++}
++
++func (s *Store) rewriteEntries(sess *Session, entries []SessionEntry) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	fail := func(reason string, err error) { s.recordPersistenceFailure(sess, reason, err) }
+ 	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+-		s.recordPersistenceFailure(sess, "invalid session path", err)
+-		slog.Error("refusing to rewrite session outside store", "error", err)
++		fail("invalid rewrite path", err)
+ 		return
+ 	}
+-
+ 	dir := s.sessionDir(sess.AgentID)
+-	if err := os.MkdirAll(dir, 0o755); err != nil {
+-		s.recordPersistenceFailure(sess, "create session dir", err)
+-		slog.Error("failed to create session dir", "error", err)
++	if err := os.MkdirAll(dir, 0755); err != nil {
++		fail("create rewrite directory", err)
+ 		return
+ 	}
+-
+-	path := s.sessionPath(sess.AgentID, sess.Key)
+-
+-	f, err := os.Create(path)
++	f, err := os.CreateTemp(dir, "."+sess.Key+".rewrite-*")
+ 	if err != nil {
+-		s.recordPersistenceFailure(sess, "create session file for rewrite", err)
+-		slog.Error("failed to create session file for rewrite", "error", err)
++		fail("create temporary rewrite", err)
+ 		return
+ 	}
+-	defer func() {
+-		if err := f.Close(); err != nil {
+-			s.recordPersistenceFailure(sess, "close rewritten session", err)
+-		}
+-	}()
+-
++	temporary := f.Name()
++	defer os.Remove(temporary)
++	defer f.Close()
+ 	w := bufio.NewWriter(f)
+-	for _, entry := range sess.Entries() {
+-		data, err := json.Marshal(entry)
+-		if err != nil {
+-			s.recordPersistenceFailure(sess, "marshal session entry", err)
+-			slog.Error("failed to marshal session entry", "error", err)
+-			continue
++	encoder := json.NewEncoder(w)
++	for _, entry := range entries {
++		if err := encoder.Encode(entry); err != nil {
++			fail("encode rewrite entry", err)
++			return
+ 		}
+-		w.Write(data)
+-		w.WriteByte('\n')
+ 	}
+-
+ 	if err := w.Flush(); err != nil {
+-		s.recordPersistenceFailure(sess, "flush session file", err)
+-		slog.Error("failed to flush session file", "error", err)
++		fail("flush rewrite", err)
++		return
++	}
++	if err := f.Sync(); err != nil {
++		fail("sync rewrite", err)
++		return
++	}
++	if err := f.Close(); err != nil {
++		fail("close rewrite", err)
++		return
++	}
++	if err := os.Rename(temporary, s.sessionPath(sess.AgentID, sess.Key)); err != nil {
++		fail("commit rewrite", err)
++		return
++	}
++	directory, err := os.Open(dir)
++	if err != nil {
++		fail("open rewrite directory", err)
++		return
++	}
++	syncErr := directory.Sync()
++	closeErr := directory.Close()
++	if syncErr != nil {
++		fail("sync rewrite directory", syncErr)
++		return
++	}
++	if closeErr != nil {
++		fail("close rewrite directory", closeErr)
+ 	}
+ }

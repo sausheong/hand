@@ -1,0 +1,39 @@
+{
+  "status": "development_fuzz_passed",
+  "requirement": "M6.3",
+  "race_seed_and_regression_records": 24,
+  "fuzz": {
+    "target": "FuzzPriceReviewJSON",
+    "duration_requested_seconds": 60,
+    "last_reported_elapsed": "1m1s",
+    "executions": 683809,
+    "workers": 2
+  },
+  "properties": [
+    "Accepted input is valid JSON",
+    "Literal and escaped duplicate version keys always rejected",
+    "Validated prices retain stable review digest after canonical round trip"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/price-fuzz-20260909/fuzz.jsonl",
+      "sha256": "7f8e5668fe9d58bc7a990d2465624ec3223321383083f082cb38537037bc03df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-fuzz-20260909/price_review_fuzz_test.go.txt",
+      "sha256": "d12855a1b18286276adb99e46d187e510d12305234a213909a9fbd443e6bfae3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-fuzz-20260909/price_review_json.go.txt",
+      "sha256": "cbc50bab405d6e30cba7a74e7f0d23312e9baba362bd1dfd01192b82c4a6509a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-fuzz-20260909/seeds.jsonl",
+      "sha256": "4580af0414aabd9974383d8643c263d30a4ca356b360d0c7c90191c4fec5aa12"
+    }
+  ],
+  "limitations": [
+    "Parser/review fuzzing only, not provider billing or all budget paths",
+    "Fuzz run is development evidence; final same-candidate fuzz gate remains open"
+  ]
+}

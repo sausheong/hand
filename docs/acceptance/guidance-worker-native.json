@@ -1,0 +1,111 @@
+{
+  "status": "development_passed",
+  "binary_sha256": "15d002cf5dd1b6c55e8b6a86dfee567145719a428453941e86cc81203b09d1a5",
+  "runner_sha256": "3c38c0b0941a23e30383da2c7d6050179e27bba8ab67e2845ad6b61c7bfaa993",
+  "provider_calls": 0,
+  "boundary": "native worker fixture, no container qualification",
+  "invocations": [
+    {
+      "name": "nested",
+      "exit_code": 0,
+      "stdout_sha256": "fec94f4b80fbab6222f586ac91ced1e5b86601eaa2d55b90b24d5ad6fa00dbb1"
+    },
+    {
+      "name": "skill",
+      "exit_code": 0,
+      "stdout_sha256": "6d140f15ac16d35caf5312aaacee63b9cd61c044e336be79c0399b7813d1a3b1"
+    },
+    {
+      "name": "resource",
+      "exit_code": 0,
+      "stdout_sha256": "f1f5a1e737d03f3df5550bc0fa318bf5f0b7c140dbf4d6a62342ba9fe5804718"
+    },
+    {
+      "name": "updated",
+      "exit_code": 0,
+      "stdout_sha256": "130fe397ff904c84ff5e20912e09dd71ff6c51ab99ebf54a39d1cd1b6c19980b"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/nested.request.json",
+      "sha256": "2d449a1810678340b12ad176ad903f252bbd6490c8526a819188e9b1172585c7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/nested.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/nested.stdout.json",
+      "sha256": "fec94f4b80fbab6222f586ac91ced1e5b86601eaa2d55b90b24d5ad6fa00dbb1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/resource.request.json",
+      "sha256": "13d84ca060c1330e8cfcb01dcd81ad83fb7ee136adbd5d13ef290bd59e2448cd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/resource.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/resource.stdout.json",
+      "sha256": "f1f5a1e737d03f3df5550bc0fa318bf5f0b7c140dbf4d6a62342ba9fe5804718"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/run.json",
+      "sha256": "9a71c88bb3dc4f2632423c4ce5ca4ab47cbf73ff7a22519e475b659d4e93b087"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/skill.request.json",
+      "sha256": "40a6fe4351e73fbe478f53e182af376dcad80d074bc56234537889937f869e40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/skill.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/skill.stdout.json",
+      "sha256": "6d140f15ac16d35caf5312aaacee63b9cd61c044e336be79c0399b7813d1a3b1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/updated.request.json",
+      "sha256": "2d449a1810678340b12ad176ad903f252bbd6490c8526a819188e9b1172585c7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/updated.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/updated.stdout.json",
+      "sha256": "130fe397ff904c84ff5e20912e09dd71ff6c51ab99ebf54a39d1cd1b6c19980b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/.agents/skills/example/SKILL.md",
+      "sha256": "bce122b025ff3c251b67a1953f3562d0753128a98c083c1779ff84197fb0263a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/.agents/skills/example/references/help.txt",
+      "sha256": "6bc18988e8531f1f72ba2e3133ae843ea78c01ceb72d41a88c5309fa5a3b735f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/HAND.md",
+      "sha256": "b0f8ef63897e56987f2e7056316acbdf7d48c7579d0a20d70926ac6ba4a36054"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/nested/AGENTS.md",
+      "sha256": "f1ef86f903048fe289407e5adbba949e73619caf2ec5ed13aaf3fa3736922153"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/nested/deep/HAND.md",
+      "sha256": "ee886246621f46f20e6e42ce30bc7e6ed126149eebf359f950c532a94c71ed1b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/nested/deep/file.txt",
+      "sha256": "19c21176566b40eb87a84cb6be4c6dd7dc74df558918b64843f1ca69a1fa91fe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/guidance-worker-native-20260908/workspace/other/HAND.md",
+      "sha256": "e45b2259a3dfd39cd6969545adea57f2b80add1552924ff120b8eec4a9bf7ac8"
+    }
+  ]
+}

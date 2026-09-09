@@ -1,0 +1,42 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "changes": [
+    "Main delegates resolved context/output/reasoning/identity configuration to app.ConfigureInitialRuntime.",
+    "Nil runtime, negative limits, output consuming full context and invalid reasoning reject before mutation.",
+    "Defaults reset previous runtime configuration."
+  ],
+  "tests": {
+    "configuration_race_pass": 2,
+    "cli_profile_and_binary_outcome_pass_including_subtests": 11,
+    "fail": 0,
+    "skip": 0
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/initial-runtime-config-20260909/hand-initial-runtime-config-20260909.jsonl.gz",
+      "sha256": "38759e3c4bfdba193b6bc99b2ca0bc9078b87fe1a8032cdc60ec7214b1ea0ccb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/initial-runtime-config-20260909/hand-initial-runtime-cli-20260909.jsonl.gz",
+      "sha256": "23d168e6fa975bfda14e0c7d720d81fcb41828e0ef81f885d1b68642adfae6ab"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/initial-runtime-config-20260909/runtime_configuration.go.gz",
+      "sha256": "b7d9c98fffc9b011ae941fa3532bf877fae853dbf43f4bccf91756c03a728005"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/initial-runtime-config-20260909/runtime_configuration_test.go.gz",
+      "sha256": "7e55322e9a1d4388c94bef87fc0da090d0b34b4fe6459bd3d84d0cabd3eb958e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/initial-runtime-config-20260909/main.go.gz",
+      "sha256": "9db2780371fd0cab2ca139067d4d31c9cd6938ea7c6a05e2f9bf0b3b1c1f4154"
+    }
+  ],
+  "limitations": [
+    "Initial configuration API must be called before publishing or starting runtime; ongoing switches use reserved Controller operations.",
+    "Runtime build/startup presentation composition remains in CLI; this change extracts field mutation, not the entire startup factory.",
+    "Targeted development evidence with local HTTP fixtures; full candidate/platform/coverage qualification still pending."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "command": "go test ./sdk -run '^$' -fuzz '^FuzzSnapshotDecoders$' -fuzztime=60s -parallel=2 -json",
+  "exit_code": 0,
+  "last_fuzz_progress": [
+    "1m1s",
+    "824275"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-snapshot-fuzz-20260909/hand-sdk-snapshot-fuzz-20260909.jsonl",
+      "sha256": "abb94a05d3af3d8ce9c57076c11fd43dd71ef6c676ebc70db72e9f6a379c1d95"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-snapshot-fuzz-20260909/hand-sdk-snapshot-fuzz-final-20260909.jsonl",
+      "sha256": "4f432f34f44c8aa37fc13c55df3609c3310666eb99330965ad75e6e280c1bc4c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-snapshot-fuzz-20260909/snapshot_fuzz_test.go.txt",
+      "sha256": "233081425efb6c04fe7ee9a1161f553a74565ea33d6bbeb2d6786ab9621c1395"
+    }
+  ],
+  "limits": [
+    "SDK events and execution snapshots only; does not replace other required parser targets",
+    "Whitespace-normalized payload round trip; execution identity/lifecycle/terminal availability checked",
+    "Fuzz run not race-instrumented; final candidate qualification pending"
+  ]
+}

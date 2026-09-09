@@ -1,0 +1,156 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "changes": [
+    "Removed Runner field/interface, raw runEventMsg/runEndedMsg handlers, handleAgentEvent and legacy completeTurn.",
+    "Removed StreamEvents forwarding goroutine; terminal event test now verifies ordered application events and terminal-after-join.",
+    "All presentation fixture construction uses application service; compaction fixture shares service ownership.",
+    "Migrated final tool-counter/duration/session-stale fixtures."
+  ],
+  "tests": {
+    "full_tui_race_pass": 337,
+    "fail": 0,
+    "skip": 0
+  },
+  "pty": {
+    "status": "development_passed",
+    "sources_unchanged": true,
+    "results": [
+      {
+        "decision": "select",
+        "status": "passed",
+        "error": null,
+        "phase": "exit",
+        "requests": [
+          {
+            "model": "selected",
+            "output": 512,
+            "authorization": null
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "decision": "escape",
+        "status": "passed",
+        "error": null,
+        "phase": "exit",
+        "requests": [
+          {
+            "model": "original",
+            "output": 123,
+            "authorization": null
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "decision": "cancel",
+        "status": "passed",
+        "error": null,
+        "phase": "exit",
+        "requests": [
+          {
+            "model": "original",
+            "output": 123,
+            "authorization": null
+          }
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/0-hand-runtime-adapter-removal-20260909.jsonl.gz",
+      "sha256": "36765d5f2c0eda1f19b19940b12568679113284f7e55fbc494c989eb8bcac5c6",
+      "source": "/private/tmp/hand-runtime-adapter-removal-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/1-hand-runtime-adapter-removal-corrected-20260909.jsonl.gz",
+      "sha256": "64dac9c3465b4febe8041f42598096d899604f1c74035bb12fa05f715d4c6ef8",
+      "source": "/private/tmp/hand-runtime-adapter-removal-corrected-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/2-model.go.gz",
+      "sha256": "ee5f23bc86eafda81eaf488f24f461b791c2b949a1d4dc07b252a54c379f2d5b",
+      "source": "internal/tui/model.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/3-events.go.gz",
+      "sha256": "e0aeff41f65a05fffca5a23704c22964bda2a0209190df123cedf96e97ddbb58",
+      "source": "internal/tui/events.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/4-events_test.go.gz",
+      "sha256": "d9325e1d59784f426651d171dd8a2750a3a8402899d6ebd21ed3eb5708fe8034",
+      "source": "internal/tui/events_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/5-model_test.go.gz",
+      "sha256": "180c78a767a5b0d98cedeb0cb3961b2e22827a8ceebed856333e199cf9cd1514",
+      "source": "internal/tui/model_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/6-application_test.go.gz",
+      "sha256": "f406986c5095c839cf62be6612945f3d5144479afec3dcda4df90e4f6687b5c3",
+      "source": "internal/tui/application_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/7-queued_input.go.gz",
+      "sha256": "5fc7cee84d96979dc140b230e4ae78b4c6d69576006122decef57293bb4fb68f",
+      "source": "internal/tui/queued_input.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/8-compaction_lifecycle_test.go.gz",
+      "sha256": "6fceede46392f327d55be8830289e58818758bf68eb613a4eca53934dd74bb9f",
+      "source": "internal/tui/compaction_lifecycle_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/9-sessions_test.go.gz",
+      "sha256": "eba4571d35759b0e42e29d84708d2c68f79e2b6c517356146b834d8da9d0caed",
+      "source": "internal/tui/sessions_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/10-report.json.gz",
+      "sha256": "aa856ba787976e37930724f56e965ea3c6aede15934da14849a00189a77bc3f1",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/report.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/11-terminal.pty.gz",
+      "sha256": "1990fa8eaaca7019ce72771009aa2bfd8ae84e7a8d166826753f1dafb66c8b27",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/escape/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/12-requests.json.gz",
+      "sha256": "777dc4cced88d92936dbb746c3b3ab266e2f04c1b8dd0e37c5663a73dfc4872c",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/escape/requests.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/13-terminal.pty.gz",
+      "sha256": "1870270dbc578f49aaf62e8f51d61ad1f08574657da56bb5a47adb3f3ca29314",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/cancel/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/14-requests.json.gz",
+      "sha256": "777dc4cced88d92936dbb746c3b3ab266e2f04c1b8dd0e37c5663a73dfc4872c",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/cancel/requests.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/15-terminal.pty.gz",
+      "sha256": "0eb1dfa6c177b8394dcfb789b29ccba8400b07a6e992b4f19e3506c1b4f5d114",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/select/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-adapter-removal-20260909/16-requests.json.gz",
+      "sha256": "1413e173269bdcc97e7aa18e447d74d22d05d3dea9c979118458abe7085c4e6f",
+      "source": "/private/tmp/hand-adapter-removal-pty-20260909/select/requests.json"
+    }
+  ],
+  "limitations": [
+    "Initial compile failures from removed-field resets/imports retained and corrected.",
+    "Controller.Run and legacy channel-based approval compatibility remain outside this removed runtime path.",
+    "Main still configures runtime during startup; M2.1 not finally qualified.",
+    "Dirty development checkouts/local Harness; final coverage and supported platforms remain unqualified."
+  ]
+}

@@ -1,0 +1,20 @@
+{"Time":"2026-09-08T21:17:11.743443+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T21:17:12.356857+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary"}
+{"Time":"2026-09-08T21:17:12.356932+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"=== RUN   TestCostBudgetRuntimeAndIndependentSummary\n"}
+{"Time":"2026-09-08T21:17:12.363604+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"2026/09/08 21:17:12 INFO compaction triggered session_id=ses_bb15b74dc4989758 reason=manual\n"}
+{"Time":"2026-09-08T21:17:12.366577+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"2026/09/08 21:17:12 INFO compaction complete session_id=ses_bb15b74dc4989758 reason=manual turns_compacted=19 duration_ms=3\n"}
+{"Time":"2026-09-08T21:17:12.368243+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"--- PASS: TestCostBudgetRuntimeAndIndependentSummary (0.01s)\n"}
+{"Time":"2026-09-08T21:17:12.368256+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Elapsed":0.01}
+{"Time":"2026-09-08T21:17:12.368284+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets"}
+{"Time":"2026-09-08T21:17:12.368291+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Output":"=== RUN   TestRunTurnCannotBypassSessionBudgets\n"}
+{"Time":"2026-09-08T21:17:12.368678+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Output":"--- PASS: TestRunTurnCannotBypassSessionBudgets (0.00s)\n"}
+{"Time":"2026-09-08T21:17:12.368685+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Elapsed":0}
+{"Time":"2026-09-08T21:17:12.374267+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction"}
+{"Time":"2026-09-08T21:17:12.374283+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"=== RUN   TestTokenBudgetGovernsRuntimeAndManualCompaction\n"}
+{"Time":"2026-09-08T21:17:12.377306+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"2026/09/08 21:17:12 INFO compaction triggered session_id=ses_2328c92eb4425405 reason=manual\n"}
+{"Time":"2026-09-08T21:17:12.378919+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"2026/09/08 21:17:12 INFO compaction complete session_id=ses_2328c92eb4425405 reason=manual turns_compacted=19 duration_ms=1\n"}
+{"Time":"2026-09-08T21:17:12.379446+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"--- PASS: TestTokenBudgetGovernsRuntimeAndManualCompaction (0.01s)\n"}
+{"Time":"2026-09-08T21:17:12.379458+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Elapsed":0.01}
+{"Time":"2026-09-08T21:17:12.379666+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T21:17:13.392867+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t1.649s\n"}
+{"Time":"2026-09-08T21:17:13.393+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":1.65}

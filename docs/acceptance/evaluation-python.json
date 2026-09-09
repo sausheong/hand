@@ -1,0 +1,95 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Python unittest JSONL oracle driver integrated with strict event validator, manifest fixture checks and pinned baseline/candidate verification.",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_evaluation_unittest.py",
+        "-v"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_evaluation_*.py"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "limitations": [
+    "Synthetic test repositories prove verifier behaviour only; no real comparison tasks added.",
+    "No model calls, paid execution or superiority evidence.",
+    "Real diverse corpus, candidate/model/source pins, isolated paid executor, spend authorisation and independent review remain pending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/scripts__evaluation_unittest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_unittest.py",
+      "uncompressed_sha256": "f8e350fda7e54c80ca77dcf0e38bb34c321eb1ff0ab7a5a138a0b25b0c8460f8",
+      "sha256": "06669d47861675fdc358266fb8d5ae51e99824765faec30a2da7b79609e8227e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/scripts__test_evaluation_unittest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_unittest.py",
+      "uncompressed_sha256": "a1c5135b49c2ea1f6b4e454d8a69ef479aa71050e8d1816c8a1280a9f0c64880",
+      "sha256": "fcb96aa069f86d502be52f93f49e6c44d19b7aa464502d044d36759ade48afe9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/scripts__evaluation_go_tests.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_go_tests.py",
+      "uncompressed_sha256": "2c1309af985c9cc1ae767ebefb0d1222ee98aa452f7282017f99e24d5e879b4b",
+      "sha256": "3c94a610a72db692f4f2a21fe5f43d0a65d4e73d921b54bf21081cce2e2ace11"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/scripts__evaluation_baseline.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_baseline.py",
+      "uncompressed_sha256": "9212d0796f149c97b1848ee712664c0efc9bb6efd1218e80a2442779e8d0fb4e",
+      "sha256": "566ad024012d03e68174856e1df2972b00574c2fbaad3e5e7088f92ff0198647"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/scripts__evaluation_manifest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_manifest.py",
+      "uncompressed_sha256": "e99c86d902cd03794654994c4cffbe43c144c0fc8de0160911e83e183603f542",
+      "sha256": "19bdaf9827a08c41eb473808cab08e7b7fa5d81b68bd8373b9cdc04d3cf5100b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/docs__acceptance__evaluation__README.md.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/README.md",
+      "uncompressed_sha256": "61ec4b2e08c50cdaa6d7e63f2595d3758f3f45844bc14f9ef39b48a156af8644",
+      "sha256": "b5247b239abf3d8920185d4baa499e056d5910af5946f878c92347b856628898"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/hand-evaluation-python-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-python-20260909.log",
+      "uncompressed_sha256": "b6ff7516c08ff33e2ba3ebb6546deaf955b76332a1a5dc57709a55633cce5c6d",
+      "sha256": "c6ee4a7f8db3d08db0c1e44584a2a66527ca4eaffbfcd43c883aeb8662af67dd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/hand-evaluation-python-all-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-python-all-20260909.log",
+      "uncompressed_sha256": "784da1773517d4f99a0c1a9c05db389916f47fb30a00f360f4e778d3d0cec3bb",
+      "sha256": "a4cc3b8164a0d2b4eb5f051485f95e79d48bbaa35c09f19ea36779f3a46c4373"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-python-20260909/hand-evaluation-python-final-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-python-final-20260909.log",
+      "uncompressed_sha256": "1440dfdf99f54d3b8654af7cf7439fc3b577aed4a4ba61ec1a7d90dfe76134c3",
+      "sha256": "ae6405cab503dd5deda5b31c896ff6de7fd9b235dd5b30e6b4a9e567e198bcf9"
+    }
+  ]
+}

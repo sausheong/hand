@@ -1,0 +1,52 @@
+{
+  "status": "development_fallback_accounting_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/app -run '^TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 20
+  },
+  "assertions": [
+    "Actual Harness fallback requests primary then fallback model",
+    "Failed primary attempt retains unavailable usage and unique identity",
+    "Successful fallback retains retry category and serving model",
+    "Hand reports 40 input, 5 output and 20 cached input without adding cache again; two attempts, one unknown",
+    "Wire summary remains incomplete",
+    "Real session close/reopen preserves accounting; replayed observations do not double count"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/fallback_usage_test.go.txt",
+      "sha256": "b5ce34485eab835f0ef062ea1f0ae19d0b6e20f8540c2ff79f2ecfb57439e2b6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/hand-fallback-usage-20260909.jsonl.gz",
+      "sha256": "1753bd280f487d5a5e2f17545938f1be443653e5c76d6b65d686a5aa3bd51733"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/harness.go.txt",
+      "sha256": "8fd43d465c99034876e129cf25421a552e0d2fc4a2c11498f24388c2da98a84e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/session_usage_test.go.txt",
+      "sha256": "faa8da4377b03d43531acb99bd572834c7238c0c32de8bf6fac7a091a4f55830"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/usage.go.txt",
+      "sha256": "7368be71b7c6896033d3868baceab4e8ae6beada386d2797d93987a21185ef40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/usage_observer.go.txt",
+      "sha256": "b2c140e35d789a001377298dd62faf593381849ebc6ff2379ea6b2db8ad838f3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/fallback-usage-20260909/wire.go.txt",
+      "sha256": "8637eeed875541199e84c873997486632208f5aac77ef9cef02ea61a9db6e833"
+    }
+  ],
+  "limitations": [
+    "Deterministic local provider, no live model calls",
+    "One failed request followed by successful fallback; not full tariff/budget evaluation",
+    "Clean session reopen, not process crash",
+    "Development local Harness, not final released-candidate evidence"
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "status": "development_verifier_calibrated",
+  "python_runner_tests": 89,
+  "verifier_tests": 8,
+  "calibration": [
+    {
+      "task": "preserve-write-mode",
+      "source": "defective",
+      "commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+      "execution_status": "failed",
+      "verification": {
+        "status": "failed",
+        "errors": [
+          "verification command did not complete successfully with joined output",
+          "test fail: github.com/sausheong/harness/tools/file::TestAcceptanceWriteMode",
+          "package fail: github.com/sausheong/harness/tools/file"
+        ],
+        "expected": [
+          {
+            "package": "github.com/sausheong/harness/tools/file",
+            "test": "TestAcceptanceWriteMode"
+          }
+        ],
+        "missing": [],
+        "packages": {
+          "github.com/sausheong/harness/tools/file": "fail"
+        },
+        "tests": [
+          {
+            "package": "github.com/sausheong/harness/tools/file",
+            "test": "TestAcceptanceWriteMode",
+            "outcome": "fail"
+          }
+        ],
+        "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+      }
+    },
+    {
+      "task": "cancel-shell-descendants",
+      "source": "defective",
+      "commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+      "execution_status": "failed",
+      "verification": {
+        "status": "failed",
+        "errors": [
+          "verification command did not complete successfully with joined output",
+          "test fail: github.com/sausheong/harness/tools/bash::TestAcceptanceBashCancellationOwnsDescendants",
+          "package fail: github.com/sausheong/harness/tools/bash"
+        ],
+        "expected": [
+          {
+            "package": "github.com/sausheong/harness/tools/bash",
+            "test": "TestAcceptanceBashCancellationOwnsDescendants"
+          }
+        ],
+        "missing": [],
+        "packages": {
+          "github.com/sausheong/harness/tools/bash": "fail"
+        },
+        "tests": [
+          {
+            "package": "github.com/sausheong/harness/tools/bash",
+            "test": "TestAcceptanceBashCancellationOwnsDescendants",
+            "outcome": "fail"
+          }
+        ],
+        "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+      }
+    },
+    {
+      "task": "preserve-write-mode",
+      "source": "fixed",
+      "commit": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+      "execution_status": "completed",
+      "verification": {
+        "status": "passed",
+        "errors": [],
+        "expected": [
+          {
+            "package": "github.com/sausheong/harness/tools/file",
+            "test": "TestAcceptanceWriteMode"
+          }
+        ],
+        "missing": [],
+        "packages": {
+          "github.com/sausheong/harness/tools/file": "pass"
+        },
+        "tests": [
+          {
+            "package": "github.com/sausheong/harness/tools/file",
+            "test": "TestAcceptanceWriteMode",
+            "outcome": "pass"
+          }
+        ],
+        "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+      }
+    },
+    {
+      "task": "cancel-shell-descendants",
+      "source": "fixed",
+      "commit": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+      "execution_status": "completed",
+      "verification": {
+        "status": "passed",
+        "errors": [],
+        "expected": [
+          {
+            "package": "github.com/sausheong/harness/tools/bash",
+            "test": "TestAcceptanceBashCancellationOwnsDescendants"
+          }
+        ],
+        "missing": [],
+        "packages": {
+          "github.com/sausheong/harness/tools/bash": "pass"
+        },
+        "tests": [
+          {
+            "package": "github.com/sausheong/harness/tools/bash",
+            "test": "TestAcceptanceBashCancellationOwnsDescendants",
+            "outcome": "pass"
+          }
+        ],
+        "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+      }
+    }
+  ],
+  "empty_selection": {
+    "exit_code": 0,
+    "verification": {
+      "status": "failed",
+      "errors": [
+        "expected test did not run: github.com/sausheong/harness/tools/file::TestAcceptanceWriteMode"
+      ],
+      "expected": [
+        {
+          "package": "github.com/sausheong/harness/tools/file",
+          "test": "TestAcceptanceWriteMode"
+        }
+      ],
+      "missing": [
+        {
+          "package": "github.com/sausheong/harness/tools/file",
+          "test": "TestAcceptanceWriteMode"
+        }
+      ],
+      "packages": {
+        "github.com/sausheong/harness/tools/file": "pass"
+      },
+      "tests": [],
+      "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+    }
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-evaluation-go-verification-20260909.json",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/0-hand-evaluation-go-verification-20260909.json.gz",
+      "sha256": "193145686890332505f002422953083b2dd3d1f68bb78a8db7b0579fcd892b0c",
+      "uncompressed_sha256": "398a2152f29062eed4a7c6097bd78b4da873314c9faf45389320ed37a0bf5dde"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-go-empty-selection-20260909.json",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/1-hand-evaluation-go-empty-selection-20260909.json.gz",
+      "sha256": "fae6736c1504f3b3dbc64c86e29260f0db04779554a2c7b49c0e819ddc1da403",
+      "uncompressed_sha256": "5ef1f8ff656d227f70b06f3e5799cfef899f199d71c5c3d396a1bb517cfcbcab"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-go-verifier-all-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/2-hand-evaluation-go-verifier-all-tests-20260909.log.gz",
+      "sha256": "a7d192808fb91ed9aea0b8dc8a4a249fd4444237cbb3a95a592c39ae910cc7ff",
+      "uncompressed_sha256": "8692c60ac919a3cbb5a3e3998850ef46b4c010719f87e315693b51bba3a06bd1"
+    },
+    {
+      "source": "scripts/evaluation_go_tests.py",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/3-evaluation_go_tests.py.gz",
+      "sha256": "f7a82c7b6686f4903c4ee720f44f5ec69eb1dfc755b102071c66ab263840f9ca",
+      "uncompressed_sha256": "c60ad596d369627ce96dd464676fb5f5b594eeee393db076a318ee53e8bf6faf"
+    },
+    {
+      "source": "scripts/test_evaluation_go_tests.py",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/4-test_evaluation_go_tests.py.gz",
+      "sha256": "dd0fccca7cbcee154746c8fdf2fbbd8f793046cb5f3a3c6454eb3ae0a37d10b0",
+      "uncompressed_sha256": "bc1906fdeb776ba89348d2fdce684f5aa0412fa4bcfa25aa22e5032061ef07bc"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/defective-preserve-write-mode-logs/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/5-stdout.log.gz",
+      "sha256": "dd06d483e4ddee25a8584234b37067b0d5bf8f07629e3cc48f5709e24b48bf9b",
+      "uncompressed_sha256": "28e0ba864062fa4ba93029cb4def3d85a8864bc4ab536ad624e874ecd8a5e9b2"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/defective-preserve-write-mode-logs/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/6-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/defective-cancel-shell-descendants-logs/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/7-stdout.log.gz",
+      "sha256": "8a671eec397ddb4fa3c0bd6b6ff4c622e9410c02b3902a67ced0ca5d9eb720ff",
+      "uncompressed_sha256": "fa30e1f8608ab86b4e94ca1d6192df5bdd77a302aef553ff161e6ac525cb5a2d"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/defective-cancel-shell-descendants-logs/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/8-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/fixed-preserve-write-mode-logs/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/9-stdout.log.gz",
+      "sha256": "0b2eb44c8b23a9c724da526bbea093022bc2d2f2f115f2eaa8f17bb069104b5b",
+      "uncompressed_sha256": "3181ec809d3692bb4f6bfab902aee8a462ca5770594c1c345dc1ca5bef93e824"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/fixed-preserve-write-mode-logs/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/10-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/fixed-cancel-shell-descendants-logs/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/11-stdout.log.gz",
+      "sha256": "4aa6205a8ce7f13dbf3e0570a1cd8ff7a676c573b3dda812936f4add01c6184e",
+      "uncompressed_sha256": "afbb14651bd46af1cd83833d4e467ef96b3bdf55ab15839ae92d34be6124f429"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/fixed-cancel-shell-descendants-logs/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/12-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/empty-selection-logs/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/13-stdout.log.gz",
+      "sha256": "d93ad98932bc7e5d039aaea82aeaad5cfb32de00fafa7f56e2de4ed8651840cb",
+      "uncompressed_sha256": "b6607d0b6d6a7027798efdc86e1752ee57594ac248880a52fb9baf2ce1783755"
+    },
+    {
+      "source": "/private/tmp/hand-go-verification-20260909-1etakhyg/empty-selection-logs/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-go-verifier-20260909/14-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "No Hand/Pi model runs or spending occurred",
+    "Known fixed/defective commits calibrate the oracle and runner, not comparative task success",
+    "Expected inventory and JSON command options must be frozen into full evaluation inputs before comparison",
+    "Output authenticity, isolation, other-language test formats and independent code review remain outstanding"
+  ]
+}

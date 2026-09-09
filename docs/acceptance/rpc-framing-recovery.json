@@ -1,0 +1,28 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scenario": "version_size_errors",
+  "command": "go test -race -count=1 -json ./cmd/hand -run '^TestBinaryRPCRejectsOversizedFrameBeforeProvider$'",
+  "exit_code": 0,
+  "assertions": [
+    "Unsupported version and duplicate IDs receive bounded JSON error responses without accepted request identity",
+    "Prompt before hello receives not_negotiated with matching ID",
+    "Same connection then negotiates successfully",
+    "Oversized frame terminates stream and prevents trailing prompt admission",
+    "Zero provider calls and empty request ledger throughout"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-framing-recovery-20260909/hand-rpc-framing-recovery-20260909.jsonl",
+      "sha256": "2c5bb4a1756646dbca7a37fca2642a84ebf0204c9ba26e2b1baa83dee7de0cb0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-framing-recovery-20260909/rpc_frame_binary_test.go.txt",
+      "sha256": "1c04bca8955dec9d0e5e68268f6ad5c5c70a875eedab62ddf350f1bd9ca2d918"
+    }
+  ],
+  "limits": [
+    "Fresh development child binary not race-instrumented; surrounding test uses race detector",
+    "Native macOS only; clean candidate/released Harness pending"
+  ]
+}

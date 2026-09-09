@@ -1,0 +1,46 @@
+{
+  "status": "development_run_journal_fuzz_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -run '^$' -fuzz '^FuzzRunJournalIntegrity$' -fuzztime=60s -parallel=2 -json ./internal/app",
+  "test_records": {
+    "hand-run-fuzz-seeds-20260909.jsonl": {
+      "pass": 9
+    },
+    "hand-run-fuzz-20260909.jsonl": {
+      "pass": 1
+    }
+  },
+  "fuzz_seconds": 61.01,
+  "executions": 799360,
+  "assertions": [
+    "Accepted valid records preserve all fields through canonical roundtrip",
+    "Duplicate version and outcome status rejected",
+    "Trailing object rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-fuzz-20260909/hand-run-fuzz-20260909.jsonl.gz",
+      "sha256": "e9c578ca65023799b7a139f4339b9c61a626ac346010e3cb11b609d1e2c95d4c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-fuzz-20260909/hand-run-fuzz-seeds-20260909.jsonl.gz",
+      "sha256": "b91b44c7aeb97beceee0a6a5dc7b063a54331471e7e5e7741e7f68294f875a93"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-fuzz-20260909/run_journal.go.txt",
+      "sha256": "0029b393cff710961e68eb1bfe33c5aa38e8326606cdce3564ef641368ce778c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-fuzz-20260909/run_journal_fuzz_test.go.txt",
+      "sha256": "4334e2abf14f07f2f957ca423e897b9d20bf199d9be40575ee0a210203514006"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-fuzz-20260909/run_journal_json.go.txt",
+      "sha256": "73e287320337cbdc989506b400c0c17f7ff3ca82b8b30d31c2df34fe4ff27200"
+    }
+  ],
+  "limitations": [
+    "Input size bounded to 64 KiB; larger corpus inputs skipped by fuzz callback",
+    "Decoder and semantic validation only; not journal storage transitions or recovery",
+    "Development evidence, not final candidate qualification"
+  ]
+}

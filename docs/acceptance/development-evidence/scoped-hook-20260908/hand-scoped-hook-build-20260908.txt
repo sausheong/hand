@@ -1,0 +1,4 @@
+# github.com/sausheong/hand/internal/permissions
+internal/permissions/scoped.go:105:136: undefined: ToolCall
+FAIL	github.com/sausheong/hand/internal/agentio [build failed]
+FAIL

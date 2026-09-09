@@ -1,0 +1,89 @@
+package app
+
+import (
+	"bytes"
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+	"time"
+
+	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/harness/runtime"
+	"github.com/sausheong/harness/session"
+)
+
+func TestRunJournalAmbiguitySurvivesReopenWithoutMutation(t *testing.T) {
+	for _, field := range []string{"status", "verified"} {
+		t.Run(field, func(t *testing.T) {
+			dir := t.TempDir()
+			store := session.NewStore(dir)
+			if err := store.Create("hand", "key"); err != nil {
+				t.Fatal(err)
+			}
+			sess, err := store.LoadExclusive("hand", "key")
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer func() { sess.Close() }()
+			backend := &HarnessBackend{Runtime: &runtime.Runtime{Session: sess}}
+			start := RunRecord{Version: 1, ID: "run", RunID: 1, Phase: "start", At: time.Now().UTC()}
+			if err := backend.RecordRun(start); err != nil {
+				t.Fatal(err)
+			}
+			finish := start
+			finish.Phase = "finish"
+			finish.Outcome = &agentio.RunOutcome{Status: agentio.Completed, Reason: "answer_completed", Iterations: 1, Verified: true}
+			raw, err := json.Marshal(finish)
+			if err != nil {
+				t.Fatal(err)
+			}
+			corrupt := strings.Replace(string(raw), `"status":"completed"`, `"status":"cancelled","status":"completed"`, 1)
+			if field == "verified" {
+				corrupt = strings.Replace(string(raw), `"verified":true`, `"verified":false,"verified":true`, 1)
+			}
+			if err := sess.Annotate(runJournalKind, json.RawMessage(corrupt)); err != nil {
+				t.Fatal(err)
+			}
+			if err := sess.Close(); err != nil {
+				t.Fatal(err)
+			}
+			path := filepath.Join(dir, "hand", "key.jsonl")
+			before, err := os.ReadFile(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !bytes.Contains(before, []byte(corrupt)) {
+				t.Fatal("fixture did not preserve ambiguous payload on disk")
+			}
+			sess, err = store.LoadExclusive("hand", "key")
+			if err != nil {
+				t.Fatal(err)
+			}
+			controller := &Controller{Rt: &runtime.Runtime{Session: sess}}
+			for i := 0; i < 2; i++ {
+				if runs, err := controller.SessionRuns(); err == nil || runs != nil {
+					t.Fatal("reopened corrupt history accepted", runs, err)
+				}
+				next := start
+				next.ID = "new"
+				next.RunID = 2
+				backend.Runtime.Session = sess
+				if err := backend.RecordRun(next); err == nil {
+					t.Fatal("reopened corruption permitted append")
+				}
+			}
+			if err := sess.Close(); err != nil {
+				t.Fatal(err)
+			}
+			after, err := os.ReadFile(path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if !bytes.Equal(before, after) {
+				t.Fatal("read or rejected append changed stored bytes")
+			}
+		})
+	}
+}

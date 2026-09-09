@@ -1,0 +1,21 @@
+{
+  "status": "in_progress",
+  "remaining_scope": [
+    "execution_isolation",
+    "harness_release_integration"
+  ],
+  "reason": "Docker authorised and corrected native suite passed. Release review, remaining platform/isolation qualification and published dependency integration remain open.",
+  "approval_record": "docs/acceptance/harness-refresh-approval.json",
+  "review_bundle": "docs/acceptance/harness-isolation-review.json",
+  "runtime_tests_started": true,
+  "blocked_audit": "Same Docker authorisation blocker verified across the qualification-gate, release-bundle and isolation-oracle turns and this turn. Preparation and reconstruction are complete for current source. No live qualification process is running; no Docker access attempted.",
+  "next_actions": [
+    "Obtain specific permission to use local Docker for the prepared isolation and Harness tests.",
+    "Run exact-source qualification, fix actual failures, and retain all raw results.",
+    "Prepare and approve exact Harness release; publish and pin Hand to its verified module version."
+  ],
+  "current_status": "publication_completed_native_integration_passed",
+  "publication_authorised": true,
+  "publication_evidence": "docs/acceptance/harness-publication-status.json",
+  "remaining_work": "Retained-scope isolation audit and cross-platform/changed-code coverage reconciliation"
+}

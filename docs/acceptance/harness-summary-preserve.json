@@ -1,0 +1,128 @@
+{
+  "status": "development_passed",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "2c166169001abe2fafd9e62f334b498979903d0d674c82566e11c58f0b0f71b7",
+  "sources": [
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "40e374350ddd34e592804c48b7f660fd094bdc0acabe799f317b5e2c0005509d"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "141a1d4085be36244bf1d4e3081c89799dbf43e20f5bb91e9cbb84c6d27a8238"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "1a1d0940ec22d02e55c8e5cbb30d89061190788e3f4c07c7055c82648c152a13"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "76eb53fea41aad9fb39d7e7b517a8891dc9b455a92f1ec274067b45c3fcec4c4"
+    },
+    {
+      "path": "runtime/skills_authoring_test.go",
+      "before_sha256": null,
+      "after_sha256": "4d9e44d05e3ae8813c5f5ed590883f970256ded90d9caaad7581b74022278263"
+    },
+    {
+      "path": "runtime/context_inspect.go",
+      "before_sha256": null,
+      "after_sha256": "a3cd1b35855073c9ac3f3d3314163f5ab0e2a8c52605af2b1a6e0925e30e0c12"
+    },
+    {
+      "path": "runtime/context_inspect_test.go",
+      "before_sha256": null,
+      "after_sha256": "d728bd3d9136db6477958a6a09b626521dbf5d1edc15a12abf1a00d0b3dd97b0"
+    },
+    {
+      "path": "runtime/context_pins.go",
+      "before_sha256": null,
+      "after_sha256": "9e196c86fd1d75928225aeab4ad3b96616d8fd1d80cec1cbeedefad9336c7e5a"
+    },
+    {
+      "path": "runtime/context_pins_test.go",
+      "before_sha256": null,
+      "after_sha256": "b72bdc9c09240138c4ae54f02fb43c6e4cc51523d3145645921b0d238e069c90"
+    },
+    {
+      "path": "compaction/summarizer.go",
+      "before_sha256": "391ce9710753a198751bc5fef5b9a71eed3e4fb2cc40c5b3c06fa02a4c4c1917",
+      "after_sha256": "41de460d984d831a6c0e197a03e590379b32c976e181e47cb01c4b78ff837dc7"
+    },
+    {
+      "path": "compaction/compaction.go",
+      "before_sha256": "a8d11813e855dc3123008c33670c262e76e52612a70afec002b85e606fdfdc48",
+      "after_sha256": "3a181762e98d3112f4bcfd9018b0edc3fbbe80a9dd9f37163705be64f3fd9b06"
+    },
+    {
+      "path": "compaction/summarizer_test.go",
+      "before_sha256": "5ce65821aca9178dd2c6db66d0e32b116ae1f1785249d7e4ff6504feef477a04",
+      "after_sha256": "d513dd672e4e8060d21fec1486cb3845618bb138fb2a2cc40bf56493ee9ba495"
+    },
+    {
+      "path": "compaction/compaction_test.go",
+      "before_sha256": "dccaa035270edf0a16cb37758aef19dad46837f68f54fbabcec61e13ce133de1",
+      "after_sha256": "fb9d4faff4bacf34bd8a1818a79418eccf50be904acfe417410a2d58a80eb9e6"
+    },
+    {
+      "path": "compaction/preserve_failure_test.go",
+      "before_sha256": null,
+      "after_sha256": "8dd3b0d98eb418c59ebd94b2cad59834458176de691cf998e37724595d70062a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-summary-preserve-20260908/harness-summary-preserve-race-20260908.jsonl",
+      "sha256": "8ee5580534e4b83663e62fbca0d3ce6348a8d768c2272d7319831556e3fb03a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-summary-preserve-20260908/harness-summary-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-summary-preserve-20260908/harness-summary-preserve-before-20260908.jsonl",
+      "sha256": "47ba6343d0c59d6d447f51f35612170114ef234bdc7356af8fc0c6633254b466"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-summary-preserve-20260908/harness-summary-runtime-race-20260908.jsonl",
+      "sha256": "11077fec277d194acdbec1f61b6ab4178f155532ba49a454e9edadfdad414e43"
+    }
+  ],
+  "results": {
+    "harness-summary-preserve-race-20260908.jsonl": {
+      "pass": 63,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    },
+    "harness-summary-preserve-before-20260908.jsonl": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0,
+      "build-fail": 0
+    },
+    "harness-summary-runtime-race-20260908.jsonl": {
+      "pass": 23,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Development only; no released Harness integration.",
+    "Failed summarisation skips compaction and retains effective/raw history; an oversized context may still require user action after the circuit breaker opens.",
+    "Actual summariser pin/focus integration, separate profiles/budgets and structured summary qualification remain pending."
+  ]
+}

@@ -1,0 +1,35 @@
+{"Time":"2026-09-09T08:56:59.372537+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T08:57:00.040983+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest"}
+{"Time":"2026-09-09T08:57:00.041043+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest","Output":"=== RUN   TestSubmitBindsExecutionToRequest\n"}
+{"Time":"2026-09-09T08:57:00.041064+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-pending"}
+{"Time":"2026-09-09T08:57:00.041075+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-pending","Output":"=== RUN   TestSubmitBindsExecutionToRequest/sent-pending\n"}
+{"Time":"2026-09-09T08:57:00.041678+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-pending","Output":"--- PASS: TestSubmitBindsExecutionToRequest/sent-pending (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.041696+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-pending","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.041705+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-accepted"}
+{"Time":"2026-09-09T08:57:00.041718+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-accepted","Output":"=== RUN   TestSubmitBindsExecutionToRequest/sent-accepted\n"}
+{"Time":"2026-09-09T08:57:00.042006+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-accepted","Output":"--- PASS: TestSubmitBindsExecutionToRequest/sent-accepted (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.042022+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-accepted","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.042028+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-uncertain"}
+{"Time":"2026-09-09T08:57:00.042032+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-uncertain","Output":"=== RUN   TestSubmitBindsExecutionToRequest/sent-uncertain\n"}
+{"Time":"2026-09-09T08:57:00.042264+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-uncertain","Output":"--- PASS: TestSubmitBindsExecutionToRequest/sent-uncertain (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.042285+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/sent-uncertain","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.042291+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-pending"}
+{"Time":"2026-09-09T08:57:00.042295+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-pending","Output":"=== RUN   TestSubmitBindsExecutionToRequest/other-pending\n"}
+{"Time":"2026-09-09T08:57:00.042537+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-pending","Output":"    submit_identity_test.go:44: accepted another execution {other s r pending {{0  0    {0 0 \u003cnil\u003e}  []}   } false}\n"}
+{"Time":"2026-09-09T08:57:00.042564+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-pending","Output":"--- FAIL: TestSubmitBindsExecutionToRequest/other-pending (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.042571+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-pending","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.042585+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-accepted"}
+{"Time":"2026-09-09T08:57:00.042608+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-accepted","Output":"=== RUN   TestSubmitBindsExecutionToRequest/other-accepted\n"}
+{"Time":"2026-09-09T08:57:00.042807+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-accepted","Output":"    submit_identity_test.go:44: accepted another execution {other s r accepted {{0  0    {0 0 \u003cnil\u003e}  []}   } false}\n"}
+{"Time":"2026-09-09T08:57:00.042831+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-accepted","Output":"--- FAIL: TestSubmitBindsExecutionToRequest/other-accepted (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.042836+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-accepted","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.04285+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-uncertain"}
+{"Time":"2026-09-09T08:57:00.042853+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-uncertain","Output":"=== RUN   TestSubmitBindsExecutionToRequest/other-uncertain\n"}
+{"Time":"2026-09-09T08:57:00.043074+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-uncertain","Output":"    submit_identity_test.go:44: accepted another execution {other s r uncertain {{0  0    {0 0 \u003cnil\u003e}  []}   } false}\n"}
+{"Time":"2026-09-09T08:57:00.043092+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-uncertain","Output":"--- FAIL: TestSubmitBindsExecutionToRequest/other-uncertain (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.043104+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest/other-uncertain","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.04312+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest","Output":"--- FAIL: TestSubmitBindsExecutionToRequest (0.00s)\n"}
+{"Time":"2026-09-09T08:57:00.043133+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestSubmitBindsExecutionToRequest","Elapsed":0}
+{"Time":"2026-09-09T08:57:00.043176+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\n"}
+{"Time":"2026-09-09T08:57:00.04413+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\tgithub.com/sausheong/hand/sdk\t0.671s\n"}
+{"Time":"2026-09-09T08:57:00.044138+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Elapsed":0.672}

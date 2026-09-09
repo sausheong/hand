@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "hand_version": null,
+  "binary": "/private/tmp/hand-sdk-compat-binary-20260908",
+  "binary_sha256": "dc5bf27697fbdc997e32a79d7eb8cd84a18fb3ab5b9758c099d1864b5df643af",
+  "fixture_sha256": "65db41332d012a56feec3a07dbe24fa8284d89e54dd6dff7eb619726bf1f2532",
+  "commands": [
+    {
+      "argv": [
+        "go",
+        "mod",
+        "init",
+        "example.com/hand-sdk-compatibility"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/init.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/init.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "73d1cba4ce56e0c4ac0790ed494087d410f816848558b6fca23a63ad55e8020e"
+    },
+    {
+      "argv": [
+        "go",
+        "mod",
+        "edit",
+        "-require=github.com/sausheong/hand@v0.0.0"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/require.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/require.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "mod",
+        "edit",
+        "-replace=github.com/sausheong/hand=/private/tmp/hand-session-integration-20260908"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/replace-hand.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/replace-hand.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "mod",
+        "edit",
+        "-replace=github.com/sausheong/harness=/private/tmp/hand-harness-persistence-20260908"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/replace-harness.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/replace-harness.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "build",
+        "-mod=mod",
+        "-o",
+        "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer/consumer",
+        "."
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/build.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/build.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "list",
+        "-m",
+        "-json",
+        "github.com/sausheong/hand",
+        "github.com/sausheong/harness"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/modules.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/modules.stderr",
+      "stdout_sha256": "61e4ff0a8a1c10d3e7c64844eb07b154af576be526f180cd5a5e70e0c63bd58b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "version",
+        "-m",
+        "/private/tmp/hand-sdk-compat-binary-20260908"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/binary-build-info.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/binary-build-info.stderr",
+      "stdout_sha256": "d13bcb59a3333057edac566e6a4946e1220be7ead31a45fd638f871c95fcfaa9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer/consumer",
+        "/private/tmp/hand-sdk-compat-binary-20260908"
+      ],
+      "cwd": "/private/tmp/hand-sdk-compatibility-verified-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-sdk-compatibility-verified-20260908/journey.stdout",
+      "stderr": "/private/tmp/hand-sdk-compatibility-verified-20260908/journey.stderr",
+      "stdout_sha256": "c65a4709a10fa9621517c71d7aea705858f16751124fe4ac281b98df549c2c31",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "external module build and local completion equivalence only",
+  "hand_checkout": "/private/tmp/hand-session-integration-20260908",
+  "harness_checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "journey": {
+    "observations": {
+      "cli_jsonl": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "embedded_sdk": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "subprocess_sdk": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      }
+    },
+    "provider_calls": 3,
+    "scope": "local fixture completion journey; excludes live evaluation",
+    "status": "passed"
+  },
+  "go_mod_sha256": "f6f7a0b0d9294024ec828735f4b32242f6ab6f2c5b1de74273d767e508b29717"
+}

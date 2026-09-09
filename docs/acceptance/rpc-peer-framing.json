@@ -1,0 +1,193 @@
+{
+  "status": "development_passed",
+  "candidate_qualified": false,
+  "change": "Preserve trailing framing errors when input hangup races the decoder. Input EOF drains only remaining bytes without dispatch; output closure interrupts immediately.",
+  "test_records": {
+    "full-packages": {
+      "pass": 197
+    },
+    "full-packages-final": {
+      "pass": 197
+    },
+    "truncation-before": {
+      "pass": 4,
+      "fail": 16
+    },
+    "truncation-after": {
+      "pass": 118,
+      "fail": 2
+    },
+    "truncation-fixed": {
+      "pass": 120
+    },
+    "startup-final": {
+      "pass": 10
+    },
+    "combined-final": {
+      "pass": 260
+    }
+  },
+  "full_package_inventory": {
+    "passed": 197,
+    "skipped": [],
+    "failed": [],
+    "missing": [],
+    "packages": [
+      "github.com/sausheong/hand/internal/rpc",
+      "github.com/sausheong/hand/protocol"
+    ],
+    "unfinished": [],
+    "missing_packages": []
+  },
+  "inventory_timing": "Post-run inventory for unchanged package sources; not release-run preflight inventory",
+  "archive_smoke": {
+    "archives": [
+      {
+        "target": "darwin-amd64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      },
+      {
+        "target": "darwin-arm64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": true
+      },
+      {
+        "target": "linux-amd64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      },
+      {
+        "target": "linux-arm64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      }
+    ]
+  },
+  "archive_directory": "/private/tmp/hand-rpc-peer-framing-dist-20260909",
+  "version": "development-rpc-peer-framing-dirty-20260909",
+  "limitations": [
+    "Dirty Hand with local unpublished Harness, not a clean candidate",
+    "Full package run preceded final StartupError fallback and write-error cancellation mapping; final combined repeated tests and vet cover those changes",
+    "Native Linux and non-host archive execution remain pending",
+    "No fresh full-repository coverage or live evaluations"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-inventory-rpc-20260909.txt.gz",
+      "source": "/private/tmp/hand-rpc-peer-inventory-rpc-20260909.txt",
+      "uncompressed_sha256": "8baa997392979a07b628ebb09133151f5be37a65cae5630cdc442b1f90999bbd",
+      "sha256": "42f5e55e264002cf73233fed2e695c9a87d1835b77516560cee424234ceacd8b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-inventory-protocol-20260909.txt.gz",
+      "source": "/private/tmp/hand-rpc-peer-inventory-protocol-20260909.txt",
+      "uncompressed_sha256": "296d8ba50c9395620f256b07dbce7ef4edaae9d880aefd06c19b48879d4f6e6e",
+      "sha256": "087230ce2f4606a716784561fdb5da82fb2e00f67d1087eaf061adbf7dad26d6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-full-packages-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-full-packages-20260909.jsonl",
+      "uncompressed_sha256": "33052e6db6f330daf9865cf63ac01c7458b7bce33b2f155b5c75a5dbc82f0310",
+      "sha256": "2521ffcba8d5de8a9c54c923b673a2c8fe9763f696cae24178ec182a688780ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-full-packages-final-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-full-packages-final-20260909.jsonl",
+      "uncompressed_sha256": "4618a3bf4c79f3b75849b8112f46635f6471a118a3dbd84be81b9a83cce96b36",
+      "sha256": "272277f5a2c359ad9b1cb82091f6006b8ba6599ba603a88ee38a88a82ab32b5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-truncation-before-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-truncation-before-20260909.jsonl",
+      "uncompressed_sha256": "9a688e96a0917954184259275caa9f2b802477090d554098a09338880f488322",
+      "sha256": "fccc6e6807b122f228ebc225880d0bc7ccbcd7ed0cda255061a10ddc773933c5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-truncation-after-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-truncation-after-20260909.jsonl",
+      "uncompressed_sha256": "24ee12a946a095d3bb6d50cb5c278e53d7d030045f5a18c099c158c1db0a629c",
+      "sha256": "49327ce0bd4b5ce3fbb843d4a38fac0065e8e17fd573167b92f44b51e9a7ef54"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-truncation-fixed-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-truncation-fixed-20260909.jsonl",
+      "uncompressed_sha256": "671584c4a5a39247fb24becbe6c77fe9558035276d878d782eb424a2876d3555",
+      "sha256": "59437863981dcb6dfbd743f640d1f0cb6f220dce8446488037f9b61bd2570842"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-startup-final-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-startup-final-20260909.jsonl",
+      "uncompressed_sha256": "88c72b26d945e4a3fcb63a3e77030f55b7f79701f4a55825074b9e800d3724a7",
+      "sha256": "df3721caa34beb65c0b596ad90bbbc6542a4a2e5228ed4ca6c239079431dde4d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-combined-final-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-combined-final-20260909.jsonl",
+      "uncompressed_sha256": "dcf4cf7f9265b02764763cd616c43989be9ce178b6b984d47228648d366320b7",
+      "sha256": "03c7b12b936cddb35a7b6a541e7d2111ff87d8757adb259a43338234395f5d09"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/cmd__hand__rpc.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc.go",
+      "uncompressed_sha256": "9ea423732d7def88a04b07662e820b34b075c08d82eae4ebd8767d179ab429ee",
+      "sha256": "47f919899eaf5d0e5b3559409abc44a4d5ab419c37b18c4caacc4c3fdbae2339"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/cmd__hand__rpc_stdio_unix_test.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_stdio_unix_test.go",
+      "uncompressed_sha256": "1a9ddc65caa902de140f37d81614f7b2152be45ee1ac475a3ae23ae943b01b7b",
+      "sha256": "e44362c4805765e8ae1f5d9bb9b3d9259c4bcd7f481b9421951a62d784ae3e87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/cmd__hand__rpc_peer_darwin.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_peer_darwin.go",
+      "uncompressed_sha256": "06b50dad71ccd085ab4e543ecb26b80540c4b35e6e8eaa0813d3987160efa991",
+      "sha256": "aa15d1b635f865b058a4d5ca4bc36907be23efb4ef87a0578ed1c1ced3ce23ac"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/cmd__hand__rpc_peer_linux.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_peer_linux.go",
+      "uncompressed_sha256": "adeba25b57713a58553a362ead383803f9d9b1edbbe335a4f40b35b81c192353",
+      "sha256": "2542596b3055dabd498a5b627e90a88a9fc9dd2924fd256e925d7fc2bbe02749"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/internal__rpc__prepared_transport.go.gz",
+      "source": "/Users/sausheong/projects/hand/internal/rpc/prepared_transport.go",
+      "uncompressed_sha256": "e6fcbc1883329871a9b780678a802a13f839e639d40daf25ffc176afc70c9775",
+      "sha256": "48ca249f7c64e8dd46de7920497027c6b2c8d46c5dd948c1f30da57806c33eec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/internal__rpc__transport.go.gz",
+      "source": "/Users/sausheong/projects/hand/internal/rpc/transport.go",
+      "uncompressed_sha256": "131409f09cba2f6017d995b9aa8b60c91fdbbb899b5bab8d51f849b610b48e76",
+      "sha256": "9d152aca9c2672b91b7b5edaca953720e44f3dd1f126b62dffde6d84c32e7f6e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-vet-final-20260909.log.gz",
+      "source": "/private/tmp/hand-rpc-peer-vet-final-20260909.log",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-framing-dist-20260909.log.gz",
+      "source": "/private/tmp/hand-rpc-peer-framing-dist-20260909.log",
+      "uncompressed_sha256": "e67347d155b84fc9453f60edbc39bb698c5581931e729d188a75089a8c21cd0e",
+      "sha256": "8f2351bac44fdab235fd5eaa7fa1aaac7ee193cbc110230fecdd820763f3e7ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-framing-20260909/hand-rpc-peer-framing-dist-smoke-20260909.json.gz",
+      "source": "/private/tmp/hand-rpc-peer-framing-dist-smoke-20260909.json",
+      "uncompressed_sha256": "47d699c4e39a852b19c4d5746f09fbce5d7e4bc0c8aba0b21e080ab7b0ffe768",
+      "sha256": "08456063140e297953fe91469c46badddff2d5aae0e114eb583baab629ce6b9e"
+    }
+  ]
+}

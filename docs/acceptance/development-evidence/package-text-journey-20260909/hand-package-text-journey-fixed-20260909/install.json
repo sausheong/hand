@@ -1,0 +1,36 @@
+{
+  "origin": {
+    "kind": "local",
+    "location": "/private/tmp/hand-package-text-journey-fixed-20260909/source"
+  },
+  "action": "install",
+  "store": "/private/tmp/hand-package-text-journey-fixed-20260909/store",
+  "generation": 0,
+  "name": "text-journey",
+  "previous": "",
+  "digest": "09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7",
+  "source": "/private/tmp/hand-package-text-journey-fixed-20260909/source",
+  "manifest": {
+    "schema": 1,
+    "name": "text-journey",
+    "version": "1.0.0",
+    "compatibility": {
+      "minimum_hand": "0.1.0",
+      "extension_protocol": 1
+    },
+    "files": [
+      {
+        "path": "SKILL.md",
+        "kind": "skill",
+        "sha256": "4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4",
+        "size": 67
+      },
+      {
+        "path": "review.md",
+        "kind": "prompt",
+        "sha256": "95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308",
+        "size": 80
+      }
+    ]
+  }
+}

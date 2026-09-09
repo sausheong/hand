@@ -1,0 +1,46 @@
+{
+  "candidate_commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+  "clean_source": false,
+  "validated_source_sha256": "005682542e4ad1d193bd8b4e585e95fff135f2c5e84ce407eb1657f54f057acd",
+  "harness_version": "v0.3.9",
+  "wired_into_product": false,
+  "tests_passed": 492,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "sessionio_repeat_passes": 460,
+  "repetitions": 20,
+  "coverage_total": 85.95132743362832,
+  "coverage_changed": 86.56878738444807,
+  "cross_compilation_only": [
+    "linux/amd64",
+    "linux/arm64",
+    "darwin/amd64"
+  ],
+  "native_execution": "darwin/arm64",
+  "artifacts": [
+    {
+      "path": "internal/sessionio/catalogue.go",
+      "sha256": "00a8c0134d7fb8beae9e4f8c1bf9843a3bb7f5fff7c5b458c2cbfa98e1df51fb"
+    },
+    {
+      "path": "internal/sessionio/catalogue_fault_test.go",
+      "sha256": "d165dec11ea743d8dea72915fcb1ecdc33e7c100fe223788a3c8c25cfe3efa3e"
+    },
+    {
+      "path": "internal/sessionio/catalogue_process_test.go",
+      "sha256": "177eaa392b04e192e1d6c243d2938f0c1f25413ec863b62587c0af526ebf31ab"
+    },
+    {
+      "path": "/private/tmp/hand-m3-catalogue-durability-validation-20260908-01/report.json",
+      "sha256": "291811c0eba11ef145f00b9c7ae7d81d43d76b79526e3e052b8c25c0f188a80f"
+    },
+    {
+      "path": "/private/tmp/hand-catalogue-durability-repeat-20260908.jsonl",
+      "sha256": "521d8333118048bc066678598b21b5b0bd167d8464126cd86433d14a3494c1be"
+    },
+    {
+      "path": "/private/tmp/hand-catalogue-durability-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

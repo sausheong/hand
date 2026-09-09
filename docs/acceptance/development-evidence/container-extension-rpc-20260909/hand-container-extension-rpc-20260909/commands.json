@@ -1,0 +1,46 @@
+[
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/private/tmp/hand-container-extension-20260909",
+      "--review-extensions",
+      "/private/tmp/hand-container-extension-rpc-20260909/input.json",
+      "--extension-review-output",
+      "/private/tmp/hand-container-extension-rpc-20260909/review.json"
+    ],
+    "exit_code": 0,
+    "stdout": "cfb684abc27188a37c5d62d4ca5292a4714d91f15cebaa5b5ce5c5ccd75ec0bd\n",
+    "stderr": "Review created without execution. Inspect the file and its unrestricted host boundary before supplying --approve-extension-config.\n"
+  },
+  {
+    "argv": [
+      "/Applications/Docker.app/Contents/Resources/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-extension-rpc-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

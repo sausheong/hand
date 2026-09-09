@@ -1,0 +1,49 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scope": "Strict private grant-journal decoding before authority publication",
+  "tests": {
+    "before": {
+      "fail": 9,
+      "pass": 1
+    },
+    "after": {
+      "pass": 47
+    }
+  },
+  "command": "go test -race -count=1 -json ./internal/permissions",
+  "assertions": [
+    "Reject duplicate keys including escaped duplicates before scope selection",
+    "Reject case aliases and missing or null grant fields",
+    "Reject null revoke metadata and unknown fields",
+    "Failed replay preserves corrupt bytes and releases ownership",
+    "Authentic repaired journal reopens and authorises expected resource"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/authority-json-20260909/authority.go.txt",
+      "sha256": "30ae575bb54ba9d5db3104976eb5cfec6793d1137f1cfc56a0f1ba4e69f45f4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-json-20260909/authority_json.go.txt",
+      "sha256": "785394520b9695fd4032e91ef4da85f9b25daa626ce1396099b63c4adf7f6792"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-json-20260909/authority_json_test.go.txt",
+      "sha256": "056582573e30dfba39865e2f7c80ce7e6d5d2954c1af13061659aae87e412805"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-json-20260909/hand-authority-json-after-20260909.jsonl",
+      "sha256": "a70d12cd0e40b792cbfc648817cafed3ef9e4f70b446849c4053a447d74c57a5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-json-20260909/hand-authority-json-before-20260909.jsonl",
+      "sha256": "56eb0ce4c2c838ef7e232523ab5a9854dc6d613d665267ac0276d86420fb4908"
+    }
+  ],
+  "limitations": [
+    "Native macOS development package suite",
+    "Fresh full aggregate and Linux authority qualification pending",
+    "Required JSON fields match records written by current persistent grant serializer; ambiguous records require repair or reapproval"
+  ]
+}

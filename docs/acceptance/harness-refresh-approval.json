@@ -1,0 +1,19 @@
+{
+  "status": "corrected_run_passed",
+  "requested_action": "Run full current-source Harness test inventory and uncached race/coverage suite with existing local Docker fixtures.",
+  "runner": "/private/tmp/hand-harness-qualification-refresh-20260909.py",
+  "runner_sha256": "4a4e171b52304ee2a34a7e286789bd37ceef01f30da58514eac08dcbb7659fbf",
+  "process_started": true,
+  "report_exists": true,
+  "docker_socket": "/Users/sausheong/.docker/run/docker.sock",
+  "automatic_review": "rejected",
+  "reason": "The suite runs with a Docker socket that grants root-equivalent control over the host/container environment, and the user has not specifically authorized this privileged shared-environment access; the earlier review also identified this exact risk.",
+  "user_permission_requested": true,
+  "user_permission_received": true,
+  "scope_note": "User explicitly authorised Docker for execution-isolation and Harness qualification tests. Publication and unrelated Docker operations are not included.",
+  "user_authorisation": "authorise Docker use for these tests",
+  "execution_session_id": 68095,
+  "report_directory": "/private/tmp/hand-harness-qualification-path-fixed-20260909",
+  "first_run_evidence": "docs/acceptance/harness-authorised-first.json",
+  "result_evidence": "docs/acceptance/harness-authorised-corrected.json"
+}

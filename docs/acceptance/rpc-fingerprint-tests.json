@@ -1,0 +1,34 @@
+{
+  "status": "development_passed",
+  "scope": "Acceptance runner dependency fingerprint regression tests",
+  "tests": {
+    "dependency_fingerprints": 3,
+    "existing_source_evidence": 6
+  },
+  "commands": [
+    "python3 -m unittest discover -s scripts -p test_rpc_linux_runner.py -v",
+    "python3 -m unittest discover -s scripts -p test_evidence.py -v"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-fingerprint-tests-20260909/check_rpc_linux.py.txt",
+      "sha256": "cb59b14e5a92e988c1a0056a6e9e0a1fc4105fccbf5fa828a10a22e1aa3fa71b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-fingerprint-tests-20260909/hand-rpc-fingerprint-tests-20260909.log",
+      "sha256": "9e707b5f9aac043ac96a87192c96725eef5e39c4006ecb7385092d27c973af0f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-fingerprint-tests-20260909/hand-rpc-source-evidence-tests-20260909.log",
+      "sha256": "14b47cebee16e3e8c3da7cb9ae8c98efbe6fd9ea20b55e2247f194b76bdd3eb4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-fingerprint-tests-20260909/test_rpc_linux_runner.py.txt",
+      "sha256": "e317ccea31e2b1498462fa296c688ce56e6381301ce85f8a90fc345c4bb11d60"
+    }
+  ],
+  "limits": [
+    "Test-runner tests only; not product scenario evidence",
+    "Final candidate and released dependency acceptance remain pending"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "status": "development_caps_passed",
+  "test_records": {
+    "hand-output-caps-20260909.jsonl": {
+      "pass": 2
+    },
+    "hand-harness-output-caps-20260909.jsonl": {
+      "pass": 4
+    }
+  },
+  "limits": {
+    "generated_bytes": 41943040,
+    "retained_prefix_bytes_per_stream": 65536,
+    "artifact_file_limit_bytes": 8388608,
+    "artifact_store_limit_bytes": 67108864,
+    "artifact_retention_hours": 24,
+    "active_process_limit": 8,
+    "retained_process_record_limit": 32
+  },
+  "assertions": [
+    "Actual child drains stdout and stderr beyond both disk caps without hanging",
+    "Captured prefixes and observed byte counts match exact stream limits",
+    "Spilled files capped, truncated and private mode 0600",
+    "Separate stores/processes share active quota reservations",
+    "Active files protected; completed/expired files evicted; process admission and retention bounded"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/output-caps-20260909/hand-processes.go.gz",
+      "sha256": "4ee05cf3d44300033606d6528b41458dfd93294c0d727bc994f43bc96ead4ad2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-caps-20260909/hand-output-caps-20260909.jsonl.gz",
+      "sha256": "768bcc6b4a7546ea6df7f34d381b3a881a1b5e3440da4b48fe9753f1713cbe13"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-caps-20260909/harness-artifacts_test.go.gz",
+      "sha256": "8e3975a7ec2c304851827cc791ab945c24c4521353e0b96d799e133d7a44a60a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-caps-20260909/hand-harness-output-caps-20260909.jsonl.gz",
+      "sha256": "6a787e689f856f69ccdc4b92a76fbfa887c45129531f97314a73aff721d76247"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-caps-20260909/hand-process_output_limits_test.go.gz",
+      "sha256": "5093cc953c2372aa4f7681b9f1f720f4c48882a7a8ba7c9bc61872261377b743"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-caps-20260909/harness-artifacts.go.gz",
+      "sha256": "4aff422e599b4f2fe36d96d34a3d1306ef412479344a128f2d07d173af0f7e34"
+    }
+  ],
+  "limitations": [
+    "Bounds retained payload and disk artifacts, not total Go heap/RSS or allocator buffer overhead",
+    "Retention enforced at next artifact allocation, not continuous deletion",
+    "Native development checkout with local Harness; final memory-overhead review and candidate/platform qualification remain"
+  ]
+}

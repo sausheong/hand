@@ -1,0 +1,56 @@
+{"Time":"2026-09-09T00:21:55.99623+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-09T00:21:56.419858+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestTransactionalReloadPreservesAndReusesPeers"}
+{"Time":"2026-09-09T00:21:56.41991+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestTransactionalReloadPreservesAndReusesPeers","Output":"=== RUN   TestTransactionalReloadPreservesAndReusesPeers\n"}
+{"Time":"2026-09-09T00:21:56.444418+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestTransactionalReloadPreservesAndReusesPeers","Output":"--- PASS: TestTransactionalReloadPreservesAndReusesPeers (0.02s)\n"}
+{"Time":"2026-09-09T00:21:56.444454+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestTransactionalReloadPreservesAndReusesPeers","Elapsed":0.02}
+{"Time":"2026-09-09T00:21:56.444631+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCannotRetireActivePeerOnRollback"}
+{"Time":"2026-09-09T00:21:56.44464+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCannotRetireActivePeerOnRollback","Output":"=== RUN   TestReloadFactoryCannotRetireActivePeerOnRollback\n"}
+{"Time":"2026-09-09T00:21:56.451362+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCannotRetireActivePeerOnRollback","Output":"--- PASS: TestReloadFactoryCannotRetireActivePeerOnRollback (0.01s)\n"}
+{"Time":"2026-09-09T00:21:56.451402+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCannotRetireActivePeerOnRollback","Elapsed":0.01}
+{"Time":"2026-09-09T00:21:56.451413+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCommitsOnlyWithPeers"}
+{"Time":"2026-09-09T00:21:56.45142+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCommitsOnlyWithPeers","Output":"=== RUN   TestReloadFactoryCommitsOnlyWithPeers\n"}
+{"Time":"2026-09-09T00:21:56.484693+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCommitsOnlyWithPeers","Output":"--- PASS: TestReloadFactoryCommitsOnlyWithPeers (0.03s)\n"}
+{"Time":"2026-09-09T00:21:56.484724+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestReloadFactoryCommitsOnlyWithPeers","Elapsed":0.03}
+{"Time":"2026-09-09T00:21:56.485929+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-09T00:21:57.497181+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t1.500s\n"}
+{"Time":"2026-09-09T00:21:57.497232+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":1.501}
+{"Time":"2026-09-09T00:21:57.694701+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T00:21:57.694765+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-09T00:21:57.721626+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-09T00:21:58.001608+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding"}
+{"Time":"2026-09-09T00:21:58.001659+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"=== RUN   TestApplicationExtensionOwnershipQuestionsAndSessionBinding\n"}
+{"Time":"2026-09-09T00:21:58.529383+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect"}
+{"Time":"2026-09-09T00:21:58.529445+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect","Output":"=== RUN   TestExtensionRPCQuestionReplayAndDisconnect\n"}
+{"Time":"2026-09-09T00:21:58.637833+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/answer"}
+{"Time":"2026-09-09T00:21:58.637863+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/answer","Output":"=== RUN   TestExtensionRPCQuestionReplayAndDisconnect/answer\n"}
+{"Time":"2026-09-09T00:21:59.163635+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestExtensionTerminalQuestionAndJoinedResult"}
+{"Time":"2026-09-09T00:21:59.163695+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestExtensionTerminalQuestionAndJoinedResult","Output":"=== RUN   TestExtensionTerminalQuestionAndJoinedResult\n"}
+{"Time":"2026-09-09T00:21:59.214212+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"--- PASS: TestApplicationExtensionOwnershipQuestionsAndSessionBinding (1.21s)\n"}
+{"Time":"2026-09-09T00:21:59.214246+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Elapsed":1.21}
+{"Time":"2026-09-09T00:21:59.220686+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled"}
+{"Time":"2026-09-09T00:21:59.220709+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"=== RUN   TestReloadSkillsOwnedAndCancelled\n"}
+{"Time":"2026-09-09T00:21:59.227512+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"--- PASS: TestReloadSkillsOwnedAndCancelled (0.01s)\n"}
+{"Time":"2026-09-09T00:21:59.227537+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Elapsed":0.01}
+{"Time":"2026-09-09T00:21:59.230007+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T00:21:59.360884+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/answer","Output":"--- PASS: TestExtensionRPCQuestionReplayAndDisconnect/answer (0.72s)\n"}
+{"Time":"2026-09-09T00:21:59.360903+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/answer","Elapsed":0.72}
+{"Time":"2026-09-09T00:21:59.361083+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/cancel"}
+{"Time":"2026-09-09T00:21:59.361088+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/cancel","Output":"=== RUN   TestExtensionRPCQuestionReplayAndDisconnect/cancel\n"}
+{"Time":"2026-09-09T00:21:59.492008+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestExtensionTerminalQuestionAndJoinedResult","Output":"--- PASS: TestExtensionTerminalQuestionAndJoinedResult (0.33s)\n"}
+{"Time":"2026-09-09T00:21:59.492041+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestExtensionTerminalQuestionAndJoinedResult","Elapsed":0.33}
+{"Time":"2026-09-09T00:21:59.509725+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-09T00:21:59.652124+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/cancel","Output":"--- PASS: TestExtensionRPCQuestionReplayAndDisconnect/cancel (0.29s)\n"}
+{"Time":"2026-09-09T00:21:59.652179+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/cancel","Elapsed":0.29}
+{"Time":"2026-09-09T00:21:59.652308+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/disconnect"}
+{"Time":"2026-09-09T00:21:59.652314+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/disconnect","Output":"=== RUN   TestExtensionRPCQuestionReplayAndDisconnect/disconnect\n"}
+{"Time":"2026-09-09T00:21:59.811863+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/disconnect","Output":"--- PASS: TestExtensionRPCQuestionReplayAndDisconnect/disconnect (0.16s)\n"}
+{"Time":"2026-09-09T00:21:59.811894+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect/disconnect","Elapsed":0.16}
+{"Time":"2026-09-09T00:21:59.812258+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect","Output":"--- PASS: TestExtensionRPCQuestionReplayAndDisconnect (1.28s)\n"}
+{"Time":"2026-09-09T00:21:59.812301+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestExtensionRPCQuestionReplayAndDisconnect","Elapsed":1.28}
+{"Time":"2026-09-09T00:21:59.815627+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-09T00:22:00.242192+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.547s\n"}
+{"Time":"2026-09-09T00:22:00.242246+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.548}
+{"Time":"2026-09-09T00:22:00.521749+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t2.800s\n"}
+{"Time":"2026-09-09T00:22:00.521786+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":2.8}
+{"Time":"2026-09-09T00:22:00.830445+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t3.136s\n"}
+{"Time":"2026-09-09T00:22:00.830514+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":3.136}

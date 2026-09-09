@@ -1,0 +1,32 @@
+{"Time":"2026-09-08T16:03:35.398674+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T16:03:35.990646+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence"}
+{"Time":"2026-09-08T16:03:35.990724+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence","Output":"=== RUN   TestCheckpointChangesDurablePagingAndMissingEvidence\n"}
+{"Time":"2026-09-08T16:03:36.105447+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence","Output":"--- PASS: TestCheckpointChangesDurablePagingAndMissingEvidence (0.11s)\n"}
+{"Time":"2026-09-08T16:03:36.105483+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence","Elapsed":0.11}
+{"Time":"2026-09-08T16:03:36.105506+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair"}
+{"Time":"2026-09-08T16:03:36.105509+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair","Output":"=== RUN   TestCheckpointJournalPersistsRunPair\n"}
+{"Time":"2026-09-08T16:03:36.138788+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair","Output":"--- PASS: TestCheckpointJournalPersistsRunPair (0.03s)\n"}
+{"Time":"2026-09-08T16:03:36.138804+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalPersistsRunPair","Elapsed":0.03}
+{"Time":"2026-09-08T16:03:36.138811+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalFailurePreventsRunAdmission"}
+{"Time":"2026-09-08T16:03:36.138815+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalFailurePreventsRunAdmission","Output":"=== RUN   TestCheckpointJournalFailurePreventsRunAdmission\n"}
+{"Time":"2026-09-08T16:03:36.153203+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalFailurePreventsRunAdmission","Output":"--- PASS: TestCheckpointJournalFailurePreventsRunAdmission (0.01s)\n"}
+{"Time":"2026-09-08T16:03:36.153215+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalFailurePreventsRunAdmission","Elapsed":0.01}
+{"Time":"2026-09-08T16:03:36.153224+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalRejectsUnmatchedAndChangedFinish"}
+{"Time":"2026-09-08T16:03:36.153228+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalRejectsUnmatchedAndChangedFinish","Output":"=== RUN   TestCheckpointJournalRejectsUnmatchedAndChangedFinish\n"}
+{"Time":"2026-09-08T16:03:36.169239+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalRejectsUnmatchedAndChangedFinish","Output":"--- PASS: TestCheckpointJournalRejectsUnmatchedAndChangedFinish (0.02s)\n"}
+{"Time":"2026-09-08T16:03:36.169271+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointJournalRejectsUnmatchedAndChangedFinish","Elapsed":0.02}
+{"Time":"2026-09-08T16:03:36.16931+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointPausesBackgroundAdmission"}
+{"Time":"2026-09-08T16:03:36.169321+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointPausesBackgroundAdmission","Output":"=== RUN   TestCheckpointPausesBackgroundAdmission\n"}
+{"Time":"2026-09-08T16:03:36.179153+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointPausesBackgroundAdmission","Output":"--- PASS: TestCheckpointPausesBackgroundAdmission (0.01s)\n"}
+{"Time":"2026-09-08T16:03:36.17919+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointPausesBackgroundAdmission","Elapsed":0.01}
+{"Time":"2026-09-08T16:03:36.179275+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointRejectsRunningBackground"}
+{"Time":"2026-09-08T16:03:36.179279+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointRejectsRunningBackground","Output":"=== RUN   TestCheckpointRejectsRunningBackground\n"}
+{"Time":"2026-09-08T16:03:36.198074+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointRejectsRunningBackground","Output":"--- PASS: TestCheckpointRejectsRunningBackground (0.02s)\n"}
+{"Time":"2026-09-08T16:03:36.198089+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointRejectsRunningBackground","Elapsed":0.02}
+{"Time":"2026-09-08T16:03:36.198153+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering"}
+{"Time":"2026-09-08T16:03:36.198168+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering","Output":"=== RUN   TestCheckpointBoundaryVetoAndTerminalOrdering\n"}
+{"Time":"2026-09-08T16:03:36.198382+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering","Output":"--- PASS: TestCheckpointBoundaryVetoAndTerminalOrdering (0.00s)\n"}
+{"Time":"2026-09-08T16:03:36.198392+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointBoundaryVetoAndTerminalOrdering","Elapsed":0}
+{"Time":"2026-09-08T16:03:36.199043+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T16:03:37.212416+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.812s\n"}
+{"Time":"2026-09-08T16:03:37.21247+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.814}

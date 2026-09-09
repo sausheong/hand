@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T03:47:19.908901+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/packages"}
+{"Time":"2026-09-09T03:47:20.381105+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestContainerRuntimeReviewAndApproval"}
+{"Time":"2026-09-09T03:47:20.381149+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestContainerRuntimeReviewAndApproval","Output":"=== RUN   TestContainerRuntimeReviewAndApproval\n"}
+{"Time":"2026-09-09T03:47:20.381558+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestContainerRuntimeReviewAndApproval","Output":"--- PASS: TestContainerRuntimeReviewAndApproval (0.00s)\n"}
+{"Time":"2026-09-09T03:47:20.381568+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestContainerRuntimeReviewAndApproval","Elapsed":0}
+{"Time":"2026-09-09T03:47:20.381682+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"PASS\n"}
+{"Time":"2026-09-09T03:47:21.392524+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"ok  \tgithub.com/sausheong/hand/internal/packages\t1.483s\n"}
+{"Time":"2026-09-09T03:47:21.392644+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Elapsed":1.484}

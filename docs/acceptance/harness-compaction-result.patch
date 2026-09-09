@@ -1,0 +1,223 @@
+diff --git a/USAGE.md b/USAGE.md
+index 813176b..d875f09 100644
+--- a/USAGE.md
++++ b/USAGE.md
+@@ -54,3 +54,10 @@ honour cancellation and end their streams after EventDone/EventError.
+ `RunTurn` preserves serial delivery of its TurnEmit callbacks. UsageLedger is
+ intended for a bounded operation, not an unbounded global history. Persistence,
+ price schedules and budget admission remain application responsibilities.
++
++Context-owned compaction retains its completed result until `JoinInFlight` (or
++`ForgetSession`) consumes it. Always join, even when `HasInFlight` is false:
++that method reports active execution, not an unread result. Repeated launches
++return the existing handle until consumption, preventing an unread failure
++from being overwritten. `WaitForInFlight` observes without consuming. This
++retains at most one result per owned session; release it when ownership ends.
+diff --git a/compaction/compaction.go b/compaction/compaction.go
+index 1af6b65..c1fce64 100644
+--- a/compaction/compaction.go
++++ b/compaction/compaction.go
+@@ -72,7 +72,7 @@ type Manager struct {
+ 	// mutexes so awaiting an in-flight compaction (WaitForInFlight)
+ 	// never serializes on the per-session lock-map or failure-counter.
+ 	inFlightMu sync.Mutex
+-	inFlight   map[string]*inFlightCompaction // session.ID → in-flight handle
++	inFlight   map[string]*inFlightCompaction // stable session key → active or unconsumed handle
+ }
+ 
+ // inFlightCompaction tracks a background compaction goroutine spawned
+@@ -208,11 +208,18 @@ func (m *Manager) MaybeCompact(ctx context.Context, sess *session.Session, reaso
+ // enough for the three-stage fallback path) so that a returning
+ // caller's cancellation can't kill the in-flight summary.
+ func (m *Manager) MaybeCompactAsync(sess *session.Session, reason Reason) <-chan struct{} {
+-	return m.MaybeCompactAsyncContext(context.Background(), sess, reason)
++	return m.maybeCompactAsync(context.Background(), sess, reason, false)
+ }
+ 
+ // MaybeCompactAsyncContext retains caller cancellation and usage observation.
++// Its completed result remains available until JoinInFlight or ForgetSession;
++// another launch for this session returns the existing handle until then.
++// Callers must join before releasing ownership, including on error paths.
+ func (m *Manager) MaybeCompactAsyncContext(parent context.Context, sess *session.Session, reason Reason) <-chan struct{} {
++	return m.maybeCompactAsync(parent, sess, reason, true)
++}
++
++func (m *Manager) maybeCompactAsync(parent context.Context, sess *session.Session, reason Reason, retainResult bool) <-chan struct{} {
+ 	if m == nil || m.Summarizer == nil || sess == nil {
+ 		ch := make(chan struct{})
+ 		close(ch)
+@@ -241,7 +248,7 @@ func (m *Manager) MaybeCompactAsyncContext(parent context.Context, sess *session
+ 			cancel()
+ 			m.inFlightMu.Lock()
+ 			close(fl.done)
+-			if m.inFlight[key] == fl {
++			if !retainResult && m.inFlight[key] == fl {
+ 				delete(m.inFlight, key)
+ 			}
+ 			m.inFlightMu.Unlock()
+@@ -296,8 +303,16 @@ func (m *Manager) HasInFlight(sess *session.Session) bool {
+ 	key := stableKey(sess)
+ 	m.inFlightMu.Lock()
+ 	defer m.inFlightMu.Unlock()
+-	_, ok := m.inFlight[key]
+-	return ok
++	fl, ok := m.inFlight[key]
++	if !ok {
++		return false
++	}
++	select {
++	case <-fl.done:
++		return false
++	default:
++		return true
++	}
+ }
+ 
+ // ForgetSession removes the per-session lock, failure counter, and
+@@ -325,9 +340,7 @@ func (m *Manager) ForgetSession(sess *session.Session) {
+ 	m.failMu.Lock()
+ 	delete(m.failures, key)
+ 	m.failMu.Unlock()
+-	// Drop any in-flight tracking entry too. The goroutine itself
+-	// already deletes its entry on completion; this covers the rare
+-	// case of a session being forgotten mid-compaction.
++	// Clear tracking after joining; the owner must prevent concurrent launches.
+ 	m.inFlightMu.Lock()
+ 	delete(m.inFlight, key)
+ 	m.inFlightMu.Unlock()
+@@ -408,7 +421,7 @@ func classifySummarizerError(err error) string {
+ 	}
+ }
+ 
+-// JoinInFlight waits for the current background producer, returning its result
++// JoinInFlight waits for and consumes the current background producer, returning its result
+ // and error. Cancellation cancels that producer, then still waits for it to
+ // finish; it never reports a join while session writes can continue. Callers
+ // must prevent concurrent new launches while ending session ownership.
+@@ -428,5 +441,10 @@ func (m *Manager) JoinInFlight(ctx context.Context, sess *session.Session) (Resu
+ 		fl.cancel()
+ 		<-fl.done
+ 	}
++	m.inFlightMu.Lock()
++	if m.inFlight[stableKey(sess)] == fl {
++		delete(m.inFlight, stableKey(sess))
++	}
++	m.inFlightMu.Unlock()
+ 	return fl.result, true, fl.err
+ }
+diff --git a/compaction/join_result_test.go b/compaction/join_result_test.go
+new file mode 100644
+index 0000000..f092464
+--- /dev/null
++++ b/compaction/join_result_test.go
+@@ -0,0 +1,36 @@
++package compaction
++
++import (
++	"context"
++	"testing"
++	"time"
++
++	"github.com/stretchr/testify/require"
++)
++
++func TestJoinRetainsCompletedResultUntilConsumed(t *testing.T) {
++	mgr := &Manager{Summarizer: &Summarizer{Provider: usageSummaryProvider{}, Model: "summary"}, PreserveTurns: 1}
++	sess := longSession()
++	done := mgr.MaybeCompactAsyncContext(context.Background(), sess, ReasonManual)
++	<-done
++	require.False(t, mgr.HasInFlight(sess), "completed producer is not running")
++	// Neither a legacy waiter nor another launch may erase an unconsumed result.
++	res, found := mgr.WaitForInFlight(sess, time.Second)
++	require.True(t, found)
++	require.True(t, res.Compacted)
++	require.Equal(t, done, mgr.MaybeCompactAsyncContext(context.Background(), sess, ReasonPreventive))
++	res, found, err := mgr.JoinInFlight(context.Background(), sess)
++	require.NoError(t, err)
++	require.True(t, found)
++	require.True(t, res.Compacted)
++	require.Len(t, res.Requests, 1)
++	_, found, err = mgr.JoinInFlight(context.Background(), sess)
++	require.NoError(t, err)
++	require.False(t, found)
++	next := mgr.MaybeCompactAsyncContext(context.Background(), sess, ReasonPreventive)
++	require.NotEqual(t, done, next)
++	<-next
++	_, found, err = mgr.JoinInFlight(context.Background(), sess)
++	require.NoError(t, err)
++	require.True(t, found)
++}
+diff --git a/runtime/compaction_join_test.go b/runtime/compaction_join_test.go
+index 2ad1e12..be7c867 100644
+--- a/runtime/compaction_join_test.go
++++ b/runtime/compaction_join_test.go
+@@ -2,6 +2,7 @@ package runtime
+ 
+ import (
+ 	"context"
++	"errors"
+ 	"sync"
+ 	"testing"
+ 	"time"
+@@ -15,6 +16,7 @@ import (
+ type joinedSummaryProvider struct {
+ 	llmtest.Base
+ 	entered, cancelled, release chan struct{}
++	beforeReturn                func()
+ }
+ 
+ func (p *joinedSummaryProvider) ChatStream(ctx context.Context, _ llm.ChatRequest) (<-chan llm.ChatEvent, error) {
+@@ -26,6 +28,9 @@ func (p *joinedSummaryProvider) ChatStream(ctx context.Context, _ llm.ChatReques
+ 		<-p.release
+ 		return nil, ctx.Err()
+ 	}
++	if p.beforeReturn != nil {
++		p.beforeReturn()
++	}
+ 	ch := make(chan llm.ChatEvent, 2)
+ 	ch <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Summary of original work and constraints."}
+ 	ch <- llm.ChatEvent{Type: llm.EventDone, Usage: &llm.Usage{InputTokens: 70, OutputTokens: 7}}
+@@ -131,3 +136,43 @@ func TestRuntimeJoinsDeferredBackgroundCompactionAndUsage(t *testing.T) {
+ 		})
+ 	}
+ }
++
++func TestRuntimeReportsAlreadyFinishedCompactionError(t *testing.T) {
++	sess := session.NewSession("agent", "key")
++	for i := 0; i < 8; i++ {
++		sess.Append(session.UserMessageEntry("question"))
++		sess.Append(session.AssistantMessageEntry("answer"))
++	}
++	summary := &joinedSummaryProvider{entered: make(chan struct{}), cancelled: make(chan struct{}), release: make(chan struct{})}
++	// A concurrent branch change makes the summary's source view stale. This is
++	// a real CommitCompaction error, without making the session writer fail.
++	summary.beforeReturn = func() { sess.Append(session.UserMessageEntry("new branch work")) }
++	close(summary.release)
++	manager := &compaction.Manager{PreserveTurns: 1, Summarizer: &compaction.Summarizer{Provider: summary, Model: "summary", Timeout: time.Second}}
++	rt := &Runtime{Tools: usageNoopExecutor{}, LLM: &requestUsageProvider{total: 1}, Session: sess, Model: "generation", ContextWindow: 1000000, MaxTurns: 1, Compaction: manager}
++	rt.AgentLoop.Hooks.OnStop = func(ctx context.Context, _ string) {
++		<-manager.MaybeCompactAsyncContext(ctx, sess, compaction.ReasonManual)
++	}
++	events, err := rt.Run(context.Background(), "go", nil)
++	if err != nil {
++		t.Fatal(err)
++	}
++	var errorsSeen, doneSeen int
++	for event := range events {
++		if event.Type == EventError {
++			if !errors.Is(event.Error, session.ErrSessionChanged) {
++				t.Fatalf("expected stale-session error, got %v", event.Error)
++			}
++			errorsSeen++
++		}
++		if event.Type == EventDone {
++			doneSeen++
++		}
++	}
++	if errorsSeen != 1 || doneSeen != 0 {
++		t.Fatalf("completed failed producer: errors=%d done=%d", errorsSeen, doneSeen)
++	}
++	if err := sess.Flush(); err != nil {
++		t.Fatalf("error must originate in compaction, not persistence: %v", err)
++	}
++}

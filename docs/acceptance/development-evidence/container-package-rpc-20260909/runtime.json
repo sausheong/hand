@@ -1,0 +1,20 @@
+{
+  "reviews": [
+    {
+      "package": "python-task-note",
+      "review": {
+        "requirement": {
+          "name": "python",
+          "command": "python3",
+          "minimum_version": "3.9.0"
+        },
+        "docker": "/usr/local/bin/docker",
+        "socket": "/Users/sausheong/.docker/run/docker.sock",
+        "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+        "executable": "/usr/local/bin/python3",
+        "boundary": "version probe in pinned image; network disabled; private empty read-only workspace; no package source loaded"
+      },
+      "approved_digest": "714ecaeba1050dddd1bacc358a78295ba22ed8259c7c8f54bc0ea26da361730a"
+    }
+  ]
+}

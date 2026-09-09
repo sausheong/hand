@@ -1,0 +1,793 @@
+diff --git a/session/legacy.go b/session/legacy.go
+new file mode 100644
+index 0000000..d867ad4
+--- /dev/null
++++ b/session/legacy.go
+@@ -0,0 +1,203 @@
++package session
++
++import (
++	"bufio"
++	"bytes"
++	"crypto/sha256"
++	"encoding/hex"
++	"encoding/json"
++	"errors"
++	"fmt"
++	"io"
++	"reflect"
++)
++
++// MaxLegacyImportBytes bounds a single legacy conversion. Larger sessions need
++// an explicit migration policy instead of unbounded allocation.
++const MaxLegacyImportBytes int64 = 128 << 20
++
++const MaxLegacyImportRecords = 100000
++
++// LegacyConversion describes a deterministic conversion, not a durable import.
++// The caller must back up the original before installing the returned bytes.
++type LegacyConversion struct {
++	SourceSHA256 string
++	Records      int
++	RemappedIDs  int
++}
++
++// ConvertLegacySession validates a complete legacy log and converts the old
++// compactor's repeated nodes to unique graph IDs. It never edits the source.
++// Duplicate nodes are accepted only when content is identical and the duplicate
++// continues a compaction clone chain. Other duplicate IDs remain corruption.
++// Output preserves unknown JSON fields and all original node versions. Input
++// without duplicates is returned byte-for-byte. A truncated tail is an error;
++// recovery and migration must remain separately reported operations.
++func ConvertLegacySession(reader io.Reader) ([]byte, LegacyConversion, error) {
++	var report LegacyConversion
++	raw, err := io.ReadAll(io.LimitReader(reader, MaxLegacyImportBytes+1))
++	if err != nil {
++		return nil, report, err
++	}
++	if int64(len(raw)) > MaxLegacyImportBytes {
++		return nil, report, errors.New("legacy session exceeds import size limit")
++	}
++	digest := sha256.Sum256(raw)
++	report.SourceSHA256 = hex.EncodeToString(digest[:])
++	type record struct {
++		entry  SessionEntry
++		fields map[string]json.RawMessage
++	}
++	var records []record
++	originalIDs := make(map[string]bool)
++	r := bufio.NewReaderSize(bytes.NewReader(raw), 64<<10)
++	var offset int64
++	for lineNumber := 1; ; lineNumber++ {
++		line, final, err := readSessionRecord(r)
++		if err != nil {
++			return nil, report, &RecordError{Line: lineNumber, Offset: offset, Cause: err}
++		}
++		trimmed := bytes.TrimSpace(line)
++		if len(trimmed) > 0 {
++			entry, err := decodeSessionRecord(trimmed, final, lineNumber, offset)
++			if err != nil {
++				return nil, report, err
++			}
++			if entry.ID == "" {
++				return nil, report, errors.New("legacy entry ID is empty")
++			}
++			var fields map[string]json.RawMessage
++			if err := json.Unmarshal(trimmed, &fields); err != nil {
++				return nil, report, err
++			}
++			if len(records) >= MaxLegacyImportRecords {
++				return nil, report, errors.New("legacy session exceeds import record limit")
++			}
++			records = append(records, record{entry, fields})
++			originalIDs[entry.ID] = true
++		}
++		offset += int64(len(line))
++		if final {
++			break
++		}
++	}
++	report.Records = len(records)
++	latest := make(map[string]string)
++	first := make(map[string]record)
++	seen := make(map[string]EntryType)
++	lookup := func(id string) (EntryType, bool) { kind, ok := seen[id]; return kind, ok }
++	var output bytes.Buffer
++	encoder := json.NewEncoder(&output)
++	cloneChain := false
++	previousOriginal := ""
++	previousConverted := ""
++	for index, rec := range records {
++		entry := rec.entry
++		oldID := entry.ID
++		if entry.ParentID != "" {
++			mapped, ok := latest[entry.ParentID]
++			if !ok {
++				return nil, report, errors.New("legacy parent does not precede child")
++			}
++			entry.ParentID = mapped
++		}
++		previous, duplicate := first[oldID]
++		if duplicate {
++			// Only the historical compactor's identical-node replay is supported.
++			if !legacyContentEqual(previous.fields, rec.fields) || entry.Type == EntryTypeCompaction || entry.Type == EntryTypeSelection {
++				return nil, report, errors.New("legacy duplicate ID has conflicting content")
++			}
++			// The first clone hangs from a newly appended compaction; subsequent
++			// clones must follow the immediately preceding original node's ID.
++			if !cloneChain || entry.ParentID != previousConverted || (seen[previousConverted] != EntryTypeCompaction && rec.entry.ParentID != previousOriginal) {
++				return nil, report, errors.New("legacy duplicate is outside a compaction clone chain")
++			}
++			sum := sha256.Sum256([]byte(fmt.Sprintf("harness-legacy-node-v1\x00%s\x00%d\x00%s", report.SourceSHA256, index, oldID)))
++			entry.ID = "import_" + hex.EncodeToString(sum[:])
++			if originalIDs[entry.ID] {
++				return nil, report, errors.New("legacy generated ID collides with source")
++			}
++			report.RemappedIDs++
++		} else {
++			first[oldID] = rec
++			cloneChain = entry.Type == EntryTypeCompaction
++		}
++		if err := validateGraphNode(entry, lookup); err != nil {
++			return nil, report, err
++		}
++		latest[oldID] = entry.ID
++		seen[entry.ID] = entry.Type
++		previousOriginal = oldID
++		previousConverted = entry.ID
++		if entry.Type == EntryTypeCompaction && len(entry.Data) > 0 && string(entry.Data) != "null" {
++			var data map[string]json.RawMessage
++			if err := json.Unmarshal(entry.Data, &data); err != nil {
++				return nil, report, err
++			}
++			for _, key := range []string{"range_start_id", "range_end_id"} {
++				value, exists := data[key]
++				if !exists {
++					continue
++				}
++				var id string
++				if err := json.Unmarshal(value, &id); err != nil {
++					return nil, report, err
++				}
++				if id != "" {
++					mapped, ok := latest[id]
++					if !ok || id == oldID {
++						return nil, report, errors.New("legacy compaction range references a missing or current node")
++					}
++					data[key], _ = json.Marshal(mapped)
++				}
++			}
++			rec.fields["data"], _ = json.Marshal(data)
++		}
++		rec.fields["id"], _ = json.Marshal(entry.ID)
++		if entry.ParentID != "" {
++			rec.fields["parentId"], _ = json.Marshal(entry.ParentID)
++		}
++		if err := encoder.Encode(rec.fields); err != nil {
++			return nil, report, err
++		}
++		if int64(output.Len()) > 2*MaxLegacyImportBytes {
++			return nil, report, errors.New("converted session exceeds output size limit")
++		}
++	}
++	if report.RemappedIDs == 0 {
++		return raw, report, nil
++	}
++	// Verify the result with the strict production loader before returning it.
++	converted := output.Bytes()
++	if _, err := decodeSessionRecords(bytes.NewReader(converted)); err != nil {
++		return nil, report, fmt.Errorf("converted graph: %w", err)
++	}
++	return converted, report, nil
++}
++
++func legacyContentEqual(a, b map[string]json.RawMessage) bool {
++	// Parent links and graph IDs are the only fields historical compaction
++	// changed. Compare decoded values so whitespace in JSON is immaterial.
++	normalize := func(fields map[string]json.RawMessage) (map[string]any, error) {
++		out := make(map[string]any)
++		for key, raw := range fields {
++			if key == "id" || key == "parentId" {
++				continue
++			}
++			var value any
++			dec := json.NewDecoder(bytes.NewReader(raw))
++			dec.UseNumber()
++			if err := dec.Decode(&value); err != nil {
++				return nil, err
++			}
++			out[key] = value
++		}
++		return out, nil
++	}
++	x, err := normalize(a)
++	if err != nil {
++		return false
++	}
++	y, err := normalize(b)
++	return err == nil && reflect.DeepEqual(x, y)
++}
+diff --git a/session/legacy_test.go b/session/legacy_test.go
+new file mode 100644
+index 0000000..a5d779c
+--- /dev/null
++++ b/session/legacy_test.go
+@@ -0,0 +1,132 @@
++package session
++
++import (
++	"bytes"
++	"encoding/json"
++	"strings"
++	"testing"
++)
++
++func legacyCompactionFixture() string {
++	return strings.Join([]string{
++		`{"id":"a","type":"message","data":{"text":"root"}}`,
++		`{"id":"b","parentId":"a","type":"message","data":{"text":"kept"},"future":{"value":9007199254740993}}`,
++		`{"id":"c","parentId":"b","type":"message","data":{"text":"last"}}`,
++		`{"id":"summary","parentId":"a","type":"compaction","data":{"summary":"root summary"}}`,
++		`{"id":"b","parentId":"summary","type":"message","data":{"text":"kept"},"future":{"value":9007199254740993}}`,
++		`{"id":"c","parentId":"b","type":"message","data":{"text":"last"}}`,
++	}, "\n") + "\n"
++}
++
++func TestConvertLegacyCompactionRetainsEveryVersion(t *testing.T) {
++	raw := legacyCompactionFixture()
++	converted, report, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil {
++		t.Fatal(err)
++	}
++	if report.Records != 6 || report.RemappedIDs != 2 || len(report.SourceSHA256) != 64 {
++		t.Fatal(report)
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(converted))
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(entries) != 6 || entries[1].ID != "b" || entries[1].ParentID != "a" || entries[2].ID != "c" || entries[2].ParentID != "b" {
++		t.Fatal("original graph lost", entries)
++	}
++	if entries[4].ID == "b" || entries[4].ParentID != "summary" || entries[5].ID == "c" || entries[5].ParentID != entries[4].ID {
++		t.Fatal("clone chain not restored", entries)
++	}
++	if bytes.Count(converted, []byte(`"value":9007199254740993`)) != 2 {
++		t.Fatal("unknown fields or integer precision lost")
++	}
++	again, second, err := ConvertLegacySession(bytes.NewReader(converted))
++	if err != nil || !bytes.Equal(converted, again) || second.RemappedIDs != 0 {
++		t.Fatal("conversion not idempotent", err, second)
++	}
++	repeat, _, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil || !bytes.Equal(converted, repeat) {
++		t.Fatal("conversion not deterministic", err)
++	}
++}
++
++func TestConvertLegacyRejectsUnrelatedCorruption(t *testing.T) {
++	for name, raw := range map[string]string{
++		"self range":            `{"id":"s","type":"compaction","data":{"range_end_id":"s"}}`,
++		"conflicting duplicate": strings.Replace(legacyCompactionFixture(), `"parentId":"summary","type":"message","data":{"text":"kept"}`, `"parentId":"summary","type":"message","data":{"text":"changed"}`, 1),
++		"unrelated duplicate":   `{"id":"a","type":"message"}` + "\n" + `{"id":"a","type":"message"}`,
++		"missing parent":        `{"id":"a","parentId":"missing"}`,
++		"tail":                  legacyCompactionFixture() + `{"id":`,
++		"interior":              "not json\n" + legacyCompactionFixture(),
++		"future selection":      `{"id":"a"}` + "\n" + `{"id":"s","parentId":"a","type":"selection","data":{"version":2}}`,
++	} {
++		t.Run(name, func(t *testing.T) {
++			out, _, err := ConvertLegacySession(strings.NewReader(raw))
++			if err == nil || out != nil {
++				t.Fatal("corrupt legacy log accepted")
++			}
++		})
++	}
++}
++
++func TestConvertValidLegacyPreservesExactBytes(t *testing.T) {
++	raw := "\n  " + `{"id":"a", "future": true}` + " \n"
++	out, report, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil || string(out) != raw || report.RemappedIDs != 0 {
++		t.Fatal("valid log changed", err)
++	}
++}
++
++func FuzzLegacyConversion(f *testing.F) {
++	for _, seed := range []string{legacyCompactionFixture(), `{"id":"a"}`, `{"id":`, "null\n"} {
++		f.Add([]byte(seed))
++	}
++	f.Fuzz(func(t *testing.T, raw []byte) {
++		out, report, err := ConvertLegacySession(bytes.NewReader(raw))
++		if err != nil {
++			if out != nil {
++				t.Fatal("failed conversion returned output")
++			}
++			return
++		}
++		entries, err := decodeSessionRecords(bytes.NewReader(out))
++		if err != nil || len(entries) != report.Records {
++			t.Fatal("converter produced invalid graph", err)
++		}
++		second, r, err := ConvertLegacySession(bytes.NewReader(out))
++		if err != nil || !bytes.Equal(second, out) || r.RemappedIDs != 0 {
++			t.Fatal("conversion not idempotent", err)
++		}
++		for _, entry := range entries {
++			if len(entry.Data) > 0 && !json.Valid(entry.Data) {
++				t.Fatal("invalid data")
++			}
++		}
++	})
++}
++
++func TestLegacyConversionRemapsCompactionRanges(t *testing.T) {
++	raw := legacyCompactionFixture() + `{"id":"summary2","parentId":"c","type":"compaction","data":{"summary":"second","range_start_id":"b","range_end_id":"c","unknown":true}}` + "\n"
++	out, _, err := ConvertLegacySession(strings.NewReader(raw))
++	if err != nil {
++		t.Fatal(err)
++	}
++	entries, err := decodeSessionRecords(bytes.NewReader(out))
++	if err != nil {
++		t.Fatal(err)
++	}
++	var data map[string]any
++	if err := json.Unmarshal(entries[6].Data, &data); err != nil {
++		t.Fatal(err)
++	}
++	if data["range_start_id"] != entries[4].ID || data["range_end_id"] != entries[5].ID || data["unknown"] != true {
++		t.Fatal("compaction provenance references wrong versions", data)
++	}
++}
++
++func TestLegacyConversionRecordLimit(t *testing.T) {
++	out, _, err := ConvertLegacySession(strings.NewReader(strings.Repeat("{\"id\":\"a\"}\n", MaxLegacyImportRecords+1)))
++	if err == nil || out != nil || !strings.Contains(err.Error(), "record limit") {
++		t.Fatal("record cap not enforced", err)
++	}
++}
+diff --git a/session/migration.go b/session/migration.go
+new file mode 100644
+index 0000000..7bcea22
+--- /dev/null
++++ b/session/migration.go
+@@ -0,0 +1,133 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"errors"
++	"io"
++	"os"
++	"path/filepath"
++)
++
++type MigrationReport struct {
++	LegacyConversion
++	BackupPath string
++	Migrated   bool // replacement occurred; a later sync error still requires reconciliation
++}
++
++// MigrateLegacy converts historical duplicate-ID compaction logs in place,
++// holding the lifetime writer lease. It preserves a private, synced original
++// backup before atomic replacement. Valid unique-ID logs remain byte-identical.
++// The returned session owns the lease until Close. This is a log-format
++// migration primitive, not a workspace/session catalogue importer.
++func (s *Store) MigrateLegacy(ctx context.Context, agentID, key string) (*Session, MigrationReport, error) {
++	return s.migrateLegacy(ctx, agentID, key, syncRecoveryDirectory)
++}
++
++func (s *Store) migrateLegacy(ctx context.Context, agentID, key string, syncDirectory func(string) error) (*Session, MigrationReport, error) {
++	var report MigrationReport
++	if err := ctx.Err(); err != nil {
++		return nil, report, err
++	}
++	lease, err := s.acquireLease(agentID, key)
++	if err != nil {
++		return nil, report, err
++	}
++	keep := false
++	defer func() {
++		if !keep {
++			lease.close()
++		}
++	}()
++	path := s.sessionPath(agentID, key)
++	info, err := os.Lstat(path)
++	if err != nil {
++		return nil, report, err
++	}
++	if !info.Mode().IsRegular() {
++		return nil, report, errors.New("migration requires a regular session file")
++	}
++	source, err := os.Open(path)
++	if err != nil {
++		return nil, report, err
++	}
++	raw, err := io.ReadAll(io.LimitReader(&recoveryReader{ctx: ctx, reader: source}, MaxLegacyImportBytes+1))
++	err = errors.Join(err, source.Close())
++	if err != nil {
++		return nil, report, err
++	}
++	if int64(len(raw)) > MaxLegacyImportBytes {
++		return nil, report, errors.New("legacy session exceeds import size limit")
++	}
++	converted, conversion, err := ConvertLegacySession(&recoveryReader{ctx: ctx, reader: bytes.NewReader(raw)})
++	report.LegacyConversion = conversion
++	if err != nil {
++		return nil, report, err
++	}
++	if err := ctx.Err(); err != nil {
++		return nil, report, err
++	}
++	if conversion.RemappedIDs > 0 {
++		dir := filepath.Dir(path)
++		backup, err := writeMigrationFile(ctx, dir, "."+key+".migration-backup-*", raw)
++		if err != nil {
++			return nil, report, err
++		}
++		if err := syncDirectory(dir); err != nil {
++			os.Remove(backup)
++			return nil, report, err
++		}
++		report.BackupPath = backup
++		replacement, err := writeMigrationFile(ctx, dir, "."+key+".migration-replace-*", converted)
++		if err != nil {
++			return nil, report, err
++		}
++		defer os.Remove(replacement)
++		if err := ctx.Err(); err != nil {
++			return nil, report, err
++		}
++		if err := os.Rename(replacement, path); err != nil {
++			return nil, report, err
++		}
++		report.Migrated = true
++		if err := syncDirectory(dir); err != nil {
++			return nil, report, err
++		}
++	}
++	sess, err := s.loadContext(ctx, agentID, key)
++	if err != nil {
++		return nil, report, err
++	}
++	sess.lease = lease
++	keep = true
++	return sess, report, nil
++}
++
++func writeMigrationFile(ctx context.Context, dir, pattern string, raw []byte) (string, error) {
++	if err := ctx.Err(); err != nil {
++		return "", err
++	}
++	file, err := os.CreateTemp(dir, pattern)
++	if err != nil {
++		return "", err
++	}
++	path := file.Name()
++	complete := false
++	defer func() {
++		file.Close()
++		if !complete {
++			os.Remove(path)
++		}
++	}()
++	if _, err := io.Copy(file, &recoveryReader{ctx: ctx, reader: bytes.NewReader(raw)}); err != nil {
++		return "", err
++	}
++	if err := file.Sync(); err != nil {
++		return "", err
++	}
++	if err := file.Close(); err != nil {
++		return "", err
++	}
++	complete = true
++	return path, nil
++}
+diff --git a/session/migration_process_test.go b/session/migration_process_test.go
+new file mode 100644
+index 0000000..4a94c94
+--- /dev/null
++++ b/session/migration_process_test.go
+@@ -0,0 +1,122 @@
++package session
++
++import (
++	"bufio"
++	"context"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strconv"
++	"strings"
++	"testing"
++	"time"
++)
++
++func TestMigrationProcessHelper(t *testing.T) {
++	root := os.Getenv("HARNESS_MIGRATION_HELPER_ROOT")
++	if root == "" {
++		return
++	}
++	stage, err := strconv.Atoi(os.Getenv("HARNESS_MIGRATION_HELPER_STAGE"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	calls := 0
++	sess, _, err := NewStore(root).migrateLegacy(context.Background(), "agent", "key", func(dir string) error {
++		if err := syncRecoveryDirectory(dir); err != nil {
++			return err
++		}
++		calls++
++		if calls == stage {
++			fmt.Println("MIGRATION_READY")
++			io.Copy(io.Discard, os.Stdin)
++		}
++		return nil
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	sess.Close()
++}
++
++func TestMigrationSurvivesProcessDeath(t *testing.T) {
++	original := legacyCompactionFixture()
++	converted, _, err := ConvertLegacySession(strings.NewReader(original))
++	if err != nil {
++		t.Fatal(err)
++	}
++	prefix := string(converted)
++	for _, stage := range []int{1, 2} {
++		t.Run(strconv.Itoa(stage), func(t *testing.T) {
++			store, path := recoveryFixture(t, original)
++			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++			defer cancel()
++			cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestMigrationProcessHelper$")
++			cmd.Env = append(os.Environ(), "HARNESS_MIGRATION_HELPER_ROOT="+store.baseDir, "HARNESS_MIGRATION_HELPER_STAGE="+strconv.Itoa(stage))
++			stdout, err := cmd.StdoutPipe()
++			if err != nil {
++				t.Fatal(err)
++			}
++			input, err := cmd.StdinPipe()
++			if err != nil {
++				t.Fatal(err)
++			}
++			defer input.Close()
++			if err := cmd.Start(); err != nil {
++				t.Fatal(err)
++			}
++			defer func() {
++				if cmd.ProcessState == nil {
++					cmd.Process.Kill()
++					cmd.Wait()
++				}
++			}()
++			scanner := bufio.NewScanner(stdout)
++			if !scanner.Scan() || scanner.Text() != "MIGRATION_READY" {
++				t.Fatal("child did not reach durability boundary")
++			}
++			if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); !errors.Is(err, ErrSessionBusy) {
++				t.Fatal("live repair bypassed", err)
++			}
++			if err := cmd.Process.Kill(); err != nil {
++				t.Fatal(err)
++			}
++			cmd.Wait()
++			raw, err := os.ReadFile(path)
++			expected := original
++			if stage == 2 {
++				expected = prefix
++			}
++			if err != nil || string(raw) != expected {
++				t.Fatal("process death left partial replacement", err)
++			}
++			backups, err := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.migration-backup-*"))
++			if err != nil || len(backups) != 1 {
++				t.Fatal("backup missing after death", backups, err)
++			}
++			backup, err := os.ReadFile(backups[0])
++			if err != nil || string(backup) != original {
++				t.Fatal("backup corrupted after death", err)
++			}
++			sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++			if err != nil {
++				t.Fatal("restart failed", err)
++			}
++			defer sess.Close()
++			if report.Migrated != (stage == 1) || len(sess.Entries()) != 6 {
++				t.Fatal("restart wrong repair", report)
++			}
++			sess.Append(UserMessageEntry("after restart"))
++			if err := sess.Flush(); err != nil {
++				t.Fatal(err)
++			}
++			loaded, err := store.Load("agent", "key")
++			if err != nil || len(loaded.Entries()) != 7 {
++				t.Fatal("restart not writable", err)
++			}
++		})
++	}
++}
+diff --git a/session/migration_test.go b/session/migration_test.go
+new file mode 100644
+index 0000000..b339f07
+--- /dev/null
++++ b/session/migration_test.go
+@@ -0,0 +1,119 @@
++package session
++
++import (
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func TestLegacyMigrationBackupRestartAndIdempotence(t *testing.T) {
++	original := legacyCompactionFixture()
++	store, path := recoveryFixture(t, original)
++	sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	if !report.Migrated || report.RemappedIDs != 2 || report.BackupPath == "" {
++		t.Fatal(report)
++	}
++	backup, err := os.ReadFile(report.BackupPath)
++	if err != nil || string(backup) != original {
++		t.Fatal("original backup differs", err)
++	}
++	for _, p := range []string{path, report.BackupPath} {
++		info, err := os.Stat(p)
++		if err != nil || info.Mode().Perm() != 0600 {
++			t.Fatal("migration files not private", err)
++		}
++	}
++	if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("migration bypassed writer", err)
++	}
++	if len(sess.View()) != 3 || sess.View()[0].Type != EntryTypeCompaction {
++		t.Fatal("migrated view wrong", sess.View())
++	}
++	if err := sess.Branch("c"); err != nil || len(sess.History()) != 3 {
++		t.Fatal("original branch unavailable", err)
++	}
++	sess.Close()
++	before, _ := os.ReadFile(path)
++	resumed, again, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer resumed.Close()
++	after, _ := os.ReadFile(path)
++	if again.Migrated || again.BackupPath != "" || string(before) != string(after) || resumed.LeafID() != "c" {
++		t.Fatal("repeat migration changed data", again)
++	}
++	backups, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.migration-backup-*"))
++	if len(backups) != 1 {
++		t.Fatal("repeat migration duplicated backup")
++	}
++	resumed.Append(UserMessageEntry("after migration"))
++	if err := resumed.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
++
++func TestLegacyMigrationFailureBoundaries(t *testing.T) {
++	original := legacyCompactionFixture()
++	failure := errors.New("injected migration directory sync failure")
++	for _, stage := range []int{1, 2} {
++		store, path := recoveryFixture(t, original)
++		calls := 0
++		sess, report, err := store.migrateLegacy(context.Background(), "agent", "key", func(dir string) error {
++			calls++
++			if calls == stage {
++				return failure
++			}
++			return syncRecoveryDirectory(dir)
++		})
++		if sess != nil || !errors.Is(err, failure) {
++			t.Fatal("migration failure hidden", err)
++		}
++		raw, _ := os.ReadFile(path)
++		if stage == 1 {
++			if string(raw) != original || report.Migrated || report.BackupPath != "" {
++				t.Fatal("changed before durable backup")
++			}
++		} else {
++			if !report.Migrated || report.BackupPath == "" {
++				t.Fatal("post-replace failure misreported")
++			}
++			backup, _ := os.ReadFile(report.BackupPath)
++			if string(backup) != original {
++				t.Fatal("backup lost")
++			}
++		}
++		lease, err := store.acquireLease("agent", "key")
++		if err != nil {
++			t.Fatal("failure leaked lease", err)
++		}
++		lease.close()
++	}
++}
++
++func TestLegacyMigrationCancelledAfterBackup(t *testing.T) {
++	original := legacyCompactionFixture()
++	store, path := recoveryFixture(t, original)
++	ctx, cancel := context.WithCancel(context.Background())
++	defer cancel()
++	sess, report, err := store.migrateLegacy(ctx, "agent", "key", func(dir string) error { err := syncRecoveryDirectory(dir); cancel(); return err })
++	if sess != nil || !errors.Is(err, context.Canceled) || report.Migrated || report.BackupPath == "" {
++		t.Fatal("cancelled migration outcome", err, report)
++	}
++	for _, p := range []string{path, report.BackupPath} {
++		raw, _ := os.ReadFile(p)
++		if string(raw) != original {
++			t.Fatal("cancelled migration lost original")
++		}
++	}
++	temps, _ := filepath.Glob(filepath.Join(filepath.Dir(path), ".key.migration-replace-*"))
++	if len(temps) != 0 {
++		t.Fatal("temporary file leaked")
++	}
++}
+diff --git a/session/records.go b/session/records.go
+index 05856eb..5ffc763 100644
+--- a/session/records.go
++++ b/session/records.go
+@@ -60,21 +60,9 @@ func decodeSessionRecords(reader io.Reader) ([]SessionEntry, error) {
+ 		}
+ 		trimmed := bytes.TrimSpace(line)
+ 		if len(trimmed) > 0 {
+-			entry := SessionEntry{}
+-			decoder := json.NewDecoder(bytes.NewReader(trimmed))
+-			err := decoder.Decode(&entry)
+-			if !utf8.Valid(trimmed) {
+-				err = errors.New("record is not valid UTF-8")
+-			}
++			entry, err := decodeSessionRecord(trimmed, final, number, offset)
+ 			if err != nil {
+-				return nil, &RecordError{Line: number, Offset: offset, RecoverableTail: final && trimmed[0] == '{' && errors.Is(err, io.ErrUnexpectedEOF), Cause: err}
+-			}
+-			if trimmed[0] != '{' {
+-				return nil, &RecordError{Line: number, Offset: offset, Cause: errors.New("record must be a JSON object")}
+-			}
+-			var extra any
+-			if err := decoder.Decode(&extra); err != io.EOF {
+-				return nil, &RecordError{Line: number, Offset: offset, Cause: errors.New("record contains trailing JSON data")}
++				return nil, err
+ 			}
+ 			if err := validateGraphNode(entry, lookup); err != nil {
+ 				return nil, &RecordError{Line: number, Offset: offset, Cause: err}
+@@ -88,3 +76,25 @@ func decodeSessionRecords(reader io.Reader) ([]SessionEntry, error) {
+ 		}
+ 	}
+ }
++
++// decodeSessionRecord validates one nonblank record without graph assumptions.
++func decodeSessionRecord(trimmed []byte, final bool, number int, offset int64) (SessionEntry, error) {
++	entry := SessionEntry{}
++	decoder := json.NewDecoder(bytes.NewReader(trimmed))
++	err := decoder.Decode(&entry)
++	if !utf8.Valid(trimmed) {
++		err = errors.New("record is not valid UTF-8")
++	}
++	if err != nil {
++		return SessionEntry{}, &RecordError{Line: number, Offset: offset, RecoverableTail: final && trimmed[0] == '{' && errors.Is(err, io.ErrUnexpectedEOF), Cause: err}
++	}
++	if trimmed[0] != '{' {
++		return SessionEntry{}, &RecordError{Line: number, Offset: offset, Cause: errors.New("record must be a JSON object")}
++	}
++	var extra any
++	if err := decoder.Decode(&extra); err != io.EOF {
++		return SessionEntry{}, &RecordError{Line: number, Offset: offset, Cause: errors.New("record contains trailing JSON data")}
++	}
++
++	return entry, nil
++}

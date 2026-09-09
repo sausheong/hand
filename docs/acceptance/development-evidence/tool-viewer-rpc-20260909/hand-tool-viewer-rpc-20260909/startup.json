@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "snapshot_root": "/private/tmp/hand-tool-viewer-rpc-20260909/snapshots",
+  "identities": {
+    "tool-viewer": "package:tool-viewer:tool-viewer"
+  },
+  "reviews": [
+    {
+      "specification": {
+        "name": "tool-viewer",
+        "digest": "ed57c966d7beea93a7d0491815c695db1c3f9034604fcff382a899afb4402250",
+        "capabilities": [
+          "commands",
+          "presentation"
+        ],
+        "order": 0,
+        "mandatory": false
+      },
+      "binary": {
+        "path": "/private/tmp/hand-tool-viewer-rpc-20260909/store/objects/f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d/tool-viewer",
+        "sha256": "73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9",
+        "size": 3023154,
+        "mode": 320
+      },
+      "assets": null,
+      "arguments": null,
+      "workspace": "/private/tmp/hand-tool-viewer-rpc-20260909/workspace",
+      "environment": {},
+      "boundary": "unrestricted host subprocess; capabilities are not an OS sandbox; runtime libraries are not snapshotted"
+    }
+  ]
+}

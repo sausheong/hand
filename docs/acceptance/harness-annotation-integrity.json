@@ -1,0 +1,79 @@
+{
+  "status": "development_shared_persistence_hardening_passed",
+  "defect": "Ambiguous annotation envelope fields could change annotation kind or payload during loading.",
+  "change": "Exact unique envelope fields are required before a session graph can load; corruption is not classified as repairable tail damage.",
+  "corrupt_envelopes": 8,
+  "load_paths": [
+    "ordinary",
+    "exclusive",
+    "recovering"
+  ],
+  "runs": [
+    {
+      "source": "/private/tmp/hand-harness-annotation-after-20260909.jsonl",
+      "test_records": {
+        "pass": 187,
+        "fail": 0,
+        "skip": 0
+      }
+    },
+    {
+      "source": "/private/tmp/hand-harness-annotation-integration-20260909.jsonl",
+      "test_records": {
+        "pass": 115,
+        "fail": 0,
+        "skip": 0
+      }
+    }
+  ],
+  "fuzz": {
+    "target": "FuzzSessionRecords",
+    "requested_seconds": 60,
+    "executions": 111474,
+    "status": "passed",
+    "limitation": "Reused existing session-record corpus; fuzzing is not exhaustive and does not establish full annotation branch coverage"
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-harness-annotation-before-20260909.log",
+      "path": "docs/acceptance/development-evidence/harness-annotation-integrity-20260909/hand-harness-annotation-before-20260909.log.gz",
+      "sha256": "3e13455bcd9d2cea3db176f98adb64c245b0169cbca1216c91d14ce474393951",
+      "uncompressed_sha256": "ebf0448083c414eb0835ba75ccd3bf1e0aa893a357249fc7a8ca79148e56c163"
+    },
+    {
+      "source": "/private/tmp/hand-harness-annotation-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/harness-annotation-integrity-20260909/hand-harness-annotation-after-20260909.jsonl.gz",
+      "sha256": "0c8ff57fd577457108e81016c8279f04c7fc84e61a2c8cb48c05b22ff0396fcc",
+      "uncompressed_sha256": "cb32b40f64a498fd0fdc8db26573cea336eaee4dc39df7d962b6fb81d178d583"
+    },
+    {
+      "source": "/private/tmp/hand-harness-annotation-integration-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/harness-annotation-integrity-20260909/hand-harness-annotation-integration-20260909.jsonl.gz",
+      "sha256": "c0929e48bd28a50cfdad2056a2af7b9b63baffa31230fdc0335fe8eb242c43b1",
+      "uncompressed_sha256": "4f08f70d33340814d7a9dcd12ff940aec41c0e6b82db9e88f5864fd6970e9a80"
+    },
+    {
+      "source": "/private/tmp/hand-harness-annotation-fuzz-20260909.log",
+      "path": "docs/acceptance/development-evidence/harness-annotation-integrity-20260909/hand-harness-annotation-fuzz-20260909.log.gz",
+      "sha256": "dc572675a453d20de5205057294ce219322100573be12398f9af1bfeb83d7fef",
+      "uncompressed_sha256": "55ef63bcc1dbb43e2633717df544baf528491d40753451d8be008b9901d83716"
+    },
+    {
+      "source": "/private/tmp/hand-harness-persistence-20260908/session/annotation.go",
+      "path": "docs/acceptance/development-evidence/harness-annotation-integrity-20260909/annotation.go.gz",
+      "sha256": "c2de7ecaa2ab3dbac4c520b00de75ef3b6855d33472f608c8cdff6725cc7776b",
+      "uncompressed_sha256": "457c6b04596276ce008ee6eabf21077507737ff900a5103897ef4bfcf9fbbfbd"
+    },
+    {
+      "source": "/private/tmp/hand-harness-persistence-20260908/session/annotation_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/harness-annotation-integrity-20260909/annotation_integrity_test.go.gz",
+      "sha256": "b5f70898d0547530e9b699af13baf6f458de7b9ba189a18aedbfb2129d45f0e6",
+      "uncompressed_sha256": "6a00d5af8afacecd071c45f086e68003f0f15f55ed12059aa4cbb5c4faf53cbf"
+    }
+  ],
+  "limitations": [
+    "Local unreleased Harness candidate; dependency release and exact frozen-candidate qualification remain outstanding",
+    "Structured corruption and byte preservation tested; no power-loss simulation",
+    "Existing full Harness and Hand coverage reports predate this shared production change"
+  ]
+}

@@ -1,0 +1,19 @@
+{"Time":"2026-09-08T21:47:22.666547+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T21:47:22.666633+08:00","Action":"start","Package":"github.com/sausheong/harness/session"}
+{"Time":"2026-09-08T21:47:23.273939+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetStopsShellDescendantAndPersistsPair"}
+{"Time":"2026-09-08T21:47:23.274065+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetStopsShellDescendantAndPersistsPair","Output":"=== RUN   TestTimeBudgetStopsShellDescendantAndPersistsPair\n"}
+{"Time":"2026-09-08T21:47:23.660431+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T21:47:23.660479+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"PASS\n"}
+{"Time":"2026-09-08T21:47:24.299124+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetStopsShellDescendantAndPersistsPair","Output":"2026/09/08 21:47:24 WARN tool error tool=bash id=deadline-shell error=\"session time budget: budget_exhausted\"\n"}
+{"Time":"2026-09-08T21:47:24.670687+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"ok  \tgithub.com/sausheong/harness/session\t2.004s [no tests to run]\n"}
+{"Time":"2026-09-08T21:47:24.670809+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Elapsed":2.004}
+{"Time":"2026-09-08T21:47:26.805037+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetStopsShellDescendantAndPersistsPair","Output":"    time_budget_process_test.go:114: deadline process/descendant check and reopen completed in 3.504264417s\n"}
+{"Time":"2026-09-08T21:47:26.806871+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetStopsShellDescendantAndPersistsPair","Output":"--- PASS: TestTimeBudgetStopsShellDescendantAndPersistsPair (3.53s)\n"}
+{"Time":"2026-09-08T21:47:26.807128+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetStopsShellDescendantAndPersistsPair","Elapsed":3.53}
+{"Time":"2026-09-08T21:47:26.80734+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun"}
+{"Time":"2026-09-08T21:47:26.807364+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun","Output":"=== RUN   TestTimeBudgetCancelsRunningProviderAndBlocksNextRun\n"}
+{"Time":"2026-09-08T21:47:27.809515+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun","Output":"--- PASS: TestTimeBudgetCancelsRunningProviderAndBlocksNextRun (1.00s)\n"}
+{"Time":"2026-09-08T21:47:27.809684+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestTimeBudgetCancelsRunningProviderAndBlocksNextRun","Elapsed":1}
+{"Time":"2026-09-08T21:47:27.810223+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T21:47:28.822789+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t6.156s\n"}
+{"Time":"2026-09-08T21:47:28.82284+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":6.156}

@@ -1,0 +1,346 @@
+{
+  "status": "published_and_hand_native_integration_passed",
+  "pull_request": "https://github.com/sausheong/harness/pull/4",
+  "candidate_commit": "5d4632ffe3fdfeb171bb217a45ae75bef056811e",
+  "tested_merge_commit": "db57dcd0879ceed76b8f83b734404f575cd92360",
+  "source_tree": "c909ea504838b1d3c761c60682f872e78cdf6438",
+  "workflow_run": 34377910482,
+  "linux": {
+    "status": "passed",
+    "passed_test_records": 1114,
+    "packages": 32,
+    "errors": []
+  },
+  "linux_repetitions": {
+    "status": "passed",
+    "passed_test_records": 80,
+    "packages": 3,
+    "errors": []
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-alpine-pull.txt.gz",
+      "sha256": "5ab4fea7bb9b4743630a857e95d796f7282f3902e22884f5b0e01160c69926cc",
+      "raw_sha256": "965171ebfa7b50602120091a4380d2ebe6af0f776abe81c6710dbec88a6e7f9d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-build.txt.gz",
+      "sha256": "cbfdc6911856c5a5d192810ead56ae40c239dd89d9efad781698f5036c6b5856",
+      "raw_sha256": "d310a76925da0a276090630470025267ab6946204261e23926253175b1f18d4b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-commit.txt.gz",
+      "sha256": "633bb8ffcb3f0fb3d36dd9b586de59a0f5c7f2a2269dfed8b4db4da70dc3d73f",
+      "raw_sha256": "009f97ef8690cd2ba2a0a98d851379f52caf079840c22c2af285505d914abc61"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-coverage.out.gz",
+      "sha256": "2a5b53f087ad1434ad7f1ae0650df8f3581c6101b5e8610b6b7199360d063fc4",
+      "raw_sha256": "ff4a1a7379c28fddcd79971cdc8d1b8078902f2b16ce420929748a55e723d646"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-critical-repeat.jsonl.gz",
+      "sha256": "f3f8b15616a7cdb0e28c85544797cd7c98a5ebfd3ab846467c42052c93318d87",
+      "raw_sha256": "04a88ed5deef3f1b6381909d146ae9142aed797255e5bcc29d149a33d6f6f9e2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-critical-repeat.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-debian-pull.txt.gz",
+      "sha256": "e3f3fc26f48b4e71ca489f2d160f5f1bfb3c3b0ba1106d50341cf735c6dc9e1e",
+      "raw_sha256": "b5099e71e7682c5bb342f133f33495658ee37c9ef83b164e4a51ef9470fb1867"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-docker-version.txt.gz",
+      "sha256": "821c856cc1bb71ba427a1510bde3f08e9d8173033c3988380d9c908a9282f12a",
+      "raw_sha256": "b360e9eb00702a95cfea22ddad77add12750b1125f330fd5fa13071473dda6ff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-fixtures.json.gz",
+      "sha256": "d8aa5134d3152bdd65e710d77904a582e71c45d305b1113f9a29b696b0fcf46e",
+      "raw_sha256": "69bf0e9d8088f0fd358b66e2aaaca3a494864fd0e335ec1fa96cfe140809dfd8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-platform.json.gz",
+      "sha256": "19dc481520b375a54364452c716ba05c9ab230a9f7a36b1808bc88a1c1c9eda8",
+      "raw_sha256": "c7c9eed86509d7778c618ce5ae979b0a8c8f7a0db0052f75252fc1d7062e8cf6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-repeat-gate.json.gz",
+      "sha256": "9cf242bde2f536a399f2b1da1b690c30c8a5c4d100c0bf342f4a14c7b8ddb82e",
+      "raw_sha256": "3adc699986088bb9e021b3bfcfaa12d06020af64753beac5fb4db79b81ec72a4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-status.txt.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-test-gate.json.gz",
+      "sha256": "279c7c6396c5bdd9599a5c5eed8e0e88429eb2a96e7bc968df613d69fbce1dc0",
+      "raw_sha256": "b815efd679e715553633d180fb6888fda52d32997be857a27b71f30a7fb12cd4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-tests.jsonl.gz",
+      "sha256": "b360b3c3a3c64a14b40b5db966dde70502c31c42870fc4a5eaed49d9deabb553",
+      "raw_sha256": "09ec501a0303e45f022185364698f696f436ba882d52de0ca2d9edd762845c83"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-tests.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-toolchain.txt.gz",
+      "sha256": "0f41a03735c825159760c4907e2529ae952f21a586b107cba71748d5b70b759c",
+      "raw_sha256": "b6fb5596d2012530ab21387717217c56c6240d9d2a8384d99f7ef12443157bf8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/linux-vet.txt.gz",
+      "sha256": "501ccd19661fdc5a7ab87a570f4ce285adbf7c9a93d67e026fdc28cf1620845e",
+      "raw_sha256": "65f4243f14175897a43dcf999bb7a573de7e9b1961a2f3f3cf678f6f3305ac55"
+    }
+  ],
+  "failure_cause": "Colima did not share system temporary directories; test workspaces now use shared runner home.",
+  "failed_macos_artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-alpine-pull.txt.gz",
+      "sha256": "79ed17f02625e0f02301342e08a0f19fe9f1aba422ff7f7d25a4b69bf1f280c4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-build.txt.gz",
+      "sha256": "c0e43c7aaaafcf1f7e13b01a2515921871387b6d0db1542f1faaed28ed2c1bb4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-commit.txt.gz",
+      "sha256": "72faa0e8a329685a00aa6c501aeeff3b03d8dc3b2c38084a9ca4b4da067a4c9c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-coverage.out.gz",
+      "sha256": "19c63d9e6269865f8446a7ab9df6c21e028848364ab9bc3ca7ea5768aed82f5f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-debian-pull.txt.gz",
+      "sha256": "b7c6e524ed8abad4246e34013c6e99ffa5e483c3135773c6a35dbb96af0440ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-docker-version.txt.gz",
+      "sha256": "bb12acc65b05dd04e644fd60ec65360d950a257bd127a10227f4e898e4cd42f7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-fixtures.json.gz",
+      "sha256": "0d73b5acefbadf2df47440298e005b71ca17e2026b53d3bc21a45d375a6910d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-platform.json.gz",
+      "sha256": "fa9d59a2e3ecae0c328b96ae9c9dff11547c21e451483bcf769492d50c2eea3d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-status.txt.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-tests.jsonl.gz",
+      "sha256": "49e402681912aae0037d517e1c402e8e37e609e8b754dfc4031f352bd9cae620"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-tests.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-toolchain.txt.gz",
+      "sha256": "cfafce8f20992b36ba1d770e697ea9cbbe0099eb5e9826b4528e15e7a726bdf9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/macos-first-failed-vet.txt.gz",
+      "sha256": "501ccd19661fdc5a7ab87a570f4ce285adbf7c9a93d67e026fdc28cf1620845e"
+    }
+  ],
+  "current_workflow_runs": [
+    34379427112,
+    34379422297
+  ],
+  "final_candidate_artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-debian-pull.txt.gz",
+      "sha256": "b7c6e524ed8abad4246e34013c6e99ffa5e483c3135773c6a35dbb96af0440ca",
+      "raw_sha256": "92c3560a93e0b34969f037543cb663ddb8bc91a1c9219e03ea6faf4214f142cc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-commit.txt.gz",
+      "sha256": "a4cf0a9fe3931f50a57a209b4e1982683a1ca999b159f877d684909306d749d6",
+      "raw_sha256": "081dd2dba6b6070289dfcb55fa9d4147fa376ceaa50a7c920686576444284b81"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-critical-repeat.jsonl.gz",
+      "sha256": "df6b1e1ca91ccf5696641170228805fca7c00e366da6a3200fdf98b4b962be91",
+      "raw_sha256": "bb62fcfc9b457f25245cbb3ea8d72a7b6404ee625afd312749cc1a3bb8a836b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-tests.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-alpine-pull.txt.gz",
+      "sha256": "4f9b7b788c0593a01f42cc3a87e50dcc7810ecf767a06283e1118245555411e8",
+      "raw_sha256": "5c0298a4b7d4c32ab60039cc675c81578c9136fd7568b45883d5da690288b8a8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-toolchain.txt.gz",
+      "sha256": "cfafce8f20992b36ba1d770e697ea9cbbe0099eb5e9826b4528e15e7a726bdf9",
+      "raw_sha256": "26c169382726c50c7bee62d021f38ee85ccfa5493744c21da155bc868600e808"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-platform.json.gz",
+      "sha256": "fa9d59a2e3ecae0c328b96ae9c9dff11547c21e451483bcf769492d50c2eea3d",
+      "raw_sha256": "a29595f468b58e34b30aa0c9b3e6f5dc3282840ee1216c3d613220fee9d60530"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-repeat-gate.json.gz",
+      "sha256": "9cf242bde2f536a399f2b1da1b690c30c8a5c4d100c0bf342f4a14c7b8ddb82e",
+      "raw_sha256": "3adc699986088bb9e021b3bfcfaa12d06020af64753beac5fb4db79b81ec72a4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-build.txt.gz",
+      "sha256": "9564a3f48cd50fc65a15d771378ff3e1ba0962162b7e221b63ddc26c4be5b290",
+      "raw_sha256": "1bede7df75c731301f85f0f8541437f921d43b59aa1c94eec1170880eee53f6e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-coverage.out.gz",
+      "sha256": "f2326d19becf74dfffc954da7d86207480051759c3815b4350a4d560e07471f1",
+      "raw_sha256": "91ab80a5243af0fa86515ddb558bbc97ed936aa5ede65f3892871dbe7b5e8d77"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-vet.txt.gz",
+      "sha256": "bcaebfeb63990785bed8393d7174c0e571ac005814399282927125acbec4218f",
+      "raw_sha256": "f346099a2cb69aff8f231726d11167bab19ebdb28d81e954dce6b753b3fe1cf1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-fixtures.json.gz",
+      "sha256": "328ad1dded17012da20380120d689ad9a82d0583be4dec2d6ebb5e4f398b94af",
+      "raw_sha256": "4e860b678f184367818d3b551bd9b57cfb0b5986ab139dd428b289a8a089cbf5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-tests.jsonl.gz",
+      "sha256": "d08e39ca25d69b91773febb1790519791cabc12aac4136fd405438dd261f80b0",
+      "raw_sha256": "e0e618968d923f47a7634793d833873b9b666164cd696b3083ea11c46c165d3d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-status.txt.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-critical-repeat.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-test-gate.json.gz",
+      "sha256": "279c7c6396c5bdd9599a5c5eed8e0e88429eb2a96e7bc968df613d69fbce1dc0",
+      "raw_sha256": "b815efd679e715553633d180fb6888fda52d32997be857a27b71f30a7fb12cd4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-macos-docker-version.txt.gz",
+      "sha256": "bb12acc65b05dd04e644fd60ec65360d950a257bd127a10227f4e898e4cd42f7",
+      "raw_sha256": "5d1cef0a33a765ed6d8b57a106f03699b97e0a3911499a6300c931a4223e5c0c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-debian-pull.txt.gz",
+      "sha256": "e3f3fc26f48b4e71ca489f2d160f5f1bfb3c3b0ba1106d50341cf735c6dc9e1e",
+      "raw_sha256": "b5099e71e7682c5bb342f133f33495658ee37c9ef83b164e4a51ef9470fb1867"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-commit.txt.gz",
+      "sha256": "a4cf0a9fe3931f50a57a209b4e1982683a1ca999b159f877d684909306d749d6",
+      "raw_sha256": "081dd2dba6b6070289dfcb55fa9d4147fa376ceaa50a7c920686576444284b81"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-critical-repeat.jsonl.gz",
+      "sha256": "f5474fc875685548c38bab7752d6cd2f5b25596191cf6a8c10a35c87e121b28a",
+      "raw_sha256": "6b61333c4fbbc61a3d03d7d8095f1a03ca47dde38a305852012a7b7731207d99"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-tests.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-alpine-pull.txt.gz",
+      "sha256": "5ab4fea7bb9b4743630a857e95d796f7282f3902e22884f5b0e01160c69926cc",
+      "raw_sha256": "965171ebfa7b50602120091a4380d2ebe6af0f776abe81c6710dbec88a6e7f9d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-toolchain.txt.gz",
+      "sha256": "0f41a03735c825159760c4907e2529ae952f21a586b107cba71748d5b70b759c",
+      "raw_sha256": "b6fb5596d2012530ab21387717217c56c6240d9d2a8384d99f7ef12443157bf8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-platform.json.gz",
+      "sha256": "19dc481520b375a54364452c716ba05c9ab230a9f7a36b1808bc88a1c1c9eda8",
+      "raw_sha256": "c7c9eed86509d7778c618ce5ae979b0a8c8f7a0db0052f75252fc1d7062e8cf6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-repeat-gate.json.gz",
+      "sha256": "9cf242bde2f536a399f2b1da1b690c30c8a5c4d100c0bf342f4a14c7b8ddb82e",
+      "raw_sha256": "3adc699986088bb9e021b3bfcfaa12d06020af64753beac5fb4db79b81ec72a4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-build.txt.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-coverage.out.gz",
+      "sha256": "825de1105d30ee391f0d424c17cae9d3e124cc69ee198da5a19ccb4b6247f7e6",
+      "raw_sha256": "e465dcffbc323659666262f5fcabdb0b8ed592f41db884b876440748f8a12c8f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-vet.txt.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-fixtures.json.gz",
+      "sha256": "1ebccefd03aeab9e9d884847f7eb9b2efb72785d126a2665d73ccdd2a53c1627",
+      "raw_sha256": "75e50d3f321eb973a4d5213a20279c93dab53c6a7af9801c767d2f4c6e688a06"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-tests.jsonl.gz",
+      "sha256": "7cfd0109ce114168d09c994b712d08c80b0c592603cbde85f5688ddb22934493",
+      "raw_sha256": "864574740573dbe6a116dece84909138ca37bcb43587880e93f0b3b00bd960d8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-status.txt.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-critical-repeat.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-test-gate.json.gz",
+      "sha256": "279c7c6396c5bdd9599a5c5eed8e0e88429eb2a96e7bc968df613d69fbce1dc0",
+      "raw_sha256": "b815efd679e715553633d180fb6888fda52d32997be857a27b71f30a7fb12cd4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-publication-20260910/final-linux-docker-version.txt.gz",
+      "sha256": "066610b3a96eaf8eb22b9036e279c509be38285dba5c1b3b897b5c951fb6e6fa",
+      "raw_sha256": "6c0bdce6e1663db09c2f35649dae0276a5554a092c741190ddeba32522d150ab"
+    }
+  ],
+  "passed_records_per_platform": 1114,
+  "lifecycle_repeated_records_per_platform": 80,
+  "tag": "v0.4.0",
+  "tag_target": "5d4632ffe3fdfeb171bb217a45ae75bef056811e",
+  "merge_commit": "4cec5b57f874a5fb074459b31e75ad4050617496",
+  "release_url": "https://github.com/sausheong/harness/releases/tag/v0.4.0",
+  "all_pr_checks_passed": true,
+  "hand_integration": "docs/acceptance/hand-published-integration.json"
+}

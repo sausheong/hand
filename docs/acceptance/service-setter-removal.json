@@ -1,0 +1,72 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "changes": [
+    "Removed SetService; ownership is supplied at production construction.",
+    "Migrated all 13 service-backed fixtures through NewApplicationModel.",
+    "Moved Runner-accepting NewModel into test code; production uses private presentation initializer plus required service constructor."
+  ],
+  "tests": {
+    "race": true,
+    "count": 1,
+    "pass_including_subtests": 337,
+    "fail": 0,
+    "skip": 0
+  },
+  "build": {
+    "exit_code": 0,
+    "binary_sha256": "84e3a3a01e751c5be8f8c5b50d79e6229991c1820a16651b5913e55e865b0a48",
+    "warning": "Go could not write a module stat-cache entry under the sandbox; build nevertheless completed successfully."
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/hand-service-setter-removal-20260909.jsonl.gz",
+      "sha256": "3d99aa21d5ee9779ad40fcdcb9e7f4666bff179db8412503390884436b7e4b1c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/application.go.gz",
+      "sha256": "bdad22d96765b2abc8093b88cccfba5cd248c613594038d268e5231b48023430"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/model.go.gz",
+      "sha256": "36909694e8becc384f6083deaa1d308c53cfa004d964ba3321b17aae0ac1e6ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/replay.go.gz",
+      "sha256": "c7833526409e86b8113004133f57aeccb5c41f04d84c7e7b3d8d1d09bfcf950c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/application_test.go.gz",
+      "sha256": "f0e0725220bb2c0952e70e3716149a817c12cfcd078edfd2b9b41f5bdee7ffd8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/file_reference_test.go.gz",
+      "sha256": "facf545c4ac5a4e6e083f9004beb5ded6cd8cdfa8f98c042b224b0ea554d3cec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/queued_input_test.go.gz",
+      "sha256": "15cfef95e4ad042461a9bd76ab46a555ef827ade9e0f1b3f91cfa43d92c89906"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/cancellation_latency_test.go.gz",
+      "sha256": "3031a337c82d47bce55a4ba869677bdb6f89ff36c8f15b864d88878be73c46ee"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/skill_approval_integration_test.go.gz",
+      "sha256": "f7fbfdfe1262e849739a3d4fe661c57149c60402ccaeabf2e6c0f932849a0424"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/session_usage_test.go.gz",
+      "sha256": "d2bc84dd6a7d7ed0443f62f7f6dcb8457d35155b053e1af0cc763981670f365a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-setter-removal-20260909/request_context_integration_test.go.gz",
+      "sha256": "7823bbe60e0a561c2b17252e6ef1f703460dac6e4e8a64faa173e159fee4249b"
+    }
+  ],
+  "limitations": [
+    "Legacy runtime event and goal handlers remain in production source until corresponding fixtures migrate; not complete M2.1 extraction.",
+    "Development full TUI suite and CLI build only; no new full coverage or final platform/released-candidate qualification.",
+    "Archived sources captured after tests without paired source inventories."
+  ]
+}

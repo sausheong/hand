@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "binary_sha256": "e5b1fd6dc4c7a9e2cbb7e87f94827ec9eb4d552ea570e84bab56e097359ffb5c",
+  "image": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+  "qualification": "development",
+  "scenarios": [
+    "container_worker_file_roundtrip",
+    "read_only_mount_denial",
+    "symlink_escape_denial"
+  ]
+}

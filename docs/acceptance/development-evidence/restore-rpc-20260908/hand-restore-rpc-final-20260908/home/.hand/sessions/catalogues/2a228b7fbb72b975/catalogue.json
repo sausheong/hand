@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-restore-rpc-final-20260908/workspace",
+  "generation": 6,
+  "lastActiveId": "ses_03836d91972b71e7",
+  "sessions": [
+    {
+      "id": "ses_03836d91972b71e7",
+      "agentId": "hand",
+      "storeKey": "workspace_2a228b7fbb72b975_36c538fa3c604f4ffa2e820ee3a2b6e9",
+      "name": "",
+      "createdAt": "2026-09-08T07:53:51.795094Z",
+      "lastActive": "2026-09-08T07:53:52.303658Z"
+    },
+    {
+      "id": "ses_7b93466623718e05",
+      "agentId": "hand",
+      "storeKey": "workspace_2a228b7fbb72b975_81bcb95aa25b1d62a1da424d12cd4dbd",
+      "name": "",
+      "createdAt": "2026-09-08T07:53:51.988146Z",
+      "lastActive": "2026-09-08T07:53:51.98823Z"
+    },
+    {
+      "id": "ses_6c57a92b54ee8c2b",
+      "agentId": "hand",
+      "storeKey": "workspace_2a228b7fbb72b975_3c0588191f89e277eaa53a42ff9b7025",
+      "name": "",
+      "createdAt": "2026-09-08T07:53:52.074334Z",
+      "lastActive": "2026-09-08T07:53:52.190559Z"
+    }
+  ]
+}

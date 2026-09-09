@@ -1,0 +1,47 @@
+{
+  "status": "development_regressions_passed",
+  "test_records": {
+    "pass": 126
+  },
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -coverprofile=/private/tmp/hand-permission-failure-20260909.cover -json ./internal/permissions",
+  "package_coverage": {
+    "statements": 428,
+    "covered": 384,
+    "percentage": 89.7196261682243
+  },
+  "combined_development_permissions_group": {
+    "status": "incomplete",
+    "percentage": null,
+    "observed_percentage": 91.3265306122449,
+    "statements": 588,
+    "covered": 537,
+    "missing_profiles": [],
+    "unmatched_patterns": [],
+    "pending_capabilities": [
+      "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+    ]
+  },
+  "base_profiles": [
+    "docs/acceptance/cancel-native-suite.json",
+    "docs/acceptance/harness-current-native-suite.json"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/legacy-permission-failure-20260909/hand-permission-failure-20260909.cover.gz",
+      "sha256": "070fd187d492d16b681a507b043497229d56555be15ebf10de13ad6ceff9d383"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-permission-failure-20260909/hand-permission-failure-20260909.jsonl.gz",
+      "sha256": "11c2e87e875770625f398aac751b3e9449a97816ef14ff7f350fcafecc24630e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-permission-failure-20260909/legacy_failure_test.go.gz",
+      "sha256": "152e136f135b96e9f259aea6d81e7ef30e8812b2c0147575f832ebd18f34a298"
+    }
+  ],
+  "limitations": [
+    "Combined coverage unions instrumented counters from native full run and this targeted run; not a fresh full-suite result",
+    "No production changes in this turn; final clean-candidate/platform and released Harness qualification remain",
+    "Legacy migration input failure tests do not substitute for authority journal durability/crash tests"
+  ]
+}

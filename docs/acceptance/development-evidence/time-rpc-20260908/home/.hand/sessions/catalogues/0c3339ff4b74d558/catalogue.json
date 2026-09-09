@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-time-rpc-20260908/workspace",
+  "generation": 4,
+  "lastActiveId": "ses_fffe47cff5f3de1e",
+  "sessions": [
+    {
+      "id": "ses_23a88d0ef6cbd1d5",
+      "agentId": "hand",
+      "storeKey": "workspace_0c3339ff4b74d558_1c97bea05b7c4a86dbb912bddf3b6c4d",
+      "name": "",
+      "createdAt": "2026-09-08T13:37:33.941116Z",
+      "lastActive": "2026-09-08T13:37:33.941622Z"
+    },
+    {
+      "id": "ses_fffe47cff5f3de1e",
+      "agentId": "hand",
+      "storeKey": "workspace_0c3339ff4b74d558_e4b4e59875f5980c965129497afc642a",
+      "name": "",
+      "createdAt": "2026-09-08T13:37:33.972965Z",
+      "lastActive": "2026-09-08T13:37:36.151032Z"
+    }
+  ]
+}

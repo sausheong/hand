@@ -1,0 +1,29 @@
+{
+  "status": "development_native_passed",
+  "test": "TestNativeCancellationStopsChildWrites",
+  "consecutive_passes": 20,
+  "failures": 0,
+  "skips": 0,
+  "max_total_test_seconds": 0.58,
+  "assertions": [
+    "Child was actively writing before cancellation.",
+    "Invocation joined within five seconds after cancellation.",
+    "Child heartbeat did not change after joined cleanup."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/authorised-cancellation-20260909/harness-cancellation-20-20260909.jsonl.gz",
+      "sha256": "a83dba095f9dea87064641b0d199f54cd722c4dcc7bb03361b164bad4e488e7b",
+      "uncompressed_sha256": "397c40cb290a212d3af5e8cd2b3989c8ecedf6beac99422261f464f01f564936"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authorised-cancellation-20260909/harness-cancellation-20-gate-20260909.json.gz",
+      "sha256": "0e89f53fa4027b6df2077c4490dc3d37e2a6d05bbc7dc57b70a5c936c73e2dda",
+      "uncompressed_sha256": "b73cdf1885428eb8fd97bafbf1a2330b5c9806a46cb07823ec74191e19bbceb3"
+    }
+  ],
+  "limitations": [
+    "macOS host with Linux ARM64 Docker containers; not independent native Linux-host qualification.",
+    "Current development source; released Harness dependency still pending."
+  ]
+}

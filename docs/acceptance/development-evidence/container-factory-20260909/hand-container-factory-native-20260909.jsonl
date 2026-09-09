@@ -1,0 +1,12 @@
+{"Time":"2026-09-09T03:29:59.356552+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-09T03:29:59.521825+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval"}
+{"Time":"2026-09-09T03:29:59.521871+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval","Output":"=== RUN   TestContainerReviewSeparatesBoundaryApproval\n"}
+{"Time":"2026-09-09T03:29:59.530447+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval","Output":"--- PASS: TestContainerReviewSeparatesBoundaryApproval (0.01s)\n"}
+{"Time":"2026-09-09T03:29:59.530465+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval","Elapsed":0.01}
+{"Time":"2026-09-09T03:29:59.530482+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample"}
+{"Time":"2026-09-09T03:29:59.530491+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Output":"=== RUN   TestContainerExtensionRealExample\n"}
+{"Time":"2026-09-09T03:30:00.081883+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Output":"--- PASS: TestContainerExtensionRealExample (0.55s)\n"}
+{"Time":"2026-09-09T03:30:00.081912+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Elapsed":0.55}
+{"Time":"2026-09-09T03:30:00.081994+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-09T03:30:01.091712+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t1.735s\n"}
+{"Time":"2026-09-09T03:30:01.092045+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":1.736}

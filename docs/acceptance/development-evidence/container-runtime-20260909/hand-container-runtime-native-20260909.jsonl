@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T03:47:34.467361+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/packages"}
+{"Time":"2026-09-09T03:47:34.631423+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestNativeContainerPythonRuntimeVersion"}
+{"Time":"2026-09-09T03:47:34.631461+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestNativeContainerPythonRuntimeVersion","Output":"=== RUN   TestNativeContainerPythonRuntimeVersion\n"}
+{"Time":"2026-09-09T03:47:35.147755+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestNativeContainerPythonRuntimeVersion","Output":"--- PASS: TestNativeContainerPythonRuntimeVersion (0.52s)\n"}
+{"Time":"2026-09-09T03:47:35.147776+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestNativeContainerPythonRuntimeVersion","Elapsed":0.52}
+{"Time":"2026-09-09T03:47:35.147861+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"PASS\n"}
+{"Time":"2026-09-09T03:47:36.153733+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"ok  \tgithub.com/sausheong/hand/internal/packages\t1.686s\n"}
+{"Time":"2026-09-09T03:47:36.153867+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Elapsed":1.687}

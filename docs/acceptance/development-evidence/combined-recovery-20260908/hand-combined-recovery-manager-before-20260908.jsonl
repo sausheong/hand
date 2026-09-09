@@ -1,0 +1,9 @@
+{"Time":"2026-09-08T07:21:41.105626+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/sessionio"}
+{"Time":"2026-09-08T07:21:41.731829+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerRecoversLegacyClonesAndTail"}
+{"Time":"2026-09-08T07:21:41.73188+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerRecoversLegacyClonesAndTail","Output":"=== RUN   TestManagerRecoversLegacyClonesAndTail\n"}
+{"Time":"2026-09-08T07:21:41.733309+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerRecoversLegacyClonesAndTail","Output":"    combined_recovery_test.go:27: reconcile session 67e1b1869726c952: invalid session record at line 4, byte 203 (recoverable tail: false): duplicate session entry ID \"b\"\n"}
+{"Time":"2026-09-08T07:21:41.733745+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerRecoversLegacyClonesAndTail","Output":"--- FAIL: TestManagerRecoversLegacyClonesAndTail (0.00s)\n"}
+{"Time":"2026-09-08T07:21:41.733759+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerRecoversLegacyClonesAndTail","Elapsed":0}
+{"Time":"2026-09-08T07:21:41.733884+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Output":"FAIL\n"}
+{"Time":"2026-09-08T07:21:41.734767+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Output":"FAIL\tgithub.com/sausheong/hand/internal/sessionio\t0.629s\n"}
+{"Time":"2026-09-08T07:21:41.734782+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/sessionio","Elapsed":0.629}

@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T11:49:13.822599+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T11:49:14.34189+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestRPCSessionAndProfileControls"}
+{"Time":"2026-09-08T11:49:14.341963+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestRPCSessionAndProfileControls","Output":"=== RUN   TestRPCSessionAndProfileControls\n"}
+{"Time":"2026-09-08T11:49:14.43618+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestRPCSessionAndProfileControls","Output":"--- PASS: TestRPCSessionAndProfileControls (0.09s)\n"}
+{"Time":"2026-09-08T11:49:14.436258+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestRPCSessionAndProfileControls","Elapsed":0.09}
+{"Time":"2026-09-08T11:49:14.436294+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T11:49:15.44565+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.623s\n"}
+{"Time":"2026-09-08T11:49:15.445762+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.623}

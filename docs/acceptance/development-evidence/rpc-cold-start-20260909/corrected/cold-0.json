@@ -1,0 +1,321 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-session-0",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-session-0",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_4703e88b6c749aee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "untrusted-0",
+      "method": "prompt",
+      "params": {
+        "text": "write the requested fixture file"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "untrusted-0",
+      "result": {
+        "id": "untrusted-0",
+        "fingerprint": "a5e47ae8ff42f41f50487db5a3f321dbdeb9a6db7ab9f6242511243ce1557128",
+        "session_id": "ses_4703e88b6c749aee",
+        "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "6FG5SLOHGYT5VI2EBBUOF2ANMM:3",
+            "sequence": 3,
+            "session_id": "ses_4703e88b6c749aee",
+            "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+            "request_id": "untrusted-0",
+            "timestamp": "2026-09-09T01:26:59.272493Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "4L6OHUCPAPFJOIPI3AQRQLN6KQ",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /private/tmp/hand-rpc-cold-start-fixed-20260909/workspace/must-not-exist.txt\nArguments: {\"path\": \"must-not-exist.txt\", \"content\": \"unauthorised\"}\nBefore: exists=false mode=---------- bytes=0 sha256=",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"must-not-exist.txt\", \"content\": \"unauthorised\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "deny",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+        "approval_id": "4L6OHUCPAPFJOIPI3AQRQLN6KQ",
+        "decision": "deny"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "deny",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "untrusted-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "untrusted-0",
+        "fingerprint": "a5e47ae8ff42f41f50487db5a3f321dbdeb9a6db7ab9f6242511243ce1557128",
+        "session_id": "ses_4703e88b6c749aee",
+        "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "untrusted-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "untrusted-0",
+        "fingerprint": "a5e47ae8ff42f41f50487db5a3f321dbdeb9a6db7ab9f6242511243ce1557128",
+        "session_id": "ses_4703e88b6c749aee",
+        "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "untrusted-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "untrusted-0",
+        "fingerprint": "a5e47ae8ff42f41f50487db5a3f321dbdeb9a6db7ab9f6242511243ce1557128",
+        "session_id": "ses_4703e88b6c749aee",
+        "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "6FG5SLOHGYT5VI2EBBUOF2ANMM:11",
+          "sequence": 11,
+          "session_id": "ses_4703e88b6c749aee",
+          "run_id": "2244TGGAMAKNGXD26BBAOFFNGO:1",
+          "request_id": "untrusted-0",
+          "timestamp": "2026-09-09T01:26:59.304203Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending-after",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending-after",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  }
+]

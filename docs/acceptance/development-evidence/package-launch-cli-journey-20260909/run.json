@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "provider_calls": 0,
+  "extension_executions": 0,
+  "commands": 28,
+  "runtime_probe_approved_by": "fixture runner",
+  "startup_review_sha256": "907cb617c66adfe47fb9a1f6b2038cf41f92fbe05d8c502404a238eee170a00e",
+  "runtime_reviews": {
+    "reviews": [
+      {
+        "package": "python-task-note",
+        "review": {
+          "requirement": {
+            "name": "python",
+            "command": "python3",
+            "minimum_version": "3.9.0"
+          },
+          "executable": "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+          "sha256": "cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43",
+          "size": 52448,
+          "boundary": "host execution of reviewed interpreter --version; not an OS sandbox; runtime libraries are not snapshotted"
+        },
+        "approved_digest": "3e89669615c017604337e1262cd31ce0cf98e3fb64ca1a7c01bb6da659f4c81b"
+      }
+    ]
+  },
+  "imports": [
+    {
+      "kind": "archive",
+      "origin": {
+        "kind": "archive",
+        "location": "/private/tmp/hand-package-launch-cli-journey-20260909/package.tar",
+        "reference": "af27afb99fbfbbf510dcde82b400d4fa9205ef8462ccd93e6713031a90fdec9e"
+      },
+      "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    },
+    {
+      "kind": "git",
+      "origin": {
+        "kind": "git",
+        "location": "/private/tmp/hand-package-launch-cli-journey-20260909/source",
+        "reference": "f621379ba2cd1f62b46c66a407a7737ea1980c68"
+      },
+      "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    }
+  ],
+  "binary": "/private/tmp/hand-package-launch-cli-20260909",
+  "binary_sha256": "a93ecd13058131a0d627207393329899969b05e2308686e57f5c7eb40ba620b4",
+  "runner_sha256": "d40f336add6df3ca38e09ae3a9d49df1c9f8eb5123a46e1dc3fab59c772a51c8",
+  "initial_package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "updated_package_digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484",
+  "final_generation": 4,
+  "limitations": [
+    "Development binary and local Harness replacement; not final acceptance.",
+    "Local directory, archive and local Git commands exercised; runtime and startup reviews also exercised; remote Git and built-client activation remain pending."
+  ]
+}

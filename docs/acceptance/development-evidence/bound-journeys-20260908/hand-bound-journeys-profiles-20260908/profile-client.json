@@ -1,0 +1,463 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "profile-0",
+      "method": "profile.select",
+      "params": {
+        "name": "first"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "profile-0",
+      "result": {
+        "model": "local/first",
+        "profile": "first",
+        "session_id": "ses_2a0d63a6935205bc"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "inspect",
+      "method": "permission.list",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "inspect",
+      "result": {
+        "grants": [],
+        "next": 0,
+        "total": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "session-0",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "session-0",
+      "result": {
+        "model": "local/first",
+        "profile": "first",
+        "session_id": "ses_b1893f0bfe241465"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "run-0",
+      "method": "prompt",
+      "params": {
+        "text": "profile-content-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "run-0",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "C47WY2CJXKQHFFTGIQQVYWIYKZ:3",
+            "sequence": 3,
+            "session_id": "ses_b1893f0bfe241465",
+            "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+            "request_id": "run-0",
+            "timestamp": "2026-09-08T05:27:38.01762Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "LRN5KDUSSR6GFXVRMGVW7HUORT",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /private/tmp/hand-bound-journeys-profiles-20260908/workspace/scoped.txt\nArguments: {\"path\": \"scoped.txt\", \"content\": \"profile-content-0\"}\nBefore: exists=false mode=---------- bytes=0 sha256=",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"scoped.txt\", \"content\": \"profile-content-0\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "answer-0",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "approval_id": "LRN5KDUSSR6GFXVRMGVW7HUORT",
+        "decision": "always"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "answer-0",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "C47WY2CJXKQHFFTGIQQVYWIYKZ:11",
+          "sequence": 11,
+          "session_id": "ses_b1893f0bfe241465",
+          "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+          "request_id": "run-0",
+          "timestamp": "2026-09-08T05:27:38.066594Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "ae66400d64c53e9f377358f2287dea068e1b79ad8493ca9523a5b38cdc044f5f",
+        "session_id": "ses_b1893f0bfe241465",
+        "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "C47WY2CJXKQHFFTGIQQVYWIYKZ:11",
+          "sequence": 11,
+          "session_id": "ses_b1893f0bfe241465",
+          "run_id": "3KIXETUYUXVBNEXQERMIT6WATD:1",
+          "request_id": "run-0",
+          "timestamp": "2026-09-08T05:27:38.066594Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "inspect",
+      "method": "permission.list",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "inspect",
+      "result": {
+        "grants": [
+          {
+            "ID": "WO5RKTZCO3G5RYYBWWYYGQUY6U",
+            "Operation": "file.write",
+            "Scope": "exact",
+            "Resource": "/private/tmp/hand-bound-journeys-profiles-20260908/workspace/scoped.txt",
+            "Lifetime": "persistent",
+            "SessionID": "",
+            "InvocationID": "",
+            "Provenance": "user_decision",
+            "Workspace": "/private/tmp/hand-bound-journeys-profiles-20260908/workspace",
+            "ConfigDigest": "52b1bd3753cfd324819c5f731f0b93228dfb0a7df4695cd5468f4bb47be07d71"
+          }
+        ],
+        "next": 1,
+        "total": 1
+      }
+    }
+  }
+]

@@ -1,0 +1,41 @@
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.12s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+=== RUN   TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay
+--- PASS: TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay (0.11s)
+PASS

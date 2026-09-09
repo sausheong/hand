@@ -1,0 +1,108 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M5.1",
+    "M8.2"
+  ],
+  "scope": "Credential-free permission migration/revocation and quarantined journal recovery; user guide and diagnostic",
+  "raw_report": "docs/acceptance/development-evidence/permission-migration-20260909/run.json",
+  "documentation": "docs/permission-migration.md",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/acknowledge.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/acknowledge.stdout",
+      "sha256": "a78a1ba8e90e2b42e2d94d6f0c1b8031dfa9463f91be405777ff7a34014be107"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/check_permission_migration.py.txt",
+      "sha256": "f5326f543c4cf97c89ec3525d6b1bb4687f7773e62452ab02bb06ca9c3158c42"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/corrupt.stderr",
+      "sha256": "4f2748e4130d487cb9b2503598700961eda04cb4d801868af12854cc252ca96f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/corrupt.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/fresh-authority.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/fresh-authority.stdout",
+      "sha256": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/hand-authority-diagnostic-20260909.jsonl",
+      "sha256": "84a5e21c8ca9977754ede03e43eaee846286367a218c1b0d2161dde0549a44fd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/idempotent-acknowledge.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/idempotent-acknowledge.stdout",
+      "sha256": "a78a1ba8e90e2b42e2d94d6f0c1b8031dfa9463f91be405777ff7a34014be107"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/inspect.stdout",
+      "sha256": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/reject-wrong-fingerprint.stderr",
+      "sha256": "c92ed546c648beb02ffe1283cf17c81880325e6002d6f9abd20acbc236af0ab8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/reject-wrong-fingerprint.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/reopen-revoked.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/reopen-revoked.stdout",
+      "sha256": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/revoke.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/revoke.stdout",
+      "sha256": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/run.json",
+      "sha256": "d73f582e03b364f8f46071d9bdb0152da10d01f7136869157176eaadbf59c7ff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/scoped_permissions.go.txt",
+      "sha256": "d5c2dd53c6c32fdd4d0e022a81233443c3239eb5f9c3303775b00d0fa6542829"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/scoped_permissions_test.go.txt",
+      "sha256": "677c95d8feb6e22e23dbe7dc339c8a73599e7e8b74c0d5bd8641db05f5fbb13c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/unchanged-after-rejection.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-migration-20260909/unchanged-after-rejection.stdout",
+      "sha256": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329"
+    }
+  ],
+  "limitations": [
+    "Native macOS development CLI journey with local Harness",
+    "M8.2 remains pending: this is permission-specific documentation, not full release migration/rollback qualification"
+  ]
+}

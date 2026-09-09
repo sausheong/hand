@@ -1,0 +1,157 @@
+{
+  "status": "development_provider_requests_passed",
+  "candidate_qualified": false,
+  "cases_per_provider": [
+    "text",
+    "tool-roundtrip",
+    "thinking"
+  ],
+  "providers": [
+    "Pi AI 0.85.1 with Anthropic SDK 0.123.0",
+    "Current unpublished local Harness Anthropic provider used by Hand"
+  ],
+  "capture_boundary": "Injected fetch/HTTP RoundTripper captures actual SDK-produced request bytes and returns 400; no network transport or real credentials.",
+  "initial_failure": "All three Pi requests rejected because SDK appends beta=true to Messages path.",
+  "fix": "Allow exact /v1/messages?beta=true without rewriting; retain all other route/query rejections.",
+  "validation": {
+    "captured_requests": 6,
+    "passed": 6,
+    "evaluation_tests": 113,
+    "failures": 0,
+    "skips": 0
+  },
+  "limitations": [
+    "No full agent session, all-model/default compatibility, network routing or live provider/billing qualification.",
+    "Captured beta headers still require reviewed HTTP enforcement.",
+    "Harness capture uses unpublished local development sources; released candidate qualification remains pending.",
+    "Probe model is an offline input and does not freeze a live comparison model or authorise spending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/0-check_pi_request.mjs.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pi_request.mjs",
+      "sha256": "9bc274f624644bc600b9e559bdace3ae633669895c2f6834211296d062babd7c",
+      "uncompressed_sha256": "09e46273de4e45602a47c97a0cf57091b287e06924f5482f592ce51bbefd3d42"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/1-evaluation_anthropic_request.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_anthropic_request.py",
+      "sha256": "2e294a8aa93e41bde7a5afc0dc0a97aae985b62e369f695e7e5d0ca40f418701",
+      "uncompressed_sha256": "26c37a242d3947df6602ca7c6665e845111b2196d90bfc44278e58e7e0c32e41"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/2-test_evaluation_anthropic_request.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_anthropic_request.py",
+      "sha256": "6eb1f76532bc417a55cb6530f87d081b055484b159e93e540281818ec1957b6b",
+      "uncompressed_sha256": "dd7deaab6ae073c1471c5fbbf8e905db177f8fa846733d57516963e2b82ebd3d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/3-capture_harness_request.go.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/capture_harness_request.go",
+      "sha256": "33745b21aca78a7e7e7b360329f8e729a8e37e20a6cc1dd3a66c90283a47da44",
+      "uncompressed_sha256": "cde4bffd091dbd89272920f2a5ddb7f9f02d3177adfa913bf1b12ef3fe1ce0f2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/4-hand-provider-request-validation-final-20260909.log.gz",
+      "source": "/private/tmp/hand-provider-request-validation-final-20260909.log",
+      "sha256": "a13f7bb6331ac85bd79f68211a2b8522b89cde3085c3d4e4bbc4a7fa22472d54",
+      "uncompressed_sha256": "e588ace9da96c124fe0ce54492b21fc16474d6c57ba93cec5321ddfa4798fc8e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/5-hand-pi-request-validation-20260909.log.gz",
+      "source": "/private/tmp/hand-pi-request-validation-20260909.log",
+      "sha256": "86db455ec8a2e13f11b3f8a6b5d2e84812e84c169a029441eda7ce3740e81ccd",
+      "uncompressed_sha256": "151bf8b3d022cceee145b5ebbd38c002daf91dd48af88704e556cdf63c2c5e0f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/6-anthropic.go.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/providers/anthropic/anthropic.go",
+      "sha256": "15b1087b94ebc9b7dbe2e8e6de512841c7e85852813c6cd7678bbebeff54967e",
+      "uncompressed_sha256": "b0cb79d5d9649e854f679cee64f32959b53f4febaf13ef57492704563871545c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/7-go.mod.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+      "sha256": "0f7366a9c4181506bd30cf3d8ffcff80c073ca3ee2b3a4ec7ef2bb875eaa8861",
+      "uncompressed_sha256": "ce328886b6bd994693c1b6133e570f8edf00cf48fa66c79ba046fc1a38a54714"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/8-go.sum.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/go.sum",
+      "sha256": "5880c77177447fa46b7224c896878087604d342cf9fa76237a72a2137e3ef43b",
+      "uncompressed_sha256": "999a78f5cd2b436402d21980be20ab09d1312fc482f4d7c14a9910c5b3cc73c6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/9-package.json.gz",
+      "source": "/private/tmp/hand-pi-runtime-20260909/node_modules/@anthropic-ai/sdk/package.json",
+      "sha256": "03b8538938aab3b7eceb360d398f21a7ad202d9a84f571b2598228fffd875b59",
+      "uncompressed_sha256": "50fd5b7f7909f5aca75572f37fc6456f14fa11eaf77da18d6add98ea96240896"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/10-report.json.gz",
+      "source": "/private/tmp/hand-pi-request-capture-20260909/report.json",
+      "sha256": "dfd488d7e57b50f9cf0c8f39ef33fde9ee57bb2afc463b0a6ca20a32b4914834",
+      "uncompressed_sha256": "1da5b854229bb0aff6b40332f26e356f81efcc6cfca93f2e636fb898dec17214"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/11-text-1.json.gz",
+      "source": "/private/tmp/hand-pi-request-capture-20260909/text-1.json",
+      "sha256": "4f02708cecd5953833d32ae10810e65495154aa15e22002415339de44818da9f",
+      "uncompressed_sha256": "39d7bb1182f5ccbbf4986b06a7db0967a0c9d770356f0806a2d3f98b21371f3b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/12-thinking-1.json.gz",
+      "source": "/private/tmp/hand-pi-request-capture-20260909/thinking-1.json",
+      "sha256": "dd12b95ce7e44e8f615f3b76c6ea1c3bbd4151358ab506c4da5eaa4243a1bb57",
+      "uncompressed_sha256": "88df916ca810923a04641797152a21a86debb622682d0eccec5fd078c033e23f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/13-tool-roundtrip-1.json.gz",
+      "source": "/private/tmp/hand-pi-request-capture-20260909/tool-roundtrip-1.json",
+      "sha256": "2af4d3fa077d0f4399dc7ab93124a5c14cb0a59eaad445ab6ca06cb3fe75c823",
+      "uncompressed_sha256": "1eaa07c99896fcdea1d7eeee34e52d2323a4544cba4e63765afff40adfa2a5ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/14-validation-after.json.gz",
+      "source": "/private/tmp/hand-pi-request-capture-20260909/validation-after.json",
+      "sha256": "b7f289a169c0e72b98981f472a1217bd86de78e318828e4daaedcced8337f3ae",
+      "uncompressed_sha256": "4acff3f591799c26306ca9482182c60f953e5dd087caf330b7106fefd1efdb40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/15-validation-before.json.gz",
+      "source": "/private/tmp/hand-pi-request-capture-20260909/validation-before.json",
+      "sha256": "ffe1e807573de8b87065f8c62be98a381aff272ae631bd30447b005f9a050577",
+      "uncompressed_sha256": "825dcf1e085c5a5e6382e05d0513bcf6e198ce194f11732f16d53496ae98f957"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/16-report.json.gz",
+      "source": "/private/tmp/hand-harness-request-capture-20260909/report.json",
+      "sha256": "a2fc17879bf2fd82b454141c938f85a768576120c05575d07dab7b382d7fc1a4",
+      "uncompressed_sha256": "438020813f9c24a9d67153b336f9a93c047d43da55a7449f345b06a386dbb2a9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/17-text-1.json.gz",
+      "source": "/private/tmp/hand-harness-request-capture-20260909/text-1.json",
+      "sha256": "ec9f3e8dde2c3bc590c66b517214b77607717d5c1af79a6622d3ef21b2f60323",
+      "uncompressed_sha256": "6c5a5d7fc39c3373ddec48f76d4f20f8ca8f7d430a75b6fe9ba3efa1f67d8fca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/18-thinking-1.json.gz",
+      "source": "/private/tmp/hand-harness-request-capture-20260909/thinking-1.json",
+      "sha256": "7fb03c9caf4faa8826fa8646c1d46d3c0a8b3af161ab2e8bdf72c56d65359fea",
+      "uncompressed_sha256": "6e7d9fa00f5157ebcbe6bb5feb130e81d68dd5925760d3820d11e871ad6ee80d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/19-tool-roundtrip-1.json.gz",
+      "source": "/private/tmp/hand-harness-request-capture-20260909/tool-roundtrip-1.json",
+      "sha256": "ef60d6d9b0e2af0bda3ca99daf57c4cc46b83e43e4595c98d23ab7009c0636fc",
+      "uncompressed_sha256": "6d3976e031bcbab56d273c04cccd1de8db6490e618512373b3103042a9afcb3d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/provider-request-capture-20260909/20-validation.json.gz",
+      "source": "/private/tmp/hand-harness-request-capture-20260909/validation.json",
+      "sha256": "abd043fd1d85368208517370ac7fc8e76302aea12d71af924584179ca8d2d200",
+      "uncompressed_sha256": "c887cfd285a374dc64bbf2d10354061c4ab529cb08e3022c8a3ee004bd9f8346"
+    }
+  ]
+}

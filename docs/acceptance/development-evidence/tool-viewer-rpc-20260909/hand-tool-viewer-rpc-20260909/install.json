@@ -1,0 +1,41 @@
+{
+  "origin": {
+    "kind": "local",
+    "location": "/private/tmp/hand-tool-viewer-package-20260909/package"
+  },
+  "action": "install",
+  "store": "/private/tmp/hand-tool-viewer-rpc-20260909/store",
+  "generation": 0,
+  "name": "tool-viewer",
+  "previous": "",
+  "digest": "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d",
+  "source": "/private/tmp/hand-tool-viewer-package-20260909/package",
+  "manifest": {
+    "schema": 1,
+    "name": "tool-viewer",
+    "version": "1.0.0",
+    "compatibility": {
+      "minimum_hand": "0.1.0",
+      "extension_protocol": 1
+    },
+    "files": [
+      {
+        "path": "tool-viewer",
+        "kind": "extension",
+        "sha256": "73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9",
+        "size": 3023154,
+        "executable": true
+      }
+    ],
+    "extensions": [
+      {
+        "name": "tool-viewer",
+        "entrypoint": "tool-viewer",
+        "capabilities": [
+          "commands",
+          "presentation"
+        ]
+      }
+    ]
+  }
+}

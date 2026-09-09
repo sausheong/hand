@@ -1,0 +1,52 @@
+{
+  "status": "development_process_cancellation_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/rpc -run '^TestVerificationRPCAsyncCompletionAndCancel$/^journal_failure$'",
+  "test_records": {
+    "pass": 40
+  },
+  "repetitions": 20,
+  "cleanup_ms": [
+    12.116459,
+    11.262584,
+    11.315708,
+    11.196125,
+    11.242833,
+    10.980584,
+    11.216625,
+    10.431667,
+    11.058375,
+    10.88825,
+    10.968584,
+    11.200458,
+    11.122333,
+    11.073542,
+    11.134459,
+    10.982,
+    10.879459,
+    12.930959,
+    10.859041,
+    10.663625
+  ],
+  "maximum_cleanup_ms": 12.930959,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/verification-journal-cancel-20260909/hand-verify-journal-cancel-20260909.jsonl.gz",
+      "sha256": "c1bf6f5f3619f04e26950ab56ec536b6e8d05fbb8b4b29ea3fef3fc2b8d54b29"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-journal-cancel-20260909/verification_test.go.gz",
+      "sha256": "4f7f6041d4ca1b20f4b3ded2942045bcb8bf7b3088df7023b8b172bcdcbe51bb"
+    }
+  ],
+  "assertions": [
+    "Real verification shell/exec sleep process starts before journal failure",
+    "Cancel reports ledger_failure, no success, and automatic followups paused",
+    "Verification worker joins and recorded process PID absent within five seconds",
+    "Reopened verification request uncertain and replay does not start another verification worker"
+  ],
+  "limitations": [
+    "Native macOS, single exec child; not all descendant/grace-escalation or Linux paths",
+    "Twenty fault repetitions, not thirty UI-initiation latency trials",
+    "Closed-descriptor journal failure, not power loss or fsync stall; final candidate qualification remains"
+  ]
+}

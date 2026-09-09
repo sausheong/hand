@@ -1,0 +1,31 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "repetitions": 20,
+  "pass": 80,
+  "fail": 0,
+  "skip": 0,
+  "changes": [
+    "Migrated three interactive streamed text/tool tests to application backend events and production terminal construction.",
+    "Migrated error sanitisation test to a complete failed service run, retaining cause and raw source while suppressing terminal control payload."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-stream-rendering-20260909/hand-service-stream-rendering-20260909.jsonl.gz",
+      "sha256": "bc8a39e1f19c6661305713c31b25cd9fa0df1f40af380e958c746a6241b8f10b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-stream-rendering-20260909/model_test.go.gz",
+      "sha256": "ce65941aae80292dca9e38760eb9a986eba17590f98fec40917543a999fa50ac"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-stream-rendering-20260909/transcript_blocks_test.go.gz",
+      "sha256": "866fabfff28d7a0ad45995901cbdac1bc621cbe00c0b5ebdd0fa05b70670832a"
+    }
+  ],
+  "limitations": [
+    "Fake application backend with real Bubble Tea processing; no live provider evidence.",
+    "Legacy runtime streaming and channel-based approval adapter still remain until remaining fixtures migrate.",
+    "Targeted development race tests; no full candidate/platform/coverage qualification."
+  ]
+}

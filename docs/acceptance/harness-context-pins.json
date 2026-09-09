@@ -1,0 +1,84 @@
+{
+  "status": "development_passed",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "b3502a5054fefe7012d12e6494dee13d903d2f9594451384d316b1f2f0f02447",
+  "sources": [
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "40e374350ddd34e592804c48b7f660fd094bdc0acabe799f317b5e2c0005509d"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "141a1d4085be36244bf1d4e3081c89799dbf43e20f5bb91e9cbb84c6d27a8238"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "1a1d0940ec22d02e55c8e5cbb30d89061190788e3f4c07c7055c82648c152a13"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "76eb53fea41aad9fb39d7e7b517a8891dc9b455a92f1ec274067b45c3fcec4c4"
+    },
+    {
+      "path": "runtime/skills_authoring_test.go",
+      "before_sha256": null,
+      "after_sha256": "4d9e44d05e3ae8813c5f5ed590883f970256ded90d9caaad7581b74022278263"
+    },
+    {
+      "path": "runtime/context_inspect.go",
+      "before_sha256": null,
+      "after_sha256": "a3cd1b35855073c9ac3f3d3314163f5ab0e2a8c52605af2b1a6e0925e30e0c12"
+    },
+    {
+      "path": "runtime/context_inspect_test.go",
+      "before_sha256": null,
+      "after_sha256": "d728bd3d9136db6477958a6a09b626521dbf5d1edc15a12abf1a00d0b3dd97b0"
+    },
+    {
+      "path": "runtime/context_pins.go",
+      "before_sha256": null,
+      "after_sha256": "9e196c86fd1d75928225aeab4ad3b96616d8fd1d80cec1cbeedefad9336c7e5a"
+    },
+    {
+      "path": "runtime/context_pins_test.go",
+      "before_sha256": null,
+      "after_sha256": "b72bdc9c09240138c4ae54f02fb43c6e4cc51523d3145645921b0d238e069c90"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-context-pins-20260908/harness-context-pins-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-context-pins-20260908/harness-context-pins-race-20260908.jsonl",
+      "sha256": "cc7dfc3fb762e558b8de4c5a331b46d9f0893dba5ccc2b45ab201fd75a36f82f"
+    }
+  ],
+  "results": {
+    "harness-context-pins-race-20260908.jsonl": {
+      "pass": 5,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Development only; no released Harness integration.",
+    "Pins are session-wide across branches; application controls and migration documentation remain pending.",
+    "Regression uses actual runtime requests with a scripted provider and direct compaction, not a live summariser.",
+    "Separate summariser profiles, structured summaries and final qualification remain pending."
+  ]
+}

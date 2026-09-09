@@ -1,0 +1,32 @@
+{"Time":"2026-09-08T14:01:11.830837+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T14:01:12.379754+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown"}
+{"Time":"2026-09-08T14:01:12.379796+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"=== RUN   TestNativeBackgroundContainerInputOutputAndShutdown\n"}
+{"Time":"2026-09-08T14:01:12.82442+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"--- PASS: TestNativeBackgroundContainerInputOutputAndShutdown (0.44s)\n"}
+{"Time":"2026-09-08T14:01:12.824443+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Elapsed":0.44}
+{"Time":"2026-09-08T14:01:12.824542+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolLifecycle"}
+{"Time":"2026-09-08T14:01:12.824562+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolLifecycle","Output":"=== RUN   TestProcessToolLifecycle\n"}
+{"Time":"2026-09-08T14:01:12.831106+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolLifecycle","Output":"--- PASS: TestProcessToolLifecycle (0.01s)\n"}
+{"Time":"2026-09-08T14:01:12.83112+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolLifecycle","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:12.831225+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolPermissionClassification"}
+{"Time":"2026-09-08T14:01:12.831243+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolPermissionClassification","Output":"=== RUN   TestProcessToolPermissionClassification\n"}
+{"Time":"2026-09-08T14:01:12.831405+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolPermissionClassification","Output":"--- PASS: TestProcessToolPermissionClassification (0.00s)\n"}
+{"Time":"2026-09-08T14:01:12.831414+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolPermissionClassification","Elapsed":0}
+{"Time":"2026-09-08T14:01:12.831465+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolRejectsInvalidInputBeforeStart"}
+{"Time":"2026-09-08T14:01:12.831475+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolRejectsInvalidInputBeforeStart","Output":"=== RUN   TestProcessToolRejectsInvalidInputBeforeStart\n"}
+{"Time":"2026-09-08T14:01:12.83227+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolRejectsInvalidInputBeforeStart","Output":"--- PASS: TestProcessToolRejectsInvalidInputBeforeStart (0.00s)\n"}
+{"Time":"2026-09-08T14:01:12.832282+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessToolRejectsInvalidInputBeforeStart","Elapsed":0}
+{"Time":"2026-09-08T14:01:12.832335+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesInteractiveLifetime"}
+{"Time":"2026-09-08T14:01:12.832342+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesInteractiveLifetime","Output":"=== RUN   TestProcessesInteractiveLifetime\n"}
+{"Time":"2026-09-08T14:01:12.837192+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesInteractiveLifetime","Output":"--- PASS: TestProcessesInteractiveLifetime (0.00s)\n"}
+{"Time":"2026-09-08T14:01:12.837224+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesInteractiveLifetime","Elapsed":0}
+{"Time":"2026-09-08T14:01:12.837369+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesAdmissionAndRetention"}
+{"Time":"2026-09-08T14:01:12.837405+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesAdmissionAndRetention","Output":"=== RUN   TestProcessesAdmissionAndRetention\n"}
+{"Time":"2026-09-08T14:01:12.939284+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesAdmissionAndRetention","Output":"--- PASS: TestProcessesAdmissionAndRetention (0.10s)\n"}
+{"Time":"2026-09-08T14:01:12.939305+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesAdmissionAndRetention","Elapsed":0.1}
+{"Time":"2026-09-08T14:01:12.939402+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesConcurrentShutdown"}
+{"Time":"2026-09-08T14:01:12.939409+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesConcurrentShutdown","Output":"=== RUN   TestProcessesConcurrentShutdown\n"}
+{"Time":"2026-09-08T14:01:12.940202+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesConcurrentShutdown","Output":"--- PASS: TestProcessesConcurrentShutdown (0.00s)\n"}
+{"Time":"2026-09-08T14:01:12.940209+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestProcessesConcurrentShutdown","Elapsed":0}
+{"Time":"2026-09-08T14:01:12.941569+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T14:01:13.960433+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.129s\n"}
+{"Time":"2026-09-08T14:01:13.960537+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.13}

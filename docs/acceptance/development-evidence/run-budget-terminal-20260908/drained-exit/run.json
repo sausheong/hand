@@ -1,0 +1,51 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-run-budget-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1"
+  ],
+  "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+  "runner_sha256": "4878c74cdee6655076a2dbecd18485ff141609b984446b036b354469b768ef61",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "completed_commands": [
+    "/run-budget",
+    "/run-budget tokens repair 0",
+    "/run-budget tokens repair 100000",
+    "/run-budget cost repair USD 1.000000001 strict",
+    "/run-budget time repair 600",
+    "/run-budget select repair",
+    "/run-budget"
+  ],
+  "exit_code": 0,
+  "token_decision": {
+    "version": 1,
+    "kind": "limit",
+    "tokens": 100000
+  },
+  "cost_decision": {
+    "version": 1,
+    "kind": "decision",
+    "currency": "USD",
+    "limit_nano": 1000000001,
+    "strict": true
+  },
+  "deadline": {
+    "version": 1,
+    "decided_at": "2026-09-08T14:23:26.328769Z",
+    "deadline": "2026-09-08T14:33:26.328769Z"
+  },
+  "selected": {
+    "version": 1,
+    "id": "repair"
+  },
+  "terminal_sha256": "2f1e4f7a54f1460a42d089daf1e8667c7457ab68b4afcd2c888fbbcba057e3b4"
+}

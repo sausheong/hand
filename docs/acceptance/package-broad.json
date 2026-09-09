@@ -1,0 +1,63 @@
+{
+  "qualification": "development",
+  "status": "passed",
+  "scope": [
+    "Hand packages, agentio, app and cmd/hand",
+    "Harness runtime"
+  ],
+  "raw_counts": {
+    "hand-package-broad-tests": {
+      "pass": 348,
+      "fail": 2
+    },
+    "hand-package-broad-loopback": {
+      "pass": 257,
+      "skip": 1
+    },
+    "hand-package-broad-container": {
+      "pass": 1
+    },
+    "harness-package-broad-tests": {
+      "pass": 332
+    }
+  },
+  "reconciled_test_records": {
+    "pass": 855
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/package-broad-20260909/hand-package-broad-tests-20260909.jsonl",
+      "sha256": "612f8485d26d1ec3176b1d723c8fc69e2e8f1102b305d96d0f579e2e1c09e8a7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-broad-20260909/hand-package-broad-loopback-20260909.jsonl",
+      "sha256": "5e51e4326b42e663be7a48f6e271181309375174b84888b128a83ff62398493c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-broad-20260909/hand-package-broad-container-20260909.jsonl",
+      "sha256": "1cdc0c02526b194ffe62e798ade1618a53a88b556ccc6ee84c176118c1c89587"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-broad-20260909/harness-package-broad-tests-20260909.jsonl",
+      "sha256": "703d3b2e521fb6e776b4ac86a599ded293c83abe43684e9d0f0b4282e0140875"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-broad-20260909/hand-package-broad-vet-20260909.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-broad-20260909/harness-package-broad-vet-20260909.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_aggregates": [
+    "package-prompt-integration.json",
+    "harness-skill-selection.json"
+  ],
+  "source_fingerprints_verified": true,
+  "vet": "passed",
+  "limitations": [
+    "Not whole-repository or final-candidate qualification. Test records include parent/subtest records, not acceptance scenario counts.",
+    "Initial sandbox loopback failures and native-container skip retained and superseded by corresponding completed suites/fixture."
+  ]
+}

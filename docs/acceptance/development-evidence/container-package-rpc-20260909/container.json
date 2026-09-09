@@ -1,0 +1,1 @@
+{"boundary": {"docker": "/usr/local/bin/docker", "socket": "/Users/sausheong/.docker/run/docker.sock", "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91", "network": false, "writable": false}, "interpreters": {"python": "/usr/local/bin/python3"}}

@@ -1,0 +1,34 @@
+{
+  "base": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+  "candidate": "ec89b4d718182ddde190c036907522a166f7e7d6",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 778,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_tests_passed": 140,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-persistence.patch",
+      "sha256": "1ce8c7cc8183795d361ed6651cb6af8f8be5a7de23ed3e28ac62f5416eadbfc4"
+    },
+    {
+      "path": "/private/tmp/hand-harness-persistence-full-20260908.jsonl",
+      "sha256": "a852f1b1ec29f7b16c87a16ac74f5cdc272e1793665f47b176d24aff0b9327c4"
+    },
+    {
+      "path": "/private/tmp/hand-harness-persistence-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-persistence-coverage-20260908.out",
+      "sha256": "6dc2c30b506d86945e3610c923f17ea35355be67c0b4aa66ad8bcffb67dbbe33"
+    },
+    {
+      "path": "/private/tmp/hand-harness-persistence-final-repeat-20260908.jsonl",
+      "sha256": "87d5b3aa5b406208e85a64306df689f4f1fcd805a086609491001761aae0261d"
+    }
+  ]
+}

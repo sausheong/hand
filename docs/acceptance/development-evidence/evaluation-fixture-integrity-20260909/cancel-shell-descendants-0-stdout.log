@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T07:27:00.82229+08:00","Action":"start","Package":"github.com/sausheong/harness/tools/bash"}
+{"Time":"2026-09-09T07:27:01.314491+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAcceptanceBashCancellationOwnsDescendants"}
+{"Time":"2026-09-09T07:27:01.314518+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAcceptanceBashCancellationOwnsDescendants","Output":"=== RUN   TestAcceptanceBashCancellationOwnsDescendants\n"}
+{"Time":"2026-09-09T07:27:03.524416+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAcceptanceBashCancellationOwnsDescendants","Output":"--- PASS: TestAcceptanceBashCancellationOwnsDescendants (2.21s)\n"}
+{"Time":"2026-09-09T07:27:03.524506+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAcceptanceBashCancellationOwnsDescendants","Elapsed":2.21}
+{"Time":"2026-09-09T07:27:03.524553+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Output":"PASS\n"}
+{"Time":"2026-09-09T07:27:03.52766+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Output":"ok  \tgithub.com/sausheong/harness/tools/bash\t2.705s\n"}
+{"Time":"2026-09-09T07:27:03.52775+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Elapsed":2.705}

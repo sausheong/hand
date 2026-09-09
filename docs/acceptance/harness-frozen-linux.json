@@ -1,0 +1,59 @@
+{
+  "status": "candidate_linux_passed",
+  "commit": "0972eed3eabe53dd310239bc66643aa89b915bd0",
+  "source_fingerprint": "c04759d354adec6b17dbdb13c7da27c24b41e55d6c080699569bfde66096fe33",
+  "clean_after": true,
+  "platform": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOOS": "linux",
+    "GOVERSION": "go1.25.1"
+  },
+  "test_records": {
+    "pass": 1114
+  },
+  "package_records": {
+    "pass": 32
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/run.json.gz",
+      "sha256": "4d213797192dc8dfa7e7fa988d3d3637b85448b7e354767765167dcd18dd488e",
+      "uncompressed_sha256": "3132aa250916eb5b435186156eed54f121563623c6fe7566d302148dc938352e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/suite.log.gz",
+      "sha256": "ab69ba768bd57e846061c4f4325fc7cb9831d4081a7323e02188488c0a16c0f6",
+      "uncompressed_sha256": "c388f9f17fbe7481b4cb6917af97a3d02152cb066c874c43b4bcdffd70566ee2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/environment.log.gz",
+      "sha256": "65dabe45cbceb7c03e3c64749e10e1dde6c86e4bd85a6e2f4eb64c9a3317ca28",
+      "uncompressed_sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/boundary-smoke.log.gz",
+      "sha256": "bbf540ba334a3d04d79e3843a2946c169d7c656c308edbe581c7ffa7f75aec4d",
+      "uncompressed_sha256": "2ecf11825833de70c672f37b060663a01b97b2641270a96986c2473eb20e8805"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/coverage.out.gz",
+      "sha256": "f07d4bd87c75a69608f6ab7a033db2eb47e26de9d95a12f6dcf1f2bb52ecaccf",
+      "uncompressed_sha256": "dc54b012cd5fbbe7fe5705284585c312fb6d54628c0b5fea69a20cb577d10f40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-frozen-linux-20260909/harness-frozen-linux-gate-20260909.json.gz",
+      "sha256": "279c7c6396c5bdd9599a5c5eed8e0e88429eb2a96e7bc968df613d69fbce1dc0",
+      "uncompressed_sha256": "b815efd679e715553633d180fb6888fda52d32997be857a27b71f30a7fb12cd4"
+    }
+  ],
+  "limitations": [
+    "Linux ARM64 runtime in Docker on macOS with host-shared temporary storage.",
+    "Hosted workflow still requires Docker fixture provisioning; publication is not authorised."
+  ]
+}

@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T23:07:06.510484+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T23:07:07.099716+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationContextLimitsPreserveExistingFacts"}
+{"Time":"2026-09-08T23:07:07.099763+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationContextLimitsPreserveExistingFacts","Output":"=== RUN   TestVerificationContextLimitsPreserveExistingFacts\n"}
+{"Time":"2026-09-08T23:07:07.104144+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationContextLimitsPreserveExistingFacts","Output":"--- PASS: TestVerificationContextLimitsPreserveExistingFacts (0.00s)\n"}
+{"Time":"2026-09-08T23:07:07.104154+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationContextLimitsPreserveExistingFacts","Elapsed":0}
+{"Time":"2026-09-08T23:07:07.104197+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit"}
+{"Time":"2026-09-08T23:07:07.104207+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Output":"=== RUN   TestVerificationOwnedCommandAndLaterEdit\n"}
+{"Time":"2026-09-08T23:07:07.167061+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Output":"--- PASS: TestVerificationOwnedCommandAndLaterEdit (0.06s)\n"}
+{"Time":"2026-09-08T23:07:07.167114+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Elapsed":0.06}
+{"Time":"2026-09-08T23:07:07.167224+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T23:07:08.175728+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.665s\n"}
+{"Time":"2026-09-08T23:07:08.175771+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.665}

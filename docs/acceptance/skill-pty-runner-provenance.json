@@ -1,0 +1,108 @@
+{
+  "status": "development_passed",
+  "results": [
+    {
+      "decision": "deny",
+      "status": "passed",
+      "error": null,
+      "exit_code": 0,
+      "phase": "exit",
+      "requests": 2,
+      "skill_exists": false
+    },
+    {
+      "decision": "allow",
+      "status": "passed",
+      "error": null,
+      "exit_code": 0,
+      "phase": "exit",
+      "requests": 2,
+      "skill_exists": true
+    },
+    {
+      "decision": "cancel",
+      "status": "passed",
+      "error": null,
+      "exit_code": 0,
+      "phase": "exit",
+      "requests": 1,
+      "skill_exists": false
+    }
+  ],
+  "sources_unchanged": true,
+  "binary_sha256": "cc4733de60d31e07f05f32b63fd043e4ebc6f57f6bf33596a05df817be84555b",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/report.json.gz",
+      "sha256": "bd13dc5d7ed8aadd7bd7a35f6377b1e90e5dbdff266851c648e4b312160adb73"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/harness-module.json.gz",
+      "sha256": "9e2058cd970f32628cb73531aaa44cf9312cc17e75cce14eed3be4844981bc28"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/harness-module.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/deny_terminal.pty.gz",
+      "sha256": "33b8ef3dccb9e5cfe1b0471d822d5e164f9d74cecb79fffea679f12de35da632"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/deny_requests.json.gz",
+      "sha256": "be60ac2b68ac1daf79dde513b7c79447993db20de8dd2d46daf02aa0ff7a63d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/allow_terminal.pty.gz",
+      "sha256": "d76057e631ec1bee527f9e256693bf4607dc5d747c39cc1ebd51c7810e4d890c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/allow_requests.json.gz",
+      "sha256": "d83b6bed585659428727bc0e657a8ba19862b917f293db65328288c7c34921f2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/cancel_terminal.pty.gz",
+      "sha256": "255c936aadf55c74dd97d928fbb517e2d276855a6dce3d533f4031afa688609a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/cancel_requests.json.gz",
+      "sha256": "7f587d57c5b3dd09d9e34a8883303ad2092790b501991d920792ab42b47d2372"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/check_skill_approval_pty.py.gz",
+      "sha256": "86520efd50e816d91e2f1f69f70ee0a0cc8d2a040c302effd89bf11c2aae4b5f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/test_skill_approval_pty.py.gz",
+      "sha256": "ca6fc39cd8401b3d38b639a011f4d79e8300294e2b38453041ad892dea6f919a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/check_transcript_performance.py.gz",
+      "sha256": "8dc351edaef4c5427ac30b8e30f6133f1553b77548594e7161e0b1534b1e9806"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/test_transcript_provenance.py.gz",
+      "sha256": "a8b2b4121b002eed0a976caf518a875da3d298f8a452fb55beae69bdfcb58c66"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-pty-provenance-20260909/runner-tests.log.gz",
+      "sha256": "f35d88daec912fc29481aac14e24a31aace77e07b163c3802d71515ed4ce6a26"
+    }
+  ],
+  "assertions": [
+    "Built native PTY allow, deny and cancel journeys passed with unchanged source inventories",
+    "Runner retains failed report and raw logs on module lookup and build failures",
+    "Runner accepts a non-Git dependency inventory and rejects mid-run dependency content mutation"
+  ],
+  "limitations": [
+    "Actual journey used local Harness checkout; released module routing and mutation checks use isolated tooling fixtures",
+    "Tooling fixtures are not product evidence",
+    "Native development evidence, not clean final candidate or all-platform qualification",
+    "Test-only inventory regression added after the real PTY run; production and runner source unchanged",
+    "Local fake provider; no paid calls"
+  ]
+}

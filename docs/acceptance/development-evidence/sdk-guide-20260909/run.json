@@ -1,0 +1,21 @@
+[
+  {
+    "name": "rpc",
+    "argv": [
+      "/private/tmp/hand-sdk-doc-rpc-20260909",
+      "/private/tmp/hand-wire-usage-20260909"
+    ],
+    "exit_code": 0,
+    "binary_sha256": "37949f182ac065bd4733be0f73927a3b309fbf14ce77c719ebdbd9abbeb874b2"
+  },
+  {
+    "name": "embedded",
+    "argv": [
+      "/private/tmp/hand-sdk-doc-embedded-20260909",
+      "/private/tmp/hand-sdk-doc-examples-20260909/embedded-workspace",
+      "/private/tmp/hand-sdk-doc-examples-20260909/store"
+    ],
+    "exit_code": 0,
+    "binary_sha256": "8cc289ff4c95ab1ea744c27b855246f180b14aafcae658adeb342c48d379b664"
+  }
+]

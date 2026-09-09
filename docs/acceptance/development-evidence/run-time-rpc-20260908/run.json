@@ -1,0 +1,58 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "paid_calls": 0,
+  "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+  "runner_sha256": "53595904d996a03c3dc995e59f36d05babfd2749e2efeac54d19964b8ef15adb",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "session_id": "ses_a1c7343e2197cba8",
+  "expired": {
+    "approval_id": "",
+    "error": "run time budget: budget_exhausted",
+    "iteration": 1,
+    "reason": "run_time_budget",
+    "state": "idle",
+    "status": "budget_exhausted",
+    "text": "",
+    "truncated": false,
+    "usage": {
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 0,
+      "known": true,
+      "output_tokens": 0,
+      "prior_unknown": false,
+      "requests": 1,
+      "unknown_requests": 1
+    },
+    "verified": false
+  },
+  "configured": {
+    "configured": true,
+    "decided_at": "2026-09-08T14:20:12.054817Z",
+    "deadline": "2026-09-08T14:20:14.054817Z",
+    "expired": false,
+    "remaining_millis": 1973,
+    "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+  },
+  "restored": {
+    "configured": true,
+    "decided_at": "2026-09-08T14:20:12.054817Z",
+    "deadline": "2026-09-08T14:20:14.054817Z",
+    "expired": true,
+    "remaining_millis": 0,
+    "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+  },
+  "renewed": {
+    "configured": true,
+    "decided_at": "2026-09-08T14:20:14.249659Z",
+    "deadline": "2026-09-08T14:21:14.249659Z",
+    "expired": false,
+    "remaining_millis": 59990,
+    "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+  },
+  "expiry_elapsed_seconds": 1.9919728329405189,
+  "provider_disconnected": true,
+  "clean_exits": 2,
+  "local_provider_requests": 2
+}

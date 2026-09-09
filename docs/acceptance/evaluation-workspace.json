@@ -1,0 +1,42 @@
+{
+  "status": "development_fixture_installation_passed",
+  "python_runner_tests": 65,
+  "installer_tests": 12,
+  "real_calibration_fixture_installs": 2,
+  "commands": [
+    "python3 -m unittest discover -s scripts -p test_*.py -v",
+    "python3 scripts/evaluation_workspace.py MANIFEST --task TASK --workspace FRESH_DIRECTORY"
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-evaluation-workspace-all-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-workspace-20260909/hand-evaluation-workspace-all-tests-20260909.log.gz",
+      "sha256": "90e77e39ace43a0059b1838f063783e0187108820188fb77dede56056fab0843",
+      "uncompressed_sha256": "d44e652ceb1c1b861289dcb6ba71a889b9820c668f25c1b3afa4304feb6ff154"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-workspace-cli-20260909.json",
+      "path": "docs/acceptance/development-evidence/evaluation-workspace-20260909/hand-evaluation-workspace-cli-20260909.json.gz",
+      "sha256": "232bf97922dbabd1aa807976b4a9aad48745e6d7dbada44bed55121cba72044d",
+      "uncompressed_sha256": "0397a93f1a853da6139597cf9b39872289cea67ed0a0a957a04ac389a0eabad1"
+    },
+    {
+      "source": "scripts/evaluation_workspace.py",
+      "path": "docs/acceptance/development-evidence/evaluation-workspace-20260909/evaluation_workspace.py.gz",
+      "sha256": "7ae63e2165957d7fd21c012403ee56c61aa23a31d75c0d10b1cdcd98169ed928",
+      "uncompressed_sha256": "f2c0f4f2261a2a2bec1bfc88ec55a03aa1cfd1f95386f1ff1cc5e4f729a9c18c"
+    },
+    {
+      "source": "scripts/test_evaluation_workspace.py",
+      "path": "docs/acceptance/development-evidence/evaluation-workspace-20260909/test_evaluation_workspace.py.gz",
+      "sha256": "adce5dc74170a2b014d19f01491a76e17f9a03aca366c6deee6dc9110c1d738c",
+      "uncompressed_sha256": "9cdb20737311d645f0beafe4a0114ea583d3c52443d28642a495d233180f2fff"
+    }
+  ],
+  "limitations": [
+    "Tests validate runner safety, not Hand/Pi task success",
+    "Real catalogue still contains two Go tasks and no held-out tasks",
+    "Repository materialisation, agent execution, budget enforcement, scoring and authorised comparative runs remain outstanding",
+    "Caller must exclusively own an idle checkout; any failed installation invalidates that workspace"
+  ]
+}

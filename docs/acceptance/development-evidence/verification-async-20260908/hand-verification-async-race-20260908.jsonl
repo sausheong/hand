@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T16:26:41.3624+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T16:26:41.940288+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel"}
+{"Time":"2026-09-08T16:26:41.940351+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel\n"}
+{"Time":"2026-09-08T16:26:41.940378+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete"}
+{"Time":"2026-09-08T16:26:41.940384+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel/complete\n"}
+{"Time":"2026-09-08T16:26:42.00137+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel/complete (0.06s)\n"}
+{"Time":"2026-09-08T16:26:42.001411+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete","Elapsed":0.06}
+{"Time":"2026-09-08T16:26:42.001444+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel"}
+{"Time":"2026-09-08T16:26:42.001449+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel/cancel\n"}
+{"Time":"2026-09-08T16:26:42.064594+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel/cancel (0.06s)\n"}
+{"Time":"2026-09-08T16:26:42.064621+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel","Elapsed":0.06}
+{"Time":"2026-09-08T16:26:42.064639+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel (0.12s)\n"}
+{"Time":"2026-09-08T16:26:42.064665+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel","Elapsed":0.12}
+{"Time":"2026-09-08T16:26:42.064683+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T16:26:43.077749+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.715s\n"}
+{"Time":"2026-09-08T16:26:43.077807+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.7149999999999999}

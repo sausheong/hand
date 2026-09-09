@@ -1,0 +1,9 @@
+=== RUN   TestRestoreAtomicExchangeRetainsDisplacedFile
+--- PASS: TestRestoreAtomicExchangeRetainsDisplacedFile (0.00s)
+=== RUN   TestRestoreExclusiveMoveCannotClobber
+--- PASS: TestRestoreExclusiveMoveCannotClobber (0.00s)
+=== RUN   TestRestoreExchangeDoesNotFollowSymlink
+--- PASS: TestRestoreExchangeDoesNotFollowSymlink (0.00s)
+=== RUN   TestRestoreRenameRejectsTraversalAndMissingTarget
+--- PASS: TestRestoreRenameRejectsTraversalAndMissingTarget (0.00s)
+PASS

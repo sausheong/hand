@@ -1,0 +1,46 @@
+package app
+
+import (
+	"encoding/json"
+	"testing"
+)
+
+func TestWireUsageDistinguishesReportedSubtotalFromCompleteTotal(t *testing.T) {
+	for _, tc := range []struct {
+		name            string
+		details         Details
+		known, reported bool
+	}{
+		{"fully-reported", Details{UsageKnown: true, InputTokens: 40, UsageRequests: 1}, true, true},
+		{"mixed", Details{UsageKnown: true, InputTokens: 40, UsageRequests: 2, UsageUnknown: 1}, false, true},
+		{"all-unknown", Details{UsageKnown: true, UsageRequests: 2, UsageUnknown: 2}, false, true},
+		{"historical-unknown", Details{UsageKnown: true, InputTokens: 40, UsageRequests: 1, UsagePriorUnknown: true}, false, true},
+		{"only-historical-unknown", Details{UsagePriorUnknown: true}, false, false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			event, err := NewWireEvents("request").Encode(Event{Kind: "terminal", Details: tc.details})
+			if err != nil {
+				t.Fatal(err)
+			}
+			var payload struct {
+				Usage *struct {
+					Known    bool  `json:"known"`
+					Reported *bool `json:"reported_totals_known"`
+					Input    int   `json:"input_tokens"`
+					Unknown  int   `json:"unknown_requests"`
+					Prior    bool  `json:"prior_unknown"`
+				} `json:"usage"`
+			}
+			if err = json.Unmarshal(event.Payload, &payload); err != nil {
+				t.Fatal(err)
+			}
+			u := payload.Usage
+			if u == nil || u.Known != tc.known || u.Reported == nil || *u.Reported != tc.reported {
+				t.Fatalf("ambiguous usage: %s", event.Payload)
+			}
+			if u.Input != tc.details.InputTokens || u.Unknown != tc.details.UsageUnknown || u.Prior != tc.details.UsagePriorUnknown {
+				t.Fatal("reported subtotal or uncertainty lost")
+			}
+		})
+	}
+}

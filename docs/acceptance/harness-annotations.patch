@@ -1,0 +1,347 @@
+diff --git a/SESSION_FORMAT.md b/SESSION_FORMAT.md
+index 0319dcd..adebc35 100644
+--- a/SESSION_FORMAT.md
++++ b/SESSION_FORMAT.md
+@@ -49,3 +49,21 @@ Payload-specific schemas, application session catalogues, attachment/export
+ policies and cross-platform release qualification remain separate work. Unknown
+ JSON fields are retained by the legacy converter; generic typed rewrites do not
+ promise lossless preservation of arbitrary unknown fields.
++
++## Application annotations
++
++`annotation` records contain `data: {"version":1,"kind":"app.name","payload":{...}}`.
++They are durable application metadata, exposed by Entries and Annotations but
++excluded from History and View. They do not move the selected leaf, even in an
++empty session. Their optional parent attaches them to the current conversation
++node; conversation nodes cannot use annotations as parents or branch targets.
++Kinds contain ASCII letters, digits, dots, underscores or hyphens (1–128 bytes).
++The encoded annotation data is limited to 64 KiB. Unsupported annotation versions
++are rejected. Annotate flushes before committing the in-memory record; invalid
++input returns an error without degrading persistence. Stored metadata is retained
++by full graph rewrites and raw exports. Applications define payload schemas,
++request deduplication and inherited-versus-new accounting semantics for forks.
++
++This extension is part of the unpublished session format candidate. The older
++5cc93a3 development snapshot does not implement annotation control semantics and
++must not be used to load files created by this candidate.
+diff --git a/session/annotation.go b/session/annotation.go
+new file mode 100644
+index 0000000..de00731
+--- /dev/null
++++ b/session/annotation.go
+@@ -0,0 +1,93 @@
++package session
++
++import (
++	"encoding/json"
++	"errors"
++	"fmt"
++	"strings"
++	"time"
++	"unicode/utf8"
++)
++
++const MaxAnnotationBytes = 64 << 10
++
++// AnnotationData is versioned application metadata. It is retained in Entries
++// and rewrites/exports, but never added to History, View or the selected leaf.
++type AnnotationData struct {
++	Version int             `json:"version"`
++	Kind    string          `json:"kind"`
++	Payload json.RawMessage `json:"payload"`
++}
++
++func decodeAnnotation(data json.RawMessage) (AnnotationData, error) {
++	var annotation AnnotationData
++	if len(data) > MaxAnnotationBytes || !utf8.Valid(data) {
++		return annotation, errors.New("annotation exceeds size limit or is not UTF-8")
++	}
++	if err := json.Unmarshal(data, &annotation); err != nil {
++		return annotation, err
++	}
++	if annotation.Version != 1 {
++		return annotation, fmt.Errorf("unsupported annotation version %d", annotation.Version)
++	}
++	if annotation.Kind == "" || len(annotation.Kind) > 128 || strings.IndexFunc(annotation.Kind, func(r rune) bool {
++		return !(r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z' || r >= '0' && r <= '9' || r == '.' || r == '_' || r == '-')
++	}) >= 0 {
++		return annotation, errors.New("invalid annotation kind")
++	}
++	if !json.Valid(annotation.Payload) {
++		return annotation, errors.New("invalid annotation payload")
++	}
++	return annotation, nil
++}
++
++// Annotate durably appends metadata without changing the selected conversation
++// leaf. Input is copied by encoding before the record is retained.
++func (s *Session) Annotate(kind string, payload json.RawMessage) error {
++	if len(payload) > MaxAnnotationBytes {
++		return errors.New("annotation payload exceeds size limit")
++	}
++	data, err := json.Marshal(AnnotationData{Version: 1, Kind: kind, Payload: payload})
++	if err != nil {
++		return err
++	}
++	if _, err := decodeAnnotation(data); err != nil {
++		return err
++	}
++	s.mu.Lock()
++	defer s.mu.Unlock()
++	if err := s.PersistenceError(); err != nil {
++		return err
++	}
++	entry := SessionEntry{ID: generateID("annotation"), ParentID: s.leafID, Type: EntryTypeAnnotation, Timestamp: time.Now().Unix(), Data: data}
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	if s.store != nil {
++		s.store.AppendEntry(s, entry)
++		if err := s.Flush(); err != nil {
++			return err
++		}
++	}
++	s.entries = append(s.entries, entry)
++	s.entryMap[entry.ID] = &s.entries[len(s.entries)-1]
++	return nil
++}
++
++// Annotations returns independent payload copies in append order across all
++// branches. Applications decide whether a record belongs to current-branch or
++// whole-session accounting; ParentID in Entries provides its attachment node.
++func (s *Session) Annotations(kind string) []AnnotationData {
++	s.mu.RLock()
++	defer s.mu.RUnlock()
++	var out []AnnotationData
++	for _, entry := range s.entries {
++		if entry.Type != EntryTypeAnnotation {
++			continue
++		}
++		annotation, err := decodeAnnotation(entry.Data)
++		if err == nil && (kind == "" || annotation.Kind == kind) {
++			out = append(out, annotation)
++		}
++	}
++	return out
++}
+diff --git a/session/annotation_test.go b/session/annotation_test.go
+new file mode 100644
+index 0000000..9e5f223
+--- /dev/null
++++ b/session/annotation_test.go
+@@ -0,0 +1,128 @@
++package session
++
++import (
++	"encoding/json"
++	"strings"
++	"sync"
++	"testing"
++)
++
++func TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err := sess.Annotate("usage", json.RawMessage(`{"tokens":1}`)); err != nil {
++		t.Fatal(err)
++	}
++	if sess.LeafID() != "" || len(sess.History()) != 0 {
++		t.Fatal("annotation created conversation")
++	}
++	sess.Append(UserMessageEntry("original"))
++	leaf := sess.LeafID()
++	if err := sess.Annotate("usage", json.RawMessage(`{"tokens":2}`)); err != nil {
++		t.Fatal(err)
++	}
++	if sess.LeafID() != leaf || len(sess.History()) != 1 {
++		t.Fatal("annotation changed branch")
++	}
++	annotationID := sess.Entries()[len(sess.Entries())-1].ID
++	if err := sess.Branch(annotationID); err == nil {
++		t.Fatal("annotation selected as conversation")
++	}
++	if err := sess.Close(); err != nil {
++		t.Fatal(err)
++	}
++	sess, err = store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	if sess.LeafID() != leaf || len(sess.Annotations("usage")) != 2 || len(sess.History()) != 1 {
++		t.Fatal("restart lost annotation or branch")
++	}
++	records := sess.Annotations("usage")
++	records[0].Payload[0] = 'x'
++	if !json.Valid(sess.Annotations("usage")[0].Payload) {
++		t.Fatal("annotation getter leaked mutable payload")
++	}
++	sess.Compact("summary", 0)
++	if err := sess.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	if len(sess.Annotations("usage")) != 2 {
++		t.Fatal("compaction discarded accounting")
++	}
++	if err := sess.Branch(leaf); err != nil {
++		t.Fatal(err)
++	}
++	if len(sess.History()) != 1 {
++		t.Fatal("annotation leaked into original history")
++	}
++}
++
++func TestAnnotationValidation(t *testing.T) {
++	sess := NewSession("agent", "key")
++	for _, tc := range []struct{ kind, payload string }{{"bad kind", "{}"}, {"", "{}"}, {"usage", "invalid"}, {"usage", `"` + strings.Repeat("x", MaxAnnotationBytes) + `"`}} {
++		if err := sess.Annotate(tc.kind, json.RawMessage(tc.payload)); err == nil {
++			t.Fatal("invalid annotation accepted")
++		}
++	}
++	if len(sess.Entries()) != 0 || sess.PersistenceError() != nil {
++		t.Fatal("invalid input mutated or degraded session")
++	}
++	if _, err := decodeSessionRecords(strings.NewReader(`{"id":"a","type":"annotation","data":{"version":2,"kind":"usage","payload":{}}}`)); err == nil {
++		t.Fatal("future annotation version accepted")
++	}
++}
++
++func TestAnnotationConcurrentAppendAndClosedWriter(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	var workers sync.WaitGroup
++	workers.Add(2)
++	go func() {
++		defer workers.Done()
++		for i := 0; i < 25; i++ {
++			sess.Append(UserMessageEntry("message"))
++		}
++	}()
++	go func() {
++		defer workers.Done()
++		for i := 0; i < 25; i++ {
++			if err := sess.Annotate("usage", json.RawMessage(`{"tokens":1}`)); err != nil {
++				t.Error(err)
++				return
++			}
++		}
++	}()
++	workers.Wait()
++	leaf := sess.LeafID()
++	if len(sess.History()) != 25 || len(sess.Annotations("usage")) != 25 {
++		t.Fatal("concurrent append lost records")
++	}
++	if err := sess.Close(); err != nil {
++		t.Fatal(err)
++	}
++	if err := sess.Annotate("usage", json.RawMessage(`{}`)); err == nil {
++		t.Fatal("annotation bypassed closed writer")
++	}
++	reopened, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer reopened.Close()
++	if reopened.LeafID() != leaf || len(reopened.History()) != 25 || len(reopened.Annotations("usage")) != 25 {
++		t.Fatal("durable graph differs after concurrent annotations")
++	}
++}
+diff --git a/session/graph.go b/session/graph.go
+index 81a4c26..236a8b7 100644
+--- a/session/graph.go
++++ b/session/graph.go
+@@ -27,10 +27,15 @@ func validateGraphNode(entry SessionEntry, lookup func(string) (EntryType, bool)
+ 	}
+ 	if entry.ParentID != "" {
+ 		parent, exists := lookup(entry.ParentID)
+-		if !exists || parent == EntryTypeSelection || parent == EntryTypeHeader {
++		if !exists || parent == EntryTypeSelection || parent == EntryTypeHeader || parent == EntryTypeAnnotation {
+ 			return errors.New("session parent is missing or is a selection control record")
+ 		}
+ 	}
++	if entry.Type == EntryTypeAnnotation {
++		if _, err := decodeAnnotation(entry.Data); err != nil {
++			return err
++		}
++	}
+ 	if entry.Type == EntryTypeSelection {
+ 		var selection struct {
+ 			Version int `json:"version"`
+@@ -84,7 +89,7 @@ func (s *Session) CommitCompaction(expectedLeaf string, summary SessionEntry, pr
+ 		return err
+ 	}
+ 	for _, node := range preserved {
+-		if node.Type == EntryTypeSelection || node.Type == EntryTypeHeader {
++		if node.Type == EntryTypeSelection || node.Type == EntryTypeHeader || node.Type == EntryTypeAnnotation {
+ 			s.mu.Unlock()
+ 			return errors.New("selection record cannot be preserved as a message")
+ 		}
+diff --git a/session/legacy.go b/session/legacy.go
+index 14f36df..b089ad2 100644
+--- a/session/legacy.go
++++ b/session/legacy.go
+@@ -107,7 +107,7 @@ func ConvertLegacySession(reader io.Reader) ([]byte, LegacyConversion, error) {
+ 		previous, duplicate := first[oldID]
+ 		if duplicate {
+ 			// Only the historical compactor's identical-node replay is supported.
+-			if !legacyContentEqual(previous.fields, rec.fields) || entry.Type == EntryTypeCompaction || entry.Type == EntryTypeSelection {
++			if !legacyContentEqual(previous.fields, rec.fields) || entry.Type == EntryTypeCompaction || entry.Type == EntryTypeSelection || entry.Type == EntryTypeAnnotation {
+ 				return nil, report, errors.New("legacy duplicate ID has conflicting content")
+ 			}
+ 			// The first clone hangs from a newly appended compaction; subsequent
+diff --git a/session/session.go b/session/session.go
+index b6830d0..ce3640e 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -20,7 +20,8 @@ const (
+ 	EntryTypeToolResult EntryType = "tool_result"
+ 	EntryTypeMeta       EntryType = "meta"
+ 	EntryTypeCompaction EntryType = "compaction"
+-	EntryTypeSelection  EntryType = "selection" // versioned control record; never part of conversation history
++	EntryTypeAnnotation EntryType = "annotation" // durable metadata, never a conversation node
++	EntryTypeSelection  EntryType = "selection"  // versioned control record; never part of conversation history
+ )
+ 
+ // SessionEntry is a single node in the session DAG.
+@@ -145,7 +146,7 @@ func (s *Session) Append(entry SessionEntry) {
+ 	}
+ 	// Selection control records must use Branch so their durability and leaf
+ 	// semantics cannot be bypassed through the generic append API.
+-	if entry.Type == EntryTypeSelection || entry.Type == EntryTypeHeader {
++	if entry.Type == EntryTypeSelection || entry.Type == EntryTypeHeader || entry.Type == EntryTypeAnnotation {
+ 		s.persistenceFailure.CompareAndSwap(nil, &persistenceFailure{fmt.Errorf("control records require their dedicated API")})
+ 		s.mu.Unlock()
+ 		return
+@@ -262,7 +263,7 @@ func (s *Session) Branch(entryID string) error {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
+ 	target, ok := s.entryMap[entryID]
+-	if !ok || target.Type == EntryTypeSelection || target.Type == EntryTypeHeader {
++	if !ok || target.Type == EntryTypeSelection || target.Type == EntryTypeHeader || target.Type == EntryTypeAnnotation {
+ 		return fmt.Errorf("entry %q is not a conversation node", entryID)
+ 	}
+ 	if err := s.PersistenceError(); err != nil {
+diff --git a/session/store.go b/session/store.go
+index 7472de0..be53497 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -115,7 +115,7 @@ func (s *Store) loadContext(ctx context.Context, agentID, key string) (*Session,
+ 		sess.entryMap[entry.ID] = &sess.entries[len(sess.entries)-1]
+ 		if entry.Type == EntryTypeSelection {
+ 			sess.leafID = entry.ParentID
+-		} else {
++		} else if entry.Type != EntryTypeAnnotation {
+ 			sess.leafID = entry.ID
+ 		}
+ 	}

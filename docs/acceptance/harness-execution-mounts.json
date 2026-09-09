@@ -1,0 +1,30 @@
+{
+  "qualification": "development",
+  "parent": "df4cdc2e30d80e138fa3c3d5733adda2eaabc77d",
+  "published": false,
+  "hand_integrated": false,
+  "patch_sha256": "777d8afcf0949f3d1c25f878cbbc768b1427d832f3ea534aa6048b4e8fb77bc4",
+  "results": {
+    "hand-container-mounts-race-20260908.jsonl": {
+      "pass": 36,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-mounts-20260908/hand-container-mounts-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-mounts-20260908/hand-container-mounts-race-20260908.jsonl",
+      "sha256": "fcac0306818c767dc55321e2e8380147e0f610469b00948c2d2594398b6a0c75"
+    }
+  ],
+  "limitations": [
+    "Native image-volume rejection and normal container execution verified on Docker Desktop.",
+    "Nested mount exclusion flag accepted; adversarial nested-mount scenario on native Linux remains pending.",
+    "Hand-wide routing and final acceptance remain pending."
+  ],
+  "harness_commit": "1fb46eba3023697b6ecd460baf822a0845c41a40"
+}

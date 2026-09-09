@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-container-package-rpc-20260909/workspace",
+  "generation": 2,
+  "lastActiveId": "ses_4fad5acf8c14c0e9",
+  "sessions": [
+    {
+      "id": "ses_4fad5acf8c14c0e9",
+      "agentId": "hand",
+      "storeKey": "workspace_f61f848a4dcaee05_4e25463121d054fe4c7430033d271cf5",
+      "name": "",
+      "createdAt": "2026-09-08T19:53:42.26065Z",
+      "lastActive": "2026-09-08T19:53:43.117465Z"
+    }
+  ]
+}

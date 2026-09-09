@@ -1,0 +1,169 @@
+{
+  "status": "development_oracle_calibrated",
+  "candidate_qualified": false,
+  "task": "goclaw-explain-routing",
+  "source_pin": "6a002981f8c40e542e23fd7d86db6ea32999fe98",
+  "initial_pin": "c24c50ba2d16daff6aa2809b6c1a6f592977ae54",
+  "pin_change_reason": "Initial snapshot requires an unpinned ../cortex replacement. Parent is self-contained with identical router source and existing router tests.",
+  "router_diff_between_pins": "",
+  "initial_attempts": "Infrastructure failures, not feature-oracle results; raw reports retained.",
+  "baseline": "Compilation fails because Router.Explain is absent; no test functions execute.",
+  "candidate": {
+    "tests_passed": 6,
+    "failures": 0,
+    "skips": 0,
+    "race": true,
+    "fixture_integrity": "passed"
+  },
+  "tooling": {
+    "tests_passed": 101,
+    "failures": 0,
+    "skips": 0
+  },
+  "catalogue": {
+    "tasks": 5,
+    "repositories": 4,
+    "categories": [
+      "bug_fix",
+      "feature"
+    ],
+    "languages": [
+      "Go",
+      "Python"
+    ],
+    "held_out": 0
+  },
+  "limitations": [
+    "Calibration patch is developer-written, not model output or comparative quality evidence.",
+    "30 tasks, 10 held-out tasks, frozen settings, executor enforcement and authorised live matrix remain pending.",
+    "Initial download process handle was missing on resumption; retained dependency output has no Error fields and subsequent offline compilation verifies required dependencies, not download exit status."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-before-report.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/before/report.json",
+      "sha256": "329e139f1d82bbb17972c21490b2a80630f693319d4c4fc38d1091eeb76b2bb9",
+      "uncompressed_sha256": "a2c0663e625b62a9d210097d97bf8b9e5de986b9b596f3d663b54d1c6060d640"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-before-0-stdout.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/before/check-0/stdout.log",
+      "sha256": "e214a7532411b0eb906c1100b289207eba29d15219e85b0de4910e84e904f10b",
+      "uncompressed_sha256": "bcf13c8fd5aa57df97ad8001fac13e14992de5673e90cf99d6ec441098ea78c4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-before-0-stderr.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/before/check-0/stderr.log",
+      "sha256": "845f8242b45c45a31502745d3f8ede8906202ad91642bd7b693279475a82c58d",
+      "uncompressed_sha256": "53d6d85a6f4dedb571ac6739fc3bb6dff60d91d59bbdedd8ae9e1b82e9ff7ee4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-after-report.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/after/report.json",
+      "sha256": "3eabe9cae5810ec29906960f0e01b9b7555fe0b001f2a9e97a8c85439491bdd1",
+      "uncompressed_sha256": "f05e03c71eef576b68d162b8108d94590f573423304e62a2419c5aa8600305c6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-after-0-stdout.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/after/check-0/stdout.log",
+      "sha256": "a559d421ce845ced55129cd0790c72f256abbc4487c4ed25ddb53e6e20dbf29b",
+      "uncompressed_sha256": "4db171c9e62a2ba4eac4309f4f4be79ae7cbe9dff2de17fc2a1f33e956d4d4a9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-after-0-stderr.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/after/check-0/stderr.log",
+      "sha256": "9aeff1e264eee3326a7d39f26cce5d260df055938edce18f4a15f72c34f49f34",
+      "uncompressed_sha256": "94e1661012ec0a4b999107f5bc24d864186eb5f053fe61eab8ab74040692d650"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-original-manifest.json.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/original-manifest.json",
+      "sha256": "0cc6bb0e111dc4053b57ede3fe55ab281d7c9a9546035ab2b5fdeff12422ce21",
+      "uncompressed_sha256": "15d4288e1abe1fba33b0437ac63058c0d13b16b4f6bdc6a97c02ed8c81b578e8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/initial-calibration.patch.gz",
+      "source": "/private/tmp/hand-goclaw-oracle-20260909/calibration.patch",
+      "sha256": "b9894acd5675fe1f0e314b84aa177e12da572dbd032e134b4a344cb49688b189",
+      "uncompressed_sha256": "1858424f6ebae20453140c28b605ee528c39b5a3d6c2ae1bc0a45c315f92a711"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-before-report.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/before/report.json",
+      "sha256": "698df88580a5e99b242220c9420e14815ff583c44653875ed6c2f47a479cc76a",
+      "uncompressed_sha256": "002b4f86b09e422c9109eb9d0ed4f4d1378e2961aed21c5b2e9ef2a76983f48f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-before-0-stdout.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/before/check-0/stdout.log",
+      "sha256": "e1b0bad5fab352e08e02dd9c27bc5ea8adbb0441f5223d582ab9907c9eb18e6e",
+      "uncompressed_sha256": "a2a9c29baeaa19edfadecf208e5535f7401a75c1715e5ae6b5eb60fa1594a514"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-before-0-stderr.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/before/check-0/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-after-report.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/after/report.json",
+      "sha256": "90356742a06ecd552638c974d246916e31eaa206269869b23ef27f40de3ced94",
+      "uncompressed_sha256": "9c470bdf82fb6975b37ba14919310f7f26e4739b08eb004927f669a3a7c13343"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-after-0-stdout.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/after/check-0/stdout.log",
+      "sha256": "0d0487fe14e382c8d1ae780067f13b46428465dbeee2abc1e59b20551eb8a266",
+      "uncompressed_sha256": "43330b63d2aff845ecd673a57a306e9629f229b10b1e9bf0b0e3476f4dbd7043"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-after-0-stderr.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/after/check-0/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/portable-environment.json.gz",
+      "source": "/private/tmp/hand-goclaw-portable-oracle-20260909/environment.json",
+      "sha256": "83a5d32f8a02395b664a20f334451e99d846e5577762aca34818694d62be541e",
+      "uncompressed_sha256": "e93903626ce16aa0bcf2b70afe08d11a2ce90c3bbb5d4bfe689d0d20a49dd6a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/manifest.json.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/calibration.json",
+      "sha256": "ce39c1c17ecb1d905c01d3170f9f7ff82d0ea2391208ab62e7068c6b1780448b",
+      "uncompressed_sha256": "9390c3590f524a964b515e1ddc296e63a93368a21c94ed62b68d3a557e797919"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/oracle.go.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/goclaw_explain_test.go",
+      "sha256": "3c2d08285732ac5e3ba459291040f33e138819e030b0c88e28f26c6465c89ecf",
+      "uncompressed_sha256": "c2ddc1bd43b4c6d4ff6627cefc60dd0a477f8982fc62f279189eb77770c23483"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/tooling.log.gz",
+      "source": "/private/tmp/hand-goclaw-evaluation-tools-20260909.log",
+      "sha256": "8c859d5552af301b0e5f3efd366da9f2972c0772b923d8965dc2d20575775615",
+      "uncompressed_sha256": "a76208608c76a63562dc1de508eaf2bef78745f433c8598222fd1613fc062fb3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/dependencies.jsonl.gz",
+      "source": "/private/tmp/hand-goclaw-portable-dependency-download-20260909.jsonl",
+      "sha256": "0ef1966785a3289e385a6a53e7ef8a498d19be4a72353bb7dd4aae5275a50326",
+      "uncompressed_sha256": "45f5c2dbc488869d4a8e9c61c496da1cbb51c5ba9a40fd03b12633aedb65a981"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/go.mod.gz",
+      "source": "/private/tmp/hand-goclaw-portable-source-20260909/go.mod",
+      "sha256": "950e4e23dccb677753575fcb56a4b3c1e8bb846924e12a7d4ea1be9075abc2d8",
+      "uncompressed_sha256": "86d50bf3b638cfedae32640510ad91ac934a23215b2daf61eda5944db161beec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/goclaw-oracle-20260909/go.sum.gz",
+      "source": "/private/tmp/hand-goclaw-portable-source-20260909/go.sum",
+      "sha256": "72f7e9bb341d43fc2b2ddf15e3966a1c1cbfe524f0c798c069646c3f86465af6",
+      "uncompressed_sha256": "ae2539aa7a3d2612054a73482c3027ed5274623f2a10935a5e3405615c7d0410"
+    }
+  ]
+}

@@ -1,0 +1,373 @@
+{
+  "status": "development_implemented",
+  "sources": [
+    {
+      "path": "internal/packages/resources.go",
+      "sha256": "241032b7b9986cb6d31a179b5ecffe02d70801898bb6e9d5b5ea456df5ea6986"
+    },
+    {
+      "path": "internal/packages/resources_test.go",
+      "sha256": "755c2504eb8e4b44d4fce99c54533c01e58917f40def023288aade0cacf61ce4"
+    },
+    {
+      "path": "internal/app/package_skills.go",
+      "sha256": "a961204d796b102a5cdd0e8b0efe68062cb9ec44dc072b51520679dde6982a80"
+    },
+    {
+      "path": "internal/app/package_skill_resources.go",
+      "sha256": "fd189f3a0f059fe1388a1a7228328ee6544c3236c861effe764fb9f6abc4f9e2"
+    },
+    {
+      "path": "internal/app/package_skills_test.go",
+      "sha256": "e8faec09f1803492b9367ec89310ec2394a19de4cbc3ee0298aaf1601b36ac22"
+    },
+    {
+      "path": "scripts/check_package_text_cli.py",
+      "sha256": "80cb1058d46625538cdeb41892ad1887065399c1cf8f11de4ddce353bc4ef898"
+    },
+    {
+      "path": "docs/package-skills.md",
+      "sha256": "0ad6af4e6873f1913a2f66af1934418e5a91d8b356ecb4acebe389f95a308842"
+    },
+    {
+      "path": "README.md",
+      "sha256": "eb0442eec8564358c95c2aadcb018d8a64ece8279a1a1d507d71ad5ff58f0077"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-skill-bases-tests-20260909.jsonl.gz",
+      "sha256": "e59fafd8800c7933063caee993dc810150d3607c8cb8bee9265bc92c2c9bc147",
+      "raw_sha256": "7cbb07b237c1150b555bb36fff51be23743ad6bd0f16ac20d605ccab047a5107",
+      "raw_bytes": 9866,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-skill-cli-tests-20260909.jsonl.gz",
+      "sha256": "0539e16f528f7e984300307b5734164d37d3d37df9a9d0116e0acb87b03bd7f0",
+      "raw_sha256": "0bf92d0b0ebbf8834957abb9a66e911d49d0a74d8c99e5e35f0a688257d29c68",
+      "raw_bytes": 1269,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-resource-loader-tests-20260909.jsonl.gz",
+      "sha256": "0eced42323b1205a4da5a2946d9d0eeaff77cf8c3e50bd75852c47ea08148e86",
+      "raw_sha256": "96816bd317b6931e04a04184b1df2933d577866a160230b71bb55f85ff5ae790",
+      "raw_bytes": 10085,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-resource-loader-fixed-tests-20260909.jsonl.gz",
+      "sha256": "953b206e248f6a5cd3ff6d831a961b756f05708cac0af399153fd378fc491d36",
+      "raw_sha256": "cab80c51ea5acf30993bbe19e0d04e434a6aecf7b0d3c702006a321ca2c9c224",
+      "raw_bytes": 9870,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-resource-final-tests-20260909.jsonl.gz",
+      "sha256": "7caf5fc63cec1bfa28cbd87e74f61458d8cb97254c801e3c209d02b12a9f107b",
+      "raw_sha256": "5ccc08753a21e79be0db49cd251b449ea80f8a3adc4a357779586a2d5d428f7c",
+      "raw_bytes": 9880,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-resource-broad-tests-20260909.jsonl.gz",
+      "sha256": "9e156ab015de4fa0eddc67bb6c11d355571124599939127dd02662cb6d378e01",
+      "raw_sha256": "826ef33d2fe3f966ce4e9c5c286e3356e59c7460bf5a4e576562bcab72483b05",
+      "raw_bytes": 353613,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-package-resource-broad-coverage-20260909.out.gz",
+      "sha256": "aeaeb3c28d1a1e02cfc132541440fa570c13dc3eaa9a681db376f86b49e822a1",
+      "raw_sha256": "072037f5f7092da656edf9cbe8b196aae7390dca245388e3ce5b699eea85b495",
+      "raw_bytes": 767756,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-relative-journey-20260909-run.json.gz",
+      "sha256": "fbd93f5cb483903ae81eec3f24f6c957502ff4df30e0305630e73e96a09488ef",
+      "raw_sha256": "031c124236aa73ac1d3e771434dce4bbad45e6a82c67f075bcfeda7eccb9693c",
+      "raw_bytes": 433,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-relative-journey-20260909-provider-requests.json.gz",
+      "sha256": "6f6926e520cdf654d6fcee2631abfc3dae82b8ce4bc90ff2ae6dd6dd07b03fdc",
+      "raw_sha256": "12990146a9c73bbfa058de11a07592e94c3df98f7680d960bb244adcfc1dcd68",
+      "raw_bytes": 49048,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-relative-journey-20260909-commands.json.gz",
+      "sha256": "6ec70b331e6c7cec1721dbe2ebb1e4ecc7186a02ae92a8676d0853239e9ba16a",
+      "raw_sha256": "e16b791a93a3208d5edfbdfc28b4c974451922d441fe78f704a2c22febcf2289",
+      "raw_bytes": 4480,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-relative-journey-20260909-skills.json.gz",
+      "sha256": "7c6e5cc8de4a512dacf63e749599f967740349d9269fb4fa93d10d57109fe311",
+      "raw_sha256": "94ed8f27ffe5490c449a60471fdf15bf491f65f29137f4570ad637f5f28a63c1",
+      "raw_bytes": 247,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-relative-journey-20260909-prompt.json.gz",
+      "sha256": "c99699f4495c09da04ac230922832e3fd2a8a7be7c804a3652f4e008b17884ae",
+      "raw_sha256": "26aaff0fd217931c2ba15beb84d484b1a2c9d636342c7e804192cadaeb08acdb",
+      "raw_bytes": 208,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-relative-journey-20260909-install.json.gz",
+      "sha256": "93db554f6198911341711aad77bbc61011e0ac38aa9daa9c06a6a648e7306e4d",
+      "raw_sha256": "e60b8a189b29319cfd267e9c7a59f5ac80c41d403972721d814b717f1064a1f0",
+      "raw_bytes": 1163,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-loader-journey-20260909-run.json.gz",
+      "sha256": "7c77787fbd0e1948ba755712c7db5dc3f43d5fc57766262d81b35cb932b7e6d1",
+      "raw_sha256": "80037715a10b6738389f5c11f0e1b3662640b05908823e91744b911138aea482",
+      "raw_bytes": 733,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-loader-journey-20260909-provider-requests.json.gz",
+      "sha256": "8b89a98715713e22dd7d1f4b1a6a0095fe58360f6d30e866afbcc914f2705ab3",
+      "raw_sha256": "3e45d39398573a87bedee731295b16ea713eccc49740f883f68ed5a62540befd",
+      "raw_bytes": 50541,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-loader-journey-20260909-commands.json.gz",
+      "sha256": "7ecf2d46148cb778eea4bb42321d7db1b4e30c3ca5e3644b3b255e5a86e7b1a2",
+      "raw_sha256": "193f78a4544f3ac02319ee7bf49bf6e613e216f7d105287e5c1ae87611191d90",
+      "raw_bytes": 4606,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-loader-journey-20260909-skills.json.gz",
+      "sha256": "90e567d1d20b67a9b7dc0ee144a57531c598e02cc9bc8d722f9ae1eba5a2e716",
+      "raw_sha256": "bc24141a6b3862b0889e899815e05e6225e4a7a30f8936ad6a40d8ae5e0f294a",
+      "raw_bytes": 245,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-loader-journey-20260909-prompt.json.gz",
+      "sha256": "b05ed6910b6f543894237f81aeb3d485cadd203c6157b28c4a54ebdac2ab4782",
+      "raw_sha256": "c1b46213c685ee4ff9d6da92df27996af11a3a16deaf5262751fe0e594fdd059",
+      "raw_bytes": 206,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-loader-journey-20260909-install.json.gz",
+      "sha256": "22c91b362a623c9bbecfd03398aeefc089fff7634b1bfbb637fcffe749d72099",
+      "raw_sha256": "160382ab32ef00b868bbade38253fbbc459b8d9dcd9f5a92e493a9c349afc186",
+      "raw_bytes": 1157,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-resource-final-journey-20260909-run.json.gz",
+      "sha256": "6575e069a7d383e39af22c9b4487688ba557082bb9cf317ec5048f1460766250",
+      "raw_sha256": "0403675c8aa3e0d80c67fb093b55684e23e31c1062bbc95ce9ec9e5de447308a",
+      "raw_bytes": 733,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-resource-final-journey-20260909-provider-requests.json.gz",
+      "sha256": "3f4e55f168610d18961f28acaa20042375da0578f62e2c628b675216810311d5",
+      "raw_sha256": "b114e331e8c06315a3bfa2b0c4479b064169aa07763b1e9dcaf6fa37328c5654",
+      "raw_bytes": 50653,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-resource-final-journey-20260909-commands.json.gz",
+      "sha256": "8fbc2f1d169a87dff1d165e0e66f05cb291932c4b5a07eb029a545b097967171",
+      "raw_sha256": "2bbb6e610ba53e03fe7a479479a64f859231890454aa512c549e579af35307fb",
+      "raw_bytes": 4710,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-resource-final-journey-20260909-skills.json.gz",
+      "sha256": "e779e5de69de10b663e83c6e4ae22837feefdc888943dae18006bbc0dac4e337",
+      "raw_sha256": "270a96183ef6eb3c29c71c32d19fe5bf6898ea6a2756f750324d32f71055e4dc",
+      "raw_bytes": 253,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-resource-final-journey-20260909-prompt.json.gz",
+      "sha256": "c2e02a6d9aa2b7d7a60ede5e984b90a714b58cdc53dbe5d066f57ce8984d2963",
+      "raw_sha256": "324037357a55d107f7ce7ca71348a116a3776d3443094a07efae801df51643c0",
+      "raw_bytes": 214,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/hand-skill-resource-final-journey-20260909-install.json.gz",
+      "sha256": "e6835a3d7eae73d735c79f02ec43351bae767f3d029cde4aea47c30a23a7207b",
+      "raw_sha256": "a7881d2c81a8758fca5b314c5677ca977db80da9cc5010ecf149a4f62b27b52b",
+      "raw_bytes": 1181,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/internal-packages-resources.go.gz",
+      "sha256": "f695ca224d8c92374bbb86b2579fb04e3db4d4143c7ea1b56aae97fca70e8474",
+      "raw_sha256": "241032b7b9986cb6d31a179b5ecffe02d70801898bb6e9d5b5ea456df5ea6986",
+      "raw_bytes": 5020,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/internal-packages-resources_test.go.gz",
+      "sha256": "eacab0574de73a082901e333ccc6c1c97c769105960bd7f64c6fd4576a062808",
+      "raw_sha256": "755c2504eb8e4b44d4fce99c54533c01e58917f40def023288aade0cacf61ce4",
+      "raw_bytes": 3820,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/internal-app-package_skills.go.gz",
+      "sha256": "97e907bdd73547e0bb4c64c3bd9e007434fa81549f55f7e1952d4271c75c3d3f",
+      "raw_sha256": "a961204d796b102a5cdd0e8b0efe68062cb9ec44dc072b51520679dde6982a80",
+      "raw_bytes": 4942,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/internal-app-package_skill_resources.go.gz",
+      "sha256": "e04c6f13ff8677a6f0184d31cac5e39509a1f9fe2761966b692ba934191541a3",
+      "raw_sha256": "fd189f3a0f059fe1388a1a7228328ee6544c3236c861effe764fb9f6abc4f9e2",
+      "raw_bytes": 2880,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/internal-app-package_skills_test.go.gz",
+      "sha256": "cd09c1dcf6575fa5bd10d15bc9b130e0613992e61b69387ed1caadfa830f9cbc",
+      "raw_sha256": "e8faec09f1803492b9367ec89310ec2394a19de4cbc3ee0298aaf1601b36ac22",
+      "raw_bytes": 7205,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/scripts-check_package_text_cli.py.gz",
+      "sha256": "8b556356b145fad952ee0697a4906e263032526a399b334c4795c2c6ce011618",
+      "raw_sha256": "80cb1058d46625538cdeb41892ad1887065399c1cf8f11de4ddce353bc4ef898",
+      "raw_bytes": 8375,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/docs-package-skills.md.gz",
+      "sha256": "844bbbac804e693ddbc97582ed0ebd6c65eef83b0537a0ef55c47436c2d286aa",
+      "raw_sha256": "0ad6af4e6873f1913a2f66af1934418e5a91d8b356ecb4acebe389f95a308842",
+      "raw_bytes": 4181,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-skill-resources-20260909/README.md.gz",
+      "sha256": "fcd7d997a4c24a965cf37103e480b9c524fd8f2f133bfea386b4e1ce40222a6f",
+      "raw_sha256": "eb0442eec8564358c95c2aadcb018d8a64ece8279a1a1d507d71ad5ff58f0077",
+      "raw_bytes": 31147,
+      "encoding": "gzip"
+    }
+  ],
+  "journeys": {
+    "hand-skill-relative-journey-20260909": {
+      "status": "failed",
+      "qualification": "development",
+      "binary_sha256": "d631c14f5eefb5baef8abc4e03984f3ba622a55a6f57eefc78ec32348d6c9429",
+      "runner_sha256": "b463e6495d15c05ff6a31ae179dce151165180d1ec7ea8b1f6d9e7defe2cadca",
+      "paid_provider_calls": 0,
+      "fixture_tool_approval": "--yes in isolated host fixture; provider requests load_skill and read_file for its installed relative resource",
+      "error": "AssertionError()"
+    },
+    "hand-skill-loader-journey-20260909": {
+      "status": "passed",
+      "qualification": "development",
+      "binary_sha256": "60ad93aec3d4fd49f5920a1deffda919e0ee6dc13bfda7295f06eb090a5c8de8",
+      "runner_sha256": "80cb1058d46625538cdeb41892ad1887065399c1cf8f11de4ddce353bc4ef898",
+      "paid_provider_calls": 0,
+      "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill for the selected body and its declared text resource",
+      "local_provider_requests": 3,
+      "package_digest": "4b08bfc41dfd4779a1e577900f494b7291774a1bb719f9614091fab7fecabdba",
+      "prompt_reached_user_message": true,
+      "skill_loaded_by_tool": true,
+      "relative_resource_read_by_tool": true,
+      "source_removed": true,
+      "literal_prompt": true,
+      "wrong_pin_preprovider_rejection": true
+    },
+    "hand-skill-resource-final-journey-20260909": {
+      "status": "passed",
+      "qualification": "development",
+      "binary_sha256": "084d7183394ab01680b85bb03383825423af8ca1d85949bf33fa3d5936e5817b",
+      "runner_sha256": "80cb1058d46625538cdeb41892ad1887065399c1cf8f11de4ddce353bc4ef898",
+      "paid_provider_calls": 0,
+      "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill for the selected body and its declared text resource",
+      "local_provider_requests": 3,
+      "package_digest": "4b08bfc41dfd4779a1e577900f494b7291774a1bb719f9614091fab7fecabdba",
+      "prompt_reached_user_message": true,
+      "skill_loaded_by_tool": true,
+      "relative_resource_read_by_tool": true,
+      "source_removed": true,
+      "literal_prompt": true,
+      "wrong_pin_preprovider_rejection": true
+    }
+  },
+  "targeted_tests": {
+    "counts": {
+      "test_pass": 11,
+      "package_pass": 2
+    },
+    "skips": [],
+    "failed": []
+  },
+  "broad_tests": {
+    "counts": {
+      "test_pass": 377,
+      "test_skip": 7,
+      "package_pass": 3
+    },
+    "skips": [
+      [
+        "github.com/sausheong/hand/internal/app",
+        "TestContainerExtensionFileCallbackBoundary"
+      ],
+      [
+        "github.com/sausheong/hand/internal/app",
+        "TestContainerExtensionActivationAndReviewedReload"
+      ],
+      [
+        "github.com/sausheong/hand/internal/app",
+        "TestExtensionResourceIPC/network.fetch/public-fetch"
+      ],
+      [
+        "github.com/sausheong/hand/internal/app",
+        "TestNativeContainerPackagePythonReviewAndLaunch"
+      ],
+      [
+        "github.com/sausheong/hand/internal/app",
+        "TestNativeBackgroundContainerInputOutputAndShutdown"
+      ],
+      [
+        "github.com/sausheong/hand/internal/packages",
+        "TestNativeContainerPythonRuntimeVersion"
+      ],
+      [
+        "github.com/sausheong/hand/cmd/hand",
+        "TestNativePackageCLIContainerRuntimeAndLaunchReviews"
+      ]
+    ],
+    "failed": []
+  },
+  "behaviour": [
+    "Selected package skill bodies and context sources identify their retained source path and base directory.",
+    "load_skill accepts an optional relative resource for explicitly selected package skills; resolves within the selected package; checks manifest declaration, 64 KiB bound, UTF-8, regular nonsymlink file, size and SHA-256 before returning text.",
+    "No unrestricted file-read fallback, source execution or additional network authority. Authored skills retain precedence. Removal preserves selected revision objects; wrong pins and tampering fail without content disclosure.",
+    "The wrapper preserves the underlying loader concurrency classification; normal skill loading delegates to that loader."
+  ],
+  "limitations": [
+    "Dirty Hand uses unreleased Harness via go.work. No final candidate or release qualification.",
+    "First built-client journey demonstrates read_file rejecting an external package path; the corrected loader journey reads declared resources without relaxing that boundary. Both are preserved.",
+    "An intermediate compile failure from treating tool.Executor as a mutable registry is retained; the implementation now requires the actual registry before replacing its loader.",
+    "Broad suite passed before the final concurrency-delegation adjustment; targeted tests and final built-client journey passed afterwards. Seven native/public cases remained skipped in the broad run.",
+    "The final journey uses a local deterministic provider and makes three requests with zero paid model calls. It does not prove live-model performance.",
+    "Runtime reselection, session persistence and container-specific qualification were not added or established by this change. Numeric coverage, all scenarios and remaining release/live gates stay open."
+  ]
+}

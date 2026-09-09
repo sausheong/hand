@@ -1,0 +1,114 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "provider_calls": 0,
+  "binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+  "runner_sha256": "d1f9d5a93fe97c95d6b4fab4f123cc7a1454b711977b28cd4bf178a68e855f99",
+  "package_digest": "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d",
+  "typed_presentation": true,
+  "literal_record_roundtrip": true,
+  "invalid_record_rejected": true,
+  "snapshots_removed": true,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-package-20260909/commands.json",
+      "sha256": "f6ca8365fec196aa9d1636ac7ec294ef0680c89f26d08d3193109bbb9f495139"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-package-20260909/package/hand-package.json",
+      "sha256": "fea8bef3064e210ddf94f272b1bc5762cdce7a25c622dd38a5284649661cdab0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-package-20260909/run.json",
+      "sha256": "6fc94694860205d0027a25ec897a2d2ac8ef7a20776182945fc8d9e955df267f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/commands.json",
+      "sha256": "58dbf2bc5473d1a8b565f57bb4a8414708f7521ba771a35803b614e1a4226295"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/home/.hand/authority/ae00d779bececb5a5734e5e2c65379a358c7c98cb2fe0c87d86875d44bbec3f4/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/home/.hand/sessions/catalogues/ae00d779bececb5a/catalogue.json",
+      "sha256": "cb1b66d928513ebf67b08e774d71d16218a9af1b370a185d50bee3450f25b274"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/home/.hand/sessions/hand/workspace_ae00d779bececb5a_7ad77ea162c46bdd47c28f50ecdd6b77.jsonl",
+      "sha256": "a0abb8f935e744affd0db1d087dec02c55954fbae123f4d9129528db2e532d0d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/home/.hand/sessions/rpc-ae00d779bececb5a5734e5e2c65379a358c7c98cb2fe0c87d86875d44bbec3f4/requests.jsonl",
+      "sha256": "5ba41d11820cfce003c6eb09b69570a57db76c8d5b6c6269128649cf25069791"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/install.json",
+      "sha256": "1b5e29168cc2b696c3f0cd8ed2da8b39a083b1f5f9906afeb01fc5563727cd25"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/run.json",
+      "sha256": "c7221987949be8ed56a90c2e1ce6a188768f3d0133edf97f0bfe09d5f21257c0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/startup.json",
+      "sha256": "60949dea75609522d29cc59ae3c523336c20a74dae720e204c700aff13ac57c4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/store/lock.json",
+      "sha256": "61f131f0c027c8a4c71d4fb3190882d942270f9a3a3a7bf0eee53a1f0f89029e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/store/objects/f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d/hand-package.json",
+      "sha256": "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/viewer.json",
+      "sha256": "b157ec5329bc8e09da69a25b07886189f8798ccc7d1706d70329690abccc7a09"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/tool-viewer-rpc-20260909/hand-tool-viewer-rpc-20260909/viewer.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    }
+  ],
+  "packaging": {
+    "status": "passed",
+    "example": "tool-viewer",
+    "source_root": "/private/tmp/hand-session-integration-20260908",
+    "hand_binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+    "script_sha256": "47d26b348c20f7c20d895cab1e7b448b4b557312e56024af78b8fa993b8f784c",
+    "extension_executions": 0,
+    "package_directory": "/private/tmp/hand-tool-viewer-package-20260909/package",
+    "package_digest": "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d",
+    "executable_sha256": "73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9",
+    "manifest_sha256": "fea8bef3064e210ddf94f272b1bc5762cdce7a25c622dd38a5284649661cdab0",
+    "capabilities": [
+      "commands",
+      "presentation"
+    ],
+    "limitations": [
+      "Native build for the selected Go environment; not a signed release or cross-platform archive.",
+      "Pin identifies these built bytes. Reproduce with the same source, Go toolchain and dependencies.",
+      "Verification-hook additionally requires host Git; no example is executed during packaging."
+    ]
+  },
+  "hand_source_aggregate": "package-prompt-integration.json",
+  "extension_source_aggregate": "tool-viewer-integration.json",
+  "runner_dependencies": [
+    {
+      "path": "scripts/check_rpc_client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "scripts/check_extension_rpc.py",
+      "sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3"
+    }
+  ],
+  "limitations": [
+    "Development host RPC journey; no automatic tool-event subscription or final platform qualification."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "status": "development_migration_passed",
+  "requirements": [
+    "M2.1",
+    "M1.5"
+  ],
+  "tests": {
+    "pass": 7
+  },
+  "race": true,
+  "vet_exit_code": 0,
+  "removed_legacy_source": [
+    "internal/agentio/mcp.go",
+    "internal/agentio/mcp_test.go"
+  ],
+  "migrated_tests": "internal/app/runtime_timeout_test.go",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/runtime_construction.go.gz",
+      "sha256": "ab0405d5cc061218a156d248af1a58e3eae14dff0f4fb8e0257878b1867ff906",
+      "uncompressed_sha256": "f0af7121223ec5e6800d08607780ee01242468b20763605c1e5d6010204cbafa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/runtime_timeout_test.go.gz",
+      "sha256": "4cdabd1e8d2a9ce9c76311f261b0814b7460d829b1eb7a15967ced7abe94bbd6",
+      "uncompressed_sha256": "f7551e3be40e6262d2782a160d9b78bf3371fbbb9dd08de7ac0fb1dd1a3df714"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/main.go.gz",
+      "sha256": "dd025cc318e5f7bc2c437442ba84617c9198cffed8971e2cddfb5c617f6f6174",
+      "uncompressed_sha256": "9c3e041bed2e76e6028fc7c9109bb78818c8e04b930d0b2d0050d08cec7faa35"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/startup.go.gz",
+      "sha256": "3606f5af2795427089b1d4ae82a0c3d93795cebcdafe5cc2cce93be48348e335",
+      "uncompressed_sha256": "e483e25435e84242fb4c00d24f2e5f0977ec05c3bc0d1863f80cb1ef1ce70f5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/critical-coverage-map.json.gz",
+      "sha256": "c7541414fd23cd2c1958740c05a4979f53dc5807684d17714c61c5812c93b950",
+      "uncompressed_sha256": "88cd175af967d5863d1361782489c4b035f0425643b1272d8d2b49ef831ee0a3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/hand-runtime-timeout-migration-20260909.jsonl.gz",
+      "sha256": "53a7610d84eeace92a37a8ece74a0b025d1ab806c6ee1413f3cad7bf9d9a9a4c",
+      "uncompressed_sha256": "f90d8d9a8c0a9e5f46179bdb08915636b97d46f8015792654d5493c1722dda4f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-timeout-migration-20260909/hand-runtime-timeout-migration-vet-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Focused development tests do not qualify the full clean candidate or required platform repetitions",
+    "Aggregate coverage remains stale; mapping follows moved executable code without exclusions",
+    "Full native suite still requires execution access and released Harness integration"
+  ]
+}

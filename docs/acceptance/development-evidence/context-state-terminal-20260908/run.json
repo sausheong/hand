@@ -1,0 +1,53 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-context-state-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1"
+  ],
+  "binary_sha256": "8d6830acd20d1723d4b9f3f56f6395da53d4f1768730292de204d7e4a0c67331",
+  "runner_sha256": "e46bbc578eacb0afaeb82e4b7d2ec7718c678dc8b56a43ab444ffc60c90315d6",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "completed_commands": [
+    "/state",
+    "/state set",
+    "/state set goal objective Deliver migration",
+    "/state set choice decision Retain old reader",
+    "/state set pending unresolved_work Test rollback",
+    "/state evidence tests evidence/run.json#abc Unit tests at abc",
+    "/state remove pending",
+    "/state"
+  ],
+  "exit_code": 0,
+  "persisted_revisions": 5,
+  "final_state": {
+    "version": 1,
+    "items": [
+      {
+        "id": "goal",
+        "kind": "objective",
+        "text": "Deliver migration"
+      },
+      {
+        "id": "choice",
+        "kind": "decision",
+        "text": "Retain old reader"
+      },
+      {
+        "id": "tests",
+        "kind": "verification_reference",
+        "text": "Unit tests at abc",
+        "reference": "evidence/run.json#abc"
+      }
+    ]
+  },
+  "terminal_sha256": "a7b480c4a7cf7f4139f9ab42dbdb3baa8679243c277b675e01f489c542ad8888"
+}

@@ -1,0 +1,32 @@
+{"Time":"2026-09-09T03:20:20.677866+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T03:20:21.266248+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC"}
+{"Time":"2026-09-09T03:20:21.26631+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC","Output":"=== RUN   TestExtensionResourceIPC\n"}
+{"Time":"2026-09-09T03:20:21.266343+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/allow"}
+{"Time":"2026-09-09T03:20:21.266362+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/allow","Output":"=== RUN   TestExtensionResourceIPC/process.run/allow\n"}
+{"Time":"2026-09-09T03:20:21.650281+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/allow","Output":"--- PASS: TestExtensionResourceIPC/process.run/allow (0.38s)\n"}
+{"Time":"2026-09-09T03:20:21.6503+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/allow","Elapsed":0.38}
+{"Time":"2026-09-09T03:20:21.650321+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/deny"}
+{"Time":"2026-09-09T03:20:21.650333+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/deny","Output":"=== RUN   TestExtensionResourceIPC/process.run/deny\n"}
+{"Time":"2026-09-09T03:20:22.039738+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/deny","Output":"--- PASS: TestExtensionResourceIPC/process.run/deny (0.39s)\n"}
+{"Time":"2026-09-09T03:20:22.039768+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/deny","Elapsed":0.39}
+{"Time":"2026-09-09T03:20:22.039782+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/no-capability"}
+{"Time":"2026-09-09T03:20:22.039789+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/no-capability","Output":"=== RUN   TestExtensionResourceIPC/process.run/no-capability\n"}
+{"Time":"2026-09-09T03:20:22.426167+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/no-capability","Output":"--- PASS: TestExtensionResourceIPC/process.run/no-capability (0.39s)\n"}
+{"Time":"2026-09-09T03:20:22.426186+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/process.run/no-capability","Elapsed":0.39}
+{"Time":"2026-09-09T03:20:22.426198+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/allow"}
+{"Time":"2026-09-09T03:20:22.426202+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/allow","Output":"=== RUN   TestExtensionResourceIPC/network.fetch/allow\n"}
+{"Time":"2026-09-09T03:20:22.816058+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/allow","Output":"--- PASS: TestExtensionResourceIPC/network.fetch/allow (0.39s)\n"}
+{"Time":"2026-09-09T03:20:22.816078+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/allow","Elapsed":0.39}
+{"Time":"2026-09-09T03:20:22.816086+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/deny"}
+{"Time":"2026-09-09T03:20:22.816091+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/deny","Output":"=== RUN   TestExtensionResourceIPC/network.fetch/deny\n"}
+{"Time":"2026-09-09T03:20:23.179842+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/deny","Output":"--- PASS: TestExtensionResourceIPC/network.fetch/deny (0.36s)\n"}
+{"Time":"2026-09-09T03:20:23.179872+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/deny","Elapsed":0.36}
+{"Time":"2026-09-09T03:20:23.179879+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/no-capability"}
+{"Time":"2026-09-09T03:20:23.179884+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/no-capability","Output":"=== RUN   TestExtensionResourceIPC/network.fetch/no-capability\n"}
+{"Time":"2026-09-09T03:20:23.553985+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/no-capability","Output":"--- PASS: TestExtensionResourceIPC/network.fetch/no-capability (0.37s)\n"}
+{"Time":"2026-09-09T03:20:23.554012+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC/network.fetch/no-capability","Elapsed":0.37}
+{"Time":"2026-09-09T03:20:23.554021+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC","Output":"--- PASS: TestExtensionResourceIPC (2.29s)\n"}
+{"Time":"2026-09-09T03:20:23.554032+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionResourceIPC","Elapsed":2.29}
+{"Time":"2026-09-09T03:20:23.554284+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T03:20:24.562119+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t3.884s\n"}
+{"Time":"2026-09-09T03:20:24.562231+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":3.884}

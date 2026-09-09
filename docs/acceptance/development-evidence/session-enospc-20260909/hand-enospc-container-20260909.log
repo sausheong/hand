@@ -1,0 +1,4 @@
+=== RUN   TestBinaryExportReportsRealENOSPC
+    session_enospc_linux_test.go:134: Kernel ENOSPC reached; CLI exit 5 and disk-full diagnostic; no partial publication; source/catalogue preserved; retry byte-identical
+--- PASS: TestBinaryExportReportsRealENOSPC (0.09s)
+PASS

@@ -1,0 +1,44 @@
+{
+  "status": "development_fuzz_passed",
+  "requirements": [
+    "M4.1",
+    "M6.3"
+  ],
+  "race_seed_and_regression_records": {
+    "pass": 13
+  },
+  "fuzz": {
+    "target": "FuzzCanonicalControlParams",
+    "requested_seconds": 60,
+    "last_elapsed": "1m1s",
+    "executions": 789016,
+    "workers": 2
+  },
+  "properties": [
+    "Accepted top-level names exactly match schema",
+    "Canonical roundtrip preserves limit and confirmation",
+    "Literal and escaped duplicate confirmations rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/params-fuzz-20260909/fuzz.jsonl",
+      "sha256": "4986e7da1fe2455e7024d85f2d91de28dfd509dac5fb3c5c2c99dc8674d96671"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-fuzz-20260909/params_fuzz_test.go.txt",
+      "sha256": "4b45a60a3912020d6afcf584c6fd5f2b503db61d47205c1db46171fb3f13f7e5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-fuzz-20260909/params_json.go.txt",
+      "sha256": "edc6f327b1e7b7d3aa0d443a1f47ebae210860d50f5e576a9228583d452fa9f6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-fuzz-20260909/seeds.jsonl",
+      "sha256": "97776189055e8fae0d0022fedd27a29edfaf5da4c9cbc8b57cdeca6922a1c920"
+    }
+  ],
+  "limitations": [
+    "Parser fuzzing only; no complete control-state or nested schema qualification",
+    "Final exact candidate fuzz/platform gate remains pending"
+  ]
+}

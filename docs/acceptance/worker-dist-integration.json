@@ -1,0 +1,51 @@
+{
+  "status": "development_verified",
+  "checkout": "/private/tmp/hand-session-integration-20260908",
+  "harness_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "requires": "sdk-isolation-integration.patch",
+  "packaging_patch": "worker-dist-integration.patch",
+  "primary_integrated": false,
+  "release_candidate": false,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/worker-dist-20260908/hand-worker-dist-tests-20260908.log",
+      "sha256": "0f7e4b97443e54aca647179972594d13bb587afcbf151fab8228148587ea844a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/worker-dist-20260908/hand-worker-dist-native-20260908.json",
+      "sha256": "b1179f9d73c0e918dbc872264117ea731cf83da98863e326a57414d26fd75ed8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/worker-dist-20260908/hand-worker-dist-smoke-20260908.json",
+      "sha256": "47d699c4e39a852b19c4d5746f09fbce5d7e4bc0c8aba0b21e080ab7b0ffe768"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/worker-dist-20260908/hand-worker-dist-build-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sources": [
+    {
+      "path": "scripts/build_dist.py",
+      "sha256": "403d1f16da73684481fab2bc195bced1099174a87586fe6221e4887921d80121"
+    },
+    {
+      "path": "scripts/smoke_dist.py",
+      "sha256": "858383763b461b5cc9eaf4494ba5faa8639ac5b406d0061e211e9c291a738d55"
+    },
+    {
+      "path": "scripts/test_worker_dist.py",
+      "sha256": "a1980ed4154245e3462a3919e3518d47b6c5695350cb7e61600793fe1bb19c79"
+    },
+    {
+      "path": "docs/acceptance/worker-dist-integration.patch",
+      "sha256": "b7491ef97cc2c43b098d829d201894703fb5686d85eb8175c4133064242564eb"
+    }
+  ],
+  "limitations": [
+    "Development archives use baseline identity with uncommitted staged changes; they are not a release candidate.",
+    "Native CLI smoke covers macOS arm64 only; native worker health covers Linux arm64 in Docker Desktop.",
+    "Full boundary journeys against packaged workers and other platform runtimes remain open.",
+    "Apply SDK aggregate and packaging patch after published Harness integration; no publication performed."
+  ]
+}

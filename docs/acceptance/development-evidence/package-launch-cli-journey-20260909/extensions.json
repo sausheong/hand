@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "snapshot_root": "/private/tmp/hand-package-launch-cli-journey-20260909/launch-snapshots",
+  "identities": {
+    "task-note": "package:python-task-note:task-note"
+  },
+  "reviews": [
+    {
+      "specification": {
+        "name": "task-note",
+        "digest": "7bb6ab7abb1001796e31ff3715bd501245b341ea4d2f925f70c1dab40e1f82ef",
+        "capabilities": [
+          "commands",
+          "context.transform",
+          "file.read",
+          "questions",
+          "state"
+        ],
+        "order": 0,
+        "mandatory": false
+      },
+      "binary": {
+        "path": "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "sha256": "cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43",
+        "size": 52448,
+        "mode": 493
+      },
+      "assets": [
+        {
+          "path": "/private/tmp/hand-package-launch-cli-journey-20260909/git-store/objects/f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484/main.py",
+          "relative": "main.py",
+          "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+          "size": 3339,
+          "mode": 256
+        }
+      ],
+      "arguments": [
+        "-I",
+        "-B",
+        "${package}/main.py"
+      ],
+      "workspace": "/private/tmp/hand-package-launch-cli-journey-20260909/workspace",
+      "environment": {},
+      "boundary": "unrestricted host subprocess; capabilities are not an OS sandbox; runtime libraries are not snapshotted"
+    }
+  ]
+}

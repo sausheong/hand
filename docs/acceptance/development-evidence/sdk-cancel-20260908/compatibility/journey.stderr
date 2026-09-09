@@ -1,0 +1,1 @@
+2026/09/08 12:27:27 WARN openai chat error model=fixture msg_count=2 tool_count=11 max_completion_tokens=8192 temperature=0 stream=true err="context canceled"

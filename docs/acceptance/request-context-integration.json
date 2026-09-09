@@ -1,0 +1,54 @@
+{
+  "status": "development_runtime_to_tui_accounting_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/tui -run '^TestRuntimeRequestsReachTUIContextWithoutCumulativeInflation$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 60
+  },
+  "assertions": [
+    "Actual Harness performs ten provider calls and nine tool executions through application service to TUI",
+    "All-reported final request gauge 20k/100k, cumulative total 201000 tokens",
+    "Missing last request shows context unknown, recorded subtotal 180900 and one unknown attempt",
+    "Terminal outcome completed and worker/UI no longer running",
+    "Disk session close/reopen accounting equals displayed totals in both variants"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/hand-context-integration-20260909.jsonl.gz",
+      "sha256": "a3475ae913e0eb08bdf7d68cb42f31a387940d91b5539e4ea97d4a43272bdc0d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_app_harness.go.txt",
+      "sha256": "781eec63e86c1491acd2e5882bde79c33d8852e0296dcb2c00f2f622895db1a5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_app_service.go.txt",
+      "sha256": "6095e469252151a27aef363defdefd7299c71052d1c91a0a760d41772658de7f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_tui_application.go.txt",
+      "sha256": "8f8937f5abebed1ba1773f344246af56ae62fb249349a8dffbc6abd465286cf3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_tui_application_test.go.txt",
+      "sha256": "b42c6a557427fd06671e9adc2630e69423fab7a11d739bf81e7d6069872e8ad0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_tui_model.go.txt",
+      "sha256": "40d7a52b01c7c8379de50292b755b2be8cc8d76feab1ae2d008cccaa65294471"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_tui_request_context_integration_test.go.txt",
+      "sha256": "9ad34fcd738f245ea0df8102a858d00b443569a1f4900e26f90d471868d7199a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-integration-20260909/internal_tui_status.go.txt",
+      "sha256": "7983f0a2c9a3d38b8de5ee88a3f546b7903a6861b1446a07f24c96ce00d72dfe"
+    }
+  ],
+  "limitations": [
+    "In-process UI/service integration with deterministic provider and real session store, not built terminal executable or live provider",
+    "Clean reopen, not process crash",
+    "Development local Harness; final candidate/platform coverage remains open"
+  ]
+}

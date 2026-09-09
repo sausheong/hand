@@ -1,0 +1,75 @@
+{
+  "status": "development_regression_fixed",
+  "requirements": [
+    "M1.4",
+    "M2.1",
+    "M3.4"
+  ],
+  "before": "SIGINT/SIGTERM killed Hand during MCP startup and left its child alive in one-shot and RPC modes",
+  "after": "One signal context spans construction and execution; startup cancellation joins MCP child before exit 130 without fabricating run output",
+  "repetitions": 20,
+  "tests": {
+    "hand-startup-signal-before-20260909.jsonl": {
+      "fail": 5
+    },
+    "hand-startup-signal-after-20260909.jsonl": {
+      "pass": 5
+    },
+    "hand-startup-signal-repeat-20260909.jsonl": {
+      "pass": 160
+    },
+    "hand-startup-signal-outcomes-20260909.jsonl": {
+      "pass": 11
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/main.go.gz",
+      "sha256": "e4e7a7207c5f9d21842998f57b2273b78552b171e11f68ef92c00d03dcbafd73",
+      "uncompressed_sha256": "13062606a4c955f4c006ab4a3e19e33b97f0d92478e9eb1d2c7f347b12ed301a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/rpc.go.gz",
+      "sha256": "fc6d2d9178ecaeaccb2294a0617e6039c422c8ffb6e0cf1807f62d053a9d8c92",
+      "uncompressed_sha256": "5c33f8550ec2c8236f1b13850c5e9a43f48bdacef188c9cc8c3344a2e7883ed0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/startup_signal_binary_test.go.gz",
+      "sha256": "d53cd89c55b02a53d65074aecfb4efcebb5363dd302e66627c3425944d05bec6",
+      "uncompressed_sha256": "5be327c7fbf385ed2ba32b3848daf98028befc78f8823e110f75d27f81b7fe75"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/hand-startup-signal-vet-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/hand-startup-signal-before-20260909.jsonl.gz",
+      "sha256": "c205f428379454ec03c03d163a09bd3373b459cd7296bc3b36e2f8cdad1c9527",
+      "uncompressed_sha256": "62d8ae72dc6b8620ca6c8176ecf37448c6722b352cd8d59c0b9f405368d18c6e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/hand-startup-signal-after-20260909.jsonl.gz",
+      "sha256": "b39751de6456526c459840b43b61803e5ea6ac8a88e7f2e144d5c418845dc8d4",
+      "uncompressed_sha256": "39f4a7423e2a7dc9480134879d009fb9b825ce2e11baa8927ccc22990af7e6fd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/hand-startup-signal-repeat-20260909.jsonl.gz",
+      "sha256": "d8580919b585541fe4dcc2267a2338b699918eeb6b603df6035ea57db80fac28",
+      "uncompressed_sha256": "8638d2bb53ef823162eb76e1d7d74186f3d14962b7bada9e449ee7df0a11723e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/startup-signal-20260909/hand-startup-signal-outcomes-20260909.jsonl.gz",
+      "sha256": "d0b1a92d7a112e10524d54ea201e1bb96dbcdbbaac6e6a87d11ec403ce9a68ef",
+      "uncompressed_sha256": "882b12d7bedcd470ae96529931260046c14539541419ede28049965ff06cb7da"
+    }
+  ],
+  "vet_exit_code": 0,
+  "limitations": [
+    "Compiled child Hand binary uses ordinary go build; parent test harness is race enabled",
+    "Native macOS focused evidence; Linux and clean released-candidate qualification remain required",
+    "No live model calls or full-suite qualification performed"
+  ],
+  "startup_cleanup_trials": 80,
+  "startup_cleanup_max_ms": 266.058
+}

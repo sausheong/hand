@@ -1,0 +1,124 @@
+{
+  "status": "oracle_calibrated",
+  "task": "kokoro-config-reject-directories",
+  "repository": "https://github.com/thewh1teagle/kokoro-onnx.git",
+  "commit": "8534fd94db73be4f3d07b3eefd623c1eb8c8a806",
+  "before": {
+    "status": "baseline_tests_failed",
+    "passed": 3,
+    "failed": 2
+  },
+  "after": {
+    "status": "candidate_tests_passed",
+    "passed": 5,
+    "failed": 0
+  },
+  "fixture_integrity": "passed_before_and_after",
+  "catalogue": {
+    "tasks": 4,
+    "repositories": 3,
+    "languages": [
+      "Go",
+      "Python"
+    ],
+    "held_out": 0,
+    "required_tasks": 30,
+    "required_held_out": 10
+  },
+  "tooling_tests": {
+    "passed": 73,
+    "failed": 0
+  },
+  "limitations": [
+    "This is offline oracle calibration, not an agent run or model-quality evidence.",
+    "The correction exists only as a calibration patch in a fresh workspace; original Kokoro checkout was not edited.",
+    "One small Python configuration task does not establish adequate repository/language/size/category diversity.",
+    "No held-out membership, model pins, credentials or spending approval invented."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__oracle-calibration.patch.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/oracle-calibration.patch",
+      "sha256": "255b6b6b71bf0428aa43336d1086e5af51f7f6bf70099f739f202d49c51898ef",
+      "uncompressed_sha256": "a98d8fe2225c123a40f9b168f876b6b25582b67cde7a1e1c596ca4e91a598df3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-manifest-20260909.json.gz",
+      "source": "/private/tmp/hand-kokoro-manifest-20260909.json",
+      "sha256": "a38749c6dbe85ed13c290d8b8a41d11e635192400d65249910696e39285763c9",
+      "uncompressed_sha256": "e905e30eae98e0f55a26264114f62e3304ba102bc6ea0f6daeac7b52abc70328"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-evaluation-tests-20260909.log.gz",
+      "source": "/private/tmp/hand-kokoro-evaluation-tests-20260909.log",
+      "sha256": "729214a08fd71d750d93879626f27ddacbfde37be04802184e3593ff6c75fe18",
+      "uncompressed_sha256": "71ec07e450a1f05f2f23f0b51ee8ce52859eb9333f60f045223e065126e3a8e5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-evaluation-tests-final-20260909.log.gz",
+      "source": "/private/tmp/hand-kokoro-evaluation-tests-final-20260909.log",
+      "sha256": "ed4b7d1e55d2164c9c5d7c4180726993b8baaa7121b632ebb73efa5c91ca970f",
+      "uncompressed_sha256": "7a7674bf3e483116c58cbb74e96b864e3f117ddbb461368a10220401858879d4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__before__report.json.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/before/report.json",
+      "sha256": "bdfb77e614ebc135f2b8bb7694dfe9ebb4cc851365582ce00d8eb690ac0b1099",
+      "uncompressed_sha256": "ed3474afbd2fc4f28aa6482ed88cad4ad11d1a2c2def88b354f5c29991d769ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__before__check-0__stdout.log.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/before/check-0/stdout.log",
+      "sha256": "5e7e51a0e1bf8e8aa18ea160f23c061fac3b58ccc4c4f329fb8dbc591caedded",
+      "uncompressed_sha256": "e804e16bafa5aadc25721bc5a047eb78a50d653af4b9844cd4c878330f7a2a05"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__before__check-0__stderr.log.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/before/check-0/stderr.log",
+      "sha256": "91b2a2b1f1175f00658cfe9df564ca0b4dc06d8bc46cfbf731e9094d94fee06c",
+      "uncompressed_sha256": "423728ba2c0dc14d953bd74b33cfc9efa7ee80ad719bbae3c7d066dca0ea99fd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__after__report.json.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/after/report.json",
+      "sha256": "a988498e77a0a885ad3debc6f4851374fff9ac975776e90fd9a6f6903f4901ac",
+      "uncompressed_sha256": "c30f392cbc453b56de9e01b5a70ca596419fb2777117230457918a0b4de9ed2b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__after__check-0__stdout.log.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/after/check-0/stdout.log",
+      "sha256": "1b95605d18ecaa73126f7d603bd49d9f4107608c14feaf05ba337d9d879198ec",
+      "uncompressed_sha256": "28aad7b4ec486bc7464e78356cc42efa7099b81564c20447b0d9997dfeac70a2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__private__tmp__hand-kokoro-oracle-20260909__after__check-0__stderr.log.gz",
+      "source": "/private/tmp/hand-kokoro-oracle-20260909/after/check-0/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__Users__sausheong__projects__hand__docs__acceptance__evaluation__calibration.json.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/calibration.json",
+      "sha256": "4359113a084264e815a6d1953ca6aabea90ce7f527fc47c9c64b24e496b713dd",
+      "uncompressed_sha256": "7a7b5f1c464b90f2ec35be033a80699b73df8891bfae66de16e70f8b2ac9204b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__Users__sausheong__projects__hand__docs__acceptance__evaluation__testdata__kokoro_config_test.py.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/kokoro_config_test.py",
+      "sha256": "62dc61c251f24265688ab32a94c0e8ead20fbc8ac1445b9557d824f97d3bbf94",
+      "uncompressed_sha256": "1c706258b4ceb8e895c37d99fa6e3a7d185e8690e026267cd000f161f02a7a5d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__Users__sausheong__projects__hand__docs__acceptance__evaluation__testdata__python_unittest_driver.py.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/python_unittest_driver.py",
+      "sha256": "06669d47861675fdc358266fb8d5ae51e99824765faec30a2da7b79609e8227e",
+      "uncompressed_sha256": "f8e350fda7e54c80ca77dcf0e38bb34c321eb1ff0ab7a5a138a0b25b0c8460f8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/kokoro-oracle-20260909/__Users__sausheong__projects__hand__scripts__test_evaluation_manifest.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_manifest.py",
+      "sha256": "474ee0f9e74d9feb76330a264b1bad8b740807a2fc1db8e7faacb97c924462be",
+      "uncompressed_sha256": "544f1f2159497f4cfab5bbb6c19c011104fe14d31c5ed6cec135c6ec2da33c59"
+    }
+  ]
+}

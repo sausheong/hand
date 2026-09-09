@@ -1,0 +1,44 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Trusted run/token/configuration controller joining header/body validation, durable admission, single-use forwarding, private response evidence and active cancellation.",
+  "tests": {
+    "focused_integration": 5,
+    "evaluation_suite": 144,
+    "failures": 0,
+    "skips": 0
+  },
+  "scenarios": [
+    "Caller mutations do not change frozen run settings",
+    "Unknown credentials or changed model cannot connect",
+    "Durable revocation cancels active socket and denies later requests",
+    "Concurrent requests share one aggregate budget",
+    "Controller closure cancels active work and denies requests"
+  ],
+  "limitations": [
+    "Integration uses socket-pair upstream fixtures, no real provider calls or incoming HTTP listener.",
+    "Configuration and provider key are explicit trusted inputs, not evidence of spending approval or authentic pricing.",
+    "Frozen manifest-to-configuration attestation, server framing, downstream streaming headers, DNS/TLS deployment isolation and full agent runtime integration remain pending.",
+    "Callers must join request workers after close; raw usage remains unverified and no settlement occurs."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-gateway-20260909/evaluation_gateway.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_gateway.py",
+      "sha256": "6b60d1d41563c653601edba4ea8e25abd8a3f0b09b9b63cfc4f44ea301b8066f",
+      "uncompressed_sha256": "b7ad8eb6c5c6ebd8db9ea3acebfc74ecabe5d4cc5fb0c6d58a10408ab2cdc660"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-gateway-20260909/test_evaluation_gateway.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_gateway.py",
+      "sha256": "526aecb6c7a9cf3894e08b86fbb8f64e86a4ac7e5751f8111d3f71c094ee27c1",
+      "uncompressed_sha256": "5b17a0bb2d80d8c1639b4300e1ff72d628ea4bb831b50177618d3e9b0dddcc0c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-gateway-20260909/hand-evaluation-gateway-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-gateway-20260909.log",
+      "sha256": "086f48935b587f5db9417aca672f790d888d047a2c534c88c8c7447b8018040c",
+      "uncompressed_sha256": "c591cda110cae2fc7b9a2560b859d4d337e7f0b68208b733189fa669acfadbbc"
+    }
+  ]
+}

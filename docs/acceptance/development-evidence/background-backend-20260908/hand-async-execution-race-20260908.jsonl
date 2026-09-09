@@ -1,0 +1,212 @@
+{"Time":"2026-09-08T14:01:38.888743+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-08T14:01:38.888862+08:00","Action":"start","Package":"github.com/sausheong/harness/process"}
+{"Time":"2026-09-08T14:01:39.2211+08:00","Action":"start","Package":"github.com/sausheong/harness/tools/bash"}
+{"Time":"2026-09-08T14:01:39.273253+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadVerifiedAndTampered"}
+{"Time":"2026-09-08T14:01:39.27329+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadVerifiedAndTampered","Output":"=== RUN   TestArtifactReadVerifiedAndTampered\n"}
+{"Time":"2026-09-08T14:01:39.28054+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadVerifiedAndTampered","Output":"--- PASS: TestArtifactReadVerifiedAndTampered (0.01s)\n"}
+{"Time":"2026-09-08T14:01:39.280553+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadVerifiedAndTampered","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:39.280563+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadScopeLockAndCancellation"}
+{"Time":"2026-09-08T14:01:39.280569+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadScopeLockAndCancellation","Output":"=== RUN   TestArtifactReadScopeLockAndCancellation\n"}
+{"Time":"2026-09-08T14:01:39.285538+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadScopeLockAndCancellation","Output":"--- PASS: TestArtifactReadScopeLockAndCancellation (0.00s)\n"}
+{"Time":"2026-09-08T14:01:39.285549+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactReadScopeLockAndCancellation","Elapsed":0}
+{"Time":"2026-09-08T14:01:39.285556+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactSpillExactAndCap"}
+{"Time":"2026-09-08T14:01:39.28556+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactSpillExactAndCap","Output":"=== RUN   TestArtifactSpillExactAndCap\n"}
+{"Time":"2026-09-08T14:01:39.311104+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactSpillExactAndCap","Output":"--- PASS: TestArtifactSpillExactAndCap (0.03s)\n"}
+{"Time":"2026-09-08T14:01:39.311117+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactSpillExactAndCap","Elapsed":0.03}
+{"Time":"2026-09-08T14:01:39.311121+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactQuotaProtectsActiveAndEvictsCompleted"}
+{"Time":"2026-09-08T14:01:39.311124+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactQuotaProtectsActiveAndEvictsCompleted","Output":"=== RUN   TestArtifactQuotaProtectsActiveAndEvictsCompleted\n"}
+{"Time":"2026-09-08T14:01:39.352436+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactQuotaProtectsActiveAndEvictsCompleted","Output":"--- PASS: TestArtifactQuotaProtectsActiveAndEvictsCompleted (0.04s)\n"}
+{"Time":"2026-09-08T14:01:39.352443+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactQuotaProtectsActiveAndEvictsCompleted","Elapsed":0.04}
+{"Time":"2026-09-08T14:01:39.352455+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactRetentionAndPrivateDirectory"}
+{"Time":"2026-09-08T14:01:39.352459+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactRetentionAndPrivateDirectory","Output":"=== RUN   TestArtifactRetentionAndPrivateDirectory\n"}
+{"Time":"2026-09-08T14:01:39.362285+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactRetentionAndPrivateDirectory","Output":"--- PASS: TestArtifactRetentionAndPrivateDirectory (0.01s)\n"}
+{"Time":"2026-09-08T14:01:39.362297+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactRetentionAndPrivateDirectory","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:39.36234+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactCrossProcessReservation"}
+{"Time":"2026-09-08T14:01:39.362344+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactCrossProcessReservation","Output":"=== RUN   TestArtifactCrossProcessReservation\n"}
+{"Time":"2026-09-08T14:01:39.406592+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactCrossProcessReservation","Output":"--- PASS: TestArtifactCrossProcessReservation (0.04s)\n"}
+{"Time":"2026-09-08T14:01:39.406627+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactCrossProcessReservation","Elapsed":0.04}
+{"Time":"2026-09-08T14:01:39.406647+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestArtifactAllocationFailureStillDrains"}
+{"Time":"2026-09-08T14:01:39.406651+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactAllocationFailureStillDrains","Output":"=== RUN   TestArtifactAllocationFailureStillDrains\n"}
+{"Time":"2026-09-08T14:01:39.40752+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestArtifactAllocationFailureStillDrains","Output":"--- PASS: TestArtifactAllocationFailureStillDrains (0.00s)\n"}
+{"Time":"2026-09-08T14:01:39.407528+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestArtifactAllocationFailureStillDrains","Elapsed":0}
+{"Time":"2026-09-08T14:01:39.407547+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestCaptureCopyBound"}
+{"Time":"2026-09-08T14:01:39.407551+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestCaptureCopyBound","Output":"=== RUN   TestCaptureCopyBound\n"}
+{"Time":"2026-09-08T14:01:39.408805+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestCaptureCopyBound","Output":"--- PASS: TestCaptureCopyBound (0.00s)\n"}
+{"Time":"2026-09-08T14:01:39.408817+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestCaptureCopyBound","Elapsed":0}
+{"Time":"2026-09-08T14:01:39.408846+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestCaptureConcurrentAndEmpty"}
+{"Time":"2026-09-08T14:01:39.40885+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestCaptureConcurrentAndEmpty","Output":"=== RUN   TestCaptureConcurrentAndEmpty\n"}
+{"Time":"2026-09-08T14:01:39.410212+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestCaptureConcurrentAndEmpty","Output":"--- PASS: TestCaptureConcurrentAndEmpty (0.00s)\n"}
+{"Time":"2026-09-08T14:01:39.41022+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestCaptureConcurrentAndEmpty","Elapsed":0}
+{"Time":"2026-09-08T14:01:39.410239+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T14:01:39.410244+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T14:01:39.417022+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.01s)\n"}
+{"Time":"2026-09-08T14:01:39.417057+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:39.417083+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T14:01:39.417088+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T14:01:39.432345+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.02s)\n"}
+{"Time":"2026-09-08T14:01:39.432366+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.02}
+{"Time":"2026-09-08T14:01:39.432403+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T14:01:39.432407+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T14:01:39.435014+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T14:01:39.435037+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T14:01:39.435073+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleCancelledInputStopsAndJoinsProcess"}
+{"Time":"2026-09-08T14:01:39.435076+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleCancelledInputStopsAndJoinsProcess","Output":"=== RUN   TestHandleCancelledInputStopsAndJoinsProcess\n"}
+{"Time":"2026-09-08T14:01:39.540273+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleCancelledInputStopsAndJoinsProcess","Output":"--- PASS: TestHandleCancelledInputStopsAndJoinsProcess (0.11s)\n"}
+{"Time":"2026-09-08T14:01:39.540313+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleCancelledInputStopsAndJoinsProcess","Elapsed":0.11}
+{"Time":"2026-09-08T14:01:39.540365+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Output":"PASS\n"}
+{"Time":"2026-09-08T14:01:39.664875+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments"}
+{"Time":"2026-09-08T14:01:39.664911+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Output":"=== RUN   TestHostExplicitEnvironmentAndExactArguments\n"}
+{"Time":"2026-09-08T14:01:39.67068+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Output":"--- PASS: TestHostExplicitEnvironmentAndExactArguments (0.01s)\n"}
+{"Time":"2026-09-08T14:01:39.670695+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:39.670708+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand"}
+{"Time":"2026-09-08T14:01:39.670714+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Output":"=== RUN   TestMissingContainerNeverExecutesHostCommand\n"}
+{"Time":"2026-09-08T14:01:39.671314+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Output":"--- PASS: TestMissingContainerNeverExecutesHostCommand (0.00s)\n"}
+{"Time":"2026-09-08T14:01:39.671324+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Elapsed":0}
+{"Time":"2026-09-08T14:01:39.671335+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary"}
+{"Time":"2026-09-08T14:01:39.671339+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"=== RUN   TestNativeContainerBoundary\n"}
+{"Time":"2026-09-08T14:01:40.154822+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBackendReceivesExactApprovedCommandAndNeverFallsBack"}
+{"Time":"2026-09-08T14:01:40.154848+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBackendReceivesExactApprovedCommandAndNeverFallsBack","Output":"=== RUN   TestBackendReceivesExactApprovedCommandAndNeverFallsBack\n"}
+{"Time":"2026-09-08T14:01:40.155792+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBackendReceivesExactApprovedCommandAndNeverFallsBack","Output":"--- PASS: TestBackendReceivesExactApprovedCommandAndNeverFallsBack (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.155803+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBackendReceivesExactApprovedCommandAndNeverFallsBack","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.155809+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBashNativeContainerWithCapture"}
+{"Time":"2026-09-08T14:01:40.155812+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBashNativeContainerWithCapture","Output":"=== RUN   TestBashNativeContainerWithCapture\n"}
+{"Time":"2026-09-08T14:01:40.380264+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBashNativeContainerWithCapture","Output":"--- PASS: TestBashNativeContainerWithCapture (0.22s)\n"}
+{"Time":"2026-09-08T14:01:40.380315+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestBashNativeContainerWithCapture","Elapsed":0.22}
+{"Time":"2026-09-08T14:01:40.380331+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestExtractCommands_BackgroundAmpersand"}
+{"Time":"2026-09-08T14:01:40.380337+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestExtractCommands_BackgroundAmpersand","Output":"=== RUN   TestExtractCommands_BackgroundAmpersand\n"}
+{"Time":"2026-09-08T14:01:40.386509+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestExtractCommands_BackgroundAmpersand","Output":"--- PASS: TestExtractCommands_BackgroundAmpersand (0.01s)\n"}
+{"Time":"2026-09-08T14:01:40.386535+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestExtractCommands_BackgroundAmpersand","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:40.386554+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestUnknownExecPolicyFailsClosed"}
+{"Time":"2026-09-08T14:01:40.386557+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestUnknownExecPolicyFailsClosed","Output":"=== RUN   TestUnknownExecPolicyFailsClosed\n"}
+{"Time":"2026-09-08T14:01:40.386658+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestUnknownExecPolicyFailsClosed","Output":"--- PASS: TestUnknownExecPolicyFailsClosed (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.386671+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestUnknownExecPolicyFailsClosed","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.386685+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText"}
+{"Time":"2026-09-08T14:01:40.386693+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText","Output":"=== RUN   TestSanitizeLLMText\n"}
+{"Time":"2026-09-08T14:01:40.386734+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ascii_passthrough"}
+{"Time":"2026-09-08T14:01:40.386739+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ascii_passthrough","Output":"=== RUN   TestSanitizeLLMText/ascii_passthrough\n"}
+{"Time":"2026-09-08T14:01:40.386774+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ascii_passthrough","Output":"--- PASS: TestSanitizeLLMText/ascii_passthrough (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.386787+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ascii_passthrough","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.386798+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/nbsp_between_words"}
+{"Time":"2026-09-08T14:01:40.386801+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/nbsp_between_words","Output":"=== RUN   TestSanitizeLLMText/nbsp_between_words\n"}
+{"Time":"2026-09-08T14:01:40.386817+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/nbsp_between_words","Output":"--- PASS: TestSanitizeLLMText/nbsp_between_words (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.386823+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/nbsp_between_words","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.386838+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/narrow_nbsp"}
+{"Time":"2026-09-08T14:01:40.386841+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/narrow_nbsp","Output":"=== RUN   TestSanitizeLLMText/narrow_nbsp\n"}
+{"Time":"2026-09-08T14:01:40.386859+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/narrow_nbsp","Output":"--- PASS: TestSanitizeLLMText/narrow_nbsp (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.386871+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/narrow_nbsp","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.386879+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ideographic_space"}
+{"Time":"2026-09-08T14:01:40.386881+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ideographic_space","Output":"=== RUN   TestSanitizeLLMText/ideographic_space\n"}
+{"Time":"2026-09-08T14:01:40.386906+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ideographic_space","Output":"--- PASS: TestSanitizeLLMText/ideographic_space (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.386915+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/ideographic_space","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.386919+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/en_space"}
+{"Time":"2026-09-08T14:01:40.386921+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/en_space","Output":"=== RUN   TestSanitizeLLMText/en_space\n"}
+{"Time":"2026-09-08T14:01:40.386955+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/en_space","Output":"--- PASS: TestSanitizeLLMText/en_space (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.386966+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/en_space","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.386971+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/zero-width_joiner_stripped"}
+{"Time":"2026-09-08T14:01:40.386975+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/zero-width_joiner_stripped","Output":"=== RUN   TestSanitizeLLMText/zero-width_joiner_stripped\n"}
+{"Time":"2026-09-08T14:01:40.38699+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/zero-width_joiner_stripped","Output":"--- PASS: TestSanitizeLLMText/zero-width_joiner_stripped (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.387006+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/zero-width_joiner_stripped","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.387016+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/bom_stripped"}
+{"Time":"2026-09-08T14:01:40.387018+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/bom_stripped","Output":"=== RUN   TestSanitizeLLMText/bom_stripped\n"}
+{"Time":"2026-09-08T14:01:40.387024+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/bom_stripped","Output":"--- PASS: TestSanitizeLLMText/bom_stripped (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.387036+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/bom_stripped","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.387041+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/line_separator_to_newline"}
+{"Time":"2026-09-08T14:01:40.387044+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/line_separator_to_newline","Output":"=== RUN   TestSanitizeLLMText/line_separator_to_newline\n"}
+{"Time":"2026-09-08T14:01:40.387065+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/line_separator_to_newline","Output":"--- PASS: TestSanitizeLLMText/line_separator_to_newline (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.387071+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/line_separator_to_newline","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.387095+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/preserves_real_tab_and_newline"}
+{"Time":"2026-09-08T14:01:40.387098+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/preserves_real_tab_and_newline","Output":"=== RUN   TestSanitizeLLMText/preserves_real_tab_and_newline\n"}
+{"Time":"2026-09-08T14:01:40.387115+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/preserves_real_tab_and_newline","Output":"--- PASS: TestSanitizeLLMText/preserves_real_tab_and_newline (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.387126+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText/preserves_real_tab_and_newline","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.387141+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText","Output":"--- PASS: TestSanitizeLLMText (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.387146+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestSanitizeLLMText","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.387156+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths"}
+{"Time":"2026-09-08T14:01:40.387163+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths","Output":"=== RUN   TestResolveBashCommandPaths\n"}
+{"Time":"2026-09-08T14:01:40.387561+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/backslash-escaped_path_with_ascii_spaces_resolves_to_nbsp_file"}
+{"Time":"2026-09-08T14:01:40.387566+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/backslash-escaped_path_with_ascii_spaces_resolves_to_nbsp_file","Output":"=== RUN   TestResolveBashCommandPaths/backslash-escaped_path_with_ascii_spaces_resolves_to_nbsp_file\n"}
+{"Time":"2026-09-08T14:01:40.39625+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/backslash-escaped_path_with_ascii_spaces_resolves_to_nbsp_file","Output":"--- PASS: TestResolveBashCommandPaths/backslash-escaped_path_with_ascii_spaces_resolves_to_nbsp_file (0.01s)\n"}
+{"Time":"2026-09-08T14:01:40.396262+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/backslash-escaped_path_with_ascii_spaces_resolves_to_nbsp_file","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:40.396284+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/double-quoted_path_resolves"}
+{"Time":"2026-09-08T14:01:40.396287+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/double-quoted_path_resolves","Output":"=== RUN   TestResolveBashCommandPaths/double-quoted_path_resolves\n"}
+{"Time":"2026-09-08T14:01:40.401229+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/double-quoted_path_resolves","Output":"--- PASS: TestResolveBashCommandPaths/double-quoted_path_resolves (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.401246+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/double-quoted_path_resolves","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.401264+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/single-quoted_path_resolves"}
+{"Time":"2026-09-08T14:01:40.40127+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/single-quoted_path_resolves","Output":"=== RUN   TestResolveBashCommandPaths/single-quoted_path_resolves\n"}
+{"Time":"2026-09-08T14:01:40.406678+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/single-quoted_path_resolves","Output":"--- PASS: TestResolveBashCommandPaths/single-quoted_path_resolves (0.01s)\n"}
+{"Time":"2026-09-08T14:01:40.40671+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/single-quoted_path_resolves","Elapsed":0.01}
+{"Time":"2026-09-08T14:01:40.406718+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/create-style_command_on_missing_path_is_left_alone"}
+{"Time":"2026-09-08T14:01:40.406722+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/create-style_command_on_missing_path_is_left_alone","Output":"=== RUN   TestResolveBashCommandPaths/create-style_command_on_missing_path_is_left_alone\n"}
+{"Time":"2026-09-08T14:01:40.40687+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/create-style_command_on_missing_path_is_left_alone","Output":"--- PASS: TestResolveBashCommandPaths/create-style_command_on_missing_path_is_left_alone (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.406881+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/create-style_command_on_missing_path_is_left_alone","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.406894+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/existing_path_is_left_alone"}
+{"Time":"2026-09-08T14:01:40.4069+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/existing_path_is_left_alone","Output":"=== RUN   TestResolveBashCommandPaths/existing_path_is_left_alone\n"}
+{"Time":"2026-09-08T14:01:40.406988+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/existing_path_is_left_alone","Output":"--- PASS: TestResolveBashCommandPaths/existing_path_is_left_alone (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.407005+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/existing_path_is_left_alone","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.40702+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/no_absolute_paths_is_a_no-op"}
+{"Time":"2026-09-08T14:01:40.407024+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/no_absolute_paths_is_a_no-op","Output":"=== RUN   TestResolveBashCommandPaths/no_absolute_paths_is_a_no-op\n"}
+{"Time":"2026-09-08T14:01:40.407063+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/no_absolute_paths_is_a_no-op","Output":"--- PASS: TestResolveBashCommandPaths/no_absolute_paths_is_a_no-op (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.407069+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths/no_absolute_paths_is_a_no-op","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.407452+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths","Output":"--- PASS: TestResolveBashCommandPaths (0.02s)\n"}
+{"Time":"2026-09-08T14:01:40.40746+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveBashCommandPaths","Elapsed":0.02}
+{"Time":"2026-09-08T14:01:40.407466+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath"}
+{"Time":"2026-09-08T14:01:40.407469+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath","Output":"=== RUN   TestResolveExistingPath\n"}
+{"Time":"2026-09-08T14:01:40.407846+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_nbsp_path_returned_unchanged"}
+{"Time":"2026-09-08T14:01:40.407852+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_nbsp_path_returned_unchanged","Output":"=== RUN   TestResolveExistingPath/existing_nbsp_path_returned_unchanged\n"}
+{"Time":"2026-09-08T14:01:40.407876+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_nbsp_path_returned_unchanged","Output":"--- PASS: TestResolveExistingPath/existing_nbsp_path_returned_unchanged (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.407883+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_nbsp_path_returned_unchanged","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.407895+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_ascii_path_returned_unchanged"}
+{"Time":"2026-09-08T14:01:40.407901+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_ascii_path_returned_unchanged","Output":"=== RUN   TestResolveExistingPath/existing_ascii_path_returned_unchanged\n"}
+{"Time":"2026-09-08T14:01:40.407924+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_ascii_path_returned_unchanged","Output":"--- PASS: TestResolveExistingPath/existing_ascii_path_returned_unchanged (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.407931+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/existing_ascii_path_returned_unchanged","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.407937+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/nbsp_emitted_by_LLM_for_ascii-space_file_resolves"}
+{"Time":"2026-09-08T14:01:40.40794+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/nbsp_emitted_by_LLM_for_ascii-space_file_resolves","Output":"=== RUN   TestResolveExistingPath/nbsp_emitted_by_LLM_for_ascii-space_file_resolves\n"}
+{"Time":"2026-09-08T14:01:40.40798+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/nbsp_emitted_by_LLM_for_ascii-space_file_resolves","Output":"--- PASS: TestResolveExistingPath/nbsp_emitted_by_LLM_for_ascii-space_file_resolves (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.407989+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/nbsp_emitted_by_LLM_for_ascii-space_file_resolves","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.407999+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/ascii-space_LLM_input_recovers_real_nbsp_file_via_dir_scan"}
+{"Time":"2026-09-08T14:01:40.40801+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/ascii-space_LLM_input_recovers_real_nbsp_file_via_dir_scan","Output":"=== RUN   TestResolveExistingPath/ascii-space_LLM_input_recovers_real_nbsp_file_via_dir_scan\n"}
+{"Time":"2026-09-08T14:01:40.408073+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/ascii-space_LLM_input_recovers_real_nbsp_file_via_dir_scan","Output":"--- PASS: TestResolveExistingPath/ascii-space_LLM_input_recovers_real_nbsp_file_via_dir_scan (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.408079+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/ascii-space_LLM_input_recovers_real_nbsp_file_via_dir_scan","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.408092+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/missing_path_returned_unchanged"}
+{"Time":"2026-09-08T14:01:40.408102+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/missing_path_returned_unchanged","Output":"=== RUN   TestResolveExistingPath/missing_path_returned_unchanged\n"}
+{"Time":"2026-09-08T14:01:40.408162+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/missing_path_returned_unchanged","Output":"--- PASS: TestResolveExistingPath/missing_path_returned_unchanged (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.408169+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath/missing_path_returned_unchanged","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.408548+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath","Output":"--- PASS: TestResolveExistingPath (0.00s)\n"}
+{"Time":"2026-09-08T14:01:40.408563+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestResolveExistingPath","Elapsed":0}
+{"Time":"2026-09-08T14:01:40.408575+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAllowlist_RejectsNewlineCRAndRedirection"}
+{"Time":"2026-09-08T14:01:40.408581+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAllowlist_RejectsNewlineCRAndRedirection","Output":"=== RUN   TestAllowlist_RejectsNewlineCRAndRedirection\n"}
+{"Time":"2026-09-08T14:01:40.431162+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAllowlist_RejectsNewlineCRAndRedirection","Output":"--- PASS: TestAllowlist_RejectsNewlineCRAndRedirection (0.02s)\n"}
+{"Time":"2026-09-08T14:01:40.431211+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestAllowlist_RejectsNewlineCRAndRedirection","Elapsed":0.02}
+{"Time":"2026-09-08T14:01:40.431238+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestCancellationStopsShellDescendant"}
+{"Time":"2026-09-08T14:01:40.431247+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestCancellationStopsShellDescendant","Output":"=== RUN   TestCancellationStopsShellDescendant\n"}
+{"Time":"2026-09-08T14:01:40.545054+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Output":"ok  \tgithub.com/sausheong/harness/process\t1.656s\n"}
+{"Time":"2026-09-08T14:01:40.545099+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Elapsed":1.6560000000000001}
+{"Time":"2026-09-08T14:01:41.226933+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"--- PASS: TestNativeContainerBoundary (1.56s)\n"}
+{"Time":"2026-09-08T14:01:41.226977+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Elapsed":1.56}
+{"Time":"2026-09-08T14:01:41.226985+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected"}
+{"Time":"2026-09-08T14:01:41.226989+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected","Output":"=== RUN   TestImageImplicitVolumesRejected\n"}
+{"Time":"2026-09-08T14:01:41.227113+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected","Output":"--- PASS: TestImageImplicitVolumesRejected (0.00s)\n"}
+{"Time":"2026-09-08T14:01:41.227122+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected","Elapsed":0}
+{"Time":"2026-09-08T14:01:41.227129+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection"}
+{"Time":"2026-09-08T14:01:41.227133+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection","Output":"=== RUN   TestNativeImageVolumeRejection\n"}
+{"Time":"2026-09-08T14:01:41.271336+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection","Output":"--- PASS: TestNativeImageVolumeRejection (0.04s)\n"}
+{"Time":"2026-09-08T14:01:41.271369+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection","Elapsed":0.04}
+{"Time":"2026-09-08T14:01:41.271406+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHandleCompletionIncludesBackendCleanup"}
+{"Time":"2026-09-08T14:01:41.271416+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHandleCompletionIncludesBackendCleanup","Output":"=== RUN   TestHandleCompletionIncludesBackendCleanup\n"}
+{"Time":"2026-09-08T14:01:41.27602+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHandleCompletionIncludesBackendCleanup","Output":"--- PASS: TestHandleCompletionIncludesBackendCleanup (0.00s)\n"}
+{"Time":"2026-09-08T14:01:41.276043+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHandleCompletionIncludesBackendCleanup","Elapsed":0}
+{"Time":"2026-09-08T14:01:41.276063+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"PASS\n"}
+{"Time":"2026-09-08T14:01:41.687168+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestCancellationStopsShellDescendant","Output":"--- PASS: TestCancellationStopsShellDescendant (1.26s)\n"}
+{"Time":"2026-09-08T14:01:41.687257+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestCancellationStopsShellDescendant","Elapsed":1.26}
+{"Time":"2026-09-08T14:01:41.687326+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestNormalExitStopsShellDescendant"}
+{"Time":"2026-09-08T14:01:41.687351+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestNormalExitStopsShellDescendant","Output":"=== RUN   TestNormalExitStopsShellDescendant\n"}
+{"Time":"2026-09-08T14:01:42.289779+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"ok  \tgithub.com/sausheong/harness/execution\t3.401s\n"}
+{"Time":"2026-09-08T14:01:42.289872+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Elapsed":3.401}
+{"Time":"2026-09-08T14:01:42.799503+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestNormalExitStopsShellDescendant","Output":"--- PASS: TestNormalExitStopsShellDescendant (1.11s)\n"}
+{"Time":"2026-09-08T14:01:42.799584+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestNormalExitStopsShellDescendant","Elapsed":1.11}
+{"Time":"2026-09-08T14:01:42.799629+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/bash","Test":"TestOutputCaptureBoundsBothStreams"}
+{"Time":"2026-09-08T14:01:42.799644+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestOutputCaptureBoundsBothStreams","Output":"=== RUN   TestOutputCaptureBoundsBothStreams\n"}
+{"Time":"2026-09-08T14:01:42.855632+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Test":"TestOutputCaptureBoundsBothStreams","Output":"--- PASS: TestOutputCaptureBoundsBothStreams (0.06s)\n"}
+{"Time":"2026-09-08T14:01:42.855655+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Test":"TestOutputCaptureBoundsBothStreams","Elapsed":0.06}
+{"Time":"2026-09-08T14:01:42.855663+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Output":"PASS\n"}
+{"Time":"2026-09-08T14:01:43.869517+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/bash","Output":"ok  \tgithub.com/sausheong/harness/tools/bash\t4.648s\n"}
+{"Time":"2026-09-08T14:01:43.869567+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/bash","Elapsed":4.648}

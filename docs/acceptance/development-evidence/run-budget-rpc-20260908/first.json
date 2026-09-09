@@ -1,0 +1,352 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-session",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-session",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_c7ea75988f4256ab"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "session-cap",
+      "method": "budget.tokens.decide",
+      "params": {
+        "limit": 1000000,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "session-cap",
+      "result": {
+        "limit": 1000000
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "unconfirmed",
+      "method": "budget.run.tokens.decide",
+      "params": {
+        "id": "repair",
+        "limit": 1
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "unconfirmed",
+      "error": {
+        "code": "confirmation_required",
+        "message": "explicitly confirm an absolute run token ceiling"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "small-limit",
+      "method": "budget.run.tokens.decide",
+      "params": {
+        "id": "repair",
+        "limit": 1,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "small-limit",
+      "result": {
+        "id": "repair",
+        "limit": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select-run",
+      "method": "budget.run.select",
+      "params": {
+        "id": "repair",
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select-run",
+      "result": {
+        "id": "repair",
+        "selected": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "exhaust",
+      "method": "prompt",
+      "params": {
+        "text": "Complete the local fixture."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "exhaust",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "4348c0f7f4ee4a80d00f128a68d8cc430be547940648deeed05b9ba05e6c1711",
+        "session_id": "ses_c7ea75988f4256ab",
+        "run_id": "EAERKWUPMLKFPULGG3KISPC5GT:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "4348c0f7f4ee4a80d00f128a68d8cc430be547940648deeed05b9ba05e6c1711",
+        "session_id": "ses_c7ea75988f4256ab",
+        "run_id": "EAERKWUPMLKFPULGG3KISPC5GT:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "4348c0f7f4ee4a80d00f128a68d8cc430be547940648deeed05b9ba05e6c1711",
+        "session_id": "ses_c7ea75988f4256ab",
+        "run_id": "EAERKWUPMLKFPULGG3KISPC5GT:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "4348c0f7f4ee4a80d00f128a68d8cc430be547940648deeed05b9ba05e6c1711",
+        "session_id": "ses_c7ea75988f4256ab",
+        "run_id": "EAERKWUPMLKFPULGG3KISPC5GT:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "4348c0f7f4ee4a80d00f128a68d8cc430be547940648deeed05b9ba05e6c1711",
+        "session_id": "ses_c7ea75988f4256ab",
+        "run_id": "EAERKWUPMLKFPULGG3KISPC5GT:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "AYQ2JAXIAEU6R2SKNLORU6CQLV:4",
+          "sequence": 4,
+          "session_id": "ses_c7ea75988f4256ab",
+          "run_id": "EAERKWUPMLKFPULGG3KISPC5GT:1",
+          "request_id": "exhaust",
+          "timestamp": "2026-09-08T14:19:33.525322Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: run token budget: budget_exhausted\nbudget_exhausted",
+            "iteration": 1,
+            "reason": "run_token_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "exhausted-state",
+      "method": "budget.run",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "exhausted-state",
+      "result": {
+        "id": "repair",
+        "selected": true,
+        "configured": true,
+        "tokens": {
+          "limit": 1,
+          "committed": 0,
+          "exhausted": true,
+          "attempts": 0,
+          "uncertain_attempts": 0,
+          "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+        },
+        "cost": {
+          "currency": "",
+          "limit_nano": 0,
+          "committed_nano": 0,
+          "compaction_nano": 0,
+          "strict": false,
+          "exhausted": false,
+          "attempts": 0,
+          "unpriced_attempts": 0,
+          "uncertain_attempts": 0,
+          "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+        },
+        "time": {
+          "configured": false,
+          "decided_at": "0001-01-01T00:00:00Z",
+          "deadline": "0001-01-01T00:00:00Z",
+          "expired": false,
+          "remaining_millis": 0,
+          "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+        },
+        "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+      }
+    }
+  }
+]

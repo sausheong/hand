@@ -1,0 +1,11 @@
+# Durable run outcomes and model history
+
+Staged Hand now writes versioned `hand.run` start/finish annotations around a complete application goal. Each run has a random durable ID, application event run ID, UTC timestamps and the requested model/profile/context snapshot. Serving-model identity remains unknown unless separately evidenced. Error cause text and prompts are not stored in these records.
+
+The start is durable before backend execution. The final outcome is written after provider/background work and stop validators finish, before the terminal application event. Start-write failure prevents provider work; finish-write failure returns infrastructure_error rather than success. All five outcome types and validator verification state are preserved. An unmatched start remains unfinished after restart; completion is never inferred. Session ownership remains held through final persistence. Cancellation is committed under the existing service lock before final persistence, so late cancellation cannot change a committed outcome.
+
+`ReadSessionRuns` and Controller.SessionRuns return validated records across branches. Existing future/malformed journals, duplicate starts/outcomes, orphan finishes and mismatched model/run identity are rejected. Annotations preserve the conversation leaf and are retained by raw JSONL export. Forks inherit conversation history rather than the parent's run journal.
+
+Tests cover all five final outcomes and durability before terminal delivery, close/reopen, unfinished starts, model history, real closed-writer failures, unsupported schemas and invalid transitions. Final journal checks passed 20 race-enabled repetitions (220 test/subtest passes), plus transition checks 20 times. Full race/coverage validation passed 584 tests/subtests, zero failures/skips; vet passed. The unfinished-start test uses orderly close/reopen, not forced process death.
+
+[Aggregate patch](session-run-journal-integration.patch), [hashed evidence](session-run-journal-integration.json). The local dependency replacement is excluded from the patch. Primary Hand remains on Harness v0.3.9; staged checks use unpublished 3b7fe5e. A dedicated journal browser, final coverage qualification, released dependency and full-plan acceptance remain pending.

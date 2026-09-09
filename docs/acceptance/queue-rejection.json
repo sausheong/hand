@@ -1,0 +1,53 @@
+{
+  "status": "development_regressions_passed",
+  "test_records": {
+    "pass": 164
+  },
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -coverprofile=/private/tmp/hand-queue-rejection-20260909.cover -json ./internal/rpc",
+  "package_coverage": {
+    "statements": 1212,
+    "covered": 967,
+    "percentage": 79.78547854785478
+  },
+  "combined_development_protocol_group": {
+    "status": "incomplete",
+    "percentage": null,
+    "observed_percentage": 80.98591549295774,
+    "statements": 1704,
+    "covered": 1380,
+    "missing_profiles": [],
+    "unmatched_patterns": [],
+    "pending_capabilities": [
+      "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+    ]
+  },
+  "base_profiles": [
+    "docs/acceptance/cancel-native-suite.json",
+    "docs/acceptance/harness-current-native-suite.json"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/queue-rejection-20260909/hand-queue-rejection-20260909.cover.gz",
+      "sha256": "ca93e14e054beb27a538b4b99dc9520d9f92093277aa87621897cbb264fb66c8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/queue-rejection-20260909/hand-queue-rejection-20260909.jsonl.gz",
+      "sha256": "41e996384b5f302bf0eccf58349e196e7b8f3c46370eb69c7c47ca7947c2d406"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/queue-rejection-20260909/queue_rejection_test.go.gz",
+      "sha256": "91bac4dfcc572e25004621558ddd7b9cff6555963a977500521d3fd0678ee943"
+    }
+  ],
+  "assertions": [
+    "Twelve invalid queue-control inputs rejected twice with stable error code and no result",
+    "Both pending items preserved, including identity and order",
+    "No backend dispatch or automatic queue marking",
+    "Fresh valid correction succeeds without changing unrelated item"
+  ],
+  "limitations": [
+    "Combined development profiles do not replace fresh full candidate evidence",
+    "No production changes; protocol critical coverage remains below 90%",
+    "Final released Harness, platform qualification and scenario audit remain"
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "status": "development_only",
+  "requirement": "M8.1",
+  "date": "2026-09-09",
+  "result": "Actual compiled Hand CLI completed one read_file tool and two provider requests through the same synthetic loopback gateway as Pi. File marker reached second upstream request; ordered session ended completed with exit zero; all workers joined and both usage observations validated without settling reservations.",
+  "binary_sha256": "8cbbcefa8d628dfa3f2fd0915f17c242a810123878f970ef2807895e9e5c8cad",
+  "limitations": [
+    "Dirty Hand and local Harness dependency, not a frozen released candidate.",
+    "Synthetic responses/prices, not live coding quality or billing.",
+    "Fresh profile, output 4096 and three-turn limit are explicit probe settings.",
+    "Full comparison, deployed isolation, authentic billing and qualification remain pending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/00-check_hand_agent_gateway.py.gz",
+      "source": "scripts/check_hand_agent_gateway.py",
+      "sha256": "fc9922c10e9a2a49e5214e8d53f0a32e009da9744fdc9a3a749e90790b68cb24",
+      "uncompressed_sha256": "b0508aa39ce24f1138b53fd83b04b13611b645277d5567cdf2434c9d4f333dea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/01-check_pi_gateway.py.gz",
+      "source": "scripts/check_pi_gateway.py",
+      "sha256": "642db6cef0b1a9ac4c570869960f902ef167975553438ccb117211a69a1d6d3a",
+      "uncompressed_sha256": "ae7bc0a1341802398b7ad891c702e2352e63796c895bf3a8783ec6eaa67005ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/02-hand-agent-gateway-build-20260909.txt.gz",
+      "source": "/private/tmp/hand-agent-gateway-build-20260909.txt",
+      "sha256": "6accdaf8a5146782166d5b2ec62650023dc9cfd9cecc2b241981dde946338d53",
+      "uncompressed_sha256": "d9435779c4efeb2abd8a300b736bb8121fda47ab002a69f343a2f5f8507e413e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/03-go.work.gz",
+      "source": "go.work",
+      "sha256": "573ab0bd40e1bf259de2522b2b6906b1e9f2e1da23a14a00a8f59379e22c17b2",
+      "uncompressed_sha256": "525f145fc70d1e0ab89754ef85c08d0ee2d057cf50a93128499e1de445a60dca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/04-go.mod.gz",
+      "source": "go.mod",
+      "sha256": "2755b1b53b963077454e34c4c266826c1768254ef7b5a7d46ca738670870dbca",
+      "uncompressed_sha256": "072de77bb96b9db53fbee87ef66aea65c52b4d27dbf1c4425c5f761a361fb664"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/05-main.go.gz",
+      "source": "cmd/hand/main.go",
+      "sha256": "9bf1a433ad1e773281cf7f914dc753f0cdaabb9ff9fefe324fbbfff29110d863",
+      "uncompressed_sha256": "d1b6af3bdd02c0165094265c031f7c9f127a7583e2ee3e584aeeb6c34f288d20"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/06-wire.go.gz",
+      "source": "internal/app/wire.go",
+      "sha256": "51cd14e38c0c024cbbdf6786d2eeada2231b332ed7f1ad3a1c475a7fbc5f6849",
+      "uncompressed_sha256": "26114f970e7b5911170feb703942517f4f0a1fc6c56712ef6d780c7a2f46a5d4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/07-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/report.json",
+      "sha256": "53724d659ff153f4830a08f7cc2e164d891d080323e340afc385ca79016dbbc5",
+      "uncompressed_sha256": "d2d6845f7c9ee9d6becc1e90b5fbd459645e51c9fdabb2d0b6f73cd5cc305a14"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/08-sdk-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/sdk-report.json",
+      "sha256": "5e9c0708fc35a9349350ce7a2c83c1bb0c1e425538751e2839387e420eec8282",
+      "uncompressed_sha256": "cbe071d5505a4d90cc1e56d04fda81e47211fcec9fdf6cc22f34457d9693c3c6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/09-agent-stdout.jsonl.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/agent-stdout.jsonl",
+      "sha256": "506f3e76df98be3a22a1554ef9d009d2d256f8b8b0b964e4bd3fed94663edc74",
+      "uncompressed_sha256": "4edc07b1d0256409071255c8f128f53e1abd7574f0bfbe2156b3cacd7d5c207e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/10-agent-stderr.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/agent-stderr.log",
+      "sha256": "6c7dca3307f1148883d6ff5cb1c76783d3e259fb4735c3d45cd682be05f90a71",
+      "uncompressed_sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/11-stdout.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/stdout.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/12-stderr.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/13-budget.sqlite.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/budget.sqlite",
+      "sha256": "df4f71a06e9d89041b0c9c0081b1450cf784cbe360cb349a9b3bd9171a025724",
+      "uncompressed_sha256": "be110fe9ca57a09bd96db59b08503e662c16236d4426a4ed2f8f1d33dd15568c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/14-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/requests/4d8ce7f6faa74b609373b40cdc3810f4/report.json",
+      "sha256": "290546b960cab32a47f1b2ddb6188c88fbfe6342e9d512df6039148a664826da",
+      "uncompressed_sha256": "60412f2efd317077af30f2e8b17673db035e17d31eceaa82f97cde7d68cfd94b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/15-response.bin.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/requests/4d8ce7f6faa74b609373b40cdc3810f4/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/16-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/requests/bbb27c81d9924e52ad63f5bf06f095da/report.json",
+      "sha256": "df2b823742bd5ac00a4a45bc00720ee76bd6579071d199ff3233895da9a461aa",
+      "uncompressed_sha256": "4937bfbb517036261efb641278c25da0a43e301344e0bc40be3399425f1f8b1c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/17-response.bin.gz",
+      "source": "/private/tmp/hand-agent-gateway-20260909/requests/bbb27c81d9924e52ad63f5bf06f095da/response.bin",
+      "sha256": "0d59d4d21275d8ff784885d33a83674ef1d4078d32fca63582b58014712164ef",
+      "uncompressed_sha256": "050704eb6ac1ae6eb18e9082e18fae0fd27f3e2da2c417314e7310dfbc2b7bd1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/18-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/report.json",
+      "sha256": "3838000ee253cc223896b1948aaf50b840ec837c4d41848a29ca9d831f03ba32",
+      "uncompressed_sha256": "959a7a967468d5cae3f763eb3e529093e6355382488e50ddd8682667ca6f2e05"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/19-sdk-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/sdk-report.json",
+      "sha256": "d01d407f42440dc949c468dc80c2035509de4d9471908f536af385e8efcea180",
+      "uncompressed_sha256": "52061ed81929b7280190b1543cb8d257faa93ba1b5a276b5dd7fae6b9289c76b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/20-agent-stdout.jsonl.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/agent-stdout.jsonl",
+      "sha256": "7880b3eda8eee2c53ac4473dda5d3bd7d3f71093a8f70fcd6ebeebe630d77b89",
+      "uncompressed_sha256": "80b655cc6200ba4efacc16da4e2d8915f1c85e43f78802afe8f7b7bde1064e9e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/21-agent-stderr.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/agent-stderr.log",
+      "sha256": "6c7dca3307f1148883d6ff5cb1c76783d3e259fb4735c3d45cd682be05f90a71",
+      "uncompressed_sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/22-stdout.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/stdout.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/23-stderr.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/24-budget.sqlite.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/budget.sqlite",
+      "sha256": "7c627ad9d6a931c7ad46816dd533ec7d1d9cce14bdbaf627ae56494b0a50fc47",
+      "uncompressed_sha256": "136e39c3b18ebc63a53c5502b654ab258cdab52c65e49918b3547bea18ecdf56"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/25-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/requests/a7440a97f00d48ed926298dce0298030/report.json",
+      "sha256": "2a2d54d51a2929565d609a86ff4cf85958598776c9bebbc42895077a5b37f21d",
+      "uncompressed_sha256": "176f90f07cb39fef406ac3b8537e518c634de0c2e2a7b497b28390b8933fafd9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/26-response.bin.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/requests/a7440a97f00d48ed926298dce0298030/response.bin",
+      "sha256": "0d59d4d21275d8ff784885d33a83674ef1d4078d32fca63582b58014712164ef",
+      "uncompressed_sha256": "050704eb6ac1ae6eb18e9082e18fae0fd27f3e2da2c417314e7310dfbc2b7bd1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/27-report.json.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/requests/ad9e4ca12406426eb8e7c89f34847eef/report.json",
+      "sha256": "d8b6db9c96feea5b96d951971943e1a2abbdb043d42cba13b775e301c414a9c9",
+      "uncompressed_sha256": "f54f3d6a1842299c7b3f7505bafbc6fd5d219c6ec89d03136463e4a1b581ff8b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/28-response.bin.gz",
+      "source": "/private/tmp/hand-agent-gateway-verified-20260909/requests/ad9e4ca12406426eb8e7c89f34847eef/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-agent-gateway-20260909/regression.log.gz",
+      "source": "/private/tmp/hand-agent-gateway-regression-20260909.log",
+      "sha256": "7aa8dca9d609fc65a47e05f6af437387f4f4b63c9cb1f49e473dd676229ccd9d",
+      "uncompressed_sha256": "a678af1f2b4c511ddaa2a14cf58fd3d8fb6613646412349b32335781d6cc5d0a"
+    }
+  ],
+  "tests": {
+    "passed": 155,
+    "failures": 0,
+    "skips": 0
+  }
+}

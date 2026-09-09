@@ -1,0 +1,82 @@
+{
+  "requirement": "M1.1",
+  "status": "incomplete",
+  "scenarios_mapped": 5,
+  "scenarios_qualified": 0,
+  "scenarios": [
+    {
+      "id": "ten_requests_context_vs_total",
+      "status": "development_mapped_not_qualified",
+      "test": {
+        "path": "internal/tui/request_context_test.go",
+        "name": "TestTenRequestsKeepContextSeparateFromTurnAndCacheTotals",
+        "sha256": "b1be91791c19334c747d7cdd897c51e36abb03d620348f6267f397ed81739069"
+      },
+      "remaining": "Actual Harness/service/TUI/disk chain now tested for ten requests, canonical cache totals and missing final usage; fresh built-client/platform evidence on final candidate remains required.",
+      "integration_test": {
+        "path": "internal/tui/request_context_integration_test.go",
+        "name": "TestRuntimeRequestsReachTUIContextWithoutCumulativeInflation",
+        "sha256": "9ad34fcd738f245ea0df8102a858d00b443569a1f4900e26f90d471868d7199a"
+      }
+    },
+    {
+      "id": "cache_no_double_count",
+      "status": "development_mapped_not_qualified",
+      "test": {
+        "path": "internal/app/fallback_usage_test.go",
+        "name": "TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen",
+        "sha256": "b39500d72120c1bd57daa9b5ff8a475edff8389d046663fbafb0173069868fa7"
+      },
+      "remaining": "Actual Harness/service/TUI/disk chain now tested for ten requests, canonical cache totals and missing final usage; fresh built-client/platform evidence on final candidate remains required.",
+      "integration_test": {
+        "path": "internal/tui/request_context_integration_test.go",
+        "name": "TestRuntimeRequestsReachTUIContextWithoutCumulativeInflation",
+        "sha256": "9ad34fcd738f245ea0df8102a858d00b443569a1f4900e26f90d471868d7199a"
+      }
+    },
+    {
+      "id": "missing_usage_unknown",
+      "status": "development_mapped_not_qualified",
+      "test": {
+        "path": "internal/tui/usage_unavailable_test.go",
+        "name": "TestUsageStatusDisclosesIncompleteTotals",
+        "sha256": "c1890e0a588d87218c90e6b8c6b0c98517ae7c355a1704516b82e768f8e2d86f"
+      },
+      "remaining": "Actual Harness/service/TUI/disk chain now tested for ten requests, canonical cache totals and missing final usage; fresh built-client/platform evidence on final candidate remains required.",
+      "integration_test": {
+        "path": "internal/tui/request_context_integration_test.go",
+        "name": "TestRuntimeRequestsReachTUIContextWithoutCumulativeInflation",
+        "sha256": "9ad34fcd738f245ea0df8102a858d00b443569a1f4900e26f90d471868d7199a"
+      }
+    },
+    {
+      "id": "retry_fallback_compaction_accounting",
+      "status": "development_mapped_not_qualified",
+      "test": {
+        "path": "internal/app/fallback_usage_test.go",
+        "name": "TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen",
+        "sha256": "b39500d72120c1bd57daa9b5ff8a475edff8389d046663fbafb0173069868fa7"
+      },
+      "remaining": "Combine independent compaction accounting and fallback evidence under released Harness."
+    },
+    {
+      "id": "switch_resets_context",
+      "status": "development_mapped_not_qualified",
+      "test": {
+        "path": "internal/tui/profile_test.go",
+        "name": "TestProfileCommandKeepsUIAndRuntimeConsistent",
+        "sha256": "f9d4fecff8d4e8b0ed4edefc16ee23cc845969440074ed044e6c3f2dd14a947a"
+      },
+      "remaining": "Final model/session switch and post-compaction journey still required."
+    }
+  ],
+  "evidence": [
+    "docs/acceptance/request-context-accounting.json",
+    "docs/acceptance/fallback-budget-accounting.json",
+    "docs/acceptance/fallback-cost-refusal.json",
+    "docs/acceptance/usage-status-uncertainty.json",
+    "docs/acceptance/request-context-integration.json",
+    "docs/acceptance/context-native-suite.json"
+  ],
+  "finding": "Audit identified and fixed obsolete TUI cache and cumulative-context semantics; passing backend coverage had not proved display correctness."
+}

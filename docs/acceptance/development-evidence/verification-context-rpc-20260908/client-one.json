@@ -1,0 +1,538 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "profiles",
+      "method": "verification.profiles",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "profiles",
+      "result": [
+        {
+          "name": "pass",
+          "command": [
+            "/bin/sh",
+            "-c",
+            "cat source"
+          ],
+          "digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c",
+          "boundary": "unrestricted host; commands can access host resources"
+        },
+        {
+          "name": "fail",
+          "command": [
+            "/bin/sh",
+            "-c",
+            "printf diagnostic >&2; exit 7"
+          ],
+          "digest": "322139adb1f213608d9ce79ce24c6f108c0e59d27ecb80c7f55e95b545d92e0e",
+          "boundary": "unrestricted host; commands can access host resources"
+        },
+        {
+          "name": "hang",
+          "command": [
+            "/bin/sh",
+            "-c",
+            "printf %s \"$$\" > marker; exec sleep 30"
+          ],
+          "digest": "3560815fcec4bdb10d83bba5d21ed5119e6411b296b8e10903801b850dd6bdf3",
+          "boundary": "unrestricted host; commands can access host resources"
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "not-confirmed",
+      "method": "verification.run",
+      "params": {
+        "profile": "pass",
+        "digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "not-confirmed",
+      "error": {
+        "code": "verification_rejected",
+        "message": "explicit verification confirmation required"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pass",
+      "method": "verification.run",
+      "params": {
+        "confirmed": true,
+        "profile": "pass",
+        "digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:KFI7K7OHM557K5IRBLXGSC7UKZ",
+        "id": "pass",
+        "fingerprint": "76de292f7cb778964cb8f2284cf4aac1940c93dd78b316560f900332485cbb49",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-pass",
+      "method": "request.get",
+      "params": {
+        "id": "pass"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:KFI7K7OHM557K5IRBLXGSC7UKZ",
+        "id": "pass",
+        "fingerprint": "76de292f7cb778964cb8f2284cf4aac1940c93dd78b316560f900332485cbb49",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-pass",
+      "method": "request.get",
+      "params": {
+        "id": "pass"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:KFI7K7OHM557K5IRBLXGSC7UKZ",
+        "id": "pass",
+        "fingerprint": "76de292f7cb778964cb8f2284cf4aac1940c93dd78b316560f900332485cbb49",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-pass",
+      "method": "request.get",
+      "params": {
+        "id": "pass"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:KFI7K7OHM557K5IRBLXGSC7UKZ",
+        "id": "pass",
+        "fingerprint": "76de292f7cb778964cb8f2284cf4aac1940c93dd78b316560f900332485cbb49",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-pass",
+      "method": "request.get",
+      "params": {
+        "id": "pass"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:KFI7K7OHM557K5IRBLXGSC7UKZ",
+        "id": "pass",
+        "fingerprint": "76de292f7cb778964cb8f2284cf4aac1940c93dd78b316560f900332485cbb49",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "pass",
+          "result": {
+            "completed": true,
+            "verification": {
+              "id": "67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "cat source"
+                ],
+                "profile": "pass",
+                "profile_digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c",
+                "workspace": "/private/tmp/hand-verification-context-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "after": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "omissions": null,
+                "started": "2026-09-08T15:08:55.685155Z",
+                "finished": "2026-09-08T15:08:55.695849Z",
+                "exit_code": 0,
+                "stdout": "original source",
+                "stderr": "",
+                "stdout_bytes": 15,
+                "stderr_bytes": 0,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "passed"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "context-after-pass",
+      "method": "context.state",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "context-after-pass",
+      "result": {
+        "revision": 1,
+        "items": [
+          {
+            "id": "verification-d74ff0ee8da3b9806b18c877dbf29bbd",
+            "kind": "verification_reference",
+            "text": "{\"profile\":\"pass\",\"profile_digest\":\"2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c\",\"before\":\"0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d\",\"after\":\"0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d\",\"exit_code\":0,\"assessment_at_check\":\"passed\",\"checked_at\":\"2026-09-08T15:08:55.705292Z\"} Recheck saved evidence against the current workspace before claiming verification.",
+            "reference": "hand-verification:67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "fail",
+      "method": "verification.run",
+      "params": {
+        "confirmed": true,
+        "profile": "fail",
+        "digest": "322139adb1f213608d9ce79ce24c6f108c0e59d27ecb80c7f55e95b545d92e0e"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "fail",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:LXK5DF5J72LMLWAJKVJINQR5M4",
+        "id": "fail",
+        "fingerprint": "4fdcbd2d6bfc0cae977f68dcfedac6146143e4fd9617e869c4df44dd09be9a4f",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-fail",
+      "method": "request.get",
+      "params": {
+        "id": "fail"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-fail",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:LXK5DF5J72LMLWAJKVJINQR5M4",
+        "id": "fail",
+        "fingerprint": "4fdcbd2d6bfc0cae977f68dcfedac6146143e4fd9617e869c4df44dd09be9a4f",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-fail",
+      "method": "request.get",
+      "params": {
+        "id": "fail"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-fail",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:LXK5DF5J72LMLWAJKVJINQR5M4",
+        "id": "fail",
+        "fingerprint": "4fdcbd2d6bfc0cae977f68dcfedac6146143e4fd9617e869c4df44dd09be9a4f",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-fail",
+      "method": "request.get",
+      "params": {
+        "id": "fail"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-fail",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:LXK5DF5J72LMLWAJKVJINQR5M4",
+        "id": "fail",
+        "fingerprint": "4fdcbd2d6bfc0cae977f68dcfedac6146143e4fd9617e869c4df44dd09be9a4f",
+        "session_id": "ses_2f66ffd12fd72ecd",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "fail",
+          "result": {
+            "completed": false,
+            "error": "exit status 7",
+            "verification": {
+              "id": "c7d5c10c7c993d014d84e4999b89caf38330819e1bdf9e0cef47d054fb3c95c6",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "printf diagnostic >&2; exit 7"
+                ],
+                "profile": "fail",
+                "profile_digest": "322139adb1f213608d9ce79ce24c6f108c0e59d27ecb80c7f55e95b545d92e0e",
+                "workspace": "/private/tmp/hand-verification-context-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "after": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "omissions": null,
+                "started": "2026-09-08T15:08:55.721584Z",
+                "finished": "2026-09-08T15:08:55.729009Z",
+                "exit_code": 7,
+                "run_error": "exit status 7",
+                "stdout": "",
+                "stderr": "diagnostic",
+                "stdout_bytes": 0,
+                "stderr_bytes": 10,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "failed"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "stale",
+      "method": "verification.check",
+      "params": {
+        "profile": "pass",
+        "id": "67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "stale",
+      "result": {
+        "id": "67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6",
+        "record": {
+          "command": [
+            "/bin/sh",
+            "-c",
+            "cat source"
+          ],
+          "profile": "pass",
+          "profile_digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c",
+          "workspace": "/private/tmp/hand-verification-context-rpc-20260908/workspace",
+          "boundary": "unrestricted host; commands can access host resources",
+          "before": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+          "after": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+          "omissions": null,
+          "started": "2026-09-08T15:08:55.685155Z",
+          "finished": "2026-09-08T15:08:55.695849Z",
+          "exit_code": 0,
+          "stdout": "original source",
+          "stderr": "",
+          "stdout_bytes": 15,
+          "stderr_bytes": 0,
+          "stdout_truncated": false,
+          "stderr_truncated": false,
+          "stdout_artifact": {
+            "bytes": 0,
+            "truncated": false
+          },
+          "stderr_artifact": {
+            "bytes": 0,
+            "truncated": false
+          }
+        },
+        "assessment": {
+          "status": "stale"
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "context-after-edit",
+      "method": "context.state",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "context-after-edit",
+      "result": {
+        "revision": 3,
+        "items": [
+          {
+            "id": "verification-d74ff0ee8da3b9806b18c877dbf29bbd",
+            "kind": "verification_reference",
+            "text": "{\"profile\":\"pass\",\"profile_digest\":\"2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c\",\"before\":\"0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d\",\"after\":\"0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d\",\"exit_code\":0,\"assessment_at_check\":\"stale\",\"checked_at\":\"2026-09-08T15:08:55.747332Z\"} Recheck saved evidence against the current workspace before claiming verification.",
+            "reference": "hand-verification:67d179eaa2d01bf7a6c0a3dbdc84bc33b9dce648fe3b5a5eff149cac411ff2b6"
+          },
+          {
+            "id": "verification-51280dabfbc880cdc5f92cc2f4f22c80",
+            "kind": "verification_reference",
+            "text": "{\"profile\":\"fail\",\"profile_digest\":\"322139adb1f213608d9ce79ce24c6f108c0e59d27ecb80c7f55e95b545d92e0e\",\"before\":\"0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d\",\"after\":\"0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d\",\"exit_code\":7,\"assessment_at_check\":\"failed\",\"checked_at\":\"2026-09-08T15:08:55.738197Z\"} Recheck saved evidence against the current workspace before claiming verification.",
+            "reference": "hand-verification:c7d5c10c7c993d014d84e4999b89caf38330819e1bdf9e0cef47d054fb3c95c6"
+          }
+        ]
+      }
+    }
+  }
+]

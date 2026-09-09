@@ -1,0 +1,25 @@
+{"Time":"2026-09-08T22:36:19.540568+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T22:36:19.542584+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolworker"}
+{"Time":"2026-09-08T22:36:20.091669+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence"}
+{"Time":"2026-09-08T22:36:20.091733+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence","Output":"=== RUN   TestNestedReadGuidanceScopeAndPrecedence\n"}
+{"Time":"2026-09-08T22:36:20.094089+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence","Output":"--- PASS: TestNestedReadGuidanceScopeAndPrecedence (0.00s)\n"}
+{"Time":"2026-09-08T22:36:20.094104+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadGuidanceScopeAndPrecedence","Elapsed":0}
+{"Time":"2026-09-08T22:36:20.094117+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes"}
+{"Time":"2026-09-08T22:36:20.094122+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes","Output":"=== RUN   TestNestedReadRejectsOutsideAndRefreshes\n"}
+{"Time":"2026-09-08T22:36:20.09547+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes","Output":"--- PASS: TestNestedReadRejectsOutsideAndRefreshes (0.00s)\n"}
+{"Time":"2026-09-08T22:36:20.095479+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestNestedReadRejectsOutsideAndRefreshes","Elapsed":0}
+{"Time":"2026-09-08T22:36:20.097609+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildRegistry_RegistersExpectedTools"}
+{"Time":"2026-09-08T22:36:20.097622+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildRegistry_RegistersExpectedTools","Output":"=== RUN   TestBuildRegistry_RegistersExpectedTools\n"}
+{"Time":"2026-09-08T22:36:20.098445+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildRegistry_RegistersExpectedTools","Output":"--- PASS: TestBuildRegistry_RegistersExpectedTools (0.00s)\n"}
+{"Time":"2026-09-08T22:36:20.098454+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildRegistry_RegistersExpectedTools","Elapsed":0}
+{"Time":"2026-09-08T22:36:20.09857+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides"}
+{"Time":"2026-09-08T22:36:20.098583+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides","Output":"=== RUN   TestSearchNestedIgnoreAndOverrides\n"}
+{"Time":"2026-09-08T22:36:20.101457+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides","Output":"--- PASS: TestSearchNestedIgnoreAndOverrides (0.00s)\n"}
+{"Time":"2026-09-08T22:36:20.101468+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides","Elapsed":0}
+{"Time":"2026-09-08T22:36:20.102086+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"PASS\n"}
+{"Time":"2026-09-08T22:36:20.103335+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"ok  \tgithub.com/sausheong/hand/internal/agentio\t0.562s\n"}
+{"Time":"2026-09-08T22:36:20.103365+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":0.563}
+{"Time":"2026-09-08T22:36:20.570278+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T22:36:20.570315+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"PASS\n"}
+{"Time":"2026-09-08T22:36:21.578934+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"ok  \tgithub.com/sausheong/hand/internal/toolworker\t2.036s [no tests to run]\n"}
+{"Time":"2026-09-08T22:36:21.579051+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Elapsed":2.037}

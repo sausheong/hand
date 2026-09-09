@@ -1,0 +1,6 @@
+{
+	"CGO_ENABLED": "1",
+	"GOARCH": "arm64",
+	"GOOS": "linux",
+	"GOVERSION": "go1.25.1"
+}

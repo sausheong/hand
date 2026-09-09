@@ -1,0 +1,81 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M0.1",
+    "M8.2"
+  ],
+  "checks": [
+    "Unique exact archive member inventory, with only optional root directory",
+    "Nonempty regular files and executable CLI",
+    "Actual CLI ELF/Mach-O OS and CPU match target",
+    "Exact native version output rather than substring matching"
+  ],
+  "tests": {
+    "archive_integrity_unit_methods": 7,
+    "worker_regression_unit_methods": 5,
+    "real_archives": {
+      "archives": [
+        {
+          "target": "darwin-amd64",
+          "checksum": "passed",
+          "contents": "passed",
+          "worker": "passed",
+          "native_smoke": false
+        },
+        {
+          "target": "darwin-arm64",
+          "checksum": "passed",
+          "contents": "passed",
+          "worker": "passed",
+          "native_smoke": true
+        },
+        {
+          "target": "linux-amd64",
+          "checksum": "passed",
+          "contents": "passed",
+          "worker": "passed",
+          "native_smoke": false
+        },
+        {
+          "target": "linux-arm64",
+          "checksum": "passed",
+          "contents": "passed",
+          "worker": "passed",
+          "native_smoke": false
+        }
+      ]
+    }
+  },
+  "initial_failure": "Nonregular-member fixtures incorrectly contained payloads; fixed fixtures to emit zero-sized link/FIFO entries. Initial output retained.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/archive-integrity-20260909/contents-tests.log",
+      "sha256": "e586fc0f3bb2a05f4c80f07d1b4c6171e830592f6c7aaf70d4af3b0aa3ebd072"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/archive-integrity-20260909/initial-fixture-failure.log",
+      "sha256": "70fce814b1654202cc8da33d2afcbbc8ffb47340289682c8364787a247a8f614"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/archive-integrity-20260909/real-archive-smoke.json",
+      "sha256": "47d699c4e39a852b19c4d5746f09fbce5d7e4bc0c8aba0b21e080ab7b0ffe768"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/archive-integrity-20260909/smoke_dist.py.txt",
+      "sha256": "c9088046b4d4e19854a382b33eb0313955d8e48314c8d81ae7b0cb208b5e2656"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/archive-integrity-20260909/test_archive_contents.py.txt",
+      "sha256": "76d7c59de3b1c98a55af6e9c42d75d42ae671608f93ca9576eb736dc7a5cf0d9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/archive-integrity-20260909/worker-tests.log",
+      "sha256": "6273232de4d3ef7acd4ecafa5c86beeeb974f56586b21089a2990b3f72facbe6"
+    }
+  ],
+  "limitations": [
+    "Negative unit archives are verifier tests only, not product acceptance evidence",
+    "Real archive provenance and dirty-source limitations remain as recorded in dist-wiring.json",
+    "Only native darwin-arm64 CLI runtime exercised; other targets require separate runtime qualification"
+  ]
+}

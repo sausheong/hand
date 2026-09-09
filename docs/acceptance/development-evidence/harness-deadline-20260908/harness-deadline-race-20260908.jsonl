@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T21:31:29.969558+08:00","Action":"start","Package":"github.com/sausheong/harness/budget"}
+{"Time":"2026-09-08T21:31:30.528166+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume"}
+{"Time":"2026-09-08T21:31:30.528218+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume","Output":"=== RUN   TestDeadlineExpiresAcrossRestartAndExplicitResume\n"}
+{"Time":"2026-09-08T21:31:30.594811+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume","Output":"--- PASS: TestDeadlineExpiresAcrossRestartAndExplicitResume (0.07s)\n"}
+{"Time":"2026-09-08T21:31:30.594889+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume","Elapsed":0.07}
+{"Time":"2026-09-08T21:31:30.594943+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation"}
+{"Time":"2026-09-08T21:31:30.594965+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation","Output":"=== RUN   TestDeadlineValidationAndParentCancellation\n"}
+{"Time":"2026-09-08T21:31:30.595234+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation","Output":"--- PASS: TestDeadlineValidationAndParentCancellation (0.00s)\n"}
+{"Time":"2026-09-08T21:31:30.595268+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation","Elapsed":0}
+{"Time":"2026-09-08T21:31:30.595431+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"PASS\n"}
+{"Time":"2026-09-08T21:31:31.608116+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"ok  \tgithub.com/sausheong/harness/budget\t1.638s\n"}
+{"Time":"2026-09-08T21:31:31.608246+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Elapsed":1.639}

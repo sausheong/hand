@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T03:45:02.901226+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-09T03:45:03.059841+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerPythonImageInterpreter"}
+{"Time":"2026-09-09T03:45:03.059885+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerPythonImageInterpreter","Output":"=== RUN   TestContainerPythonImageInterpreter\n"}
+{"Time":"2026-09-09T03:45:03.411334+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerPythonImageInterpreter","Output":"--- PASS: TestContainerPythonImageInterpreter (0.35s)\n"}
+{"Time":"2026-09-09T03:45:03.411373+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerPythonImageInterpreter","Elapsed":0.35}
+{"Time":"2026-09-09T03:45:03.411463+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-09T03:45:04.421134+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t1.520s\n"}
+{"Time":"2026-09-09T03:45:04.421211+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":1.52}

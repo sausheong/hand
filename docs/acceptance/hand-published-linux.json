@@ -1,0 +1,68 @@
+{
+  "status": "development_linux_runtime_passed",
+  "test_records": {
+    "pass": 1912
+  },
+  "source_unchanged": true,
+  "harness_module": {
+    "Path": "github.com/sausheong/harness",
+    "Version": "v0.4.0",
+    "Time": "2026-09-09T16:52:13Z",
+    "Dir": "/Users/sausheong/go/pkg/mod/github.com/sausheong/harness@v0.4.0",
+    "GoMod": "/Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/harness/@v/v0.4.0.mod",
+    "GoVersion": "1.25.1",
+    "Sum": "h1:HoGrAbqYvmgsuR3RU14f6hHrOogrDhmSjqzQWsbEhMg=",
+    "GoModSum": "h1:IZSFCsLSuYBGMYu1FpIWPmftWaj1+p3itYNuJaIg3K0="
+  },
+  "binaries": {
+    "hand": "bb688ad11f7448cacf3ac3d0aabe4842fff7dc9ba1d5a038464f0c6f15a0d584",
+    "worker": "c275b8bf64eadf516d88cf4409b24d19b007cc81f3814cdb0ccf88ee89b5d3a6",
+    "peer.test": "38ff82bfb08a8d420dbf0938d1d58d2fda7ce39a90eea9a9143eefdb26a2ffca"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-build-worker.log.gz",
+      "sha256": "cec4e13143c28ef008e804ddd20fd629ed5654d4b65116e65962adddb5bafafe",
+      "raw_sha256": "f742e0b8f8327b88efeb9df41adbade7de7d2e453cac2858a6d9bdab680e01b0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-build-hand.log.gz",
+      "sha256": "2cabb3a7f7cfde29a9c8a8383355bcdc045d5db7c3dcf6ecb27807156f1e7e84",
+      "raw_sha256": "14c4af3590bad3e9bc774a10f8eb25cbe3bad343a69086019d173fd51dad1c2a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-suite.log.gz",
+      "sha256": "b4f926aaed32885f7ed444ac880e385a060d84036eb69a642243b80ffaebe3e2",
+      "raw_sha256": "a73742dcfab8bb8c84924482c587a1861686e08028a0aacb8e7b47b243be323f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-environment.log.gz",
+      "sha256": "65dabe45cbceb7c03e3c64749e10e1dde6c86e4bd85a6e2f4eb64c9a3317ca28",
+      "raw_sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-check-peer-entry.log.gz",
+      "sha256": "4b5f265bfd2bde39f46367e49e3af46c0a33b0fa15ac502de1496f4bb612a236",
+      "raw_sha256": "5b49ff4d99a36aa918d59eff99fc67c59b34588affcab2e574d2895f52ce1f73"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-build-peer.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-coverage.out.gz",
+      "sha256": "8f4920bea1878b0f33de6f53f782246797d256d27b4d37faaec7efe54276e61e",
+      "raw_sha256": "bc4427021f3e8f4b2afa6e37365e6ca17afde10f7dde9b213c462c26adb0e9a5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-linux-20260910/qualified-run.json.gz",
+      "sha256": "b782040f81ec765465004a028adff96026e80418d93649c56168b527b499d4d1",
+      "raw_sha256": "c3c68531f0acf0f6867218d4cac9beca7044f310059f180521a5e843e9d47d42"
+    }
+  ],
+  "limitations": [
+    "Linux ARM64 runs in Docker on macOS, with host-shared test workspaces and an explicit Linux tmpfs for disk-full tests.",
+    "Evidence predates the portable unsupported-platform fallback refactor; fresh clean-candidate qualification remains required."
+  ]
+}

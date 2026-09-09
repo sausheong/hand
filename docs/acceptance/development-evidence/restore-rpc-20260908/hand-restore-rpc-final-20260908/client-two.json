@@ -1,0 +1,371 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "ece1241bb715837537194fd05eaf126ef1ea220308496765b99b3adf00e90456",
+        "session_id": "ses_6c57a92b54ee8c2b",
+        "run_id": "YV4T7MGKBCABZU7UIFCV2KDB53:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "U5ZNMAQL3LGMS7NZKRRZNQKNUV:21",
+          "sequence": 21,
+          "session_id": "ses_6c57a92b54ee8c2b",
+          "run_id": "YV4T7MGKBCABZU7UIFCV2KDB53:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T07:53:52.126013Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "0d44479bc815a929fa8b305752125c6b9f4eaa720da27cf50c2de05d23ef63f4",
+        "session_id": "ses_03836d91972b71e7",
+        "run_id": "YV4T7MGKBCABZU7UIFCV2KDB53:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "KNPRVH2BXYYQFF6B75X5Q7AWW4:12",
+          "sequence": 12,
+          "session_id": "ses_03836d91972b71e7",
+          "run_id": "YV4T7MGKBCABZU7UIFCV2KDB53:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T07:53:51.951807Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-select-original",
+      "method": "session.select",
+      "params": {
+        "id": "ses_03836d91972b71e7"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-select-original",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_03836d91972b71e7"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-reconnected",
+      "method": "checkpoint.changes",
+      "params": {
+        "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-reconnected",
+      "result": {
+        "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX",
+        "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+        "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+        "changes": [
+          {
+            "Path": "approved.txt",
+            "Before": null,
+            "After": {
+              "path": "approved.txt",
+              "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+              "mode": 384,
+              "size": 13,
+              "kind": "regular"
+            }
+          }
+        ],
+        "next": 1,
+        "total": 1,
+        "before_omissions": 0,
+        "after_omissions": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-preview",
+      "method": "checkpoint.restore_preview",
+      "params": {
+        "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX",
+        "paths": [
+          "approved.txt"
+        ]
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-preview",
+      "result": {
+        "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX",
+        "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+        "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+        "current": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+        "actions": [
+          {
+            "path": "approved.txt",
+            "operation": "remove",
+            "expected": {
+              "path": "approved.txt",
+              "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+              "mode": 384,
+              "size": 13,
+              "kind": "regular"
+            }
+          }
+        ],
+        "conflicts": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-unconfirmed",
+      "method": "checkpoint.restore",
+      "params": {
+        "confirmed": false,
+        "preview": {
+          "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX",
+          "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+          "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+          "current": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+          "actions": [
+            {
+              "path": "approved.txt",
+              "operation": "remove",
+              "expected": {
+                "path": "approved.txt",
+                "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+                "mode": 384,
+                "size": 13,
+                "kind": "regular"
+              }
+            }
+          ],
+          "conflicts": false
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-unconfirmed",
+      "error": {
+        "code": "confirmation_required",
+        "message": "explicit confirmation of the exact restore preview is required"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-confirmed",
+      "method": "checkpoint.restore",
+      "params": {
+        "confirmed": true,
+        "preview": {
+          "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX",
+          "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+          "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+          "current": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+          "actions": [
+            {
+              "path": "approved.txt",
+              "operation": "remove",
+              "expected": {
+                "path": "approved.txt",
+                "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+                "mode": 384,
+                "size": 13,
+                "kind": "regular"
+              }
+            }
+          ],
+          "conflicts": false
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-confirmed",
+      "result": {
+        "completed": true,
+        "files": [
+          {
+            "path": "approved.txt",
+            "applied": true,
+            "recovery_path": ".hand-restore-9c237a5e64dc6d8d6251fb96c35fda03"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-confirmed",
+      "method": "checkpoint.restore",
+      "params": {
+        "confirmed": true,
+        "preview": {
+          "run_id": "EHMUM26HZU7VOOWPXXWKJRPVDX",
+          "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+          "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+          "current": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+          "actions": [
+            {
+              "path": "approved.txt",
+              "operation": "remove",
+              "expected": {
+                "path": "approved.txt",
+                "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+                "mode": 384,
+                "size": 13,
+                "kind": "regular"
+              }
+            }
+          ],
+          "conflicts": false
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-confirmed",
+      "result": {
+        "completed": true,
+        "files": [
+          {
+            "path": "approved.txt",
+            "applied": true,
+            "recovery_path": ".hand-restore-9c237a5e64dc6d8d6251fb96c35fda03"
+          }
+        ]
+      }
+    }
+  }
+]

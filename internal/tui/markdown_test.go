@@ -1,13 +1,12 @@
 package tui
 
 import (
+	"github.com/sausheong/hand/internal/app"
 	"go/ast"
 	"go/parser"
 	"go/token"
 	"strings"
 	"testing"
-
-	"github.com/sausheong/harness/runtime"
 )
 
 // Regression: glamour.WithAutoStyle queries the terminal for its
@@ -109,8 +108,8 @@ func TestRenderMarkdown_FallsBackToDefaultStyleForUnsafeOrUnknownNames(t *testin
 // glamour until the block is complete (flushStream) — assistant text is
 // flushed as Markdown, matching what the model actually sent.
 func TestFlushStream_RendersMarkdown(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "some **bold** text"})
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
+	m.renderApplicationEvent(app.Event{Kind: "text", Text: "some **bold** text"})
 	m.flushStream()
 
 	if len(m.transcript) != 1 {

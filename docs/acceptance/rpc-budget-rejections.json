@@ -1,0 +1,61 @@
+{
+  "status": "development_regression_passed",
+  "command": "go test -race -count=1 -timeout=5m -coverpkg=./... -coverprofile=/private/tmp/hand-rpc-budget-rejections-final-20260909.out -json ./internal/rpc",
+  "test_records": {
+    "pass": 97,
+    "fail": 0,
+    "skip": 0
+  },
+  "scenarios": {
+    "rejected_requests": 36,
+    "durable_rejections_replayed": 31,
+    "assertions": [
+      "Exact error code and request identity, no success result",
+      "Full session entry sequence unchanged from configured session and logical-run budgets",
+      "No model backend invocation",
+      "Identical durable retry returns original rejection"
+    ]
+  },
+  "coverage": {
+    "statements": 1083,
+    "covered": 845,
+    "percentage": 78.02400738688827
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-budget-rejections-final-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-budget-rejections-20260909/hand-rpc-budget-rejections-final-20260909.jsonl.gz",
+      "sha256": "fad780e0d0a7e95e0de1303b50f171bf6332f91f98f60071199bb27ddf243c79",
+      "uncompressed_sha256": "6ece548b2ed1e1f640eb5a1d846146d70be2ede3af224e777506923130926511"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-budget-rejections-final-20260909.out",
+      "path": "docs/acceptance/development-evidence/rpc-budget-rejections-20260909/hand-rpc-budget-rejections-final-20260909.out.gz",
+      "sha256": "f5e0d4e8b942e21883857d282746c370f03d08495ae4f3fa8fd31352ca0f8279",
+      "uncompressed_sha256": "2544d91ea6b174aa3b6d46184e03521fb008b43c017ccaafd3d631cc93b6a602"
+    },
+    {
+      "source": "internal/rpc/budget_rejection_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-budget-rejections-20260909/budget_rejection_test.go.gz",
+      "sha256": "1e276948766747c7026fbf9dee391ff4ce8e9a11519530e649a3e0e549f6ca1d",
+      "uncompressed_sha256": "e52c3c054a135747e75c8675c6a0e2e936d43663310f0bde7d230c67230878ed"
+    },
+    {
+      "source": "internal/rpc/dispatcher.go",
+      "path": "docs/acceptance/development-evidence/rpc-budget-rejections-20260909/dispatcher.go.gz",
+      "sha256": "3bbc9afa6a3a7a60bb917ff4cf05060272054aba674143782f7fb27da83e948e",
+      "uncompressed_sha256": "1982f197e3f28c09a8b85aed3937cbbb30a3e756962b732b9dc47debfe4524d3"
+    },
+    {
+      "source": "internal/rpc/run_budget.go",
+      "path": "docs/acceptance/development-evidence/rpc-budget-rejections-20260909/run_budget.go.gz",
+      "sha256": "78da8f5ea6298ad57c0eac92c8e5e84b8e68bef1878ca77b59cc0f86b092f90a",
+      "uncompressed_sha256": "a55ca800ddd1ddfa295d0be9ab46b46a3e060f0a2c7b6497470f010c2879abe0"
+    }
+  ],
+  "limitations": [
+    "Targeted RPC package suite; coverage is not a refreshed full-product or critical-group result",
+    "In-memory session state with real disk RPC ledger; this does not qualify session restart recovery",
+    "Dirty candidate and unreleased Harness; final acceptance gates remain open"
+  ]
+}

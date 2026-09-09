@@ -1,0 +1,7 @@
+{
+	"Path": "github.com/sausheong/harness",
+	"Main": true,
+	"Dir": "/private/tmp/hand-harness-persistence-20260908",
+	"GoMod": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+	"GoVersion": "1.25.1"
+}

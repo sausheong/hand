@@ -1,0 +1,40 @@
+{"Time":"2026-09-08T15:51:11.007133+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T15:51:11.581329+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC"}
+{"Time":"2026-09-08T15:51:11.58139+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"=== RUN   TestCheckpointChangesRPC\n"}
+{"Time":"2026-09-08T15:51:11.701206+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"--- PASS: TestCheckpointChangesRPC (0.12s)\n"}
+{"Time":"2026-09-08T15:51:11.701252+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Elapsed":0.12}
+{"Time":"2026-09-08T15:51:11.70131+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen"}
+{"Time":"2026-09-08T15:51:11.701337+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen","Output":"=== RUN   TestControlQueueReplayPersistsAcrossReopen\n"}
+{"Time":"2026-09-08T15:51:11.722259+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen","Output":"--- PASS: TestControlQueueReplayPersistsAcrossReopen (0.02s)\n"}
+{"Time":"2026-09-08T15:51:11.722278+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen","Elapsed":0.02}
+{"Time":"2026-09-08T15:51:11.722407+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute"}
+{"Time":"2026-09-08T15:51:11.722433+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute","Output":"=== RUN   TestControlUncertainDoesNotExecute\n"}
+{"Time":"2026-09-08T15:51:11.738271+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute","Output":"--- PASS: TestControlUncertainDoesNotExecute (0.02s)\n"}
+{"Time":"2026-09-08T15:51:11.738291+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute","Elapsed":0.02}
+{"Time":"2026-09-08T15:51:11.73842+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists"}
+{"Time":"2026-09-08T15:51:11.738431+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists","Output":"=== RUN   TestControlLargeQueueResponsePersists\n"}
+{"Time":"2026-09-08T15:51:11.834283+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists","Output":"--- PASS: TestControlLargeQueueResponsePersists (0.10s)\n"}
+{"Time":"2026-09-08T15:51:11.834294+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists","Elapsed":0.1}
+{"Time":"2026-09-08T15:51:11.834357+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity"}
+{"Time":"2026-09-08T15:51:11.834365+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity","Output":"=== RUN   TestControlLedgerRejectsInvalidResponseIdentity\n"}
+{"Time":"2026-09-08T15:51:11.855234+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity","Output":"--- PASS: TestControlLedgerRejectsInvalidResponseIdentity (0.02s)\n"}
+{"Time":"2026-09-08T15:51:11.855251+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity","Elapsed":0.02}
+{"Time":"2026-09-08T15:51:11.855579+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes"}
+{"Time":"2026-09-08T15:51:11.855614+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes\n"}
+{"Time":"2026-09-08T15:51:11.855668+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending"}
+{"Time":"2026-09-08T15:51:11.855674+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes/pending\n"}
+{"Time":"2026-09-08T15:51:11.895397+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes/pending (0.04s)\n"}
+{"Time":"2026-09-08T15:51:11.895428+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending","Elapsed":0.04}
+{"Time":"2026-09-08T15:51:11.895549+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted"}
+{"Time":"2026-09-08T15:51:11.895554+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes/accepted\n"}
+{"Time":"2026-09-08T15:51:11.930638+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes/accepted (0.04s)\n"}
+{"Time":"2026-09-08T15:51:11.930668+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted","Elapsed":0.04}
+{"Time":"2026-09-08T15:51:11.930977+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed"}
+{"Time":"2026-09-08T15:51:11.930984+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes/completed\n"}
+{"Time":"2026-09-08T15:51:11.968564+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes/completed (0.04s)\n"}
+{"Time":"2026-09-08T15:51:11.968599+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed","Elapsed":0.04}
+{"Time":"2026-09-08T15:51:11.968626+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes (0.11s)\n"}
+{"Time":"2026-09-08T15:51:11.968649+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes","Elapsed":0.11}
+{"Time":"2026-09-08T15:51:11.969277+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T15:51:12.986548+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.979s\n"}
+{"Time":"2026-09-08T15:51:12.986601+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.98}

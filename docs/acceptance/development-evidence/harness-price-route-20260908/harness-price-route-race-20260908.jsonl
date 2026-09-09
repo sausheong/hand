@@ -1,0 +1,38 @@
+{"Time":"2026-09-08T21:13:34.954571+08:00","Action":"start","Package":"github.com/sausheong/harness/budget"}
+{"Time":"2026-09-08T21:13:35.082657+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T21:13:35.487728+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestCostLedgerRestartAndPricingProvenance"}
+{"Time":"2026-09-08T21:13:35.487785+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostLedgerRestartAndPricingProvenance","Output":"=== RUN   TestCostLedgerRestartAndPricingProvenance\n"}
+{"Time":"2026-09-08T21:13:35.539699+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostLedgerRestartAndPricingProvenance","Output":"--- PASS: TestCostLedgerRestartAndPricingProvenance (0.05s)\n"}
+{"Time":"2026-09-08T21:13:35.539718+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestCostLedgerRestartAndPricingProvenance","Elapsed":0.05}
+{"Time":"2026-09-08T21:13:35.539748+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty"}
+{"Time":"2026-09-08T21:13:35.539751+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty","Output":"=== RUN   TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty\n"}
+{"Time":"2026-09-08T21:13:35.541052+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty","Output":"--- PASS: TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty (0.00s)\n"}
+{"Time":"2026-09-08T21:13:35.541065+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty","Elapsed":0}
+{"Time":"2026-09-08T21:13:35.541074+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestCostConcurrentOwnersAndExplicitResume"}
+{"Time":"2026-09-08T21:13:35.541078+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostConcurrentOwnersAndExplicitResume","Output":"=== RUN   TestCostConcurrentOwnersAndExplicitResume\n"}
+{"Time":"2026-09-08T21:13:35.543523+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostConcurrentOwnersAndExplicitResume","Output":"--- PASS: TestCostConcurrentOwnersAndExplicitResume (0.00s)\n"}
+{"Time":"2026-09-08T21:13:35.543532+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestCostConcurrentOwnersAndExplicitResume","Elapsed":0}
+{"Time":"2026-09-08T21:13:35.543572+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestCostFailedUsageRetainsReservationAndOverrunExhausts"}
+{"Time":"2026-09-08T21:13:35.543583+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostFailedUsageRetainsReservationAndOverrunExhausts","Output":"=== RUN   TestCostFailedUsageRetainsReservationAndOverrunExhausts\n"}
+{"Time":"2026-09-08T21:13:35.548911+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostFailedUsageRetainsReservationAndOverrunExhausts","Output":"--- PASS: TestCostFailedUsageRetainsReservationAndOverrunExhausts (0.01s)\n"}
+{"Time":"2026-09-08T21:13:35.548927+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestCostFailedUsageRetainsReservationAndOverrunExhausts","Elapsed":0.01}
+{"Time":"2026-09-08T21:13:35.548939+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestCostOversizedSettlementPreservesReadableJournal"}
+{"Time":"2026-09-08T21:13:35.548943+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostOversizedSettlementPreservesReadableJournal","Output":"=== RUN   TestCostOversizedSettlementPreservesReadableJournal\n"}
+{"Time":"2026-09-08T21:13:35.549972+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostOversizedSettlementPreservesReadableJournal","Output":"--- PASS: TestCostOversizedSettlementPreservesReadableJournal (0.00s)\n"}
+{"Time":"2026-09-08T21:13:35.550014+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestCostOversizedSettlementPreservesReadableJournal","Elapsed":0}
+{"Time":"2026-09-08T21:13:35.550018+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestCostAdmissionRejectsSameModelAtDifferentDestination"}
+{"Time":"2026-09-08T21:13:35.55002+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostAdmissionRejectsSameModelAtDifferentDestination","Output":"=== RUN   TestCostAdmissionRejectsSameModelAtDifferentDestination\n"}
+{"Time":"2026-09-08T21:13:35.550154+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestCostAdmissionRejectsSameModelAtDifferentDestination","Output":"--- PASS: TestCostAdmissionRejectsSameModelAtDifferentDestination (0.00s)\n"}
+{"Time":"2026-09-08T21:13:35.550163+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestCostAdmissionRejectsSameModelAtDifferentDestination","Elapsed":0}
+{"Time":"2026-09-08T21:13:35.550394+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"PASS\n"}
+{"Time":"2026-09-08T21:13:36.036375+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction"}
+{"Time":"2026-09-08T21:13:36.036412+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"=== RUN   TestTokenBudgetGovernsRuntimeAndManualCompaction\n"}
+{"Time":"2026-09-08T21:13:36.039683+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"2026/09/08 21:13:36 INFO compaction triggered session_id=ses_9dd43e612f56e78b reason=manual\n"}
+{"Time":"2026-09-08T21:13:36.04104+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"2026/09/08 21:13:36 INFO compaction complete session_id=ses_9dd43e612f56e78b reason=manual turns_compacted=19 duration_ms=1\n"}
+{"Time":"2026-09-08T21:13:36.041485+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"--- PASS: TestTokenBudgetGovernsRuntimeAndManualCompaction (0.01s)\n"}
+{"Time":"2026-09-08T21:13:36.041504+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Elapsed":0.01}
+{"Time":"2026-09-08T21:13:36.041602+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T21:13:36.565571+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"ok  \tgithub.com/sausheong/harness/budget\t1.610s\n"}
+{"Time":"2026-09-08T21:13:36.565672+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Elapsed":1.611}
+{"Time":"2026-09-08T21:13:37.054641+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t1.972s\n"}
+{"Time":"2026-09-08T21:13:37.054699+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":1.972}

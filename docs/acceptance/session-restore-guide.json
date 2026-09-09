@@ -1,0 +1,61 @@
+{
+  "status": "documentation_checked",
+  "requirements": [
+    "M3.1",
+    "M3.2",
+    "M5.2",
+    "M8.2"
+  ],
+  "document": "docs/sessions-and-restore.md",
+  "checks": {
+    "registered_commands": [
+      "/resume",
+      "/name",
+      "/tree",
+      "/fork",
+      "/new",
+      "/clear",
+      "/export",
+      "/changes",
+      "/restore-preview",
+      "/restore-confirm",
+      "/restore-cancel",
+      "/recoveries",
+      "/recovery-resolve",
+      "/verify",
+      "/verify-confirm",
+      "/verify-list",
+      "/verify-check"
+    ],
+    "registered_flags": [
+      "checkpoint-dir",
+      "checkpoint-exclude",
+      "verification-config"
+    ],
+    "relative_links": "all resolve",
+    "example_json": "parses"
+  },
+  "source_review": [
+    "internal/tui/commands.go",
+    "internal/tui/restore_preview.go",
+    "internal/tui/changes.go",
+    "internal/tui/recovery.go",
+    "internal/tui/session_export.go",
+    "internal/config/verification.go",
+    "internal/tui/verification.go"
+  ],
+  "limitations": [
+    "Documentation and static command checks only; no new runtime acceptance result",
+    "Final full migration, restore and verification journeys remain required"
+  ],
+  "hashes": {
+    "docs/sessions-and-restore.md": "c4a4bb47b8e700eef6542fde03137ae35f9c1f1940359e8f4e70b089712e5c7e",
+    "internal/tui/commands.go": "218f50f52e713260ddc8567e6659c301a3fb0c5abb501328a768e32ba24c52e4",
+    "internal/tui/restore_preview.go": "f7108fbf9803722f2290a70e4781912b0c757988ad96f7c4a4512c752ca0c9ef",
+    "internal/tui/changes.go": "45e34e3c2b521a2ca4bd90dd12357f4fbf0815fcbf74f3543b8178de9386afc9",
+    "internal/tui/recovery.go": "a0c610b7b7a3b8bcf6c17f9f220637687e1d19d9bd0f2603e9ed2b29360f49e8",
+    "internal/tui/session_export.go": "0a0f1083172cdb558c10163860490fd35ef10f35b30cea3d56898206aeb730e0",
+    "internal/config/verification.go": "4e36cf90f2854eeaa9711c63de13979ee7b1349bb22674a735c4cf2ec81afba6",
+    "internal/tui/verification.go": "e1f3f74c364c2f7846165e45191a14011c772c5b32f639d098e6ae3d74b55b91"
+  }
+}

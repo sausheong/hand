@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "provider_calls": 0,
+  "binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+  "runner_sha256": "d1f9d5a93fe97c95d6b4fab4f123cc7a1454b711977b28cd4bf178a68e855f99",
+  "package_digest": "f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d",
+  "typed_presentation": true,
+  "literal_record_roundtrip": true,
+  "invalid_record_rejected": true,
+  "snapshots_removed": true
+}

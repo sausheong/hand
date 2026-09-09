@@ -1,0 +1,16 @@
+{"Time":"2026-09-09T02:58:05.415245+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:58:05.998165+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionSessionEventsFollowCommittedTransitions"}
+{"Time":"2026-09-09T02:58:05.998211+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionSessionEventsFollowCommittedTransitions","Output":"=== RUN   TestExtensionSessionEventsFollowCommittedTransitions\n"}
+{"Time":"2026-09-09T02:58:06.50104+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionSessionEventsFollowCommittedTransitions","Output":"--- PASS: TestExtensionSessionEventsFollowCommittedTransitions (0.50s)\n"}
+{"Time":"2026-09-09T02:58:06.501084+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionSessionEventsFollowCommittedTransitions","Elapsed":0.5}
+{"Time":"2026-09-09T02:58:06.501165+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks"}
+{"Time":"2026-09-09T02:58:06.501176+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks","Output":"=== RUN   TestExtensionActivationOwnsRuntimeAndCannotStackHooks\n"}
+{"Time":"2026-09-09T02:58:06.502549+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks","Output":"--- PASS: TestExtensionActivationOwnsRuntimeAndCannotStackHooks (0.00s)\n"}
+{"Time":"2026-09-09T02:58:06.50256+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks","Elapsed":0}
+{"Time":"2026-09-09T02:58:06.50266+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding"}
+{"Time":"2026-09-09T02:58:06.502667+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"=== RUN   TestApplicationExtensionOwnershipQuestionsAndSessionBinding\n"}
+{"Time":"2026-09-09T02:58:07.172222+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Output":"--- PASS: TestApplicationExtensionOwnershipQuestionsAndSessionBinding (0.67s)\n"}
+{"Time":"2026-09-09T02:58:07.172246+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestApplicationExtensionOwnershipQuestionsAndSessionBinding","Elapsed":0.67}
+{"Time":"2026-09-09T02:58:07.172919+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:58:08.18513+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.769s\n"}
+{"Time":"2026-09-09T02:58:08.18526+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.77}

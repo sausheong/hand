@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-run-budget-rpc-20260908/workspace",
+  "generation": 6,
+  "lastActiveId": "ses_c7ea75988f4256ab",
+  "sessions": [
+    {
+      "id": "ses_dd5b56521c8d4bdf",
+      "agentId": "hand",
+      "storeKey": "workspace_19d965c20168eca1_44abe0449b6a21bdb2aba99aa559aa43",
+      "name": "",
+      "createdAt": "2026-09-08T14:19:33.373781Z",
+      "lastActive": "2026-09-08T14:19:33.374088Z"
+    },
+    {
+      "id": "ses_c7ea75988f4256ab",
+      "agentId": "hand",
+      "storeKey": "workspace_19d965c20168eca1_b328ba2731027b1664c3f6300f6a30ca",
+      "name": "",
+      "createdAt": "2026-09-08T14:19:33.407725Z",
+      "lastActive": "2026-09-08T14:19:33.954802Z"
+    }
+  ]
+}

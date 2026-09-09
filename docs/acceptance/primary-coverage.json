@@ -1,0 +1,3280 @@
+{
+  "status": "development_gates_not_met",
+  "baseline": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+  "measurement": {
+    "command": "go test -race -count=1 -timeout=15m -coverpkg=./... -coverprofile=<module-profile> -json ./...",
+    "platform": "darwin/arm64",
+    "concurrent_modules": true
+  },
+  "full_runs": {
+    "hand": {
+      "counts": {
+        "package_pass": 24,
+        "test_pass": 1218,
+        "test_skip": 12,
+        "test_fail": 2,
+        "package_fail": 2
+      },
+      "failures": [
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": "TestPackageCLIRuntimeAndLaunchReviewsRequireSeparateApproval"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/packages",
+          "test": "TestReviewedRuntimeProbeApprovalFingerprintAndCancellation"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/packages",
+          "test": null
+        },
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": null
+        }
+      ],
+      "skips": [
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestContainerExtensionFileCallbackBoundary"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestContainerExtensionActivationAndReviewedReload"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/extensions",
+          "test": "TestContainerExtensionRealExample"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/extensions",
+          "test": "TestContainerPythonImageInterpreter"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/toolproxy",
+          "test": "TestNativeProxyWorkerRoundtrip"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/packages",
+          "test": "TestNativeContainerPythonRuntimeVersion"
+        },
+        {
+          "package": "github.com/sausheong/hand/cmd/hand",
+          "test": "TestNativePackageCLIContainerRuntimeAndLaunchReviews"
+        },
+        {
+          "package": "github.com/sausheong/hand/sdk",
+          "test": "TestNativeScopedSDKContainerJourney"
+        },
+        {
+          "package": "github.com/sausheong/hand/sdk",
+          "test": "TestNativeSDKRejectsChangedWorker"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestExtensionResourceIPC/network.fetch/public-fetch"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestNativeContainerPackagePythonReviewAndLaunch"
+        },
+        {
+          "package": "github.com/sausheong/hand/internal/app",
+          "test": "TestNativeBackgroundContainerInputOutputAndShutdown"
+        }
+      ]
+    },
+    "harness": {
+      "counts": {
+        "package_pass": 32,
+        "test_pass": 1046,
+        "test_skip": 5
+      },
+      "failures": [],
+      "skips": [
+        {
+          "package": "github.com/sausheong/harness/execution",
+          "test": "TestNativeContainerBoundary"
+        },
+        {
+          "package": "github.com/sausheong/harness/execution",
+          "test": "TestNativeImageVolumeRejection"
+        },
+        {
+          "package": "github.com/sausheong/harness/execution",
+          "test": "TestContainerProtocolStreamRoundTrip"
+        },
+        {
+          "package": "github.com/sausheong/harness/execution",
+          "test": "TestContainerProtocolPinnedResources"
+        },
+        {
+          "package": "github.com/sausheong/harness/tools/bash",
+          "test": "TestBashNativeContainerWithCapture"
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "hand": {
+      "total": {
+        "statements": 15433,
+        "covered": 11977,
+        "percentage": 77.60642778461738
+      },
+      "packages": {
+        "github.com/sausheong/hand/examples/rpc": {
+          "statements": 17,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/extensions/go-tool-policy": {
+          "statements": 35,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/cmd/hand-tool-worker": {
+          "statements": 11,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/extensions/go-task-note": {
+          "statements": 66,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/compatibility": {
+          "statements": 211,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/embedded": {
+          "statements": 19,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/cmd/hand": {
+          "statements": 967,
+          "covered": 608,
+          "percentage": 62.874870734229575
+        },
+        "github.com/sausheong/hand/examples/extensions/go-tool-viewer": {
+          "statements": 48,
+          "covered": 18,
+          "percentage": 37.5
+        },
+        "github.com/sausheong/hand/examples/extensions/go-verification-hook": {
+          "statements": 62,
+          "covered": 28,
+          "percentage": 45.16129032258065
+        },
+        "github.com/sausheong/hand/extension/protocol": {
+          "statements": 204,
+          "covered": 174,
+          "percentage": 85.29411764705883
+        },
+        "github.com/sausheong/hand/internal/agentio": {
+          "statements": 1253,
+          "covered": 1087,
+          "percentage": 86.75179569034317
+        },
+        "github.com/sausheong/hand/internal/app": {
+          "statements": 3084,
+          "covered": 2556,
+          "percentage": 82.87937743190662
+        },
+        "github.com/sausheong/hand/internal/checkpoints": {
+          "statements": 1011,
+          "covered": 803,
+          "percentage": 79.42631058358062
+        },
+        "github.com/sausheong/hand/internal/config": {
+          "statements": 278,
+          "covered": 234,
+          "percentage": 84.1726618705036
+        },
+        "github.com/sausheong/hand/internal/extensions": {
+          "statements": 1117,
+          "covered": 891,
+          "percentage": 79.76723366159355
+        },
+        "github.com/sausheong/hand/internal/isolation": {
+          "statements": 35,
+          "covered": 18,
+          "percentage": 51.42857142857143
+        },
+        "github.com/sausheong/hand/internal/packages": {
+          "statements": 1293,
+          "covered": 1005,
+          "percentage": 77.7262180974478
+        },
+        "github.com/sausheong/hand/internal/permissions": {
+          "statements": 383,
+          "covered": 311,
+          "percentage": 81.20104438642298
+        },
+        "github.com/sausheong/hand/internal/rpc": {
+          "statements": 1075,
+          "covered": 820,
+          "percentage": 76.27906976744185
+        },
+        "github.com/sausheong/hand/internal/sessionio": {
+          "statements": 652,
+          "covered": 536,
+          "percentage": 82.20858895705521
+        },
+        "github.com/sausheong/hand/internal/toolproxy": {
+          "statements": 57,
+          "covered": 43,
+          "percentage": 75.43859649122807
+        },
+        "github.com/sausheong/hand/internal/toolworker": {
+          "statements": 44,
+          "covered": 38,
+          "percentage": 86.36363636363636
+        },
+        "github.com/sausheong/hand/internal/tui": {
+          "statements": 2685,
+          "covered": 2165,
+          "percentage": 80.63314711359403
+        },
+        "github.com/sausheong/hand/internal/verification": {
+          "statements": 395,
+          "covered": 295,
+          "percentage": 74.68354430379746
+        },
+        "github.com/sausheong/hand/protocol": {
+          "statements": 83,
+          "covered": 73,
+          "percentage": 87.95180722891567
+        },
+        "github.com/sausheong/hand/sdk": {
+          "statements": 348,
+          "covered": 274,
+          "percentage": 78.73563218390805
+        }
+      }
+    },
+    "harness": {
+      "total": {
+        "statements": 8787,
+        "covered": 6059,
+        "percentage": 68.95413679298964
+      },
+      "packages": {
+        "github.com/sausheong/harness/examples/self-improving-agent": {
+          "statements": 59,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/harness/examples/lta-agent": {
+          "statements": 192,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/harness/examples/minimal": {
+          "statements": 40,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/harness/examples/data-agent": {
+          "statements": 232,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/harness/attachment": {
+          "statements": 170,
+          "covered": 124,
+          "percentage": 72.94117647058823
+        },
+        "github.com/sausheong/harness/budget": {
+          "statements": 479,
+          "covered": 380,
+          "percentage": 79.33194154488518
+        },
+        "github.com/sausheong/harness/compaction": {
+          "statements": 329,
+          "covered": 301,
+          "percentage": 91.48936170212765
+        },
+        "github.com/sausheong/harness/examples/support-agent": {
+          "statements": 314,
+          "covered": 129,
+          "percentage": 41.0828025477707
+        },
+        "github.com/sausheong/harness/execution": {
+          "statements": 415,
+          "covered": 245,
+          "percentage": 59.036144578313255
+        },
+        "github.com/sausheong/harness/llm": {
+          "statements": 253,
+          "covered": 207,
+          "percentage": 81.81818181818181
+        },
+        "github.com/sausheong/harness/llm/llmtest": {
+          "statements": 19,
+          "covered": 17,
+          "percentage": 89.47368421052632
+        },
+        "github.com/sausheong/harness/process": {
+          "statements": 277,
+          "covered": 228,
+          "percentage": 82.31046931407943
+        },
+        "github.com/sausheong/harness/providers/anthropic": {
+          "statements": 266,
+          "covered": 213,
+          "percentage": 80.07518796992481
+        },
+        "github.com/sausheong/harness/providers/gemini": {
+          "statements": 118,
+          "covered": 7,
+          "percentage": 5.932203389830509
+        },
+        "github.com/sausheong/harness/providers/litellm": {
+          "statements": 1,
+          "covered": 1,
+          "percentage": 100.0
+        },
+        "github.com/sausheong/harness/providers/local": {
+          "statements": 3,
+          "covered": 3,
+          "percentage": 100.0
+        },
+        "github.com/sausheong/harness/providers/openai": {
+          "statements": 148,
+          "covered": 48,
+          "percentage": 32.432432432432435
+        },
+        "github.com/sausheong/harness/providers/openrouter": {
+          "statements": 3,
+          "covered": 3,
+          "percentage": 100.0
+        },
+        "github.com/sausheong/harness/runtime": {
+          "statements": 2146,
+          "covered": 1703,
+          "percentage": 79.3569431500466
+        },
+        "github.com/sausheong/harness/session": {
+          "statements": 1259,
+          "covered": 1039,
+          "percentage": 82.52581413820492
+        },
+        "github.com/sausheong/harness/tokens": {
+          "statements": 123,
+          "covered": 88,
+          "percentage": 71.54471544715447
+        },
+        "github.com/sausheong/harness/tool": {
+          "statements": 298,
+          "covered": 254,
+          "percentage": 85.23489932885906
+        },
+        "github.com/sausheong/harness/tool/memory": {
+          "statements": 80,
+          "covered": 67,
+          "percentage": 83.75
+        },
+        "github.com/sausheong/harness/tool/memory/jsonl": {
+          "statements": 144,
+          "covered": 119,
+          "percentage": 82.63888888888889
+        },
+        "github.com/sausheong/harness/tool/skills": {
+          "statements": 97,
+          "covered": 85,
+          "percentage": 87.62886597938144
+        },
+        "github.com/sausheong/harness/tool/skills/disk": {
+          "statements": 235,
+          "covered": 198,
+          "percentage": 84.25531914893617
+        },
+        "github.com/sausheong/harness/tools/bash": {
+          "statements": 160,
+          "covered": 139,
+          "percentage": 86.875
+        },
+        "github.com/sausheong/harness/tools/browser": {
+          "statements": 299,
+          "covered": 121,
+          "percentage": 40.468227424749166
+        },
+        "github.com/sausheong/harness/tools/file": {
+          "statements": 123,
+          "covered": 82,
+          "percentage": 66.66666666666667
+        },
+        "github.com/sausheong/harness/tools/mcp": {
+          "statements": 118,
+          "covered": 101,
+          "percentage": 85.59322033898304
+        },
+        "github.com/sausheong/harness/tools/todo": {
+          "statements": 104,
+          "covered": 90,
+          "percentage": 86.53846153846153
+        },
+        "github.com/sausheong/harness/tools/web": {
+          "statements": 283,
+          "covered": 67,
+          "percentage": 23.674911660777386
+        }
+      }
+    }
+  },
+  "changed_hand_coverage": {
+    "status": "missing_profile_files",
+    "statements": 14769,
+    "covered": 11422,
+    "percentage": 77.33766673437606,
+    "missing_profile_files": [
+      "cmd/hand/legacy_open_other.go",
+      "docs/acceptance/development-evidence/bound-journeys-20260908/hand-bound-journeys-compatibility-20260908/consumer/main.go",
+      "docs/acceptance/development-evidence/cli-scoped-20260908/hand-cli-scoped-compatibility-20260908/consumer/main.go",
+      "docs/acceptance/development-evidence/sdk-cancel-20260908/compatibility/consumer/main.go",
+      "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-20260908/consumer/main.go",
+      "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-final-20260908/consumer/main.go",
+      "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-verified-20260908/consumer/main.go",
+      "internal/agentio/approval_snapshot_other.go",
+      "internal/agentio/testdata/mcpserver/main.go",
+      "internal/checkpoints/rename_linux.go",
+      "internal/checkpoints/rename_other.go",
+      "internal/permissions/authority_other.go",
+      "internal/rpc/ledger_other.go"
+    ],
+    "changed_lines": {
+      "cmd/hand-tool-worker/main.go": [
+        [
+          1,
+          29
+        ]
+      ],
+      "cmd/hand/legacy_open_other.go": [
+        [
+          1,
+          12
+        ]
+      ],
+      "cmd/hand/legacy_open_unix.go": [
+        [
+          1,
+          12
+        ]
+      ],
+      "cmd/hand/main.go": [
+        [
+          9,
+          9
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          32,
+          32
+        ],
+        [
+          34,
+          34
+        ],
+        [
+          36,
+          36
+        ],
+        [
+          39,
+          40
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          46,
+          75
+        ],
+        [
+          79,
+          86
+        ],
+        [
+          88,
+          88
+        ],
+        [
+          91,
+          97
+        ],
+        [
+          99,
+          106
+        ],
+        [
+          109,
+          109
+        ],
+        [
+          113,
+          114
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          136,
+          139
+        ],
+        [
+          161,
+          164
+        ],
+        [
+          199,
+          222
+        ],
+        [
+          230,
+          253
+        ],
+        [
+          257,
+          276
+        ],
+        [
+          278,
+          348
+        ],
+        [
+          350,
+          355
+        ],
+        [
+          360,
+          397
+        ],
+        [
+          408,
+          449
+        ],
+        [
+          460,
+          464
+        ],
+        [
+          466,
+          480
+        ],
+        [
+          483,
+          483
+        ],
+        [
+          485,
+          489
+        ],
+        [
+          492,
+          494
+        ],
+        [
+          496,
+          496
+        ],
+        [
+          498,
+          502
+        ],
+        [
+          509,
+          513
+        ],
+        [
+          515,
+          515
+        ],
+        [
+          529,
+          542
+        ],
+        [
+          544,
+          544
+        ],
+        [
+          551,
+          553
+        ],
+        [
+          555,
+          555
+        ],
+        [
+          557,
+          599
+        ],
+        [
+          604,
+          631
+        ],
+        [
+          634,
+          654
+        ],
+        [
+          657,
+          667
+        ],
+        [
+          669,
+          670
+        ],
+        [
+          673,
+          730
+        ],
+        [
+          751,
+          751
+        ],
+        [
+          754,
+          777
+        ]
+      ],
+      "cmd/hand/package_container.go": [
+        [
+          1,
+          103
+        ]
+      ],
+      "cmd/hand/package_prompt.go": [
+        [
+          1,
+          37
+        ]
+      ],
+      "cmd/hand/package_skills.go": [
+        [
+          1,
+          44
+        ]
+      ],
+      "cmd/hand/packages.go": [
+        [
+          1,
+          365
+        ]
+      ],
+      "cmd/hand/permission_binding.go": [
+        [
+          1,
+          66
+        ]
+      ],
+      "cmd/hand/rpc.go": [
+        [
+          1,
+          30
+        ]
+      ],
+      "cmd/hand/scoped_permissions.go": [
+        [
+          1,
+          86
+        ]
+      ],
+      "cmd/hand/startup.go": [
+        [
+          1,
+          134
+        ]
+      ],
+      "cmd/hand/version.go": [
+        [
+          1,
+          38
+        ]
+      ],
+      "docs/acceptance/development-evidence/bound-journeys-20260908/hand-bound-journeys-compatibility-20260908/consumer/main.go": [
+        [
+          1,
+          340
+        ]
+      ],
+      "docs/acceptance/development-evidence/cli-scoped-20260908/hand-cli-scoped-compatibility-20260908/consumer/main.go": [
+        [
+          1,
+          340
+        ]
+      ],
+      "docs/acceptance/development-evidence/sdk-cancel-20260908/compatibility/consumer/main.go": [
+        [
+          1,
+          340
+        ]
+      ],
+      "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-20260908/consumer/main.go": [
+        [
+          1,
+          227
+        ]
+      ],
+      "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-final-20260908/consumer/main.go": [
+        [
+          1,
+          227
+        ]
+      ],
+      "docs/acceptance/development-evidence/sdk-compat-20260908/hand-sdk-compatibility-verified-20260908/consumer/main.go": [
+        [
+          1,
+          227
+        ]
+      ],
+      "examples/compatibility/main.go": [
+        [
+          1,
+          340
+        ]
+      ],
+      "examples/embedded/main.go": [
+        [
+          1,
+          40
+        ]
+      ],
+      "examples/extensions/go-task-note/main.go": [
+        [
+          1,
+          134
+        ]
+      ],
+      "examples/extensions/go-tool-policy/main.go": [
+        [
+          1,
+          71
+        ]
+      ],
+      "examples/extensions/go-tool-viewer/main.go": [
+        [
+          1,
+          103
+        ]
+      ],
+      "examples/extensions/go-verification-hook/main.go": [
+        [
+          1,
+          119
+        ]
+      ],
+      "examples/rpc/main.go": [
+        [
+          1,
+          37
+        ]
+      ],
+      "extension/protocol/frame.go": [
+        [
+          1,
+          204
+        ]
+      ],
+      "extension/protocol/schema.go": [
+        [
+          1,
+          227
+        ]
+      ],
+      "internal/agentio/approval.go": [
+        [
+          41,
+          45
+        ],
+        [
+          48,
+          48
+        ],
+        [
+          50,
+          86
+        ],
+        [
+          131,
+          132
+        ],
+        [
+          143,
+          143
+        ],
+        [
+          166,
+          166
+        ],
+        [
+          173,
+          173
+        ],
+        [
+          178,
+          180
+        ],
+        [
+          185,
+          185
+        ],
+        [
+          215,
+          216
+        ]
+      ],
+      "internal/agentio/approval_snapshot.go": [
+        [
+          1,
+          72
+        ]
+      ],
+      "internal/agentio/approval_snapshot_other.go": [
+        [
+          1,
+          12
+        ]
+      ],
+      "internal/agentio/approval_snapshot_unix.go": [
+        [
+          1,
+          16
+        ]
+      ],
+      "internal/agentio/attachment_policy.go": [
+        [
+          1,
+          82
+        ]
+      ],
+      "internal/agentio/completion.go": [
+        [
+          1,
+          110
+        ]
+      ],
+      "internal/agentio/diff.go": [
+        [
+          10,
+          10
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          54,
+          64
+        ],
+        [
+          66,
+          66
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          112,
+          112
+        ],
+        [
+          130,
+          130
+        ]
+      ],
+      "internal/agentio/file_instructions.go": [
+        [
+          1,
+          116
+        ]
+      ],
+      "internal/agentio/hooks.go": [
+        [
+          8,
+          8
+        ],
+        [
+          28,
+          28
+        ],
+        [
+          46,
+          50
+        ],
+        [
+          56,
+          93
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          111,
+          116
+        ],
+        [
+          118,
+          124
+        ],
+        [
+          127,
+          139
+        ],
+        [
+          142,
+          142
+        ],
+        [
+          146,
+          148
+        ],
+        [
+          150,
+          174
+        ],
+        [
+          181,
+          182
+        ],
+        [
+          186,
+          187
+        ],
+        [
+          194,
+          198
+        ],
+        [
+          233,
+          233
+        ],
+        [
+          297,
+          299
+        ],
+        [
+          318,
+          320
+        ],
+        [
+          328,
+          328
+        ],
+        [
+          334,
+          334
+        ],
+        [
+          344,
+          352
+        ],
+        [
+          355,
+          355
+        ]
+      ],
+      "internal/agentio/identity.go": [
+        [
+          1,
+          20
+        ]
+      ],
+      "internal/agentio/image_input.go": [
+        [
+          1,
+          168
+        ]
+      ],
+      "internal/agentio/instructions.go": [
+        [
+          1,
+          151
+        ]
+      ],
+      "internal/agentio/mcp.go": [
+        [
+          4,
+          5
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          15,
+          18
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          29,
+          29
+        ]
+      ],
+      "internal/agentio/mutation_instructions.go": [
+        [
+          1,
+          86
+        ]
+      ],
+      "internal/agentio/outcome.go": [
+        [
+          1,
+          109
+        ]
+      ],
+      "internal/agentio/package_prompt.go": [
+        [
+          1,
+          23
+        ]
+      ],
+      "internal/agentio/prompt_input.go": [
+        [
+          1,
+          143
+        ]
+      ],
+      "internal/agentio/registry.go": [
+        [
+          22,
+          24
+        ]
+      ],
+      "internal/agentio/scoped_approval.go": [
+        [
+          1,
+          166
+        ]
+      ],
+      "internal/agentio/search.go": [
+        [
+          11,
+          11
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          22,
+          25
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          30,
+          45
+        ],
+        [
+          50,
+          50
+        ],
+        [
+          54,
+          62
+        ],
+        [
+          68,
+          68
+        ],
+        [
+          70,
+          70
+        ],
+        [
+          73,
+          73
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          78,
+          79
+        ],
+        [
+          81,
+          82
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          87,
+          91
+        ],
+        [
+          98,
+          98
+        ],
+        [
+          101,
+          237
+        ],
+        [
+          240,
+          245
+        ],
+        [
+          247,
+          251
+        ],
+        [
+          253,
+          266
+        ],
+        [
+          270,
+          270
+        ],
+        [
+          273,
+          274
+        ],
+        [
+          278,
+          280
+        ],
+        [
+          282,
+          313
+        ],
+        [
+          316,
+          317
+        ],
+        [
+          321,
+          322
+        ],
+        [
+          324,
+          325
+        ],
+        [
+          327,
+          334
+        ],
+        [
+          336,
+          341
+        ],
+        [
+          343,
+          353
+        ],
+        [
+          355,
+          369
+        ],
+        [
+          371,
+          385
+        ],
+        [
+          387,
+          387
+        ]
+      ],
+      "internal/agentio/skills.go": [
+        [
+          5,
+          5
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          35,
+          37
+        ],
+        [
+          39,
+          39
+        ],
+        [
+          41,
+          48
+        ],
+        [
+          50,
+          104
+        ],
+        [
+          107,
+          109
+        ],
+        [
+          111,
+          111
+        ],
+        [
+          113,
+          117
+        ],
+        [
+          119,
+          119
+        ],
+        [
+          121,
+          124
+        ],
+        [
+          126,
+          129
+        ],
+        [
+          133,
+          134
+        ],
+        [
+          136,
+          140
+        ],
+        [
+          145,
+          146
+        ],
+        [
+          152,
+          158
+        ]
+      ],
+      "internal/agentio/spec.go": [
+        [
+          16,
+          17
+        ],
+        [
+          19,
+          19
+        ],
+        [
+          58,
+          62
+        ],
+        [
+          64,
+          72
+        ]
+      ],
+      "internal/agentio/testdata/mcpserver/main.go": [
+        [
+          3,
+          3
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          42,
+          44
+        ]
+      ],
+      "internal/app/approval.go": [
+        [
+          1,
+          156
+        ]
+      ],
+      "internal/app/checkpoint_changes.go": [
+        [
+          1,
+          141
+        ]
+      ],
+      "internal/app/checkpoint_journal.go": [
+        [
+          1,
+          112
+        ]
+      ],
+      "internal/app/checkpoint_recovery.go": [
+        [
+          1,
+          72
+        ]
+      ],
+      "internal/app/checkpoint_restore.go": [
+        [
+          1,
+          81
+        ]
+      ],
+      "internal/app/checkpoints.go": [
+        [
+          1,
+          132
+        ]
+      ],
+      "internal/app/context.go": [
+        [
+          1,
+          22
+        ]
+      ],
+      "internal/app/context_state.go": [
+        [
+          1,
+          73
+        ]
+      ],
+      "internal/app/controller.go": [
+        [
+          1,
+          337
+        ]
+      ],
+      "internal/app/cost_budget.go": [
+        [
+          1,
+          72
+        ]
+      ],
+      "internal/app/details.go": [
+        [
+          1,
+          44
+        ]
+      ],
+      "internal/app/extension_context.go": [
+        [
+          1,
+          72
+        ]
+      ],
+      "internal/app/extension_lifecycle.go": [
+        [
+          1,
+          67
+        ]
+      ],
+      "internal/app/extension_policy.go": [
+        [
+          1,
+          51
+        ]
+      ],
+      "internal/app/extension_reload.go": [
+        [
+          1,
+          62
+        ]
+      ],
+      "internal/app/extension_resources.go": [
+        [
+          1,
+          156
+        ]
+      ],
+      "internal/app/extension_review.go": [
+        [
+          1,
+          102
+        ]
+      ],
+      "internal/app/extension_sessions.go": [
+        [
+          1,
+          34
+        ]
+      ],
+      "internal/app/extension_startup.go": [
+        [
+          1,
+          167
+        ]
+      ],
+      "internal/app/extensions.go": [
+        [
+          1,
+          149
+        ]
+      ],
+      "internal/app/harness.go": [
+        [
+          1,
+          173
+        ]
+      ],
+      "internal/app/mcp.go": [
+        [
+          1,
+          152
+        ]
+      ],
+      "internal/app/metadata.go": [
+        [
+          1,
+          95
+        ]
+      ],
+      "internal/app/model_info.go": [
+        [
+          1,
+          49
+        ]
+      ],
+      "internal/app/package_extensions.go": [
+        [
+          1,
+          187
+        ]
+      ],
+      "internal/app/package_skills.go": [
+        [
+          1,
+          133
+        ]
+      ],
+      "internal/app/permission_binding.go": [
+        [
+          1,
+          34
+        ]
+      ],
+      "internal/app/pins.go": [
+        [
+          1,
+          61
+        ]
+      ],
+      "internal/app/price_review.go": [
+        [
+          1,
+          95
+        ]
+      ],
+      "internal/app/process_tool.go": [
+        [
+          1,
+          99
+        ]
+      ],
+      "internal/app/processes.go": [
+        [
+          1,
+          249
+        ]
+      ],
+      "internal/app/profiles.go": [
+        [
+          1,
+          170
+        ]
+      ],
+      "internal/app/provider.go": [
+        [
+          1,
+          80
+        ]
+      ],
+      "internal/app/queued_input.go": [
+        [
+          1,
+          162
+        ]
+      ],
+      "internal/app/run_budget.go": [
+        [
+          1,
+          159
+        ]
+      ],
+      "internal/app/run_journal.go": [
+        [
+          1,
+          134
+        ]
+      ],
+      "internal/app/service.go": [
+        [
+          1,
+          442
+        ]
+      ],
+      "internal/app/session_export.go": [
+        [
+          1,
+          23
+        ]
+      ],
+      "internal/app/session_fork.go": [
+        [
+          1,
+          41
+        ]
+      ],
+      "internal/app/session_tree.go": [
+        [
+          1,
+          68
+        ]
+      ],
+      "internal/app/session_usage.go": [
+        [
+          1,
+          9
+        ]
+      ],
+      "internal/app/sessions.go": [
+        [
+          1,
+          131
+        ]
+      ],
+      "internal/app/skills.go": [
+        [
+          1,
+          25
+        ]
+      ],
+      "internal/app/start_input.go": [
+        [
+          1,
+          45
+        ]
+      ],
+      "internal/app/steering.go": [
+        [
+          1,
+          168
+        ]
+      ],
+      "internal/app/stream.go": [
+        [
+          1,
+          99
+        ]
+      ],
+      "internal/app/summarizer.go": [
+        [
+          1,
+          154
+        ]
+      ],
+      "internal/app/summarizer_startup.go": [
+        [
+          1,
+          68
+        ]
+      ],
+      "internal/app/time_budget.go": [
+        [
+          1,
+          43
+        ]
+      ],
+      "internal/app/token_budget.go": [
+        [
+          1,
+          55
+        ]
+      ],
+      "internal/app/tool_output.go": [
+        [
+          1,
+          101
+        ]
+      ],
+      "internal/app/usage_observer.go": [
+        [
+          1,
+          31
+        ]
+      ],
+      "internal/app/verification.go": [
+        [
+          1,
+          96
+        ]
+      ],
+      "internal/app/verification_context.go": [
+        [
+          1,
+          61
+        ]
+      ],
+      "internal/app/verification_profiles.go": [
+        [
+          1,
+          184
+        ]
+      ],
+      "internal/app/wire.go": [
+        [
+          1,
+          35
+        ]
+      ],
+      "internal/checkpoints/options.go": [
+        [
+          1,
+          49
+        ]
+      ],
+      "internal/checkpoints/rename.go": [
+        [
+          1,
+          32
+        ]
+      ],
+      "internal/checkpoints/rename_darwin.go": [
+        [
+          1,
+          21
+        ]
+      ],
+      "internal/checkpoints/rename_linux.go": [
+        [
+          1,
+          21
+        ]
+      ],
+      "internal/checkpoints/rename_other.go": [
+        [
+          1,
+          15
+        ]
+      ],
+      "internal/checkpoints/restore_apply.go": [
+        [
+          1,
+          91
+        ]
+      ],
+      "internal/checkpoints/restore_file.go": [
+        [
+          1,
+          238
+        ]
+      ],
+      "internal/checkpoints/restore_journal.go": [
+        [
+          1,
+          212
+        ]
+      ],
+      "internal/checkpoints/restore_plan.go": [
+        [
+          1,
+          120
+        ]
+      ],
+      "internal/checkpoints/restore_recovery.go": [
+        [
+          1,
+          205
+        ]
+      ],
+      "internal/checkpoints/snapshot.go": [
+        [
+          1,
+          335
+        ]
+      ],
+      "internal/checkpoints/store.go": [
+        [
+          1,
+          496
+        ]
+      ],
+      "internal/config/config.go": [
+        [
+          11,
+          11
+        ],
+        [
+          68,
+          71
+        ],
+        [
+          127,
+          127
+        ],
+        [
+          129,
+          135
+        ],
+        [
+          153,
+          160
+        ],
+        [
+          203,
+          211
+        ],
+        [
+          218,
+          226
+        ],
+        [
+          358,
+          364
+        ],
+        [
+          401,
+          422
+        ]
+      ],
+      "internal/config/execution.go": [
+        [
+          1,
+          43
+        ]
+      ],
+      "internal/config/profiles.go": [
+        [
+          1,
+          227
+        ]
+      ],
+      "internal/config/verification.go": [
+        [
+          1,
+          114
+        ]
+      ],
+      "internal/extensions/callback.go": [
+        [
+          1,
+          78
+        ]
+      ],
+      "internal/extensions/connection.go": [
+        [
+          1,
+          233
+        ]
+      ],
+      "internal/extensions/container_factory.go": [
+        [
+          1,
+          152
+        ]
+      ],
+      "internal/extensions/hooks.go": [
+        [
+          1,
+          227
+        ]
+      ],
+      "internal/extensions/host_factory.go": [
+        [
+          1,
+          244
+        ]
+      ],
+      "internal/extensions/initialize.go": [
+        [
+          1,
+          59
+        ]
+      ],
+      "internal/extensions/launch_review.go": [
+        [
+          1,
+          270
+        ]
+      ],
+      "internal/extensions/manager.go": [
+        [
+          1,
+          269
+        ]
+      ],
+      "internal/extensions/operations.go": [
+        [
+          1,
+          203
+        ]
+      ],
+      "internal/extensions/questions.go": [
+        [
+          1,
+          150
+        ]
+      ],
+      "internal/extensions/state.go": [
+        [
+          1,
+          165
+        ]
+      ],
+      "internal/extensions/timeouts.go": [
+        [
+          1,
+          31
+        ]
+      ],
+      "internal/isolation/setup.go": [
+        [
+          1,
+          73
+        ]
+      ],
+      "internal/packages/archive.go": [
+        [
+          1,
+          344
+        ]
+      ],
+      "internal/packages/compatibility.go": [
+        [
+          1,
+          85
+        ]
+      ],
+      "internal/packages/container_runtime.go": [
+        [
+          1,
+          104
+        ]
+      ],
+      "internal/packages/git.go": [
+        [
+          1,
+          149
+        ]
+      ],
+      "internal/packages/integrity.go": [
+        [
+          1,
+          143
+        ]
+      ],
+      "internal/packages/manifest.go": [
+        [
+          1,
+          218
+        ]
+      ],
+      "internal/packages/origin.go": [
+        [
+          1,
+          69
+        ]
+      ],
+      "internal/packages/recovery.go": [
+        [
+          1,
+          56
+        ]
+      ],
+      "internal/packages/resolve.go": [
+        [
+          1,
+          77
+        ]
+      ],
+      "internal/packages/resources.go": [
+        [
+          1,
+          119
+        ]
+      ],
+      "internal/packages/runtime.go": [
+        [
+          1,
+          207
+        ]
+      ],
+      "internal/packages/stage.go": [
+        [
+          1,
+          243
+        ]
+      ],
+      "internal/packages/store.go": [
+        [
+          1,
+          458
+        ]
+      ],
+      "internal/permissions/authority.go": [
+        [
+          1,
+          240
+        ]
+      ],
+      "internal/permissions/authority_other.go": [
+        [
+          1,
+          12
+        ]
+      ],
+      "internal/permissions/authority_unix.go": [
+        [
+          1,
+          21
+        ]
+      ],
+      "internal/permissions/migration.go": [
+        [
+          1,
+          84
+        ]
+      ],
+      "internal/permissions/permissions.go": [
+        [
+          12,
+          13
+        ],
+        [
+          78,
+          78
+        ],
+        [
+          139,
+          144
+        ]
+      ],
+      "internal/permissions/scoped.go": [
+        [
+          1,
+          286
+        ]
+      ],
+      "internal/rpc/control_ledger.go": [
+        [
+          1,
+          31
+        ]
+      ],
+      "internal/rpc/controls.go": [
+        [
+          1,
+          117
+        ]
+      ],
+      "internal/rpc/dispatcher.go": [
+        [
+          1,
+          931
+        ]
+      ],
+      "internal/rpc/extensions.go": [
+        [
+          1,
+          117
+        ]
+      ],
+      "internal/rpc/followup.go": [
+        [
+          1,
+          58
+        ]
+      ],
+      "internal/rpc/ledger.go": [
+        [
+          1,
+          280
+        ]
+      ],
+      "internal/rpc/ledger_other.go": [
+        [
+          1,
+          12
+        ]
+      ],
+      "internal/rpc/ledger_unix.go": [
+        [
+          1,
+          21
+        ]
+      ],
+      "internal/rpc/permission.go": [
+        [
+          1,
+          54
+        ]
+      ],
+      "internal/rpc/run_budget.go": [
+        [
+          1,
+          95
+        ]
+      ],
+      "internal/rpc/transport.go": [
+        [
+          1,
+          87
+        ]
+      ],
+      "internal/rpc/verification.go": [
+        [
+          1,
+          69
+        ]
+      ],
+      "internal/rpc/workspace_ledger.go": [
+        [
+          1,
+          23
+        ]
+      ],
+      "internal/sessionio/catalogue.go": [
+        [
+          1,
+          300
+        ]
+      ],
+      "internal/sessionio/catalogue_unix.go": [
+        [
+          1,
+          25
+        ]
+      ],
+      "internal/sessionio/export.go": [
+        [
+          1,
+          196
+        ]
+      ],
+      "internal/sessionio/fork.go": [
+        [
+          1,
+          123
+        ]
+      ],
+      "internal/sessionio/fork_staging.go": [
+        [
+          1,
+          88
+        ]
+      ],
+      "internal/sessionio/manager.go": [
+        [
+          1,
+          256
+        ]
+      ],
+      "internal/sessionio/usage.go": [
+        [
+          1,
+          149
+        ]
+      ],
+      "internal/sessionio/usage_tracking.go": [
+        [
+          1,
+          54
+        ]
+      ],
+      "internal/toolproxy/paths.go": [
+        [
+          1,
+          56
+        ]
+      ],
+      "internal/toolproxy/proxy.go": [
+        [
+          1,
+          70
+        ]
+      ],
+      "internal/toolworker/worker.go": [
+        [
+          1,
+          95
+        ]
+      ],
+      "internal/tui/application.go": [
+        [
+          1,
+          223
+        ]
+      ],
+      "internal/tui/changes.go": [
+        [
+          1,
+          73
+        ]
+      ],
+      "internal/tui/commands.go": [
+        [
+          6,
+          7
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          22,
+          58
+        ],
+        [
+          61,
+          67
+        ],
+        [
+          69,
+          69
+        ],
+        [
+          77,
+          77
+        ],
+        [
+          159,
+          172
+        ],
+        [
+          174,
+          198
+        ],
+        [
+          200,
+          294
+        ],
+        [
+          296,
+          296
+        ],
+        [
+          300,
+          300
+        ],
+        [
+          303,
+          305
+        ],
+        [
+          312,
+          312
+        ],
+        [
+          315,
+          315
+        ],
+        [
+          324,
+          324
+        ],
+        [
+          333,
+          333
+        ],
+        [
+          337,
+          337
+        ],
+        [
+          340,
+          340
+        ],
+        [
+          344,
+          344
+        ],
+        [
+          347,
+          347
+        ],
+        [
+          349,
+          349
+        ],
+        [
+          364,
+          364
+        ],
+        [
+          367,
+          367
+        ],
+        [
+          369,
+          371
+        ],
+        [
+          373,
+          373
+        ],
+        [
+          376,
+          380
+        ],
+        [
+          382,
+          384
+        ],
+        [
+          386,
+          428
+        ],
+        [
+          430,
+          430
+        ],
+        [
+          438,
+          438
+        ],
+        [
+          441,
+          441
+        ],
+        [
+          445,
+          461
+        ],
+        [
+          463,
+          463
+        ],
+        [
+          471,
+          471
+        ],
+        [
+          474,
+          474
+        ],
+        [
+          479,
+          479
+        ],
+        [
+          482,
+          522
+        ]
+      ],
+      "internal/tui/completion.go": [
+        [
+          1,
+          73
+        ]
+      ],
+      "internal/tui/context.go": [
+        [
+          1,
+          40
+        ]
+      ],
+      "internal/tui/context_state.go": [
+        [
+          1,
+          56
+        ]
+      ],
+      "internal/tui/cost_budget.go": [
+        [
+          1,
+          108
+        ]
+      ],
+      "internal/tui/editor.go": [
+        [
+          1,
+          167
+        ]
+      ],
+      "internal/tui/events.go": [
+        [
+          7,
+          8
+        ],
+        [
+          18,
+          22
+        ],
+        [
+          29,
+          33
+        ],
+        [
+          47,
+          47
+        ],
+        [
+          49,
+          49
+        ],
+        [
+          51,
+          63
+        ]
+      ],
+      "internal/tui/extension_presentation.go": [
+        [
+          1,
+          55
+        ]
+      ],
+      "internal/tui/extensions.go": [
+        [
+          1,
+          108
+        ]
+      ],
+      "internal/tui/markdown_layout.go": [
+        [
+          1,
+          59
+        ]
+      ],
+      "internal/tui/mcp_status.go": [
+        [
+          1,
+          50
+        ]
+      ],
+      "internal/tui/model.go": [
+        [
+          5,
+          5
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          18,
+          18
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          26,
+          28
+        ],
+        [
+          42,
+          87
+        ],
+        [
+          94,
+          105
+        ],
+        [
+          117,
+          119
+        ],
+        [
+          208,
+          208
+        ],
+        [
+          214,
+          214
+        ],
+        [
+          218,
+          218
+        ],
+        [
+          270,
+          275
+        ],
+        [
+          293,
+          301
+        ],
+        [
+          310,
+          353
+        ],
+        [
+          356,
+          357
+        ],
+        [
+          362,
+          393
+        ],
+        [
+          395,
+          399
+        ],
+        [
+          404,
+          406
+        ],
+        [
+          408,
+          412
+        ],
+        [
+          415,
+          447
+        ],
+        [
+          450,
+          457
+        ],
+        [
+          459,
+          463
+        ],
+        [
+          468,
+          475
+        ],
+        [
+          477,
+          484
+        ],
+        [
+          487,
+          487
+        ],
+        [
+          492,
+          494
+        ],
+        [
+          502,
+          567
+        ],
+        [
+          573,
+          577
+        ],
+        [
+          587,
+          589
+        ],
+        [
+          593,
+          595
+        ],
+        [
+          599,
+          601
+        ],
+        [
+          643,
+          647
+        ],
+        [
+          676,
+          677
+        ],
+        [
+          680,
+          684
+        ],
+        [
+          708,
+          716
+        ],
+        [
+          722,
+          722
+        ],
+        [
+          745,
+          758
+        ],
+        [
+          764,
+          771
+        ],
+        [
+          773,
+          773
+        ],
+        [
+          779,
+          779
+        ],
+        [
+          785,
+          785
+        ],
+        [
+          787,
+          787
+        ],
+        [
+          804,
+          809
+        ],
+        [
+          818,
+          829
+        ],
+        [
+          831,
+          831
+        ],
+        [
+          853,
+          853
+        ],
+        [
+          856,
+          860
+        ],
+        [
+          862,
+          862
+        ],
+        [
+          864,
+          865
+        ],
+        [
+          868,
+          873
+        ],
+        [
+          880,
+          880
+        ],
+        [
+          883,
+          883
+        ],
+        [
+          900,
+          900
+        ],
+        [
+          905,
+          905
+        ],
+        [
+          913,
+          916
+        ],
+        [
+          959,
+          959
+        ],
+        [
+          980,
+          989
+        ],
+        [
+          1078,
+          1090
+        ],
+        [
+          1092,
+          1092
+        ],
+        [
+          1100,
+          1100
+        ],
+        [
+          1117,
+          1119
+        ],
+        [
+          1131,
+          1216
+        ]
+      ],
+      "internal/tui/output.go": [
+        [
+          1,
+          289
+        ]
+      ],
+      "internal/tui/output_load.go": [
+        [
+          1,
+          58
+        ]
+      ],
+      "internal/tui/permissions.go": [
+        [
+          1,
+          145
+        ]
+      ],
+      "internal/tui/pins.go": [
+        [
+          1,
+          43
+        ]
+      ],
+      "internal/tui/price_review.go": [
+        [
+          1,
+          46
+        ]
+      ],
+      "internal/tui/processes.go": [
+        [
+          1,
+          119
+        ]
+      ],
+      "internal/tui/queued_input.go": [
+        [
+          1,
+          126
+        ]
+      ],
+      "internal/tui/recovery.go": [
+        [
+          1,
+          88
+        ]
+      ],
+      "internal/tui/replay.go": [
+        [
+          29,
+          31
+        ],
+        [
+          60,
+          60
+        ],
+        [
+          85,
+          95
+        ]
+      ],
+      "internal/tui/restore_preview.go": [
+        [
+          1,
+          106
+        ]
+      ],
+      "internal/tui/run_budget.go": [
+        [
+          1,
+          95
+        ]
+      ],
+      "internal/tui/session_export.go": [
+        [
+          1,
+          25
+        ]
+      ],
+      "internal/tui/session_operation.go": [
+        [
+          1,
+          155
+        ]
+      ],
+      "internal/tui/session_tree.go": [
+        [
+          1,
+          54
+        ]
+      ],
+      "internal/tui/sessions.go": [
+        [
+          1,
+          92
+        ]
+      ],
+      "internal/tui/skills.go": [
+        [
+          1,
+          29
+        ]
+      ],
+      "internal/tui/startup_draft.go": [
+        [
+          1,
+          8
+        ]
+      ],
+      "internal/tui/summarizer.go": [
+        [
+          1,
+          79
+        ]
+      ],
+      "internal/tui/time_budget.go": [
+        [
+          1,
+          46
+        ]
+      ],
+      "internal/tui/token_budget.go": [
+        [
+          1,
+          54
+        ]
+      ],
+      "internal/tui/transcript_blocks.go": [
+        [
+          1,
+          245
+        ]
+      ],
+      "internal/tui/transcript_viewport.go": [
+        [
+          1,
+          92
+        ]
+      ],
+      "internal/tui/verification.go": [
+        [
+          1,
+          108
+        ]
+      ],
+      "internal/tui/verification_cleanup.go": [
+        [
+          1,
+          66
+        ]
+      ],
+      "internal/verification/catalogue.go": [
+        [
+          1,
+          126
+        ]
+      ],
+      "internal/verification/check.go": [
+        [
+          1,
+          77
+        ]
+      ],
+      "internal/verification/export.go": [
+        [
+          1,
+          253
+        ]
+      ],
+      "internal/verification/retention.go": [
+        [
+          1,
+          96
+        ]
+      ],
+      "internal/verification/run.go": [
+        [
+          1,
+          191
+        ]
+      ],
+      "protocol/framing.go": [
+        [
+          1,
+          155
+        ]
+      ],
+      "protocol/protocol.go": [
+        [
+          1,
+          43
+        ]
+      ],
+      "sdk/client.go": [
+        [
+          1,
+          131
+        ]
+      ],
+      "sdk/embedded.go": [
+        [
+          1,
+          267
+        ]
+      ],
+      "sdk/process.go": [
+        [
+          1,
+          106
+        ]
+      ],
+      "sdk/snapshots.go": [
+        [
+          1,
+          209
+        ]
+      ]
+    },
+    "method": "entire instrumented block intersecting any added or changed line"
+  },
+  "critical_groups": {
+    "lifecycle": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 80.60825052694972,
+      "statements": 6642,
+      "covered": 5354,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "permissions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.59851301115242,
+      "statements": 538,
+      "covered": 439,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "persistence": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.28155339805825,
+      "statements": 2060,
+      "covered": 1695,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "execution": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 76.27000695894225,
+      "statements": 1437,
+      "covered": 1096,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "checkpoints": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 78.91472868217055,
+      "statements": 1290,
+      "covered": 1018,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "budgets": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 79.28416485900217,
+      "statements": 922,
+      "covered": 731,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "protocol": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 76.92814765985497,
+      "statements": 1517,
+      "covered": 1167,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "extensions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 77.14446952595937,
+      "statements": 3544,
+      "covered": 2734,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "accounting": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 83.09813983322643,
+      "statements": 3118,
+      "covered": 2591,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    }
+  },
+  "diagnostic_package_run": {
+    "counts": {
+      "test_pass": 162,
+      "test_skip": 2,
+      "package_pass": 2
+    },
+    "failures": [],
+    "skips": [
+      {
+        "package": "github.com/sausheong/hand/internal/packages",
+        "test": "TestNativeContainerPythonRuntimeVersion"
+      },
+      {
+        "package": "github.com/sausheong/hand/cmd/hand",
+        "test": "TestNativePackageCLIContainerRuntimeAndLaunchReviews"
+      }
+    ]
+  },
+  "limitations": [
+    "Dirty development Hand uses unreleased Harness via local go.work; this is not final acceptance.",
+    "Snapshots were collected during full runs, before results. No source edits occurred during either full run. The later diagnostic-only runtime.go error wrapping is not represented in the full coverage profiles.",
+    "Initial ordinary Hand coverage run failed one runtime probe. After using a controlled CLI executable, cross-package run failed two runtime probes at the existing five-second deadline. The actual cause is unresolved; machine contention is a hypothesis, not a verified diagnosis.",
+    "Later affected-package run passed with phase-specific timeout diagnostics; it does not supersede full-run failures or prove that they are fixed.",
+    "Named test records include subtests, and are not acceptance scenario counts. All native skips remain explicit.",
+    "Coverage map includes internal/rpc and newly integrated critical implementations. All groups remain incomplete pending traceability audit and released-candidate qualification.",
+    "Required gates remain Hand >=80 percent, changed production >=90 percent and each critical group >=90 percent. No threshold changed.",
+    "Controlled serial run passed ordinary tests with unchanged deadlines and race detection. Earlier concurrent failures remain preserved. Resource contention is still a hypothesis; no claim of fixing an identified production cause."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-primary-full-tests-20260909.jsonl.gz",
+      "sha256": "0dd85ecb10351be87efee34e764056341ac4f50a873e893e51ec6f8d8678894f",
+      "raw_sha256": "6f07450e04991ee53471ffe3d3b2114c6f0afcc1edc344cca7874735993d044d",
+      "raw_bytes": 1089194,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-primary-full-coverage-20260909.out.gz",
+      "sha256": "85ee6caf9d7cbb6630e1d72e4c794f9c96b9e013ef8a3b96d2e9108ad6feff41",
+      "raw_sha256": "f923546a9323e190da39c2594f152a3ea86aaa9ee5ca7022185047740ed16f6e",
+      "raw_bytes": 756554,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-primary-cross-package-tests-20260909.jsonl.gz",
+      "sha256": "c32a4f6eb8c08af1a4010c92a5c0a057ea7c77f7a437cde44fcff547062a52e6",
+      "raw_sha256": "30f77a312a0d66d3ce571b38cd30ca9615700b4fdfd5ce2e1773a783d856e070",
+      "raw_bytes": 1089770,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-primary-cross-package-coverage-20260909.out.gz",
+      "sha256": "77d9bc77b63f99f5eccff328d5cb44e631b3886f4adc5ada9ce8aef309a313d9",
+      "raw_sha256": "4e1e9cdf54512a17ba7aef80bcf330714bacee26bda4264a164ff287dfbabce1",
+      "raw_bytes": 15081516,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-harness-cross-package-tests-20260909.jsonl.gz",
+      "sha256": "96518b88fe48b9c2a8138937fc9a59f6f326baa295caa315fc0b767e47bbc319",
+      "raw_sha256": "41c4319a816129fc38f66b34e0ec909647c782ad633710a049449426089911ca",
+      "raw_bytes": 957014,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-harness-cross-package-coverage-20260909.out.gz",
+      "sha256": "bde87b81e5d073a2b06c9b44659fe32d240c00b932d4b06eea25c0490087713a",
+      "raw_sha256": "6a93f5c2fab781791a6cf909835c873dbf18179537642105f8e7ae7d9d28a0d9",
+      "raw_bytes": 11359563,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-cross-package-source-20260909.json.gz",
+      "sha256": "5a4119e151f7fee09d4cd6a398c4df5f7a5e38dbc2c409f8886f14e88370bc85",
+      "raw_sha256": "0826911802936ebda42719966ecbb22adf7de60c8c04d0bc7afce7152d09f264",
+      "raw_bytes": 741021,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/harness-cross-package-source-20260909.json.gz",
+      "sha256": "48aa70b4c2d572eab4b49c34d26185a1ec8a3679faca0fc2038323c065c9e5ad",
+      "raw_sha256": "02c5787effd8287b9ac8f6e1821545582f2478da54c1277d2440d0eb191344a3",
+      "raw_bytes": 47187,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-critical-development-coverage-20260909.json.gz",
+      "sha256": "961195b456c32f73e2b77ebe97b09c52b587064176cd0547dc958a89f1999b81",
+      "raw_sha256": "59512b1904d884a3e0e1514af0a9d98f78a25750dc6c407534517edc65c0f3e3",
+      "raw_bytes": 2671049,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-runtime-probe-diagnostic-20260909.jsonl.gz",
+      "sha256": "851b90df93e54f6c5831c5985b73d9ae82844081f4a1d4a05423c9e920b53196",
+      "raw_sha256": "cc5e80ff649ce4ddf41301d1086b8fc01226e65bbe1c55556fb23413733fa95b",
+      "raw_bytes": 3337,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-runtime-probe-package-diagnostic-20260909.jsonl.gz",
+      "sha256": "252c68db62c051ff4fd8d2051111e0039d6b2660f2784e8be90a36532102d1c1",
+      "raw_sha256": "f7177e2340fa3257d9fddcd8e04c7b75f335d889455633069f6c1b3fb3e0cbef",
+      "raw_bytes": 153963,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-primary-serial-tests-20260909.jsonl.gz",
+      "sha256": "631b881825d989f8ac2c6086f4f3f06327ce268b21dcd6b5ecb4d5c3dbf746ed",
+      "raw_sha256": "c96155bd5bd573394e0bb3a227c4640fedaf0fcdad661b8493f0a35ba114fb33",
+      "raw_bytes": 1088437,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-primary-serial-coverage-20260909.out.gz",
+      "sha256": "c4a14caf706dba81a6a998e29f772e2fa73ac31f0280322592638c05e96192bf",
+      "raw_sha256": "c94cb36cb40bc2e2f121a5ef1929dc5ccddc1f59a80b4d45463dd7b0c770b92d",
+      "raw_bytes": 15081545,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/hand-serial-source-20260909.json.gz",
+      "sha256": "d817b969ec4996d055d54cead7b0a7edc298b11c48d9f6ca496982121041342e",
+      "raw_sha256": "0c68b9bd31997c1b363d92947383a833b4bce84b60d2cb0d89331ec0b1c7827c",
+      "raw_bytes": 744688,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/primary-coverage-20260909/runner-regressions.log",
+      "sha256": "d7febd093ac35cd5284dfe893eb7b59c081ada6ddfb4aa85dc4160224e837225"
+    }
+  ],
+  "controlled_serial_run": {
+    "command": "go test -p=1 -race -count=1 -timeout=15m -coverpkg=./... -coverprofile=<profile> -json ./...",
+    "counts": {
+      "test_pass": 1220,
+      "test_skip": 12,
+      "package_pass": 26
+    },
+    "skips": [
+      {
+        "package": "github.com/sausheong/hand/cmd/hand",
+        "test": "TestNativePackageCLIContainerRuntimeAndLaunchReviews"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/app",
+        "test": "TestContainerExtensionFileCallbackBoundary"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/app",
+        "test": "TestContainerExtensionActivationAndReviewedReload"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/app",
+        "test": "TestExtensionResourceIPC/network.fetch/public-fetch"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/app",
+        "test": "TestNativeContainerPackagePythonReviewAndLaunch"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/app",
+        "test": "TestNativeBackgroundContainerInputOutputAndShutdown"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/extensions",
+        "test": "TestContainerExtensionRealExample"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/extensions",
+        "test": "TestContainerPythonImageInterpreter"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/packages",
+        "test": "TestNativeContainerPythonRuntimeVersion"
+      },
+      {
+        "package": "github.com/sausheong/hand/internal/toolproxy",
+        "test": "TestNativeProxyWorkerRoundtrip"
+      },
+      {
+        "package": "github.com/sausheong/hand/sdk",
+        "test": "TestNativeScopedSDKContainerJourney"
+      },
+      {
+        "package": "github.com/sausheong/hand/sdk",
+        "test": "TestNativeSDKRejectsChangedWorker"
+      }
+    ],
+    "failures": [],
+    "coverage": {
+      "total": {
+        "statements": 15433,
+        "covered": 11985,
+        "percentage": 77.65826475733817
+      },
+      "packages": {
+        "github.com/sausheong/hand/cmd/hand": {
+          "statements": 967,
+          "covered": 616,
+          "percentage": 63.70217166494312
+        },
+        "github.com/sausheong/hand/cmd/hand-tool-worker": {
+          "statements": 11,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/compatibility": {
+          "statements": 211,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/embedded": {
+          "statements": 19,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/extensions/go-task-note": {
+          "statements": 66,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/extensions/go-tool-policy": {
+          "statements": 35,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/examples/extensions/go-tool-viewer": {
+          "statements": 48,
+          "covered": 18,
+          "percentage": 37.5
+        },
+        "github.com/sausheong/hand/examples/extensions/go-verification-hook": {
+          "statements": 62,
+          "covered": 28,
+          "percentage": 45.16129032258065
+        },
+        "github.com/sausheong/hand/examples/rpc": {
+          "statements": 17,
+          "covered": 0,
+          "percentage": 0.0
+        },
+        "github.com/sausheong/hand/extension/protocol": {
+          "statements": 204,
+          "covered": 174,
+          "percentage": 85.29411764705883
+        },
+        "github.com/sausheong/hand/internal/agentio": {
+          "statements": 1253,
+          "covered": 1086,
+          "percentage": 86.67198723064645
+        },
+        "github.com/sausheong/hand/internal/app": {
+          "statements": 3084,
+          "covered": 2554,
+          "percentage": 82.81452658884565
+        },
+        "github.com/sausheong/hand/internal/checkpoints": {
+          "statements": 1011,
+          "covered": 803,
+          "percentage": 79.42631058358062
+        },
+        "github.com/sausheong/hand/internal/config": {
+          "statements": 278,
+          "covered": 234,
+          "percentage": 84.1726618705036
+        },
+        "github.com/sausheong/hand/internal/extensions": {
+          "statements": 1117,
+          "covered": 891,
+          "percentage": 79.76723366159355
+        },
+        "github.com/sausheong/hand/internal/isolation": {
+          "statements": 35,
+          "covered": 18,
+          "percentage": 51.42857142857143
+        },
+        "github.com/sausheong/hand/internal/packages": {
+          "statements": 1293,
+          "covered": 1008,
+          "percentage": 77.95823665893272
+        },
+        "github.com/sausheong/hand/internal/permissions": {
+          "statements": 383,
+          "covered": 311,
+          "percentage": 81.20104438642298
+        },
+        "github.com/sausheong/hand/internal/rpc": {
+          "statements": 1075,
+          "covered": 820,
+          "percentage": 76.27906976744185
+        },
+        "github.com/sausheong/hand/internal/sessionio": {
+          "statements": 652,
+          "covered": 536,
+          "percentage": 82.20858895705521
+        },
+        "github.com/sausheong/hand/internal/toolproxy": {
+          "statements": 57,
+          "covered": 43,
+          "percentage": 75.43859649122807
+        },
+        "github.com/sausheong/hand/internal/toolworker": {
+          "statements": 44,
+          "covered": 38,
+          "percentage": 86.36363636363636
+        },
+        "github.com/sausheong/hand/internal/tui": {
+          "statements": 2685,
+          "covered": 2165,
+          "percentage": 80.63314711359403
+        },
+        "github.com/sausheong/hand/internal/verification": {
+          "statements": 395,
+          "covered": 295,
+          "percentage": 74.68354430379746
+        },
+        "github.com/sausheong/hand/protocol": {
+          "statements": 83,
+          "covered": 73,
+          "percentage": 87.95180722891567
+        },
+        "github.com/sausheong/hand/sdk": {
+          "statements": 348,
+          "covered": 274,
+          "percentage": 78.73563218390805
+        }
+      }
+    },
+    "go_source_unchanged": true,
+    "qualification": "incomplete: native/public skips; dirty source; unreleased Harness; percentage gates unmet"
+  },
+  "runner_regression_tests": {
+    "command": "PYTHONPATH=scripts python3 -m unittest test_validate test_critical_coverage test_coverage_changes",
+    "passed": 14,
+    "failed": 0,
+    "scope": "reporting regression tests, including rejection despite 100 percent synthetic coverage; not product acceptance evidence"
+  }
+}

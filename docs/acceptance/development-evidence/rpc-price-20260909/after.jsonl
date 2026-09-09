@@ -1,0 +1,106 @@
+{"ImportPath":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]","Action":"build-output","Output":"internal/rpc/dispatcher.go:19:2: \"github.com/sausheong/harness/budget\" imported and not used\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]","Action":"build-fail"}
+{"Time":"2026-09-09T11:00:04.532632+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-09T11:00:04.532845+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\tgithub.com/sausheong/hand/internal/rpc [build failed]\n"}
+{"Time":"2026-09-09T11:00:04.532853+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]"}
+{"Time":"2026-09-09T11:00:06.793262+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T11:00:07.378967+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields"}
+{"Time":"2026-09-09T11:00:07.37901+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields\n"}
+{"Time":"2026-09-09T11:00:07.379042+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/rate_alias"}
+{"Time":"2026-09-09T11:00:07.379051+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/rate_alias","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/rate_alias\n"}
+{"Time":"2026-09-09T11:00:07.380409+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/rate_alias","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/rate_alias (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.380423+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/rate_alias","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.380499+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/null_rate"}
+{"Time":"2026-09-09T11:00:07.380505+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/null_rate","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/null_rate\n"}
+{"Time":"2026-09-09T11:00:07.381408+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/null_rate","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/null_rate (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.381414+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/null_rate","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.381494+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_bounded"}
+{"Time":"2026-09-09T11:00:07.381507+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_bounded","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/duplicate_bounded\n"}
+{"Time":"2026-09-09T11:00:07.38235+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_bounded","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/duplicate_bounded (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.382357+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_bounded","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.382427+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_version"}
+{"Time":"2026-09-09T11:00:07.38243+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_version","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/duplicate_version\n"}
+{"Time":"2026-09-09T11:00:07.383193+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_version","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/duplicate_version (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.383198+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_version","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.383263+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/version_alias"}
+{"Time":"2026-09-09T11:00:07.383266+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/version_alias","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/version_alias\n"}
+{"Time":"2026-09-09T11:00:07.384083+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/version_alias","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/version_alias (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.384088+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/version_alias","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.384155+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_prices"}
+{"Time":"2026-09-09T11:00:07.384158+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_prices","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/duplicate_prices\n"}
+{"Time":"2026-09-09T11:00:07.384883+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_prices","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/duplicate_prices (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.384891+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/duplicate_prices","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.384949+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/escaped_duplicate"}
+{"Time":"2026-09-09T11:00:07.384951+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/escaped_duplicate","Output":"=== RUN   TestPriceReviewRejectsAmbiguousFields/escaped_duplicate\n"}
+{"Time":"2026-09-09T11:00:07.38584+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/escaped_duplicate","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields/escaped_duplicate (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.385845+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields/escaped_duplicate","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.385861+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields","Output":"--- PASS: TestPriceReviewRejectsAmbiguousFields (0.01s)\n"}
+{"Time":"2026-09-09T11:00:07.385869+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewRejectsAmbiguousFields","Elapsed":0.01}
+{"Time":"2026-09-09T11:00:07.38594+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput"}
+{"Time":"2026-09-09T11:00:07.385946+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput","Output":"=== RUN   TestPriceReviewStrictBoundedInput\n"}
+{"Time":"2026-09-09T11:00:07.386054+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/trailing"}
+{"Time":"2026-09-09T11:00:07.386056+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/trailing","Output":"=== RUN   TestPriceReviewStrictBoundedInput/trailing\n"}
+{"Time":"2026-09-09T11:00:07.386576+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/trailing","Output":"--- PASS: TestPriceReviewStrictBoundedInput/trailing (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.38658+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/trailing","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.386643+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/invalid_tariff"}
+{"Time":"2026-09-09T11:00:07.386645+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/invalid_tariff","Output":"=== RUN   TestPriceReviewStrictBoundedInput/invalid_tariff\n"}
+{"Time":"2026-09-09T11:00:07.387204+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/invalid_tariff","Output":"--- PASS: TestPriceReviewStrictBoundedInput/invalid_tariff (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.387216+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/invalid_tariff","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.387284+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/oversize"}
+{"Time":"2026-09-09T11:00:07.387286+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/oversize","Output":"=== RUN   TestPriceReviewStrictBoundedInput/oversize\n"}
+{"Time":"2026-09-09T11:00:07.388219+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/oversize","Output":"--- PASS: TestPriceReviewStrictBoundedInput/oversize (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.388224+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/oversize","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.388295+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/empty_table"}
+{"Time":"2026-09-09T11:00:07.388301+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/empty_table","Output":"=== RUN   TestPriceReviewStrictBoundedInput/empty_table\n"}
+{"Time":"2026-09-09T11:00:07.38875+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/empty_table","Output":"--- PASS: TestPriceReviewStrictBoundedInput/empty_table (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.388761+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/empty_table","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.388824+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/missing"}
+{"Time":"2026-09-09T11:00:07.388829+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/missing","Output":"=== RUN   TestPriceReviewStrictBoundedInput/missing\n"}
+{"Time":"2026-09-09T11:00:07.389308+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/missing","Output":"--- PASS: TestPriceReviewStrictBoundedInput/missing (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.389316+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/missing","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.389381+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/null"}
+{"Time":"2026-09-09T11:00:07.389383+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/null","Output":"=== RUN   TestPriceReviewStrictBoundedInput/null\n"}
+{"Time":"2026-09-09T11:00:07.389764+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/null","Output":"--- PASS: TestPriceReviewStrictBoundedInput/null (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.389769+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/null","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.389832+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/version"}
+{"Time":"2026-09-09T11:00:07.389835+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/version","Output":"=== RUN   TestPriceReviewStrictBoundedInput/version\n"}
+{"Time":"2026-09-09T11:00:07.39023+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/version","Output":"--- PASS: TestPriceReviewStrictBoundedInput/version (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.390236+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/version","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.390302+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/unknown"}
+{"Time":"2026-09-09T11:00:07.390304+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/unknown","Output":"=== RUN   TestPriceReviewStrictBoundedInput/unknown\n"}
+{"Time":"2026-09-09T11:00:07.390743+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/unknown","Output":"--- PASS: TestPriceReviewStrictBoundedInput/unknown (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.390748+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput/unknown","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.391227+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput","Output":"--- PASS: TestPriceReviewStrictBoundedInput (0.01s)\n"}
+{"Time":"2026-09-09T11:00:07.391233+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestPriceReviewStrictBoundedInput","Elapsed":0.01}
+{"Time":"2026-09-09T11:00:07.396165+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON"}
+{"Time":"2026-09-09T11:00:07.39617+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON","Output":"=== RUN   FuzzPriceReviewJSON\n"}
+{"Time":"2026-09-09T11:00:07.396335+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#0"}
+{"Time":"2026-09-09T11:00:07.396339+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#0","Output":"=== RUN   FuzzPriceReviewJSON/seed#0\n"}
+{"Time":"2026-09-09T11:00:07.396554+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#0","Output":"--- PASS: FuzzPriceReviewJSON/seed#0 (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.396563+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#0","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.396649+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#1"}
+{"Time":"2026-09-09T11:00:07.396665+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#1","Output":"=== RUN   FuzzPriceReviewJSON/seed#1\n"}
+{"Time":"2026-09-09T11:00:07.397096+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#1","Output":"--- PASS: FuzzPriceReviewJSON/seed#1 (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.397102+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#1","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.397187+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#2"}
+{"Time":"2026-09-09T11:00:07.397191+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#2","Output":"=== RUN   FuzzPriceReviewJSON/seed#2\n"}
+{"Time":"2026-09-09T11:00:07.39723+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#2","Output":"--- PASS: FuzzPriceReviewJSON/seed#2 (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.397243+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#2","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.397316+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#3"}
+{"Time":"2026-09-09T11:00:07.397321+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#3","Output":"=== RUN   FuzzPriceReviewJSON/seed#3\n"}
+{"Time":"2026-09-09T11:00:07.39735+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#3","Output":"--- PASS: FuzzPriceReviewJSON/seed#3 (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.397355+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#3","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.397441+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#4"}
+{"Time":"2026-09-09T11:00:07.397445+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#4","Output":"=== RUN   FuzzPriceReviewJSON/seed#4\n"}
+{"Time":"2026-09-09T11:00:07.397474+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#4","Output":"--- PASS: FuzzPriceReviewJSON/seed#4 (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.39748+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#4","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.397556+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#5"}
+{"Time":"2026-09-09T11:00:07.39756+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#5","Output":"=== RUN   FuzzPriceReviewJSON/seed#5\n"}
+{"Time":"2026-09-09T11:00:07.397614+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#5","Output":"--- PASS: FuzzPriceReviewJSON/seed#5 (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.397619+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON/seed#5","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.397639+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON","Output":"--- PASS: FuzzPriceReviewJSON (0.00s)\n"}
+{"Time":"2026-09-09T11:00:07.397646+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"FuzzPriceReviewJSON","Elapsed":0}
+{"Time":"2026-09-09T11:00:07.397734+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T11:00:08.405119+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.612s\n"}
+{"Time":"2026-09-09T11:00:08.405265+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.612}

@@ -1,0 +1,25 @@
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info960619515.tmp: operation not permitted
+# github.com/sausheong/hand/internal/checkpoints
+internal/checkpoints/restore_file.go:200:71: undefined: syscall.O_NOFOLLOW
+internal/checkpoints/restore_journal.go:92:68: undefined: syscall.O_NOFOLLOW
+internal/checkpoints/restore_journal.go:190:92: undefined: syscall.O_NOFOLLOW
+internal/checkpoints/store.go:117:68: undefined: syscall.O_NOFOLLOW
+internal/checkpoints/store.go:128:19: undefined: syscall.Flock
+internal/checkpoints/store.go:128:49: undefined: syscall.LOCK_EX
+internal/checkpoints/store.go:128:65: undefined: syscall.LOCK_NB
+internal/checkpoints/store.go:243:60: undefined: syscall.O_NOFOLLOW
+# github.com/sausheong/hand/internal/packages
+internal/packages/integrity.go:130:71: undefined: syscall.O_NOFOLLOW
+internal/packages/store.go:90:73: undefined: syscall.O_NOFOLLOW
+internal/packages/store.go:101:19: undefined: syscall.Flock
+internal/packages/store.go:101:49: undefined: syscall.LOCK_EX
+internal/packages/store.go:101:65: undefined: syscall.LOCK_NB
+# github.com/sausheong/hand/internal/extensions
+internal/extensions/host_factory.go:201:83: undefined: syscall.O_NOFOLLOW
+internal/extensions/launch_review.go:55:69: undefined: syscall.O_NOFOLLOW
+# github.com/sausheong/hand/internal/sessionio
+internal/sessionio/catalogue.go:214:15: undefined: lockCatalogue
+internal/sessionio/fork_staging.go:18:19: undefined: lockCatalogue
+internal/sessionio/fork_staging.go:27:16: undefined: lockCatalogue
+internal/sessionio/fork_staging.go:41:19: undefined: lockCatalogue
+internal/sessionio/fork_staging.go:73:17: undefined: lockCatalogue

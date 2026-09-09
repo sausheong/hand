@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-verification-rpc-20260908/workspace",
+  "generation": 3,
+  "lastActiveId": "ses_28ae8295feb0b88e",
+  "sessions": [
+    {
+      "id": "ses_28ae8295feb0b88e",
+      "agentId": "hand",
+      "storeKey": "workspace_b178f267766eee01_aaf8615c84242fb5215c493579d163bc",
+      "name": "",
+      "createdAt": "2026-09-08T08:30:14.093288Z",
+      "lastActive": "2026-09-08T08:30:14.378671Z"
+    }
+  ]
+}

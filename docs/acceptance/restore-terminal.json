@@ -1,0 +1,139 @@
+{
+  "status": "development_passed",
+  "aggregate": "tui-restore-integration.patch",
+  "development_harness_candidate": "5998569d24ce063207cc237263d89f22d532e25f",
+  "report": {
+    "status": "passed",
+    "qualification": "development",
+    "command": [
+      "/private/tmp/hand-tui-restore-cli-20260908",
+      "--model",
+      "local/fixture",
+      "--base-url",
+      "http://127.0.0.1:1/v1",
+      "--session",
+      "ses_02f7db4d4109c47c",
+      "--checkpoint-dir",
+      "/private/tmp/hand-tui-restore-fixture-20260908/checkpoints"
+    ],
+    "binary_sha256": "f68692b54a02bfbbb75c563ef94ab3b356b885c70445c58a026c014d79e0825e",
+    "runner_sha256": "609f4eaa40054e3584a9f514705b48d0164a49ef926ba1640912ae458057c24d",
+    "preview_preserved_file": true,
+    "confirmed": true,
+    "removed_selected": true,
+    "recovery_preserved": true,
+    "exit_code": 0,
+    "terminal_sha256": "01c91a2e1b4e8a86e1b5d38120b345eabf6dad0e099e4c13930acabce5c39071"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/checkpoints/82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86.json",
+      "sha256": "c5a858c19d39816fe831cbe42b44e529cf2a2d78d389425c6476b07cc3af9c70"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/checkpoints/e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57.json",
+      "sha256": "6f5bcd75e190cf96cf775c64a79f12243c31472a9884e77591a44bb023c08e26"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/checkpoints/restore-journal.jsonl",
+      "sha256": "11b6440ab44c2ed0606165311fbfbcfe7c3754c57b3d409033e05a3745212071"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/client-one.json",
+      "sha256": "1f6d7822f3124c2da2b1333a8addb416203fbad493f8b7b2384323d44a8840b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/client-one.stderr",
+      "sha256": "51c72272d72ef426d18281063a6449885a9597bb8da86d59142ccac99acc18c0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/client-two.json",
+      "sha256": "b61c3466d591f0b6c22d14d34e1d739d24c8e992e6898d30936e2e6c7bc40d01"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/client-two.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/authority/298a6b62d7e171f1a025b520fd657c648ef43544a9322d457b7b484fc9119571/70c8a3376c45f75ab5b6e98ba2cc227fde26c77c0b7562c69671760967fb397d/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/authority/298a6b62d7e171f1a025b520fd657c648ef43544a9322d457b7b484fc9119571/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/catalogues/298a6b62d7e171f1/catalogue.json",
+      "sha256": "3e4debdc64646497ce018d149d5f5622f886fcf3db25e30f80754a9b51c74c84"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/catalogues/298a6b62d7e171f1/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/hand/.leases/workspace_298a6b62d7e171f1_14542710b6ef2969934148f4e560463a.lock",
+      "sha256": "1d98539b14fcf767e8ef413e619593f9d19672e444bb55d09a464672239a7e54"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/hand/.leases/workspace_298a6b62d7e171f1_d2bb60f5dd2df987e35c698c015c309a.lock",
+      "sha256": "f3145a2ec6250d46c6eec822f0b8df798690cb069823288264c2075a68f13306"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/hand/.leases/workspace_298a6b62d7e171f1_ddd8ba7d398e7d16ba92ab9cca163448.lock",
+      "sha256": "5d265ef360439be5fe33efcb672a33cba49e37f7fff2d6c088dd498f472aeddd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/hand/workspace_298a6b62d7e171f1_14542710b6ef2969934148f4e560463a.jsonl",
+      "sha256": "610f8f3bcde57ca9b5f0f63383a6bf763e5cd3787cd0c198f3a74630e1744c13"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/hand/workspace_298a6b62d7e171f1_d2bb60f5dd2df987e35c698c015c309a.jsonl",
+      "sha256": "9b21c06b3bd9679eee845f298207569810607a2071b3270fe270045a4ae14c3c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/hand/workspace_298a6b62d7e171f1_ddd8ba7d398e7d16ba92ab9cca163448.jsonl",
+      "sha256": "f29e5a6d37e0ad4ad01a2786bd39200db6d8310b818ced2b8abbde5545e1ab05"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/home/.hand/sessions/rpc-298a6b62d7e171f1a025b520fd657c648ef43544a9322d457b7b484fc9119571/requests.jsonl",
+      "sha256": "197b76654ad4afbc503067dfbd80580115e718020eadaed452c947bbf668a727"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/provider-requests.json",
+      "sha256": "ae8c730e19ae491029a9296e80e6baf85bd42bf859af2c97179619f7891ce27a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/run.json",
+      "sha256": "ec0f53591dc98ac6d33f9f6b4f39dc0d8cd5bca224455f9f9e4c45996c7890f1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-tui-restore-fixture-20260908/workspace/.hand-restore-95ed1a2254831bab9c6c8859bcc9c777",
+      "sha256": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-restore-terminal-20260908/run.json",
+      "sha256": "839feffa49e0bb533071dcc64fd884295fbf6f690510e5eaf4de23ba907cb489"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-terminal-20260908/hand-restore-terminal-20260908/terminal.bin",
+      "sha256": "01c91a2e1b4e8a86e1b5d38120b345eabf6dad0e099e4c13930acabce5c39071"
+    }
+  ],
+  "limitations": [
+    "macOS arm64 140x45 PTY; not native Linux or final candidate qualification.",
+    "Fixture RPC report precedes terminal mutation; archived fixture files reflect post-terminal state.",
+    "Recovery reconciliation and retirement remain pending."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "development_restart_repetitions_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=2m -json ./internal/rpc -run '^TestRunBudgetChargedRejectionsSurviveSessionReopen$'",
+  "test_records": {
+    "pass": 20
+  },
+  "repetitions": 20,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-charged-reopen-20260909/hand-run-budget-charged-reopen-20260909.jsonl.gz",
+      "sha256": "c657908e9b90aac36a92f58ef387070ef486f6371d5b76aca15b2268f225cfbc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-charged-reopen-20260909/run_budget_restart_charges_test.go.gz",
+      "sha256": "b6e518c33002b5c2d1d6225344be362fe63db9cebd939b0db3f016e897027055"
+    }
+  ],
+  "assertions": [
+    "Run-specific token/cost ledgers contain outstanding retry and settled compaction",
+    "Rejected negative ceiling, changed currency and missing-run selection preserve charges",
+    "Exclusive disk-backed session and RPC request journal close/reopen preserve selected run and exact budget view",
+    "Rejected responses replay identically after reopening without applying decisions",
+    "Explicit token ceiling increase preserves committed usage, uncertainty and cost view"
+  ],
+  "limitations": [
+    "Clean close/reopen in one test process, not SIGKILL or power failure",
+    "Actual budget admissions and settlement use local synthetic tariff/usage; no paid model calls",
+    "No production change, full coverage refresh or final-candidate qualification"
+  ]
+}

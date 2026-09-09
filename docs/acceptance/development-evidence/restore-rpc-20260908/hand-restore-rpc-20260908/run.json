@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "binary_sha256": "f283a0a8abf3419a7fa517e38940b9bb023e53aaefc15e534301d8f4ac6cf361",
+  "runner_sha256": "80bde25f95df4e0fa1dfd413ea218b1afd9d459292d265aa018d8e36d1357bf7",
+  "checkpoint_changes": {
+    "status": "passed",
+    "run_id": "HLZPQXEJJWCDFISMKR3Z6VFYUK",
+    "changes": 1,
+    "recovered": true
+  },
+  "error": "KeyError('Event')"
+}

@@ -1,0 +1,129 @@
+{
+  "requirement": "M1.3",
+  "status": "incomplete",
+  "scenarios_mapped": 5,
+  "scenarios_qualified": 0,
+  "scenarios": [
+    {
+      "id": "skill_mutations_gated",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/approval_regression_test.go",
+          "name": "TestSkillOperationsRequireApproval",
+          "sha256": "32600a27c5dd9388f09ef8ec5ed474b89a706387853da72ffc3d5faf90663eae"
+        },
+        {
+          "path": "internal/agentio/skill_permission_integration_test.go",
+          "name": "TestRuntimeSkillDenialPreservesDiskInBothApprovalModes",
+          "sha256": "409c430be2e266a991c352f480d8020a89adaa342b6d114eef146b67d0e2b7e2"
+        },
+        {
+          "path": "cmd/hand/skill_permission_binary_test.go",
+          "name": "TestBinarySkillMutationRequiresExplicitApproval",
+          "sha256": "da421ac660d5ac13ea78cf51f5a36120433b44b0f3e6a6fd515efac32c3ee480"
+        },
+        {
+          "path": "internal/tui/skill_approval_integration_test.go",
+          "name": "TestScopedSkillMutationWaitsForTUIApproval",
+          "sha256": "bf833a044a7722b5ea1f48ca703604d55722f2d76fed66a3d46b9258dc230d7d"
+        }
+      ],
+      "remaining": [
+        "Built one-shot and real PTY allow/deny/cancel evidenced on macOS; supported-platform and final clean released-candidate qualification remain."
+      ],
+      "pty_runner": {
+        "path": "scripts/check_skill_approval_pty.py",
+        "sha256": "42def13e65ab37afa3538c2910744be90d8f90c56d96b3396d88b78b6a682c60"
+      }
+    },
+    {
+      "id": "skill_reads_classified",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/approval_regression_test.go",
+          "name": "TestInteractiveSkillApprovalAndReadParity",
+          "sha256": "32600a27c5dd9388f09ef8ec5ed474b89a706387853da72ffc3d5faf90663eae"
+        }
+      ],
+      "remaining": [
+        "Final built-client/platform evidence with released Harness and clean candidate."
+      ]
+    },
+    {
+      "id": "failed_save_reprompts",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/approval_regression_test.go",
+          "name": "TestFailedGrantSaveDoesNotAllowNextCall",
+          "sha256": "32600a27c5dd9388f09ef8ec5ed474b89a706387853da72ffc3d5faf90663eae"
+        },
+        {
+          "path": "internal/agentio/approval_regression_test.go",
+          "name": "TestInteractiveFailedSaveWarnsAndReprompts",
+          "sha256": "32600a27c5dd9388f09ef8ec5ed474b89a706387853da72ffc3d5faf90663eae"
+        }
+      ],
+      "remaining": [
+        "Final built-client/platform evidence with released Harness and clean candidate."
+      ]
+    },
+    {
+      "id": "every_tool_classified",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/classification_test.go",
+          "name": "TestEveryRegisteredToolHasExplicitEffectClassification",
+          "sha256": "abdea6a53d08ade76ba5bf3cae176bcf292cac93c09d3088076f0cdf0f520268"
+        }
+      ],
+      "remaining": [
+        "Final built-client/platform evidence with released Harness and clean candidate."
+      ]
+    },
+    {
+      "id": "interactive_oneshot_parity",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/approval_regression_test.go",
+          "name": "TestInteractiveSkillApprovalAndReadParity",
+          "sha256": "32600a27c5dd9388f09ef8ec5ed474b89a706387853da72ffc3d5faf90663eae"
+        },
+        {
+          "path": "internal/agentio/skill_permission_integration_test.go",
+          "name": "TestRuntimeSkillDenialPreservesDiskInBothApprovalModes",
+          "sha256": "409c430be2e266a991c352f480d8020a89adaa342b6d114eef146b67d0e2b7e2"
+        },
+        {
+          "path": "cmd/hand/skill_permission_binary_test.go",
+          "name": "TestBinarySkillMutationRequiresExplicitApproval",
+          "sha256": "da421ac660d5ac13ea78cf51f5a36120433b44b0f3e6a6fd515efac32c3ee480"
+        },
+        {
+          "path": "internal/tui/skill_approval_integration_test.go",
+          "name": "TestScopedSkillMutationWaitsForTUIApproval",
+          "sha256": "bf833a044a7722b5ea1f48ca703604d55722f2d76fed66a3d46b9258dc230d7d"
+        }
+      ],
+      "remaining": [
+        "Built one-shot and real PTY allow/deny/cancel evidenced on macOS; supported-platform and final clean released-candidate qualification remain."
+      ],
+      "pty_runner": {
+        "path": "scripts/check_skill_approval_pty.py",
+        "sha256": "42def13e65ab37afa3538c2910744be90d8f90c56d96b3396d88b78b6a682c60"
+      }
+    }
+  ],
+  "evidence": [
+    "docs/acceptance/skill-permission-runtime.json",
+    "docs/acceptance/context-native-suite.json",
+    "docs/acceptance/legacy-permission-failure.json",
+    "docs/acceptance/skill-permission-binary.json",
+    "docs/acceptance/skill-tui-approval.json",
+    "docs/acceptance/skill-approval-pty.json"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M2.2",
+    "M5.1"
+  ],
+  "scope": "Profile cancellation during preparation preserves runtime and permission state",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/app -run TestProfileCancellationBeforePermissionCommit|TestModelAndProfilePermissionPreparationIsAtomic|TestPermissionPreparationCannotCommitMissingBinding",
+  "test_records": {
+    "pass": 12
+  },
+  "assertions": [
+    "Cancellation in provider, identity, and permission preparation returns context.Canceled",
+    "Runtime fields, active profile, credential reference, authority pointer and service options remain unchanged",
+    "Permission commit never runs for cancelled operation",
+    "Fresh retry releases prior ownership and commits exactly once"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/profile-cancellation-20260909/hand-profile-cancellation-20260909.jsonl",
+      "sha256": "c647d1444958c6969c686e2c568258281f70b035a906400a71dfd934e5f84b7a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-cancellation-20260909/profile_cancellation_test.go.txt",
+      "sha256": "129de9392220e3e93ab409093cbdcb12f137ed8d55147d40113ef2a2a19e49a0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-cancellation-20260909/profiles.go.txt",
+      "sha256": "3958a70ca6976a3d255b5d5fb6787b31e697247ff2fe88441c3edff07741a07d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-cancellation-20260909/permission_binding.go.txt",
+      "sha256": "12a3c477292544db6be1f231a6e7b3734adf9b442af17ad107b680f91ad61f3d"
+    }
+  ],
+  "limitations": [
+    "Development targeted tests, not final candidate or full-suite evidence",
+    "Model switching has no cancellable context API; this regression covers SwitchProfileContext",
+    "No production change was needed for this cancellation boundary"
+  ]
+}

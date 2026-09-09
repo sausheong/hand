@@ -1,0 +1,188 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+  "runner_sha256": "d14f0050740124d56ec99f1f929946014e934dc04f2c403864bd3757c597ab76",
+  "paid_provider_calls": 0,
+  "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill",
+  "local_provider_requests": 2,
+  "package_digest": "09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7",
+  "prompt_reached_user_message": true,
+  "skill_loaded_by_tool": true,
+  "source_removed": true,
+  "literal_prompt": true,
+  "wrong_pin_preprovider_rejection": true,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/commands.json",
+      "sha256": "13a1c6b260f3a77a048b7161d0aa3c1f9291712e4340517ee79f9ad3cb953a29"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/provider-requests.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/run.json",
+      "sha256": "8d45e0f2c670e7e7514598437d205ae122fe3e0bba05dbce052af887da4838ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/source/SKILL.md",
+      "sha256": "4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/source/hand-package.json",
+      "sha256": "bdc2690e523481411bc7f26eb20414def41f4ee4c124b4fa280401ced2df4f0a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/source/review.md",
+      "sha256": "95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-20260909/store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/commands.json",
+      "sha256": "3b94b3c82f718684d659162cbd1621edeb400cca121b069976527b78dbed8dbf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/home/.hand/authority/b7013bc69621815d4a2c61522c5cfaa2688a4783969141bc73b802e76158bc86/b2a5acc78d1cfd88a879ad165ba9fc46aead4c71430ff9b804121fd19ba19132/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/home/.hand/sessions/catalogues/b7013bc69621815d/catalogue.json",
+      "sha256": "513904fa45d9311b7673a35df839fbbb32fcf17cf55aa21719a1e2335f09a9c5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/home/.hand/sessions/catalogues/b7013bc69621815d/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/home/.hand/sessions/hand/.leases/workspace_b7013bc69621815d_6ead7713b03a0f85ae6a0015f5e4a287.lock",
+      "sha256": "ca559d926dd65252be3949c2d93e764ebccb5d2c6365511a3af1163b5401f370"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/home/.hand/sessions/hand/workspace_b7013bc69621815d_6ead7713b03a0f85ae6a0015f5e4a287.jsonl",
+      "sha256": "fef10c3ceb5f09f2adebfa23ecafee8ac2b40f160f7fed8e436b5c5eabf9fd9c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/install.json",
+      "sha256": "acb8e4e0fe8339de6f1288ec50055f9dcafe2523353cc63b47376777e4311077"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/prompt.json",
+      "sha256": "66914d5b78a9c9fc2489bf94f09c7a4a5fa63af1c42e87049ea87f14917315fe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/provider-requests.json",
+      "sha256": "dfa3c619d5043a93ee4999c8846b8bc5b3f529ddb31f9d1310e9fd90fde2c222"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/run.json",
+      "sha256": "16ec4d2628a4d4efb1fe096462e96b667be30c7a0bee53b59e3b54f1c59d940a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/skills.json",
+      "sha256": "113a0b42c15f7dd12ff4f12c55b0aba22bdac83521202fc6a6bca65d2db2c9d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/store/lock.json",
+      "sha256": "56d0e0140094eb2f360c9fb9ad76a7f80c374b385c71c526469fae9bda1650cc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/store/objects/09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7/SKILL.md",
+      "sha256": "4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/store/objects/09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7/hand-package.json",
+      "sha256": "09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/store/objects/09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7/review.md",
+      "sha256": "95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-fixed-20260909/store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/commands.json",
+      "sha256": "b82a5f66e5f2c7ae8a68134e9b620ff6470bf14aaaa015b298ea527c0d1f4617"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/home/.hand/authority/773b8a38ab702c231f3db797464d05075255481c82cff417c84f18f824a2e287/c764967835cf02ec6a9bd6a45a380b4d60b8ff068dabd3084124572fff79db77/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/home/.hand/sessions/catalogues/773b8a38ab702c23/catalogue.json",
+      "sha256": "b198d39c9c5fcc4aeffa3b12ec1cb2c605cd1c1141449eecbd620c349138a0dc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/home/.hand/sessions/catalogues/773b8a38ab702c23/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/home/.hand/sessions/hand/.leases/workspace_773b8a38ab702c23_b301f5f4b7ac52fdcbee01477034e020.lock",
+      "sha256": "a0ee616e24aac873491ebb2153546cf0a02d0ebd1e73f13a705eacd37e6c792c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/home/.hand/sessions/hand/workspace_773b8a38ab702c23_b301f5f4b7ac52fdcbee01477034e020.jsonl",
+      "sha256": "6ceba808240c7b6a45395c88edc07cc9441128020936aa69f8e62e2367fcbbcc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/install.json",
+      "sha256": "20c24de13f4b151023bdbb04b48a747b710b12825686543d591afc56615bab90"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/prompt.json",
+      "sha256": "19e57a04a92e75dc4626a2e51107c1ee9d25de337e3f2b8fe3f9543a903be6ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/provider-requests.json",
+      "sha256": "433c2b366ff25f1450c45e2734d5848be24a0f5ba8bea5d04bc87ccec421e115"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/run.json",
+      "sha256": "d00a8f414f4e2965f4856b86ac0d22eeeea46b611ba1154a9e3630340650fd55"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/skills.json",
+      "sha256": "5d72d9ec9f502674a6602c642b39619c43742e1405347b203154c99578620f5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/store/lock.json",
+      "sha256": "e747eecc6f10425d6dd46e9a0c64f861a073b8fbb17b7f8e781dd926d79f43ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/store/objects/09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7/SKILL.md",
+      "sha256": "4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/store/objects/09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7/hand-package.json",
+      "sha256": "09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/store/objects/09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7/review.md",
+      "sha256": "95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/package-text-journey-20260909/hand-package-text-journey-approved-20260909/store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_aggregate": "package-prompt-integration.json",
+  "harness_aggregate": "harness-skill-selection.json",
+  "limitations": [
+    "Development candidate only; not live model quality or final platform qualification.",
+    "Initial fixture version incompatibility and expected scoped-approval denial retained; successful fixture explicitly used --yes for its sole read-only tool request."
+  ],
+  "source_fingerprints_verified": true
+}

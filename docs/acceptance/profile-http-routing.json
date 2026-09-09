@@ -1,0 +1,28 @@
+{
+  "status": "development_passed",
+  "repetitions": 20,
+  "profile_switches": 80,
+  "http_requests": 160,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/profile-http-20260909/hand-profile-http-20260909.jsonl.gz",
+      "sha256": "f34c1eee8195758297752b721a67579d04430df2992c4a2ef9d23fd60ef6c850"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-http-20260909/profile_http_integration_test.go.gz",
+      "sha256": "ce5d0b1e35145b3d5fb823c9831a834d871cc0831a2af06db05f8adf14fd6c7b"
+    }
+  ],
+  "assertions": [
+    "Real provider factory constructs local/OpenAI/LiteLLM HTTP clients",
+    "Both runtime generation and subsequent summary request follow selected endpoint/model",
+    "Local return sends no Authorization header despite ambient conventional provider credentials",
+    "Hosted/proxy adapter requests carry only explicitly selected dummy credential",
+    "Generation cap 123 and independent summary cap 512 survive every switch"
+  ],
+  "limitations": [
+    "All endpoints are local HTTP fixtures; hosted adapter is not paid hosted-provider evidence",
+    "In-process Controller and runtime, not compiled terminal profile picker",
+    "Development checkout/local Harness; final platform/candidate qualification still pending"
+  ]
+}

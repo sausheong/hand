@@ -1,0 +1,89 @@
+diff --git a/tools/file/editfile.go b/tools/file/editfile.go
+index 1f5c39a..3c3d40e 100644
+--- a/tools/file/editfile.go
++++ b/tools/file/editfile.go
+@@ -13,7 +13,8 @@ import (
+ 
+ // EditFileTool performs a string-replace edit on a file.
+ type EditFileTool struct {
+-	WorkDir string // if set, restricts edits to this directory
++	ExactPath bool   // preserve admitted path spelling; no home or Unicode recovery
++	WorkDir   string // if set, restricts edits to this directory
+ }
+ 
+ type editFileInput struct {
+@@ -62,11 +63,15 @@ func (t *EditFileTool) Execute(ctx context.Context, input json.RawMessage) (tool
+ 		return tool.ToolResult{Error: "path is required"}, nil
+ 	}
+ 
+-	in.Path = tool.ExpandHome(in.Path)
++	if !t.ExactPath {
++		in.Path = tool.ExpandHome(in.Path)
++	}
+ 	if t.WorkDir != "" && !filepath.IsAbs(in.Path) {
+ 		in.Path = filepath.Join(t.WorkDir, in.Path)
+ 	}
+-	in.Path = tool.ResolveExistingPath(in.Path)
++	if !t.ExactPath {
++		in.Path = tool.ResolveExistingPath(in.Path)
++	}
+ 
+ 	if t.WorkDir != "" {
+ 		if err := tool.ValidatePathInWorkDir(in.Path, t.WorkDir); err != nil {
+diff --git a/tools/file/readfile.go b/tools/file/readfile.go
+index 3e9096a..1b6e98b 100644
+--- a/tools/file/readfile.go
++++ b/tools/file/readfile.go
+@@ -15,7 +15,8 @@ import (
+ 
+ // ReadFileTool reads the contents of a file.
+ type ReadFileTool struct {
+-	WorkDir string // if set, restricts reads to this directory
++	ExactPath bool   // preserve admitted path spelling; no home or Unicode recovery
++	WorkDir   string // if set, restricts reads to this directory
+ }
+ 
+ type readFileInput struct {
+@@ -82,11 +83,15 @@ func (t *ReadFileTool) Execute(ctx context.Context, input json.RawMessage) (tool
+ 		return tool.ToolResult{Error: "path is required"}, nil
+ 	}
+ 
+-	in.Path = tool.ExpandHome(in.Path)
++	if !t.ExactPath {
++		in.Path = tool.ExpandHome(in.Path)
++	}
+ 	if t.WorkDir != "" && !filepath.IsAbs(in.Path) {
+ 		in.Path = filepath.Join(t.WorkDir, in.Path)
+ 	}
+-	in.Path = tool.ResolveExistingPath(in.Path)
++	if !t.ExactPath {
++		in.Path = tool.ResolveExistingPath(in.Path)
++	}
+ 
+ 	if t.WorkDir != "" {
+ 		if err := tool.ValidatePathInWorkDir(in.Path, t.WorkDir); err != nil {
+diff --git a/tools/file/writefile.go b/tools/file/writefile.go
+index 4983088..cbe7a04 100644
+--- a/tools/file/writefile.go
++++ b/tools/file/writefile.go
+@@ -12,7 +12,8 @@ import (
+ 
+ // WriteFileTool creates or overwrites a file.
+ type WriteFileTool struct {
+-	WorkDir string // if set, restricts writes to this directory
++	ExactPath bool   // preserve admitted path spelling; no home or Unicode recovery
++	WorkDir   string // if set, restricts writes to this directory
+ }
+ 
+ type writeFileInput struct {
+@@ -56,7 +57,9 @@ func (t *WriteFileTool) Execute(_ context.Context, input json.RawMessage) (tool.
+ 		return tool.ToolResult{Error: "path is required"}, nil
+ 	}
+ 
+-	in.Path = tool.ExpandHome(in.Path)
++	if !t.ExactPath {
++		in.Path = tool.ExpandHome(in.Path)
++	}
+ 	if t.WorkDir != "" && !filepath.IsAbs(in.Path) {
+ 		in.Path = filepath.Join(t.WorkDir, in.Path)
+ 	}

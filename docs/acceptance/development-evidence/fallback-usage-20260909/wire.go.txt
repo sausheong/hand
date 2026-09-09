@@ -1,0 +1,35 @@
+package app
+
+import (
+	"crypto/rand"
+	"encoding/json"
+	"strconv"
+
+	"github.com/sausheong/hand/protocol"
+)
+
+// WireEvents assigns invocation-unique event IDs while preserving application
+// sequence and identity. Durable replay must retain the encoded event.
+type WireEvents struct{ prefix, requestID string }
+
+func NewWireEvents(requestID string) *WireEvents {
+	return &WireEvents{prefix: rand.Text(), requestID: requestID}
+}
+func (w *WireEvents) Encode(e Event) (protocol.Event, error) {
+	d := e.Details
+	payload := map[string]any{"state": e.State, "text": e.Text, "status": e.Status, "reason": e.Reason, "error": e.Error, "iteration": e.Iteration, "verified": e.Verified, "truncated": e.Truncated || d.Truncated, "approval_id": e.ApprovalID}
+	if d.ToolPresent {
+		payload["tool"] = map[string]any{"id": d.ToolID, "name": d.ToolName, "input": d.ToolInput}
+	}
+	if d.ResultPresent {
+		payload["result"] = map[string]any{"output": d.Output, "error": d.ToolError, "metadata": d.Metadata, "image_count": d.ImageCount}
+	}
+	if d.UsageKnown || d.UsageUnknown > 0 || d.UsagePriorUnknown || e.Kind == "session_usage" || e.Kind == "usage" {
+		payload["usage"] = map[string]any{"known": d.UsageKnown && d.UsageUnknown == 0 && !d.UsagePriorUnknown, "reported_totals_known": d.UsageKnown, "prior_unknown": d.UsagePriorUnknown, "requests": d.UsageRequests, "unknown_requests": d.UsageUnknown, "input_tokens": d.InputTokens, "output_tokens": d.OutputTokens, "cache_creation_input_tokens": d.CacheCreationInputTokens, "cache_read_input_tokens": d.CacheReadInputTokens}
+	}
+	if d.CompactionPresent {
+		payload["compaction"] = map[string]any{"compacted": d.Compacted, "reason": d.CompactionReason, "skipped": d.Skipped, "summary": d.Summary, "turns_compacted": d.TurnsCompacted, "tokens_before": d.TokensBefore, "tokens_after": d.TokensAfter, "duration_ms": d.DurationMs}
+	}
+	raw, err := json.Marshal(payload)
+	return protocol.Event{Version: protocol.Version, EventID: w.prefix + ":" + strconv.FormatUint(e.Sequence, 10), Sequence: e.Sequence, SessionID: e.SessionID, RunID: strconv.FormatUint(e.RunID, 10), RequestID: w.requestID, Timestamp: e.Timestamp, Kind: e.Kind, Payload: raw}, err
+}

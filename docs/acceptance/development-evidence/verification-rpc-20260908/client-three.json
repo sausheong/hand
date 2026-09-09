@@ -1,0 +1,123 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-disconnect",
+      "method": "request.get",
+      "params": {
+        "id": "disconnect"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-disconnect",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3J3R6Y5JQLXUHSDIY27HYBEX5Z",
+        "id": "disconnect",
+        "fingerprint": "1c842655a8741b73b62ba4f76c0f4b08c5575c08829543864fc043a90fe53162",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "disconnect",
+          "result": {
+            "completed": false,
+            "error": "signal: killed",
+            "verification": {
+              "id": "3057f13f06174ea2b8f364c2555fd2c32dac4cea041cefcafbe9abce460d4127",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "printf %s \"$$\" > marker; exec sleep 30"
+                ],
+                "profile": "hang",
+                "profile_digest": "3560815fcec4bdb10d83bba5d21ed5119e6411b296b8e10903801b850dd6bdf3",
+                "workspace": "/private/tmp/hand-verification-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "ab87e6c83a2b3edb7219e5b5461f23204dd3a9e218262f14c766dfeaa70167e8",
+                "omissions": null,
+                "started": "2026-09-08T08:30:14.31864Z",
+                "finished": "2026-09-08T08:30:14.33043Z",
+                "exit_code": -1,
+                "run_error": "signal: killed",
+                "snapshot_error": "context canceled",
+                "stdout": "",
+                "stderr": "",
+                "stdout_bytes": 0,
+                "stderr_bytes": 0,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "unverified",
+                "reason": "context canceled"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

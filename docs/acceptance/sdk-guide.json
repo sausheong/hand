@@ -1,0 +1,58 @@
+{
+  "status": "development_examples_passed",
+  "requirements": [
+    "M4.1",
+    "M4.2",
+    "M8.2"
+  ],
+  "documents": [
+    "docs/automation-and-sdk.md",
+    "docs/protocol/v1.md"
+  ],
+  "checks": [
+    "Both checked-in Go examples compile",
+    "Subprocess example negotiates with built Hand and exits zero",
+    "Embedded example opens isolated store, lists sessions and exits zero",
+    "Guide links resolve"
+  ],
+  "scope": "Fresh isolated HOME/workspaces; no prompt submitted or model credentials supplied",
+  "process_hand_binary": {
+    "path": "/private/tmp/hand-wire-usage-20260909",
+    "sha256": "5b259490cff20f6592eb8abe62b71d9ec82152af987eb0b8c508dc82ad4bc009"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/embedded.go.txt",
+      "sha256": "41d6c3a4f0e07de3f7ca771ecc05f8b20153d95ad08c0793390e3184eb0768ad"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/embedded.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/embedded.stdout",
+      "sha256": "f16b0cca0e2ef5a3e4202d7945f6d79a4d021639964b6de5bc6a38a9a014f23a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/rpc.go.txt",
+      "sha256": "f38d66e9fd2cce6f293311bbf24f921625eaffe8fd6a2146bcc27d8c8d695b1f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/rpc.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/rpc.stdout",
+      "sha256": "7ec9a8428f2de8cbb3d171377eb809003acf29784d33e63788c2fc5b16a68797"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-guide-20260909/run.json",
+      "sha256": "1ba2589881c491192f78d06f636bed6240f609983e8087a0af6cf7e703ceedf9"
+    }
+  ],
+  "limitations": [
+    "Process example uses earlier development Hand binary; not final exact candidate evidence",
+    "Examples exercise negotiation and session listing only, not live models or complete SDK journeys",
+    "Released Harness and SDK compatibility gates remain open"
+  ]
+}

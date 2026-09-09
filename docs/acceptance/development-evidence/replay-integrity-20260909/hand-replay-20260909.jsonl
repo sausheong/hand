@@ -1,0 +1,6 @@
+{"ImportPath":"github.com/sausheong/hand/internal/tui [github.com/sausheong/hand/internal/tui.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/tui [github.com/sausheong/hand/internal/tui.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/tui [github.com/sausheong/hand/internal/tui.test]","Action":"build-output","Output":"internal/tui/output.go:6:2: \"encoding/json\" imported and not used\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/tui [github.com/sausheong/hand/internal/tui.test]","Action":"build-fail"}
+{"Time":"2026-09-09T08:29:34.585613+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-09T08:29:34.585668+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\tgithub.com/sausheong/hand/internal/tui [build failed]\n"}
+{"Time":"2026-09-09T08:29:34.585677+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/tui [github.com/sausheong/hand/internal/tui.test]"}

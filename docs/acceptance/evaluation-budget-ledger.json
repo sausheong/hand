@@ -1,0 +1,51 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "tests": {
+    "focused": 8,
+    "evaluation_suite": 92,
+    "critical_cases": 3,
+    "repetitions_per_case": 20,
+    "critical_trials": 60,
+    "failures": 0,
+    "skips": 0
+  },
+  "capability": "Durable manifest-bound run/request/token/cost reservations with crash retention, revocation, expiry and inconsistent-usage admission blocking.",
+  "limitations": [
+    "Synthetic budget fixtures are accounting-tool tests only; no paid authorisation or calls.",
+    "Request-bound calculation, provider pricing, actual gateway/network enforcement, usage authentication and complete executor remain unfinished.",
+    "No automatic reconciliation or budget reset after inconsistent usage."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-ledger-20260909/evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_budget.py",
+      "sha256": "2f57c9baf1677c04f42caa1fea82ba503967e0e1a1ba4d04df316db13ea4da19",
+      "uncompressed_sha256": "a265ae6030150a55c40f8d1c60cc6ef90cb6e172b32114abd3c3214338f97154"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-ledger-20260909/test_evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_budget.py",
+      "sha256": "c3f300aa22f8559e04673053cb52d1df06d0c61c9f571d924afe6024c6cb5fbf",
+      "uncompressed_sha256": "738084b169746c35035a32e58b01998d0093158cbc917215a82586faeb63343c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-ledger-20260909/hand-evaluation-budget-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-budget-20260909.log",
+      "sha256": "9a28cc3922c916b7ef42f50bf8091c0d8b2d0fad7dcd3ff1c586129408ff6286",
+      "uncompressed_sha256": "f18f622c759bc0aa43c0c9ebf967c6d065643a5eafe8c7237aa98e65dd1b0fdb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-ledger-20260909/hand-evaluation-budget-all-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-budget-all-20260909.log",
+      "sha256": "2445798293ed05b13869390cb097ba2e6e8b33b2321b9665d30230da540901e6",
+      "uncompressed_sha256": "97f7b4b55b88f003f218b76e335f889dc5a3deceba17269263acef371e317ad5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-budget-ledger-20260909/hand-evaluation-budget-repetitions-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-budget-repetitions-20260909.log",
+      "sha256": "43257dfd052c6da2ba5f554c9c840c98c4f4b716bfde24ec2af8a6df581c0f69",
+      "uncompressed_sha256": "8eb8428b03ab88daa55f6833b90ee89ba9f5acdf4c9202bfd0b5bbde220633a6"
+    }
+  ]
+}

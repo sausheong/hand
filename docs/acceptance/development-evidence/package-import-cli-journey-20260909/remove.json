@@ -1,0 +1,7 @@
+{
+  "action": "remove",
+  "store": "/private/tmp/hand-package-import-cli-journey-20260909/store",
+  "generation": 3,
+  "name": "python-task-note",
+  "previous": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec"
+}

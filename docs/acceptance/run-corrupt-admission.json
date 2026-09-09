@@ -1,0 +1,46 @@
+{
+  "status": "development_corrupt_run_admission_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/app -run '^TestRunJournalAmbiguitySurvivesReopenWithoutMutation$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 60
+  },
+  "assertions": [
+    "Both malformed completion variants survive real session close/reopen",
+    "Two Service.Execute admissions per variant return infrastructure_error/run_metadata_start_failed with zero iterations and no verification",
+    "Exactly one terminal error per admission, no text/tool events",
+    "No backend calls and service ownership returns to Idle",
+    "Session file bytes unchanged after all operations"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-corrupt-admission-20260909/hand-run-corrupt-admission-20260909.jsonl.gz",
+      "sha256": "420bd5fe06efa2534289a85440619a5b594fc204f6dc648220a71a615bf673df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-corrupt-admission-20260909/run_journal.go.txt",
+      "sha256": "0029b393cff710961e68eb1bfe33c5aa38e8326606cdce3564ef641368ce778c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-corrupt-admission-20260909/run_journal_json.go.txt",
+      "sha256": "73e287320337cbdc989506b400c0c17f7ff3ca82b8b30d31c2df34fe4ff27200"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-corrupt-admission-20260909/run_journal_reopen_integrity_test.go.txt",
+      "sha256": "cd3f8cc1c8446abde2d77c108fb877c657ff646c15ebd66e1d3ad798afa5bce2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-corrupt-admission-20260909/run_journal_test.go.txt",
+      "sha256": "45bc999b6cd3d1e85be43b27ac9d40e10c4ea052df6f2fc4a422874631c7df31"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-corrupt-admission-20260909/service.go.txt",
+      "sha256": "6095e469252151a27aef363defdefd7299c71052d1c91a0a760d41772658de7f"
+    }
+  ],
+  "limitations": [
+    "In-process application service with deterministic backend probe and actual disk session; not built CLI journey",
+    "Clean close/reopen, not process crash or power-loss",
+    "Development snapshot; final acceptance remains open"
+  ]
+}

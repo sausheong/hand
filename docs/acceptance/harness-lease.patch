@@ -1,0 +1,468 @@
+diff --git a/session/lease.go b/session/lease.go
+new file mode 100644
+index 0000000..4f5c56f
+--- /dev/null
++++ b/session/lease.go
+@@ -0,0 +1,126 @@
++package session
++
++import (
++	"errors"
++	"fmt"
++	"os"
++	"path/filepath"
++)
++
++var ErrSessionBusy = errors.New("session already has an active writer")
++var ErrSessionClosed = errors.New("session writer is closed")
++
++type writerLease struct {
++	file         *os.File
++	store        *Store
++	agentID, key string
++}
++
++func (l *writerLease) close() error {
++	if l.file == nil {
++		return nil
++	}
++	return l.file.Close()
++}
++
++// LoadExclusive acquires a kernel-managed writer lease before reading. The
++// lease lasts until Session.Close or process exit. It never steals an active
++// lease based on a PID/timestamp; a dead process's lock is released by the OS.
++func (s *Store) LoadExclusive(agentID, key string) (*Session, error) {
++	lease, err := s.acquireLease(agentID, key)
++	if err != nil {
++		return nil, err
++	}
++	sess, err := s.Load(agentID, key)
++	if err != nil {
++		lease.close()
++		return nil, err
++	}
++	sess.lease = lease
++	return sess, nil
++}
++
++func (s *Store) acquireLease(agentID, key string) (*writerLease, error) {
++	if err := validateStoreIDs(agentID, key); err != nil {
++		return nil, err
++	}
++	dir := filepath.Join(s.sessionDir(agentID), ".leases")
++	if err := os.MkdirAll(dir, 0700); err != nil {
++		return nil, err
++	}
++	f, err := openLeaseFile(filepath.Join(dir, key+".lock"))
++	if err != nil {
++		return nil, err
++	}
++	if err := lockLeaseFile(f); err != nil {
++		f.Close()
++		if leaseWouldBlock(err) {
++			return nil, fmt.Errorf("%w: %s/%s", ErrSessionBusy, agentID, key)
++		}
++		return nil, err
++	}
++	// Metadata is advisory only; stale contents never override the kernel lock.
++	if err := f.Truncate(0); err != nil {
++		f.Close()
++		return nil, err
++	}
++	if _, err := fmt.Fprintf(f, "pid=%d\n", os.Getpid()); err != nil {
++		f.Close()
++		return nil, err
++	}
++	return &writerLease{file: f, store: s, agentID: agentID, key: key}, nil
++}
++
++// writeLease is called under Store.mu. Legacy callers without a lifetime lease
++// acquire a temporary operation lease, so they cannot bypass an exclusive owner.
++// Two legacy callers are not a safe DAG writer protocol: use LoadExclusive.
++func (s *Store) writeLease(sess *Session) (func(), error) {
++	sess.leaseMu.Lock()
++	defer sess.leaseMu.Unlock()
++	if sess.writerClosed {
++		return nil, ErrSessionClosed
++	}
++	if sess.lease != nil {
++		if sess.lease.store != s || sess.lease.agentID != sess.AgentID || sess.lease.key != sess.Key {
++			return nil, errors.New("session identity no longer matches its writer lease")
++		}
++		return func() {}, nil
++	}
++	lease, err := s.acquireOperationLease(sess.AgentID, sess.Key)
++	if err != nil {
++		return nil, err
++	}
++	return func() { lease.close() }, nil
++}
++
++// Close joins synchronous writes before releasing the lease. Further persistent
++// writes through this instance fail. Callers must also stop their own producers.
++func (s *Session) Close() error {
++	s.writeMu.Lock()
++	defer s.writeMu.Unlock()
++	if s.store != nil {
++		s.store.mu.Lock()
++		defer s.store.mu.Unlock()
++	}
++	s.leaseMu.Lock()
++	defer s.leaseMu.Unlock()
++	if s.writerClosed {
++		return nil
++	}
++	s.writerClosed = true
++	if s.lease != nil {
++		err := s.lease.close()
++		s.lease = nil
++		return err
++	}
++	return nil
++}
++
++// Legacy operations retain their pre-lease behaviour on unsupported platforms.
++// LoadExclusive always fails there rather than promising an unavailable lease.
++func (s *Store) acquireOperationLease(agentID, key string) (*writerLease, error) {
++	if !supportsWriterLease {
++		return &writerLease{}, nil
++	}
++	return s.acquireLease(agentID, key)
++}
+diff --git a/session/lease_other.go b/session/lease_other.go
+new file mode 100644
+index 0000000..1888496
+--- /dev/null
++++ b/session/lease_other.go
+@@ -0,0 +1,18 @@
++//go:build !linux && !darwin
++
++package session
++
++import (
++	"errors"
++	"os"
++)
++
++const supportsWriterLease = false
++
++func openLeaseFile(string) (*os.File, error) {
++	return nil, errors.New("session writer leases are unsupported on this platform")
++}
++func lockLeaseFile(*os.File) error {
++	return errors.New("session writer leases are unsupported on this platform")
++}
++func leaseWouldBlock(error) bool { return false }
+diff --git a/session/lease_test.go b/session/lease_test.go
+new file mode 100644
+index 0000000..2caee58
+--- /dev/null
++++ b/session/lease_test.go
+@@ -0,0 +1,139 @@
++package session
++
++import (
++	"bufio"
++	"context"
++	"errors"
++	"fmt"
++	"io"
++	"os"
++	"os/exec"
++	"testing"
++	"time"
++)
++
++func TestExclusiveLeaseBlocksOtherWritersAndMutations(t *testing.T) {
++	store := NewStore(t.TempDir())
++	owner, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	owner.Append(UserMessageEntry("retained"))
++	if err := owner.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	if _, err := store.LoadExclusive("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal(err)
++	}
++	if err := store.Delete("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("delete bypassed lease", err)
++	}
++	if err := store.Rename("agent", "key", "other"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("rename bypassed lease", err)
++	}
++	other, err := store.Load("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	other.Append(UserMessageEntry("must not persist"))
++	if !errors.Is(other.PersistenceError(), ErrSessionBusy) {
++		t.Fatal("legacy append bypassed lease", other.PersistenceError())
++	}
++	loaded, err := store.Load("agent", "key")
++	if err != nil || len(loaded.Entries()) != 1 {
++		t.Fatal("unauthorised entry persisted", err)
++	}
++	if err := owner.Close(); err != nil {
++		t.Fatal(err)
++	}
++	if err := owner.Close(); err != nil {
++		t.Fatal("close not idempotent", err)
++	}
++	owner.Append(UserMessageEntry("closed"))
++	if !errors.Is(owner.PersistenceError(), ErrSessionClosed) {
++		t.Fatal("closed writer accepted append")
++	}
++	resumed, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer resumed.Close()
++	if len(resumed.Entries()) != 1 {
++		t.Fatal("lease lifecycle damaged session")
++	}
++}
++
++func TestWriterLeaseCannotBeReusedForAnotherKey(t *testing.T) {
++	store := NewStore(t.TempDir())
++	s, err := store.LoadExclusive("agent", "original")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer s.Close()
++	s.Key = "different"
++	s.Append(UserMessageEntry("must not write"))
++	if s.PersistenceError() == nil {
++		t.Fatal("changed key retained write capability")
++	}
++}
++
++func TestWriterLeaseHelper(t *testing.T) {
++	root := os.Getenv("HARNESS_LEASE_HELPER_ROOT")
++	if root == "" {
++		return
++	}
++	s, err := NewStore(root).LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer s.Close()
++	fmt.Println("LEASE_READY")
++	io.Copy(io.Discard, os.Stdin)
++}
++
++func TestWriterLeaseRecoversAfterProcessDeath(t *testing.T) {
++	root := t.TempDir()
++	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++	defer cancel()
++	cmd := exec.CommandContext(ctx, os.Args[0], "-test.run=^TestWriterLeaseHelper$")
++	cmd.Env = append(os.Environ(), "HARNESS_LEASE_HELPER_ROOT="+root)
++	stdout, err := cmd.StdoutPipe()
++	if err != nil {
++		t.Fatal(err)
++	}
++	input, err := cmd.StdinPipe()
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer input.Close()
++	if err := cmd.Start(); err != nil {
++		t.Fatal(err)
++	}
++	defer func() {
++		if cmd.ProcessState == nil {
++			cmd.Process.Kill()
++			cmd.Wait()
++		}
++	}()
++	scanner := bufio.NewScanner(stdout)
++	if !scanner.Scan() || scanner.Text() != "LEASE_READY" {
++		t.Fatal("child did not acquire lease")
++	}
++	store := NewStore(root)
++	if _, err := store.LoadExclusive("agent", "key"); !errors.Is(err, ErrSessionBusy) {
++		t.Fatal("second process acquired live writer lease", err)
++	}
++	if err := cmd.Process.Kill(); err != nil {
++		t.Fatal(err)
++	}
++	cmd.Wait()
++	recovered, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal("stale lease blocked recovery", err)
++	}
++	defer recovered.Close()
++	recovered.Append(UserMessageEntry("after process death"))
++	if err := recovered.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
+diff --git a/session/lease_unix.go b/session/lease_unix.go
+new file mode 100644
+index 0000000..ab5c2e2
+--- /dev/null
++++ b/session/lease_unix.go
+@@ -0,0 +1,25 @@
++//go:build linux || darwin
++
++package session
++
++import (
++	"errors"
++	"os"
++	"syscall"
++)
++
++const supportsWriterLease = true
++
++func openLeaseFile(path string) (*os.File, error) {
++	fd, err := syscall.Open(path, syscall.O_CREAT|syscall.O_RDWR|syscall.O_CLOEXEC|syscall.O_NOFOLLOW, 0600)
++	if err != nil {
++		return nil, err
++	}
++	return os.NewFile(uintptr(fd), path), nil
++}
++func lockLeaseFile(f *os.File) error {
++	return syscall.Flock(int(f.Fd()), syscall.LOCK_EX|syscall.LOCK_NB)
++}
++func leaseWouldBlock(err error) bool {
++	return errors.Is(err, syscall.EWOULDBLOCK) || errors.Is(err, syscall.EAGAIN)
++}
+diff --git a/session/persistence.go b/session/persistence.go
+index 58210f4..03cde69 100644
+--- a/session/persistence.go
++++ b/session/persistence.go
+@@ -38,6 +38,12 @@ func (s *Session) Flush() error {
+ 	store := s.store
+ 	store.mu.Lock()
+ 	defer store.mu.Unlock()
++	release, err := store.writeLease(s)
++	if err != nil {
++		store.recordPersistenceFailure(s, "acquire sync lease", err)
++		return s.PersistenceError()
++	}
++	defer release()
+ 	fail := func(reason string, err error) error {
+ 		store.recordPersistenceFailure(s, reason, err)
+ 		return s.PersistenceError()
+diff --git a/session/rewrite_atomic_test.go b/session/rewrite_atomic_test.go
+index 7532536..3a7edb5 100644
+--- a/session/rewrite_atomic_test.go
++++ b/session/rewrite_atomic_test.go
+@@ -37,7 +37,13 @@ func TestRewriteMarshalFailurePreservesOriginal(t *testing.T) {
+ 		t.Fatal("rewrite failure was hidden")
+ 	}
+ 	files, _ := os.ReadDir(filepath.Dir(path))
+-	if len(files) != 1 {
++	regular := 0
++	for _, file := range files {
++		if !file.IsDir() {
++			regular++
++		}
++	}
++	if regular != 1 {
+ 		t.Fatal("temporary rewrite leaked", files)
+ 	}
+ }
+diff --git a/session/session.go b/session/session.go
+index b2b6ba2..86eb318 100644
+--- a/session/session.go
++++ b/session/session.go
+@@ -85,6 +85,9 @@ type CompactionData struct {
+ 
+ // Session holds a conversation session with DAG-structured entries.
+ type Session struct {
++	leaseMu            sync.Mutex
++	lease              *writerLease
++	writerClosed       bool
+ 	persistenceFailure atomic.Pointer[persistenceFailure]
+ 	ID                 string
+ 	AgentID            string
+diff --git a/session/store.go b/session/store.go
+index d9c1900..0e26409 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -8,6 +8,7 @@ import (
+ 	"log/slog"
+ 	"os"
+ 	"path/filepath"
++	"slices"
+ 	"strings"
+ 	"sync"
+ 	"sync/atomic"
+@@ -125,6 +126,13 @@ func (s *Store) Load(agentID, key string) (*Session, error) {
+ func (s *Store) AppendEntry(sess *Session, entry SessionEntry) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	release, err := s.writeLease(sess)
++	if err != nil {
++		s.recordPersistenceFailure(sess, "acquire writer lease", err)
++		return
++	}
++	defer release()
++
+ 	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+ 		s.recordPersistenceFailure(sess, "invalid session path", err)
+ 		slog.Error("refusing to persist session outside store", "error", err)
+@@ -175,6 +183,11 @@ func (s *Store) Create(agentID, key string) error {
+ 	}
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	lease, err := s.acquireOperationLease(agentID, key)
++	if err != nil {
++		return err
++	}
++	defer lease.close()
+ 
+ 	dir := s.sessionDir(agentID)
+ 	if err := os.MkdirAll(dir, 0o755); err != nil {
+@@ -283,6 +296,21 @@ func (s *Store) Rename(agentID, oldKey, newKey string) error {
+ 	}
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	if oldKey == newKey {
++		return fmt.Errorf("rename requires a different session key")
++	}
++	keys := []string{oldKey, newKey}
++	slices.Sort(keys)
++	first, err := s.acquireOperationLease(agentID, keys[0])
++	if err != nil {
++		return err
++	}
++	defer first.close()
++	second, err := s.acquireOperationLease(agentID, keys[1])
++	if err != nil {
++		return err
++	}
++	defer second.close()
+ 
+ 	oldPath := s.sessionPath(agentID, oldKey)
+ 	newPath := s.sessionPath(agentID, newKey)
+@@ -304,6 +332,11 @@ func (s *Store) Delete(agentID, key string) error {
+ 	}
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	lease, err := s.acquireOperationLease(agentID, key)
++	if err != nil {
++		return err
++	}
++	defer lease.close()
+ 
+ 	path := s.sessionPath(agentID, key)
+ 	if err := os.Remove(path); err != nil && !os.IsNotExist(err) {
+@@ -328,6 +361,13 @@ func (s *Store) Rewrite(sess *Session) {
+ func (s *Store) rewriteEntries(sess *Session, entries []SessionEntry) {
+ 	s.mu.Lock()
+ 	defer s.mu.Unlock()
++	release, err := s.writeLease(sess)
++	if err != nil {
++		s.recordPersistenceFailure(sess, "acquire writer lease", err)
++		return
++	}
++	defer release()
++
+ 	fail := func(reason string, err error) { s.recordPersistenceFailure(sess, reason, err) }
+ 	if err := validateStoreIDs(sess.AgentID, sess.Key); err != nil {
+ 		fail("invalid rewrite path", err)

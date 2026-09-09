@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "status": "development_only",
+  "requirement": "M8.1",
+  "date": "2026-09-09",
+  "result": "Hand runner composes bounded process supervisor with strict session observer and requires terminal/exit consistency. Actual compiled CLI gateway run passed; process and pipes joined, 5139 output bytes captured.",
+  "tests": {
+    "passed": 167,
+    "failures": 0,
+    "skips": 0
+  },
+  "limitations": [
+    "Process-group cleanup is not containment of malicious setsid descendants.",
+    "Caller owns authorised configuration, exact model identity, deployment isolation, billing and independent task scoring.",
+    "Synthetic fixture only; no live provider quality or final candidate qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/00-evaluation_hand_run.py.gz",
+      "source": "scripts/evaluation_hand_run.py",
+      "sha256": "35158606e937857c5c9cb211703f7776937606e7aeb68496292483b54ff67143",
+      "uncompressed_sha256": "aa318f046f7d69d5534e250c3e269815ae7daa70155be9ce7e4d829252213422"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/01-test_evaluation_hand_run.py.gz",
+      "source": "scripts/test_evaluation_hand_run.py",
+      "sha256": "c0a578666eb7b251e2789beb1297a8802b663e7f21476ff2d319131083ed9c88",
+      "uncompressed_sha256": "c618cddce18bee5eb313598075b13ba36760bce34c8a59a29ccafccee7c1e711"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/02-evaluation_hand_events.py.gz",
+      "source": "scripts/evaluation_hand_events.py",
+      "sha256": "42dbfb09b4d722051bbb6c07e1c374719de23b2bc96110b6dccb90d86d703462",
+      "uncompressed_sha256": "1edcef23bdacb8172ef8b076429bed4b822c7371540a6960ef4928c1ad5fa6a9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/03-evaluation_process.py.gz",
+      "source": "scripts/evaluation_process.py",
+      "sha256": "38022a2539dd060cdfba2063407195f48ba2f56f565558bf4be20fc7849edf13",
+      "uncompressed_sha256": "68b151114a32ac3e6903d1c0e35c866c2d8a5bf1377c5605595750a4e8ea3082"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/04-check_hand_agent_gateway.py.gz",
+      "source": "scripts/check_hand_agent_gateway.py",
+      "sha256": "3453dae4a11a5aeda77839f088a3bdef6785a14230d2851014bf49b061d92d8f",
+      "uncompressed_sha256": "10ee78e591deae0cebac9676cd0014dd077b1e03cbd4cff4ba10e8f6f66088aa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/05-check_pi_gateway.py.gz",
+      "source": "scripts/check_pi_gateway.py",
+      "sha256": "642db6cef0b1a9ac4c570869960f902ef167975553438ccb117211a69a1d6d3a",
+      "uncompressed_sha256": "ae7bc0a1341802398b7ad891c702e2352e63796c895bf3a8783ec6eaa67005ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/06-hand-supervision-regression-20260909.log.gz",
+      "source": "/private/tmp/hand-supervision-regression-20260909.log",
+      "sha256": "ae8852a3a0c40d69d1805588499bdae0f6a1f8940877b531c67a6cc0bdba5ff8",
+      "uncompressed_sha256": "160b6dcfc3a034e703797109089574ead452f5466e83df7cd910bcb1fdfa4416"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/07-report.json.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/report.json",
+      "sha256": "ac22141207d1c167a2fd9c56e98e108f0c015265042044a29c7c1d163db9bd8c",
+      "uncompressed_sha256": "b7403e0421cf9fdfeaa70be57cbc2f1a4ebb306513b666c50affd0f5d8e6775a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/08-sdk-report.json.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/sdk-report.json",
+      "sha256": "c42bacc44627aa817d07df6eec8546f4c0cfbc12e8d85691d9001a5c06cd1a7d",
+      "uncompressed_sha256": "3a899859e2ed0fb81dafb7949e526b57419e3cb959ce4f83423e4c899d66d121"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/09-budget.sqlite.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/budget.sqlite",
+      "sha256": "f327d5824d6d9b8685225a11a6b54c3e2be43ce99b793d7c4bf2283f1535d7fd",
+      "uncompressed_sha256": "8299ab5cdfbbf5c490f99878c94b8d2767803ab8e4bfb53ae1a392c60989f107"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/10-stdout.log.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/stdout.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/11-stderr.log.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/12-hand-run.json.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/process/hand-run.json",
+      "sha256": "56b1e7076104c8447b9f0398c56ed2b80342923b924efa77fb305bfbd5641e3b",
+      "uncompressed_sha256": "3abc94aaa188050c7feedcae4ec19d97e0e6282cc3c458bc50ecbc9ad133ed7c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/13-stderr.log.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/process/stderr.log",
+      "sha256": "6c7dca3307f1148883d6ff5cb1c76783d3e259fb4735c3d45cd682be05f90a71",
+      "uncompressed_sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/14-stdout.log.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/process/stdout.log",
+      "sha256": "fc0837d705c7c3625bcda15378b6cc1559d89076bbebfbd1cd349e90c163fd0b",
+      "uncompressed_sha256": "f2fceb52472246f947dcaf474bcaa71ff5dafa99ce1c9b5f81b7d13b67f47218"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/15-report.json.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/requests/14f04ca5b25740909c2ace970a22f924/report.json",
+      "sha256": "28b59f8c167e4d0ef33c064388989ebd09dcfbd7bffa3908ee487e8f346e4c56",
+      "uncompressed_sha256": "430ba6502112bc0c09eb6fea4753a0de25f81a41bbf6b25cfb5b61f50e62bd6a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/16-response.bin.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/requests/14f04ca5b25740909c2ace970a22f924/response.bin",
+      "sha256": "0d59d4d21275d8ff784885d33a83674ef1d4078d32fca63582b58014712164ef",
+      "uncompressed_sha256": "050704eb6ac1ae6eb18e9082e18fae0fd27f3e2da2c417314e7310dfbc2b7bd1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/17-report.json.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/requests/99f05422f174444ea73ae8a420eec39f/report.json",
+      "sha256": "8f1b018790d61d0889885d1817dc46342e9ab934dc9538b2caf5f87c3df93eb0",
+      "uncompressed_sha256": "a5b792debf092df6d2f95d4aee76f73b2df8143f91eea214369bae8372dd3a67"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-supervision-20260909/18-response.bin.gz",
+      "source": "/private/tmp/hand-agent-supervised-20260909/requests/99f05422f174444ea73ae8a420eec39f/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    }
+  ]
+}

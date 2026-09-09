@@ -1,0 +1,7 @@
+{
+	"CGO_ENABLED": "0",
+	"GOARCH": "arm64",
+	"GOOS": "linux",
+	"GOVERSION": "go1.25.1",
+	"GOWORK": "/Users/sausheong/projects/hand/go.work"
+}

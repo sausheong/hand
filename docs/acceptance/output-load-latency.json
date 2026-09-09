@@ -1,0 +1,139 @@
+{
+  "status": "development_paths_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/tui -run '^(TestOutputLoad|TestOutputLoads|TestTruncatedApplicationOutput)'",
+  "test_records": {
+    "pass": 7,
+    "fail": 0,
+    "skip": 0
+  },
+  "paths": {
+    "TestOutputLoadCancellationInitiationLatency/escape": {
+      "samples_ms": [
+        0.002292,
+        0.00275,
+        0.003042,
+        0.0035,
+        0.00375,
+        0.003792,
+        0.003833,
+        0.003833,
+        0.003958,
+        0.004042,
+        0.004125,
+        0.004209,
+        0.004625,
+        0.004708,
+        0.004834,
+        0.004958,
+        0.005041,
+        0.005083,
+        0.005125,
+        0.005292,
+        0.006791,
+        0.007375,
+        0.007417,
+        0.0075,
+        0.008458,
+        0.009667,
+        0.01075,
+        0.011125,
+        0.011208,
+        0.108417
+      ],
+      "p95_ms": 0.011208
+    },
+    "TestOutputLoadCancellationInitiationLatency/ctrl_c": {
+      "samples_ms": [
+        0.00325,
+        0.004167,
+        0.004417,
+        0.0045,
+        0.004625,
+        0.004792,
+        0.004833,
+        0.004834,
+        0.005,
+        0.005042,
+        0.005083,
+        0.005791,
+        0.006333,
+        0.006375,
+        0.006541,
+        0.006583,
+        0.006584,
+        0.006708,
+        0.006792,
+        0.006875,
+        0.006958,
+        0.007,
+        0.007125,
+        0.007292,
+        0.00775,
+        0.008291,
+        0.009833,
+        0.013583,
+        0.014291,
+        0.018667
+      ],
+      "p95_ms": 0.014291
+    },
+    "TestOutputLoadCancellationInitiationLatency/close": {
+      "samples_ms": [
+        0.001542,
+        0.001583,
+        0.001583,
+        0.001625,
+        0.001625,
+        0.001625,
+        0.001708,
+        0.001792,
+        0.001792,
+        0.001833,
+        0.002167,
+        0.002167,
+        0.002375,
+        0.002459,
+        0.0025,
+        0.0025,
+        0.0025,
+        0.002625,
+        0.002667,
+        0.00275,
+        0.002917,
+        0.002917,
+        0.002958,
+        0.002958,
+        0.003083,
+        0.00325,
+        0.00375,
+        0.004042,
+        0.004083,
+        0.006041
+      ],
+      "p95_ms": 0.004083
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/output-load-latency-20260909/hand-output-load-latency-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-output-load-latency-20260909.jsonl",
+      "sha256": "6bc9a85b9e5d9af5d2ff4c1622c526a31753d18984770869115cc8b5c06d9634",
+      "uncompressed_sha256": "1bb128968c4ed62474e5c13abbcedb7cd7f13398924e9d08e8f586af2a429405"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-load-latency-20260909/cancellation_latency_test.go.gz",
+      "source": "internal/tui/cancellation_latency_test.go",
+      "sha256": "55bde0012a7a4aab7cd27c580f5c58cbdc5727557d5cfdede25b98639581e1f1",
+      "uncompressed_sha256": "ee207342516f80f30998763b2ce63500d297f74972827ec53ec19dbedd2d02b2"
+    }
+  ],
+  "assertions": [
+    "Escape, Ctrl+C and application close signal reader cancellation",
+    "Shutdown joins cancelled reader and clears load registry",
+    "Late successful reader result cannot overwrite replacement viewer"
+  ],
+  "limitations": [
+    "Reader callback fixture measures context signalling, not storage backend latency",
+    "Final clean candidate and released Harness qualification remains open"
+  ]
+}

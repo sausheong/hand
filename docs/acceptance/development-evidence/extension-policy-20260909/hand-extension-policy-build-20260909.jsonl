@@ -1,0 +1,36 @@
+{"Time":"2026-09-09T00:37:05.66118+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T00:37:05.661365+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-09T00:37:06.1159+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen"}
+{"Time":"2026-09-09T00:37:06.115938+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen","Output":"=== RUN   TestPolicyHooksCannotOverrideHostOrFailOpen\n"}
+{"Time":"2026-09-09T00:37:06.147412+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen","Output":"--- PASS: TestPolicyHooksCannotOverrideHostOrFailOpen (0.03s)\n"}
+{"Time":"2026-09-09T00:37:06.14745+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestPolicyHooksCannotOverrideHostOrFailOpen","Elapsed":0.03}
+{"Time":"2026-09-09T00:37:06.148902+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission"}
+{"Time":"2026-09-09T00:37:06.148915+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission","Output":"=== RUN   TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission\n"}
+{"Time":"2026-09-09T00:37:06.162875+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission","Output":"--- PASS: TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission (0.01s)\n"}
+{"Time":"2026-09-09T00:37:06.162943+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestManagerRoutesRequiredHooksAndRejectsCapabilityOmission","Elapsed":0.01}
+{"Time":"2026-09-09T00:37:06.163774+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-09T00:37:06.627834+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal"}
+{"Time":"2026-09-09T00:37:06.627882+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal","Output":"=== RUN   TestExtensionTransformsProviderContextPreservingJournal\n"}
+{"Time":"2026-09-09T00:37:06.849947+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/run"}
+{"Time":"2026-09-09T00:37:06.849966+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/run","Output":"=== RUN   TestExtensionTransformsProviderContextPreservingJournal/run\n"}
+{"Time":"2026-09-09T00:37:07.017312+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/run","Output":"--- PASS: TestExtensionTransformsProviderContextPreservingJournal/run (0.17s)\n"}
+{"Time":"2026-09-09T00:37:07.017354+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/run","Elapsed":0.17}
+{"Time":"2026-09-09T00:37:07.017365+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/runturn"}
+{"Time":"2026-09-09T00:37:07.017373+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/runturn","Output":"=== RUN   TestExtensionTransformsProviderContextPreservingJournal/runturn\n"}
+{"Time":"2026-09-09T00:37:07.162091+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/runturn","Output":"--- PASS: TestExtensionTransformsProviderContextPreservingJournal/runturn (0.14s)\n"}
+{"Time":"2026-09-09T00:37:07.162125+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal/runturn","Elapsed":0.14}
+{"Time":"2026-09-09T00:37:07.162497+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal","Output":"--- PASS: TestExtensionTransformsProviderContextPreservingJournal (0.53s)\n"}
+{"Time":"2026-09-09T00:37:07.162505+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionTransformsProviderContextPreservingJournal","Elapsed":0.53}
+{"Time":"2026-09-09T00:37:07.16259+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestReviewedReloadReuseFailureAndRemove"}
+{"Time":"2026-09-09T00:37:07.162604+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReviewedReloadReuseFailureAndRemove","Output":"=== RUN   TestReviewedReloadReuseFailureAndRemove\n"}
+{"Time":"2026-09-09T00:37:07.165276+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t1.504s\n"}
+{"Time":"2026-09-09T00:37:07.165308+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":1.504}
+{"Time":"2026-09-09T00:37:07.529553+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReviewedReloadReuseFailureAndRemove","Output":"--- PASS: TestReviewedReloadReuseFailureAndRemove (0.37s)\n"}
+{"Time":"2026-09-09T00:37:07.529582+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestReviewedReloadReuseFailureAndRemove","Elapsed":0.37}
+{"Time":"2026-09-09T00:37:07.531787+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestBoundApprovalHookReadsCurrentConfiguration"}
+{"Time":"2026-09-09T00:37:07.531794+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestBoundApprovalHookReadsCurrentConfiguration","Output":"=== RUN   TestBoundApprovalHookReadsCurrentConfiguration\n"}
+{"Time":"2026-09-09T00:37:07.547867+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestBoundApprovalHookReadsCurrentConfiguration","Output":"--- PASS: TestBoundApprovalHookReadsCurrentConfiguration (0.02s)\n"}
+{"Time":"2026-09-09T00:37:07.547881+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestBoundApprovalHookReadsCurrentConfiguration","Elapsed":0.02}
+{"Time":"2026-09-09T00:37:07.553135+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T00:37:08.563834+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.902s\n"}
+{"Time":"2026-09-09T00:37:08.563951+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.903}

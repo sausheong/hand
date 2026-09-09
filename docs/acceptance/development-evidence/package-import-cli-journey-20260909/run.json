@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "provider_calls": 0,
+  "extension_executions": 0,
+  "commands": 23,
+  "imports": [
+    {
+      "kind": "archive",
+      "origin": {
+        "kind": "archive",
+        "location": "/private/tmp/hand-package-import-cli-journey-20260909/package.tar",
+        "reference": "1a2b36afcf9925ec6d55c765ae5424bac526547b9eac18431e75ea58ae5e6d11"
+      },
+      "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    },
+    {
+      "kind": "git",
+      "origin": {
+        "kind": "git",
+        "location": "/private/tmp/hand-package-import-cli-journey-20260909/source",
+        "reference": "8064e0d1949c4c542798fd55215a988b44ddc9f2"
+      },
+      "digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484"
+    }
+  ],
+  "binary": "/private/tmp/hand-package-import-cli-20260909",
+  "binary_sha256": "c3f53f848371c9b4ffae3a39eb533526cd29f0a80983ccb95dca6492d89d88e9",
+  "runner_sha256": "5676d149419455addf91bf9fdedf6a4febbb6f9d7056016099f2cbf6afc03b20",
+  "initial_package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "updated_package_digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484",
+  "final_generation": 4,
+  "limitations": [
+    "Development binary and local Harness replacement; not final acceptance.",
+    "Local directory, archive and local Git commands exercised; remote Git and activation remain pending."
+  ]
+}

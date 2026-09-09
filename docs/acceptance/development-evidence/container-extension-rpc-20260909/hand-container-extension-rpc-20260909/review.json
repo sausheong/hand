@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "snapshot_root": "/private/tmp/hand-container-extension-rpc-20260909/snapshots",
+  "identities": {
+    "tool-viewer": "fixture/container-viewer"
+  },
+  "reviews": [
+    {
+      "container": {
+        "docker": "/Applications/Docker.app/Contents/Resources/bin/docker",
+        "socket": "/Users/sausheong/.docker/run/docker.sock",
+        "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+        "writable": false,
+        "network": false
+      },
+      "specification": {
+        "name": "tool-viewer",
+        "digest": "f6f9d30f7bd69f2e621e8de95a92c289a8f546027faf904225ec9c580cc4c365",
+        "capabilities": [
+          "commands",
+          "presentation"
+        ],
+        "order": 0,
+        "mandatory": false
+      },
+      "binary": {
+        "path": "/private/tmp/hand-container-viewer-20260909",
+        "sha256": "b36d29d68055efc756984ca2690f6e2243c09fe79fa1bfd983c28561f5344944",
+        "size": 2856516,
+        "mode": 493
+      },
+      "assets": null,
+      "arguments": null,
+      "workspace": "/private/tmp/hand-container-extension-rpc-20260909/workspace",
+      "environment": {},
+      "boundary": "container image=sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818; workspace writable=false; network=false; reviewed resources read-only; other host paths unmounted"
+    }
+  ]
+}

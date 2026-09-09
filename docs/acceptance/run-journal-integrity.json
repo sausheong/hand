@@ -1,0 +1,53 @@
+{
+  "status": "development_run_journal_integrity_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/app -run 'TestRunJournal|TestSessionRuns|TestRunBudget'",
+  "test_records": {
+    "before": {
+      "fail": 10
+    },
+    "after": {
+      "pass": 760
+    }
+  },
+  "repetitions": 20,
+  "vet_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-integrity-20260909/hand-run-integrity-after-20260909.jsonl.gz",
+      "sha256": "794cf3d45239207cb5cc353b3fb80c6f528331762a7c9354b52bf7d886c40c59"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-integrity-20260909/hand-run-integrity-before-20260909.jsonl.gz",
+      "sha256": "7485525cf78d861b05539329701204d5460c0e29eac1be403bc8212dfd3e0aeb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-integrity-20260909/hand-run-integrity-vet-20260909.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-integrity-20260909/run_journal.go.txt",
+      "sha256": "0029b393cff710961e68eb1bfe33c5aa38e8326606cdce3564ef641368ce778c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-integrity-20260909/run_journal_integrity_test.go.txt",
+      "sha256": "181ee6a22dab1115f92b7d3e31a9822bd8ce98b782f78cef96ce81c4dfa6552f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-integrity-20260909/run_journal_json.go.txt",
+      "sha256": "73e287320337cbdc989506b400c0c17f7ff3ca82b8b30d31c2df34fe4ff27200"
+    }
+  ],
+  "assertions": [
+    "Ambiguous identity and outcome fields rejected including escaped duplicates and case aliases",
+    "Missing or null verification flags rejected",
+    "Corrupt journal reads return no successful run history",
+    "Rejected append preserves annotations",
+    "Unavailable runtime/session returns error without panic",
+    "Existing run journal and run budget tests pass repeatedly"
+  ],
+  "limitations": [
+    "New corruption cases use in-memory annotations; existing selected tests include disk reopen and write failures",
+    "Native development source and local Harness, not final candidate qualification",
+    "Current full coverage predates decoder and availability guard changes"
+  ]
+}

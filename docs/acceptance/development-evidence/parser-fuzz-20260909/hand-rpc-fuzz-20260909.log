@@ -1,0 +1,25 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/209 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 209/209 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 292505 (97436/sec), new interesting: 20 (total: 229)
+fuzz: elapsed: 6s, execs: 309972 (5826/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 9s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 12s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 15s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 18s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 21s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 24s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 27s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 30s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 33s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 36s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 39s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 42s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 45s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 48s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 51s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 54s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 57s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 1m0s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+fuzz: elapsed: 1m1s, execs: 309972 (0/sec), new interesting: 21 (total: 230)
+PASS
+ok  	github.com/sausheong/hand/protocol	61.455s

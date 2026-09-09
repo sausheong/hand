@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-package-activation-rpc-20260909/workspace",
+  "generation": 2,
+  "lastActiveId": "ses_24130a96e646b4af",
+  "sessions": [
+    {
+      "id": "ses_24130a96e646b4af",
+      "agentId": "hand",
+      "storeKey": "workspace_f4f163925312259c_07d74db5c509f68432f6c06a25920200",
+      "name": "",
+      "createdAt": "2026-09-08T18:28:00.945977Z",
+      "lastActive": "2026-09-08T18:28:01.444384Z"
+    }
+  ]
+}

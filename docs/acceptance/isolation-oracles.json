@@ -1,0 +1,27 @@
+{
+  "status": "compiled_not_executed",
+  "date": "2026-09-09",
+  "requirement": "M5.2",
+  "changes": [
+    "Native network probe now requires ip and nc before treating denial as evidence.",
+    "New native cancellation probe waits for an actual child heartbeat, requires joined cancellation within five seconds and verifies no writes after cleanup."
+  ],
+  "compile": {
+    "command": "GOWORK=off GOPROXY=off GOCACHE=/private/tmp/hand-review-gocache go test -c -o /private/tmp/harness-isolation-qualification-20260909.test ./execution",
+    "exit_code": 0,
+    "binary_sha256": "b12bdd0985017e23641a20c647fb5960773374880c3d74149c20abc5d64fd56d"
+  },
+  "source_fingerprint": "74155418fff918484a73b42f19261fb7975f67a08c42f2e80906edc2e6a923b2",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/isolation-oracles-20260909/backend_test.go.gz",
+      "sha256": "bcc35ead3f6b046f7f512903917c1fdefb4e5f947c1844af8cb3893b010ba547",
+      "uncompressed_sha256": "cb0b2a4a9d9ff8d960d1064740d5c2b9ad243fb07f5c44137b4ac7460850a999"
+    }
+  ],
+  "limitations": [
+    "No Docker test was executed; specific privileged socket permission remains pending.",
+    "Compilation is not proof of network isolation or child cleanup.",
+    "Current review patch predates these added tests and must be refreshed before final qualification."
+  ]
+}

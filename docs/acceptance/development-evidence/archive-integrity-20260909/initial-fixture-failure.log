@@ -1,0 +1,44 @@
+....FFF..
+======================================================================
+FAIL: test_nonregular (test_archive_contents.ArchiveContentsTests.test_nonregular) (kind=b'2')
+----------------------------------------------------------------------
+ValueError: unexpected or missing archive member
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sausheong/projects/hand/scripts/test_archive_contents.py", line 74, in test_nonregular
+    with self.assertRaisesRegex(ValueError, 'regular'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "regular" does not match "unexpected or missing archive member"
+
+======================================================================
+FAIL: test_nonregular (test_archive_contents.ArchiveContentsTests.test_nonregular) (kind=b'1')
+----------------------------------------------------------------------
+ValueError: unexpected or missing archive member
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sausheong/projects/hand/scripts/test_archive_contents.py", line 74, in test_nonregular
+    with self.assertRaisesRegex(ValueError, 'regular'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "regular" does not match "unexpected or missing archive member"
+
+======================================================================
+FAIL: test_nonregular (test_archive_contents.ArchiveContentsTests.test_nonregular) (kind=b'6')
+----------------------------------------------------------------------
+ValueError: unexpected or missing archive member
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/sausheong/projects/hand/scripts/test_archive_contents.py", line 74, in test_nonregular
+    with self.assertRaisesRegex(ValueError, 'regular'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "regular" does not match "unexpected or missing archive member"
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.005s
+
+FAILED (failures=3)

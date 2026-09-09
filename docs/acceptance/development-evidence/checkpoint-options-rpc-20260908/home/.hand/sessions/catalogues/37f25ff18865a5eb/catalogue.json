@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-checkpoint-options-rpc-20260908/workspace",
+  "generation": 6,
+  "lastActiveId": "ses_a460ce9ac47c090d",
+  "sessions": [
+    {
+      "id": "ses_a460ce9ac47c090d",
+      "agentId": "hand",
+      "storeKey": "workspace_37f25ff18865a5eb_b775e560cc3f17ee399403b7e199837e",
+      "name": "",
+      "createdAt": "2026-09-08T08:15:13.362011Z",
+      "lastActive": "2026-09-08T08:15:13.843873Z"
+    },
+    {
+      "id": "ses_8fda29eca8f32f51",
+      "agentId": "hand",
+      "storeKey": "workspace_37f25ff18865a5eb_98061c9e0ef60deec1da85492596214a",
+      "name": "",
+      "createdAt": "2026-09-08T08:15:13.545425Z",
+      "lastActive": "2026-09-08T08:15:13.545521Z"
+    },
+    {
+      "id": "ses_6a396f44c6123472",
+      "agentId": "hand",
+      "storeKey": "workspace_37f25ff18865a5eb_5e8bd15d6b1790a1c8311784c93df842",
+      "name": "",
+      "createdAt": "2026-09-08T08:15:13.638319Z",
+      "lastActive": "2026-09-08T08:15:13.728903Z"
+    }
+  ]
+}

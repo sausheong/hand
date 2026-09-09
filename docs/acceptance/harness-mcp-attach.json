@@ -1,0 +1,58 @@
+{
+  "candidate": "328ce04dad7ff160217cdb4894c377f124a5e1d8",
+  "base": "daa305d55640a6ca135437b285ae4265da5596a5",
+  "patch_sha256": "d4d58d13f29019e83574530a6fcdd72fcc3f0baf2041bd1a5b6df224b1dc7f21",
+  "results": {
+    "harness-mcp-attach-verified-20260908.jsonl": {
+      "test_events": {
+        "pass": 8,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    },
+    "harness-mcp-attach-tests-20260908.jsonl": {
+      "test_events": {
+        "pass": 6,
+        "fail": 1,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "fail"
+      }
+    }
+  },
+  "initial_exit_code": 1,
+  "verified_exit_code": 0,
+  "vet_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-attach-20260908/harness-mcp-attach-verified-20260908.jsonl",
+      "sha256": "b2a5e0143c96fdcf07f1d1f74b2139df40f2a6c5353600194d9a6d7117a4dfdd"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-attach-20260908/harness-mcp-attach-tests-20260908.jsonl",
+      "sha256": "8ee7721a92981bf9670249184055edd6838e2c458c0f0436c5c259b199324ef0"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-attach-20260908/harness-mcp-attach-tests-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-attach-20260908/harness-mcp-attach-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/mcp-attach-20260908/harness-mcp-attach-verified-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Only targeted runtime/tool tests rerun. Full suite and native qualification pending.",
+    "Initial test incorrectly expected full MCP tool names in default identity prose; corrected to actual tool definitions and expected static prompt.",
+    "Hand background discovery integration remains pending."
+  ]
+}

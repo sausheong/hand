@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T13:46:04.235617+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolworker"}
+{"Time":"2026-09-08T13:46:04.811549+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests"}
+{"Time":"2026-09-08T13:46:04.811613+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"=== RUN   TestWorkerRealFileRoundtripAndRejectedRequests\n"}
+{"Time":"2026-09-08T13:46:04.852623+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"--- PASS: TestWorkerRealFileRoundtripAndRejectedRequests (0.04s)\n"}
+{"Time":"2026-09-08T13:46:04.852655+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Elapsed":0.04}
+{"Time":"2026-09-08T13:46:04.852684+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput"}
+{"Time":"2026-09-08T13:46:04.852691+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"=== RUN   TestWorkerCancellationAndBrokenOutput\n"}
+{"Time":"2026-09-08T13:46:04.859378+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"--- PASS: TestWorkerCancellationAndBrokenOutput (0.01s)\n"}
+{"Time":"2026-09-08T13:46:04.859401+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Elapsed":0.01}
+{"Time":"2026-09-08T13:46:04.85941+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"PASS\n"}
+{"Time":"2026-09-08T13:46:05.868015+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"ok  \tgithub.com/sausheong/hand/internal/toolworker\t1.632s\n"}
+{"Time":"2026-09-08T13:46:05.868124+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Elapsed":1.633}

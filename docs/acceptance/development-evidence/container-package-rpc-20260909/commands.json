@@ -1,0 +1,100 @@
+[
+  {
+    "arguments": [
+      "inspect",
+      "--source",
+      "/private/tmp/hand-container-package-rpc-20260909/source"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"python-task-note\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"main.py\",\n        \"kind\": \"extension\",\n        \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n        \"size\": 3339\n      }\n    ],\n    \"runtimes\": [\n      {\n        \"name\": \"python\",\n        \"command\": \"python3\",\n        \"minimum_version\": \"3.9.0\"\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"task-note\",\n        \"entrypoint\": \"main.py\",\n        \"runtime\": \"python\",\n        \"capabilities\": [\n          \"commands\",\n          \"questions\",\n          \"state\",\n          \"context.transform\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-install",
+      "--source",
+      "/private/tmp/hand-container-package-rpc-20260909/source",
+      "--pin",
+      "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+      "--store",
+      "/private/tmp/hand-container-package-rpc-20260909/store",
+      "--out",
+      "/private/tmp/hand-container-package-rpc-20260909/install.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-container-package-rpc-20260909/install.json\",\n  \"approval_digest\": \"f3d378985e968e7abc2abc22a4c22053ae706201fc82f5e743c15cc27c153c7e\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-container-package-rpc-20260909/source\"\n    },\n    \"action\": \"install\",\n    \"store\": \"/private/tmp/hand-container-package-rpc-20260909/store\",\n    \"generation\": 0,\n    \"name\": \"python-task-note\",\n    \"previous\": \"\",\n    \"digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n    \"source\": \"/private/tmp/hand-container-package-rpc-20260909/source\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"python-task-note\",\n      \"version\": \"1.0.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"main.py\",\n          \"kind\": \"extension\",\n          \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n          \"size\": 3339\n        }\n      ],\n      \"runtimes\": [\n        {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        }\n      ],\n      \"extensions\": [\n        {\n          \"name\": \"task-note\",\n          \"entrypoint\": \"main.py\",\n          \"runtime\": \"python\",\n          \"capabilities\": [\n            \"commands\",\n            \"questions\",\n            \"state\",\n            \"context.transform\"\n          ]\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-container-package-rpc-20260909/install.json",
+      "--approve",
+      "f3d378985e968e7abc2abc22a4c22053ae706201fc82f5e743c15cc27c153c7e"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 1\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-runtimes",
+      "--container",
+      "/private/tmp/hand-container-package-rpc-20260909/container.json",
+      "--store",
+      "/private/tmp/hand-container-package-rpc-20260909/store",
+      "--names",
+      "python-task-note",
+      "--out",
+      "/private/tmp/hand-container-package-rpc-20260909/runtime.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_digests\": {\n    \"python-task-note/python\": \"714ecaeba1050dddd1bacc358a78295ba22ed8259c7c8f54bc0ea26da361730a\"\n  },\n  \"review_file\": \"/private/tmp/hand-container-package-rpc-20260909/runtime.json\",\n  \"reviews\": [\n    {\n      \"package\": \"python-task-note\",\n      \"review\": {\n        \"requirement\": {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        },\n        \"docker\": \"/usr/local/bin/docker\",\n        \"socket\": \"/Users/sausheong/.docker/run/docker.sock\",\n        \"image\": \"sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91\",\n        \"executable\": \"/usr/local/bin/python3\",\n        \"boundary\": \"version probe in pinned image; network disabled; private empty read-only workspace; no package source loaded\"\n      },\n      \"approved_digest\": \"\"\n    }\n  ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-extensions",
+      "--container",
+      "/private/tmp/hand-container-package-rpc-20260909/container.json",
+      "--store",
+      "/private/tmp/hand-container-package-rpc-20260909/store",
+      "--names",
+      "python-task-note",
+      "--workspace",
+      "/private/tmp/hand-container-package-rpc-20260909/workspace",
+      "--snapshots",
+      "/private/tmp/hand-container-package-rpc-20260909/snapshots",
+      "--runtime-approvals",
+      "/private/tmp/hand-container-package-rpc-20260909/runtime.json",
+      "--out",
+      "/private/tmp/hand-container-package-rpc-20260909/startup.json"
+    ],
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "hand: approved runtime differs from explicit image interpreter mapping\n"
+  },
+  {
+    "arguments": [
+      "review-extensions",
+      "--container",
+      "/private/tmp/hand-container-package-rpc-20260909/container.json",
+      "--store",
+      "/private/tmp/hand-container-package-rpc-20260909/store",
+      "--names",
+      "python-task-note",
+      "--workspace",
+      "/private/tmp/hand-container-package-rpc-20260909/workspace",
+      "--snapshots",
+      "/private/tmp/hand-container-package-rpc-20260909/snapshots",
+      "--runtime-approvals",
+      "/private/tmp/hand-container-package-rpc-20260909/runtime.json",
+      "--out",
+      "/private/tmp/hand-container-package-rpc-20260909/startup.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-container-package-rpc-20260909/startup.json\",\n  \"approval_digest\": \"2d17c6a7095217d11ae63b725e1d067fdd09352d47a7e8144ad7b1375d9dda07\",\n  \"review\": {\n    \"version\": 1,\n    \"snapshot_root\": \"/private/tmp/hand-container-package-rpc-20260909/snapshots\",\n    \"identities\": {\n      \"task-note\": \"package:python-task-note:task-note\"\n    },\n    \"reviews\": [\n      {\n        \"image_interpreter\": [\n          \"/usr/local/bin/python3\",\n          \"-I\",\n          \"-B\"\n        ],\n        \"container\": {\n          \"docker\": \"/usr/local/bin/docker\",\n          \"socket\": \"/Users/sausheong/.docker/run/docker.sock\",\n          \"image\": \"sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91\",\n          \"writable\": false,\n          \"network\": false\n        },\n        \"specification\": {\n          \"name\": \"task-note\",\n          \"digest\": \"cc1a200e017f892468279123df897a1e9483b5a396045051b7fbd2d82fd08ef8\",\n          \"capabilities\": [\n            \"commands\",\n            \"context.transform\",\n            \"questions\",\n            \"state\"\n          ],\n          \"order\": 0,\n          \"mandatory\": false\n        },\n        \"binary\": {\n          \"path\": \"/private/tmp/hand-container-package-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py\",\n          \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n          \"size\": 3339,\n          \"mode\": 256\n        },\n        \"assets\": [\n          {\n            \"path\": \"/private/tmp/hand-container-package-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py\",\n            \"relative\": \"main.py\",\n            \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n            \"size\": 3339,\n            \"mode\": 256\n          }\n        ],\n        \"arguments\": null,\n        \"workspace\": \"/private/tmp/hand-container-package-rpc-20260909/workspace\",\n        \"environment\": {},\n        \"boundary\": \"container image=sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91; workspace writable=false; network=false; reviewed resources read-only; other host paths unmounted\"\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  }
+]

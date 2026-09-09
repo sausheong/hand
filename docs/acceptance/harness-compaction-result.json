@@ -1,0 +1,74 @@
+{
+  "status": "development_evidence_not_full_acceptance",
+  "harness_base": "0581441bef89c7e88bcceab17e49b7a7dcca2f4f",
+  "development_harness_candidate": "3b7fe5ec6536b7bd629e690037c2e5116a2d60cb",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "hand_source_manifest": "session-compaction-shutdown-integration.json",
+  "hand_sources_revalidated": true,
+  "harness_patch_sha256": "5ecc9b13e24dfb13671c3de04b564825ee959e6d6595d644f5010bf99b427e50",
+  "harness_full": {
+    "passed": 883,
+    "failed": 0,
+    "skipped": 0
+  },
+  "hand_full": {
+    "passed": 566,
+    "failed": 0,
+    "skipped": 0
+  },
+  "targeted_repetitions": 20,
+  "targeted_test_and_subtest_passes": 100,
+  "regressions_failed_before_fix": 2,
+  "harness_vet_exit_code": 0,
+  "hand_vet_exit_code": 0,
+  "verification_note": "Full suites preceded an assertion-only strengthening to check errors.Is(ErrSessionChanged), plus a map comment correction. Final targeted 20 repetitions include that assertion. Production behaviour unchanged after full suites.",
+  "artifacts": [
+    {
+      "path": "/private/tmp/hand-compaction-result-before-20260908.jsonl",
+      "sha256": "d82f6132697ad25e9a0ff519617a4bdeec583f8d641480cf1b2ab2e8487586e8"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-repeat-20260908.jsonl",
+      "sha256": "370ee6844bfbab07fd3e38d53e59a064da47bec545deb8ea45100fa5904a83f5"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-final-repeat-20260908.jsonl",
+      "sha256": "6d164815c8163f6633afc8d8611696b214922934de3a830c1ece1abcf687fac1"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-final-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-harness-full-20260908.jsonl",
+      "sha256": "ee9111ac151c2454646d55701bd0e1e6399bab0ec0c0657517a63528fe02c18f"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-harness-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-harness-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-hand-full-20260908.jsonl",
+      "sha256": "a6cc8cff5f9667b14bd0dd3c5f04f51e60588363901faa079ec620160073a058"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-hand-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-result-hand-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Unpublished Harness with isolated local Hand replacement",
+    "No fresh aggregate coverage/platform/live qualification",
+    "Legacy detached producers remain separately owned",
+    "Full M0-M8 acceptance pending"
+  ]
+}

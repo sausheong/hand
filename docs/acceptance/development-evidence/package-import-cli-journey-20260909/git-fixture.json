@@ -1,0 +1,41 @@
+[
+  {
+    "arguments": [
+      "init",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n2026-09-09 02:03:11.670 xcodebuild[88006:48027658]  DVTFilePathFSEvents: Failed to start fs event stream.\n2026-09-09 02:03:11.903 xcodebuild[88006:48027657] [MT] DVTDeveloperPaths: Failed to get length of DARWIN_USER_CACHE_DIR from confstr(3), error = Error Domain=NSPOSIXErrorDomain Code=5 \"Input/output error\". Using NSCachesDirectory instead.\ngit: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "add",
+      "--",
+      "hand-package.json",
+      "main.py"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "commit",
+      "-qm",
+      "package CLI fixture"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "8064e0d1949c4c542798fd55215a988b44ddc9f2\n",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  }
+]
