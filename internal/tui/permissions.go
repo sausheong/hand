@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/sausheong/hand/internal/permissions"
+
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -28,10 +30,17 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 	if m.permissionTask != nil {
 		return report("A permission operation is pending")
 	}
+	const usage = "Usage: /permissions | allow bash --project | revoke <ID> | [offset] | legacy | acknowledge <fingerprint>"
+	allowBash := false
 	offset, revoke := 0, ""
 	legacy, acknowledge := false, ""
 	switch {
 	case len(args) == 0:
+	case len(args) == 3 && args[0] == "allow" && args[1] == "bash" && args[2] == "--project":
+		if m.running || m.compacting {
+			return report("Wait for the current operation to finish before granting project Bash access")
+		}
+		allowBash = true
 	case len(args) == 1 && args[0] == "legacy":
 		legacy = true
 	case len(args) == 2 && args[0] == "acknowledge":
@@ -42,10 +51,10 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 		var err error
 		offset, err = strconv.Atoi(args[0])
 		if err != nil || offset < 0 {
-			return report("Usage: /permissions [offset] | revoke <ID> | legacy | acknowledge <fingerprint>")
+			return report(usage)
 		}
 	default:
-		return report("Usage: /permissions [offset] | revoke <ID> | legacy | acknowledge <fingerprint>")
+		return report(usage)
 	}
 	state := m.controller.PermissionState()
 	authority := state.Authority
@@ -54,6 +63,15 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 	m.permissionTask = task
 	go func() {
 		defer close(task.done)
+		if allowBash {
+			grant, err := authority.AllowProjectBash()
+			if err != nil {
+				task.text = "Bash permission failed: " + err.Error()
+			} else {
+				task.text = fmt.Sprintf("All Bash commands allowed for project %s with the current configuration. Saved across restarts. Project scope selects where this permission applies; execution limits still come from the configured backend.\nRevoke: /permissions revoke %s", grant.Workspace, grant.ID)
+			}
+			return
+		}
 		if legacy {
 			grants := proposal.Grants()
 			if len(grants) == 0 {
@@ -101,16 +119,21 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 		}
 		var b strings.Builder
 		fmt.Fprintf(&b, "Scoped permissions: %d grants\n", len(grants))
+		b.WriteString("Allow all Bash commands here: /permissions allow bash --project (persistent for this configuration)\n")
 		if len(proposal.Grants()) > 0 {
 			b.WriteString("Legacy proposal available: /permissions legacy (review does not grant authority)\n")
 		}
 		for _, g := range grants[offset:end] {
 			resource := g.Resource
+			if g.Operation == permissions.ShellExec && g.Scope == permissions.AllScope {
+				resource = "all Bash commands"
+			}
 			if len(resource) > 2048 {
 				resource = resource[:2048] + "… (truncated; inspect with --permissions)"
 			}
 			fmt.Fprintf(&b, "%s: %s %s %s [%s; %s]\n", permissionLabel(g.ID), g.Operation, g.Scope, resource, g.Lifetime, g.Provenance)
 		}
+		b.WriteString("Revoke a grant: /permissions revoke <ID>\n")
 		if end < len(grants) {
 			fmt.Fprintf(&b, "Next page: /permissions %d", end)
 		}

@@ -119,3 +119,33 @@ func TestScopedHookRejectsStaleFileContentAndMode(t *testing.T) {
 		})
 	}
 }
+
+func TestProjectBashGrantSuppressesPromptsUntilRevoked(t *testing.T) {
+	workspace, _ := filepath.EvalSymlinks(t.TempDir())
+	digest := strings.Repeat("a", 64)
+	a, err := permissions.OpenAuthority(filepath.Join(t.TempDir(), "authority"), workspace, digest)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer a.Close()
+	g, err := a.AllowProjectBash()
+	if err != nil {
+		t.Fatal(err)
+	}
+	prompts := 0
+	hook := NewScopedApprovalHook(scopedSender(func(v any) { prompts++; v.(ApprovalRequest).Respond <- DecisionDeny }), a, workspace, digest, nil)
+	for _, command := range []string{"pwd", "go test ./..."} {
+		raw, _ := json.Marshal(map[string]string{"command": command})
+		decision, err := hook(context.Background(), "bash", raw)
+		if err != nil || !decision.Allow || prompts != 0 {
+			t.Fatal("unexpected approval prompt", decision, err)
+		}
+	}
+	if err = a.Revoke(g.ID); err != nil {
+		t.Fatal(err)
+	}
+	decision, err := hook(context.Background(), "bash", json.RawMessage(`{"command":"pwd"}`))
+	if err != nil || decision.Allow || prompts != 1 {
+		t.Fatal("revoked grant suppressed prompt", decision, err)
+	}
+}

@@ -89,5 +89,5 @@ func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
 	terminalApprovalJourney(t, "bash", `{"command":"rm -rf /"}`, "", tea.KeyMsg{Type: tea.KeyEnter}, false, false)
 }
 func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
-	terminalApprovalJourney(t, "write_file", `{"path":"x.txt"}`, "[y]es / [a]lways / [n]o", tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}}, true, true)
+	terminalApprovalJourney(t, "write_file", `{"path":"x.txt"}`, "[y]es / [a]lways this scope / [n]o", tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}}, true, true)
 }

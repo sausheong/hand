@@ -151,3 +151,33 @@ finishes before interruption or if no partial import survives. It never kills
 personal Hand processes. Raw interrupted and recovered journals are retained.
 The recorded macOS and Linux runs passed; these are process-crash checks, not
 power-loss simulation or exhaustive write/fsync-boundary testing.
+
+## Allow all Bash commands directly
+
+In interactive Hand, run:
+
+```text
+/permissions allow bash --project
+```
+
+This explicitly allows all Bash commands for the current project and effective
+configuration, including future sessions. Repeating it does not add duplicate
+grants. Run it when Hand is idle. No `settings.json` or legacy acknowledgement is
+needed. Changing the model or configuration may select a different authority.
+
+Inspect permissions with `/permissions`. To remove this grant:
+
+```text
+/permissions revoke project-bash
+```
+
+Revocation removes this grant immediately for future approval checks; it does
+not stop executing commands or remove other grants (including exact-command or
+legacy grants). Those remain visible and can be revoked by ID.
+
+Project scope identifies where the approval applies; it does not restrict a
+shell command's filesystem or network access. The execution backend controls
+those boundaries. This grant does not approve other tools.
+
+The approval prompt's **always this command** choice only remembers that exact
+Bash command. Use the explicit project command above for all Bash commands.

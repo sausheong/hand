@@ -107,3 +107,45 @@ func TestPermissionLegacyReviewRequiresExactAcknowledgement(t *testing.T) {
 		t.Fatal("repeated acknowledgement duplicated authority")
 	}
 }
+
+func TestDirectProjectBashCommand(t *testing.T) {
+	workspace, _ := filepath.EvalSymlinks(t.TempDir())
+	a, err := permissions.OpenAuthority(filepath.Join(t.TempDir(), "authority"), workspace, strings.Repeat("a", 64))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer a.Close()
+	m := NewModel(nil, workspace)
+	m.controller = &Controller{Authority: a}
+	defer m.CloseApplication()
+	for _, command := range []string{"/permissions allow bash", "/permissions allow bash --global", "/permissions allow write_file --project"} {
+		if cmd := m.handleCommand(command); cmd != nil {
+			finishProcessTestCommand(t, m, cmd)
+		}
+		if len(a.Grants()) != 0 {
+			t.Fatal("invalid command granted", command)
+		}
+	}
+	m.running = true
+	if cmd := m.handleCommand("/permissions allow bash --project"); cmd != nil {
+		finishProcessTestCommand(t, m, cmd)
+	}
+	if len(a.Grants()) != 0 {
+		t.Fatal("granted during run")
+	}
+	m.running = false
+	for i := 0; i < 2; i++ {
+		finishProcessTestCommand(t, m, m.handleCommand("/permissions allow bash --project"))
+	}
+	if len(a.Grants()) != 1 {
+		t.Fatal("missing or duplicate grant")
+	}
+	out := strings.Join(m.transcript, "\n")
+	if !strings.Contains(out, "All Bash commands allowed") || !strings.Contains(out, "/permissions revoke project-bash") {
+		t.Fatal(out)
+	}
+	finishProcessTestCommand(t, m, m.handleCommand("/permissions revoke project-bash"))
+	if len(a.Grants()) != 0 {
+		t.Fatal("grant not revoked")
+	}
+}

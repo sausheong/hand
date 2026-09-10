@@ -57,3 +57,13 @@ func TestApprovalLongToolKeepsDecisionControls(t *testing.T) {
 		t.Fatal("long tool hides decisions")
 	}
 }
+
+func TestBashApprovalLabelExplainsExactCommand(t *testing.T) {
+	m := NewModel(nil, t.TempDir())
+	m.termWidth = 120
+	m.termHeight = 30
+	m.pending = &agentio.ApprovalRequest{Tool: "bash", Preview: "pwd"}
+	if got := m.approvalPanel(); !strings.Contains(got, "[a]lways this command") {
+		t.Fatal(got)
+	}
+}

@@ -176,6 +176,10 @@ func (a *Authority) append(r authorityRecord) error {
 func (a *Authority) Grant(g ScopedGrant) error {
 	a.mu.Lock()
 	defer a.mu.Unlock()
+	return a.grantLocked(g)
+}
+
+func (a *Authority) grantLocked(g ScopedGrant) error {
 	if g.Lifetime != PersistentGrant {
 		return errors.New("durable authority accepts persistent grants only")
 	}

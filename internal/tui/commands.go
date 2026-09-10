@@ -49,7 +49,7 @@ var commandDefs = []commandDef{
 	{"/restore-cancel", "discard pending restore preview"},
 	{"/restore-preview", "preview one checkpoint restore: RUN-ID PATH"},
 	{"/changes", "inspect checkpoint file changes: [run-ID] [offset]"},
-	{"/permissions", "inspect scoped grants: [offset]; revoke <ID>; legacy; acknowledge <fingerprint>"},
+	{"/permissions", "inspect grants; allow bash --project; revoke <ID>; legacy; acknowledge <fingerprint>"},
 	{"/mcp", "show optional connections; /mcp retry <server>"},
 	{"/process", "background shell: start <command>, list, read/send/cancel/wait/forget <ID>"},
 	{"/output", "view output: /output [result number] [stdout|stderr]"},

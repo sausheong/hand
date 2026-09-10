@@ -42,6 +42,7 @@ type Scope string
 const (
 	ExactScope Scope = "exact"
 	TreeScope  Scope = "tree"
+	AllScope   Scope = "all" // All shell commands; never a filesystem scope.
 )
 
 type Provenance string
@@ -144,8 +145,11 @@ func CanonicalResource(workspace, path string) (string, error) {
 }
 func (p *ScopedPolicy) Grant(g ScopedGrant) error { return p.grant(g, true) }
 func (p *ScopedPolicy) grant(g ScopedGrant, resolve bool) error {
-	if g.ID == "" || !validOperation(g.Operation) || (g.Scope != ExactScope && g.Scope != TreeScope) {
+	if g.ID == "" || !validOperation(g.Operation) || (g.Scope != ExactScope && g.Scope != TreeScope && g.Scope != AllScope) {
 		return errors.New("invalid grant identity or scope")
+	}
+	if g.Scope == AllScope && (g.Operation != ShellExec || g.Resource != "*" || g.Provenance != UserDecision) {
+		return errors.New("all scope requires an explicit shell grant with resource *")
 	}
 	if g.Operation == LegacyTool && g.Provenance != LegacyAcknowledged {
 		return errors.New("broad tool grants require legacy acknowledgement")
@@ -249,7 +253,7 @@ func (p *ScopedPolicy) Allowed(ctx AuthorityContext, request AccessRequest) bool
 		if g.Lifetime == InvocationGrant && (ctx.SessionID != g.SessionID || ctx.InvocationID != g.InvocationID) {
 			continue
 		}
-		if resource == g.Resource {
+		if g.Scope == AllScope || resource == g.Resource {
 			return true
 		}
 		if g.Scope == TreeScope {

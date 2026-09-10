@@ -10,10 +10,16 @@ project scaffolding forced onto your repo. It's built on top of
 [`harness`](https://github.com/sausheong/harness), a Go library for building
 LLM agents.
 
-> **Current release: v0.3.1.** This release pins Harness v0.4.1 and supports
+> **Current release: v0.3.2.** This release pins Harness v0.4.1 and supports
 > macOS and Linux on AMD64 and ARM64. Hand's interfaces remain pre-1.0; pin
 > the release you deploy and follow the migration and rollback guide when
 > upgrading.
+
+## What's in v0.3.2
+
+- Direct persistent Bash approval: `/permissions allow bash --project`.
+- Inspect saved grants with `/permissions`; revoke with `/permissions revoke project-bash`.
+- Clearer approval labels distinguish the exact command from project-wide Bash approval.
 
 ## What's in v0.3.1
 
@@ -777,3 +783,17 @@ For subprocess or embedded integrations, see [automation and the Go SDK](docs/au
 See [packages and extensions](docs/extensions.md) for installation, activation, updates and rollback.
 
 For common errors and recovery steps, see [troubleshooting](docs/troubleshooting.md).
+
+### Persistent Bash approval
+
+To allow all Bash commands in the current project, enter this while Hand is idle:
+
+```text
+/permissions allow bash --project
+```
+
+The grant persists across restarts for the current configuration. Inspect it with
+`/permissions` and remove it with `/permissions revoke project-bash`. This is a
+Bash approval preference; execution boundaries still come from the configured
+backend. The approval prompt's **always this command** choice only remembers the
+exact command being shown.

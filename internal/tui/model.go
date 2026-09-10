@@ -865,8 +865,13 @@ func (m *Model) contextSummary() string {
 func (m *Model) approvalPanel() string {
 	width := max(1, m.termWidth)
 	toolName := strings.ReplaceAll(sanitizeForTerminal(m.pending.Tool), "\n", " ")
-	toolName = ansi.Truncate(toolName, max(1, width-44), "…")
-	question := fmt.Sprintf("Allow %s? [y]es / [a]lways / [n]o [v]iew", toolName)
+	always := "[a]lways this scope"
+	if m.pending.Tool == "bash" {
+		always = "[a]lways this command"
+	}
+	controls := fmt.Sprintf("? [y]es / %s / [n]o [v]iew", always)
+	toolName = ansi.Truncate(toolName, max(1, width-ansi.StringWidth("Allow "+controls)), "…")
+	question := "Allow " + toolName + controls
 	question = strings.Split(wrapToWidth(question, width), "\n")[0]
 	budget := max(2, min(8, m.termHeight/3))
 	preview := sanitizeForTerminal(m.pending.Preview)
