@@ -57,6 +57,11 @@ jobs:
           mkdir -p "$fixture_dir"
           GOOS=linux GOARCH="$architecture" CGO_ENABLED=0 go build -o "$fixture_dir/worker" ./cmd/hand-tool-worker
           GOOS=linux GOARCH="$architecture" CGO_ENABLED=0 go test -c -o "$fixture_dir/peer.test" ./internal/app
+          if [ "$RUNNER_OS" = Linux ]; then
+            go build -o "$fixture_dir/hand" ./cmd/hand
+            sudo mkdir -p /mnt/hand-enospc
+            sudo mount -t tmpfs -o size=2m,mode=1777 tmpfs /mnt/hand-enospc
+          fi
           {
             echo "HARNESS_TEST_CONTAINER_SOCKET=$socket"
             echo "HARNESS_TEST_CONTAINER_IMAGE=$tool_image"
@@ -66,6 +71,10 @@ jobs:
             echo "HAND_TEST_WORKER_BINARY=$fixture_dir/worker"
             echo "HAND_TEST_EXTENSION_PEER_BINARY=$fixture_dir/peer.test"
             echo "HAND_TEST_PUBLIC_FETCH_URL=https://example.com/"
+            if [ "$RUNNER_OS" = Linux ]; then
+              echo "HAND_TEST_ENOSPC_ROOT=/mnt/hand-enospc"
+              echo "HAND_TEST_ENOSPC_BINARY=$fixture_dir/hand"
+            fi
           } >> "$GITHUB_ENV"
       - name: Validate with raw evidence
         run: python3 scripts/validate.py --output "${{ runner.temp }}/hand-validation"
@@ -75,6 +84,9 @@ jobs:
         with:
           name: validation-${{ matrix.os }}
           path: ${{ runner.temp }}/hand-validation
+      - name: Remove Linux ENOSPC fixture
+        if: always() && runner.os == 'Linux'
+        run: sudo umount /mnt/hand-enospc
       - name: Cross-compile release targets
         if: runner.os == 'Linux'
         run: make dist VERSION=validation
