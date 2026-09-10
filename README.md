@@ -10,6 +10,35 @@ project scaffolding forced onto your repo. It's built on top of
 [`harness`](https://github.com/sausheong/harness), a Go library for building
 LLM agents.
 
+> **Current release: v0.3.0.** This release pins Harness v0.4.0 and supports
+> macOS and Linux on AMD64 and ARM64. Hand's interfaces remain pre-1.0; pin
+> the release you deploy and follow the migration and rollback guide when
+> upgrading.
+
+## What's in v0.3.0
+
+v0.3.0 turns Hand from a compact interactive agent into a fuller coding-agent
+runtime while retaining a single native CLI:
+
+- Explicit host or Docker-container tool execution. Container mode uses an
+  immutable image and worker digest, an allowlisted environment, explicit
+  mounts and limits, and never falls back to host execution.
+- Durable sessions with resume, naming, branching, export, attachments,
+  checkpoints, restore previews and interrupted-operation recovery.
+- Scoped, revocable permissions; mandatory verification profiles; Stop-hook
+  goal loops; token, cost, run and wall-clock budgets.
+- Mid-run steering and follow-up queues, background processes, full output
+  artifacts, context pins and inspectable agent state.
+- Named provider profiles with explicit context, output, reasoning and input
+  capabilities, plus verified local-model metadata discovery.
+- Versioned JSONL and RPC automation, an embeddable Go SDK, and reviewed,
+  digest-pinned packages and extensions.
+
+Container isolation applies to commands run through the tool backend. Local or
+remote MCP servers, hooks and explicitly approved host extensions execute
+outside that container; Hand requires those boundaries to be acknowledged in
+container mode. See [Execution isolation](#execution-isolation).
+
 ## Installing
 
 The CLI is a native Go executable. Distribution archives also include a Linux
@@ -18,7 +47,7 @@ servers/extensions have their own runtime requirements.
 
 ### Build from source
 
-You need [Go 1.25+](https://go.dev/dl/).
+You need [Go 1.25.1+](https://go.dev/dl/).
 
 ```sh
 git clone https://github.com/sausheong/hand.git
@@ -142,20 +171,28 @@ A normal answer without mandatory validators is **not verified coding success**.
 Passing validators establishes only what those checks actually test. Reaching
 `--max-turns` or `--max-iterations` never returns success. SIGINT and SIGTERM
 cancel an active one-shot run, drain its events and allow runtime cleanup
-before exit; startup/MCP cancellation is covered by the ongoing execution work.
+before exit, including during MCP startup.
 
 ### Flags
 
 | Flag               | Description |
 |---------------------|-------------|
 | `--model`           | `provider/model` to use for this run, e.g. `anthropic/claude-sonnet-5` — overrides `~/.hand/config.json` |
+| `--profile`         | Named provider/model profile from config |
 | `--base-url`        | Custom API base URL — required for `litellm`, optional for `openai`/`openrouter`, not supported for `gemini` |
+| `--context-limit`   | Explicit active context limit for this invocation |
+| `--reasoning`       | `off`, `low`, `medium` or `high`; the selected profile must declare support |
 | `--max-turns`       | Cap the agent's tool-use loop for this run (default: 50, or `max_turns` in config) |
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
 | `--markdown-style`  | Glamour style for rendering assistant Markdown: `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, `tokyo-night` (default `dark`) — overrides `~/.hand/config.json` |
 | `--compaction-threshold` | Fraction (0-1] of the context window that triggers preventive compaction (default `0.4`) — overrides `~/.hand/config.json` |
 | `--max-iterations`  | Cap how many turns a [Stop-hook goal loop](#goal-loop) may chain automatically (default `10`, or `max_goal_iterations` in config) |
 | `--new-session`     | Create a new session while preserving existing history |
+| `--session`         | Resume a saved session by stable ID |
+| `--export-session`  | Export a stopped session to a new JSONL path without starting a model |
+| `--checkpoint-dir`  | Store bounded run checkpoints in a private directory outside the workspace |
+| `--rpc`             | Serve the versioned JSONL RPC protocol on stdin/stdout |
+| `--jsonl`           | Emit versioned JSONL events in one-shot mode |
 | `-p "<prompt>"`     | Run one turn non-interactively and exit (no TUI) |
 | `--yes`             | Auto-approve all gated tool calls for this run (only valid with `-p`) |
 
@@ -165,16 +202,19 @@ Inside the interactive UI, a message starting with `/` runs a command
 instead of being sent to the model. Typing `/` shows an auto-complete
 dropdown (arrow keys to move, Tab or Enter to fill it in).
 
-| Command          | Description |
-|-------------------|-------------|
-| `/help`           | Show the command list |
-| `/model`          | Show the active model, or `/model <provider/model>` to switch |
-| `/new`            | Create a new session while preserving existing history |
-| `/clear`          | Clear the on-screen transcript (the saved session is untouched) |
-| `/compact`        | Force a context-compaction pass now |
-| `/usage`          | Show token usage: this turn, session total, and context window |
-| `/skills`         | List available skills (personal + project) |
-| `/exit`           | Quit Hand (`/quit` also works) |
+| Area | Commands |
+|------|----------|
+| Help and display | `/help`, `/clear`, `/output`, `/exit` (`/quit`) |
+| Models and context | `/model`, `/profile`, `/context`, `/compact`, `/summarizer`, `/summarizer-confirm`, `/summarizer-follow`, `/pins`, `/pin`, `/unpin` |
+| Sessions | `/new`, `/resume`, `/name`, `/tree`, `/fork`, `/export` |
+| Work in progress | `/steer`, `/followup`, `/queue`, `/process`, `/state` |
+| Safety and evidence | `/boundary`, `/permissions`, `/changes`, `/restore-preview`, `/restore-confirm`, `/restore-cancel`, `/recoveries`, `/recovery-resolve`, `/verify`, `/verify-confirm`, `/verify-check`, `/verify-list`, `/verify-delete` |
+| Usage and budgets | `/usage`, `/budget`, `/budget-tokens`, `/cost`, `/prices`, `/prices-review`, `/prices-confirm`, `/run-budget`, `/time-budget` |
+| Integrations | `/mcp`, `/skills`, `/reload`, `/extension` |
+
+Run `/help` for exact arguments. Commands that mutate durable state use review,
+digest confirmation or explicit acknowledgement rather than applying an unseen
+change immediately.
 
 Manual `/compact` runs in the background while the terminal remains responsive.
 The footer shows its progress; Ctrl+C requests cancellation. New turns and
@@ -257,6 +297,39 @@ and non-regular entries are excluded and counted. Read errors, lines exceeding
 1 MiB, cancellation and result/output limits are reported explicitly. An
 incomplete search cannot establish that a match is absent. Git and `rg` are
 not required. The default output budget is 64 KiB, configurable up to 256 KiB.
+
+## Execution isolation
+
+Host mode is the default and is labelled as unrestricted host execution. To run
+shell tools and compatible reviewed extensions inside a container, configure a
+local Docker engine, a previously pulled immutable image, and the matching
+`hand-tool-worker-linux` shipped in the release archive:
+
+```json
+"execution": {
+  "backend": "container",
+  "docker": "/absolute/path/to/docker",
+  "socket": "/absolute/path/to/docker.sock",
+  "image": "sha256:<64 hex digits>",
+  "worker": "/absolute/path/to/hand-tool-worker-linux",
+  "worker_sha256": "<digest from WORKER.json>",
+  "writable": false,
+  "network": false
+}
+```
+
+The container receives only its declared workspace and declared resources. Writes
+and network access are off unless enabled. Image and worker identities must be
+immutable, paths must be absolute, and an unavailable backend is an error—Hand
+does not retry the command on the host. `/boundary` reports the effective trust
+boundary.
+
+MCP servers and hooks are integration processes or remote services other than
+the containerized tool worker. If either is configured with container mode,
+startup fails until `trust_external_mcp` or `trust_external_hooks` is explicitly
+set for the relevant boundary. These acknowledgements expose the boundary; they
+do not move those integrations into the container or reduce their
+operating-system authority.
 
 ## Approval prompts
 
@@ -459,8 +532,8 @@ a hook can auto-deny a call before you're ever asked about it.
 
 Timeout defaults to 30 seconds (`timeout_seconds` overrides it). stdout and
 stderr capture is limited to 64 KiB each while the process runs; exceeding
-that limit is a validation failure. Inherited-pipe draining is bounded, but
-full descendant-process cleanup remains part of the execution hardening work.
+that limit is a validation failure. On macOS and Linux, cancellation joins the
+hook's process group and bounded pipe draining before the run settles.
 
 Existing validator configurations now fail closed on script errors. To retain
 legacy warning-only behaviour for an optional script, explicitly select
@@ -553,12 +626,28 @@ run):
 ```json
 {
   "model": "anthropic/claude-sonnet-5",
+  "default_profile": "primary",
+  "profiles": {
+    "primary": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "credential_env": "ANTHROPIC_API_KEY",
+      "input_types": ["text", "image"],
+      "context_limit": 200000,
+      "max_output": 64000,
+      "reasoning": "medium",
+      "reasoning_levels": ["off", "low", "medium", "high"]
+    }
+  },
   "base_url": "",
   "max_turns": 50,
   "max_goal_iterations": 10,
   "fallback_model": "",
   "markdown_style": "dark",
   "compaction_threshold": 0.4,
+  "execution": {
+    "backend": "host"
+  },
   "mcp_servers": [
     {
       "name": "github",
@@ -599,6 +688,12 @@ run):
   terminal in a way that can corrupt the input box) falls back to `dark`.
   `max_goal_iterations` is unrelated to `max_turns` — see
   [Goal loop](#goal-loop).
+- `default_profile` selects one entry from `profiles`. Profiles bind the
+  provider, bare model ID, credential environment-variable name, endpoint and
+  declared capabilities. Hand never stores the credential value. Explicit
+  context and output limits win over verified catalogue/server metadata;
+  unknown limits use a labelled conservative fallback rather than an
+  advertised maximum being guessed as active.
 - `compaction_threshold` controls how eagerly Hand summarizes older
   conversation to keep token usage down — preventive compaction fires once
   the estimated context passes this fraction of the model's context window
@@ -613,6 +708,8 @@ run):
   means and how gating/trust works.
 - `hooks` — see [Hooks](#hooks) above for the five events, the exit-code
   contract, and what each `HAND_*` environment variable carries.
+- `execution` — see [Execution isolation](#execution-isolation). `host` is
+  unrestricted; `container` is fail-closed and requires pinned runtime inputs.
 
 ## Development
 
@@ -629,8 +726,9 @@ For the offline CI checks, run `python3 scripts/validate.py --output /tmp/hand-v
 with a new output directory. It inventories tests, checks formatting/build/vet,
 runs uncached race-enabled tests with coverage, rejects skipped or missing tests,
 and checks `--help`/`--version` without credentials. Raw logs and a JSON report
-remain in the output directory, including on failure. This checks today's suite;
-it does not establish completion of the full [implementation plan](docs/2026-09-07-hand-implementation-plan.md).
+remain in the output directory, including on failure. The v0.3.0 release
+candidate was also qualified with the retained-scope checker and isolated-agent
+gateway probes described in [`docs/acceptance/`](docs/acceptance/).
 
 `hand --version` reports the version and source commit without loading configuration.
 The Go binary needs no separate language runtime; shell execution requires Bash
@@ -640,7 +738,7 @@ on macOS/Linux, and optional MCP servers/extensions may require their own runtim
 
 ```sh
 make dist                      # cross-compile darwin/linux amd64/arm64 into dist/*.tar.gz + SHA256SUMS
-make release VERSION=v0.1.1    # tag and push — the step below then runs automatically
+make release VERSION=v0.3.0    # tag and push — the step below then runs automatically
 ```
 
 Pushing a `v*` tag triggers
@@ -652,7 +750,8 @@ resulting archives and checksums attached, via
 [`softprops/action-gh-release`](https://github.com/softprops/action-gh-release).
 The distribution directory must be new; use `DIST_DIR` to retain prior builds.
 Every archive includes the Linux worker and its digest manifest, and CI requires
-worker validation. Publishing remains a separate action after candidate review.
+worker validation. Publish only a reviewed commit whose branch validation is
+green; the tag workflow repeats validation before creating the release.
 
 ## License
 
