@@ -26,6 +26,15 @@ func DiscoverProfile(ctx context.Context, p config.ModelProfile) (config.Profile
 		return config.ProfileMetadata{}, err
 	}
 	if p.MetadataProtocol == "" {
+		if p.Provider == "openrouter" && p.Endpoint == "" && p.ContextLimit == 0 {
+			metadata, err := discoverOpenRouter(ctx, p.Model)
+			if ctx.Err() != nil {
+				return config.ProfileMetadata{}, context.Cause(ctx)
+			}
+			if err == nil {
+				return metadata, nil
+			}
+		}
 		return config.ProfileMetadata{}, nil
 	}
 	ctx, cancel := context.WithTimeout(ctx, MetadataTimeout)

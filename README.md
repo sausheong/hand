@@ -10,10 +10,19 @@ project scaffolding forced onto your repo. It's built on top of
 [`harness`](https://github.com/sausheong/harness), a Go library for building
 LLM agents.
 
-> **Current release: v0.3.0.** This release pins Harness v0.4.0 and supports
+> **Current release: v0.3.1.** This release pins Harness v0.4.1 and supports
 > macOS and Linux on AMD64 and ARM64. Hand's interfaces remain pre-1.0; pin
 > the release you deploy and follow the migration and rollback guide when
 > upgrading.
+
+## What's in v0.3.1
+
+This patch fixes repeated tool-call finish frames causing cancelled runs,
+preserves meaningful protocol errors, and avoids preventive compaction when
+conversation history is too short. Default OpenRouter profiles now discover
+exact model context limits from the public catalogue and cache them for fifteen
+minutes. Explicit limits take precedence; unavailable metadata retains the
+labelled conservative fallback, inspectable with `/model`.
 
 ## What's in v0.3.0
 
