@@ -93,7 +93,7 @@ def main():
         # Keep raw JSON even when Go exits nonzero, then inspect events below.
         test_run_error = None
         try:
-            run(['go', 'test', '-count=1', '-timeout=15m', '-race', '-json',
+            run(['go', 'test', '-p=1', '-count=1', '-timeout=15m', '-race', '-json',
                  '-covermode=atomic', '-coverpkg=./...', '-coverprofile=' + str(output / 'coverage.out'), './...'], 'tests.jsonl')
         except RuntimeError as exc:
             test_run_error = str(exc)
