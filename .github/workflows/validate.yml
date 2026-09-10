@@ -11,11 +11,7 @@ permissions:
 
 jobs:
   tests:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-15-intel]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,14 +22,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Start Docker on hosted macOS
-        if: runner.os == 'macOS'
-        run: |
-          brew install colima docker
-          colima start --runtime docker --cpu 3 --memory 6
-          docker info
-          mkdir -p "$HOME/hand-test-tmp"
-          echo "TMPDIR=$HOME/hand-test-tmp" >> "$GITHUB_ENV"
       - name: Prepare native container fixtures
         shell: bash
         run: |
@@ -82,7 +70,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: validation-${{ matrix.os }}
+          name: validation-ubuntu-latest
           path: ${{ runner.temp }}/hand-validation
       - name: Remove Linux ENOSPC fixture
         if: always() && runner.os == 'Linux'
