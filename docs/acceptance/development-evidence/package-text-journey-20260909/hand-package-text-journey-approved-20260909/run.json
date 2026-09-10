@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+  "runner_sha256": "d14f0050740124d56ec99f1f929946014e934dc04f2c403864bd3757c597ab76",
+  "paid_provider_calls": 0,
+  "fixture_tool_approval": "--yes in isolated fixture; provider requests only load_skill",
+  "local_provider_requests": 2,
+  "package_digest": "09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7",
+  "prompt_reached_user_message": true,
+  "skill_loaded_by_tool": true,
+  "source_removed": true,
+  "literal_prompt": true,
+  "wrong_pin_preprovider_rejection": true
+}

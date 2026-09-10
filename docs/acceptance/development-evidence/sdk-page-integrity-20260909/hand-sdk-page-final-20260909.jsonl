@@ -1,0 +1,178 @@
+{"Time":"2026-09-09T08:50:28.89132+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T08:50:29.542468+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage"}
+{"Time":"2026-09-09T08:50:29.542511+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage\n"}
+{"Time":"2026-09-09T08:50:29.542812+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-events"}
+{"Time":"2026-09-09T08:50:29.542823+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-events","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage/duplicate-events\n"}
+{"Time":"2026-09-09T08:50:29.543262+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-events","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage/duplicate-events (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.543288+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-events","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.543301+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-duplicate"}
+{"Time":"2026-09-09T08:50:29.543308+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-duplicate","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage/cursor-duplicate\n"}
+{"Time":"2026-09-09T08:50:29.543769+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-duplicate","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage/cursor-duplicate (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.543783+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-duplicate","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.543789+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-alias"}
+{"Time":"2026-09-09T08:50:29.543798+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-alias","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage/cursor-alias\n"}
+{"Time":"2026-09-09T08:50:29.544162+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-alias","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage/cursor-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.544189+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/cursor-alias","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.5442+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-gap"}
+{"Time":"2026-09-09T08:50:29.544211+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-gap","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage/duplicate-gap\n"}
+{"Time":"2026-09-09T08:50:29.544395+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-gap","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage/duplicate-gap (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.544405+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-gap","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.544412+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/gap-alias"}
+{"Time":"2026-09-09T08:50:29.544423+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/gap-alias","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage/gap-alias\n"}
+{"Time":"2026-09-09T08:50:29.544546+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/gap-alias","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage/gap-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.544579+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/gap-alias","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.544582+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-next"}
+{"Time":"2026-09-09T08:50:29.544584+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-next","Output":"=== RUN   TestPollEventsRejectsAmbiguousPage/duplicate-next\n"}
+{"Time":"2026-09-09T08:50:29.544708+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-next","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage/duplicate-next (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.544731+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage/duplicate-next","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.544738+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage","Output":"--- PASS: TestPollEventsRejectsAmbiguousPage (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.54475+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPollEventsRejectsAmbiguousPage","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.544755+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields"}
+{"Time":"2026-09-09T08:50:29.544758+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields\n"}
+{"Time":"2026-09-09T08:50:29.5448+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload"}
+{"Time":"2026-09-09T08:50:29.544811+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/null-payload\n"}
+{"Time":"2026-09-09T08:50:29.545086+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/null-payload (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.545093+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/null-payload","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.545097+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version"}
+{"Time":"2026-09-09T08:50:29.5451+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/version\n"}
+{"Time":"2026-09-09T08:50:29.545216+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/version (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.545222+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/version","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.545239+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity"}
+{"Time":"2026-09-09T08:50:29.54525+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/identity\n"}
+{"Time":"2026-09-09T08:50:29.545379+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/identity (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.545395+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.545399+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity"}
+{"Time":"2026-09-09T08:50:29.545402+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/escaped-identity\n"}
+{"Time":"2026-09-09T08:50:29.545548+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/escaped-identity (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.545555+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/escaped-identity","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.545564+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias"}
+{"Time":"2026-09-09T08:50:29.545568+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/identity-alias\n"}
+{"Time":"2026-09-09T08:50:29.545693+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/identity-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.545708+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/identity-alias","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.545712+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome"}
+{"Time":"2026-09-09T08:50:29.545715+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/outcome\n"}
+{"Time":"2026-09-09T08:50:29.545955+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/outcome (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.545962+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.545974+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias"}
+{"Time":"2026-09-09T08:50:29.545978+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousEventFields/outcome-alias\n"}
+{"Time":"2026-09-09T08:50:29.546198+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields/outcome-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546203+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields/outcome-alias","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546347+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields","Output":"--- PASS: TestSnapshotRejectsAmbiguousEventFields (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546356+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousEventFields","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.54636+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields"}
+{"Time":"2026-09-09T08:50:29.54638+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields\n"}
+{"Time":"2026-09-09T08:50:29.546407+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state"}
+{"Time":"2026-09-09T08:50:29.54641+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/state\n"}
+{"Time":"2026-09-09T08:50:29.546462+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Output":"--- PASS: TestSnapshotRejectsAmbiguousExecutionFields/state (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546473+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546478+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity"}
+{"Time":"2026-09-09T08:50:29.546481+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/identity\n"}
+{"Time":"2026-09-09T08:50:29.546506+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Output":"--- PASS: TestSnapshotRejectsAmbiguousExecutionFields/identity (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546514+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/identity","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546523+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity"}
+{"Time":"2026-09-09T08:50:29.546536+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity\n"}
+{"Time":"2026-09-09T08:50:29.546555+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Output":"--- PASS: TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.54656+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/escaped-identity","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546567+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias"}
+{"Time":"2026-09-09T08:50:29.54657+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/state-alias\n"}
+{"Time":"2026-09-09T08:50:29.546597+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Output":"--- PASS: TestSnapshotRejectsAmbiguousExecutionFields/state-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546601+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/state-alias","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546609+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias"}
+{"Time":"2026-09-09T08:50:29.546612+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Output":"=== RUN   TestSnapshotRejectsAmbiguousExecutionFields/session-alias\n"}
+{"Time":"2026-09-09T08:50:29.546638+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Output":"--- PASS: TestSnapshotRejectsAmbiguousExecutionFields/session-alias (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546657+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields/session-alias","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.54677+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields","Output":"--- PASS: TestSnapshotRejectsAmbiguousExecutionFields (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546778+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSnapshotRejectsAmbiguousExecutionFields","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546782+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionSnapshotsOwnPayload"}
+{"Time":"2026-09-09T08:50:29.546784+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionSnapshotsOwnPayload","Output":"=== RUN   TestExecutionSnapshotsOwnPayload\n"}
+{"Time":"2026-09-09T08:50:29.546982+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionSnapshotsOwnPayload","Output":"--- PASS: TestExecutionSnapshotsOwnPayload (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.546987+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionSnapshotsOwnPayload","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.546992+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionRejectsMismatchedTerminal"}
+{"Time":"2026-09-09T08:50:29.546996+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionRejectsMismatchedTerminal","Output":"=== RUN   TestExecutionRejectsMismatchedTerminal\n"}
+{"Time":"2026-09-09T08:50:29.54719+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionRejectsMismatchedTerminal","Output":"--- PASS: TestExecutionRejectsMismatchedTerminal (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.547194+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestExecutionRejectsMismatchedTerminal","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.547205+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestPromptRequestValidation"}
+{"Time":"2026-09-09T08:50:29.547208+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPromptRequestValidation","Output":"=== RUN   TestPromptRequestValidation\n"}
+{"Time":"2026-09-09T08:50:29.547313+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestPromptRequestValidation","Output":"--- PASS: TestPromptRequestValidation (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.547317+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestPromptRequestValidation","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.547321+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRealDispatcherCancellationAndTerminal"}
+{"Time":"2026-09-09T08:50:29.547324+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRealDispatcherCancellationAndTerminal","Output":"=== RUN   TestClientRealDispatcherCancellationAndTerminal\n"}
+{"Time":"2026-09-09T08:50:29.600662+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRealDispatcherCancellationAndTerminal","Output":"--- PASS: TestClientRealDispatcherCancellationAndTerminal (0.05s)\n"}
+{"Time":"2026-09-09T08:50:29.600703+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRealDispatcherCancellationAndTerminal","Elapsed":0.05}
+{"Time":"2026-09-09T08:50:29.600718+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestClientCancellationInterruptsBlockedRead"}
+{"Time":"2026-09-09T08:50:29.600724+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientCancellationInterruptsBlockedRead","Output":"=== RUN   TestClientCancellationInterruptsBlockedRead\n"}
+{"Time":"2026-09-09T08:50:29.601022+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientCancellationInterruptsBlockedRead","Output":"--- PASS: TestClientCancellationInterruptsBlockedRead (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.601034+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestClientCancellationInterruptsBlockedRead","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.601049+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestClientConcurrentCallsAndResponseIdentity"}
+{"Time":"2026-09-09T08:50:29.601057+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientConcurrentCallsAndResponseIdentity","Output":"=== RUN   TestClientConcurrentCallsAndResponseIdentity\n"}
+{"Time":"2026-09-09T08:50:29.602231+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientConcurrentCallsAndResponseIdentity","Output":"--- PASS: TestClientConcurrentCallsAndResponseIdentity (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.602244+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestClientConcurrentCallsAndResponseIdentity","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.602252+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRejectsMismatchedResponse"}
+{"Time":"2026-09-09T08:50:29.602258+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRejectsMismatchedResponse","Output":"=== RUN   TestClientRejectsMismatchedResponse\n"}
+{"Time":"2026-09-09T08:50:29.602476+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRejectsMismatchedResponse","Output":"--- PASS: TestClientRejectsMismatchedResponse (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.602492+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestClientRejectsMismatchedResponse","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.6025+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease"}
+{"Time":"2026-09-09T08:50:29.602505+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Output":"=== RUN   TestEmbeddedSessionLifecycleAndRelease\n"}
+{"Time":"2026-09-09T08:50:29.704941+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Output":"--- PASS: TestEmbeddedSessionLifecycleAndRelease (0.10s)\n"}
+{"Time":"2026-09-09T08:50:29.704995+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedSessionLifecycleAndRelease","Elapsed":0.1}
+{"Time":"2026-09-09T08:50:29.705062+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCancelledConstruction"}
+{"Time":"2026-09-09T08:50:29.705074+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCancelledConstruction","Output":"=== RUN   TestEmbeddedCancelledConstruction\n"}
+{"Time":"2026-09-09T08:50:29.7052+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCancelledConstruction","Output":"--- PASS: TestEmbeddedCancelledConstruction (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.705215+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCancelledConstruction","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.705237+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime"}
+{"Time":"2026-09-09T08:50:29.705244+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime","Output":"=== RUN   TestEmbeddedPromptUsesRealRuntime\n"}
+{"Time":"2026-09-09T08:50:29.878146+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime","Output":"--- PASS: TestEmbeddedPromptUsesRealRuntime (0.17s)\n"}
+{"Time":"2026-09-09T08:50:29.87818+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedPromptUsesRealRuntime","Elapsed":0.17}
+{"Time":"2026-09-09T08:50:29.878201+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory"}
+{"Time":"2026-09-09T08:50:29.878207+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory","Output":"=== RUN   TestEmbeddedCheckpointRejectsWorkspaceDirectory\n"}
+{"Time":"2026-09-09T08:50:29.908949+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory","Output":"--- PASS: TestEmbeddedCheckpointRejectsWorkspaceDirectory (0.03s)\n"}
+{"Time":"2026-09-09T08:50:29.90897+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointRejectsWorkspaceDirectory","Elapsed":0.03}
+{"Time":"2026-09-09T08:50:29.908979+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointOptionsRejectBeforeCreatingResources"}
+{"Time":"2026-09-09T08:50:29.908983+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointOptionsRejectBeforeCreatingResources","Output":"=== RUN   TestEmbeddedCheckpointOptionsRejectBeforeCreatingResources\n"}
+{"Time":"2026-09-09T08:50:29.911413+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointOptionsRejectBeforeCreatingResources","Output":"--- PASS: TestEmbeddedCheckpointOptionsRejectBeforeCreatingResources (0.00s)\n"}
+{"Time":"2026-09-09T08:50:29.911423+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestEmbeddedCheckpointOptionsRejectBeforeCreatingResources","Elapsed":0}
+{"Time":"2026-09-09T08:50:29.911446+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants"}
+{"Time":"2026-09-09T08:50:29.911453+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants","Output":"=== RUN   TestProcessCloseOwnsDescendants\n"}
+{"Time":"2026-09-09T08:50:29.911475+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/graceful"}
+{"Time":"2026-09-09T08:50:29.91148+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/graceful","Output":"=== RUN   TestProcessCloseOwnsDescendants/graceful\n"}
+{"Time":"2026-09-09T08:50:31.028016+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/graceful","Output":"--- PASS: TestProcessCloseOwnsDescendants/graceful (1.12s)\n"}
+{"Time":"2026-09-09T08:50:31.028107+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/graceful","Elapsed":1.12}
+{"Time":"2026-09-09T08:50:31.028265+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/forced"}
+{"Time":"2026-09-09T08:50:31.028288+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/forced","Output":"=== RUN   TestProcessCloseOwnsDescendants/forced\n"}
+{"Time":"2026-09-09T08:50:32.181301+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/forced","Output":"--- PASS: TestProcessCloseOwnsDescendants/forced (1.15s)\n"}
+{"Time":"2026-09-09T08:50:32.181433+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants/forced","Elapsed":1.15}
+{"Time":"2026-09-09T08:50:32.181452+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants","Output":"--- PASS: TestProcessCloseOwnsDescendants (2.27s)\n"}
+{"Time":"2026-09-09T08:50:32.181468+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseOwnsDescendants","Elapsed":2.27}
+{"Time":"2026-09-09T08:50:32.18152+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKProcessHelper"}
+{"Time":"2026-09-09T08:50:32.181534+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKProcessHelper","Output":"=== RUN   TestSDKProcessHelper\n"}
+{"Time":"2026-09-09T08:50:32.181723+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKProcessHelper","Output":"--- PASS: TestSDKProcessHelper (0.00s)\n"}
+{"Time":"2026-09-09T08:50:32.181744+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKProcessHelper","Elapsed":0}
+{"Time":"2026-09-09T08:50:32.181752+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseAllowsCleanup"}
+{"Time":"2026-09-09T08:50:32.181759+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseAllowsCleanup","Output":"=== RUN   TestProcessCloseAllowsCleanup\n"}
+{"Time":"2026-09-09T08:50:33.228813+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseAllowsCleanup","Output":"--- PASS: TestProcessCloseAllowsCleanup (1.05s)\n"}
+{"Time":"2026-09-09T08:50:33.228849+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCloseAllowsCleanup","Elapsed":1.05}
+{"Time":"2026-09-09T08:50:33.228916+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCancellationBoundsUncooperativeShutdown"}
+{"Time":"2026-09-09T08:50:33.228928+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCancellationBoundsUncooperativeShutdown","Output":"=== RUN   TestProcessCancellationBoundsUncooperativeShutdown\n"}
+{"Time":"2026-09-09T08:50:33.282758+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCancellationBoundsUncooperativeShutdown","Output":"--- PASS: TestProcessCancellationBoundsUncooperativeShutdown (0.05s)\n"}
+{"Time":"2026-09-09T08:50:33.282791+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestProcessCancellationBoundsUncooperativeShutdown","Elapsed":0.05}
+{"Time":"2026-09-09T08:50:33.2828+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestScopedSDKApprovalReuseRevokeAndDeny"}
+{"Time":"2026-09-09T08:50:33.282804+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestScopedSDKApprovalReuseRevokeAndDeny","Output":"=== RUN   TestScopedSDKApprovalReuseRevokeAndDeny\n"}
+{"Time":"2026-09-09T08:50:33.596496+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestScopedSDKApprovalReuseRevokeAndDeny","Output":"2026/09/09 08:50:33 WARN tool error tool=write_file id=write error=\"user denied scoped operation\"\n"}
+{"Time":"2026-09-09T08:50:33.624466+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestScopedSDKApprovalReuseRevokeAndDeny","Output":"--- PASS: TestScopedSDKApprovalReuseRevokeAndDeny (0.34s)\n"}
+{"Time":"2026-09-09T08:50:33.624485+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestScopedSDKApprovalReuseRevokeAndDeny","Elapsed":0.34}
+{"Time":"2026-09-09T08:50:33.624492+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney"}
+{"Time":"2026-09-09T08:50:33.624495+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"=== RUN   TestNativeScopedSDKContainerJourney\n"}
+{"Time":"2026-09-09T08:50:35.281843+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"2026/09/09 08:50:35 WARN tool error tool=write_file id=write error=\"user denied scoped operation\"\n"}
+{"Time":"2026-09-09T08:50:35.310255+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"--- PASS: TestNativeScopedSDKContainerJourney (1.69s)\n"}
+{"Time":"2026-09-09T08:50:35.310286+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Elapsed":1.69}
+{"Time":"2026-09-09T08:50:35.310296+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKContainerRequiresAuthorityDirectory"}
+{"Time":"2026-09-09T08:50:35.31031+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKContainerRequiresAuthorityDirectory","Output":"=== RUN   TestSDKContainerRequiresAuthorityDirectory\n"}
+{"Time":"2026-09-09T08:50:35.310855+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKContainerRequiresAuthorityDirectory","Output":"--- PASS: TestSDKContainerRequiresAuthorityDirectory (0.00s)\n"}
+{"Time":"2026-09-09T08:50:35.310863+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestSDKContainerRequiresAuthorityDirectory","Elapsed":0}
+{"Time":"2026-09-09T08:50:35.310868+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker"}
+{"Time":"2026-09-09T08:50:35.310875+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"=== RUN   TestNativeSDKRejectsChangedWorker\n"}
+{"Time":"2026-09-09T08:50:35.402643+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"--- PASS: TestNativeSDKRejectsChangedWorker (0.09s)\n"}
+{"Time":"2026-09-09T08:50:35.402669+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Elapsed":0.09}
+{"Time":"2026-09-09T08:50:35.402711+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"PASS\n"}
+{"Time":"2026-09-09T08:50:36.429675+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"ok  \tgithub.com/sausheong/hand/sdk\t7.538s\n"}
+{"Time":"2026-09-09T08:50:36.429741+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Elapsed":7.539}

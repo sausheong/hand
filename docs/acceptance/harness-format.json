@@ -1,0 +1,75 @@
+{
+  "base": "4c78cf45c5439e34f7b2789d1d1c9dc85ddab618",
+  "candidate": "5cc93a3d6a1a504cd348d435db8ebd7e68050d28",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 875,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_session_tests_passed": 2560,
+  "repetitions": 20,
+  "fuzz": [
+    {
+      "target": "FuzzSessionRecords",
+      "requested_seconds": 60,
+      "elapsed_seconds": 61.06,
+      "executions": 43442,
+      "passed": true
+    },
+    {
+      "target": "FuzzLegacyConversion",
+      "requested_seconds": 60,
+      "elapsed_seconds": 61.22,
+      "executions": 629332,
+      "passed": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-format.patch",
+      "sha256": "8bb592507d11cd7ecf9517c60839c1a372858057d69b4e68165bf759fea542e9"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-full-20260908.jsonl",
+      "sha256": "1d2ed26860b5955ab97ae9e2818cd827390d48ad480c7303e1860f2f263ac41b"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-coverage-20260908.out",
+      "sha256": "5cbd1a3372fa098416a908ae227f9f2b51b0d11c131f4a3eb79b2e483b8f64e2"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-repeat-20260908.jsonl",
+      "sha256": "8f50c38397885741cc9187500001a250f5765f3c9b5a9adf083e92c31fdfaa14"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-record-fuzz-20260908.jsonl",
+      "sha256": "43ed2d817f6a0e0cac41cacee5670f012c4bbed9b963596a84dc81fbe4c8e447"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-record-fuzz-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-converter-fuzz-20260908.jsonl",
+      "sha256": "292743e53bda38ca590f8e58600a83c327f4498e3c69c9cf72093c469f2e3253"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-converter-fuzz-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-format-regressions-20260908.txt",
+      "sha256": "267f1a6ae230b8470d6c929d3ea6a123aadd91a3948662c09cc17a5a170446ff"
+    }
+  ]
+}

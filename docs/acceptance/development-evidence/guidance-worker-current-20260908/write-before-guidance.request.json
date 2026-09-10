@@ -1,0 +1,1 @@
+{"version": 1, "tool": "write_file", "input": {"path": "nested/deep/new/child.txt", "content": "CREATED_CONTENT"}}

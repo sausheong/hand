@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-run-time-rpc-20260908/workspace",
+  "generation": 4,
+  "lastActiveId": "ses_a1c7343e2197cba8",
+  "sessions": [
+    {
+      "id": "ses_704da0c9ccee1158",
+      "agentId": "hand",
+      "storeKey": "workspace_7adbef3c8bb74372_66a8600dc80c6698299b99a41a204968",
+      "name": "",
+      "createdAt": "2026-09-08T14:20:11.992136Z",
+      "lastActive": "2026-09-08T14:20:11.993269Z"
+    },
+    {
+      "id": "ses_a1c7343e2197cba8",
+      "agentId": "hand",
+      "storeKey": "workspace_7adbef3c8bb74372_7b70aae39112c587c59bf965e14ac142",
+      "name": "",
+      "createdAt": "2026-09-08T14:20:12.026597Z",
+      "lastActive": "2026-09-08T14:20:14.203625Z"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "archives": [
+    {
+      "target": "darwin-amd64",
+      "checksum": "passed",
+      "contents": "passed",
+      "worker": "passed",
+      "native_smoke": false
+    },
+    {
+      "target": "darwin-arm64",
+      "checksum": "passed",
+      "contents": "passed",
+      "worker": "passed",
+      "native_smoke": true
+    },
+    {
+      "target": "linux-amd64",
+      "checksum": "passed",
+      "contents": "passed",
+      "worker": "passed",
+      "native_smoke": false
+    },
+    {
+      "target": "linux-arm64",
+      "checksum": "passed",
+      "contents": "passed",
+      "worker": "passed",
+      "native_smoke": false
+    }
+  ]
+}

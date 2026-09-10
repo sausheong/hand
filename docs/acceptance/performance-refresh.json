@@ -1,0 +1,206 @@
+{
+  "status": "development_performance_passed",
+  "startup_summary": {
+    "none": {
+      "startup_p95_ms": 92.19354193191975,
+      "max_rss_bytes": 34160640
+    },
+    "fast": {
+      "startup_p95_ms": 88.96800002548844,
+      "max_rss_bytes": 35012608
+    },
+    "slow": {
+      "startup_p95_ms": 95.08125006686896,
+      "max_rss_bytes": 34979840
+    },
+    "failed": {
+      "startup_p95_ms": 90.12179193086922,
+      "max_rss_bytes": 34340864
+    }
+  },
+  "startup_trials": 120,
+  "comparison_fields_equal": {
+    "hardware": true,
+    "platform": true,
+    "toolchain": true,
+    "terminal": true
+  },
+  "no_mcp_threshold_ms": 116.61074967123568,
+  "baseline_sha256": "50cd66a8bac8bb3716fa5c4d350cb62b6adb7919a04cffa4fd9857acc8ba3cde",
+  "transcript": {
+    "status": "development_workload_passed",
+    "blocks": 10000,
+    "runs": [
+      {
+        "events": 1000,
+        "p95_ms": 0.4605,
+        "max_ms": 1.966875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.440583,
+        "max_ms": 1.132459
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.447709,
+        "max_ms": 1.38425
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.450084,
+        "max_ms": 1.307958
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.444833,
+        "max_ms": 1.072458
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.4435,
+        "max_ms": 1.131125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.445625,
+        "max_ms": 1.15725
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.455208,
+        "max_ms": 0.966416
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.462792,
+        "max_ms": 1.199542
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.453125,
+        "max_ms": 1.161208
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.455708,
+        "max_ms": 1.342875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.47575,
+        "max_ms": 2.636875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.457084,
+        "max_ms": 1.192125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.440833,
+        "max_ms": 1.250458
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.438875,
+        "max_ms": 1.295542
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.441917,
+        "max_ms": 1.037125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.441792,
+        "max_ms": 0.951834
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.448666,
+        "max_ms": 0.961375
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.440708,
+        "max_ms": 1.108458
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.438583,
+        "max_ms": 1.258125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.44725,
+        "max_ms": 1.0435
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.455458,
+        "max_ms": 1.703708
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.439542,
+        "max_ms": 1.008708
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.445,
+        "max_ms": 1.20875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.4445,
+        "max_ms": 1.050333
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.440584,
+        "max_ms": 1.111125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.445333,
+        "max_ms": 0.918417
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.444959,
+        "max_ms": 1.118541
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.46725,
+        "max_ms": 1.142084
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.460334,
+        "max_ms": 1.151875
+      }
+    ],
+    "total_events": 30000,
+    "ui_key_p95_ms": 0.449792,
+    "worst_run_p95_ms": 0.47575,
+    "max_ms": 2.636875,
+    "calibration_groups": 30,
+    "workload_sufficient": true,
+    "threshold_ms": 100,
+    "scope": "In-process stream refresh, key handling and View; excludes terminal display and OS event delivery."
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/performance-refresh-20260909/raw-evidence.tar.gz",
+      "sha256": "f6df526fcbab6d5015259c754a1a4d45bea92cf27910a125f8932aed2b0c6434"
+    }
+  ],
+  "limitations": [
+    "Dirty development source with local Harness; not final candidate performance qualification",
+    "Transcript benchmark excludes terminal display and OS event delivery",
+    "Cancellation latency and bounded memory/output evidence remain separate outstanding performance scenarios",
+    "Initial transcript attempt stopped at sandbox-denied hardware sysctl before measurement; approved native run passed"
+  ]
+}

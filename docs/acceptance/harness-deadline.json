@@ -1,0 +1,253 @@
+{
+  "status": "development_passed",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "a7a0e227b54709993d3eb89e45eabfb2b1ca81ce5960a868b3191e52c9c6c8da",
+  "sources": [
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "40e374350ddd34e592804c48b7f660fd094bdc0acabe799f317b5e2c0005509d"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "87c532e92654d13f6ca27df06f07e2e9ddf4bff0b5903445f6f4d06e9ef29754"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "1a1d0940ec22d02e55c8e5cbb30d89061190788e3f4c07c7055c82648c152a13"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "76eb53fea41aad9fb39d7e7b517a8891dc9b455a92f1ec274067b45c3fcec4c4"
+    },
+    {
+      "path": "runtime/skills_authoring_test.go",
+      "before_sha256": null,
+      "after_sha256": "4d9e44d05e3ae8813c5f5ed590883f970256ded90d9caaad7581b74022278263"
+    },
+    {
+      "path": "runtime/context_inspect.go",
+      "before_sha256": null,
+      "after_sha256": "a3cd1b35855073c9ac3f3d3314163f5ab0e2a8c52605af2b1a6e0925e30e0c12"
+    },
+    {
+      "path": "runtime/context_inspect_test.go",
+      "before_sha256": null,
+      "after_sha256": "d728bd3d9136db6477958a6a09b626521dbf5d1edc15a12abf1a00d0b3dd97b0"
+    },
+    {
+      "path": "runtime/context_pins.go",
+      "before_sha256": null,
+      "after_sha256": "f750cb85be4d416feb4a39daa589165dee33ba09a6d0caf6a200cc4d97b690fd"
+    },
+    {
+      "path": "runtime/context_pins_test.go",
+      "before_sha256": null,
+      "after_sha256": "b72bdc9c09240138c4ae54f02fb43c6e4cc51523d3145645921b0d238e069c90"
+    },
+    {
+      "path": "compaction/summarizer.go",
+      "before_sha256": "391ce9710753a198751bc5fef5b9a71eed3e4fb2cc40c5b3c06fa02a4c4c1917",
+      "after_sha256": "531698c4677aa876fd9ab3b7fe31269737a922de5e9e66b5506a462ecd35b9a6"
+    },
+    {
+      "path": "compaction/compaction.go",
+      "before_sha256": "a8d11813e855dc3123008c33670c262e76e52612a70afec002b85e606fdfdc48",
+      "after_sha256": "e800148fb0b321c5172e7e3cde6e8a992a3ae3efc8b0fcee67b7b962918956a0"
+    },
+    {
+      "path": "compaction/summarizer_test.go",
+      "before_sha256": "5ce65821aca9178dd2c6db66d0e32b116ae1f1785249d7e4ff6504feef477a04",
+      "after_sha256": "d513dd672e4e8060d21fec1486cb3845618bb138fb2a2cc40bf56493ee9ba495"
+    },
+    {
+      "path": "compaction/compaction_test.go",
+      "before_sha256": "dccaa035270edf0a16cb37758aef19dad46837f68f54fbabcec61e13ce133de1",
+      "after_sha256": "fb9d4faff4bacf34bd8a1818a79418eccf50be904acfe417410a2d58a80eb9e6"
+    },
+    {
+      "path": "compaction/preserve_failure_test.go",
+      "before_sha256": null,
+      "after_sha256": "8dd3b0d98eb418c59ebd94b2cad59834458176de691cf998e37724595d70062a"
+    },
+    {
+      "path": "compaction/guidance.go",
+      "before_sha256": null,
+      "after_sha256": "2d894bb2bf067639cc00c3f18413bee056b93f9c26397fc70eff981f89c3d624"
+    },
+    {
+      "path": "runtime/compaction_guidance_test.go",
+      "before_sha256": null,
+      "after_sha256": "9e6de45615c336afd1897b9513612c0bc708f4ebe3e226b9dd5a56297a1c18f1"
+    },
+    {
+      "path": "compaction/budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "ea25de9a58a8ed27d2e700178b7518c46711b03505b25beeabc351d122d43694"
+    },
+    {
+      "path": "llm/admission.go",
+      "before_sha256": null,
+      "after_sha256": "c67f53acf3f5d7050c611df5fd8272ff1de011404538d00f81ae27a2f83edf29"
+    },
+    {
+      "path": "llm/admission_test.go",
+      "before_sha256": null,
+      "after_sha256": "136074bc9c1491ebc5d68a0b2a2b737218f10a0c64589f1e17d94671ae61bc1f"
+    },
+    {
+      "path": "llm/usage_observer.go",
+      "before_sha256": "0669f14791c785476b942786b73eb9f6b4446d59b9e380b1ebaf99f9ae2baf32",
+      "after_sha256": "4a712b9e7800bc6748a2dfcd204c4dc0eb06783bc6262c0492d10cdb096f9915"
+    },
+    {
+      "path": "session/annotation.go",
+      "before_sha256": "362b1d16e3c3dbe5b8b25b428caa0b2f87ec568b74c2471ee7abca8954d21d72",
+      "after_sha256": "95b1f8d3dbfc62495c1ed97f9b3970743f230fa727d05aeb2d58baaf31546d5b"
+    },
+    {
+      "path": "budget/tokens.go",
+      "before_sha256": null,
+      "after_sha256": "95fbae53c9c9a22e27f96d103381a732ff0dabac842b3289e332aa59e26f179a"
+    },
+    {
+      "path": "budget/tokens_test.go",
+      "before_sha256": null,
+      "after_sha256": "cd6211c71a93e02355fc9799eaa55f770fe662987354c127469ee0a32840952f"
+    },
+    {
+      "path": "runtime/token_budget.go",
+      "before_sha256": null,
+      "after_sha256": "a7da3e3c5467766edf45e9c01925855622d3082abf373c4374b7d1e8f5a1fb0b"
+    },
+    {
+      "path": "runtime/token_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "a1059a1b0ac57049711cf0b4f291c87640444e4e58ffdd11fa632b4995dc4b84"
+    },
+    {
+      "path": "budget/pricing.go",
+      "before_sha256": null,
+      "after_sha256": "2b6b97b9bfefd823b4d8321ae83b9d0e6e073f494f3e3f7d38974435ba3a1355"
+    },
+    {
+      "path": "budget/pricing_test.go",
+      "before_sha256": null,
+      "after_sha256": "a714e84ee971f24941a0659a4f06fd39b78a3cb29ecdb8caf0f55c55946a53f6"
+    },
+    {
+      "path": "budget/cost.go",
+      "before_sha256": null,
+      "after_sha256": "e997815181e08cfa740b14b98bc033f4151af0df9a0313b42f6ec3044d0a794d"
+    },
+    {
+      "path": "budget/cost_test.go",
+      "before_sha256": null,
+      "after_sha256": "93fbc32f536cd728323455916daf29e00d2a35b764ed19de30a1ce966d41950f"
+    },
+    {
+      "path": "llm/provider.go",
+      "before_sha256": "45cf35b1c87da7e6e06cc7949922afae32c46a6c047c409b7847bd2ff9a40fe7",
+      "after_sha256": "092ac90aa56e2e2e0972c03b264869ad22cd0e8215b38ff05a4d0c400d7f392b"
+    },
+    {
+      "path": "runtime/runturn.go",
+      "before_sha256": "079f968381e167c29000705c19ba82faa576c9c1b70f2e9b479a5f569483fadd",
+      "after_sha256": "da986caa1dfd60ca00f4ca3ace708d932a5aeef22285a7fae0e1c978f4e56b1e"
+    },
+    {
+      "path": "runtime/cost_budget.go",
+      "before_sha256": null,
+      "after_sha256": "373134482454cbea04a65f819d69612c4a8e52b78f7abba6b4b78850eaba543a"
+    },
+    {
+      "path": "runtime/cost_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "40db1b64a3ef636c626fec49ab70785fc4ff89cd93bf683b137709c1e7e9755a"
+    },
+    {
+      "path": "budget/deadline.go",
+      "before_sha256": null,
+      "after_sha256": "60e7dcd8d52567a162366cf7e26f12ddeaced12842f0b63501f82f4a4d3d438d"
+    },
+    {
+      "path": "budget/deadline_test.go",
+      "before_sha256": null,
+      "after_sha256": "a7ea0dfed4cd53ce96acfc0f50f45bd13a3e0a902f962843bf3626f4866f6f4e"
+    },
+    {
+      "path": "runtime/time_budget.go",
+      "before_sha256": null,
+      "after_sha256": "c8ed2a07cc59e4690f542847f59cd004447eff62db424cb2e0a795e3cedc7d68"
+    },
+    {
+      "path": "runtime/time_budget_test.go",
+      "before_sha256": null,
+      "after_sha256": "fac2ae49a29b922994b99a0cfd4e3c463a73580458f636e9668c8e6c4b41ffdf"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-deadline-20260908/harness-deadline-integration-race-20260908.jsonl",
+      "sha256": "58ce9347c9db934cfcee91def3149de63ac2c7c670b6e8e8863335e39990e866"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-deadline-20260908/harness-deadline-final-race-20260908.jsonl",
+      "sha256": "5170d0e8eb05dcbe64d9d020704153f577e160f7ec7206669db05e157010e581"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-deadline-20260908/harness-deadline-runtime-race-20260908.jsonl",
+      "sha256": "efe33d39b1a4c299f7657646974cfb6cafd45605cffb1e190992611cb1971c75"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-deadline-20260908/harness-deadline-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-deadline-20260908/harness-deadline-race-20260908.jsonl",
+      "sha256": "7f8acc0ad3229ad1b32bc95e6a97aa462423eca4e85e462f4f15bbe792a606f1"
+    }
+  ],
+  "results": {
+    "harness-deadline-integration-race-20260908.jsonl": {
+      "pass": 5,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    },
+    "harness-deadline-final-race-20260908.jsonl": {
+      "pass": 13,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    },
+    "harness-deadline-runtime-race-20260908.jsonl": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    },
+    "harness-deadline-race-20260908.jsonl": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Development only; no released Harness integration.",
+    "Token and monetary ledgers implemented; Hand price-route binding, cost controls, time/run budgets and final qualification remain pending.",
+    "Guards must retain conservative durable state on settlement failure or cancelled in-flight requests; cancellation may prevent delivering a settlement error to the consumer."
+  ]
+}

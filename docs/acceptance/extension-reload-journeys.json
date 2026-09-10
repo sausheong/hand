@@ -1,0 +1,238 @@
+{
+  "qualification": "development",
+  "status": "passed",
+  "implementation": "docs/acceptance/extension-reconfigure-integration.patch",
+  "harness_delta": "docs/acceptance/harness-context-state.patch",
+  "primary_integrated": false,
+  "journeys": {
+    "rpc": {
+      "status": "passed",
+      "qualification": "development",
+      "binary_sha256": "2c0ae85de20bb3be76487f0157e3682b9eaddd81e68fc0b693ffebc6b62117f0",
+      "go_sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+      "python_sha256": "cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43",
+      "source_sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+      "runner_sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3",
+      "client_runner_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+      "languages": {
+        "go": {
+          "status": "passed",
+          "review_digest": "0e8111ad321bdee3165076a41464b79b3393f17f3c6d60f3b7c618d06baf167c",
+          "wrong_approval_rejected": true,
+          "command_question_answer": true,
+          "durable_replay_after_restart": true,
+          "cancellation_joined": true,
+          "snapshots_removed": true,
+          "reload_reuses": true,
+          "failed_reload_preserves_peer": true,
+          "cancelled_peer_recovers": true,
+          "remove_all_joined": true
+        },
+        "python": {
+          "status": "passed",
+          "review_digest": "e4b52e740528c4993d653ab3a0d8ddb364370d4cda8e6c4194da6ce0ff270f38",
+          "wrong_approval_rejected": true,
+          "command_question_answer": true,
+          "durable_replay_after_restart": true,
+          "cancellation_joined": true,
+          "snapshots_removed": true,
+          "reload_reuses": true,
+          "failed_reload_preserves_peer": true,
+          "cancelled_peer_recovers": true,
+          "remove_all_joined": true
+        }
+      },
+      "provider_calls": 0
+    },
+    "terminal": {
+      "status": "development_passed",
+      "qualification": "development",
+      "command": [
+        "/private/tmp/hand-extension-reload-cli-20260909",
+        "--model",
+        "local/fixture",
+        "--base-url",
+        "http://127.0.0.1:1/v1",
+        "--extension-config",
+        "/private/tmp/hand-extension-reload-pty-20260909/review.json",
+        "--approve-extension-config",
+        "ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a"
+      ],
+      "binary_sha256": "2c0ae85de20bb3be76487f0157e3682b9eaddd81e68fc0b693ffebc6b62117f0",
+      "runner_sha256": "38ad4eefd4714902730bafdd3402ba851ab45ae68247711fd5e60181f4ba4de1",
+      "paid_calls": 0,
+      "model_prompts_sent": 0,
+      "terminal_size": [
+        140,
+        45
+      ],
+      "peer_sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+      "review_digest": "ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a",
+      "completed_commands": [
+        "/extension task-note note",
+        "Remember the native terminal",
+        "/extension task-note note",
+        "ESC",
+        "/extension task-note note",
+        "CTRL_C",
+        "/reload /private/tmp/hand-extension-reload-pty-20260909/review.json ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a",
+        "/extension task-note note",
+        "ESC",
+        "/state"
+      ],
+      "exit_code": 0,
+      "persisted_revisions": 1,
+      "final_state": {
+        "version": 1,
+        "data": {
+          "note": "Remember the native terminal"
+        }
+      },
+      "snapshot_cleanup": true,
+      "terminal_sha256": "1419605987bce3e4d78500a58d18b0233ac21ae81378a4e540b89bf77f0624c0"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/run.json",
+      "sha256": "63777ac7a1a383531ceb6d99aeadd246600bc3082da1545cc3677f349d23838d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/first.json",
+      "sha256": "30e974d4228dc6a3525cc09608e9f190f60762c3f5e3c805f4c6b8aa50a5164b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/second.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/rejection.stderr",
+      "sha256": "67390bce4579177f1426341139a0c98f84116b657f66f291f417f706ba783ad0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/second.json",
+      "sha256": "d6216057846741da37b8e186b81ccc88ce19f4305abbac2b077b5c1f26b1bffe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/input.json",
+      "sha256": "d3b096be32867955eaf0ed8cd7e359b572bdffd70a3500ac6925083284327b17"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/empty-input.json",
+      "sha256": "ba8162fe7cbc7584697d77c5679f12c98142e3ebc4367cfd6b967310ee4a14ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/bad-input.json",
+      "sha256": "30c2d244d7c9de24e5f30589ebf10cb432becbf2e3a3d387bc8c4eee1eba360f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/bad-review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/empty-review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/review.json",
+      "sha256": "0e8111ad321bdee3165076a41464b79b3393f17f3c6d60f3b7c618d06baf167c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/bad-review.json",
+      "sha256": "80187e0945ac7ee30361b9004fc032c2128cc5e48a83914cbaf9cf8019c28b16"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/go/empty-review.json",
+      "sha256": "e1bdb62257e62f098d624ccd5d39d8100296c899ab6ccfd016aa77a513b3cb0a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/first.json",
+      "sha256": "683e96c8ec460e0956e3baab4bf4a9d60641129d6d09f6a13274feb9f5dab038"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/second.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/rejection.stderr",
+      "sha256": "67390bce4579177f1426341139a0c98f84116b657f66f291f417f706ba783ad0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/second.json",
+      "sha256": "80e8d41afed6b505d2f149bfea26a4fbcad72f414a903e6963f1ae3683a5f886"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/input.json",
+      "sha256": "69707f4fcbbb1fd4a7502d92dbd60b5c97c2b01dde5aaccceaac7ee7e78507b4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/empty-input.json",
+      "sha256": "a4190b8325cba29177f5d906987460593ffa2ecac6bd652e8143eed07ea2bcbb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/bad-input.json",
+      "sha256": "829daafb38b342ebc3258a4604c9958e2a127bb245e3c400f4368fe7b9b70c58"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/bad-review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/empty-review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/review.json",
+      "sha256": "e4b52e740528c4993d653ab3a0d8ddb364370d4cda8e6c4194da6ce0ff270f38"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/bad-review.json",
+      "sha256": "416746d39c28a2398d0268746ecc3784d90a3b6c300b4f1a67dcdd48a8c36140"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/rpc/python/empty-review.json",
+      "sha256": "1acaa377eb90f73f1f41db223f9b2fa2aa1db87071628a1ea169f55421cd9937"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/terminal/run.json",
+      "sha256": "09a2f2a1249693d60c80c8dfd6adabe0f5ed2a85f3d0c16cad1ff15a9debccf4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/terminal/terminal.bin",
+      "sha256": "1419605987bce3e4d78500a58d18b0233ac21ae81378a4e540b89bf77f0624c0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/terminal/input.json",
+      "sha256": "6de86c487a9a877c9bced4bd32e980293db09a5a4c9b84d9cfc774ce219919e0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/terminal/review.json",
+      "sha256": "ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/extension-reload-journeys-20260909/terminal/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    }
+  ],
+  "limitations": [
+    "Staged binary and dirty Harness; not final candidate or cross-platform qualification.",
+    "Explicit approvals apply only to isolated fixture configurations.",
+    "Runtime hooks, richer presentation, container execution and full acceptance remain pending."
+  ]
+}

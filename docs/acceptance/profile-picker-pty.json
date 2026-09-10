@@ -1,0 +1,108 @@
+{
+  "status": "development_built_pty_passed",
+  "results": [
+    {
+      "decision": "select",
+      "status": "passed",
+      "error": null,
+      "phase": "exit",
+      "requests": [
+        {
+          "model": "selected",
+          "output": 512,
+          "authorization": null
+        }
+      ],
+      "exit_code": 0
+    },
+    {
+      "decision": "escape",
+      "status": "passed",
+      "error": null,
+      "phase": "exit",
+      "requests": [
+        {
+          "model": "original",
+          "output": 123,
+          "authorization": null
+        }
+      ],
+      "exit_code": 0
+    },
+    {
+      "decision": "cancel",
+      "status": "passed",
+      "error": null,
+      "phase": "exit",
+      "requests": [
+        {
+          "model": "original",
+          "output": 123,
+          "authorization": null
+        }
+      ],
+      "exit_code": 0
+    }
+  ],
+  "binary_sha256": "95bc53049dc164f9a187d5ddb0523bfff9dbf1859317f175faa9392cd02682b9",
+  "sources_unchanged": true,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/report.json.gz",
+      "sha256": "08879f9930d91acb29c424b89c8d8e0125a812523633bab18c284015fa8a539e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/harness-module.json.gz",
+      "sha256": "9e2058cd970f32628cb73531aaa44cf9312cc17e75cce14eed3be4844981bc28"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/harness-module.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/select_terminal.pty.gz",
+      "sha256": "54c9b262044e521c716d96d11a6b4fb059bc853dfb8e9bf30468f92dab2ffaa3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/select_requests.json.gz",
+      "sha256": "1413e173269bdcc97e7aa18e447d74d22d05d3dea9c979118458abe7085c4e6f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/escape_terminal.pty.gz",
+      "sha256": "d8eb717db108d024cce5e0b2e7b69008dee83c8dfcdacb01a0f3226c2450ad5e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/escape_requests.json.gz",
+      "sha256": "777dc4cced88d92936dbb746c3b3ab266e2f04c1b8dd0e37c5663a73dfc4872c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/cancel_terminal.pty.gz",
+      "sha256": "121b7516d34ed5161bae4bc5a672b47020205c34bbe5765e29c3856a92949a4c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/cancel_requests.json.gz",
+      "sha256": "777dc4cced88d92936dbb746c3b3ab266e2f04c1b8dd0e37c5663a73dfc4872c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/check_profile_picker_pty.py.gz",
+      "sha256": "4fb1287b76ef4c77ba75022597cfed55b123d4e5dbdf5b2a0f8a91df5afc5c74"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/check_skill_approval_pty.py.gz",
+      "sha256": "625e0cd336df26bf51ef21f2696714917fd0bb863010041cb8c8f48b39fe3f41"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-picker-pty-20260909/runner-tests.log.gz",
+      "sha256": "f35d88daec912fc29481aac14e24a31aace77e07b163c3802d71515ed4ce6a26"
+    }
+  ],
+  "limitations": [
+    "Native macOS 80x24 PTY on development checkout/local Harness",
+    "Local fake provider; no live-provider quality or paid calls",
+    "Final clean released-candidate and supported-platform repetition remain required"
+  ]
+}

@@ -1,0 +1,753 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-session",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-session",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_c3b86148bc57a2e1"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "tokens",
+      "method": "budget.tokens.decide",
+      "params": {
+        "limit": 100000,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "tokens",
+      "result": {
+        "limit": 100000
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "strict",
+      "method": "budget.cost.decide",
+      "params": {
+        "currency": "USD",
+        "limit_nano": 1000000,
+        "strict": true,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "strict",
+      "result": {
+        "decided": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "unknown-price",
+      "method": "prompt",
+      "params": {
+        "text": "Do not dispatch without a known price."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "unknown-price",
+      "result": {
+        "id": "unknown-price",
+        "fingerprint": "38b3e6d4b10a80a6975dd4e98f2625ee16d76c19882aff60e3fa194099c389e1",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "unknown-price"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "unknown-price",
+        "fingerprint": "38b3e6d4b10a80a6975dd4e98f2625ee16d76c19882aff60e3fa194099c389e1",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "unknown-price"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "unknown-price",
+        "fingerprint": "38b3e6d4b10a80a6975dd4e98f2625ee16d76c19882aff60e3fa194099c389e1",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "STARVBFGJRUKQCDW5H7NZIEC26:4",
+          "sequence": 4,
+          "session_id": "ses_c3b86148bc57a2e1",
+          "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:1",
+          "request_id": "unknown-price",
+          "timestamp": "2026-09-09T03:07:56.101453334Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: request price is unknown or unbounded: no route price supplied",
+            "iteration": 1,
+            "reason": "cost_price_unknown",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "reported_totals_known": true,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "tokens-after-denial",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "tokens-after-denial",
+      "result": {
+        "limit": 100000,
+        "committed": 0,
+        "exhausted": false,
+        "attempts": 1,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "expired-tariff",
+      "method": "budget.prices.set",
+      "params": {
+        "prices": [
+          {
+            "provider": "local",
+            "model": "fixture",
+            "destination": "http://127.0.0.1:43141/v1",
+            "currency": "USD",
+            "source": "scripted local fixture; not a market tariff",
+            "version": "fixture-1",
+            "effective_at": "2026-09-09T01:07:56.111237+00:00",
+            "expires_at": "2026-09-09T02:07:56.111237+00:00",
+            "input_nano_per_million": 1000000,
+            "output_nano_per_million": 1000000,
+            "cache_write_nano_per_million": 1000000,
+            "cache_read_nano_per_million": 1000000,
+            "fixed_nano": 0,
+            "all_charges_bounded": true
+          }
+        ],
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "expired-tariff",
+      "result": {
+        "price_count": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "expired-prompt",
+      "method": "prompt",
+      "params": {
+        "text": "Strict admission must refuse expired pricing."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "expired-prompt",
+      "result": {
+        "id": "expired-prompt",
+        "fingerprint": "97c6e1eb5beedea70b63798c5cc385b6186b28e4516a342fc678a06483da8ccd",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "expired-prompt"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "expired-prompt",
+        "fingerprint": "97c6e1eb5beedea70b63798c5cc385b6186b28e4516a342fc678a06483da8ccd",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "expired-prompt"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "expired-prompt",
+        "fingerprint": "97c6e1eb5beedea70b63798c5cc385b6186b28e4516a342fc678a06483da8ccd",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "RGRXRYX5MMDIKBF6SPKKJAMUQB:8",
+          "sequence": 8,
+          "session_id": "ses_c3b86148bc57a2e1",
+          "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:2",
+          "request_id": "expired-prompt",
+          "timestamp": "2026-09-09T03:07:56.114814543Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: request price is unknown or unbounded: price is outside its validity interval",
+            "iteration": 1,
+            "reason": "cost_price_unknown",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "reported_totals_known": true,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "expired-tokens",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "expired-tokens",
+      "result": {
+        "limit": 100000,
+        "committed": 0,
+        "exhausted": false,
+        "attempts": 2,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "unbounded-tariff",
+      "method": "budget.prices.set",
+      "params": {
+        "prices": [
+          {
+            "provider": "local",
+            "model": "fixture",
+            "destination": "http://127.0.0.1:43141/v1",
+            "currency": "USD",
+            "source": "scripted local fixture; not a market tariff",
+            "version": "fixture-1",
+            "effective_at": "2026-09-09T02:07:56.111237+00:00",
+            "expires_at": "2026-09-09T04:07:56.111237+00:00",
+            "input_nano_per_million": 1000000,
+            "output_nano_per_million": 1000000,
+            "cache_write_nano_per_million": 1000000,
+            "cache_read_nano_per_million": 1000000,
+            "fixed_nano": 0,
+            "all_charges_bounded": false
+          }
+        ],
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "unbounded-tariff",
+      "result": {
+        "price_count": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "unbounded-prompt",
+      "method": "prompt",
+      "params": {
+        "text": "Strict admission must refuse unbounded pricing."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "unbounded-prompt",
+      "result": {
+        "id": "unbounded-prompt",
+        "fingerprint": "a9ef5c11bd4822bf5f06e5a7a31d15b0cbe9c553414448bb4b0614dd719ba009",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:3",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "unbounded-prompt"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "unbounded-prompt",
+        "fingerprint": "a9ef5c11bd4822bf5f06e5a7a31d15b0cbe9c553414448bb4b0614dd719ba009",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:3",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "unbounded-prompt"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "unbounded-prompt",
+        "fingerprint": "a9ef5c11bd4822bf5f06e5a7a31d15b0cbe9c553414448bb4b0614dd719ba009",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "BGYOPTWVR5N7RCDZ4Z5IGJ2KUT:12",
+          "sequence": 12,
+          "session_id": "ses_c3b86148bc57a2e1",
+          "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:3",
+          "request_id": "unbounded-prompt",
+          "timestamp": "2026-09-09T03:07:56.129265918Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: request price is unknown or unbounded: tariff does not bound all provider charges",
+            "iteration": 1,
+            "reason": "cost_price_unknown",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "reported_totals_known": true,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "unbounded-tokens",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "unbounded-tokens",
+      "result": {
+        "limit": 100000,
+        "committed": 0,
+        "exhausted": false,
+        "attempts": 3,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "install",
+      "method": "budget.prices.set",
+      "params": {
+        "prices": [
+          {
+            "provider": "local",
+            "model": "fixture",
+            "destination": "http://127.0.0.1:43141/v1",
+            "currency": "USD",
+            "source": "scripted local fixture; not a market tariff",
+            "version": "fixture-1",
+            "effective_at": "2026-09-09T02:07:56.111237+00:00",
+            "expires_at": "2026-09-09T04:07:56.111237+00:00",
+            "input_nano_per_million": 1000000,
+            "output_nano_per_million": 1000000,
+            "cache_write_nano_per_million": 1000000,
+            "cache_read_nano_per_million": 1000000,
+            "fixed_nano": 0,
+            "all_charges_bounded": true
+          }
+        ],
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "install",
+      "result": {
+        "price_count": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "tiny",
+      "method": "budget.cost.decide",
+      "params": {
+        "currency": "USD",
+        "limit_nano": 1,
+        "strict": true,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "tiny",
+      "result": {
+        "decided": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "exhaust",
+      "method": "prompt",
+      "params": {
+        "text": "Do not dispatch beyond the monetary ceiling."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "exhaust",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "94a7c68834ea770dcff9489cd282e627bf6a79940b366bd79a6933aec8165a38",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:4",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "94a7c68834ea770dcff9489cd282e627bf6a79940b366bd79a6933aec8165a38",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:4",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "94a7c68834ea770dcff9489cd282e627bf6a79940b366bd79a6933aec8165a38",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:4",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "I2CKJKENUKHUHY6ZKEEQCSNSJL:16",
+          "sequence": 16,
+          "session_id": "ses_c3b86148bc57a2e1",
+          "run_id": "KQUJQVQMVR5SOWZEKXLPYCMO4M:4",
+          "request_id": "exhaust",
+          "timestamp": "2026-09-09T03:07:56.142456709Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: session cost budget: budget_exhausted",
+            "iteration": 1,
+            "reason": "session_cost_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "reported_totals_known": true,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "exhausted-state",
+      "method": "budget.cost",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "exhausted-state",
+      "result": {
+        "currency": "USD",
+        "limit_nano": 1,
+        "committed_nano": 0,
+        "compaction_nano": 0,
+        "strict": true,
+        "exhausted": true,
+        "attempts": 0,
+        "unpriced_attempts": 0,
+        "uncertain_attempts": 0,
+        "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "installed",
+      "method": "budget.prices",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "installed",
+      "result": [
+        {
+          "provider": "local",
+          "model": "fixture",
+          "destination": "http://127.0.0.1:43141/v1",
+          "currency": "USD",
+          "source": "scripted local fixture; not a market tariff",
+          "version": "fixture-1",
+          "effective_at": "2026-09-09T02:07:56.111237Z",
+          "expires_at": "2026-09-09T04:07:56.111237Z",
+          "input_nano_per_million": 1000000,
+          "output_nano_per_million": 1000000,
+          "cache_write_nano_per_million": 1000000,
+          "cache_read_nano_per_million": 1000000,
+          "fixed_nano": 0,
+          "all_charges_bounded": true
+        }
+      ]
+    }
+  }
+]

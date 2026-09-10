@@ -1,0 +1,60 @@
+[
+  {
+    "arguments": [
+      "packages",
+      "inspect",
+      "--source",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/source"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"text-journey\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"SKILL.md\",\n        \"kind\": \"skill\",\n        \"sha256\": \"4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4\",\n        \"size\": 67\n      },\n      {\n        \"path\": \"review.md\",\n        \"kind\": \"prompt\",\n        \"sha256\": \"95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308\",\n        \"size\": 80\n      }\n    ]\n  },\n  \"package_digest\": \"09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "packages",
+      "review-install",
+      "--source",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/source",
+      "--pin",
+      "09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7",
+      "--store",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/install.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-text-journey-fixed-20260909/install.json\",\n  \"approval_digest\": \"f84dd5e76f48eb9c0df71393f11afc0bc3067f417252be5b2f3c32c187018e40\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-package-text-journey-fixed-20260909/source\"\n    },\n    \"action\": \"install\",\n    \"store\": \"/private/tmp/hand-package-text-journey-fixed-20260909/store\",\n    \"generation\": 0,\n    \"name\": \"text-journey\",\n    \"previous\": \"\",\n    \"digest\": \"09b925c5124e4c3df8eead8893cfa815b1d48c463475bc71eb0a000ad8d9d7d7\",\n    \"source\": \"/private/tmp/hand-package-text-journey-fixed-20260909/source\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"text-journey\",\n      \"version\": \"1.0.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"SKILL.md\",\n          \"kind\": \"skill\",\n          \"sha256\": \"4af7f52a3a8cd3343591e2929d50a1d102bb6409fd56c4cdcff9ce17f6adddc4\",\n          \"size\": 67\n        },\n        {\n          \"path\": \"review.md\",\n          \"kind\": \"prompt\",\n          \"sha256\": \"95b05a2db4442335905d8cc2dfa86e3a6f20f62b2c92086f0be088c7d3793308\",\n          \"size\": 80\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "packages",
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/install.json",
+      "--approve",
+      "f84dd5e76f48eb9c0df71393f11afc0bc3067f417252be5b2f3c32c187018e40"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 1\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "--model",
+      "local/fixture",
+      "--base-url",
+      "http://127.0.0.1:53673/v1",
+      "--package-skills",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/skills.json",
+      "--package-prompt",
+      "/private/tmp/hand-package-text-journey-fixed-20260909/prompt.json",
+      "-p",
+      "Use package-review and explain the change."
+    ],
+    "exit_code": 0,
+    "stdout": "Package text journey complete.\n",
+    "stderr": "hand: execution boundary: unrestricted host\ntime=2026-09-09T02:44:49.375+08:00 level=WARN msg=\"tool error\" tool=load_skill id=load-package-skill error=\"scoped approval requires a decision\"\n"
+  }
+]

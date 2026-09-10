@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "snapshot_root": "/private/tmp/hand-container-package-rpc-20260909/snapshots",
+  "identities": {
+    "task-note": "package:python-task-note:task-note"
+  },
+  "reviews": [
+    {
+      "image_interpreter": [
+        "/usr/local/bin/python3",
+        "-I",
+        "-B"
+      ],
+      "container": {
+        "docker": "/usr/local/bin/docker",
+        "socket": "/Users/sausheong/.docker/run/docker.sock",
+        "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+        "writable": false,
+        "network": false
+      },
+      "specification": {
+        "name": "task-note",
+        "digest": "cc1a200e017f892468279123df897a1e9483b5a396045051b7fbd2d82fd08ef8",
+        "capabilities": [
+          "commands",
+          "context.transform",
+          "questions",
+          "state"
+        ],
+        "order": 0,
+        "mandatory": false
+      },
+      "binary": {
+        "path": "/private/tmp/hand-container-package-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py",
+        "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+        "size": 3339,
+        "mode": 256
+      },
+      "assets": [
+        {
+          "path": "/private/tmp/hand-container-package-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py",
+          "relative": "main.py",
+          "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08",
+          "size": 3339,
+          "mode": 256
+        }
+      ],
+      "arguments": null,
+      "workspace": "/private/tmp/hand-container-package-rpc-20260909/workspace",
+      "environment": {},
+      "boundary": "container image=sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91; workspace writable=false; network=false; reviewed resources read-only; other host paths unmounted"
+    }
+  ]
+}

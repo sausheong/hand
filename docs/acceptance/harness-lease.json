@@ -1,0 +1,57 @@
+{
+  "base": "c6c155d314f176527d0dd3e33253d592bf82ef61",
+  "candidate": "dfae3db0f2f016089e4be29f14d97bee40f24e4b",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 786,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_session_tests_passed": 780,
+  "cross_compiles": [
+    {
+      "platform": "linux-arm64",
+      "test_binary": "/private/tmp/hand-harness-lease-linux-arm64.test",
+      "sha256": "aa4002f65ae138b3559c9daefb8c47ad1914d9bfb7af42be598f90eaf722062e",
+      "compiled": true,
+      "executed": false
+    },
+    {
+      "platform": "linux-amd64",
+      "test_binary": "/private/tmp/hand-harness-lease-linux-amd64.test",
+      "sha256": "fdcd41a5ef3ec1771936e4760a9c9bac2384968e75b57b1575ec20fd86534ed5",
+      "compiled": true,
+      "executed": false
+    },
+    {
+      "platform": "darwin-amd64",
+      "test_binary": "/private/tmp/hand-harness-lease-darwin-amd64.test",
+      "sha256": "b683827c953fd51f86f4628bc6ce4c756949380666d07f6899adc645ee461363",
+      "compiled": true,
+      "executed": false
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-lease.patch",
+      "sha256": "a09a78a6958a3d5386a17db93933a05046727a2a16c4da3244c8c9b07058b745"
+    },
+    {
+      "path": "/private/tmp/hand-harness-lease-full-20260908.jsonl",
+      "sha256": "d08b1e45c4cd951527192b5fce987ade193b16cee0dee488b6866c47c5124bd5"
+    },
+    {
+      "path": "/private/tmp/hand-harness-lease-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-lease-coverage-20260908.out",
+      "sha256": "32eff51e835a6d7965ba4888331f9a1bdbd13c44a0407aa15a0f65b84a8658a4"
+    },
+    {
+      "path": "/private/tmp/hand-harness-lease-repeat-20260908.jsonl",
+      "sha256": "bb6fec2be76ceeeb2a43a063839bf81e78dacecd5a7185b3e7c1cdc728fd5dad"
+    }
+  ]
+}

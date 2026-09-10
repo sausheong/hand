@@ -1,0 +1,39 @@
+{
+  "status": "development_passed",
+  "requirement": "M6.3",
+  "tests": {
+    "pass": 6
+  },
+  "scope": "Real durable session cost ledger displayed through Hand controller, closed and reopened",
+  "expected": {
+    "committed_nano": 200,
+    "compaction_nano": 100,
+    "attempts": 3,
+    "unpriced": 1,
+    "uncertain": 2
+  },
+  "checks": [
+    "Outstanding reserved charge remains committed",
+    "Compaction charge remains independently visible",
+    "Unknown charge survives restart and rejected strict-mode decision",
+    "Unavailable runtime/session, cancellation and busy rejection yield no usable view and leak no ownership"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/cost-view-20260909/cost_budget.go.txt",
+      "sha256": "5c5b550c473fe9ee5580f90a4b965f25adeeda9ca4cd9ae0793893b58a0d7012"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-view-20260909/cost_budget_view_test.go.txt",
+      "sha256": "3091d93128bdd22931bf535bbf467185b333fcc3ad43099447288d1fdd8ec37f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cost-view-20260909/tests.jsonl",
+      "sha256": "5dcb781c481b94f8acec9b4f670792716d8e355d07af80ecce9da5e942b0e0e3"
+    }
+  ],
+  "limitations": [
+    "No provider calls; ledger admission/settlement use deterministic local tariff",
+    "Targeted race test evidence, not full coverage or final candidate qualification"
+  ]
+}

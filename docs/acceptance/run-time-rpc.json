@@ -1,0 +1,143 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "run-terminal-integration.patch",
+  "harness_delta": "harness-run-binding.patch",
+  "result": {
+    "status": "development_passed",
+    "qualification": "development",
+    "paid_calls": 0,
+    "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+    "runner_sha256": "53595904d996a03c3dc995e59f36d05babfd2749e2efeac54d19964b8ef15adb",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "session_id": "ses_a1c7343e2197cba8",
+    "expired": {
+      "approval_id": "",
+      "error": "run time budget: budget_exhausted",
+      "iteration": 1,
+      "reason": "run_time_budget",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "requests": 1,
+        "unknown_requests": 1
+      },
+      "verified": false
+    },
+    "configured": {
+      "configured": true,
+      "decided_at": "2026-09-08T14:20:12.054817Z",
+      "deadline": "2026-09-08T14:20:14.054817Z",
+      "expired": false,
+      "remaining_millis": 1973,
+      "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+    },
+    "restored": {
+      "configured": true,
+      "decided_at": "2026-09-08T14:20:12.054817Z",
+      "deadline": "2026-09-08T14:20:14.054817Z",
+      "expired": true,
+      "remaining_millis": 0,
+      "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+    },
+    "renewed": {
+      "configured": true,
+      "decided_at": "2026-09-08T14:20:14.249659Z",
+      "deadline": "2026-09-08T14:21:14.249659Z",
+      "expired": false,
+      "remaining_millis": 59990,
+      "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+    },
+    "expiry_elapsed_seconds": 1.9919728329405189,
+    "provider_disconnected": true,
+    "clean_exits": 2,
+    "local_provider_requests": 2
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/first.json",
+      "sha256": "bdec9d31eb59180e270e49856e9ffcaeea1a749a1be05cbf623a1413a1ecfdb6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/first.stderr",
+      "sha256": "32a782282924dfb3f179b989e592d238d6c0fe3d1e7f22c4d684bcc2f03a174e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/authority/7adbef3c8bb74372124ebee995b0920b970a8b056a22a57c733871f35662c241/097a4e4dad5a8ae84e2721ff8bd36c306e250ad09bbd6d8c6f1efed71236f143/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/catalogues/7adbef3c8bb74372/catalogue.json",
+      "sha256": "9ef75a67d29e2370fbc928d7413a3c023f17a5fa8149a4e0e81101aa30274db7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/catalogues/7adbef3c8bb74372/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_7adbef3c8bb74372_66a8600dc80c6698299b99a41a204968.lock",
+      "sha256": "6b59dc68d79ea10e0caa992b0d14268bdeac95d63e4b59529fd55a29765cba8e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_7adbef3c8bb74372_7b70aae39112c587c59bf965e14ac142.lock",
+      "sha256": "93418ef98825e2708e1982d92f600924706c255bccd4cc04fcf1e546b03fbb81"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/hand/workspace_7adbef3c8bb74372_66a8600dc80c6698299b99a41a204968.jsonl",
+      "sha256": "daa89a06d24ce3232867381695d3f8a0885627300c171a0d5eee875d54a1aac6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/hand/workspace_7adbef3c8bb74372_7b70aae39112c587c59bf965e14ac142.jsonl",
+      "sha256": "b32d5b550468005b3f1b08dee7e9337620475a3c2f7d1fe542844c2a08b5cf17"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/home/.hand/sessions/rpc-7adbef3c8bb74372124ebee995b0920b970a8b056a22a57c733871f35662c241/requests.jsonl",
+      "sha256": "dddf89294217b0d8aebfe9026c7e5f55e55ee996da1786276cdb7f460efc6b5a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/provider-requests.json",
+      "sha256": "2468fb9a9988082eb83db0a7bd4a049ab1cd4c147e8dfd6e1d0f82ec07fc8913"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/restart.json",
+      "sha256": "6b934bcbfdcc0c5726ac5371afe40e662e8064e9ef845e69221e81bb22ce9547"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/run.json",
+      "sha256": "4ac473baf5c43e1de174a2d08b44057c4e6db707eaf60963352c6b3472bfc964"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-time-rpc-20260908/runner.py",
+      "sha256": "53595904d996a03c3dc995e59f36d05babfd2749e2efeac54d19964b8ef15adb"
+    }
+  ],
+  "limitations": [
+    "Dirty native macOS ARM64 development build; not a clean final candidate or released Harness qualification.",
+    "Local scripted providers only; no paid calls.",
+    "Deadline timing is a single observation, not repeated performance qualification.",
+    "Actual PTY run-budget journey remains pending."
+  ]
+}

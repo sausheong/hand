@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T11:17:24.012894+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T11:17:24.725255+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestOptionalMCPShutdownJoinsReadyUntransferredClient"}
+{"Time":"2026-09-08T11:17:24.7254+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestOptionalMCPShutdownJoinsReadyUntransferredClient","Output":"=== RUN   TestOptionalMCPShutdownJoinsReadyUntransferredClient\n"}
+{"Time":"2026-09-08T11:17:24.747226+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestOptionalMCPShutdownJoinsReadyUntransferredClient","Output":"--- PASS: TestOptionalMCPShutdownJoinsReadyUntransferredClient (0.02s)\n"}
+{"Time":"2026-09-08T11:17:24.747261+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestOptionalMCPShutdownJoinsReadyUntransferredClient","Elapsed":0.02}
+{"Time":"2026-09-08T11:17:24.747329+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T11:17:25.752828+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.740s\n"}
+{"Time":"2026-09-08T11:17:25.752881+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.74}

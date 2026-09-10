@@ -1,0 +1,6 @@
+{"ImportPath":"github.com/sausheong/hand/examples/extensions/go-verification-hook.test","Action":"build-output","Output":"# github.com/sausheong/hand/examples/extensions/go-verification-hook\n"}
+{"ImportPath":"github.com/sausheong/hand/examples/extensions/go-verification-hook.test","Action":"build-output","Output":"examples/extensions/go-verification-hook/main_test.go:23:6: expected '(', found TestVerificationHookProtocolContract\n"}
+{"ImportPath":"github.com/sausheong/hand/examples/extensions/go-verification-hook.test","Action":"build-fail"}
+{"Time":"2026-09-09T02:48:01.027637+08:00","Action":"start","Package":"github.com/sausheong/hand/examples/extensions/go-verification-hook"}
+{"Time":"2026-09-09T02:48:01.027662+08:00","Action":"output","Package":"github.com/sausheong/hand/examples/extensions/go-verification-hook","Output":"FAIL\tgithub.com/sausheong/hand/examples/extensions/go-verification-hook [setup failed]\n"}
+{"Time":"2026-09-09T02:48:01.027666+08:00","Action":"fail","Package":"github.com/sausheong/hand/examples/extensions/go-verification-hook","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/examples/extensions/go-verification-hook.test"}

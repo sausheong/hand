@@ -1,0 +1,28 @@
+{"Time":"2026-09-08T11:06:58.477366+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-08T11:06:58.477502+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T11:06:59.170381+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestStartupDraftTransferPreservesLongInput"}
+{"Time":"2026-09-08T11:06:59.170489+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestStartupDraftTransferPreservesLongInput","Output":"=== RUN   TestStartupDraftTransferPreservesLongInput\n"}
+{"Time":"2026-09-08T11:06:59.170911+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestStartupDraftTransferPreservesLongInput","Output":"--- PASS: TestStartupDraftTransferPreservesLongInput (0.00s)\n"}
+{"Time":"2026-09-08T11:06:59.170921+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestStartupDraftTransferPreservesLongInput","Elapsed":0}
+{"Time":"2026-09-08T11:06:59.1713+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T11:06:59.791659+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupVisibleAndCancellationJoined"}
+{"Time":"2026-09-08T11:06:59.791707+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupVisibleAndCancellationJoined","Output":"=== RUN   TestRuntimeStartupVisibleAndCancellationJoined\n"}
+{"Time":"2026-09-08T11:06:59.792203+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupVisibleAndCancellationJoined","Output":"--- PASS: TestRuntimeStartupVisibleAndCancellationJoined (0.00s)\n"}
+{"Time":"2026-09-08T11:06:59.792214+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupVisibleAndCancellationJoined","Elapsed":0}
+{"Time":"2026-09-08T11:06:59.792233+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDisconnectBeforeInit"}
+{"Time":"2026-09-08T11:06:59.792244+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDisconnectBeforeInit","Output":"=== RUN   TestRuntimeStartupDisconnectBeforeInit\n"}
+{"Time":"2026-09-08T11:06:59.792381+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDisconnectBeforeInit","Output":"--- PASS: TestRuntimeStartupDisconnectBeforeInit (0.00s)\n"}
+{"Time":"2026-09-08T11:06:59.792388+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDisconnectBeforeInit","Elapsed":0}
+{"Time":"2026-09-08T11:06:59.792419+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupSuccessTransfersRuntime"}
+{"Time":"2026-09-08T11:06:59.792424+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupSuccessTransfersRuntime","Output":"=== RUN   TestRuntimeStartupSuccessTransfersRuntime\n"}
+{"Time":"2026-09-08T11:06:59.792518+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupSuccessTransfersRuntime","Output":"--- PASS: TestRuntimeStartupSuccessTransfersRuntime (0.00s)\n"}
+{"Time":"2026-09-08T11:06:59.792524+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupSuccessTransfersRuntime","Elapsed":0}
+{"Time":"2026-09-08T11:06:59.792761+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDraftSurvivesFailureAndRetry"}
+{"Time":"2026-09-08T11:06:59.7928+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDraftSurvivesFailureAndRetry","Output":"=== RUN   TestRuntimeStartupDraftSurvivesFailureAndRetry\n"}
+{"Time":"2026-09-08T11:06:59.795171+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDraftSurvivesFailureAndRetry","Output":"--- PASS: TestRuntimeStartupDraftSurvivesFailureAndRetry (0.00s)\n"}
+{"Time":"2026-09-08T11:06:59.795217+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestRuntimeStartupDraftSurvivesFailureAndRetry","Elapsed":0}
+{"Time":"2026-09-08T11:06:59.795222+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-08T11:07:00.18953+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.712s\n"}
+{"Time":"2026-09-08T11:07:00.189591+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.712}
+{"Time":"2026-09-08T11:07:00.804238+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t2.327s\n"}
+{"Time":"2026-09-08T11:07:00.804364+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":2.327}

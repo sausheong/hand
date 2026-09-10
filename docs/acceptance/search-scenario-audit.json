@@ -1,0 +1,158 @@
+{
+  "requirement": "M1.2",
+  "status": "incomplete",
+  "scenarios_mapped": 8,
+  "scenarios_qualified": 0,
+  "scenarios": [
+    {
+      "id": "large_source_match",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchLargeSourceMustNotDisappear",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        },
+        {
+          "path": "internal/agentio/search_test.go",
+          "name": "TestSearchTool_LargeFileSearchedByContentAndName",
+          "sha256": "62cb3d903f4e52cbed33ca2d188d290905ad82a40c635ade01c7ced03f654f91"
+        }
+      ],
+      "scope": "Large text remains searchable by content and name.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "nested_ignore_negation",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchNestedIgnoreAndOverrides",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        }
+      ],
+      "scope": "Root/nested ignore rules, re-inclusion, subdirectory starting scope and explicit overrides.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "invalid_glob_error",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchInvalidGlobMustError",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        }
+      ],
+      "scope": "Malformed glob returns an error rather than zero matches.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "unreadable_partial_result",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchReportsUnreadableFile",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        }
+      ],
+      "scope": "Unreadable file sets incomplete/issue count while readable match survives.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "cancellation_explicit",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchCancellationMustBeExplicit",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        },
+        {
+          "path": "internal/agentio/search_active_cancel_test.go",
+          "name": "TestSearchCancellationDuringScanPreservesPartialMatches",
+          "sha256": "abea3c069bc871fb89256704ec3495b41970b8e01e31e23174ffd9bd6aeae8ea"
+        }
+      ],
+      "scope": "Pre-cancelled context has cancelled metadata and is not reported as no matches. Deterministic cancellation during active scan preserves partial results and fresh search remains usable.",
+      "remaining": [
+        "External cancellation delivery/latency and final supported-platform clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "long_lines_binary_symlink",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchLongLineReportsIncompleteAndBoundsOutput",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        },
+        {
+          "path": "internal/agentio/search_test.go",
+          "name": "TestSearchTool_BinaryFileSkippedForContentSearch",
+          "sha256": "62cb3d903f4e52cbed33ca2d188d290905ad82a40c635ade01c7ced03f654f91"
+        },
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchDoesNotFollowFileSymlinks",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        }
+      ],
+      "scope": "Long-line scan error disclosed; binary content and outside file symlink excluded.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "bounded_output",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchLongLineReportsIncompleteAndBoundsOutput",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        },
+        {
+          "path": "internal/agentio/search_test.go",
+          "name": "TestSearchTool_MaxResultsCapsWalk",
+          "sha256": "62cb3d903f4e52cbed33ca2d188d290905ad82a40c635ade01c7ced03f654f91"
+        }
+      ],
+      "scope": "Byte and match caps enforced with truncation disclosure.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    },
+    {
+      "id": "no_rg_fallback",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/agentio/search_regression_test.go",
+          "name": "TestSearchWorksWithoutExecutables",
+          "sha256": "10aa8e0f35936234c3f39b934fcffb182d258135d360b5c17072dd925bf1ebb8"
+        }
+      ],
+      "scope": "Search succeeds with empty executable PATH.",
+      "remaining": [
+        "Final supported-platform and clean-candidate qualification."
+      ]
+    }
+  ],
+  "evidence": [
+    "docs/acceptance/search-scenario-tests.json",
+    "docs/acceptance/search-active-cancellation.json"
+  ],
+  "implementation_sha256": "5f3aac9ed8caea71d6949a39cee8248611fefa3fc4308ac75dbd4b6c9b2cd5cf"
+}

@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T15:11:57.872419+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T15:11:58.434298+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC"}
+{"Time":"2026-09-08T15:11:58.434345+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"=== RUN   TestCheckpointChangesRPC\n"}
+{"Time":"2026-09-08T15:11:58.502238+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"--- PASS: TestCheckpointChangesRPC (0.07s)\n"}
+{"Time":"2026-09-08T15:11:58.50227+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Elapsed":0.07}
+{"Time":"2026-09-08T15:11:58.50243+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T15:11:59.517005+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.644s\n"}
+{"Time":"2026-09-08T15:11:59.517133+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.645}

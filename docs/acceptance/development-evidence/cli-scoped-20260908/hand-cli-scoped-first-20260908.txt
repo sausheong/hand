@@ -1,0 +1,1 @@
+ok  	github.com/sausheong/hand/cmd/hand	0.722s

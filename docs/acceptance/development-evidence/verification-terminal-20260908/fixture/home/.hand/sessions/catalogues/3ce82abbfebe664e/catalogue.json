@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-verification-terminal-20260908/fixture/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_6d3dcbbb5a4fb94d",
+  "sessions": [
+    {
+      "id": "ses_6d3dcbbb5a4fb94d",
+      "agentId": "hand",
+      "storeKey": "workspace_3ce82abbfebe664e_b7dfa7050bf60b2a71c35732978b0f18",
+      "name": "",
+      "createdAt": "2026-09-08T08:34:18.912915Z",
+      "lastActive": "2026-09-08T08:34:18.913348Z"
+    }
+  ]
+}

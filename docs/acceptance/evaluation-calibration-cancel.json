@@ -1,0 +1,159 @@
+{
+  "status": "oracle_calibrated",
+  "task": "cancel-shell-descendants",
+  "inputs": [
+    {
+      "label": "defective",
+      "commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+      "archive_sha256": "353b6e80a32917c55c315715102f2a15edf5c2592310e07bba7e3fda233a2f34",
+      "directory": "/private/tmp/hand-bash-oracle-calibration-20260909/defective",
+      "fixture_sha256": "d108bc1b0cf6b7eee5aefa602b4766d52cd08097f8d9f26ceb1b4bdb1229a482"
+    },
+    {
+      "label": "fixed",
+      "commit": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+      "archive_sha256": "0f4729dd1e59385efa7938cadf8a0d67b18bb63d3440507326822b338124984f",
+      "directory": "/private/tmp/hand-bash-oracle-calibration-20260909/fixed",
+      "fixture_sha256": "d108bc1b0cf6b7eee5aefa602b4766d52cd08097f8d9f26ceb1b4bdb1229a482"
+    }
+  ],
+  "command": [
+    "go",
+    "test",
+    "-count=1",
+    "-json",
+    "-run",
+    "^TestAcceptanceBashCancellationOwnsDescendants$",
+    "./tools/bash"
+  ],
+  "environment": {
+    "GOWORK": "off",
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off"
+  },
+  "observations": {
+    "defective": {
+      "test": "TestAcceptanceBashCancellationOwnsDescendants",
+      "outcome": "fail",
+      "output": "=== RUN   TestAcceptanceBashCancellationOwnsDescendants\n    acceptance_cancel_test.go:60: cancellation did not join within one second\n    acceptance_cancel_test.go:66: descendant published a file after cancellation <nil>\n--- FAIL: TestAcceptanceBashCancellationOwnsDescendants (3.21s)\n"
+    },
+    "fixed": {
+      "test": "TestAcceptanceBashCancellationOwnsDescendants",
+      "outcome": "pass",
+      "output": "=== RUN   TestAcceptanceBashCancellationOwnsDescendants\n--- PASS: TestAcceptanceBashCancellationOwnsDescendants (2.21s)\n"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/inputs.json.gz",
+      "sha256": "d43cd90dd763fe3f526b8a235a09329075e898d0d8fcfed9592673d3943cca65",
+      "raw_sha256": "ca533f0fe770439f286df06d7ab69d438a3b910c79d033c074aa63870a607127",
+      "raw_bytes": 701,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/defective.tar.gz",
+      "sha256": "53696a11c9c799dff76bfd47010940231c263d529d07e6f6fad0e1b116bbb9ea",
+      "raw_sha256": "353b6e80a32917c55c315715102f2a15edf5c2592310e07bba7e3fda233a2f34",
+      "raw_bytes": 1280000,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/fixed.tar.gz",
+      "sha256": "9eb8c126d8f520fba0937fdbf54214a6dcb8f587e7df545e8839db3278b6d13c",
+      "raw_sha256": "0f4729dd1e59385efa7938cadf8a0d67b18bb63d3440507326822b338124984f",
+      "raw_bytes": 1341440,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/defective-tests.jsonl.gz",
+      "sha256": "a7d73fa5c25f6002a52fe8cd93cc7edc51716bc5d6d999a933f3932c28154ce0",
+      "raw_sha256": "bc4ead24236e810033147c520348820c5c254fd4626d13755b7fe6dc495035b9",
+      "raw_bytes": 1922,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/fixed-tests.jsonl.gz",
+      "sha256": "6891a8924c797ddde370875fc5c7511642bf504141cdb84029242f075effeedf",
+      "raw_sha256": "196f382ec7815f55e4506cdce3898fd123f3d3c02351330cab8a15a262b0d817",
+      "raw_bytes": 1386,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/wrong-directory-tests.jsonl.gz",
+      "sha256": "8347520e47ecfa57ec0138e9b4b954310a59ad0e73a45c74fc506975d7ee0d06",
+      "raw_sha256": "c5693511f3ccd46dd1ab47df0791dfcef46a07fc3f9bd7c6743651e2988368a1",
+      "raw_bytes": 615,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/go-version.txt.gz",
+      "sha256": "d68124884a1a4533dff3df140e9731c0289a272c1c40834ebcc73b60a58b76c5",
+      "raw_sha256": "27bdc62e36891466b8857f00cbd38c132f66ba79ab4dc000aba85f44d5761498",
+      "raw_bytes": 33,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/hand-evaluation-two-task-tests-20260909.log.gz",
+      "sha256": "4b13d9e09a902146720f56fdd84d5d02a46103fa69a70990442eb48ed7856633",
+      "raw_sha256": "296633a91407cd344a33e8958933ca040d2552cca93e67f3373442aa4d8736ac",
+      "raw_bytes": 112,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/hand-two-task-calibration-validation-20260909.json.gz",
+      "sha256": "8218ec4c65a9a96ac700425a7724afe86825cf274511b83a6326c6194c634848",
+      "raw_sha256": "7aaa32c5ac66b439d6f0cccaad60f4b1306b17a2655637edfe81076648fd99c3",
+      "raw_bytes": 917,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/scripts-evaluation_results.py.gz",
+      "sha256": "cc902c9ee8825af678e45721174d955ef9ab11c7c861bcb5747a99a1808d342d",
+      "raw_sha256": "ba862b2cb0e4cc87557e924a012a80e5c6ebc32ef23a0050b5c88738fffae8dc",
+      "raw_bytes": 10668,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/scripts-test_evaluation_results.py.gz",
+      "sha256": "78c1bba1ad30e8bc1a7a2d218157179220ae34c3ab6738ac3f047d7e331ac008",
+      "raw_sha256": "72b5742cbb9fd2fe9daf436ad5a8d23b0f30c6a5f66ebeefa172e3826a5dc27d",
+      "raw_bytes": 8444,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/docs-acceptance-evaluation-calibration.json.gz",
+      "sha256": "0c9c14f7d98e9229d4c843111f1c9a5ca604536c6295d1aa9b8e4d9ea285423d",
+      "raw_sha256": "8e33c03db22e869ded8c62ac67c02d53b4566dd12b96cfb18fc967f1b67109a4",
+      "raw_bytes": 3225,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/docs-acceptance-evaluation-testdata-bash_cancel_test.go.gz",
+      "sha256": "c5710055d8e89f0b476bb67935eaa19109050f689e30efc4b359635726c42145",
+      "raw_sha256": "d108bc1b0cf6b7eee5aefa602b4766d52cd08097f8d9f26ceb1b4bdb1229a482",
+      "raw_bytes": 1854,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-calibration-cancel-20260909/docs-acceptance-evaluation-README.md.gz",
+      "sha256": "f6e8517ea8423b323e1d0f5d0c30802e751bc2890dcd243379c3121434540107",
+      "raw_sha256": "7bad2ed8a6d286e074303d2cfd85d047eb99c7821d870c907aa02a797b1ca5d8",
+      "raw_bytes": 11041,
+      "encoding": "gzip"
+    }
+  ],
+  "reporting_tests": {
+    "passed": 13,
+    "failed": 0
+  },
+  "real_catalogue_tasks": 2,
+  "comparative_agent_runs": 0,
+  "paid_calls": 0,
+  "limitations": [
+    "The oracle is one public-API cancellation check on two pinned Harness revisions. Code review and broader lifecycle qualification remain necessary.",
+    "Initial wrong-directory command failed setup and is retained separately; it is not a defective-source oracle result.",
+    "Two Go bug-fix calibration tasks are not the required 30-task diverse corpus. Held-out tasks, frozen agent/models, execution and scoring remain incomplete.",
+    "Reporter CLI exit 0 means records complete but unreviewed, not successful product qualification."
+  ]
+}

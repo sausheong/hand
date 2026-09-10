@@ -1,0 +1,251 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "extension.command",
+          "extension.questions",
+          "extension.answer",
+          "extension.reload",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "view",
+      "method": "extension.command",
+      "params": {
+        "name": "tool-viewer",
+        "command": "view-tool",
+        "arguments": "{\"tool\": \"read_file\", \"output\": \"```\\n[link](https://example.invalid)\\n\\u001b[31m\", \"error\": \"supplied error\"}"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "view",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:W2MN7PGZM7ONF2Q5F5DX4SRGOI",
+        "id": "view",
+        "fingerprint": "ac05511ef69f82067cfe06b69f5d3e0e3214280a3850d329ea984b8ed42ab473",
+        "session_id": "ses_6d779c1e282886c8",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-view",
+      "method": "request.get",
+      "params": {
+        "id": "view"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-view",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:W2MN7PGZM7ONF2Q5F5DX4SRGOI",
+        "id": "view",
+        "fingerprint": "ac05511ef69f82067cfe06b69f5d3e0e3214280a3850d329ea984b8ed42ab473",
+        "session_id": "ses_6d779c1e282886c8",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-view",
+      "method": "request.get",
+      "params": {
+        "id": "view"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-view",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:W2MN7PGZM7ONF2Q5F5DX4SRGOI",
+        "id": "view",
+        "fingerprint": "ac05511ef69f82067cfe06b69f5d3e0e3214280a3850d329ea984b8ed42ab473",
+        "session_id": "ses_6d779c1e282886c8",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "view",
+          "result": {
+            "blocks": [
+              {
+                "kind": "text",
+                "text": "Tool result viewer \u2014 supplied data, not an independently verified execution record."
+              },
+              {
+                "kind": "list",
+                "items": [
+                  "Supplied record contains an error.",
+                  "This view does not change Hand's run outcome or permissions."
+                ]
+              },
+              {
+                "kind": "code",
+                "text": "{\n  \"tool\": \"read_file\",\n  \"output\": \"```\\n[link](https://example.invalid)\\n\\u001b[31m\",\n  \"error\": \"supplied error\"\n}",
+                "language": "json"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "bad",
+      "method": "extension.command",
+      "params": {
+        "name": "tool-viewer",
+        "command": "view-tool",
+        "arguments": "{\"outcome\":\"complete\"}"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:J6IKMXREMWUISM72MDQRRB4PC6",
+        "id": "bad",
+        "fingerprint": "ab980791b9d70d79a2fb8cf9cd91e0ea147e3bce64303a5196bfd3e2a6f8fb0d",
+        "session_id": "ses_6d779c1e282886c8",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-bad",
+      "method": "request.get",
+      "params": {
+        "id": "bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:J6IKMXREMWUISM72MDQRRB4PC6",
+        "id": "bad",
+        "fingerprint": "ab980791b9d70d79a2fb8cf9cd91e0ea147e3bce64303a5196bfd3e2a6f8fb0d",
+        "session_id": "ses_6d779c1e282886c8",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-bad",
+      "method": "request.get",
+      "params": {
+        "id": "bad"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-bad",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:J6IKMXREMWUISM72MDQRRB4PC6",
+        "id": "bad",
+        "fingerprint": "ab980791b9d70d79a2fb8cf9cd91e0ea147e3bce64303a5196bfd3e2a6f8fb0d",
+        "session_id": "ses_6d779c1e282886c8",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "bad",
+          "error": {
+            "code": "extension_failed",
+            "message": "invalid_tool_record: Tool viewer requires a bounded JSON tool/output/error record."
+          }
+        }
+      }
+    }
+  }
+]

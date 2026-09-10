@@ -1,0 +1,8 @@
+{"Time":"2026-09-08T23:04:30.983647+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T23:04:31.293578+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown"}
+{"Time":"2026-09-08T23:04:31.293639+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"=== RUN   TestNativeBackgroundContainerInputOutputAndShutdown\n"}
+{"Time":"2026-09-08T23:04:31.764222+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"--- PASS: TestNativeBackgroundContainerInputOutputAndShutdown (0.47s)\n"}
+{"Time":"2026-09-08T23:04:31.764258+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Elapsed":0.47}
+{"Time":"2026-09-08T23:04:31.764347+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T23:04:32.778278+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.794s\n"}
+{"Time":"2026-09-08T23:04:32.778394+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.795}

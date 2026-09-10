@@ -2,6 +2,8 @@ package agentio_test
 
 import (
 	"context"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -99,5 +101,73 @@ func TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject(t *testing.T) {
 	}
 	if _, ok := provider.Get("personal-only"); !ok {
 		t.Fatal("Get(\"personal-only\") not found, want fallback to the global store")
+	}
+}
+
+func TestSkillConventionalPathsProvenanceAndRefresh(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	workspace := t.TempDir()
+	provider, writer, err := agentio.BuildSkillProvider(workspace)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if provider.FormatIndex() != "" {
+		t.Fatal("unexpected initial skills")
+	}
+	for _, root := range []string{filepath.Join(home, ".agents", "skills"), filepath.Join(workspace, ".agents", "skills")} {
+		dir := filepath.Join(root, "conventional")
+		if err := os.MkdirAll(dir, 0700); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(dir, "SKILL.md"), []byte("---\ndescription: conventional guide\n---\nRead references/guide.md"), 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	index := provider.FormatIndex()
+	if !strings.Contains(index, "shadowed by") || !strings.Contains(index, "conventional guide") {
+		t.Fatal(index)
+	}
+	body, ok := provider.Get("conventional")
+	if !ok || !strings.Contains(body, "Resource base directory: "+filepath.Join(workspace, ".agents", "skills", "conventional")) {
+		t.Fatal(body)
+	}
+	if _, err := writer.Create(context.Background(), skills.Skill{Name: "conventional", Body: "authored hand body"}); err != nil {
+		t.Fatal(err)
+	}
+	body, ok = provider.Get("conventional")
+	if !ok || !strings.Contains(body, "authored hand body") || strings.Contains(body, "Read references") {
+		t.Fatal(body)
+	}
+	if _, err := writer.Create(context.Background(), skills.Skill{Name: "new-skill", Body: "new body"}); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(provider.FormatIndex(), "new-skill") {
+		t.Fatal("authored skill missing from refreshed index")
+	}
+}
+
+func TestSkillDiscoveryBoundsVisible(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	workspace := t.TempDir()
+	dir := filepath.Join(workspace, ".hand", "skills", "huge")
+	if err := os.MkdirAll(dir, 0700); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "SKILL.md"), []byte(strings.Repeat("x", 32769)), 0600); err != nil {
+		t.Fatal(err)
+	}
+	p, _, err := agentio.BuildSkillProvider(workspace)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(p.FormatIndex(), "exceeds 32 KiB") {
+		t.Fatal(p.FormatIndex())
+	}
+	if _, ok := p.Get("huge"); ok {
+		t.Fatal("oversized skill loaded")
+	}
+	if _, ok := p.Get("../huge"); ok {
+		t.Fatal("invalid name loaded")
 	}
 }

@@ -1,0 +1,44 @@
+{
+  "cmd/hand/legacy_open_other.go": {
+    "path": "cmd/hand/legacy_open_other.go",
+    "sha256": "956d935140f84734bc61cdbe382bf5e888c1606817c8f36944ea8da48ae70d93",
+    "instrumented_sha256": "969b94c7d6347f492b549210f04e710f6fa53e16149f0ec1793deea7a3554ab4",
+    "counters": 0,
+    "method": "go tool cover -mode=atomic"
+  },
+  "cmd/hand/rpc_stdio_other.go": {
+    "path": "cmd/hand/rpc_stdio_other.go",
+    "sha256": "03f2c064140ac35a21608081099b018ca433bc1dc20f21eb5ec2985e812761d2",
+    "instrumented_sha256": "c3108639f1a42a272e4bc6a7be11f2a11303e132663996dc98d86daec3374e40",
+    "counters": 0,
+    "method": "go tool cover -mode=atomic"
+  },
+  "internal/agentio/approval_snapshot_other.go": {
+    "path": "internal/agentio/approval_snapshot_other.go",
+    "sha256": "075c2ad6f9b1f1f30db3663eb35a8ec40cf3e20cf11005bfdb5a372f4da99279",
+    "instrumented_sha256": "2e63301bb8c75cf19080460987d43fa17515279095396526ab27795efdbd3928",
+    "counters": 0,
+    "method": "go tool cover -mode=atomic"
+  },
+  "internal/checkpoints/rename_other.go": {
+    "path": "internal/checkpoints/rename_other.go",
+    "sha256": "e0098f5e97cdb76faf746a84c8a54782ea077421a2ec8697bf4748c661523c9e",
+    "instrumented_sha256": "75a3779ee22798fc71d84f23c98f5ed539bb1ba1be38564df0e1dca12c6ec5e8",
+    "counters": 0,
+    "method": "go tool cover -mode=atomic"
+  },
+  "internal/permissions/authority_other.go": {
+    "path": "internal/permissions/authority_other.go",
+    "sha256": "146111dc60d9cb42a1cc68c42073ebbadab731dc62efef72a77f863be8acc00d",
+    "instrumented_sha256": "39b4e778810f05b78665ecf7baaa16b6d89f739c8e308fe7b3364fab8e88eefa",
+    "counters": 0,
+    "method": "go tool cover -mode=atomic"
+  },
+  "internal/rpc/ledger_other.go": {
+    "path": "internal/rpc/ledger_other.go",
+    "sha256": "fe3da13e5d2211ae1ec9addcd2274f47c0ac5f7b0eeb3b2501c6eaca4a85910e",
+    "instrumented_sha256": "802e91a15d904c53709c403345cfb40e214ca64fae20cfbff45081053c621eec",
+    "counters": 0,
+    "method": "go tool cover -mode=atomic"
+  }
+}

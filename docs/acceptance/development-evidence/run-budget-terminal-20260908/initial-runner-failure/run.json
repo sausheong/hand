@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-run-budget-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1"
+  ],
+  "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+  "runner_sha256": "522ed242f72ee826db1507cc68ba9f4a81316dddf6be1cab9cd83864ed3969aa",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "error": "TimeoutExpired(['/private/tmp/hand-run-budget-cli-20260908', '--model', 'local/fixture', '--base-url', 'http://127.0.0.1:1/v1'], 5)",
+  "terminal_sha256": "3a2ad376cf16ed6406471623c367f8375afa98066f0c87a76b7c18cfbe90e0c7"
+}

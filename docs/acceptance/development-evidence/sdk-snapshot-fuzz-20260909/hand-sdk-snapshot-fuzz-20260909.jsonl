@@ -1,0 +1,31 @@
+{"Time":"2026-09-09T08:53:13.905465+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T08:53:14.55482+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders"}
+{"Time":"2026-09-09T08:53:14.554857+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"=== RUN   FuzzSnapshotDecoders\n"}
+{"Time":"2026-09-09T08:53:14.556031+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed\n"}
+{"Time":"2026-09-09T08:53:14.600941+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 2 workers\n"}
+{"Time":"2026-09-09T08:53:17.556937+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 3s, execs: 30621 (10204/sec), new interesting: 29 (total: 35)\n"}
+{"Time":"2026-09-09T08:53:20.556982+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 6s, execs: 85374 (18250/sec), new interesting: 47 (total: 53)\n"}
+{"Time":"2026-09-09T08:53:23.556917+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 9s, execs: 118772 (11133/sec), new interesting: 57 (total: 63)\n"}
+{"Time":"2026-09-09T08:53:26.556867+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 12s, execs: 143803 (8344/sec), new interesting: 63 (total: 69)\n"}
+{"Time":"2026-09-09T08:53:29.55682+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 15s, execs: 171834 (9344/sec), new interesting: 66 (total: 72)\n"}
+{"Time":"2026-09-09T08:53:32.556023+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 18s, execs: 171834 (0/sec), new interesting: 66 (total: 72)\n"}
+{"Time":"2026-09-09T08:53:35.556688+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 21s, execs: 171834 (0/sec), new interesting: 66 (total: 72)\n"}
+{"Time":"2026-09-09T08:53:38.556642+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 24s, execs: 171834 (0/sec), new interesting: 66 (total: 72)\n"}
+{"Time":"2026-09-09T08:53:41.556594+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 27s, execs: 307594 (45253/sec), new interesting: 71 (total: 77)\n"}
+{"Time":"2026-09-09T08:53:44.555523+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 30s, execs: 335111 (9175/sec), new interesting: 77 (total: 83)\n"}
+{"Time":"2026-09-09T08:53:47.556521+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 33s, execs: 345976 (3620/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:53:50.556449+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 36s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:53:53.556119+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 39s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:53:56.55632+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 42s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:53:59.556156+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 45s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:54:02.556219+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 48s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:54:05.556156+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 51s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:54:08.556112+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 54s, execs: 345976 (0/sec), new interesting: 86 (total: 92)\n"}
+{"Time":"2026-09-09T08:54:11.555961+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 57s, execs: 888162 (180734/sec), new interesting: 88 (total: 94)\n"}
+{"Time":"2026-09-09T08:54:14.554981+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 1m0s, execs: 888162 (0/sec), new interesting: 88 (total: 94)\n"}
+{"Time":"2026-09-09T08:54:15.559458+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"fuzz: elapsed: 1m1s, execs: 888162 (0/sec), new interesting: 88 (total: 94)\n"}
+{"Time":"2026-09-09T08:54:15.5595+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Output":"--- PASS: FuzzSnapshotDecoders (61.01s)\n"}
+{"Time":"2026-09-09T08:54:15.559506+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Test":"FuzzSnapshotDecoders","Elapsed":61.01}
+{"Time":"2026-09-09T08:54:15.560103+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"PASS\n"}
+{"Time":"2026-09-09T08:54:15.562533+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"ok  \tgithub.com/sausheong/hand/sdk\t61.658s\n"}
+{"Time":"2026-09-09T08:54:15.56256+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Elapsed":61.658}

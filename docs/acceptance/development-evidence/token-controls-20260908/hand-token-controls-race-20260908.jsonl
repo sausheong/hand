@@ -1,0 +1,13 @@
+{"Time":"2026-09-08T20:56:36.02438+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T20:56:36.032914+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T20:56:36.702108+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T20:56:36.702251+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T20:56:37.229722+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestTokenBudgetRPCExplicitDecisionAndReplay"}
+{"Time":"2026-09-08T20:56:37.229782+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestTokenBudgetRPCExplicitDecisionAndReplay","Output":"=== RUN   TestTokenBudgetRPCExplicitDecisionAndReplay\n"}
+{"Time":"2026-09-08T20:56:37.327851+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestTokenBudgetRPCExplicitDecisionAndReplay","Output":"--- PASS: TestTokenBudgetRPCExplicitDecisionAndReplay (0.10s)\n"}
+{"Time":"2026-09-08T20:56:37.327882+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestTokenBudgetRPCExplicitDecisionAndReplay","Elapsed":0.1}
+{"Time":"2026-09-08T20:56:37.327915+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T20:56:37.70969+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.685s [no tests to run]\n"}
+{"Time":"2026-09-08T20:56:37.709772+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.685}
+{"Time":"2026-09-08T20:56:38.335219+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t2.302s\n"}
+{"Time":"2026-09-08T20:56:38.335276+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":2.302}

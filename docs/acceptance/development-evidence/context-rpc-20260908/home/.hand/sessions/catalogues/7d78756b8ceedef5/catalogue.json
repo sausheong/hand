@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-context-rpc-20260908/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_0a7a2f2d180138ff",
+  "sessions": [
+    {
+      "id": "ses_0a7a2f2d180138ff",
+      "agentId": "hand",
+      "storeKey": "workspace_7d78756b8ceedef5_aec348b3c9a72242742c9ab9aebaffbc",
+      "name": "",
+      "createdAt": "2026-09-08T09:15:19.646942Z",
+      "lastActive": "2026-09-08T09:15:19.647119Z"
+    }
+  ]
+}

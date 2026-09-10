@@ -1,0 +1,62 @@
+{
+  "status": "development_regression_fixed",
+  "finding": "Request journal failure prevented RPC cancellation from reaching active provider. Valid cancellation now signals active application/extension/verification contexts on unavailable journal, pauses automatic followups and returns ledger_failure without a success result.",
+  "runs": {
+    "before": {
+      "test_records": {
+        "pass": 5,
+        "fail": 1
+      },
+      "package_result": "fail"
+    },
+    "after": {
+      "test_records": {
+        "pass": 174
+      },
+      "package_result": "pass"
+    },
+    "repeat": {
+      "test_records": {
+        "pass": 120
+      },
+      "package_result": "pass"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-journal-dispatch-20260909/hand-rpc-journal-dispatch-before-20260909.jsonl.gz",
+      "sha256": "8c6b8b528f2cb45f49b7d93907e94d92246d9f1bcb9cc67d3fd5bd98991e4785"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-journal-dispatch-20260909/hand-rpc-journal-dispatch-after-20260909.jsonl.gz",
+      "sha256": "8ba892248713a856751f35976fc7f0bc2b7944f0b227e2cd3fd39e3ac868f7d7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-journal-dispatch-20260909/hand-rpc-journal-dispatch-repeat-20260909.jsonl.gz",
+      "sha256": "7b8c2561f963d365f2ba6daf69b0ca5ca73e60415e32b6c89575112c2957d53d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-journal-dispatch-20260909/ledger.go.txt",
+      "sha256": "f8d3c301e8a9e6b623121a4981db51b97ac92685a2702be0f9baeb044a019901"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-journal-dispatch-20260909/dispatcher.go.txt",
+      "sha256": "45b8b19f80dfcdd6cd8ef7160a2b6ecb302e96bc9ff8bc377ff19c114582cb91"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-journal-dispatch-20260909/ledger_dispatch_failure_test.go.txt",
+      "sha256": "182c59bb2cc2bca2def15e168ec121e54de71ec0719a7af88830cf56a2c0251b"
+    }
+  ],
+  "assertions": [
+    "Failed journal blocks new prompt, followup start, enqueue and steering without queue mutation or backend call",
+    "Valid emergency cancellation reaches active backend despite poisoned journal",
+    "Healthy request-ID conflict and malformed cancel do not cancel work",
+    "Automatic followups paused and persistence failure disclosed"
+  ],
+  "limitations": [
+    "Closed-descriptor failure; no disk-full/fsync-stall simulation",
+    "Full RPC package passed before additional conflict/malformed assertions; strengthened target passed 20 repetitions",
+    "Full native coverage stale after production changes; final clean/released/platform qualification remains"
+  ]
+}

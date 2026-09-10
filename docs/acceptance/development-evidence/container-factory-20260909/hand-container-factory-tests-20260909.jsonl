@@ -1,0 +1,13 @@
+{"Time":"2026-09-09T03:29:44.061343+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-09T03:29:44.491542+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval"}
+{"Time":"2026-09-09T03:29:44.491595+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval","Output":"=== RUN   TestContainerReviewSeparatesBoundaryApproval\n"}
+{"Time":"2026-09-09T03:29:44.500004+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval","Output":"--- PASS: TestContainerReviewSeparatesBoundaryApproval (0.01s)\n"}
+{"Time":"2026-09-09T03:29:44.500016+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerReviewSeparatesBoundaryApproval","Elapsed":0.01}
+{"Time":"2026-09-09T03:29:44.500296+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample"}
+{"Time":"2026-09-09T03:29:44.500306+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Output":"=== RUN   TestContainerExtensionRealExample\n"}
+{"Time":"2026-09-09T03:29:44.500316+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Output":"    container_factory_test.go:56: native container fixture and explicit architecture required\n"}
+{"Time":"2026-09-09T03:29:44.500323+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Output":"--- SKIP: TestContainerExtensionRealExample (0.00s)\n"}
+{"Time":"2026-09-09T03:29:44.500331+08:00","Action":"skip","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestContainerExtensionRealExample","Elapsed":0}
+{"Time":"2026-09-09T03:29:44.500338+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-09T03:29:45.51178+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t1.450s\n"}
+{"Time":"2026-09-09T03:29:45.511896+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":1.451}

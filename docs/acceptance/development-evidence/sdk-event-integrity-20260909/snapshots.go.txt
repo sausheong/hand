@@ -1,0 +1,212 @@
+package sdk
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"strings"
+	"time"
+	"unicode/utf8"
+
+	"github.com/sausheong/hand/protocol"
+)
+
+// PromptRequest is an immutable request value. Reuse its ID only to reconcile
+// the same prompt in the same session, never for a different operation.
+type PromptRequest struct{ id, text string }
+
+func NewPromptRequest(id, text string) (PromptRequest, error) {
+	if !utf8.ValidString(id) || strings.TrimSpace(text) == "" || len(text) > 64<<10 || !utf8.ValidString(text) {
+		return PromptRequest{}, errors.New("prompt must be nonempty UTF-8 text of at most 64 KiB")
+	}
+	raw, _ := json.Marshal(protocol.Request{Version: 1, ID: id, Method: "prompt", Params: json.RawMessage(`{}`)})
+	if _, err := protocol.DecodeRequest(raw); err != nil {
+		return PromptRequest{}, err
+	}
+	return PromptRequest{id: id, text: text}, nil
+}
+func (r PromptRequest) ID() string   { return r.id }
+func (r PromptRequest) Text() string { return r.text }
+
+// Event is an immutable snapshot. Payload returns a copy for schema extensions.
+// Unknown event kinds remain readable so minor protocol additions are compatible.
+type Event struct {
+	wire                 protocol.Event
+	status, text, reason string
+}
+
+func (e Event) ID() string               { return e.wire.EventID }
+func (e Event) Sequence() uint64         { return e.wire.Sequence }
+func (e Event) SessionID() string        { return e.wire.SessionID }
+func (e Event) RunID() string            { return e.wire.RunID }
+func (e Event) RequestID() string        { return e.wire.RequestID }
+func (e Event) Timestamp() time.Time     { return e.wire.Timestamp }
+func (e Event) Kind() string             { return e.wire.Kind }
+func (e Event) Status() string           { return e.status }
+func (e Event) Text() string             { return e.text }
+func (e Event) Reason() string           { return e.reason }
+func (e Event) Payload() json.RawMessage { return append(json.RawMessage(nil), e.wire.Payload...) }
+func decodeEvent(raw json.RawMessage) (Event, error) {
+	if err := validateSnapshotObject(raw, "version", "event_id", "sequence", "session_id", "run_id", "request_id", "timestamp", "kind", "payload"); err != nil {
+		return Event{}, err
+	}
+	var wire protocol.Event
+	if err := json.Unmarshal(raw, &wire); err != nil {
+		return Event{}, err
+	}
+	if wire.Version != protocol.Version || wire.EventID == "" || wire.SessionID == "" || wire.RunID == "" || wire.RequestID == "" || wire.Kind == "" || wire.Sequence == 0 || wire.Timestamp.IsZero() {
+		return Event{}, errors.New("invalid event identity")
+	}
+	var payload struct {
+		Status string
+		Text   string
+		Reason string
+	}
+	if err := validateSnapshotObject(wire.Payload, "status", "text", "reason", "verified"); err != nil {
+		return Event{}, err
+	}
+	if err := json.Unmarshal(wire.Payload, &payload); err != nil {
+		return Event{}, err
+	}
+	return Event{wire: wire, status: payload.Status, text: payload.Text, reason: payload.Reason}, nil
+}
+
+// Execution preserves a durable request's lifecycle state. Completed means the
+// terminal was persisted; inspect Terminal().Status() to determine its outcome.
+// Uncertain means prior execution cannot safely be replayed automatically.
+type Execution struct {
+	id, sessionID, runID, state string
+	terminal                    Event
+	hasTerminal                 bool
+}
+
+func (e Execution) ID() string              { return e.id }
+func (e Execution) SessionID() string       { return e.sessionID }
+func (e Execution) RunID() string           { return e.runID }
+func (e Execution) State() string           { return e.state }
+func (e Execution) Terminal() (Event, bool) { return e.terminal, e.hasTerminal }
+func decodeExecution(raw json.RawMessage) (Execution, error) {
+	var r struct {
+		Kind      string          `json:"kind"`
+		ID        string          `json:"id"`
+		SessionID string          `json:"session_id"`
+		RunID     string          `json:"run_id"`
+		State     string          `json:"state"`
+		Result    json.RawMessage `json:"result"`
+	}
+	if err := json.Unmarshal(raw, &r); err != nil {
+		return Execution{}, err
+	}
+	if r.Kind != "" || r.ID == "" || r.SessionID == "" {
+		return Execution{}, errors.New("invalid execution identity")
+	}
+	e := Execution{id: r.ID, sessionID: r.SessionID, runID: r.RunID, state: r.State}
+	switch r.State {
+	case "pending", "uncertain":
+	case "accepted", "completed":
+		if r.RunID == "" {
+			return Execution{}, errors.New("missing accepted run identity")
+		}
+	default:
+		return Execution{}, errors.New("unknown execution state")
+	}
+	if r.State == "completed" {
+		event, err := decodeEvent(r.Result)
+		if err != nil {
+			return Execution{}, err
+		}
+		if event.Kind() != "terminal" || event.RequestID() != r.ID || event.RunID() != r.RunID || event.SessionID() != r.SessionID {
+			return Execution{}, errors.New("terminal execution identity mismatch")
+		}
+		e.terminal = event
+		e.hasTerminal = true
+	} else if len(r.Result) != 0 {
+		return Execution{}, errors.New("nonterminal execution contains a result")
+	}
+	return e, nil
+}
+
+// Submit starts an immutable prompt request and returns its durable record.
+func (c *Client) Submit(ctx context.Context, request PromptRequest) (Execution, error) {
+	checked, err := NewPromptRequest(request.id, request.text)
+	if err != nil {
+		return Execution{}, err
+	}
+	raw, err := c.Prompt(ctx, checked.id, checked.text)
+	if err != nil {
+		return Execution{}, err
+	}
+	return decodeExecution(raw)
+}
+
+// Lookup retrieves an execution by its original request ID, including after reconnect.
+func (c *Client) Lookup(ctx context.Context, callID, requestID string) (Execution, error) {
+	raw, err := c.Call(ctx, callID, "request.get", map[string]string{"id": requestID})
+	if err != nil {
+		return Execution{}, err
+	}
+	e, err := decodeExecution(raw)
+	if err == nil && e.ID() != requestID {
+		return Execution{}, errors.New("lookup execution ID mismatch")
+	}
+	return e, err
+}
+
+type CursorEvent struct {
+	cursor uint64
+	event  Event
+}
+
+func (e CursorEvent) Cursor() uint64 { return e.cursor }
+func (e CursorEvent) Event() Event   { return e.event }
+
+// EventPage preserves explicit loss detection. If Gap is true, progress was
+// evicted; retrieve durable terminal results through Lookup. Cursors belong to
+// one connection and must start again at zero after reconnecting.
+type EventPage struct {
+	events       []CursorEvent
+	next, latest uint64
+	gap          bool
+}
+
+func (p EventPage) Events() []CursorEvent { return append([]CursorEvent(nil), p.events...) }
+func (p EventPage) Next() uint64          { return p.next }
+func (p EventPage) Latest() uint64        { return p.latest }
+func (p EventPage) Gap() bool             { return p.gap }
+func (c *Client) PollEvents(ctx context.Context, callID string, after uint64) (EventPage, error) {
+	raw, err := c.Call(ctx, callID, "events.poll", map[string]uint64{"after": after})
+	if err != nil {
+		return EventPage{}, err
+	}
+	var p struct {
+		Events []struct {
+			Cursor uint64
+			Event  json.RawMessage
+		}
+		Next, Latest uint64
+		Gap          bool
+	}
+	if err = json.Unmarshal(raw, &p); err != nil {
+		return EventPage{}, err
+	}
+	if p.Next < after || p.Next > p.Latest || len(p.Events) > 16 {
+		return EventPage{}, errors.New("invalid event page bounds")
+	}
+	page := EventPage{next: p.Next, latest: p.Latest, gap: p.Gap}
+	previous := after
+	for _, item := range p.Events {
+		if item.Cursor <= previous || item.Cursor > p.Next {
+			return EventPage{}, errors.New("invalid event cursor ordering")
+		}
+		event, err := decodeEvent(item.Event)
+		if err != nil {
+			return EventPage{}, err
+		}
+		page.events = append(page.events, CursorEvent{cursor: item.Cursor, event: event})
+		previous = item.Cursor
+	}
+	if previous != p.Next {
+		return EventPage{}, errors.New("event page cursor does not match contents")
+	}
+	return page, nil
+}

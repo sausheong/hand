@@ -1,0 +1,37 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenario": "isolated_background_server",
+  "result": {
+    "status": "passed",
+    "qualification": "development",
+    "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "binary_sha256": "a7a5b0fae05b1c680daaaddcc7d5c2922613e1b3bfb8cda2c3ea6c452d331e18",
+    "worker_sha256": "c3a96556ef7aaed3df0a8a58b3a61daaab39a5753e00922f3dac68e4169e63a0",
+    "runner_sha256": "7cb55244434264a22fadde216d7acc0ab1b8ea47d48adea3e6e5cad0e05279f5",
+    "provider_calls": 2,
+    "explicit_approval": true,
+    "server_responded": true,
+    "inspected_isolation": true,
+    "shutdown_joined": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/background-server-journey-20260909/check_background_server.py.gz",
+      "sha256": "8452634d9e57a78d21d3ba07e3474679539de71df183d67127f1984e4c1de74e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/background-server-journey-20260909/raw-runs.tar.gz",
+      "sha256": "4086a031ad5112575de7aa31e0dced428416e9554f77c15175d01d810b55155e"
+    }
+  ],
+  "initial_failures": [
+    "Container inspection preceded asynchronous Docker startup; added bounded readiness wait",
+    "Mount inventory omitted required read-only /hand-worker; included it and verified every non-tmp mount is read-only"
+  ],
+  "limitations": [
+    "Compiled Hand RPC with scripted local provider and pinned Python container image on native macOS; not final candidate or Linux qualification",
+    "Uses previously built identified Hand and worker binaries; source snapshots for builds are in earlier native/extension evidence",
+    "One integrated server journey, not repeated isolation fault suite"
+  ]
+}

@@ -1,0 +1,5 @@
+{"Time":"2026-09-09T00:16:08.806514+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-09T00:16:09.517744+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-09T00:16:09.517807+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-09T00:16:10.529867+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.723s [no tests to run]\n"}
+{"Time":"2026-09-09T00:16:10.530016+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.724}

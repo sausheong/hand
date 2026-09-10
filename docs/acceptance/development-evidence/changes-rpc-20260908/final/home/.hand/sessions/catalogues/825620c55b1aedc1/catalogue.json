@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-changes-rpc-final-20260908/workspace",
+  "generation": 5,
+  "lastActiveId": "ses_36eb3b459f8f2372",
+  "sessions": [
+    {
+      "id": "ses_36eb3b459f8f2372",
+      "agentId": "hand",
+      "storeKey": "workspace_825620c55b1aedc1_da1671b74104b20ee249500cd80cca83",
+      "name": "",
+      "createdAt": "2026-09-08T07:17:26.95499Z",
+      "lastActive": "2026-09-08T07:17:27.358266Z"
+    },
+    {
+      "id": "ses_67e039e6719f6c74",
+      "agentId": "hand",
+      "storeKey": "workspace_825620c55b1aedc1_03dac800a3eea381b78716e3511d1210",
+      "name": "",
+      "createdAt": "2026-09-08T07:17:27.132366Z",
+      "lastActive": "2026-09-08T07:17:27.132452Z"
+    },
+    {
+      "id": "ses_f04c88d8c2849f84",
+      "agentId": "hand",
+      "storeKey": "workspace_825620c55b1aedc1_bb7a312c1fc7a3b16d3ec8d35c3e8d34",
+      "name": "",
+      "createdAt": "2026-09-08T07:17:27.216555Z",
+      "lastActive": "2026-09-08T07:17:27.339914Z"
+    }
+  ]
+}

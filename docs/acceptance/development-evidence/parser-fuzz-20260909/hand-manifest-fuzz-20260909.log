@@ -1,0 +1,25 @@
+fuzz: elapsed: 0s, gathering baseline coverage: 0/356 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 356/356 completed, now fuzzing with 2 workers
+fuzz: elapsed: 3s, execs: 192691 (64219/sec), new interesting: 0 (total: 356)
+fuzz: elapsed: 6s, execs: 431361 (79563/sec), new interesting: 0 (total: 356)
+fuzz: elapsed: 9s, execs: 660502 (76383/sec), new interesting: 0 (total: 356)
+fuzz: elapsed: 12s, execs: 896641 (78664/sec), new interesting: 0 (total: 356)
+fuzz: elapsed: 15s, execs: 1137466 (80311/sec), new interesting: 2 (total: 358)
+fuzz: elapsed: 18s, execs: 1378149 (80245/sec), new interesting: 2 (total: 358)
+fuzz: elapsed: 21s, execs: 1590001 (70604/sec), new interesting: 2 (total: 358)
+fuzz: elapsed: 24s, execs: 1859241 (89759/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 27s, execs: 2090902 (77218/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 30s, execs: 2322385 (77166/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 33s, execs: 2554176 (77213/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 36s, execs: 2770130 (71985/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 39s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 42s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 45s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 48s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 51s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 54s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 57s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 1m0s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+fuzz: elapsed: 1m1s, execs: 2770130 (0/sec), new interesting: 3 (total: 359)
+PASS
+ok  	github.com/sausheong/hand/internal/packages	61.452s

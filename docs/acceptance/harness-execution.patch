@@ -1,0 +1,268 @@
+diff --git a/execution/backend.go b/execution/backend.go
+new file mode 100644
+index 0000000..75bdf20
+--- /dev/null
++++ b/execution/backend.go
+@@ -0,0 +1,182 @@
++// Package execution provides explicit host and container command boundaries.
++// Admission belongs to the caller; choosing a backend never grants permission.
++package execution
++
++import (
++	"bytes"
++	"context"
++	"crypto/rand"
++	"errors"
++	"fmt"
++	"os"
++	"path/filepath"
++	"regexp"
++	"sort"
++	"strconv"
++	"strings"
++	"time"
++
++	"github.com/sausheong/harness/process"
++)
++
++type Request struct {
++	Argv  []string
++	Env   map[string]string
++	Stdin []byte
++}
++type Result struct {
++	Stdout, Stderr string
++	ExitCode       int
++	Truncated      bool
++}
++type Backend interface {
++	Run(context.Context, Request) (Result, error)
++	Boundary() string
++}
++type Host struct{ Workspace string }
++
++func (Host) Boundary() string { return "unrestricted host; commands can access host resources" }
++func (h Host) Run(ctx context.Context, r Request) (Result, error) {
++	if err := validate(r); err != nil {
++		return Result{}, err
++	}
++	return run(ctx, h.Workspace, environment(r.Env), r.Stdin, r.Argv[0], r.Argv[1:]...)
++}
++
++var imageID = regexp.MustCompile(`^sha256:[0-9a-f]{64}$`)
++var envName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
++
++type Container struct {
++	Docker, Socket, Image, Workspace string
++	Writable, Network                bool
++}
++
++func (c Container) Boundary() string {
++	return fmt.Sprintf("container: workspace writable=%t; network=%t; other host paths unmounted", c.Writable, c.Network)
++}
++func validate(r Request) error {
++	if len(r.Argv) == 0 || r.Argv[0] == "" || len(r.Argv) > 1024 || len(r.Stdin) > 1<<20 {
++		return errors.New("invalid or oversized execution request")
++	}
++	size := 0
++	for _, a := range r.Argv {
++		size += len(a)
++		if strings.ContainsRune(a, 0) {
++			return errors.New("NUL in argument")
++		}
++	}
++	for k, v := range r.Env {
++		size += len(k) + len(v)
++		if !envName.MatchString(k) || strings.ContainsRune(v, 0) {
++			return errors.New("invalid environment entry")
++		}
++	}
++	if size > 1<<20 {
++		return errors.New("execution arguments exceed 1 MiB")
++	}
++	return nil
++}
++func environment(values map[string]string) []string {
++	env := []string{"PATH=/usr/local/bin:/usr/bin:/bin"}
++	keys := make([]string, 0, len(values))
++	for k := range values {
++		keys = append(keys, k)
++	}
++	sort.Strings(keys)
++	for _, k := range keys {
++		env = append(env, k+"="+values[k])
++	}
++	return env
++}
++func run(ctx context.Context, dir string, env []string, input []byte, name string, args ...string) (Result, error) {
++	cmd := process.Command(ctx, name, args...)
++	cmd.Dir = dir
++	cmd.Env = env
++	cmd.Stdin = bytes.NewReader(input)
++	out, stderr := process.NewCapture(64<<10), process.NewCapture(64<<10)
++	cmd.Stdout = out
++	cmd.Stderr = stderr
++	err := process.Run(cmd)
++	a, _, at := out.Snapshot()
++	b, _, bt := stderr.Snapshot()
++	result := Result{Stdout: a, Stderr: b, ExitCode: -1, Truncated: at || bt}
++	if cmd.ProcessState != nil {
++		result.ExitCode = cmd.ProcessState.ExitCode()
++	}
++	return result, err
++}
++func (c Container) Run(ctx context.Context, r Request) (result Result, err error) {
++	if err = ctx.Err(); err != nil {
++		return
++	}
++	if err = validate(r); err != nil {
++		return
++	}
++	if !filepath.IsAbs(c.Docker) || !filepath.IsAbs(c.Socket) || !imageID.MatchString(c.Image) {
++		return result, errors.New("container requires absolute Docker executable/socket and immutable sha256 image ID")
++	}
++	info, e := os.Stat(c.Socket)
++	if e != nil || info.Mode()&os.ModeSocket == 0 {
++		return result, errors.New("local container socket unavailable; no host fallback")
++	}
++	workspace, e := filepath.EvalSymlinks(c.Workspace)
++	if e != nil {
++		return result, e
++	}
++	workspace, e = filepath.Abs(workspace)
++	if e != nil {
++		return result, e
++	}
++	info, e = os.Stat(workspace)
++	if e != nil || !info.IsDir() || strings.ContainsAny(workspace, ",\n\r") {
++		return result, errors.New("invalid workspace mount")
++	}
++	// A separate config directory prevents ambient Docker auth/context inheritance.
++	config, e := os.MkdirTemp("", "harness-docker-config-")
++	if e != nil {
++		return result, e
++	}
++	defer os.RemoveAll(config)
++	base := []string{"--config", config, "--host", "unix://" + c.Socket}
++	name := "harness-exec-" + strings.ToLower(rand.Text())
++	cleanup := func() error {
++		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++		defer cancel()
++		res, e := run(cleanupCtx, "", environment(nil), nil, c.Docker, append(append([]string{}, base...), "rm", "--force", name)...)
++		if e != nil {
++			return fmt.Errorf("container cleanup failed for %s: %w: %s", name, e, res.Stderr)
++		}
++		return nil
++	}
++	network := "none"
++	if c.Network {
++		network = "bridge"
++	}
++	mount := "type=bind,src=" + workspace + ",dst=/workspace,bind-propagation=rprivate"
++	if !c.Writable {
++		mount += ",readonly"
++	}
++	uid, gid := os.Getuid(), os.Getgid()
++	if uid < 1 {
++		uid, gid = 65534, 65534
++	}
++	args := append(append([]string{}, base...), "create", "--name", name, "--pull=never", "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges", "--network", network, "--pids-limit=128", "--memory=512m", "--memory-swap=512m", "--cpus=2", "--init", "--no-healthcheck", "--log-driver=none", "--user", strconv.Itoa(uid)+":"+strconv.Itoa(gid), "--mount", mount, "--tmpfs", "/tmp:rw,nosuid,nodev,size=64m,mode=1777", "--workdir", "/workspace", "--interactive", "--entrypoint", r.Argv[0])
++	for _, entry := range environment(r.Env) {
++		args = append(args, "--env", entry)
++	}
++	args = append(args, c.Image)
++	args = append(args, r.Argv[1:]...)
++	// Join creation independently of caller cancellation before removing its name.
++	// A daemon/transport failure is surfaced and cannot be treated as clean exit.
++	createCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), 30*time.Second)
++	created, createErr := run(createCtx, "", environment(nil), nil, c.Docker, args...)
++	cancel()
++	if createErr != nil {
++		return result, errors.Join(fmt.Errorf("container create failed: %w: %s", createErr, created.Stderr), cleanup())
++	}
++	defer func() { err = errors.Join(err, cleanup()) }()
++	if err = ctx.Err(); err != nil {
++		return
++	}
++	return run(ctx, "", environment(nil), r.Stdin, c.Docker, append(append([]string{}, base...), "start", "--attach", "--interactive", name)...)
++}
+diff --git a/execution/backend_test.go b/execution/backend_test.go
+new file mode 100644
+index 0000000..757a976
+--- /dev/null
++++ b/execution/backend_test.go
+@@ -0,0 +1,74 @@
++package execution
++
++import (
++	"context"
++	"os"
++	"path/filepath"
++	"strings"
++	"testing"
++	"time"
++)
++
++func TestHostExplicitEnvironmentAndExactArguments(t *testing.T) {
++	t.Setenv("EXECUTION_TEST_SECRET", "must-not-inherit")
++	h := Host{Workspace: t.TempDir()}
++	result, err := h.Run(context.Background(), Request{Argv: []string{"/bin/sh", "-c", `test -z "$EXECUTION_TEST_SECRET"; printf '%s' "$1"`, "sh", "a; echo injected"}})
++	if err != nil || result.Stdout != "a; echo injected" {
++		t.Fatalf("%+v %v", result, err)
++	}
++	if !strings.Contains(h.Boundary(), "unrestricted host") {
++		t.Fatal("host boundary hidden")
++	}
++}
++func TestMissingContainerNeverExecutesHostCommand(t *testing.T) {
++	path := filepath.Join(t.TempDir(), "must-not-exist")
++	c := Container{Docker: "/missing/docker", Socket: "/missing/socket", Image: "sha256:" + strings.Repeat("a", 64), Workspace: t.TempDir()}
++	if _, err := c.Run(context.Background(), Request{Argv: []string{"/bin/sh", "-c", "touch " + path}}); err == nil {
++		t.Fatal("missing backend accepted")
++	}
++	if _, err := os.Stat(path); !os.IsNotExist(err) {
++		t.Fatal("host fallback ran")
++	}
++}
++
++// This is an opt-in real-container suite. Its skip never qualifies isolation.
++func TestNativeContainerBoundary(t *testing.T) {
++	image, socket := os.Getenv("HARNESS_TEST_CONTAINER_IMAGE"), os.Getenv("HARNESS_TEST_CONTAINER_SOCKET")
++	if image == "" || socket == "" {
++		t.Skip("native container fixture not configured")
++	}
++	workspace := t.TempDir()
++	if err := os.Chmod(workspace, 0777); err != nil {
++		t.Fatal(err)
++	}
++	secret := filepath.Join(t.TempDir(), "outside")
++	if err := os.WriteFile(secret, []byte("outside"), 0600); err != nil {
++		t.Fatal(err)
++	}
++	if err := os.Symlink(secret, filepath.Join(workspace, "escape")); err != nil {
++		t.Fatal(err)
++	}
++	c := Container{Docker: "/usr/local/bin/docker", Socket: socket, Image: image, Workspace: workspace}
++	script := `set -eu; test -z "${EXECUTION_TEST_SECRET-}"; test "$EXPLICIT_VALUE" = allowed; test ! -e /var/run/docker.sock; test ! -e /workspace/escape; ! touch /workspace/denied; ! touch /etc/denied; printf scratch >/tmp/allowed; sh -c 'test ! -e /workspace/escape; ! touch /etc/child-denied'; test -z "$(ip route)"; ! nc -z -w 1 192.0.2.1 80; printf bounded`
++	t.Setenv("EXECUTION_TEST_SECRET", "must-not-inherit")
++	result, err := c.Run(context.Background(), Request{Argv: []string{"/bin/sh", "-c", script}, Env: map[string]string{"EXPLICIT_VALUE": "allowed"}})
++	if err != nil || result.Stdout != "bounded" {
++		t.Fatalf("boundary: %+v %v", result, err)
++	}
++	c.Writable = true
++	result, err = c.Run(context.Background(), Request{Argv: []string{"/bin/sh", "-c", "cat > /workspace/allowed"}, Stdin: []byte("explicit write")})
++	if err != nil {
++		t.Fatalf("write: %+v %v", result, err)
++	}
++	raw, err := os.ReadFile(filepath.Join(workspace, "allowed"))
++	if err != nil || string(raw) != "explicit write" {
++		t.Fatalf("write missing: %q %v", raw, err)
++	}
++	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
++	defer cancel()
++	start := time.Now()
++	_, err = c.Run(ctx, Request{Argv: []string{"/bin/sh", "-c", "sleep 60 & wait"}})
++	if err == nil || time.Since(start) > 6*time.Second {
++		t.Fatalf("cancel not bounded: %v %s", err, time.Since(start))
++	}
++}

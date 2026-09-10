@@ -1,0 +1,52 @@
+{"Time":"2026-09-08T16:37:57.979756+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/config"}
+{"Time":"2026-09-08T16:37:58.489017+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T16:37:58.489065+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T16:37:58.489114+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/verification"}
+{"Time":"2026-09-08T16:37:58.532495+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigLiteralArgvAndRelativeEvidence"}
+{"Time":"2026-09-08T16:37:58.532559+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigLiteralArgvAndRelativeEvidence","Output":"=== RUN   TestVerificationConfigLiteralArgvAndRelativeEvidence\n"}
+{"Time":"2026-09-08T16:37:58.53355+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigLiteralArgvAndRelativeEvidence","Output":"--- PASS: TestVerificationConfigLiteralArgvAndRelativeEvidence (0.00s)\n"}
+{"Time":"2026-09-08T16:37:58.533562+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigLiteralArgvAndRelativeEvidence","Elapsed":0}
+{"Time":"2026-09-08T16:37:58.533576+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigRejectsAmbiguousOrUnboundedInput"}
+{"Time":"2026-09-08T16:37:58.533582+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigRejectsAmbiguousOrUnboundedInput","Output":"=== RUN   TestVerificationConfigRejectsAmbiguousOrUnboundedInput\n"}
+{"Time":"2026-09-08T16:37:58.536199+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigRejectsAmbiguousOrUnboundedInput","Output":"--- PASS: TestVerificationConfigRejectsAmbiguousOrUnboundedInput (0.00s)\n"}
+{"Time":"2026-09-08T16:37:58.536206+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationConfigRejectsAmbiguousOrUnboundedInput","Elapsed":0}
+{"Time":"2026-09-08T16:37:58.536219+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationRetentionConfiguration"}
+{"Time":"2026-09-08T16:37:58.536229+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationRetentionConfiguration","Output":"=== RUN   TestVerificationRetentionConfiguration\n"}
+{"Time":"2026-09-08T16:37:58.536658+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationRetentionConfiguration","Output":"--- PASS: TestVerificationRetentionConfiguration (0.00s)\n"}
+{"Time":"2026-09-08T16:37:58.536664+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/config","Test":"TestVerificationRetentionConfiguration","Elapsed":0}
+{"Time":"2026-09-08T16:37:58.536725+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Output":"PASS\n"}
+{"Time":"2026-09-08T16:37:59.035311+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit"}
+{"Time":"2026-09-08T16:37:59.035351+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Output":"=== RUN   TestVerificationOwnedCommandAndLaterEdit\n"}
+{"Time":"2026-09-08T16:37:59.105818+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Output":"--- PASS: TestVerificationOwnedCommandAndLaterEdit (0.07s)\n"}
+{"Time":"2026-09-08T16:37:59.105847+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationOwnedCommandAndLaterEdit","Elapsed":0.07}
+{"Time":"2026-09-08T16:37:59.106006+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T16:37:59.530657+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel"}
+{"Time":"2026-09-08T16:37:59.530727+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel\n"}
+{"Time":"2026-09-08T16:37:59.530737+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete"}
+{"Time":"2026-09-08T16:37:59.530741+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel/complete\n"}
+{"Time":"2026-09-08T16:37:59.547982+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Output":"ok  \tgithub.com/sausheong/hand/internal/config\t1.567s\n"}
+{"Time":"2026-09-08T16:37:59.550987+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/config","Elapsed":1.571}
+{"Time":"2026-09-08T16:37:59.592821+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel/complete (0.06s)\n"}
+{"Time":"2026-09-08T16:37:59.592855+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/complete","Elapsed":0.06}
+{"Time":"2026-09-08T16:37:59.592913+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel"}
+{"Time":"2026-09-08T16:37:59.592922+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel/cancel\n"}
+{"Time":"2026-09-08T16:37:59.641985+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/verification","Test":"TestVerificationRetentionPreservesAcceptedRecords"}
+{"Time":"2026-09-08T16:37:59.645044+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/verification","Test":"TestVerificationRetentionPreservesAcceptedRecords","Output":"=== RUN   TestVerificationRetentionPreservesAcceptedRecords\n"}
+{"Time":"2026-09-08T16:37:59.667204+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel/cancel (0.07s)\n"}
+{"Time":"2026-09-08T16:37:59.667215+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/cancel","Elapsed":0.07}
+{"Time":"2026-09-08T16:37:59.667255+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/disconnect"}
+{"Time":"2026-09-08T16:37:59.667264+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/disconnect","Output":"=== RUN   TestVerificationRPCAsyncCompletionAndCancel/disconnect\n"}
+{"Time":"2026-09-08T16:37:59.699708+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/verification","Test":"TestVerificationRetentionPreservesAcceptedRecords","Output":"--- PASS: TestVerificationRetentionPreservesAcceptedRecords (0.06s)\n"}
+{"Time":"2026-09-08T16:37:59.69973+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/verification","Test":"TestVerificationRetentionPreservesAcceptedRecords","Elapsed":0.06}
+{"Time":"2026-09-08T16:37:59.699834+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/verification","Output":"PASS\n"}
+{"Time":"2026-09-08T16:37:59.728002+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/disconnect","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel/disconnect (0.06s)\n"}
+{"Time":"2026-09-08T16:37:59.728018+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel/disconnect","Elapsed":0.06}
+{"Time":"2026-09-08T16:37:59.728049+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel","Output":"--- PASS: TestVerificationRPCAsyncCompletionAndCancel (0.20s)\n"}
+{"Time":"2026-09-08T16:37:59.72807+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestVerificationRPCAsyncCompletionAndCancel","Elapsed":0.2}
+{"Time":"2026-09-08T16:37:59.728111+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T16:38:00.118866+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.630s\n"}
+{"Time":"2026-09-08T16:38:00.11891+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.63}
+{"Time":"2026-09-08T16:38:00.703783+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/verification","Output":"ok  \tgithub.com/sausheong/hand/internal/verification\t2.215s\n"}
+{"Time":"2026-09-08T16:38:00.703886+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/verification","Elapsed":2.215}
+{"Time":"2026-09-08T16:38:00.736684+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t2.248s\n"}
+{"Time":"2026-09-08T16:38:00.736714+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":2.248}

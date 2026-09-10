@@ -149,7 +149,6 @@ func TestLoad_TightensLoosePermissions(t *testing.T) {
 	}
 }
 
-
 func TestNewStoreFromSettings_UsesGivenSettingsNotDisk(t *testing.T) {
 	path := filepath.Join(t.TempDir(), ".hand", "settings.json")
 	if err := permissions.Save(path, permissions.Settings{AlwaysAllow: []string{"bash"}}); err != nil {

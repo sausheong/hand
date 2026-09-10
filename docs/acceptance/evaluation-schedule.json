@@ -1,0 +1,31 @@
+{
+  "status": "development_passed",
+  "scope": "deterministic paired scheduler and manifest unit tests",
+  "sources": [
+    {
+      "path": "scripts/evaluation_schedule.py",
+      "sha256": "49a4d4ad4d7fe100714b41bdcf41178f608c573592d3773ba90ff6e7b0bbcc4b"
+    },
+    {
+      "path": "scripts/test_evaluation_schedule.py",
+      "sha256": "d25e578bf21b1f3abdd9a69136b927a41a23fc56418cf2cc8fd7197c4d89301c"
+    },
+    {
+      "path": "scripts/evaluation_manifest.py",
+      "sha256": "41fd94dbd119e08f4ee452e9d16b58286dad2bd99a7b4ed052b6ff8977a4d0ea"
+    },
+    {
+      "path": "scripts/test_evaluation_manifest.py",
+      "sha256": "4d9d8624178950545d9724b33c5b8736ab93017766c65011ddafda546e9f4ea2"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-schedule-20260909/hand-evaluation-schedule-tests-20260909.log",
+      "sha256": "ec5c7a14d020c8e93eee133ecd150e04f42663449263b4b674806c0ee47247b9"
+    }
+  ],
+  "limitations": [
+    "Six structural unit tests passed; synthetic scheduler fixtures are not evaluation tasks or product-performance evidence. Current actual calibration catalogue remains incomplete and cannot produce a qualification schedule. No agent calls, paid execution or budget authorisation occurred. Real corpus, executor, scoring and final qualification remain pending."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "a93ecd13058131a0d627207393329899969b05e2308686e57f5c7eb40ba620b4",
+  "runner_sha256": "3c8e40d49a7e75deb1f38267a571f718eca20a13c396a0c25171ddf45a57119e",
+  "provider_calls": 0,
+  "limitations": [
+    "Host Python package journey; not final candidate or platform qualification."
+  ],
+  "package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "startup_digest": "853f61c5f8037e6f09458a9be1ed0ef07d470b29cb80b0677bc5938634ee15cc",
+  "source_removed_before_review": true,
+  "real_question_answer": true,
+  "restart_replay": true,
+  "cancellation_joined": true,
+  "snapshots_removed": true
+}

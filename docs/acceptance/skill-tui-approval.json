@@ -1,0 +1,42 @@
+{
+  "status": "development_scoped_skill_tui_approval_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=3m -json ./internal/tui -run '^TestScopedSkillMutationWaitsForTUIApproval$'",
+  "repetitions": 20,
+  "test_records": {
+    "pass": 80
+  },
+  "assertions": [
+    "Actual Harness skill mutation waits on application-owned scoped approval",
+    "File absent before decision",
+    "TUI Update y allows creation, n denies, Ctrl-C cancels without creation",
+    "All decisions release pending approval and service ownership",
+    "Terminal outcome distinguishes cancellation from completed denied/allowed turn"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/skill-tui-approval-20260909/hand-skill-tui-approval-20260909.jsonl.gz",
+      "sha256": "811da59eac8315ec8b425bf7d755d2435dd5cb484476be3b3ae2a15fdc56ccc0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-tui-approval-20260909/internal_agentio_scoped_approval.go.txt",
+      "sha256": "007de49fc43d162f69d9a5096e22eb200bd835905b68a92108506c29935d89fc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-tui-approval-20260909/internal_app_approval.go.txt",
+      "sha256": "30f3acd490b94b2e0b611e159b578d413d5e1c3788608a16332dd276ae38395d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-tui-approval-20260909/internal_tui_application_test.go.txt",
+      "sha256": "b42c6a557427fd06671e9adc2630e69423fab7a11d739bf81e7d6069872e8ad0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/skill-tui-approval-20260909/internal_tui_skill_approval_integration_test.go.txt",
+      "sha256": "bf833a044a7722b5ea1f48ca703604d55722f2d76fed66a3d46b9258dc230d7d"
+    }
+  ],
+  "limitations": [
+    "In-process TUI input routing; not built terminal PTY rendering/delivery",
+    "Create operation with one-use approval; persistent grant and other mutations separately tested",
+    "Development local Harness, not final candidate/platform qualification"
+  ]
+}

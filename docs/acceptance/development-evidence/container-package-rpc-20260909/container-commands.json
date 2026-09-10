@@ -1,0 +1,50 @@
+[
+  {
+    "argv": [
+      "/usr/local/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-package-rpc-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/usr/local/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-package-rpc-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/usr/local/bin/docker",
+      "--config",
+      "/private/tmp/hand-container-package-rpc-20260909/docker-config",
+      "--host",
+      "unix:///Users/sausheong/.docker/run/docker.sock",
+      "ps",
+      "-aq",
+      "--filter",
+      "name=harness-exec-"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

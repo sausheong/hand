@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go vet ./...",
+  "exit_code": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-native-20260909/hand-catalogue-vet-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    }
+  ]
+}

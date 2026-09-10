@@ -1,0 +1,10 @@
+test_complete_and_repeated_tests (test_check_test_events.EventGateTests.test_complete_and_repeated_tests) ... ok
+test_empty_and_malformed (test_check_test_events.EventGateTests.test_empty_and_malformed) ... ok
+test_hidden_build_failure (test_check_test_events.EventGateTests.test_hidden_build_failure) ... ok
+test_missing_and_unmatched_events (test_check_test_events.EventGateTests.test_missing_and_unmatched_events) ... ok
+test_skipped_or_failed_is_never_green (test_check_test_events.EventGateTests.test_skipped_or_failed_is_never_green) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

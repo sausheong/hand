@@ -1,0 +1,83 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [master, 'codex/**']
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare native container fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker_bin="$(command -v docker)"
+          if [ ! -x /usr/local/bin/docker ]; then
+            sudo ln -s "$docker_bin" /usr/local/bin/docker
+          fi
+          endpoint="$(docker context inspect --format '{{.Endpoints.docker.Host}}')"
+          case "$endpoint" in
+            unix://*) socket="${endpoint#unix://}" ;;
+            *) echo 'Validation requires a local Unix Docker socket' >&2; exit 1 ;;
+          esac
+          docker pull debian:bookworm-slim
+          docker pull python:3.13-slim
+          tool_image="$(docker image inspect --format '{{.Id}}' debian:bookworm-slim)"
+          python_image="$(docker image inspect --format '{{.Id}}' python:3.13-slim)"
+          architecture="$(docker image inspect --format '{{.Architecture}}' debian:bookworm-slim)"
+          case "$architecture" in amd64|arm64) ;; *) echo "Unsupported fixture architecture: $architecture" >&2; exit 1 ;; esac
+          fixture_dir="$HOME/hand-test-fixtures"
+          mkdir -p "$fixture_dir"
+          GOOS=linux GOARCH="$architecture" CGO_ENABLED=0 go build -o "$fixture_dir/worker" ./cmd/hand-tool-worker
+          GOOS=linux GOARCH="$architecture" CGO_ENABLED=0 go test -c -o "$fixture_dir/peer.test" ./internal/app
+          if [ "$RUNNER_OS" = Linux ]; then
+            go build -o "$fixture_dir/hand" ./cmd/hand
+            sudo mkdir -p /mnt/hand-enospc
+            sudo mount -t tmpfs -o size=2m,mode=1777 tmpfs /mnt/hand-enospc
+          fi
+          {
+            echo "HARNESS_TEST_CONTAINER_SOCKET=$socket"
+            echo "HARNESS_TEST_CONTAINER_IMAGE=$tool_image"
+            echo "HARNESS_TEST_BASH_IMAGE=$tool_image"
+            echo "HAND_TEST_PYTHON_IMAGE=$python_image"
+            echo "HAND_TEST_CONTAINER_ARCH=$architecture"
+            echo "HAND_TEST_WORKER_BINARY=$fixture_dir/worker"
+            echo "HAND_TEST_EXTENSION_PEER_BINARY=$fixture_dir/peer.test"
+            echo "HAND_TEST_PUBLIC_FETCH_URL=https://example.com/"
+            if [ "$RUNNER_OS" = Linux ]; then
+              echo "HAND_TEST_ENOSPC_ROOT=/mnt/hand-enospc"
+              echo "HAND_TEST_ENOSPC_BINARY=$fixture_dir/hand"
+            fi
+          } >> "$GITHUB_ENV"
+      - name: Validate with raw evidence
+        run: python3 scripts/validate.py --output "${{ runner.temp }}/hand-validation"
+      - name: Preserve evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-ubuntu-latest
+          path: ${{ runner.temp }}/hand-validation
+      - name: Remove Linux ENOSPC fixture
+        if: always() && runner.os == 'Linux'
+        run: sudo umount /mnt/hand-enospc
+      - name: Cross-compile release targets
+        if: runner.os == 'Linux'
+        run: make dist VERSION=validation
+      - name: Verify archives and smoke-test native release
+        if: runner.os == 'Linux'
+        run: python3 scripts/smoke_dist.py --dist dist --version validation --commit "$GITHUB_SHA" --require-worker

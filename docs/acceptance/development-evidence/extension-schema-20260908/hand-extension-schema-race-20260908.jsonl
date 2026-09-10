@@ -1,0 +1,80 @@
+{"Time":"2026-09-08T23:20:19.527652+08:00","Action":"start","Package":"github.com/sausheong/hand/extension/protocol"}
+{"Time":"2026-09-08T23:20:19.52778+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/extensions"}
+{"Time":"2026-09-08T23:20:19.972686+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures"}
+{"Time":"2026-09-08T23:20:19.972793+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Output":"=== RUN   TestFramesAndTerminalFailures\n"}
+{"Time":"2026-09-08T23:20:19.974038+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Output":"--- PASS: TestFramesAndTerminalFailures (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.974057+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.974073+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite"}
+{"Time":"2026-09-08T23:20:19.974077+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Output":"=== RUN   TestWriterRejectsAmbiguousPayloadAndShortWrite\n"}
+{"Time":"2026-09-08T23:20:19.974165+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Output":"--- PASS: TestWriterRejectsAmbiguousPayloadAndShortWrite (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.974179+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.974195+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities"}
+{"Time":"2026-09-08T23:20:19.974199+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities","Output":"=== RUN   TestHelloCannotExpandHostCapabilities\n"}
+{"Time":"2026-09-08T23:20:19.974216+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities","Output":"--- PASS: TestHelloCannotExpandHostCapabilities (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.974223+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestHelloCannotExpandHostCapabilities","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.974229+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority"}
+{"Time":"2026-09-08T23:20:19.974238+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority","Output":"=== RUN   TestDeclarativePresentationRejectsTerminalAuthority\n"}
+{"Time":"2026-09-08T23:20:19.974421+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority","Output":"--- PASS: TestDeclarativePresentationRejectsTerminalAuthority (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.974436+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestDeclarativePresentationRejectsTerminalAuthority","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.97444+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound"}
+{"Time":"2026-09-08T23:20:19.974443+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound","Output":"=== RUN   TestQuestionAnswersAreExplicitAndBound\n"}
+{"Time":"2026-09-08T23:20:19.9745+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound","Output":"--- PASS: TestQuestionAnswersAreExplicitAndBound (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.974532+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestQuestionAnswersAreExplicitAndBound","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.974535+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader"}
+{"Time":"2026-09-08T23:20:19.974538+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Output":"=== RUN   FuzzFrameReader\n"}
+{"Time":"2026-09-08T23:20:19.97462+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0"}
+{"Time":"2026-09-08T23:20:19.974626+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Output":"=== RUN   FuzzFrameReader/seed#0\n"}
+{"Time":"2026-09-08T23:20:19.975195+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Output":"--- PASS: FuzzFrameReader/seed#0 (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.975201+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.97522+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Output":"--- PASS: FuzzFrameReader (0.00s)\n"}
+{"Time":"2026-09-08T23:20:19.975228+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Elapsed":0}
+{"Time":"2026-09-08T23:20:19.975239+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Output":"PASS\n"}
+{"Time":"2026-09-08T23:20:20.375193+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestExtensionPeerProcess"}
+{"Time":"2026-09-08T23:20:20.375219+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestExtensionPeerProcess","Output":"=== RUN   TestExtensionPeerProcess\n"}
+{"Time":"2026-09-08T23:20:20.375284+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestExtensionPeerProcess","Output":"--- PASS: TestExtensionPeerProcess (0.00s)\n"}
+{"Time":"2026-09-08T23:20:20.375292+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestExtensionPeerProcess","Elapsed":0}
+{"Time":"2026-09-08T23:20:20.375317+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionPersistentRequestsAndRemoteError"}
+{"Time":"2026-09-08T23:20:20.375322+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionPersistentRequestsAndRemoteError","Output":"=== RUN   TestConnectionPersistentRequestsAndRemoteError\n"}
+{"Time":"2026-09-08T23:20:20.383762+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionPersistentRequestsAndRemoteError","Output":"--- PASS: TestConnectionPersistentRequestsAndRemoteError (0.01s)\n"}
+{"Time":"2026-09-08T23:20:20.383783+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionPersistentRequestsAndRemoteError","Elapsed":0.01}
+{"Time":"2026-09-08T23:20:20.383804+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin"}
+{"Time":"2026-09-08T23:20:20.383807+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin\n"}
+{"Time":"2026-09-08T23:20:20.383816+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/crash"}
+{"Time":"2026-09-08T23:20:20.383821+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/crash","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin/crash\n"}
+{"Time":"2026-09-08T23:20:20.390083+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/crash","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin/crash (0.01s)\n"}
+{"Time":"2026-09-08T23:20:20.3901+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/crash","Elapsed":0.01}
+{"Time":"2026-09-08T23:20:20.390124+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/wrong"}
+{"Time":"2026-09-08T23:20:20.390133+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/wrong","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin/wrong\n"}
+{"Time":"2026-09-08T23:20:20.396335+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/wrong","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin/wrong (0.01s)\n"}
+{"Time":"2026-09-08T23:20:20.396358+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/wrong","Elapsed":0.01}
+{"Time":"2026-09-08T23:20:20.396372+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/hang"}
+{"Time":"2026-09-08T23:20:20.39638+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/hang","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin/hang\n"}
+{"Time":"2026-09-08T23:20:20.501482+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/hang","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin/hang (0.10s)\n"}
+{"Time":"2026-09-08T23:20:20.501536+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/hang","Elapsed":0.1}
+{"Time":"2026-09-08T23:20:20.501549+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/flood"}
+{"Time":"2026-09-08T23:20:20.501556+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/flood","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin/flood\n"}
+{"Time":"2026-09-08T23:20:20.515549+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/flood","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin/flood (0.01s)\n"}
+{"Time":"2026-09-08T23:20:20.515582+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/flood","Elapsed":0.01}
+{"Time":"2026-09-08T23:20:20.515611+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/callback"}
+{"Time":"2026-09-08T23:20:20.515619+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/callback","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin/callback\n"}
+{"Time":"2026-09-08T23:20:20.524759+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/callback","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin/callback (0.01s)\n"}
+{"Time":"2026-09-08T23:20:20.524803+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/callback","Elapsed":0.01}
+{"Time":"2026-09-08T23:20:20.524813+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/no-read"}
+{"Time":"2026-09-08T23:20:20.524817+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/no-read","Output":"=== RUN   TestConnectionFailuresTerminateAndJoin/no-read\n"}
+{"Time":"2026-09-08T23:20:20.629413+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/no-read","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin/no-read (0.10s)\n"}
+{"Time":"2026-09-08T23:20:20.629448+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin/no-read","Elapsed":0.1}
+{"Time":"2026-09-08T23:20:20.629458+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin","Output":"--- PASS: TestConnectionFailuresTerminateAndJoin (0.25s)\n"}
+{"Time":"2026-09-08T23:20:20.629477+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionFailuresTerminateAndJoin","Elapsed":0.25}
+{"Time":"2026-09-08T23:20:20.629514+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionRejectsBadLocalFramesWithoutKillingPeer"}
+{"Time":"2026-09-08T23:20:20.629521+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionRejectsBadLocalFramesWithoutKillingPeer","Output":"=== RUN   TestConnectionRejectsBadLocalFramesWithoutKillingPeer\n"}
+{"Time":"2026-09-08T23:20:20.658687+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionRejectsBadLocalFramesWithoutKillingPeer","Output":"--- PASS: TestConnectionRejectsBadLocalFramesWithoutKillingPeer (0.03s)\n"}
+{"Time":"2026-09-08T23:20:20.658709+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestConnectionRejectsBadLocalFramesWithoutKillingPeer","Elapsed":0.03}
+{"Time":"2026-09-08T23:20:20.658714+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestQueuedCancellationDoesNotKillActiveExtensionRequest"}
+{"Time":"2026-09-08T23:20:20.658717+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestQueuedCancellationDoesNotKillActiveExtensionRequest","Output":"=== RUN   TestQueuedCancellationDoesNotKillActiveExtensionRequest\n"}
+{"Time":"2026-09-08T23:20:20.770179+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestQueuedCancellationDoesNotKillActiveExtensionRequest","Output":"--- PASS: TestQueuedCancellationDoesNotKillActiveExtensionRequest (0.11s)\n"}
+{"Time":"2026-09-08T23:20:20.770229+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Test":"TestQueuedCancellationDoesNotKillActiveExtensionRequest","Elapsed":0.11}
+{"Time":"2026-09-08T23:20:20.770242+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"PASS\n"}
+{"Time":"2026-09-08T23:20:20.987154+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Output":"ok  \tgithub.com/sausheong/hand/extension/protocol\t1.459s\n"}
+{"Time":"2026-09-08T23:20:20.987201+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Elapsed":1.46}
+{"Time":"2026-09-08T23:20:21.786127+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/extensions","Output":"ok  \tgithub.com/sausheong/hand/internal/extensions\t2.258s\n"}
+{"Time":"2026-09-08T23:20:21.786261+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/extensions","Elapsed":2.259}

@@ -1,0 +1,170 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restored",
+      "method": "summarizer.status",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restored",
+      "result": {
+        "independent": true,
+        "selection": {
+          "options": {
+            "profile": "summary",
+            "max_output_tokens": 512,
+            "timeout_seconds": 20
+          },
+          "provider": "local",
+          "model": "summary-fixture",
+          "destination": "http://127.0.0.1:1/v1",
+          "disclosure": "Compaction sends session history and pinned guidance to this destination. This selection stays independent of the main model. Output and timeout limits apply per summariser attempt; retries can add usage.",
+          "digest": "88361f597a573a3e8cd2035649b408386c0877d8ced0299003b435740be1a3c9"
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "follow-review",
+      "method": "summarizer.review",
+      "params": {
+        "follow_main": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "follow-review",
+      "result": {
+        "options": {
+          "follow_main": true,
+          "profile": "",
+          "max_output_tokens": 4096,
+          "timeout_seconds": 60
+        },
+        "provider": "local",
+        "model": "fixture",
+        "destination": "http://127.0.0.1:1/v1",
+        "disclosure": "Compaction sends session history and pinned guidance to the current main-model destination and follows subsequent main-model changes. Output and timeout limits apply per attempt; retries can add usage.",
+        "digest": "512646efa595f1ba6c6029a1dad8f1c255cb622eade0432e5e7133f9983ca4eb"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "follow-select",
+      "method": "summarizer.select",
+      "params": {
+        "options": {
+          "follow_main": true,
+          "profile": "",
+          "max_output_tokens": 4096,
+          "timeout_seconds": 60
+        },
+        "digest": "512646efa595f1ba6c6029a1dad8f1c255cb622eade0432e5e7133f9983ca4eb",
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "follow-select",
+      "result": {
+        "selected": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "following",
+      "method": "summarizer.status",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "following",
+      "result": {
+        "independent": false,
+        "selection": {
+          "options": {
+            "follow_main": true,
+            "profile": "",
+            "max_output_tokens": 4096,
+            "timeout_seconds": 60
+          },
+          "provider": "local",
+          "model": "fixture",
+          "destination": "http://127.0.0.1:1/v1",
+          "disclosure": "Compaction sends session history and pinned guidance to the current main-model destination and follows subsequent main-model changes. Output and timeout limits apply per attempt; retries can add usage.",
+          "digest": "512646efa595f1ba6c6029a1dad8f1c255cb622eade0432e5e7133f9983ca4eb"
+        }
+      }
+    }
+  }
+]

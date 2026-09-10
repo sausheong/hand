@@ -1,0 +1,162 @@
+diff --git a/runtime/builder.go b/runtime/builder.go
+index 428487a..758b5c8 100644
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -4,6 +4,7 @@ import (
+ 	"context"
+ 	"fmt"
+ 	"log/slog"
++	"time"
+ 
+ 	"github.com/sausheong/harness/compaction"
+ 	"github.com/sausheong/harness/llm"
+@@ -102,6 +103,17 @@ func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeIn
+ 	// callers always pass *tool.Registry; test paths that don't won't
+ 	// get load tools registered (which is fine for them).
+ 	var mcpClients []*mcp.Client
++	var mcpStatus []MCPServerStatus
++	names := make(map[string]bool)
++	for _, srv := range spec.MCPServers {
++		if srv.Name == "" || names[srv.Name] {
++			return nil, fmt.Errorf("MCP server names must be nonempty and unique")
++		}
++		if srv.ConnectTimeout < 0 {
++			return nil, fmt.Errorf("MCP connect timeout must not be negative")
++		}
++		names[srv.Name] = true
++	}
+ 	defer func() {
+ 		if buildErr != nil {
+ 			for _, c := range mcpClients {
+@@ -131,14 +143,32 @@ func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeIn
+ 		// On any failure, close everything connected so far before
+ 		// returning — a partially-built Runtime would leak processes.
+ 		for _, srv := range spec.MCPServers {
+-			cli, err := mcp.Connect(ctx, srv)
++			serverCtx := ctx
++			cancel := func() {}
++			timeout := srv.ConnectTimeout
++			if timeout == 0 && srv.Optional {
++				timeout = 5 * time.Second
++			}
++			if timeout > 0 {
++				serverCtx, cancel = context.WithTimeout(ctx, timeout)
++			}
++			cli, err := mcp.Connect(serverCtx, srv)
++			cancel()
+ 			if err != nil {
++				if ctx.Err() != nil {
++					return nil, ctx.Err()
++				}
++				if srv.Optional {
++					mcpStatus = append(mcpStatus, MCPServerStatus{Name: srv.Name, Optional: true, State: "unavailable"})
++					continue
++				}
+ 				return nil, fmt.Errorf("mcp server %q: %w", srv.Name, err)
+ 			}
+ 			for _, t := range cli.Tools() {
+ 				stagedTools = append(stagedTools, t)
+ 			}
+ 			mcpClients = append(mcpClients, cli)
++			mcpStatus = append(mcpStatus, MCPServerStatus{Name: srv.Name, Optional: srv.Optional, State: "connected", Tools: len(cli.Tools())})
+ 		}
+ 	} else if len(spec.MCPServers) > 0 {
+ 		return nil, fmt.Errorf("AgentSpec.MCPServers requires inputs.Tools to be *tool.Registry")
+@@ -217,6 +247,7 @@ func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeIn
+ 		StaticSystemPrompt: staticPrompt,
+ 		CalibratorStore:    deps.CalibratorStore,
+ 		mcpClients:         mcpClients,
++		mcpStatus:          mcpStatus,
+ 	}
+ 
+ 	// Seed the calibrator from prior (ratio, count) for this session so a
+diff --git a/runtime/builder_context_test.go b/runtime/builder_context_test.go
+index db16481..5e4e4c9 100644
+--- a/runtime/builder_context_test.go
++++ b/runtime/builder_context_test.go
+@@ -96,3 +96,41 @@ func TestBuildRuntimeContextDoesNotOwnSuccessfulSessionLifetime(t *testing.T) {
+ 		t.Fatal("runtime close did not join child")
+ 	}
+ }
++
++func TestOptionalMCPFailurePreservesHealthyCatalogue(t *testing.T) {
++	healthy, _ := constructionServer(t)
++	reg := tool.NewRegistry()
++	rt, err := BuildRuntimeContext(context.Background(), RuntimeDeps{}, RuntimeInputs{Tools: reg}, AgentSpec{MCPServers: []mcp.ServerConfig{
++		{Name: "optional", Optional: true, Command: "sleep", Args: []string{"30"}, ConnectTimeout: 50 * time.Millisecond}, healthy,
++	}})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	if names := reg.Names(); len(names) != 1 || names[0] != "mcp__healthy__echo" {
++		t.Fatalf("catalogue %v", names)
++	}
++	status := rt.MCPStatus()
++	if len(status) != 2 || status[0].State != "unavailable" || !status[0].Optional || status[1].State != "connected" || status[1].Tools != 1 {
++		t.Fatalf("status %+v", status)
++	}
++	status[0].State = "mutated"
++	if rt.MCPStatus()[0].State != "unavailable" {
++		t.Fatal("mutable status escaped")
++	}
++}
++func TestOptionalMCPDoesNotSwallowOwnerCancellation(t *testing.T) {
++	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
++	defer cancel()
++	rt, err := BuildRuntimeContext(ctx, RuntimeDeps{}, RuntimeInputs{Tools: tool.NewRegistry()}, AgentSpec{MCPServers: []mcp.ServerConfig{{Name: "optional", Optional: true, Command: "sleep", Args: []string{"30"}}}})
++	if rt != nil || !errors.Is(err, context.DeadlineExceeded) {
++		t.Fatalf("owner cancellation: %v %v", rt, err)
++	}
++}
++func TestMCPDuplicateNamesRejectedBeforeConstruction(t *testing.T) {
++	reg := tool.NewRegistry()
++	rt, err := BuildRuntimeContext(context.Background(), RuntimeDeps{}, RuntimeInputs{Tools: reg}, AgentSpec{MCPServers: []mcp.ServerConfig{{Name: "same"}, {Name: "same"}}})
++	if rt != nil || err == nil || len(reg.Names()) != 0 {
++		t.Fatalf("duplicate names: %v %v", rt, err)
++	}
++}
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index e5d0177..7685e96 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -149,6 +149,7 @@ type Runtime struct {
+ 	// AgentSpec.MCPServers. Released by Close. Untouched when MCP is
+ 	// not used.
+ 	mcpClients []*mcp.Client
++	mcpStatus  []MCPServerStatus
+ 
+ 	// runMu enforces the Runtime contract that one session exchange runs at a
+ 	// time. TryLock lets a second caller receive a normal error instead of
+@@ -1180,3 +1181,16 @@ func kgThreadOrNil(kg KnowledgeGraph, thread *[]Message) *[]Message {
+ 	}
+ 	return thread
+ }
++
++// MCPServerStatus is immutable construction evidence without credentials or raw
++// transport errors. Connected servers alone contribute tools to the catalogue.
++type MCPServerStatus struct {
++	Name     string
++	Optional bool
++	State    string
++	Tools    int
++}
++
++func (r *Runtime) MCPStatus() []MCPServerStatus {
++	return append([]MCPServerStatus(nil), r.mcpStatus...)
++}
+diff --git a/tools/mcp/mcp.go b/tools/mcp/mcp.go
+index c9c0a4f..3136ef6 100644
+--- a/tools/mcp/mcp.go
++++ b/tools/mcp/mcp.go
+@@ -36,6 +36,10 @@ import (
+ // transport must be specified: Command (stdio, the most common) or URL
+ // (Streamable HTTP via the SDK's StreamableClientTransport).
+ type ServerConfig struct {
++	// Optional permits construction to continue when this server fails.
++	Optional bool
++	// ConnectTimeout bounds this server; optional servers default to five seconds.
++	ConnectTimeout time.Duration
+ 	// Name namespaces the server's tools. Adapter tool names become
+ 	// "mcp__<Name>__<tool>" — the conventional double-underscore
+ 	// scheme that prevents collisions with built-in tools.

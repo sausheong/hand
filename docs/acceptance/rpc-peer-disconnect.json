@@ -1,0 +1,136 @@
+{
+  "status": "development_regression_passed",
+  "candidate_qualified": false,
+  "change": "Observe queued-input peer closure with Darwin kqueue and Linux poll; preserve nonblocking I/O via SyscallConn; join monitor and reader on shutdown.",
+  "test_records": {
+    "repeat": {
+      "pass": 80
+    },
+    "startup": {
+      "pass": 10
+    },
+    "transport": {
+      "pass": 140
+    },
+    "negative": {
+      "fail": 2
+    },
+    "final": {
+      "pass": 100
+    }
+  },
+  "trials": {
+    "input_disconnect": 20,
+    "output_disconnect": 20,
+    "context_cancel": 20,
+    "idle_read_close": 20
+  },
+  "maximum_queued_disconnect_join_ms": 0.812,
+  "negative_control": "Go overlay disables RemoteClosed notification only; queued input test fails within 3 seconds, cleanup joins. Synthetic fault injection is regression sensitivity evidence, not acceptance product evidence.",
+  "vet": "cmd/hand and internal/rpc passed",
+  "linux_arm64": "cross-build exit 0; module stat-cache write warning under sandbox; no native Linux execution",
+  "limitations": [
+    "Dirty Hand and local unpublished Harness; no clean candidate",
+    "Full coverage and platform qualification remain stale/pending",
+    "Linux peer monitor runtime not verified",
+    "Existing startup-backlog policy retained; queued commands are discarded on disconnect"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/cmd__hand__rpc_stdio_unix.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_stdio_unix.go",
+      "uncompressed_sha256": "3a8089a45d60fe03e1a5581f8a978ab5f76f3cc7fd620b6fa26ab40070d91832",
+      "sha256": "1f8a5950b561d60343cc63441dc5dc54c690b0491e4cfaa977478e8bf73ca633"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/cmd__hand__rpc_peer_darwin.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_peer_darwin.go",
+      "uncompressed_sha256": "ba63e3258784f8c1a8553b6b6b53bfda46c68fb59920d222720d8b67aecce9c3",
+      "sha256": "7d2c25453864420f5a49362484c32f2a863e03afa189aa872454c9901cddd240"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/cmd__hand__rpc_peer_linux.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_peer_linux.go",
+      "uncompressed_sha256": "7fd8959f30f5c6da4b62acda9355aa061c92d763b24e9aff18ec985f8760fa44",
+      "sha256": "2f708cbd020cc3a5b51cda6c85b3d15b01eb54d217258423f761fa1c1fd9d218"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/cmd__hand__rpc_stdio_unix_test.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc_stdio_unix_test.go",
+      "uncompressed_sha256": "5dcd5e998aee774331cfbc96c86ab02f7453a9805afc668d26cf1170b2511781",
+      "sha256": "91bbcdf2da76d3e976140afbd277babe78666d34aeafa0e6c16e66de547c2343"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/cmd__hand__rpc.go.gz",
+      "source": "/Users/sausheong/projects/hand/cmd/hand/rpc.go",
+      "uncompressed_sha256": "ca6bcdb91cc5f9b9fdadaf09af665e221deef4bc0846feb8b9ec5ce015820d3c",
+      "sha256": "808dd0bddac2711b3c4ca3f808864f9ff02fc36e824ea9b0189510c7979c888d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/internal__rpc__prepared_transport.go.gz",
+      "source": "/Users/sausheong/projects/hand/internal/rpc/prepared_transport.go",
+      "uncompressed_sha256": "d91bf2814a6f4ecb943a68f598470437ac921cd090654ad89f6fece891ba5ed5",
+      "sha256": "344f76d9633382c50ad61305577ceadf3f33117424fbfca3a9d9bbd29edac080"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/internal__rpc__transport.go.gz",
+      "source": "/Users/sausheong/projects/hand/internal/rpc/transport.go",
+      "uncompressed_sha256": "05a36ef92e26e94a023f989b56cefa7dc8a671785d12cb2cae15ce0f58be1f08",
+      "sha256": "4736af3473d63c0c1dc0cffc704dc80d27743909d7af299d1ed5d3f6e9b5d185"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-repeat-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-repeat-20260909.jsonl",
+      "uncompressed_sha256": "99c6e89674b01311aa44a831a2a92ff65847970b1a09613cedfc3760465af852",
+      "sha256": "459b9659f5d3a6b992e346098d16302559e6c6d4c826549e0dd254fcc272eb87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-startup-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-startup-20260909.jsonl",
+      "uncompressed_sha256": "59bee5cb70b9a31bc2b475bcb720d940e2227a1e16c9d53f2032eaa9e24c48cc",
+      "sha256": "5754f684932561b802d0dbffed11424b8f17eed94e85a9f9bce47da44a67937b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-transport-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-transport-20260909.jsonl",
+      "uncompressed_sha256": "a8cd3e7bfe4894a52a0e9f737c33fd5f8df7ac8301a5cf3bd6cf071689c53285",
+      "sha256": "b491df76819975194a232d77f7e9d730b021f94bebf5baa9cc77dc5b15799767"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-negative-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-negative-20260909.jsonl",
+      "uncompressed_sha256": "d60832682d4f1d0e90ba137eb8223f5de81dad3ca9377463fc17fb5102ec2550",
+      "sha256": "c4f7c5ac8617c625e85c8bc7754bcb29b1aecdcfe7e5aa42097e7a8db4701539"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-final-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-peer-final-20260909.jsonl",
+      "uncompressed_sha256": "1326a72aa38244d46c4a88937aed59a09d4e3f990e7fb9280b6e01d3c6a389da",
+      "sha256": "dadecc4b9a909bcc53650b00c737cf97ef4a3859e0e54ab90a928bdbb6a84a59"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-vet-20260909.log.gz",
+      "source": "/private/tmp/hand-rpc-peer-vet-20260909.log",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-disabled-20260909.go.gz",
+      "source": "/private/tmp/hand-rpc-peer-disabled-20260909.go",
+      "uncompressed_sha256": "13fa2e34c20fe127f05a766dd6b821bec66b9e0d435c5d569810ca5c8cd5b1d5",
+      "sha256": "cf5383011e0913eaa7f94b45bf50b2f66f60b1135874ae82b9db73acfe1a86a2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-peer-disabled-20260909.json.gz",
+      "source": "/private/tmp/hand-rpc-peer-disabled-20260909.json",
+      "uncompressed_sha256": "59c4a70471b61107666f36d4aa9f208d219008d3fad29a600857f2cae485a7d9",
+      "sha256": "cd27623b4dcc1da3ca9dbeeb3d30312c9ac24a2c36320026b3d7c87d0e7dff07"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-peer-disconnect-20260909/hand-rpc-pipe-backpressure-fixed-fixture-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-rpc-pipe-backpressure-fixed-fixture-20260909.jsonl",
+      "uncompressed_sha256": "a4cf4f2ee17d3bbccbb07fe62cbd4edf2d269a9c0593d1ad6b9cfd25a4cc01e7",
+      "sha256": "270bdc287c981b7dbf6896b38d24cc740a7dab5d9a2b65ec26becfcf65bf48b9"
+    }
+  ]
+}

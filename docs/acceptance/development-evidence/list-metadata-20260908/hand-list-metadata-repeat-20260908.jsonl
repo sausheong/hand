@@ -1,0 +1,164 @@
+{"Time":"2026-09-08T07:35:57.287064+08:00","Action":"start","Package":"github.com/sausheong/harness/session"}
+{"Time":"2026-09-08T07:35:57.76801+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:57.768054+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:57.965745+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.20s)\n"}
+{"Time":"2026-09-08T07:35:57.965785+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.2}
+{"Time":"2026-09-08T07:35:57.965804+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:57.96582+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:57.965915+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:57.96593+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:57.96815+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:57.968157+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:58.165808+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.20s)\n"}
+{"Time":"2026-09-08T07:35:58.165836+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.2}
+{"Time":"2026-09-08T07:35:58.165866+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:58.165877+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:58.16596+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:58.165968+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:58.168065+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:58.16807+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:58.366382+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.20s)\n"}
+{"Time":"2026-09-08T07:35:58.366412+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.2}
+{"Time":"2026-09-08T07:35:58.366419+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:58.366442+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:58.366515+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:58.366529+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:58.368713+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:58.36872+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:58.564491+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.20s)\n"}
+{"Time":"2026-09-08T07:35:58.564512+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.2}
+{"Time":"2026-09-08T07:35:58.564542+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:58.564553+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:58.564628+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:58.564635+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:58.566722+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:58.566727+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:58.768902+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.20s)\n"}
+{"Time":"2026-09-08T07:35:58.768928+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.2}
+{"Time":"2026-09-08T07:35:58.768973+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:58.76898+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:58.769073+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:58.769083+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:58.771189+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:58.771196+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:58.977354+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.21s)\n"}
+{"Time":"2026-09-08T07:35:58.97738+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.21}
+{"Time":"2026-09-08T07:35:58.977412+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:58.977418+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:58.9775+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:58.977506+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:58.979614+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:58.979619+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:59.177921+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.20s)\n"}
+{"Time":"2026-09-08T07:35:59.177945+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.2}
+{"Time":"2026-09-08T07:35:59.177986+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:59.177993+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:59.178087+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:59.178099+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:59.180185+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:59.180192+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:59.374833+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:35:59.374855+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:35:59.374879+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:59.374883+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:59.37497+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:59.374992+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:59.377055+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:59.377062+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:59.567197+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:35:59.567213+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:35:59.567251+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:59.567254+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:59.56734+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:59.567345+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:59.569469+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:59.569474+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:59.763366+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:35:59.763391+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:35:59.763428+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:59.763434+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:59.763522+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:59.763527+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:59.765465+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:59.765469+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:35:59.958175+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:35:59.958192+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:35:59.958218+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:35:59.958221+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:35:59.958293+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:35:59.958298+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:35:59.960367+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:35:59.960371+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:00.152867+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:00.152881+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:00.152922+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:00.152931+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:00.152995+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:00.153001+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:00.154997+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:00.155003+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:00.350009+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:00.350027+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:00.350062+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:00.350067+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:00.350157+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:00.350162+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:00.352194+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:00.352205+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:00.545024+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:00.545047+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:00.545079+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:00.545085+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:00.545174+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:00.545179+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:00.547255+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:00.54726+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:00.741956+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:00.741981+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:00.742014+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:00.742019+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:00.742125+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:00.742139+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:00.74422+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:00.74423+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:00.937823+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:00.937846+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:00.93788+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:00.937893+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:00.937978+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:00.937984+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:00.940123+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:00.940131+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:01.134082+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:01.134102+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:01.134138+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:01.134143+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:01.134228+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:01.134243+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:01.136294+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:01.136298+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:01.32807+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:01.328095+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:01.32812+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:01.328123+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:01.328218+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:01.328223+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:01.330356+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:01.33036+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:01.524202+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:01.524228+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:01.524264+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:01.52427+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:01.524359+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:01.524364+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:01.526437+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage"}
+{"Time":"2026-09-08T07:36:01.526441+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"=== RUN   TestListMetadataLargeLegacyAndDamage\n"}
+{"Time":"2026-09-08T07:36:01.720472+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Output":"--- PASS: TestListMetadataLargeLegacyAndDamage (0.19s)\n"}
+{"Time":"2026-09-08T07:36:01.7205+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestListMetadataLargeLegacyAndDamage","Elapsed":0.19}
+{"Time":"2026-09-08T07:36:01.720516+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts"}
+{"Time":"2026-09-08T07:36:01.720528+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"=== RUN   TestMetadataScanFailsWithoutPartialCounts\n"}
+{"Time":"2026-09-08T07:36:01.720605+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Output":"--- PASS: TestMetadataScanFailsWithoutPartialCounts (0.00s)\n"}
+{"Time":"2026-09-08T07:36:01.720616+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestMetadataScanFailsWithoutPartialCounts","Elapsed":0}
+{"Time":"2026-09-08T07:36:01.722016+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"PASS\n"}
+{"Time":"2026-09-08T07:36:02.736418+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"ok  \tgithub.com/sausheong/harness/session\t5.449s\n"}
+{"Time":"2026-09-08T07:36:02.736452+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Elapsed":5.449}

@@ -1,0 +1,114 @@
+{
+  "status": "offline_oracle_calibrated",
+  "task": "search-large-text",
+  "runs": {
+    "baseline": {
+      "status": "baseline_tests_failed",
+      "checks": [
+        {
+          "status": "failed",
+          "errors": [
+            "verification command did not complete successfully with joined output",
+            "test fail: github.com/sausheong/hand/internal/agentio::TestAcceptanceLargeTextSearch",
+            "package fail: github.com/sausheong/hand/internal/agentio"
+          ],
+          "expected": [
+            {
+              "package": "github.com/sausheong/hand/internal/agentio",
+              "test": "TestAcceptanceLargeTextSearch"
+            }
+          ],
+          "missing": [],
+          "packages": {
+            "github.com/sausheong/hand/internal/agentio": "fail"
+          },
+          "tests": [
+            {
+              "package": "github.com/sausheong/hand/internal/agentio",
+              "test": "TestAcceptanceLargeTextSearch",
+              "outcome": "fail"
+            }
+          ],
+          "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+        }
+      ]
+    },
+    "candidate": {
+      "status": "candidate_tests_passed",
+      "checks": [
+        {
+          "status": "passed",
+          "errors": [],
+          "expected": [
+            {
+              "package": "github.com/sausheong/hand/internal/agentio",
+              "test": "TestAcceptanceLargeTextSearch"
+            }
+          ],
+          "missing": [],
+          "packages": {
+            "github.com/sausheong/hand/internal/agentio": "pass"
+          },
+          "tests": [
+            {
+              "package": "github.com/sausheong/hand/internal/agentio",
+              "test": "TestAcceptanceLargeTextSearch",
+              "outcome": "pass"
+            }
+          ],
+          "limitation": "Event validation does not authenticate a test binary, prevent forged output or replace independent code review."
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/baseline-report.json.gz",
+      "sha256": "b71533c4bc96cd24a6bdd8118e12caad8240e60fe7b74e6709472ae993c91132"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/baseline-stdout.log.gz",
+      "sha256": "f2eda40162057541feaed8be44612a0e457e484b69951e3b8ca615caa2aede68"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/baseline-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/candidate-report.json.gz",
+      "sha256": "0623d04b7a652f77edd87a4f9f4f5b969c7a5b892ae5064f39ac4fac40ee4261"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/candidate-stdout.log.gz",
+      "sha256": "e2c2a354cc04cd300c7553c5e752ef3aefb677f634935941d737f1b0c6d8593b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/candidate-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/hand-search-calibration-fix-20260909.patch.gz",
+      "sha256": "b40617dae86d66e907c883ecf6957b40e521df99cc87be3d70a5dd8d398ec893"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/calibration.json.gz",
+      "sha256": "b68f135cf3797fc44a14674e746ac291401998b6745cc060b011d4ced43be888"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-search-20260909/search_large_test.go.gz",
+      "sha256": "00b2dba528740e1538fb128dd93b181f4df715973c20432548a2ab04eb556b3f"
+    }
+  ],
+  "candidate_review": "Minimal patch removes only the whole-file size exclusion before existing streaming grepFile. Scanner and maxResults-len(results) remain; filename filters and line counts preserved. This is a calibration solution, not the full search implementation or agent output.",
+  "catalogue": {
+    "tasks": 3,
+    "repositories": 2,
+    "held_out": 0,
+    "paid_runs": 0
+  },
+  "limitations": [
+    "All tasks are calibration bug fixes in Go; language/category/held-out diversity incomplete",
+    "Hand/Pi source/model/mode pins and paid budget remain unapproved/unconfigured",
+    "No live task success or comparative superiority conclusion"
+  ]
+}

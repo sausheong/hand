@@ -1,0 +1,494 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select",
+      "method": "session.select",
+      "params": {
+        "id": "ses_a1c7343e2197cba8"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_a1c7343e2197cba8"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restored",
+      "method": "budget.run",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restored",
+      "result": {
+        "id": "timed-run",
+        "selected": true,
+        "configured": true,
+        "tokens": {
+          "limit": 0,
+          "committed": 0,
+          "exhausted": false,
+          "attempts": 0,
+          "uncertain_attempts": 0,
+          "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+        },
+        "cost": {
+          "currency": "",
+          "limit_nano": 0,
+          "committed_nano": 0,
+          "compaction_nano": 0,
+          "strict": false,
+          "exhausted": false,
+          "attempts": 0,
+          "unpriced_attempts": 0,
+          "uncertain_attempts": 0,
+          "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+        },
+        "time": {
+          "configured": true,
+          "decided_at": "2026-09-08T14:20:12.054817Z",
+          "deadline": "2026-09-08T14:20:14.054817Z",
+          "expired": true,
+          "remaining_millis": 0,
+          "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+        },
+        "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "time-start",
+      "method": "budget.run.time.decide",
+      "params": {
+        "id": "timed-run",
+        "seconds": 2,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "time-start",
+      "result": {
+        "id": "timed-run",
+        "seconds": 2
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "after-replay",
+      "method": "budget.run",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "after-replay",
+      "result": {
+        "id": "timed-run",
+        "selected": true,
+        "configured": true,
+        "tokens": {
+          "limit": 0,
+          "committed": 0,
+          "exhausted": false,
+          "attempts": 0,
+          "uncertain_attempts": 0,
+          "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+        },
+        "cost": {
+          "currency": "",
+          "limit_nano": 0,
+          "committed_nano": 0,
+          "compaction_nano": 0,
+          "strict": false,
+          "exhausted": false,
+          "attempts": 0,
+          "unpriced_attempts": 0,
+          "uncertain_attempts": 0,
+          "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+        },
+        "time": {
+          "configured": true,
+          "decided_at": "2026-09-08T14:20:12.054817Z",
+          "deadline": "2026-09-08T14:20:14.054817Z",
+          "expired": true,
+          "remaining_millis": 0,
+          "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+        },
+        "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "still-expired",
+      "method": "prompt",
+      "params": {
+        "text": "Do not renew the deadline implicitly."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "still-expired",
+      "result": {
+        "id": "still-expired",
+        "fingerprint": "7bf805889d55352ed303ccd6d9c13388e932319e24958478a6eb22d096b1cc19",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-expired"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-expired",
+        "fingerprint": "7bf805889d55352ed303ccd6d9c13388e932319e24958478a6eb22d096b1cc19",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-expired"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-expired",
+        "fingerprint": "7bf805889d55352ed303ccd6d9c13388e932319e24958478a6eb22d096b1cc19",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "ZCG6I5G57A4WV5YCS3JVN4IIIS:1",
+          "sequence": 1,
+          "session_id": "ses_a1c7343e2197cba8",
+          "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:1",
+          "request_id": "still-expired",
+          "timestamp": "2026-09-08T14:20:14.236878Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "run time budget: budget_exhausted",
+            "iteration": 0,
+            "reason": "run_time_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "renew",
+      "method": "budget.run.time.decide",
+      "params": {
+        "id": "timed-run",
+        "seconds": 60,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "renew",
+      "result": {
+        "id": "timed-run",
+        "seconds": 60
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "renewed",
+      "method": "budget.run",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "renewed",
+      "result": {
+        "id": "timed-run",
+        "selected": true,
+        "configured": true,
+        "tokens": {
+          "limit": 0,
+          "committed": 0,
+          "exhausted": false,
+          "attempts": 0,
+          "uncertain_attempts": 0,
+          "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+        },
+        "cost": {
+          "currency": "",
+          "limit_nano": 0,
+          "committed_nano": 0,
+          "compaction_nano": 0,
+          "strict": false,
+          "exhausted": false,
+          "attempts": 0,
+          "unpriced_attempts": 0,
+          "uncertain_attempts": 0,
+          "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+        },
+        "time": {
+          "configured": true,
+          "decided_at": "2026-09-08T14:20:14.249659Z",
+          "deadline": "2026-09-08T14:21:14.249659Z",
+          "expired": false,
+          "remaining_millis": 59990,
+          "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+        },
+        "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "resumed",
+      "method": "prompt",
+      "params": {
+        "text": "Complete the renewed local fixture."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "resumed",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "2c1a7bb28ff7ab190086066538da9df2728f65e5ba346c23d9f74a3edfe6496e",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "2c1a7bb28ff7ab190086066538da9df2728f65e5ba346c23d9f74a3edfe6496e",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "2c1a7bb28ff7ab190086066538da9df2728f65e5ba346c23d9f74a3edfe6496e",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "2c1a7bb28ff7ab190086066538da9df2728f65e5ba346c23d9f74a3edfe6496e",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "2c1a7bb28ff7ab190086066538da9df2728f65e5ba346c23d9f74a3edfe6496e",
+        "session_id": "ses_a1c7343e2197cba8",
+        "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "CLG7XWL53LCKEB76PAMHPSA3MY:8",
+          "sequence": 8,
+          "session_id": "ses_a1c7343e2197cba8",
+          "run_id": "YBOUFU6DMKGS5QQOILE34JBHB2:2",
+          "request_id": "resumed",
+          "timestamp": "2026-09-08T14:20:14.299488Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 10,
+              "known": true,
+              "output_tokens": 5,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

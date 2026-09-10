@@ -1,0 +1,41 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenario": "resume_after_crash_budget",
+  "command": "go test -race -count=20 -timeout=3m -run ^TestBinaryCrashResumeRetainsBudgetReservation$ -json ./cmd/hand",
+  "tests": {
+    "pass": 20
+  },
+  "repetitions": 20,
+  "assertions": [
+    "SIGKILL terminates actual Hand while provider stream is active; provider observes disconnect",
+    "Session and RPC request reopen with uncertain execution, one positive outstanding token reservation",
+    "Second restart retains exact committed charge and uncertainty",
+    "Insufficient headroom blocks next request as budget_exhausted without provider dispatch",
+    "Explicit ceiling increase permits completed resumption and retains original uncertain charge"
+  ],
+  "initial_failure": "Test attempted ceiling equal to committed tokens, correctly rejected by API. Corrected to committed plus one, still insufficient for request admission.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/crash-budget-journey-20260909/hand-crash-budget-journey-repeat-20260909.jsonl.gz",
+      "sha256": "28976491e290797bab4db5041db697c8bfa47190587c736db4c7c821a6179c8f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/crash-budget-journey-20260909/crash_budget_journey_test.go.gz",
+      "sha256": "7afe22375bc377ed98810c57ef27d4fcbd8a308e65ab8eb34dd24234c55e9155"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/crash-budget-journey-20260909/hand-crash-budget-journey-20260909.jsonl.gz",
+      "sha256": "d04eaf6663d570bfd74e90cbb488375196d0a4b79c58940f826fe00b96375df8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/crash-budget-journey-20260909/hand-crash-budget-journey-fixed-20260909.jsonl.gz",
+      "sha256": "e6d5a7fd8315e67a034ccfdf27797e8b34907002c1af86efb5737844c73709ab"
+    }
+  ],
+  "limitations": [
+    "Session token budget journey; separate cost/time tests still require final qualification",
+    "Scripted local provider, dirty checkout and local Harness; not final candidate/platform evidence",
+    "Race-enabled test harness, ordinary compiled Hand child"
+  ]
+}

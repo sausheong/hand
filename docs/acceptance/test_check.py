@@ -1,0 +1,158 @@
+"""Synthetic verifier tests: these are NOT evidence that Hand is implemented."""
+import copy
+import importlib.util
+import json
+from pathlib import Path
+import tempfile
+import unittest
+
+HERE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location('acceptance_check', HERE / 'check.py')
+check = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(check)
+
+
+class CompletionCheckerTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.base = Path(self.tmp.name)
+        log = self.base / 'synthetic.txt'
+        log.write_text('Synthetic checker fixture only. Not actual Hand evidence.\n')
+        self.manifest = json.loads((HERE / 'requirements.json').read_text())
+        self.identity = dict(source_commit='synthetic', harness_version='synthetic',
+                             plan_sha256='synthetic', manifest_sha256='synthetic')
+        self.evidence = dict(schema_version=1, **self.identity, clean_source=True,
+            native_platforms=['linux', 'darwin'], live_budget_authorised=True,
+            comparison_conclusion='not_established',
+            review=dict(reviewer='synthetic reviewer', disposition='accepted', report='synthetic.txt'),
+            results=[], metrics=dict(statement_coverage_pct=85, changed_statement_coverage_pct=95,
+              required_skips=0, open_acceptance_defects=0, open_p0_p1_defects=0,
+              ui_key_p95_ms=50, cancel_start_p95_ms=200, child_cleanup_max_ms=1000,
+              critical_repetitions=20, fuzz_seconds_per_target=60,
+              live_tasks=30, repeats_per_arm_per_mode=3, live_modes=2, live_arms=2,
+              hand_task_success_pct=90, hand_heldout_success_pct=85))
+        for group in check.CRITICAL:
+            self.evidence['metrics'][group + '_coverage_pct'] = 95
+        for req in self.manifest['requirements']:
+            self.evidence['results'].append(dict(id=req['id'], status='passed', scenarios=[
+                dict(id=sid, status='passed', procedure='synthetic test', expected='synthetic',
+                     observed='synthetic', artifacts=[dict(path=log.name, sha256=check.digest(log))])
+                for sid in req['scenarios']]))
+
+    def problems(self, profile='full'):
+        return check.validate(self.manifest, self.evidence, self.base, self.identity, profile)
+
+    def test_complete_shape(self):
+        self.assertEqual(self.problems(), [])
+
+    def test_effective_harness_must_match_pin_without_replacement(self):
+        module = dict(Path='github.com/sausheong/harness', Version='v1.2.3')
+        self.assertEqual(check.dependency_problems(module, 'v1.2.3'), [])
+        for changes in [dict(Version='v1.2.2'), dict(Main=True),
+                        dict(Replace={'Path': '/tmp/local-harness'}),
+                        dict(Replace={'Path': 'github.com/other/harness', 'Version': 'v1.2.3'}),
+                        dict(Error={'Err': 'unavailable'}), dict(Path='wrong')]:
+            with self.subTest(changes=changes):
+                self.assertTrue(check.dependency_problems(dict(module, **changes), 'v1.2.3'))
+
+    def test_evidence_outside_checkout_including_symlink_resolution(self):
+        root = self.base / 'checkout'
+        root.mkdir()
+        inside = root / 'run.json'
+        inside.write_text('{}')
+        self.assertTrue(check.evidence_location_problems(inside, root))
+        alias = self.base / 'alias.json'
+        alias.symlink_to(inside)
+        self.assertTrue(check.evidence_location_problems(alias, root))
+        self.assertEqual(check.evidence_location_problems(self.base / 'run.json', root), [])
+
+    def test_missing_requirement(self):
+        self.evidence['results'].pop(0)
+        self.assertTrue(self.problems())
+
+    def test_missing_scenario(self):
+        self.evidence['results'][0]['scenarios'].pop()
+        self.assertTrue(self.problems())
+
+    def test_skipped_not_pass(self):
+        self.evidence['results'][0]['scenarios'][0]['status'] = 'skipped'
+        self.assertTrue(self.problems())
+
+    def test_duplicate_requirement(self):
+        self.evidence['results'].append(copy.deepcopy(self.evidence['results'][0]))
+        self.assertTrue(self.problems())
+
+    def test_duplicate_scenario(self):
+        scenarios = self.evidence['results'][0]['scenarios']
+        scenarios.append(copy.deepcopy(scenarios[0]))
+        self.assertTrue(self.problems())
+
+    def test_stale_candidate(self):
+        self.evidence['source_commit'] = 'old'
+        self.assertTrue(self.problems())
+
+    def test_changed_manifest(self):
+        self.evidence['manifest_sha256'] = 'old'
+        self.assertTrue(self.problems())
+
+    def test_tampered_artifact(self):
+        (self.base / 'synthetic.txt').write_text('changed')
+        self.assertTrue(self.problems())
+
+    def test_missing_artifact(self):
+        (self.base / 'synthetic.txt').unlink()
+        self.assertTrue(self.problems())
+
+    def test_path_escape(self):
+        self.evidence['results'][0]['scenarios'][0]['artifacts'][0]['path'] = '../outside'
+        self.assertTrue(self.problems())
+
+    def test_bad_metrics(self):
+        for key, value in [('statement_coverage_pct', 79), ('permissions_coverage_pct', 79),
+                           ('required_skips', 1), ('ui_key_p95_ms', 101),
+                           ('child_cleanup_max_ms', 5001), ('open_acceptance_defects', 1),
+                           ('hand_task_success_pct', 79), ('live_tasks', 29),
+                           ('statement_coverage_pct', float('nan'))]:
+            with self.subTest(key=key):
+                old = self.evidence['metrics'][key]
+                self.evidence['metrics'][key] = value
+                self.assertTrue(self.problems())
+                self.evidence['metrics'][key] = old
+
+    def test_authorised_eighty_percent_coverage_boundary(self):
+        keys = ['statement_coverage_pct', 'changed_statement_coverage_pct'] + [
+            group + '_coverage_pct' for group in check.CRITICAL]
+        for key in keys:
+            self.evidence['metrics'][key] = 80
+        self.assertEqual(self.problems(), [])
+        for key in keys:
+            with self.subTest(metric=key):
+                self.evidence['metrics'][key] = 79.99
+                self.assertTrue(self.problems())
+                self.evidence['metrics'][key] = 80
+
+    def test_no_review(self):
+        self.evidence.pop('review')
+        self.assertTrue(self.problems())
+
+    def test_missing_platform(self):
+        self.evidence['native_platforms'] = ['linux']
+        self.assertTrue(self.problems())
+
+    def test_live_required_only_full(self):
+        self.evidence['results'] = [r for r in self.evidence['results'] if r['id'] != 'G-LIVE']
+        self.assertEqual(self.problems('offline'), [])
+        self.assertTrue(self.problems('full'))
+
+    def test_no_budget_authorisation(self):
+        self.evidence['live_budget_authorised'] = False
+        self.assertTrue(self.problems())
+
+    def test_empty_evidence(self):
+        self.evidence = {}
+        self.assertTrue(self.problems())
+
+
+if __name__ == '__main__':
+    unittest.main()

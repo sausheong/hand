@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/aymanbagabas/go-udiff"
 	"github.com/sausheong/harness/tool"
 )
 
@@ -33,11 +34,8 @@ func splitLines(s string) []string {
 // lineDiff renders a unified-diff-style preview of oldText -> newText:
 // lines prefixed "- " (removed), "+ " (added), or "  " (context).
 //
-// This is a common-prefix/common-suffix diff with context, not a
-// minimal LCS diff — deliberately. LLM-driven file edits are
-// overwhelmingly "change one contiguous region," which this handles
-// well, in O(n) time with no pathological blowup risk, unlike a naive
-// LCS table over large files.
+// Separate edits produce separate unified hunks. Input line and byte limits
+// bound preview work; larger changes remain explicitly labelled as omitted.
 func lineDiff(oldText, newText string) string {
 	if oldText == newText {
 		return "(no changes)"
@@ -50,34 +48,22 @@ func lineDiff(oldText, newText string) string {
 		return fmt.Sprintf("(large change: %d lines -> %d lines, diff omitted)", len(oldLines), len(newLines))
 	}
 
-	prefix := 0
-	for prefix < len(oldLines) && prefix < len(newLines) && oldLines[prefix] == newLines[prefix] {
-		prefix++
+	if len(oldText)+len(newText) > 2<<20 {
+		return "(large change: diff exceeds 2 MiB preview limit)"
 	}
-
-	oldEnd, newEnd := len(oldLines), len(newLines)
-	for oldEnd > prefix && newEnd > prefix && oldLines[oldEnd-1] == newLines[newEnd-1] {
-		oldEnd--
-		newEnd--
+	unified := udiff.Unified("before", "after", oldText, newText)
+	lines := strings.Split(strings.TrimRight(unified, "\n"), "\n")
+	var output []string
+	for _, line := range lines {
+		if strings.HasPrefix(line, "--- ") || strings.HasPrefix(line, "+++ ") {
+			continue
+		}
+		if len(line) > 0 && (line[0] == '+' || line[0] == '-' || line[0] == ' ') {
+			line = line[:1] + " " + line[1:]
+		}
+		output = append(output, line)
 	}
-
-	var b strings.Builder
-	ctxStart := max(prefix-diffContextLines, 0)
-	for i := ctxStart; i < prefix; i++ {
-		b.WriteString("  " + oldLines[i] + "\n")
-	}
-	for i := prefix; i < oldEnd; i++ {
-		b.WriteString("- " + oldLines[i] + "\n")
-	}
-	for i := prefix; i < newEnd; i++ {
-		b.WriteString("+ " + newLines[i] + "\n")
-	}
-	ctxEndOld := min(oldEnd+diffContextLines, len(oldLines))
-	for i := oldEnd; i < ctxEndOld; i++ {
-		b.WriteString("  " + oldLines[i] + "\n")
-	}
-
-	return strings.TrimRight(b.String(), "\n")
+	return strings.Join(output, "\n")
 }
 
 // resolvePath mirrors tools/file's own path resolution (ExpandHome, then
@@ -99,6 +85,8 @@ func resolvePath(workspace, path string) string {
 // preview instead of blocking the prompt.
 func buildPreview(workspace, toolName string, input json.RawMessage) string {
 	switch toolName {
+	case "process":
+		return "Background process control (host permissions):\n" + string(input)
 	case "bash":
 		var in struct {
 			Command string `json:"command"`
@@ -121,7 +109,7 @@ func buildPreview(workspace, toolName string, input json.RawMessage) string {
 		if data, err := os.ReadFile(path); err == nil {
 			oldContent = string(data)
 		}
-		return lineDiff(oldContent, in.Content)
+		return "Path: " + in.Path + "\n" + lineDiff(oldContent, in.Content)
 
 	case "edit_file":
 		var in struct {
@@ -139,7 +127,7 @@ func buildPreview(workspace, toolName string, input json.RawMessage) string {
 		}
 		oldContent := string(data)
 		newContent := strings.Replace(oldContent, in.OldString, in.NewString, 1)
-		return lineDiff(oldContent, newContent)
+		return "Path: " + in.Path + "\n" + lineDiff(oldContent, newContent)
 
 	default:
 		return ""

@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"slices"
 	"sync"
+
+	"github.com/sausheong/harness/tool"
 )
 
 // Settings is the on-disk shape of .hand/settings.json.
@@ -73,7 +75,7 @@ func Save(path string, s Settings) error {
 	// human approval prompt, so it's treated the same as a credential —
 	// unreadable by other local users on a shared machine, not just
 	// unwritable.
-	if err := os.WriteFile(path, data, 0o600); err != nil {
+	if err := tool.WriteFileAtomic(path, data, 0o600); err != nil {
 		return fmt.Errorf("write settings %s: %w", path, err)
 	}
 	return nil
@@ -134,6 +136,10 @@ func (st *Store) SetAlwaysAllow(tool string) error {
 	if st.settings.IsAlwaysAllowed(tool) {
 		return nil
 	}
-	st.settings.AlwaysAllow = append(st.settings.AlwaysAllow, tool)
-	return Save(st.path, st.settings)
+	next := Settings{AlwaysAllow: append(slices.Clone(st.settings.AlwaysAllow), tool)}
+	if err := Save(st.path, next); err != nil {
+		return err
+	}
+	st.settings = next
+	return nil
 }

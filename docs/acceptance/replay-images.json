@@ -1,0 +1,53 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M3.1",
+    "M3.3"
+  ],
+  "scope": "Image attachment metadata visibility after durable session reopen and TUI resize",
+  "command": "go test -race -count=1 -coverprofile=/private/tmp/hand-replay-images-20260909.cover -json ./internal/tui",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off"
+  },
+  "exit_code": 0,
+  "before": {
+    "fail": 1
+  },
+  "after": {
+    "pass": 299
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/replay-images-20260909/hand-replay-images-before-20260909.jsonl",
+      "sha256": "2fa1aecb1de9e6c26a8cb0add5e76295c0da3db616f29a49e3be8222caf2ce1f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-images-20260909/hand-replay-images-20260909.jsonl",
+      "sha256": "1f12bce3187bbb3b1f81e8a0d0f6a6cbb8d5fd20a32447c3eb52a17e5d0126f5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-images-20260909/hand-replay-images-20260909.cover",
+      "sha256": "844c9b7890cb91c75ead0c253dfd6a611edeffbc80652dd008a702949c30a0c1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-images-20260909/transcript_blocks.go.txt",
+      "sha256": "e6cbd775a99e77a85d2a60b0d6ddb302d7a49784a8b975e90ebc01505727c223"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-images-20260909/replay_attachments_test.go.txt",
+      "sha256": "89180df1b38aa9647203aa54c6807505bed0f2c79229aa4f40f72d6174a5170f"
+    }
+  ],
+  "assertions": [
+    "Real session externalizes inline image and reopens with attachment reference",
+    "User message shows singular image count; tool result shows plural count",
+    "Transcript retains metadata across resize and supports legacy inline image records",
+    "Image payload and attachment hash never appear in transcript"
+  ],
+  "limits": [
+    "Image count is metadata, not image rendering or proof the blob is readable",
+    "In-process TUI with actual session store; built PTY rendering and final platform qualification remain pending",
+    "Package coverage only; aggregate profiles remain stale"
+  ]
+}

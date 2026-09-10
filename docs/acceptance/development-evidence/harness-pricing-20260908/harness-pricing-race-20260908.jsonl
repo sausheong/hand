@@ -1,0 +1,69 @@
+{"Time":"2026-09-08T21:06:25.03789+08:00","Action":"start","Package":"github.com/sausheong/harness/budget"}
+{"Time":"2026-09-08T21:06:25.589115+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestPriceReservationAndCacheReconciliation"}
+{"Time":"2026-09-08T21:06:25.589195+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestPriceReservationAndCacheReconciliation","Output":"=== RUN   TestPriceReservationAndCacheReconciliation\n"}
+{"Time":"2026-09-08T21:06:25.589328+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestPriceReservationAndCacheReconciliation","Output":"--- PASS: TestPriceReservationAndCacheReconciliation (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.589341+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestPriceReservationAndCacheReconciliation","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.589359+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree"}
+{"Time":"2026-09-08T21:06:25.589365+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree","Output":"=== RUN   TestUnknownPricesAreNotFree\n"}
+{"Time":"2026-09-08T21:06:25.589464+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/missing"}
+{"Time":"2026-09-08T21:06:25.589474+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/missing","Output":"=== RUN   TestUnknownPricesAreNotFree/missing\n"}
+{"Time":"2026-09-08T21:06:25.589544+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/missing","Output":"--- PASS: TestUnknownPricesAreNotFree/missing (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.589566+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/missing","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.589574+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/expired"}
+{"Time":"2026-09-08T21:06:25.589578+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/expired","Output":"=== RUN   TestUnknownPricesAreNotFree/expired\n"}
+{"Time":"2026-09-08T21:06:25.589626+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/expired","Output":"--- PASS: TestUnknownPricesAreNotFree/expired (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.589643+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/expired","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.58965+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/future"}
+{"Time":"2026-09-08T21:06:25.589656+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/future","Output":"=== RUN   TestUnknownPricesAreNotFree/future\n"}
+{"Time":"2026-09-08T21:06:25.589698+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/future","Output":"--- PASS: TestUnknownPricesAreNotFree/future (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.589708+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/future","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.589723+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/unbounded"}
+{"Time":"2026-09-08T21:06:25.589728+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/unbounded","Output":"=== RUN   TestUnknownPricesAreNotFree/unbounded\n"}
+{"Time":"2026-09-08T21:06:25.589776+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/unbounded","Output":"--- PASS: TestUnknownPricesAreNotFree/unbounded (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.589785+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree/unbounded","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.589826+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree","Output":"--- PASS: TestUnknownPricesAreNotFree (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.58983+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestUnknownPricesAreNotFree","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.589833+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestPricingRefusesInvalidCountersAndOverflow"}
+{"Time":"2026-09-08T21:06:25.589843+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestPricingRefusesInvalidCountersAndOverflow","Output":"=== RUN   TestPricingRefusesInvalidCountersAndOverflow\n"}
+{"Time":"2026-09-08T21:06:25.589887+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestPricingRefusesInvalidCountersAndOverflow","Output":"--- PASS: TestPricingRefusesInvalidCountersAndOverflow (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.589902+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestPricingRefusesInvalidCountersAndOverflow","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.589909+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestPriceRoundingAndExplicitZeroTariff"}
+{"Time":"2026-09-08T21:06:25.589914+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestPriceRoundingAndExplicitZeroTariff","Output":"=== RUN   TestPriceRoundingAndExplicitZeroTariff\n"}
+{"Time":"2026-09-08T21:06:25.590007+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestPriceRoundingAndExplicitZeroTariff","Output":"--- PASS: TestPriceRoundingAndExplicitZeroTariff (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.590023+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestPriceRoundingAndExplicitZeroTariff","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.590029+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerRestartRetainsUncertainAndRequiresDecision"}
+{"Time":"2026-09-08T21:06:25.590032+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerRestartRetainsUncertainAndRequiresDecision","Output":"=== RUN   TestTokenLedgerRestartRetainsUncertainAndRequiresDecision\n"}
+{"Time":"2026-09-08T21:06:25.630939+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerRestartRetainsUncertainAndRequiresDecision","Output":"--- PASS: TestTokenLedgerRestartRetainsUncertainAndRequiresDecision (0.04s)\n"}
+{"Time":"2026-09-08T21:06:25.630965+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerRestartRetainsUncertainAndRequiresDecision","Elapsed":0.04}
+{"Time":"2026-09-08T21:06:25.630992+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerOwnersCannotDoubleReserve"}
+{"Time":"2026-09-08T21:06:25.630996+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerOwnersCannotDoubleReserve","Output":"=== RUN   TestTokenLedgerOwnersCannotDoubleReserve\n"}
+{"Time":"2026-09-08T21:06:25.632009+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerOwnersCannotDoubleReserve","Output":"--- PASS: TestTokenLedgerOwnersCannotDoubleReserve (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.632023+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerOwnersCannotDoubleReserve","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.632049+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun"}
+{"Time":"2026-09-08T21:06:25.632056+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun","Output":"=== RUN   TestTokenLedgerSettlementUncertaintyAndOverrun\n"}
+{"Time":"2026-09-08T21:06:25.632092+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/missing"}
+{"Time":"2026-09-08T21:06:25.632099+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/missing","Output":"=== RUN   TestTokenLedgerSettlementUncertaintyAndOverrun/missing\n"}
+{"Time":"2026-09-08T21:06:25.633229+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/missing","Output":"--- PASS: TestTokenLedgerSettlementUncertaintyAndOverrun/missing (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.633238+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/missing","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.633257+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/partial"}
+{"Time":"2026-09-08T21:06:25.633263+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/partial","Output":"=== RUN   TestTokenLedgerSettlementUncertaintyAndOverrun/partial\n"}
+{"Time":"2026-09-08T21:06:25.634212+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/partial","Output":"--- PASS: TestTokenLedgerSettlementUncertaintyAndOverrun/partial (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.63422+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/partial","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.634225+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/not_sent"}
+{"Time":"2026-09-08T21:06:25.634229+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/not_sent","Output":"=== RUN   TestTokenLedgerSettlementUncertaintyAndOverrun/not_sent\n"}
+{"Time":"2026-09-08T21:06:25.635179+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/not_sent","Output":"--- PASS: TestTokenLedgerSettlementUncertaintyAndOverrun/not_sent (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.635187+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/not_sent","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.635204+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/overrun"}
+{"Time":"2026-09-08T21:06:25.635209+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/overrun","Output":"=== RUN   TestTokenLedgerSettlementUncertaintyAndOverrun/overrun\n"}
+{"Time":"2026-09-08T21:06:25.636143+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/overrun","Output":"--- PASS: TestTokenLedgerSettlementUncertaintyAndOverrun/overrun (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.636159+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun/overrun","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.636217+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun","Output":"--- PASS: TestTokenLedgerSettlementUncertaintyAndOverrun (0.00s)\n"}
+{"Time":"2026-09-08T21:06:25.636226+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerSettlementUncertaintyAndOverrun","Elapsed":0}
+{"Time":"2026-09-08T21:06:25.63624+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerPersistenceFailurePreventsDispatch"}
+{"Time":"2026-09-08T21:06:25.636252+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerPersistenceFailurePreventsDispatch","Output":"=== RUN   TestTokenLedgerPersistenceFailurePreventsDispatch\n"}
+{"Time":"2026-09-08T21:06:25.656966+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerPersistenceFailurePreventsDispatch","Output":"2026/09/08 21:06:25 WARN session persistence degraded; in-memory state may not survive restart reason=\"acquire writer lease\" error=\"session writer is closed\"\n"}
+{"Time":"2026-09-08T21:06:25.657895+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerPersistenceFailurePreventsDispatch","Output":"--- PASS: TestTokenLedgerPersistenceFailurePreventsDispatch (0.02s)\n"}
+{"Time":"2026-09-08T21:06:25.657909+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestTokenLedgerPersistenceFailurePreventsDispatch","Elapsed":0.02}
+{"Time":"2026-09-08T21:06:25.657948+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"PASS\n"}
+{"Time":"2026-09-08T21:06:26.673068+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"ok  \tgithub.com/sausheong/harness/budget\t1.634s\n"}
+{"Time":"2026-09-08T21:06:26.673154+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Elapsed":1.635}

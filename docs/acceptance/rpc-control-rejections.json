@@ -1,0 +1,33 @@
+{
+  "status": "development_rejection_tests_passed",
+  "cases": 15,
+  "test_records": {
+    "pass": 84,
+    "fail": 0,
+    "skip": 0
+  },
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/rpc",
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-control-rejections-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-control-rejections-20260909/hand-rpc-control-rejections-20260909.jsonl.gz",
+      "sha256": "487251489eb30fc99801c3dacc7a14b18ff44aea09d05985c6ac50772a792996",
+      "uncompressed_sha256": "50ce339bdd4cdf4ff3729e32879a164c28f58a459de13960d5393be50c75be1e"
+    },
+    {
+      "source": "internal/rpc/controls_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-control-rejections-20260909/controls_test.go.gz",
+      "sha256": "b65598646df12efd4dbdc2fd6743da1dc8fb240054b9a17f62460c2ecf35c4ac",
+      "uncompressed_sha256": "b242a4c5e5180b3606cc48bf2e8e55659a7d5fe03efcc33872c1ee2680552880"
+    }
+  ],
+  "assertions": [
+    "Malformed or unavailable control requests return operation_rejected with matching request ID and no result",
+    "Session listing and active session, model and history remain unchanged",
+    "Rejected requests never invoke backend execution"
+  ],
+  "limitations": [
+    "No final candidate qualification claimed",
+    "Coverage thresholds and remaining RPC scenarios remain open"
+  ]
+}

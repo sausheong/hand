@@ -1,0 +1,49 @@
+{
+  "status": "development_regression_passed",
+  "defect": "Unknown fields in empty-parameter RPC methods were ignored; malformed hello negotiated and malformed cancel stopped the live backend.",
+  "change": "Strict empty-parameter validation before method effects; rejected cancel responses remain durable and changed-payload retries conflict.",
+  "runs": [
+    {
+      "source": "/private/tmp/hand-rpc-empty-params-after-20260909.jsonl",
+      "test_records": {
+        "pass": 88,
+        "fail": 0,
+        "skip": 0
+      }
+    },
+    {
+      "source": "/private/tmp/hand-rpc-empty-params-repeat-20260909.jsonl",
+      "test_records": {
+        "pass": 80,
+        "fail": 0,
+        "skip": 0
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-empty-params-20260909/hand-rpc-empty-params-before-20260909.log.gz",
+      "sha256": "9ea872c5c03bd7ad28dfbbdc1134be9ad7b4d6b66408d4f8c06ce77587b61bab",
+      "uncompressed_sha256": "3e0ab9662a4e7033ce045dadb9e76fc56b4197cee8e5867b57c1888b4062ee69"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-empty-params-20260909/hand-rpc-empty-params-after-20260909.jsonl.gz",
+      "sha256": "9124f79a5fd1242cfdd6a43bcdff1b7eeb22d9f468c2fa70877a62d31812e2d7",
+      "uncompressed_sha256": "2ab182c13c5d5581590e46be47f9d4a0e652446acbb459211c92b2bab869b8a8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-empty-params-20260909/hand-rpc-empty-params-repeat-20260909.jsonl.gz",
+      "sha256": "994b4988450e5a72769223a6ea68af2904e4035a0e62574e6bd0ee02fada1034",
+      "uncompressed_sha256": "8c7c4f2a0145645c77b5d17744f8d31aafe345f82a687ea64c073c7ff1de6349"
+    }
+  ],
+  "source_sha256_after_runs": {
+    "internal/rpc/dispatcher.go": "1982f197e3f28c09a8b85aed3937cbbb30a3e756962b732b9dc47debfe4524d3",
+    "internal/rpc/empty_params_test.go": "c80bd1e5b6c5c4024fa69da2973d8bd5cc27d1ef91da667c11c5cbe26bd498a8"
+  },
+  "limitations": [
+    "Full RPC suite ran before the final replay assertions were added; final regression with replay assertions passed 20 race-enabled repetitions",
+    "Previous full coverage profile predates this production change and cannot qualify this candidate",
+    "Dirty candidate and unreleased Harness; final acceptance remains open"
+  ]
+}

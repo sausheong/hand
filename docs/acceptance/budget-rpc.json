@@ -1,0 +1,146 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "budget-outcome-integration.patch",
+  "harness_delta": "harness-budget-outcome.patch",
+  "result": {
+    "status": "development_passed",
+    "qualification": "development",
+    "paid_calls": 0,
+    "binary_sha256": "e99f6ede56afe2f7423436620a4df214c363f2d24d10ad24206d0b1499ac0585",
+    "runner_sha256": "5f7e6ff9be18356f85c26500d5b2af298af469a134a759d5ca1dcb1000bb4651",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "session_id": "ses_d055d09780f5de42",
+    "exhausted": {
+      "approval_id": "",
+      "error": "llm error: provider admission: budget_exhausted",
+      "iteration": 1,
+      "reason": "session_token_budget",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "charged": {
+      "limit": 100000,
+      "committed": 15,
+      "exhausted": false,
+      "attempts": 1,
+      "uncertain_attempts": 0,
+      "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+    },
+    "completed": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 10,
+        "known": true,
+        "output_tokens": 5,
+        "prior_unknown": false,
+        "requests": 1,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "clean_exits": 3,
+    "local_provider_requests": 1
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/charged-restart.json",
+      "sha256": "661527adbe1186aa4694cc50f05eb4b1061287118b91daef88ed4115daec22bd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/charged-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/first.json",
+      "sha256": "d6efb7d8b547f2e7ebc2438edf0949c73fcad367fd8ea771558587cad688b6ba"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/authority/ce41641b8822abac0f3416274d16b7a48c10622660c2157f3a7171f81c9dc1a0/799c14fe233bb409d09a893d48e6765d54de2be685eb0f962b6909c7407cd69c/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/catalogues/ce41641b8822abac/catalogue.json",
+      "sha256": "a22067505b78957d10440c456b62c7ee07e3e13ccc5007a5484f68abc7a7f5c6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/catalogues/ce41641b8822abac/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_ce41641b8822abac_45c2548c95ecb2603a6dc81e2eeec500.lock",
+      "sha256": "f5e7319b904ba4be245339c8552bb0c76e81f3b0fcf7fd28aef574fc433da543"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_ce41641b8822abac_60e2b11df967032815b7a778eef73dca.lock",
+      "sha256": "d32255a6609419075079a6e5fb9885e53486ade0b83ca63241a8a54cd33ffbef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/hand/workspace_ce41641b8822abac_45c2548c95ecb2603a6dc81e2eeec500.jsonl",
+      "sha256": "90e61441cdc3646d8e72a334f10a14c99f93673476d8bb9c9bd1b0d7efa0793c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/hand/workspace_ce41641b8822abac_60e2b11df967032815b7a778eef73dca.jsonl",
+      "sha256": "0be4511fb07fe8eb33bd845b7877c674d1ee4065be7891b9944e9f4b4c0083f7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/home/.hand/sessions/rpc-ce41641b8822abac0f3416274d16b7a48c10622660c2157f3a7171f81c9dc1a0/requests.jsonl",
+      "sha256": "38076fdb2a4e7e2c157e95a2876cf2c8c5469167b8b4bc7c063d79dcdab767f2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/provider-requests.json",
+      "sha256": "8dd1c264af562e6c641d2fbe87259384c93c5cbcea05625832f6283e57da70bd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/restart.json",
+      "sha256": "f653f19b76395c59897a347113604150deb3d5324e013c00efc486bbe5ae56dd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-rpc-20260908/run.json",
+      "sha256": "73a96289f0ead3063d08e55bae07ab17da9017e429e009538e723dbb0a4f9445"
+    }
+  ],
+  "limitations": [
+    "Dirty native macOS ARM64 development build, not final candidate qualification.",
+    "One scripted local provider request; no live quality or paid evaluation.",
+    "Initial sandbox invocation failed before server bind; loopback access was subsequently approved.",
+    "Cost/time/per-run limits, terminal controls and cancellation of already-owned work remain pending."
+  ]
+}

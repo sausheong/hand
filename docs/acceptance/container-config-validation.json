@@ -1,0 +1,29 @@
+{
+  "status": "development_startup_validation_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./cmd/hand -run '^TestPackageContainerConfigValidationNeverExecutesDocker$'",
+  "test_pass_records": 11,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-container-config-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/container-config-validation-20260909/hand-container-config-tests-20260909.jsonl.gz",
+      "sha256": "e66714c46de945be9b38b6b809a57026d49e83bfbb9d67df5722550bf68d3930",
+      "uncompressed_sha256": "ef9e98aa530050463aff6fe60942b68dad3179f3c5963bac3d77a238ad7b3506"
+    },
+    {
+      "source": "cmd/hand/package_container_config_test.go",
+      "path": "docs/acceptance/development-evidence/container-config-validation-20260909/package_container_config_test.go.gz",
+      "sha256": "f87f9ad600dc760579032afb789c0f35ca8b17c5c2c1e5cf18a149582a683998",
+      "uncompressed_sha256": "fb1a900f55bd9c1df6748310a4cb4efde38244d84b982b22658386d3045a6c63"
+    }
+  ],
+  "assertions": [
+    "Pinned valid configuration and native-only selection accepted",
+    "Mutable image, relative Docker/socket paths, unsafe interpreter paths, unknown runtimes/fields and excessive runtime count rejected",
+    "Cancelled review returns context cancellation",
+    "No review path invokes the supplied Docker executable"
+  ],
+  "limitations": [
+    "Configuration validation only, not container execution evidence",
+    "Final candidate and coverage qualification remain open"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-verification-pty-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1"
+  ],
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "a983ee489fa6eb40804a3827e28804802792b05010644ae0c7f856d2258db49a",
+  "terminal_echo_disabled": true,
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "restarted_rpc_state": {
+    "revision": 5,
+    "items": [
+      {
+        "id": "goal",
+        "kind": "objective",
+        "text": "Deliver migration"
+      },
+      {
+        "id": "choice",
+        "kind": "decision",
+        "text": "Retain old reader"
+      },
+      {
+        "id": "tests",
+        "kind": "verification_reference",
+        "text": "Unit tests at abc",
+        "reference": "evidence/run.json#abc"
+      }
+    ]
+  },
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "completed_commands": [
+    "/state",
+    "/state set",
+    "/state set goal objective Deliver migration",
+    "/state set choice decision Retain old reader",
+    "/state set pending unresolved_work Test rollback",
+    "/state evidence tests evidence/run.json#abc Unit tests at abc",
+    "/state remove pending",
+    "/state"
+  ],
+  "exit_code": 0,
+  "persisted_revisions": 5,
+  "final_state": {
+    "version": 1,
+    "items": [
+      {
+        "id": "goal",
+        "kind": "objective",
+        "text": "Deliver migration"
+      },
+      {
+        "id": "choice",
+        "kind": "decision",
+        "text": "Retain old reader"
+      },
+      {
+        "id": "tests",
+        "kind": "verification_reference",
+        "text": "Unit tests at abc",
+        "reference": "evidence/run.json#abc"
+      }
+    ]
+  },
+  "terminal_sha256": "58e5080214bdc4ed0d25d145dab5ad8e4f33c26c3ca2d08e28047707e772b7df",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/check_context_state_terminal.py",
+      "sha256": "a983ee489fa6eb40804a3827e28804802792b05010644ae0c7f856d2258db49a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/check_rpc_client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/authority/a37d4a51340b27725f732e5fdeb05221c64f81ec1c36dafd4a6f8a97173bc814/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/sessions/catalogues/a37d4a51340b2772/catalogue.json",
+      "sha256": "cf7a244acb61b312870eb13f4b762bb9753d297b84166df1945f4f3cbce259e2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/sessions/catalogues/a37d4a51340b2772/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/sessions/hand/.leases/workspace_a37d4a51340b2772_13f7eaa50f5c0c74b6223e65a26588f6.lock",
+      "sha256": "ab76ac0e689dc7238ace03e3d70c8bbc5384452a91d681e207312f9e35b0e969"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/sessions/hand/workspace_a37d4a51340b2772_13f7eaa50f5c0c74b6223e65a26588f6.jsonl",
+      "sha256": "b4034de26b83cfedc34492d313a5091ab59c59e3269654eb2fcd5a1d8a5c0c94"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/home/.hand/sessions/rpc-a37d4a51340b27725f732e5fdeb05221c64f81ec1c36dafd4a6f8a97173bc814/requests.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/restarted.json",
+      "sha256": "83047b22e1aeebfa72ecab012880efe0b6cd6758ab537a5f5d9af4452ddae443"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/restarted.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/run.json",
+      "sha256": "362e401b2dcf5a4b92c86c031565ebd83258cac2b8490a9e821a5e7859ecf8bb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-pty-rpc-20260909/terminal.bin",
+      "sha256": "58e5080214bdc4ed0d25d145dab5ad8e4f33c26c3ca2d08e28047707e772b7df"
+    }
+  ],
+  "limitations": [
+    "Native macOS development binary using local Harness; final candidate and released dependency pending",
+    "Structured-state PTY-to-RPC restart only, not full coding-task client parity",
+    "User-supplied evidence locator is test data, not a claim those tests ran"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "status": "development_fault_repetitions_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=20 -timeout=2m -json ./internal/rpc -run '^TestTerminalWriteFailurePausesAutomaticFollowups$'",
+  "test_records": {
+    "pass": 20
+  },
+  "repetitions": 20,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/terminal-write-failure-20260909/hand-terminal-write-repeat-20260909.jsonl.gz",
+      "sha256": "c0408462342d3f3efdbe59635e681db2ece1ee69ef4c8bb7864b1c8a7f71e79a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/terminal-write-failure-20260909/terminal_write_failure_test.go.gz",
+      "sha256": "7c9ddf8c870faad9bd06f47a19e8324c32149ae975405745b580792bb04bf221"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/terminal-write-failure-20260909/dispatcher.go.gz",
+      "sha256": "4d6c534a0a08a35648ef1e8cdcd291013b140409a7251133234d1e850bf66991"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/terminal-write-failure-20260909/followup.go.gz",
+      "sha256": "79b998868cc8203129db30d4f5af4b05b1c9d5deffd263863431635270b6249f"
+    }
+  ],
+  "assertions": [
+    "Real dispatcher executes exactly one gated backend call",
+    "Failed terminal write leaves automatic followup unchanged",
+    "RPC state reports terminal persistence failure and paused automatic followups",
+    "No terminal event retained after undurable completion; active stream ownership released",
+    "Failed completion preserves durable bytes; resume denied while journal poisoned",
+    "Reopened original request uncertain, without result or execution permission"
+  ],
+  "limitations": [
+    "Closed-descriptor write failure, not fsync/disk-full/power-loss evidence",
+    "Local test backend and in-process dispatcher, not built CLI journey",
+    "No production change; final clean candidate/platform and full coverage qualification remain"
+  ]
+}

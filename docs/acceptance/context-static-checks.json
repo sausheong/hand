@@ -1,0 +1,30 @@
+{
+  "status": "development_static_checks_passed",
+  "build_exit_code": 0,
+  "vet_exit_code": 0,
+  "format": {
+    "files": 574,
+    "exit_code": 0,
+    "unformatted": [],
+    "stderr": ""
+  },
+  "build_warning": "Tool stderr reported permission denied writing Go module download stat cache for Hand v0.2.1; build nevertheless exited zero. Stdout log is empty.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/context-static-20260909/hand-context-build-20260909.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-static-20260909/hand-context-format-20260909.json",
+      "sha256": "3713521bf210d14488afe84e64c4873b3b5a69232fdfd78e56ce55b171c619e3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/context-static-20260909/hand-context-vet-20260909.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Build warning retained as observed tool output, not independently captured stderr artifact",
+    "Development snapshot; not final clean candidate qualification"
+  ]
+}

@@ -1,0 +1,13 @@
+{"Time":"2026-09-09T02:32:14.941094+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:32:15.541488+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval"}
+{"Time":"2026-09-09T02:32:15.541532+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Output":"=== RUN   TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval\n"}
+{"Time":"2026-09-09T02:32:15.57128+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Output":"    package_skills_test.go:81: index missing provenance identityauthored skill index\n"}
+{"Time":"2026-09-09T02:32:15.572158+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Output":"--- FAIL: TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval (0.03s)\n"}
+{"Time":"2026-09-09T02:32:15.572179+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Elapsed":0.03}
+{"Time":"2026-09-09T02:32:15.57284+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled"}
+{"Time":"2026-09-09T02:32:15.572848+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"=== RUN   TestReloadSkillsOwnedAndCancelled\n"}
+{"Time":"2026-09-09T02:32:15.578397+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"--- PASS: TestReloadSkillsOwnedAndCancelled (0.01s)\n"}
+{"Time":"2026-09-09T02:32:15.578412+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Elapsed":0.01}
+{"Time":"2026-09-09T02:32:15.578528+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\n"}
+{"Time":"2026-09-09T02:32:15.579773+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\tgithub.com/sausheong/hand/internal/app\t0.638s\n"}
+{"Time":"2026-09-09T02:32:15.579787+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Elapsed":0.639}

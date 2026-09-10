@@ -1,0 +1,908 @@
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -164,10 +164,8 @@
+ 	// hot loop never reads config or rebuilds the indices. The load tools
+ 	// are registered above so toolNames includes them in the default
+ 	// identity tool hints.
+-	skillsIndex := ""
+-	if deps.Skills != nil {
+-		skillsIndex = deps.Skills.FormatIndex()
+-	}
++	skillsIndex, skillSources := skillIndexSnapshot(deps.Skills)
++	promptSources := append([]ContextSource(nil), spec.SystemPromptSources...)
+ 	memoryIndex := ""
+ 	if deps.Memory != nil {
+ 		memoryIndex = deps.Memory.FormatIndex()
+@@ -223,8 +221,11 @@
+ 		AgentLoop:          loop,
+ 		StaticSystemPrompt: staticPrompt,
+ 		refreshToolPrompt: func(names []string) string {
+-			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, skillsIndex, memoryIndex, deps.MemoryFiles)
++			currentSkills, sources := skillIndexSnapshot(deps.Skills)
++			skillSources = append([]ContextSource(nil), sources...)
++			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, currentSkills, memoryIndex, deps.MemoryFiles)
+ 		},
++		contextSources:  func() []ContextSource { return append(append([]ContextSource(nil), promptSources...), skillSources...) },
+ 		CalibratorStore: deps.CalibratorStore,
+ 		mcpClients:      mcpClients,
+ 		mcpStatus:       mcpStatus,
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -152,6 +152,7 @@
+ 	mcpMu             sync.Mutex
+ 	mcpClosed         bool
+ 	refreshToolPrompt func([]string) string
++	contextSources    func() []ContextSource
+ 	mcpStatus         []MCPServerStatus
+ 
+ 	// runMu enforces the Runtime contract that one session exchange runs at a
+@@ -503,7 +504,18 @@
+ 			}
+ 
+ 			dynamicSuffix := buildDynamicSystemPromptSuffix(r.DynamicIdentityHint, dateLine, kgContext)
+-
++			pinned, pinErr := r.contextPinsPrompt()
++			if pinErr != nil {
++				r.emit(AgentEvent{Type: EventError, Error: fmt.Errorf("load context pins: %w", pinErr)})
++				return
++			}
++			dynamicSuffix += pinned
++
++			// Tool execution from the previous round has joined here. Refresh
++			// self-authored skills before assembling the next model request.
++			if r.Skills != nil {
++				r.refreshSkills()
++			}
+ 			staticText := r.StaticSystemPrompt
+ 			parts := []llm.SystemPromptPart{
+ 				{Text: staticText, Cache: true},
+--- a/runtime/types.go
++++ b/runtime/types.go
+@@ -37,7 +37,8 @@
+ 	// SystemPrompt overrides the built-in default identity. Empty ⇒
+ 	// BuildStaticSystemPrompt composes a default identity string from
+ 	// the registered tool names.
+-	SystemPrompt string
++	SystemPrompt        string
++	SystemPromptSources []ContextSource
+ 	// MaxTurns caps the tool-use loop (default 25 when 0).
+ 	MaxTurns int
+ 	// ContextWindow overrides the auto-detected window from
+@@ -133,7 +134,7 @@
+ // static system prompt and resolve a skill body on demand via the
+ // load_skill tool. Optional — pass nil on Deps.Skills to disable.
+ //
+-// FormatIndex is called once at BuildRuntime time; the returned string
++// FormatIndex is called at BuildRuntime time and safe request boundaries; the returned string
+ // is concatenated into the cacheable static system prompt. Get is wired
+ // through tool.LoadSkillTool's Lookup closure; load_skill.Execute
+ // calls it at agent-loop time.
+--- /dev/null
++++ b/runtime/skills_refresh.go
+@@ -0,0 +1,26 @@
++package runtime
++
++import "fmt"
++
++// RefreshSkills refreshes discovery while idle. Run also refreshes between
++// model requests, after preceding tool calls have joined. Providers must bound
++// filesystem work; callers cannot refresh concurrently with an active run.
++func (r *Runtime) RefreshSkills() error {
++	if !r.runMu.TryLock() {
++		return fmt.Errorf("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	r.refreshSkills()
++	return nil
++}
++
++func (r *Runtime) refreshSkills() {
++	if r.refreshToolPrompt == nil {
++		return
++	}
++	var names []string
++	if r.Tools != nil {
++		names = r.Tools.Names()
++	}
++	r.StaticSystemPrompt = r.refreshToolPrompt(names)
++}
+--- /dev/null
++++ b/runtime/skills_refresh_test.go
+@@ -0,0 +1,46 @@
++package runtime
++
++import (
++	"context"
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tool/skills"
++	"github.com/sausheong/harness/tool/skills/disk"
++	"strings"
++	"testing"
++)
++
++func TestRefreshSkillsDiscoversAuthoredAndRemovedSkills(t *testing.T) {
++	store := disk.NewStore(t.TempDir())
++	rt, err := BuildRuntime(RuntimeDeps{Skills: store.AsSkillProvider(), ConfigSummary: "configuration retained", MemoryFiles: "memory retained"}, RuntimeInputs{Tools: tool.NewRegistry()}, AgentSpec{ID: "test", SystemPrompt: "identity retained"})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	initial := rt.StaticSystemPrompt
++	if _, err = store.Create(context.Background(), skills.Skill{Name: "new-skill", Description: "new description", Body: "procedure"}); err != nil {
++		t.Fatal(err)
++	}
++	rt.runMu.Lock()
++	err = rt.RefreshSkills()
++	rt.runMu.Unlock()
++	if err == nil || rt.StaticSystemPrompt != initial {
++		t.Fatal("busy refresh mutated prompt")
++	}
++	if err = rt.RefreshSkills(); err != nil {
++		t.Fatal(err)
++	}
++	for _, want := range []string{"new-skill", "new description", "identity retained", "configuration retained", "memory retained"} {
++		if !strings.Contains(rt.StaticSystemPrompt, want) {
++			t.Fatalf("missing %s", want)
++		}
++	}
++	if err = store.Remove(context.Background(), "new-skill"); err != nil {
++		t.Fatal(err)
++	}
++	if err = rt.RefreshSkills(); err != nil {
++		t.Fatal(err)
++	}
++	if rt.StaticSystemPrompt != initial {
++		t.Fatal("removed skill remains or unrelated context changed")
++	}
++}
+--- /dev/null
++++ b/runtime/skills_authoring_test.go
+@@ -0,0 +1,81 @@
++package runtime
++
++import (
++	"context"
++	"encoding/json"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/llm/llmtest"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tool/skills"
++	"github.com/sausheong/harness/tool/skills/disk"
++	"strings"
++	"testing"
++	"time"
++)
++
++type authoringProvider struct {
++	llmtest.Base
++	prompts []string
++}
++
++func (p *authoringProvider) ChatStream(_ context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	p.prompts = append(p.prompts, llm.JoinSystemPromptParts(req.SystemPromptParts))
++	ch := make(chan llm.ChatEvent, 2)
++	switch len(p.prompts) {
++	case 1:
++		ch <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: "author", Name: "skill_manage", Input: json.RawMessage(`{"action":"create","name":"authored-skill","body":"---\ndescription: newly authored workflow\n---\nunique procedure body"}`)}}
++	case 2:
++		ch <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: "load", Name: "load_skill", Input: json.RawMessage(`{"name":"authored-skill"}`)}}
++	}
++	ch <- llm.ChatEvent{Type: llm.EventDone}
++	close(ch)
++	return ch, nil
++}
++
++func TestSkillAuthoringRefreshesNextModelRequest(t *testing.T) {
++	store := disk.NewStore(t.TempDir())
++	reg := tool.NewRegistry()
++	reg.Register(&skills.SkillTool{Store: store})
++	provider := &authoringProvider{}
++	rt, err := BuildRuntime(RuntimeDeps{Skills: store.AsSkillProvider()}, RuntimeInputs{Tools: reg, Session: session.NewSession("test", "skills")}, AgentSpec{ID: "test", SystemPrompt: "fixed identity", MaxTurns: 4})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	rt.LLM = provider
++	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++	defer cancel()
++	events, err := rt.Run(ctx, "create then load the workflow", nil)
++	if err != nil {
++		t.Fatal(err)
++	}
++	done := false
++	loaded := false
++	for event := range events {
++		if event.Type == EventError {
++			t.Errorf("runtime error: %v", event.Error)
++		}
++		if event.Type == EventDone {
++			done = true
++		}
++		if event.Type == EventToolResult && event.ToolCall != nil && event.ToolCall.Name == "load_skill" {
++			encoded, _ := json.Marshal(event)
++			loaded = strings.Contains(string(encoded), "unique procedure body")
++		}
++	}
++	if !done || !loaded || len(provider.prompts) != 3 {
++		t.Fatalf("done=%v loaded=%v requests=%d", done, loaded, len(provider.prompts))
++	}
++	if strings.Contains(provider.prompts[0], "newly authored workflow") {
++		t.Fatal("skill existed before authoring")
++	}
++	for _, prompt := range provider.prompts[1:] {
++		if !strings.Contains(prompt, "newly authored workflow") || !strings.Contains(prompt, "fixed identity") {
++			t.Fatalf("next request omitted refreshed skill: %s", prompt)
++		}
++	}
++	if _, ok, err := store.Get(ctx, "authored-skill"); err != nil || !ok {
++		t.Fatalf("skill not persisted: %v", err)
++	}
++}
+--- /dev/null
++++ b/runtime/context_inspect.go
+@@ -0,0 +1,106 @@
++package runtime
++
++import (
++	"context"
++	"fmt"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/tokens"
++)
++
++// ContextContribution describes size, never the potentially sensitive body.
++type ContextContribution struct {
++	Kind            string `json:"kind"`
++	Name            string `json:"name"`
++	Count           int    `json:"count"`
++	EstimatedTokens int    `json:"estimated_tokens"`
++}
++
++// ContextSource describes a component already included in the installed prompt.
++// These estimates are subsets of the static category, not additional tokens.
++type ContextSource struct {
++	Kind            string `json:"kind"`
++	Path            string `json:"path"`
++	EstimatedTokens int    `json:"estimated_tokens"`
++}
++
++type SkillIndexSnapshotter interface {
++	IndexSnapshot() (string, []ContextSource)
++}
++
++func skillIndexSnapshot(provider SkillProvider) (string, []ContextSource) {
++	if provider == nil {
++		return "", nil
++	}
++	if snapshotter, ok := provider.(SkillIndexSnapshotter); ok {
++		return snapshotter.IndexSnapshot()
++	}
++	return provider.FormatIndex(), nil
++}
++
++type ContextInspection struct {
++	Sources         []ContextSource       `json:"sources,omitempty"`
++	OmittedSources  int                   `json:"omitted_sources,omitempty"`
++	EstimateMethod  string                `json:"estimate_method"`
++	EstimatedTokens int                   `json:"estimated_tokens"`
++	Contributions   []ContextContribution `json:"contributions"`
++	Limitations     []string              `json:"limitations"`
++}
++
++// InspectContext measures the installed static prompt, current effective history
++// and registered schemas while idle. It does not make provider calls or refresh
++// discovery. Dynamic retrieval and a future user message are not included.
++func (r *Runtime) InspectContext(ctx context.Context) (ContextInspection, error) {
++	var out ContextInspection
++	if !r.runMu.TryLock() {
++		return out, fmt.Errorf("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	if err := ctx.Err(); err != nil {
++		return out, err
++	}
++	var messages []llm.Message
++	if r.Session != nil {
++		history, err := r.Session.ResolveImages(ctx, r.Session.View())
++		if err != nil {
++			return out, err
++		}
++		messages = assembleMessages(history)
++	}
++	var defs []llm.ToolDef
++	if r.Tools != nil {
++		defs = r.Tools.ToolDefs()
++	}
++	if r.contextSources != nil {
++		sources := r.contextSources()
++		if len(sources) > 128 {
++			out.OmittedSources = len(sources) - 128
++			sources = sources[:128]
++		}
++		out.Sources = append([]ContextSource(nil), sources...)
++	}
++	out.EstimateMethod = "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage"
++	pinned, err := r.contextPinsPrompt()
++	if err != nil {
++		return out, err
++	}
++	out.EstimatedTokens = tokens.Estimate(messages, r.StaticSystemPrompt+pinned, defs)
++	out.Contributions = append(out.Contributions, ContextContribution{Kind: "static_prompt", Name: "Installed identity, guidance, skills and memory", Count: 1, EstimatedTokens: tokens.Estimate(nil, r.StaticSystemPrompt, nil)})
++	var ordinary, results []llm.Message
++	for _, m := range messages {
++		if m.Role == "tool" {
++			results = append(results, m)
++		} else {
++			ordinary = append(ordinary, m)
++		}
++	}
++	out.Contributions = append(out.Contributions,
++		ContextContribution{Kind: "messages", Name: "Effective conversation", Count: len(ordinary), EstimatedTokens: tokens.Estimate(ordinary, "", nil)},
++		ContextContribution{Kind: "tool_results", Name: "Effective tool results", Count: len(results), EstimatedTokens: tokens.Estimate(results, "", nil)},
++		ContextContribution{Kind: "tool_schemas", Name: "Registered tool schemas", Count: len(defs), EstimatedTokens: tokens.Estimate(nil, "", defs)})
++	if pinned != "" {
++		pins, _ := r.contextPins()
++		out.Contributions = append(out.Contributions, ContextContribution{Kind: "pins", Name: "Pinned objectives and constraints", Count: len(pins), EstimatedTokens: tokens.Estimate(nil, pinned, nil)})
++	}
++	out.Limitations = []string{"Source estimates are subsets of the static prompt category, not additional tokens.", "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.", "Estimates include only effective history after compaction; raw archived history is not counted.", "Image estimates use a fixed allowance, not provider-specific tiles or resolution.", "Components round down individually; their sum can differ slightly from the total."}
++	return out, nil
++}
+--- /dev/null
++++ b/runtime/context_inspect_test.go
+@@ -0,0 +1,44 @@
++package runtime
++
++import (
++	"context"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tokens"
++	"github.com/sausheong/harness/tool"
++	"strings"
++	"testing"
++)
++
++func TestInspectContextEstimatesWithoutChangingHistory(t *testing.T) {
++	s := session.NewSession("test", "inspect")
++	s.Append(session.UserMessageEntry("private content must not be returned"))
++	reg := tool.NewRegistry()
++	reg.Register(echoTool{})
++	r := &Runtime{Session: s, Tools: reg, StaticSystemPrompt: strings.Repeat("a", 100)}
++	got, err := r.InspectContext(context.Background())
++	if err != nil {
++		t.Fatal(err)
++	}
++	want := tokens.Estimate([]llm.Message{{Role: "user", Content: "private content must not be returned"}}, r.StaticSystemPrompt, reg.ToolDefs())
++	if got.EstimatedTokens != want || len(got.Contributions) != 4 {
++		t.Fatalf("inspection: %+v want %d", got, want)
++	}
++	if got.Contributions[1].Count != 1 || got.Contributions[3].Count != 1 || !strings.Contains(got.EstimateMethod, "not provider-reported") {
++		t.Fatalf("metadata: %+v", got)
++	}
++	if len(s.View()) != 1 {
++		t.Fatal("inspection changed history")
++	}
++	r.runMu.Lock()
++	_, err = r.InspectContext(context.Background())
++	r.runMu.Unlock()
++	if err == nil {
++		t.Fatal("busy inspection accepted")
++	}
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if _, err = r.InspectContext(ctx); err == nil {
++		t.Fatal("cancelled inspection accepted")
++	}
++}
+--- /dev/null
++++ b/runtime/context_pins.go
+@@ -0,0 +1,115 @@
++package runtime
++
++import (
++	"bytes"
++	"context"
++	"encoding/json"
++	"errors"
++	"fmt"
++	"io"
++	"strings"
++	"unicode/utf8"
++)
++
++const contextPinsKind = "harness.context_pins"
++
++type ContextPin struct {
++	ID   string `json:"id"`
++	Kind string `json:"kind"`
++	Text string `json:"text"`
++}
++type contextPinsRecord struct {
++	Version int          `json:"version"`
++	Pins    []ContextPin `json:"pins"`
++}
++
++func validatePins(pins []ContextPin) error {
++	if len(pins) > 16 {
++		return errors.New("at most 16 context pins are allowed")
++	}
++	seen := map[string]bool{}
++	for _, pin := range pins {
++		if pin.ID == "" || len(pin.ID) > 64 || strings.IndexFunc(pin.ID, func(r rune) bool { return !(r >= 'a' && r <= 'z' || r >= '0' && r <= '9' || r == '-' || r == '_') }) >= 0 || seen[pin.ID] {
++			return errors.New("pin IDs must be unique lowercase identifiers of 1-64 characters")
++		}
++		seen[pin.ID] = true
++		if pin.Kind != "objective" && pin.Kind != "constraint" {
++			return errors.New("pin kind must be objective or constraint")
++		}
++		if strings.TrimSpace(pin.Text) == "" || len(pin.Text) > 2048 || !utf8.ValidString(pin.Text) || strings.ContainsRune(pin.Text, 0) {
++			return errors.New("pin text must contain 1-2048 UTF-8 bytes without NUL")
++		}
++	}
++	return nil
++}
++
++// SetContextPins replaces the session-wide pin set durably while idle. An empty
++// set clears pins. Pins do not grant capabilities and are independent of branch
++// selection; changing sessions changes the pin set.
++func (r *Runtime) SetContextPins(ctx context.Context, pins []ContextPin) error {
++	if !r.runMu.TryLock() {
++		return errors.New("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	if err := ctx.Err(); err != nil {
++		return err
++	}
++	if r.Session == nil {
++		return errors.New("session unavailable")
++	}
++	if err := validatePins(pins); err != nil {
++		return err
++	}
++	raw, err := json.Marshal(contextPinsRecord{Version: 1, Pins: pins})
++	if err != nil {
++		return err
++	}
++	return r.Session.Annotate(contextPinsKind, raw)
++}
++func (r *Runtime) ContextPins(ctx context.Context) ([]ContextPin, error) {
++	if !r.runMu.TryLock() {
++		return nil, errors.New("runtime is already running")
++	}
++	defer r.runMu.Unlock()
++	if err := ctx.Err(); err != nil {
++		return nil, err
++	}
++	return r.contextPins()
++}
++func (r *Runtime) contextPins() ([]ContextPin, error) {
++	if r.Session == nil {
++		return nil, nil
++	}
++	records := r.Session.Annotations(contextPinsKind)
++	if len(records) == 0 {
++		return nil, nil
++	}
++	var record contextPinsRecord
++	decoder := json.NewDecoder(bytes.NewReader(records[len(records)-1].Payload))
++	decoder.DisallowUnknownFields()
++	if err := decoder.Decode(&record); err != nil {
++		return nil, err
++	}
++	if decoder.Decode(new(any)) != io.EOF || record.Version != 1 {
++		return nil, errors.New("unsupported or malformed context pin record")
++	}
++	if err := validatePins(record.Pins); err != nil {
++		return nil, err
++	}
++	return record.Pins, nil
++}
++func (r *Runtime) contextPinsPrompt() (string, error) {
++	pins, err := r.contextPins()
++	if err != nil {
++		return "", err
++	}
++	if len(pins) == 0 {
++		return "", nil
++	}
++	var b strings.Builder
++	b.WriteString("\n\nPinned session guidance (subject to the current user request; grants no tool permissions):\n")
++	for _, pin := range pins {
++		fmt.Fprintf(&b, "%s [%s]: %s\n", pin.Kind, pin.ID, pin.Text)
++	}
++	return b.String(), nil
++}
+--- /dev/null
++++ b/runtime/context_pins_test.go
+@@ -0,0 +1,108 @@
++package runtime
++
++import (
++	"context"
++	"encoding/json"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/session"
++	"github.com/sausheong/harness/tool"
++	"strings"
++	"testing"
++)
++
++func TestContextPinsSurviveCompactionAndRestart(t *testing.T) {
++	store := session.NewStore(t.TempDir())
++	if err := store.Create("agent", "pins"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "pins")
++	if err != nil {
++		t.Fatal(err)
++	}
++	provider := &recordingProvider{reply: "done"}
++	r := &Runtime{Session: sess, LLM: provider, Tools: tool.NewRegistry(), StaticSystemPrompt: "identity", MaxTurns: 1}
++	pins := []ContextPin{{ID: "constraint", Kind: "constraint", Text: "KEEP THIS EXACT CONSTRAINT"}, {ID: "objective", Kind: "objective", Text: "Deliver working implementation"}}
++	if err = r.SetContextPins(context.Background(), pins); err != nil {
++		t.Fatal(err)
++	}
++	pins[0].Text = "caller mutation"
++	for i := 0; i < 3; i++ {
++		sess.Compact("summary deliberately omits pins", 0)
++		if err = sess.Flush(); err != nil {
++			t.Fatal(err)
++		}
++		if i == 1 {
++			if err = sess.Close(); err != nil {
++				t.Fatal(err)
++			}
++			sess, err = store.LoadExclusive("agent", "pins")
++			if err != nil {
++				t.Fatal(err)
++			}
++			r.Session = sess
++		}
++		events, err := r.Run(context.Background(), "continue", nil)
++		if err != nil {
++			t.Fatal(err)
++		}
++		done := false
++		for event := range events {
++			if event.Type == EventError {
++				t.Fatal(event.Error)
++			}
++			if event.Type == EventDone {
++				done = true
++			}
++		}
++		if !done {
++			t.Fatal("run did not complete")
++		}
++	}
++	defer sess.Close()
++	if len(provider.requests) != 3 {
++		t.Fatal("missing requests")
++	}
++	for _, request := range provider.requests {
++		prompt := llm.JoinSystemPromptParts(request.SystemPromptParts)
++		if !strings.Contains(prompt, "KEEP THIS EXACT CONSTRAINT") || !strings.Contains(prompt, "Deliver working implementation") {
++			t.Fatal("pins omitted after compaction")
++		}
++	}
++	inspected, err := r.InspectContext(context.Background())
++	if err != nil {
++		t.Fatal(err)
++	}
++	if inspected.Contributions[len(inspected.Contributions)-1].Kind != "pins" {
++		t.Fatal("pins not counted")
++	}
++	if err = r.SetContextPins(context.Background(), nil); err != nil {
++		t.Fatal(err)
++	}
++	got, err := r.ContextPins(context.Background())
++	if err != nil || len(got) != 0 {
++		t.Fatal("clear failed", err)
++	}
++}
++func TestContextPinsValidationAndCorruptRecord(t *testing.T) {
++	r := &Runtime{Session: session.NewSession("agent", "pins")}
++	for _, pins := range [][]ContextPin{{{ID: "bad id", Kind: "constraint", Text: "x"}}, {{ID: "ok", Kind: "other", Text: "x"}}, {{ID: "ok", Kind: "objective", Text: strings.Repeat("x", 2049)}}} {
++		if err := r.SetContextPins(context.Background(), pins); err == nil {
++			t.Fatal("invalid pins accepted")
++		}
++	}
++	if len(r.Session.Annotations(contextPinsKind)) != 0 {
++		t.Fatal("invalid write persisted")
++	}
++	r.runMu.Lock()
++	err := r.SetContextPins(context.Background(), nil)
++	r.runMu.Unlock()
++	if err == nil {
++		t.Fatal("busy update accepted")
++	}
++	if err = r.Session.Annotate(contextPinsKind, json.RawMessage(`{"version":99,"pins":[]}`)); err != nil {
++		t.Fatal(err)
++	}
++	if _, err = r.ContextPins(context.Background()); err == nil {
++		t.Fatal("unsupported record ignored")
++	}
++}
+--- a/compaction/summarizer.go
++++ b/compaction/summarizer.go
+@@ -27,16 +27,9 @@
+ // trimmed, formatted summary text. additionalInstructions is appended to
+ // the prompt when non-empty (used by manual /compact <focus...>).
+ //
+-// The call wraps three fallback stages:
+-//  1. Full transcript — preferred; preserves all detail.
+-//  2. Small-only — drops oversized messages, keeps a note that they were
+-//     elided. Triggered when stage 1 returns a context-overflow error
+-//     or a stream error.
+-//  3. Placeholder — a static stub indicating compaction failed; never
+-//     returns an error to the caller so the agent loop can continue.
+-//
+-// Each stage applies FormatCompactSummary to strip the analysis scratchpad
+-// and unwrap the summary block.
++// A full transcript is attempted first. Overflow/stream failures may retry
++// with oversized messages explicitly elided. If neither attempt produces a
++// summary, return the error so the manager preserves effective history.
+ func (s *Summarizer) Summarize(ctx context.Context, entries []session.SessionEntry, additionalInstructions string) (string, error) {
+ 	return s.summarizeWithFallback(ctx, entries, additionalInstructions)
+ }
+@@ -49,16 +42,8 @@
+ 	}
+ 	stage1Err := err
+ 
+-	// Context cancellation/deadline propagates up — the caller asked us to
+-	// stop, so don't burn an extra provider call on stage 2 or paper over
+-	// the cancel with a placeholder. This preserves the Manager's ability
+-	// to classify cancellation/timeout distinctly from "compaction is
+-	// genuinely broken; degrade gracefully".
+-	//
+-	// We also propagate a per-call deadline (Summarizer.Timeout firing while
+-	// the parent ctx is still alive) — otherwise a per-call timeout would
+-	// flow into stage 2/3, masking timeout as a placeholder. Manager
+-	// classifies the wrapped DeadlineExceeded as Skipped: "timeout".
++	// Cancellation and per-call deadlines stop retries and retain their
++	// classification for the manager.
+ 	if ctxErr := ctx.Err(); ctxErr != nil || errors.Is(stage1Err, context.DeadlineExceeded) {
+ 		return "", stage1Err
+ 	}
+@@ -67,7 +52,7 @@
+ 	// buildSmallOnlyTranscript actually elides something — otherwise we'd
+ 	// be re-sending the same transcript with the same prompt against the
+ 	// same provider (predictable failure, wasted call). Fall through to
+-	// stage 3 in that case.
++	// the final error in that case.
+ 	if isOverflowError(stage1Err) || isStreamError(stage1Err) {
+ 		small, droppedCount := buildSmallOnlyTranscript(entries)
+ 		if droppedCount > 0 {
+@@ -79,9 +64,10 @@
+ 		}
+ 	}
+ 
+-	// Stage 3: placeholder. Never returns an error — the agent loop must
+-	// be able to continue even if compaction is wholly broken.
+-	return placeholderSummary(len(entries)), nil
++	if failure := errors.Join(stage1Err, err); failure != nil {
++		return "", failure
++	}
++	return "", ErrEmptySummary
+ }
+ 
+ // callOnce performs a single summarizer invocation against a pre-built
+@@ -164,20 +150,6 @@
+ 	return BuildTranscript(kept), dropped
+ }
+ 
+-// placeholderSummary is the stage-3 fallback. It must be a valid summary
+-// the model can pick up from — minimally describing what was elided so
+-// the next turn doesn't act as if the conversation was empty. The
+-// "compaction failed and the summary could not be generated" phrase is
+-// stable: Task 5's circuit breaker detects placeholders by string match
+-// on this fragment to count them as failures for breaker accounting.
+-func placeholderSummary(entryCount int) string {
+-	return fmt.Sprintf(
+-		"Summary:\nConversation history (%d entries) — compaction failed and the summary could not be generated. "+
+-			"The conversation continues; refer to the recent preserved turns and ask the user for any context you need.",
+-		entryCount,
+-	)
+-}
+-
+ // isOverflowError reports whether err looks like a "your prompt is too big"
+ // signal from any provider. Re-uses the overflow signature list rather
+ // than depending on package-level state.
+--- a/compaction/compaction.go
++++ b/compaction/compaction.go
+@@ -4,7 +4,6 @@
+ 	"context"
+ 	"errors"
+ 	"log/slog"
+-	"strings"
+ 	"sync"
+ 	"time"
+ 
+@@ -13,8 +12,7 @@
+ )
+ 
+ // MaxConsecutiveFailures is the per-session circuit-breaker threshold.
+-// After this many consecutive autocompact attempts that drop to the
+-// placeholder stage (stage 3), MaybeCompact stops attempting compaction
++// After this many consecutive failed autocompact attempts, MaybeCompact stops attempting compaction
+ // for the session and returns Skipped="circuit_breaker".
+ //
+ // The breaker resets on any genuine summarizer success (stage 1 or 2
+@@ -145,23 +143,12 @@
+ 	if err != nil {
+ 		skipReason := classifySummarizerError(err)
+ 		slog.Warn("compaction skipped", "session_id", sess.ID, "reason", string(reason), "skipped", skipReason, "detail", err.Error())
+-		// A hard error from Summarize means even stage 3 didn't run.
+-		// Count it as a failure for breaker accounting.
++		// Leave both raw and effective history unchanged on summarizer failure.
+ 		m.incrementFailure(key)
+ 		return Result{Reason: reason, Skipped: skipReason}, nil
+ 	}
+ 
+-	// summarizeWithFallback's stage 3 returns a placeholder summary
+-	// (no error) when both stage 1 and stage 2 failed. We detect
+-	// placeholders by their stable marker phrase and treat them as
+-	// failures for breaker accounting; real (stage-1 or stage-2)
+-	// summaries reset the counter.
+-	isPlaceholder := strings.Contains(summary, "compaction failed and the summary could not be generated")
+-	if isPlaceholder {
+-		m.incrementFailure(key)
+-	} else {
+-		m.resetFailures(key)
+-	}
++	m.resetFailures(key)
+ 
+ 	first := toCompact[0]
+ 	last := toCompact[len(toCompact)-1]
+--- a/compaction/summarizer_test.go
++++ b/compaction/summarizer_test.go
+@@ -58,37 +58,26 @@
+ 	assert.Equal(t, "summary text", got)
+ }
+ 
+-func TestSummarizerEmptyResponseFallsBackToPlaceholder(t *testing.T) {
+-	// An empty model response is no longer surfaced as ErrEmptySummary —
+-	// the three-stage fallback chain catches it: stage 1 returns
+-	// ErrEmptySummary internally, stage 2 is skipped (not an overflow or
+-	// stream error), stage 3 emits the placeholder. The underlying
+-	// ErrEmptySummary remains the failure mode that callOnce reports
+-	// inside the chain; the user-facing contract is "always returns a
+-	// usable summary string, never an error".
++func TestSummarizerEmptyResponseReturnsError(t *testing.T) {
+ 	s := &Summarizer{
+ 		Provider: &fakeProvider{text: "   \n  "},
+ 		Model:    "qwen2.5:3b-instruct",
+ 		Timeout:  5 * time.Second,
+ 	}
+ 	got, err := s.Summarize(context.Background(), []session.SessionEntry{session.UserMessageEntry("hi")}, "")
+-	require.NoError(t, err)
+-	assert.Contains(t, got, "compaction failed")
++	require.Error(t, err)
++	assert.Empty(t, got)
+ }
+ 
+-func TestSummarizerProviderErrorFallsBackToPlaceholder(t *testing.T) {
+-	// A provider-level ChatStream error is wrapped as
+-	// "compaction: chat stream: <err>" — neither an overflow nor a
+-	// stream-event error, so stage 2 is skipped and we fall straight
+-	// through to the placeholder. The agent loop sees no error.
++func TestSummarizerProviderErrorReturnsError(t *testing.T) {
+ 	s := &Summarizer{
+ 		Provider: &fakeProvider{err: errors.New("ollama down")},
+ 		Model:    "qwen2.5:3b-instruct",
+ 		Timeout:  5 * time.Second,
+ 	}
+ 	got, err := s.Summarize(context.Background(), []session.SessionEntry{session.UserMessageEntry("hi")}, "")
+-	require.NoError(t, err)
+-	assert.Contains(t, got, "compaction failed")
++	require.Error(t, err)
++	assert.Empty(t, got)
+ }
+ 
+ // flakyProvider returns ChatStream errors a configured number of times,
+@@ -153,7 +142,7 @@
+ 		"second-stage success must produce the summary")
+ }
+ 
+-func TestSummarizeFallbackToPlaceholderWhenAllStagesFail(t *testing.T) {
++func TestSummarizeReturnsErrorWhenAllStagesFail(t *testing.T) {
+ 	entries := []session.SessionEntry{session.UserMessageEntry("hi")}
+ 	s := &Summarizer{
+ 		Provider: &flakyProvider{failsRemaining: 99, successText: ""},
+@@ -161,12 +150,8 @@
+ 		Timeout:  time.Second,
+ 	}
+ 	got, err := s.Summarize(context.Background(), entries, "")
+-	require.NoError(t, err,
+-		"placeholder stage must not surface the underlying error to caller")
+-	assert.Contains(t, got, "Conversation history",
+-		"placeholder must be a usable summary stub")
+-	assert.Contains(t, got, "compaction failed",
+-		"placeholder must indicate the failure so the next turn can adapt")
++	require.Error(t, err)
++	assert.Empty(t, got)
+ }
+ 
+ func TestSummarizePerCallTimeoutPropagates(t *testing.T) {
+--- a/compaction/compaction_test.go
++++ b/compaction/compaction_test.go
+@@ -93,12 +93,7 @@
+ 	assert.Equal(t, "too_short", res.Skipped)
+ }
+ 
+-func TestManagerSummarizerErrorFallsBackToPlaceholder(t *testing.T) {
+-	// With the three-stage fallback chain, an empty model response no
+-	// longer surfaces ErrEmptySummary to the Manager — stage 3 emits a
+-	// placeholder summary so compaction "succeeds" with a stub. The
+-	// circuit breaker (Task 5) detects the stub by string match for
+-	// breaker accounting.
++func TestManagerSummarizerErrorSkipsWithoutSummary(t *testing.T) {
+ 	mgr := &Manager{
+ 		Summarizer: &Summarizer{
+ 			Provider: &fakeProvider{text: ""},
+@@ -110,9 +105,9 @@
+ 	sess := longSession()
+ 	res, err := mgr.MaybeCompact(context.Background(), sess, ReasonManual, "")
+ 	require.NoError(t, err)
+-	assert.True(t, res.Compacted, "stage-3 placeholder counts as a successful compaction")
+-	assert.Contains(t, res.Summary, "compaction failed",
+-		"summary must contain the placeholder marker so Task 5's breaker can detect it")
++	assert.False(t, res.Compacted)
++	assert.Empty(t, res.Summary)
++	assert.NotEmpty(t, res.Skipped)
+ }
+ 
+ func TestManagerSerializesPerSession(t *testing.T) {
+@@ -342,24 +337,11 @@
+ 	}
+ 	sess := longSession()
+ 
+-	// First N-1 attempts run the summarizer; the alwaysFailingProvider
+-	// makes every call drop to stage 3 (placeholder). The breaker treats
+-	// hitting stage 3 as failure for circuit-breaker accounting.
+-	//
+-	// After each placeholder compaction, View() walks back to the new
+-	// compaction entry and Split sees only the preserved K turns — too
+-	// short to compact again. To keep the loop reaching the summarizer
+-	// (so the failure counter can increment) we add a new user/assistant
+-	// pair between iterations, simulating real conversation continuing
+-	// through repeated compaction failures.
+-	//
+-	// First MaxConsecutiveFailures calls: Compacted=true (placeholder)
+-	// — each increments the failure counter. The next call sees
+-	// counter >= MaxConsecutiveFailures and is blocked by the breaker.
++	// Failed attempts leave history available and increment the breaker.
+ 	for i := range MaxConsecutiveFailures {
+ 		res, err := mgr.MaybeCompact(context.Background(), sess, ReasonPreventive, "")
+ 		require.NoError(t, err, "iteration %d", i)
+-		assert.True(t, res.Compacted, "iteration %d should still attempt", i)
++		assert.False(t, res.Compacted, "iteration %d must preserve history", i)
+ 		// Add new turns so the next iteration has something to compact.
+ 		sess.Append(session.UserMessageEntry("follow-up"))
+ 		sess.Append(session.AssistantMessageEntry("more reply"))
+--- /dev/null
++++ b/compaction/preserve_failure_test.go
+@@ -0,0 +1,22 @@
++package compaction
++
++import (
++	"context"
++	"github.com/stretchr/testify/require"
++	"testing"
++)
++
++func TestFailedSummarisationPreservesEffectiveAndRawHistory(t *testing.T) {
++	sess := longSession()
++	before := sess.View()
++	raw := sess.Entries()
++	leaf := sess.LeafID()
++	manager := &Manager{Summarizer: &Summarizer{Provider: &fakeProvider{text: ""}, Model: "test"}, PreserveTurns: 4}
++	result, err := manager.MaybeCompact(context.Background(), sess, ReasonManual, "")
++	require.NoError(t, err)
++	require.False(t, result.Compacted)
++	require.NotEmpty(t, result.Skipped)
++	require.Equal(t, before, sess.View())
++	require.Equal(t, raw, sess.Entries())
++	require.Equal(t, leaf, sess.LeafID())
++}

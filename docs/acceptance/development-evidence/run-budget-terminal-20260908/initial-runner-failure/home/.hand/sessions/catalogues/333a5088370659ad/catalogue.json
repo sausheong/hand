@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-run-budget-terminal-20260908/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_6e0c1e55e35e3c3c",
+  "sessions": [
+    {
+      "id": "ses_6e0c1e55e35e3c3c",
+      "agentId": "hand",
+      "storeKey": "workspace_333a5088370659ad_41f9144122f9d025a9055d9519d7a34f",
+      "name": "",
+      "createdAt": "2026-09-08T14:22:41.729992Z",
+      "lastActive": "2026-09-08T14:22:41.730153Z"
+    }
+  ]
+}

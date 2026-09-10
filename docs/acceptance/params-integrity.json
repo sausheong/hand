@@ -1,0 +1,48 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M4.1",
+    "M6.3"
+  ],
+  "before": {
+    "failed_records": 5,
+    "accepted_ambiguous_cases": 4
+  },
+  "after": {
+    "full_rpc_passed_records": 143,
+    "fail": 0,
+    "skip": 0
+  },
+  "assertions": [
+    "Exact schema field names required",
+    "Literal and escaped duplicates rejected before control effects",
+    "Case aliases cannot grant confirmation",
+    "Rejected request replay preserves prior budget decision"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/params-integrity-20260909/after.jsonl",
+      "sha256": "c4c5bebe8cb7945fd9de59c16a1a65c08111494772f7c88735d96194912d69c1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-integrity-20260909/before.jsonl",
+      "sha256": "b9e9ab2d79a521756968ae07eb711590616d6bf9b1c84d3b39a5190280f6a367"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-integrity-20260909/dispatcher.go.txt",
+      "sha256": "bba495dcc4d1039ba8e03d94eb92a33c0f80079f1e73508c07f3aac2c590649a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-integrity-20260909/params_integrity_test.go.txt",
+      "sha256": "7a807999d63f38a5081986f52c3b02851cd74d93125aafa47d4c31cd976ec9ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/params-integrity-20260909/params_json.go.txt",
+      "sha256": "edc6f327b1e7b7d3aa0d443a1f47ebae210860d50f5e576a9228583d452fa9f6"
+    }
+  ],
+  "limitations": [
+    "Top-level method schema validation; nested objects use method-specific validators",
+    "Full native all-package coverage and final platform/candidate evidence require refresh"
+  ]
+}

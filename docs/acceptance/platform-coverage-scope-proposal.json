@@ -1,0 +1,82 @@
+{
+  "status": "proposed_requires_user_acceptance",
+  "reason": "Current definition-of-done permits coverage exclusions only for tests/generated code, while these fail-closed stubs are not built on any supported target.",
+  "proposed_rule": "Exclude from statement-coverage denominator only enumerated, fingerprinted source files proved by Go build selection to be absent from all four supported Linux/macOS targets. Keep them explicitly listed as non-applicable; do not exclude supported platform variants or failed tests.",
+  "files": [
+    {
+      "path": "cmd/hand/legacy_open_other.go",
+      "sha256": "3820d1f9ce338028cb35eab792c70c36b0549104dc62abb58d8064f372aaae85",
+      "build_constraint": "//go:build !darwin && !linux"
+    },
+    {
+      "path": "internal/agentio/approval_snapshot_other.go",
+      "sha256": "6fdd8325a53698d84206a7f9f357694ce603775553b0127ca9f55a91efc3852c",
+      "build_constraint": "//go:build !darwin && !linux"
+    },
+    {
+      "path": "internal/checkpoints/rename_other.go",
+      "sha256": "eaef712beb0aeffdb4258ea59ffe44e457edec44d06b4d40313acce0d099445d",
+      "build_constraint": "//go:build !linux && !darwin"
+    },
+    {
+      "path": "internal/permissions/authority_other.go",
+      "sha256": "1673e6b8b43703b69a3ff9f238266021efdafe4303778c5d2a010b0575d095ea",
+      "build_constraint": "//go:build !darwin && !linux"
+    },
+    {
+      "path": "internal/rpc/ledger_other.go",
+      "sha256": "ed9f14660762d852363b184077ad22cf0be5b8cbe14e24f81e54ef136d3fcc40",
+      "build_constraint": "//go:build !darwin && !linux"
+    }
+  ],
+  "targets": [
+    {
+      "goos": "darwin",
+      "goarch": "arm64",
+      "all_five_excluded_by_go_build": true
+    },
+    {
+      "goos": "darwin",
+      "goarch": "amd64",
+      "all_five_excluded_by_go_build": true
+    },
+    {
+      "goos": "linux",
+      "goarch": "arm64",
+      "all_five_excluded_by_go_build": true
+    },
+    {
+      "goos": "linux",
+      "goarch": "amd64",
+      "all_five_excluded_by_go_build": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/platform-scope-20260909/darwin-arm64.json.gz",
+      "sha256": "df59ec5515bbf4a16caebcb17391744971952b18ff7cd51be69bc0e513d6d45b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/platform-scope-20260909/linux-amd64.json.gz",
+      "sha256": "a3d434f63d69c2078cbe948f2e68ecf94bb2ddd27a9b7ef3aad4ed6ba1abd3c4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/platform-scope-20260909/report.json.gz",
+      "sha256": "715882b4d882411507dac506b9a9e7545dc56af28cf7990cdea4efe07d2202dc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/platform-scope-20260909/linux-arm64.json.gz",
+      "sha256": "ca545b425151f5e162a2b8d8258479506a1b1e18b00f85ea6090e8779f8bd1af"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/platform-scope-20260909/darwin-amd64.json.gz",
+      "sha256": "99fe81fbaff2abf4f094952d1b226379c6b69df16bb4d2fb199847255b8e1b4b"
+    }
+  ],
+  "unchanged": [
+    "80 percent numeric thresholds",
+    "100 percent required scenario coverage",
+    "All supported platform suites and no required skips",
+    "Final clean candidate/released dependency and live gates"
+  ]
+}

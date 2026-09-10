@@ -1,0 +1,93 @@
+{
+  "status": "development_terminal_integrity_passed",
+  "defect": "Completed prompt records previously accepted arbitrary JSON without terminal identity or outcome validation.",
+  "change": "Validate full terminal envelopes, bound identities and consistent outcomes before append and replay; preserve ledger bytes on rejection.",
+  "corruption_cases": 15,
+  "runs": [
+    {
+      "source": "/private/tmp/hand-rpc-terminal-final-20260909.jsonl",
+      "test_records": {
+        "pass": 113,
+        "fail": 0,
+        "skip": 0
+      }
+    },
+    {
+      "source": "/private/tmp/hand-rpc-terminal-repeat-20260909.jsonl",
+      "test_records": {
+        "pass": 480,
+        "fail": 0,
+        "skip": 0
+      }
+    }
+  ],
+  "repetition_count": 20,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-terminal-before-20260909.log",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/hand-rpc-terminal-before-20260909.log.gz",
+      "sha256": "1b437ea7a82717953814eed808b76f230a1c8bb1bc9cefd2348db5bae4fe27c3",
+      "uncompressed_sha256": "170024197d9afeca804c775d9be870e93c37dd1335ba26fd41bb830d0c31d783"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-terminal-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/hand-rpc-terminal-after-20260909.jsonl.gz",
+      "sha256": "b839007f01c44fd7ead192b5a9471c30fe824b818e312f4e34555905a28511c4",
+      "uncompressed_sha256": "06d4cf741a36f29ca41a3281d1823f20e63754b8e194c5e55e184825b273f557"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-terminal-final-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/hand-rpc-terminal-final-20260909.jsonl.gz",
+      "sha256": "6fd0f2b2e01fa1c89de18d4d8fbe8b248803d994eee06b5620f7604ce39bda38",
+      "uncompressed_sha256": "94fe2fcca64cb04adecc5225cc9af2f7a134c29b4d5802bca5a4cc5874d6bbea"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-terminal-repeat-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/hand-rpc-terminal-repeat-20260909.jsonl.gz",
+      "sha256": "32bb933cfb70a08fcd80cf65c44f87abbd1e7d9c72d8e4aa4791b7a50c13ddea",
+      "uncompressed_sha256": "65bf87d151c946a3db0cc91e98b0561d8007a19617038686457209ec7563755a"
+    },
+    {
+      "source": "internal/rpc/ledger.go",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/ledger.go.gz",
+      "sha256": "4d3f87726be65a3284df95850965479b829ed929c4f454cafebcc79e3a572499",
+      "uncompressed_sha256": "dd1e4dc8ab7237458a1f5f6260f9140762d79a692b54aecb50ff6d5906674ad4"
+    },
+    {
+      "source": "internal/rpc/terminal.go",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/terminal.go.gz",
+      "sha256": "f45b02361d2887c2fd97fac48126966a6670ed9f25ac88ddfa2e9a4c8997b9b1",
+      "uncompressed_sha256": "c1e8fa8d403ac5719b5e096d64fb9b37126e440df398ad39a012ac8d8fa75edb"
+    },
+    {
+      "source": "internal/rpc/terminal_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/terminal_integrity_test.go.gz",
+      "sha256": "e7701adb15e019fd36cf0bfdf96e2307e65be66ce12e36eb8f693dc87fae9bcb",
+      "uncompressed_sha256": "23caa2419f9191d7db25fa1d75532b3e55ceb6589f5b797f93bcf5770c1c228c"
+    },
+    {
+      "source": "internal/rpc/ledger_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/ledger_test.go.gz",
+      "sha256": "0eff9b2297f6c9ab3c5370ec8bd810752c55bfcbe01cf3f7d96e9cc4d2bd853d",
+      "uncompressed_sha256": "f948ee59c044f399946e1c572033af5382b67bb8641af16cffec8a6c2695c2d2"
+    },
+    {
+      "source": "internal/rpc/ledger_crash_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/ledger_crash_test.go.gz",
+      "sha256": "7c0e54efeacec8e4666447dae3f517639a42ddf108116887120ba790561afb4a",
+      "uncompressed_sha256": "94d7442221f40e934d2d8a2cbd2657e51f8225c0bc529913b53f9c1309fc8596"
+    },
+    {
+      "source": "internal/rpc/ledger_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-terminal-integrity-20260909/ledger_integrity_test.go.gz",
+      "sha256": "7777b97a1bb3fb49af337931fdb92999e9f7a0637e3813f65d6962ef31b6f79c",
+      "uncompressed_sha256": "07b7e1a6feab4d28407f7183f1a58defe237889f34607c28901310104b934262"
+    }
+  ],
+  "limitations": [
+    "RPC suite and selected crash/replay repetitions; not a full exact-candidate acceptance run",
+    "Initial post-change suite exposed an obsolete crash-fixture expected payload; fixture now asserts the full terminal event",
+    "Record consistency does not authenticate output or prove task correctness",
+    "Dirty Hand and unreleased Harness; refreshed native coverage now predates this change"
+  ]
+}

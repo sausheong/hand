@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-verification-pty-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--checkpoint-dir",
+    "/private/tmp/hand-verification-pty-separated-20260909/fixture/checkpoints",
+    "--verification-config",
+    "/private/tmp/hand-verification-pty-separated-20260909/fixture/verification.json"
+  ],
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "b7c664d0d01da567a5d3765ad2b2a17233e40784f8a280e16318e5f455e3afc0",
+  "deleted_selected": true,
+  "snapshots_retained": true,
+  "command_executions": 1,
+  "terminal_echo_disabled": true,
+  "reviewed": true,
+  "confirmed": true,
+  "saved_id": "c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1",
+  "later_edit_stale": true,
+  "exit_code": 0,
+  "provider_calls": 0,
+  "terminal_sha256": "dda38963a9ff822e6de941d760affe982f3cc524065998896749b2f94b420d00"
+}

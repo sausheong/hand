@@ -1,0 +1,48 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scenario": "project_cannot_self_authorise",
+  "test_records": {
+    "pass": 10,
+    "fail": 0,
+    "skip": 0
+  },
+  "command": "go test -race -count=1 -json ./cmd/hand -run 'TestLegacySettingsRejection|TestCLIAuth|TestPermissionsInspection'",
+  "cases": [
+    "directory",
+    "fifo",
+    "symlink",
+    "oversized",
+    "malformed",
+    "invalid-tool"
+  ],
+  "assertions": [
+    "Reject unusable or invalid project legacy settings",
+    "Preserve settings type/mode and bytes where readable",
+    "Repaired settings reopen without leaked authority ownership",
+    "Valid legacy proposal remains unapproved after failed startup"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/legacy-settings-rejection-20260909/hand-legacy-settings-rejection-20260909.jsonl",
+      "sha256": "d36bce210f555e27cc6663c62b64aaf7bf06bdf24d0348b2241da6d4a550e7ba"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-settings-rejection-20260909/legacy_open_unix.go.txt",
+      "sha256": "a09647638bd20f92c13bcfc1e082b1493082f2b5d4954209c5f0763d2553631c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-settings-rejection-20260909/legacy_settings_rejection_test.go.txt",
+      "sha256": "d646c25b14b567f5f5064bf6ff322ce4250c23ad7e22c86d33ddd7703f07b890"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-settings-rejection-20260909/scoped_permissions.go.txt",
+      "sha256": "d5c2dd53c6c32fdd4d0e022a81233443c3239eb5f9c3303775b00d0fa6542829"
+    }
+  ],
+  "limitations": [
+    "Native macOS development startup tests",
+    "FIFO no-block check measures return time; final process-level platform qualification remains separate",
+    "Final clean candidate and released Harness qualification pending"
+  ]
+}

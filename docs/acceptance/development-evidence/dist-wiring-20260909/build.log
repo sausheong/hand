@@ -1,0 +1,7 @@
+python3 scripts/build_dist.py --dist "/private/tmp/hand-dist-wiring-20260909" --version "development-worker-wiring" --commit "e6dd26351c1b1436616e1c2b8da0086a3580d882"
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info737872869.tmp: operation not permitted
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info698548256.tmp: operation not permitted
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info970223506.tmp: operation not permitted
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info373278634.tmp: operation not permitted
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info411225768.tmp: operation not permitted
+go: writing stat cache: open /Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/hand/@v/v0.2.1.info601572059.tmp: operation not permitted

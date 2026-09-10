@@ -1,0 +1,50 @@
+{
+  "status": "development_targets_passed",
+  "targets": [
+    {
+      "target": "FuzzDecodeRequest",
+      "package": "./protocol",
+      "seconds_requested": 60,
+      "executions": 309972,
+      "log": "docs/acceptance/development-evidence/parser-fuzz-20260909/hand-rpc-fuzz-20260909.log",
+      "sha256": "648691c52e0b77ae0a5bc3d91d99bcee6e21252f133459937d834a3d12fc0d37",
+      "workspace": "/Users/sausheong/projects/hand",
+      "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./protocol -run ^$ -fuzz ^FuzzDecodeRequest$ -fuzztime=60s -parallel=2"
+    },
+    {
+      "target": "FuzzFrameReader",
+      "package": "./extension/protocol",
+      "seconds_requested": 60,
+      "executions": 2627902,
+      "log": "docs/acceptance/development-evidence/parser-fuzz-20260909/hand-extension-fuzz-20260909.log",
+      "sha256": "2150a2f027fb8eeb587495736799072907088c38b27762591ef72847ad1695c7",
+      "workspace": "/Users/sausheong/projects/hand",
+      "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./extension/protocol -run ^$ -fuzz ^FuzzFrameReader$ -fuzztime=60s -parallel=2"
+    },
+    {
+      "target": "FuzzManifest",
+      "package": "./internal/packages",
+      "seconds_requested": 60,
+      "executions": 2770130,
+      "log": "docs/acceptance/development-evidence/parser-fuzz-20260909/hand-manifest-fuzz-20260909.log",
+      "sha256": "6857e00b95c535d0ef026056c74b128db08ea9727fb03c3e85106c65f6adaee2",
+      "workspace": "/Users/sausheong/projects/hand",
+      "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./internal/packages -run ^$ -fuzz ^FuzzManifest$ -fuzztime=60s -parallel=2"
+    },
+    {
+      "target": "FuzzSessionRecords",
+      "package": "./session",
+      "seconds_requested": 60,
+      "executions": 65973,
+      "log": "docs/acceptance/development-evidence/parser-fuzz-20260909/hand-session-fuzz-20260909.log",
+      "sha256": "356feef14a1b78865e6e2f74ec66dbb585023ee0a5e73ebeaf6e937213aff7c3",
+      "workspace": "/private/tmp/hand-harness-persistence-20260908",
+      "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test ./session -run ^$ -fuzz ^FuzzSessionRecords$ -fuzztime=60s -parallel=2"
+    }
+  ],
+  "limitations": [
+    "Hook payload and tool input fuzz targets remain required",
+    "Development workspace with local unreleased Harness; not final candidate evidence",
+    "Go reused existing seed corpus; fuzz exploration ran for 60 seconds per target"
+  ]
+}

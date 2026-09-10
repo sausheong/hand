@@ -1,0 +1,104 @@
+{
+  "runs": [
+    {
+      "report": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/run.json",
+      "result": {
+        "status": "failed",
+        "qualification": "development",
+        "binary_sha256": "dc5bf27697fbdc997e32a79d7eb8cd84a18fb3ab5b9758c099d1864b5df643af",
+        "runner_sha256": "731e01c95cd5c777166c1e94fd1c2cd60f7c122494197c91c3f2ed3f81987616",
+        "error": "AssertionError('duplicate execution or unexpected provider call')"
+      }
+    },
+    {
+      "report": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/run.json",
+      "result": {
+        "status": "passed",
+        "qualification": "development",
+        "binary_sha256": "dc5bf27697fbdc997e32a79d7eb8cd84a18fb3ab5b9758c099d1864b5df643af",
+        "runner_sha256": "eb2bb251cfc8cc8e0c6fe1fb08033aef57efd7b98a4af2ba9a2d7c3ea51a22e7",
+        "scenarios": [
+          "non_go_client_lifecycle",
+          "approval_once_before_write",
+          "steering_delivery",
+          "followup_queue",
+          "duplicate_request_no_sideeffect_replay",
+          "version_error",
+          "cancel_terminal",
+          "disconnect_cleanup",
+          "reconnect_terminal_recovery"
+        ],
+        "provider_calls": 5,
+        "cancelled_provider_requests": 2
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/client-two.stderr",
+      "original_execution_path": "/private/tmp/hand-python-rpc-20260908/client-two.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/provider-requests.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-20260908/provider-requests.json",
+      "sha256": "5ec026178d68ab5bf030f02877b3bdc703a0f48431b3525df7391110541c43c7"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/client-one.stderr",
+      "original_execution_path": "/private/tmp/hand-python-rpc-20260908/client-one.stderr",
+      "sha256": "e66ed4db1bbf073b979a94abff28fb8608154283ee6f31cd8efaa06e18f0b06b"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/client-one.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-20260908/client-one.json",
+      "sha256": "834f4a20012501a13dbdbaf0d50658e2512a199314661c9fadf8cc5db1029ca6"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/client-two.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-20260908/client-two.json",
+      "sha256": "563d92324871f7b683fb79eb185b12d30e0f6b1076f43a60fe9767dc6354def6"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-20260908/run.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-20260908/run.json",
+      "sha256": "9a685d2b4a1168d74894f736e1ade7580aa5bb88edb517d527503922c75d77d7"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/client-two.stderr",
+      "original_execution_path": "/private/tmp/hand-python-rpc-verified-20260908/client-two.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/provider-requests.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-verified-20260908/provider-requests.json",
+      "sha256": "dc34779ac720e5f017d3762566e6fe062e54e68cfb5d39c6464c1c0fa9cdf49d"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/client-one.stderr",
+      "original_execution_path": "/private/tmp/hand-python-rpc-verified-20260908/client-one.stderr",
+      "sha256": "f937f1c8588b8c26105a9371d07a8c80fd90973d8dc56a0cd804ac919b6c42b1"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/client-one.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-verified-20260908/client-one.json",
+      "sha256": "2824507f3b037ffa8818187a1b4b03ea5917be4c3f83a4a2743eddcd21e66e13"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/client-two.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-verified-20260908/client-two.json",
+      "sha256": "f8ecb60746197968a3dc31e2d0e494395d09eb148b803c80300cd03aa7c5ff2e"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/python-rpc-20260908/hand-python-rpc-verified-20260908/run.json",
+      "original_execution_path": "/private/tmp/hand-python-rpc-verified-20260908/run.json",
+      "sha256": "0944fc939a6eef6c3bb216f7781d7a1db02df467bec99152cf2bcde7e82ff2c7"
+    }
+  ],
+  "runner": "scripts/check_rpc_client.py",
+  "limitations": [
+    "Development binary with unpublished Harness replacement; not exact released candidate qualification.",
+    "Initial call-count assertion failure retained; steering adds a separate continuation verified from request sequence.",
+    "No full milestone closure or repeated native performance qualification."
+  ]
+}

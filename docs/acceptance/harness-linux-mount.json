@@ -1,0 +1,52 @@
+{
+  "status": "failed_infrastructure",
+  "test_records": {
+    "pass": 1109,
+    "fail": 5
+  },
+  "volume_cleanup_exit_code": 0,
+  "diagnosis": "Daemon rejects rprivate bind propagation for workspace sources beneath /var/lib/docker, where the dedicated volume was stored.",
+  "correction": "Use the dedicated host-shared output/tmp directory, outside daemon storage; preserve backend rprivate propagation. Add a real-container boundary preflight before the full suite.",
+  "corrected_run": {
+    "status": "running",
+    "session_id": 68756,
+    "path": "/private/tmp/harness-linux-hosttmp-fixed-20260909"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/run.json.gz",
+      "sha256": "91f14495bfd93e7b24fa1910598bc924d16ab7ae6a37f832d0502e9a46db3b02",
+      "uncompressed_sha256": "f83677e157e31a79b626f5a258526f59b11c4b77ed42d606c6058f1f3ca2c870"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/suite.log.gz",
+      "sha256": "52b07bad6fd97c39c2026b01b684cd752289f15afc7b8c0d3ec0c73c08d74db8",
+      "uncompressed_sha256": "ffaf7ba7d72a6579338f12a547a439bac3450db5265ef9b07ccb321a5fecf928"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/environment.log.gz",
+      "sha256": "65dabe45cbceb7c03e3c64749e10e1dde6c86e4bd85a6e2f4eb64c9a3317ca28",
+      "uncompressed_sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/coverage.out.gz",
+      "sha256": "081d49a5f5a86ec101c23200e3246809baea836ea34730c6cf626cba2d1cb903",
+      "uncompressed_sha256": "12026ce3cd5024bd5c812b1a709cad78f9845343693ebd16e0c5a2faa6761446"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/check_harness_linux-before-tmpfix-20260909.py.gz",
+      "sha256": "ad7ba0ad6e76e12e7a9790e3048bb51beaf1fad79c6fc69e667987e8342ca9e6",
+      "uncompressed_sha256": "08e16545f271ced7a0743bc1fc7156192add8ae330150fa0990b2f793f6b76d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-mount-20260909/check_harness_linux.py.gz",
+      "sha256": "1e6e15f3f30ef203b979e9e5613e23520a3f4c9302780b45ac7749f804899402",
+      "uncompressed_sha256": "69f947ba5653767212b6ab3dc92fdf8d533f938a3ec9b079ca865f4b619ea45d"
+    }
+  ]
+}

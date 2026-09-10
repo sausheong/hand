@@ -1,0 +1,5 @@
+--- FAIL: TestPreparedTransportCloseDrainsStartupBacklogAfterNotifiedEOF (0.00s)
+    startup_eof_drain_test.go:72: connection closed before buffered startup input drained
+FAIL
+FAIL	github.com/sausheong/hand/internal/rpc	0.626s
+FAIL

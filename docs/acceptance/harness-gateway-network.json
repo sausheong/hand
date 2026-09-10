@@ -1,0 +1,207 @@
+{
+  "status": "development_harness_sdk_gateway_passed",
+  "candidate_qualified": false,
+  "tests": {
+    "harness_sdk_cases": 3,
+    "pi_shared_runner_refresh_cases": 3,
+    "evaluation_suite": 154,
+    "failures": 0,
+    "skips": 0
+  },
+  "verified": [
+    "Actual current Harness provider and Go SDK traverse real guarded loopback TCP gateway",
+    "Text/tool-roundtrip/thinking cases produce expected text/end_turn/usage",
+    "Actual Go transport headers retained as regression fixtures",
+    "Same shared runner still passes all three installed Pi SDK cases",
+    "Gateway responses validate usage and retain uncertain full reservations",
+    "Server and upstream workers joined"
+  ],
+  "limitations": [
+    "Constructed provider contexts and synthetic upstream SSE/pricing only; no real model calls or paid approval.",
+    "Not full Hand/Pi coding-agent sessions, published Harness qualification or network sandbox evidence.",
+    "Guarded loopback transport disables inherited proxy routes but does not prove deployment-wide isolation.",
+    "Authentic pricing/billing, 30-task corpus/held-out matrix and final candidate gates remain pending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/0-check_pi_gateway.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pi_gateway.py",
+      "sha256": "62bd079c57c818050a31bcb6a35a12480a39c6e273577f85e007a319a9bc53e7",
+      "uncompressed_sha256": "00408b8a27ccb89b371dc0738a4b730d4bf2e882f0146b33a0282832b09798e4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/1-harness_gateway.go.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/harness_gateway.go",
+      "sha256": "d55e0d5e221aa074a03f23d804dc22ce4379989337ebe3722308652b11e99b93",
+      "uncompressed_sha256": "91e0b38eb14979828d3b72b9c6abf8224d37760f8c5f18684209d3039a8e0d00"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/2-test_evaluation_http_policy.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_http_policy.py",
+      "sha256": "b5ae1af32c93f5de9ebb4221cc3148db366fac27cb08f2e6d75b7be483c882ad",
+      "uncompressed_sha256": "deaa809d86bf7cbd7dd13c79d7648048c6b3be27e1eae20d2bcbe6b0f7a120d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/3-headers.json.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/harness-network-development-20260909/headers.json",
+      "sha256": "3e3783ef979bbc789da02edc6d405000cf725ef47a14f4c26b3db8b25f125160",
+      "uncompressed_sha256": "23f7971dc16a25e716f77fc4261cc63225fcd77d9813d4667b34640d9b145c11"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/4-hand-harness-gateway-network-tests-20260909.log.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-tests-20260909.log",
+      "sha256": "66b5ecb07ab16d0ed54d6c6924b004a83936da76461f766bd96591264eeb4cb7",
+      "uncompressed_sha256": "c37a58d82c42825eb91eae06b540cba17d79f259dbca5c843c086eaf58244960"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/5-anthropic.go.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/providers/anthropic/anthropic.go",
+      "sha256": "15b1087b94ebc9b7dbe2e8e6de512841c7e85852813c6cd7678bbebeff54967e",
+      "uncompressed_sha256": "b0cb79d5d9649e854f679cee64f32959b53f4febaf13ef57492704563871545c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/6-go.mod.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+      "sha256": "0f7366a9c4181506bd30cf3d8ffcff80c073ca3ee2b3a4ec7ef2bb875eaa8861",
+      "uncompressed_sha256": "ce328886b6bd994693c1b6133e570f8edf00cf48fa66c79ba046fc1a38a54714"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/7-go.sum.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/go.sum",
+      "sha256": "5880c77177447fa46b7224c896878087604d342cf9fa76237a72a2137e3ef43b",
+      "uncompressed_sha256": "999a78f5cd2b436402d21980be20ab09d1312fc482f4d7c14a9910c5b3cc73c6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/8-report.json.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/report.json",
+      "sha256": "18219e70efe6f2e635a59c3d2bdef1dfe508ec4d9f841c813d5e98588fabd12b",
+      "uncompressed_sha256": "5b9e2b5a85e2b5ef3ebfceaf37d861e70309c0de462f4c022e61800480de9c4c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/9-sdk-report.json.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/sdk-report.json",
+      "sha256": "41999287b706c3ab1a8841bd524e622aef616d098741c911d5d281af98702061",
+      "uncompressed_sha256": "0a6d34bcb0545870570348c8a9ab0d1585178fe8f45b5089711c6efd6556da5e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/10-stdout.log.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/stdout.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/11-stderr.log.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/stderr.log",
+      "sha256": "15637e3d08fbee3555ab4612119d17a977e4c300862e7a4e71482bb22ab76ab8",
+      "uncompressed_sha256": "a10216a21c0ef8a2c964dd745d5db0887fd93fa8edab93cab19461d566916c7e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/12-budget.sqlite.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/budget.sqlite",
+      "sha256": "8b461eb284c6cacf3064e2355f26e6e8330a085ecf928fae37bc4bf98d0c1ecc",
+      "uncompressed_sha256": "da117594b476379ad74b14ffdb8658ff8c508b608846b806fd34b48374fc31c3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/13-report.json.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/requests/12883aa9b1f54d6d9c88186310784ba0/report.json",
+      "sha256": "71932560ffe091d24dc8e6b64e51cee6d20b5baf7bfd76839eab2012ec17fdad",
+      "uncompressed_sha256": "fb4abf1576753b52b51ba77622991a97001e645e0347bef7f351ce6dc1685ad6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/14-response.bin.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/requests/12883aa9b1f54d6d9c88186310784ba0/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/15-report.json.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/requests/a4db6218c5dd427fadf42761c409bd01/report.json",
+      "sha256": "562a6c6fd5286d2022909fc6f13e8b5aa91b999a21f035f45d264772f8114bca",
+      "uncompressed_sha256": "b8660fc813fac523f4ba05112d513650db376f93adff2cef55597a5a6bf0fd69"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/16-response.bin.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/requests/a4db6218c5dd427fadf42761c409bd01/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/17-report.json.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/requests/eb0cb7c0074e4d699999337c8ceb8a8d/report.json",
+      "sha256": "dc957b1cf7bb2490a5db69c07b10266e461232a6e48ae4bff27271a17d455111",
+      "uncompressed_sha256": "82ec73a095aa72a948bf0eb2db5cba3fe4a79c0643439cdad57526fa1043f5d1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/18-response.bin.gz",
+      "source": "/private/tmp/hand-harness-gateway-network-20260909/requests/eb0cb7c0074e4d699999337c8ceb8a8d/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/19-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/report.json",
+      "sha256": "010c6402f30de3b1c86edc09b77913059c0995a56c879ecd874bbbfe57db97c7",
+      "uncompressed_sha256": "b6d04d6ae048dd5d9e897c87d5c24ac3e7e61a402e185825bd7fa21135308532"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/20-sdk-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/sdk-report.json",
+      "sha256": "6e5b482339f804ed28a3d4beb1f0ac6ec24e227f1df7ced7d8510df6a44bce8b",
+      "uncompressed_sha256": "5dad0e6b9f418d58bb89c95966cff526d8f43a952eaf093fa53a366883289062"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/21-stdout.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/stdout.log",
+      "sha256": "a102b2c0ceb786e7a5256d5cf2c4c84ef521ce7d14bb2b34dcce8695ddc26b40",
+      "uncompressed_sha256": "26a9d682bb43c39d1a9eb34901558e9c90192237cee3062943b1f90602e10b87"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/22-stderr.log.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/23-budget.sqlite.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/budget.sqlite",
+      "sha256": "e0a00e8af120f6106dc911c75c36a24a640764e91a1b3001dd1591d22f9fbb26",
+      "uncompressed_sha256": "3a98a2995832d1ae45c82e7a325d3fc3abbbedd5beb84f5694458424f3eb528a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/24-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/requests/02d693b967cb4b339b9797ff0a841a03/report.json",
+      "sha256": "dbc4100971f5e785e4806317082ea07da82419292797e48355020f6dd81a47f8",
+      "uncompressed_sha256": "434b61b12fbcfe1368714fff8b85b75d3c3fc03cbf1e265ced1f0a3023ce412c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/25-response.bin.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/requests/02d693b967cb4b339b9797ff0a841a03/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/26-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/requests/57250b3cb19346139ae017ae3c43c804/report.json",
+      "sha256": "df9c7b77f71fd1aaeec626c18150cdce94478e9a87fcc4c44161be17711a0267",
+      "uncompressed_sha256": "9c84265aea7c07be3c1515b21ac0da50fb15c209738fbd7eee3b2df8a939aa7f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/27-response.bin.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/requests/57250b3cb19346139ae017ae3c43c804/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/28-report.json.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/requests/8a4bf7792cf74d14a5b2bf16e061940d/report.json",
+      "sha256": "be1f1b1e68a3a11ee4723bfe3ae04ef906457bc77cb8e83513242feff8daf9d1",
+      "uncompressed_sha256": "dd543695dffd58af2c7f755e9fc7a9f4e2a4e68f26808ccefd631307bd037b1a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-gateway-network-20260909/29-response.bin.gz",
+      "source": "/private/tmp/hand-pi-gateway-shared-runner-20260909/requests/8a4bf7792cf74d14a5b2bf16e061940d/response.bin",
+      "sha256": "8665493441548b00e3e874695e4fdd6d5611589ad34e397d54daded738294d4f",
+      "uncompressed_sha256": "9804095bc16bf9bb6e8950cb227b09637ea5fa88a02f06d8493283a522a7a03b"
+    }
+  ]
+}

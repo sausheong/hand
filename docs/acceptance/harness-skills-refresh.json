@@ -1,0 +1,69 @@
+{
+  "status": "development_passed",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "91306db2e66cf033d98b56860d3175fdafea7a0c54812cd420822d3d7cb49c1e",
+  "sources": [
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "996b26b6c4477e317366c33d4d2b61addb629df41035ac0ead2cf81a8b555d15"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "7b1ebfa01a5b714cccf011e73323d59b7123772254960618ae29cca318f43f6a"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "2e2e21e42ff47f6f3ae5232839fbe7987424a90eff0f128ef342e9a7b7434f1b"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "76eb53fea41aad9fb39d7e7b517a8891dc9b455a92f1ec274067b45c3fcec4c4"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-skills-refresh-20260908/harness-skills-refresh-race-20260908.jsonl",
+      "sha256": "81fea75b437edd8db7e9b166c8a8cf4bfde7b679d5b9daeea9ef3297b3d02323"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-skills-refresh-20260908/harness-skills-refresh-expanded-race-20260908.jsonl",
+      "sha256": "9e0c5231f3807aa3b8f3b34296be6e6a6f847730ea884c10602f2cab22aafebd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-skills-refresh-20260908/harness-skills-refresh-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "results": {
+    "harness-skills-refresh-race-20260908.jsonl": {
+      "pass": 10,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    },
+    "harness-skills-refresh-expanded-race-20260908.jsonl": {
+      "pass": 23,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Not released or integrated into primary Hand dependency.",
+    "Runtime per-request refresh wired; an end-to-end model request self-authoring regression remains pending.",
+    "Hand reload command and lazy nested guidance remain pending.",
+    "SkillProvider must bound its own filesystem work."
+  ]
+}

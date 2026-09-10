@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "snapshot_root": "/private/tmp/hand-container-extension-terminal-20260909/snapshots",
+  "identities": {
+    "task-note": "examples/terminal-note"
+  },
+  "reviews": [
+    {
+      "container": {
+        "docker": "/usr/local/bin/docker",
+        "socket": "/Users/sausheong/.docker/run/docker.sock",
+        "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+        "writable": false,
+        "network": false
+      },
+      "specification": {
+        "name": "task-note",
+        "digest": "573b0c790625dfec01488c7a08553c2d12f1147ca0215d051324256a105a6d2a",
+        "capabilities": [
+          "commands",
+          "context.transform",
+          "questions",
+          "state"
+        ],
+        "order": 0,
+        "mandatory": false
+      },
+      "binary": {
+        "path": "/private/tmp/hand-container-note-20260909",
+        "sha256": "563d866b814cb3fbebdad56363d5b1a7e7c2ac3e342e0041609c63a02ec0f26d",
+        "size": 2855943,
+        "mode": 493
+      },
+      "assets": null,
+      "arguments": null,
+      "workspace": "/private/tmp/hand-container-extension-terminal-20260909/workspace",
+      "environment": {},
+      "boundary": "container image=sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818; workspace writable=false; network=false; reviewed resources read-only; other host paths unmounted"
+    }
+  ]
+}

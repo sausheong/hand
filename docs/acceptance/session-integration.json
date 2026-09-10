@@ -1,0 +1,94 @@
+{
+  "checkout": "/private/tmp/hand-session-integration-20260908",
+  "primary_integrated": false,
+  "primary_harness_version": "v0.3.9",
+  "development_harness_candidate": "5cc93a3d6a1a504cd348d435db8ebd7e68050d28",
+  "development_dependency_mode": "local replace in isolated checkout only; not acceptable for final qualification",
+  "patch_excludes_go_mod_replace": true,
+  "tests_passed": 501,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "sessionio_repeat_passes": 580,
+  "repetitions": 20,
+  "binary_journey": "TestBinaryNewSessionAndResumeAcrossProcesses: passed; built binary, 3 process launches, local HTTP fixture",
+  "sources": [
+    {
+      "path": "internal/sessionio/manager.go",
+      "before_sha256": null,
+      "after_sha256": "4fa6371db71e0984a6dd89f6fc4416f1b1747574a2e054fe42b0932c19ebe3a1"
+    },
+    {
+      "path": "internal/sessionio/manager_test.go",
+      "before_sha256": null,
+      "after_sha256": "bb0d5f7ed0db1818b7f50724adaaa6a5a33c1fa2cf5c92dd9cf6592412c5da7d"
+    },
+    {
+      "path": "internal/app/controller.go",
+      "before_sha256": "5a99045e52b0be64484ae77b0e42a64148cb08cf328b4ce09e1d8079b8656cca",
+      "after_sha256": "93ab55b7ada9798d3e78fccef6739f311733f1979f6a85aa1a334c3adc16773f"
+    },
+    {
+      "path": "internal/app/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "7141caf62b3d5a199fc862dccc8006d6046eb0890da729c88f7cbd79bda1ae2d"
+    },
+    {
+      "path": "internal/tui/commands.go",
+      "before_sha256": "71e8a5d655719976cff20722314695538f92d324a3d038b127732fb6382d95d7",
+      "after_sha256": "41d1b510a12b8aab5247e7f2fe9c2bee7427a2a91c8bd1b811878add38a74c98"
+    },
+    {
+      "path": "cmd/hand/main.go",
+      "before_sha256": "58ec6d21038f14012a2c6dd7ae31345b566b1ee9ce9556aa229a19f13af62683",
+      "after_sha256": "f346e1c2ab275dacd68c47df169cb7db6756a5c91073b194ebbd2df4b72374a8"
+    },
+    {
+      "path": "cmd/hand/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2aac513aec6783c271f239e562f6b3d4b0fb24ba575b6d1d737b6fd51da2aba9"
+    },
+    {
+      "path": "cmd/hand/session_binary_test.go",
+      "before_sha256": null,
+      "after_sha256": "17a6d1fb55990e2e2f8f06698e837c99a3405618613d9f90a1234a6af69d4eda"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/session-integration.patch",
+      "sha256": "67b0e36716abc2f96bf41f22913cce16a383be883a13227544cbdd81d1ba051d"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-verified-20260908.jsonl",
+      "sha256": "d83fb6223512c1293fd91e53d234f43cc510c794d8925c674f86215d514db659"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-verified-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-coverage-20260908.out",
+      "sha256": "2851244b5af1dfd5438a9ed44c03cc3c0dbab067463fa9764a27d1ca87c9300e"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-repeat-20260908.jsonl",
+      "sha256": "eae284e49441556d8f57f708462f4412f4f8ba0ae4177985ad3079e0ed6675fe"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-dependency-20260908.json",
+      "sha256": "89a539b6d1909c1e76e52203c905a4cea15eb2d826b37dad6c6a3a383f0ea6fc"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-coverage-summary-20260908.txt",
+      "sha256": "5f3c4de268b0644c1f0e3570244cc28b0f0c55af8a3359bef7e0482e63b9d76a"
+    },
+    {
+      "path": "/private/tmp/hand-session-integration-first-20260908.txt",
+      "sha256": "bf5d4b687c4c77a4ac15d9d846af5ac483f73b386959780fccdcd0302a052dab"
+    }
+  ]
+}

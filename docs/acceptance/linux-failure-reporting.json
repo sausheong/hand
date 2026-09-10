@@ -1,0 +1,29 @@
+{
+  "status": "reporting_tests_passed",
+  "unit_tests": 3,
+  "scope": "Preserve pass/fail/skip, package outcomes and unfinished work even when Linux suite fails",
+  "reconciliation": "docs/acceptance/development-evidence/linux-reporting-20260909/reconciliation.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/linux-reporting-20260909/check_linux_full.py.txt",
+      "sha256": "45643d468edbd74cdc3c929abba23caba7281d82588cd9d486162d112b0eb09d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-reporting-20260909/reconciliation.json",
+      "sha256": "8553689e77d80cef4320212d3f922d31db705e0c37f12b8ea79d92b4665ba575"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-reporting-20260909/test_linux_full_reporting.py.txt",
+      "sha256": "77595e51148d73f915410b903324d1a16ded438f0f31af9bce5c59046cb46c79"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/linux-reporting-20260909/unit-tests.log",
+      "sha256": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4"
+    }
+  ],
+  "limitations": [
+    "Reporter unit fixtures are tooling tests, not product acceptance evidence",
+    "Reconciliation reads prior failed raw runs without rerunning them or supplying missing source-after snapshots",
+    "Docker socket group approval remains pending; no privileged rerun performed"
+  ]
+}

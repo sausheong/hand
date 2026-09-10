@@ -1,0 +1,43 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scenario": "grant_scope_lifetime",
+  "matrix": {
+    "operation_types": 8,
+    "lifetimes": 3,
+    "context_cases_per_combination": 6,
+    "additional_checks": [
+      "resource mismatch",
+      "operation mismatch",
+      "revocation"
+    ]
+  },
+  "package_test_records": {
+    "pass": 88
+  },
+  "package_coverage": {
+    "statements": 428,
+    "covered": 355,
+    "percentage": 82.94392523364486
+  },
+  "command": "go test -race -count=1 -coverprofile=/private/tmp/hand-permission-matrix-20260909.cover -json ./internal/permissions",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-matrix-20260909/hand-permission-matrix-20260909.cover",
+      "sha256": "64d6981d017a86af31add4fec4b7c9265a72b85f12a413cdc1d56a0d0ee04afd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-matrix-20260909/hand-permission-matrix-20260909.jsonl",
+      "sha256": "27f149a448cdd318ba0991d869354a8a9715dac10315e0a1c825a7f159cb0a84"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-matrix-20260909/lifetime_matrix_test.go.txt",
+      "sha256": "58b521e31bbe41716c9264705d88463e488a6ae5485e8467f7ddfe969088fec5"
+    }
+  ],
+  "limitations": [
+    "Native macOS development policy matrix, not built-client verification of every combination",
+    "Package-only coverage is not the critical permissions group metric and does not satisfy 90 percent gates",
+    "Final candidate and required platform qualification remain pending"
+  ]
+}

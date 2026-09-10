@@ -1,0 +1,6 @@
+{"ImportPath":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]","Action":"build-output","Output":"# github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]\n"}
+{"ImportPath":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]","Action":"build-output","Output":"budget/tokens.go:290:14: no new variables on left side of :=\n"}
+{"ImportPath":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]","Action":"build-fail"}
+{"Time":"2026-09-08T21:11:18.806414+08:00","Action":"start","Package":"github.com/sausheong/harness/budget"}
+{"Time":"2026-09-08T21:11:18.80646+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"FAIL\tgithub.com/sausheong/harness/budget [build failed]\n"}
+{"Time":"2026-09-08T21:11:18.806467+08:00","Action":"fail","Package":"github.com/sausheong/harness/budget","Elapsed":0,"FailedBuild":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]"}

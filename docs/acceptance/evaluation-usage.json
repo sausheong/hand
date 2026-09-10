@@ -1,0 +1,57 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Complete model-bound JSON/SSE usage validation with explicit disjoint cache counters, cumulative monotonicity, event ordering and exact sender-body identity.",
+  "tests": {
+    "focused_usage": 6,
+    "socketpair_usage_integration": 1,
+    "evaluation_suite": 139,
+    "failures": 0,
+    "skips": 0
+  },
+  "accounting": "usage_observed_unverified does not settle the ledger; socket integration verifies full bound remains uncertain.",
+  "limitations": [
+    "Tests use constructed provider responses and a socket pair; no genuine live provider usage/billing collected.",
+    "Unknown usage/billing fields, missing initial counters, nonstandard tiers and encoded responses remain uncertain.",
+    "Pricing, provider-origin evidence and reconciliation remain separate mandatory work.",
+    "Full gateway server/controller/network isolation and real comparison remain pending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-usage-20260909/evaluation_anthropic_usage.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_anthropic_usage.py",
+      "sha256": "aaffebda865c1949a5d300872b995b2e77db37c55a2bfd64f5de0ccde149f133",
+      "uncompressed_sha256": "a5bcadb079df86cae3484eb90adae0bae0e59d4fbc3dcf6c1b82f4d9ba8c55e7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-usage-20260909/test_evaluation_anthropic_usage.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_anthropic_usage.py",
+      "sha256": "b4cd48febb5c1aad0f5235b0244d02250a67d9b40ed697b4c1653b7685e5e410",
+      "uncompressed_sha256": "dbb330313d32365e9321a8f3160c0d08f54f4da537b229825231f1db6bd1fdaf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-usage-20260909/evaluation_forward.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_forward.py",
+      "sha256": "04ed292d25842edb3d5b29f7fef58e2e41da31fe63ef4852be87a8c6db44135f",
+      "uncompressed_sha256": "af83dc545ea18fd6ad547ba26ee39b6422598fcde85b4b6ba4864076ae2fb97a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-usage-20260909/test_evaluation_forward.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_forward.py",
+      "sha256": "425d7210d069bcadad48fd9ed26760ca189ba31246feddbac88a0bd281a05b4d",
+      "uncompressed_sha256": "caca3e791c13585e3f3b70e5cde728d46697bc37c932508071e0a893b516d717"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-usage-20260909/hand-evaluation-usage-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-usage-20260909.log",
+      "sha256": "f151dd1de7f16a37d39dfd6187fa8b6f9066609aea6f27f8603261deee411b3f",
+      "uncompressed_sha256": "dd2b11e5916138479144f1ef3185288bd8487f08f4fe278e5cdbed1d8399d98f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-usage-20260909/hand-evaluation-usage-final-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-usage-final-20260909.log",
+      "sha256": "07e016a435036521ab501c15f6db2901358a4bbb35ffc30edccf0ea962dd74bb",
+      "uncompressed_sha256": "d50e83d5257df4071c82e2bb4b1d753ce2a06e9dba934312f7c39e2d6cbf9cfa"
+    }
+  ]
+}

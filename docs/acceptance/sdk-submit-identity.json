@@ -1,0 +1,48 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scope": "SDK Submit binds returned execution identity to original immutable request ID",
+  "before": {
+    "pass": 3,
+    "fail": 4
+  },
+  "after": {
+    "pass": 64
+  },
+  "exit_code": 0,
+  "command": "go test -race -count=1 -json ./sdk",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HAND_TEST_PYTHON_IMAGE": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "HAND_TEST_CONTAINER_ARCH": "arm64",
+    "HAND_TEST_WORKER_BINARY": "/private/tmp/hand-budget-worker-20260909",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "/private/tmp/hand-budget-peer-20260909.test",
+    "HAND_TEST_PUBLIC_FETCH_URL": "https://example.com/"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-submit-identity-20260909/hand-sdk-submit-before-20260909.jsonl",
+      "sha256": "f6bbf45d87f767ef4071f00b971f37322a0129641795338814e12e4b2852c155"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-submit-identity-20260909/hand-sdk-submit-final-20260909.jsonl",
+      "sha256": "ab2b815c3ce21e20edb27f1dc50f22d747bd871f090723a6e2ea1d13ed74a9d5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-submit-identity-20260909/snapshots.go.txt",
+      "sha256": "102bed5fdb94801c0f5e7c4aa6dfe858bac6ca41b7640f91ea90b2fd28a47f18"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-submit-identity-20260909/submit_identity_test.go.txt",
+      "sha256": "31cbbe8519aa0833157551e1f796ab8523085e7bcb1a0fd58915d71e5a240e43"
+    }
+  ],
+  "limits": [
+    "Framed transport regression covers pending/accepted/uncertain states; completed identity also guarded by same submission check",
+    "Local Harness development suite; aggregate coverage and final qualification pending"
+  ]
+}

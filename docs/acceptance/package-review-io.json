@@ -1,0 +1,30 @@
+{
+  "status": "development_review_io_tests_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./cmd/hand -run '^TestPackageReview'",
+  "test_pass_records": 9,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-review-io-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/package-review-io-20260909/hand-review-io-20260909.jsonl.gz",
+      "sha256": "b111fc1547a443cc3b2e30c8ac7f97e28cb4722445fad31223cd1f6c56178392",
+      "uncompressed_sha256": "a6494641b0543716f42a15855009c740f1a0953be2805605e4a621c27ae804d9"
+    },
+    {
+      "source": "cmd/hand/package_review_io_test.go",
+      "path": "docs/acceptance/development-evidence/package-review-io-20260909/package_review_io_test.go.gz",
+      "sha256": "cc61c16acccc10a7d8382ad104c291add4fb6f08c825d34007b5985f42c5b573",
+      "uncompressed_sha256": "b179ea69992f7855f66f76eda46785e1b5857abebdffc949dd689b5c5897b50c"
+    }
+  ],
+  "assertions": [
+    "Malformed, duplicate-field, unknown-field, nonobject, invalid-UTF8 and oversized payloads rejected without editing input",
+    "Symlink, FIFO, directory and missing review files rejected",
+    "Created review uses mode0600 and roundtrips through strict reader",
+    "Existing files and symlinks cannot be overwritten",
+    "Oversized or unencodable review leaves no new output file"
+  ],
+  "limitations": [
+    "Native macOS test evidence only",
+    "Final candidate and coverage gates remain open"
+  ]
+}

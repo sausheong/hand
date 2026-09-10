@@ -1,0 +1,47 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-extension-reload-cli-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--extension-config",
+    "/private/tmp/hand-extension-reload-pty-20260909/review.json",
+    "--approve-extension-config",
+    "ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a"
+  ],
+  "binary_sha256": "2c0ae85de20bb3be76487f0157e3682b9eaddd81e68fc0b693ffebc6b62117f0",
+  "runner_sha256": "38ad4eefd4714902730bafdd3402ba851ab45ae68247711fd5e60181f4ba4de1",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "peer_sha256": "336b54c46f29e07cc8f783f95e30b0c6130f1fd873a445eb5e0852cf12f7d020",
+  "review_digest": "ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a",
+  "completed_commands": [
+    "/extension task-note note",
+    "Remember the native terminal",
+    "/extension task-note note",
+    "ESC",
+    "/extension task-note note",
+    "CTRL_C",
+    "/reload /private/tmp/hand-extension-reload-pty-20260909/review.json ced99474f11560cd84988ada1e34cd4164f8596c19a231eb00f0b5f0d87f0e7a",
+    "/extension task-note note",
+    "ESC",
+    "/state"
+  ],
+  "exit_code": 0,
+  "persisted_revisions": 1,
+  "final_state": {
+    "version": 1,
+    "data": {
+      "note": "Remember the native terminal"
+    }
+  },
+  "snapshot_cleanup": true,
+  "terminal_sha256": "1419605987bce3e4d78500a58d18b0233ac21ae81378a4e540b89bf77f0624c0"
+}

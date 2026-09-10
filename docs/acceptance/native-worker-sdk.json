@@ -1,0 +1,55 @@
+{
+  "status": "development_native_journeys_passed",
+  "tests": [
+    "TestNativeBackgroundContainerInputOutputAndShutdown",
+    "TestNativeProxyWorkerRoundtrip",
+    "TestNativeScopedSDKContainerJourney",
+    "TestNativeSDKRejectsChangedWorker"
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-native-worker-process-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/native-worker-sdk-20260909/hand-native-worker-process-tests-20260909.jsonl.gz",
+      "sha256": "8755be7ed83224a6cad2b417c6c5905a450428a01ee3590eda102ed010b85ff2",
+      "uncompressed_sha256": "4528973c20cc06657e41bf37796c8b790c02bdd4bd9a753ed62d1fb0e8645bba"
+    },
+    {
+      "source": "/private/tmp/hand-native-worker-process-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/native-worker-sdk-20260909/hand-native-worker-process-coverage-20260909.out.gz",
+      "sha256": "d6f482be2ef47a306fbdf050a6b845112413760afbf8df624e1b43538be7c5eb",
+      "uncompressed_sha256": "5adb92f95f0eab0757b3ad41d7e247cd989384d98f6ec8ca71058f95b15e2261"
+    },
+    {
+      "source": "/private/tmp/hand-native-sdk-worker-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/native-worker-sdk-20260909/hand-native-sdk-worker-tests-20260909.jsonl.gz",
+      "sha256": "91322cb011d5c35103631d31bfc57fd35d937ad6f2fb29366aefa41787858e22",
+      "uncompressed_sha256": "70a81e65f6532108a85ee1b326dd4f45d46ae54003f7aaedc100cf5de3fb850d"
+    },
+    {
+      "source": "/private/tmp/hand-native-sdk-worker-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/native-worker-sdk-20260909/hand-native-sdk-worker-coverage-20260909.out.gz",
+      "sha256": "131e18ea11d92cb4c57c8e226fde2e336cb2f48e45097b97f8ceecd0bcfcbc46",
+      "uncompressed_sha256": "d38c959ca1805ec9a1f4e4f13e0585b6280fcf784f87d80e1439447dfb99e151"
+    }
+  ],
+  "worker": {
+    "path": "/private/tmp/hand-current-container-worker-20260909",
+    "sha256": "03adb99b60a7189bb686dea9230c8b8d5ac014646a71e212b8ac3b6e43787dd9",
+    "build": "GOOS=linux GOARCH=arm64 CGO_ENABLED=0 GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go build -o /private/tmp/hand-current-container-worker-20260909 ./cmd/hand-tool-worker"
+  },
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "socket": "/Users/sausheong/.docker/run/docker.sock",
+  "race": true,
+  "assertions": [
+    "Background input/output and joined shutdown",
+    "Container tool file roundtrip and large response",
+    "Missing worker never falls back to host execution",
+    "Scoped SDK container journey",
+    "Incorrect worker digest prevents SDK startup"
+  ],
+  "limitations": [
+    "Four previously skipped tests now have passing development evidence; prior suite skips remain in raw logs",
+    "Host test binaries race-instrumented, cross-compiled container worker is not",
+    "Final candidate, released Harness and other native fixtures remain unqualified"
+  ]
+}

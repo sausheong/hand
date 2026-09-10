@@ -1,0 +1,732 @@
+[
+  {
+    "model": "first",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are Hand, a terminal-based coding assistant. You can read, write, and edit files in the current workspace, run shell commands, and fetch or search the web. Track multi-step work with the todo tool. Be direct and concise: prefer making the requested change over describing what you would do.\n\nYou are the \"Hand\" agent (id: hand).\nYou are running as the model \"local/first\" \u2014 if asked which model you are, answer with this exact string, even if you stated a different model earlier in this conversation (the model was switched).Today's date is 2026-09-08."
+      },
+      {
+        "role": "user",
+        "content": "profile-content-0"
+      }
+    ],
+    "max_completion_tokens": 8192,
+    "stream": true,
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "description": "Execute a bash command and return its output. The command runs in a shell with a configurable timeout (default 120 seconds). IMPORTANT: always wrap file paths in double quotes (e.g. cat \"/path/with spaces/file.txt\") so paths containing spaces or special characters survive shell tokenization.",
+          "parameters": {
+            "properties": {
+              "command": {
+                "description": "The bash command to execute",
+                "type": "string"
+              },
+              "timeout": {
+                "description": "Timeout in seconds (default: 120)",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "command"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "edit_file",
+          "description": "Edit a file by replacing an exact string match. The old_string must match exactly one occurrence in the file. Use this for targeted edits rather than rewriting entire files.",
+          "parameters": {
+            "properties": {
+              "new_string": {
+                "description": "The replacement text",
+                "type": "string"
+              },
+              "old_string": {
+                "description": "The exact text to find and replace",
+                "type": "string"
+              },
+              "path": {
+                "description": "The path to the file to edit",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "old_string",
+              "new_string"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "load_skill",
+          "description": "Load the full body of a skill by name. Use after consulting the Skills Index to read a skill's instructions; the body is returned as the tool output and becomes available in your next response. Pass the exact skill name from the index.",
+          "parameters": {
+            "properties": {
+              "name": {
+                "description": "Exact skill name as listed in the Skills Index",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "process",
+          "description": "Manage invocation-owned background shell processes: start, list, read, send, cancel, wait or forget. Start executes in the startup workspace with host permissions. Background work survives foreground cancellation but is cancelled when Hand exits. Send writes exact data; include a newline for line-oriented input. Read returns bounded output and artifact references. Wait defaults to 1000ms, maximum 30000ms, then reports current state.",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "enum": [
+                  "start",
+                  "list",
+                  "read",
+                  "send",
+                  "cancel",
+                  "wait",
+                  "forget"
+                ],
+                "type": "string"
+              },
+              "command": {
+                "maxLength": 65536,
+                "type": "string"
+              },
+              "data": {
+                "maxLength": 65536,
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "wait_ms": {
+                "maximum": 30000,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "read_file",
+          "description": "Read the contents of a file at the given path. Returns the file contents as text. For image files (jpg, png, gif, webp, bmp), returns the image for visual inspection.",
+          "parameters": {
+            "properties": {
+              "path": {
+                "description": "The absolute or relative path to the file to read",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "search",
+          "description": "Find files by basename glob and/or content regex. Returns path:line:text matches and a completeness summary. Honours workspace .gitignore files; ignored/hidden files can be included explicitly. Binary and symlink entries are excluded. Limits, cancellation and scan errors are reported; incomplete results do not establish absence. No shell or rg required.",
+          "parameters": {
+            "properties": {
+              "content": {
+                "description": "Regex to search each text line",
+                "type": "string"
+              },
+              "include_hidden": {
+                "description": "Include dot files/directories (except .git metadata, always excluded)",
+                "type": "boolean"
+              },
+              "include_ignored": {
+                "description": "Include .gitignore-excluded entries and default dependency/state directories",
+                "type": "boolean"
+              },
+              "max_bytes": {
+                "description": "Output byte budget including status; default 65536",
+                "maximum": 262144,
+                "minimum": 1024,
+                "type": "integer"
+              },
+              "max_results": {
+                "description": "Match cap; default 100",
+                "maximum": 10000,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "name_glob": {
+                "description": "Basename glob, e.g. *.go; no multi-segment globs",
+                "type": "string"
+              },
+              "path": {
+                "description": "Directory relative to workspace, default .",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "skill_manage",
+          "description": "Create, patch, replace, remove, list, or get skills \u2014 durable procedural knowledge that survives across sessions. Use to capture workflows, conventions, or reusable techniques worth keeping.",
+          "parameters": {
+            "properties": {
+              "action": {
+                "description": "Operation to perform.",
+                "enum": [
+                  "create",
+                  "patch",
+                  "replace",
+                  "remove",
+                  "list",
+                  "get"
+                ],
+                "type": "string"
+              },
+              "body": {
+                "description": "Full SKILL.md content for create/replace. May include YAML-ish frontmatter (---\ndescription: ...\n---\n) at the top. Max 32000 characters.",
+                "maxLength": 32000,
+                "type": "string"
+              },
+              "name": {
+                "description": "Skill name (kebab-case, 1-64 chars). Required for create/patch/replace/remove/get.",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "new_string": {
+                "description": "Required for patch. The replacement string.",
+                "type": "string"
+              },
+              "old_string": {
+                "description": "Required for patch. The string to replace. Must occur exactly once in the existing body.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "action"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "todo_write",
+          "description": "Persistent todo list for tracking long, multi-stage work. DO NOT use this as a planning scratchpad before starting a task \u2014 start working directly and call your real tools. Reserve todo_write for genuinely long-running work with roughly 5+ independent subtasks that will span many turns. When initializing a list, emit every `add` call as a parallel tool call in the SAME assistant response (the runtime serialises them safely) \u2014 never call `add` once per turn, that wastes round trips. Operations: list (default), add, update, complete, remove. The full current list is returned every call.",
+          "parameters": {
+            "properties": {
+              "content": {
+                "description": "Todo body, required for add and optional for update.",
+                "type": "string"
+              },
+              "id": {
+                "description": "Todo id, required for update/complete/remove. Returned by add.",
+                "type": "string"
+              },
+              "op": {
+                "description": "Operation to perform. Default: list.",
+                "enum": [
+                  "list",
+                  "add",
+                  "update",
+                  "complete",
+                  "remove"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "Status, used by update. Add starts items as pending; complete is shorthand for status=completed.",
+                "enum": [
+                  "pending",
+                  "in_progress",
+                  "completed"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "web_fetch",
+          "description": "Fetch the content of a web page at the given URL. Returns the page content converted to readable markdown text. Use this to read documentation, articles, API responses, or any web content.",
+          "parameters": {
+            "properties": {
+              "headers": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Optional HTTP headers to include in the request",
+                "type": "object"
+              },
+              "url": {
+                "description": "The URL to fetch (must start with http:// or https://)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "web_search",
+          "description": "Search the web for information. Returns search results with titles, URLs, and snippets. Use this when you need current information, documentation, or to find web resources.",
+          "parameters": {
+            "properties": {
+              "max_results": {
+                "description": "Maximum number of results to return (default: 5, max: 10)",
+                "type": "integer"
+              },
+              "query": {
+                "description": "The search query",
+                "type": "string"
+              }
+            },
+            "required": [
+              "query"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "write_file",
+          "description": "Write content to a file at the given path. Creates the file and any parent directories if they don't exist. Overwrites existing files.",
+          "parameters": {
+            "properties": {
+              "content": {
+                "description": "The content to write to the file",
+                "type": "string"
+              },
+              "path": {
+                "description": "The absolute or relative path to the file to write",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "content"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    ],
+    "stream_options": {
+      "include_usage": true
+    }
+  },
+  {
+    "model": "first",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are Hand, a terminal-based coding assistant. You can read, write, and edit files in the current workspace, run shell commands, and fetch or search the web. Track multi-step work with the todo tool. Be direct and concise: prefer making the requested change over describing what you would do.\n\nYou are the \"Hand\" agent (id: hand).\nYou are running as the model \"local/first\" \u2014 if asked which model you are, answer with this exact string, even if you stated a different model earlier in this conversation (the model was switched).Today's date is 2026-09-08."
+      },
+      {
+        "role": "user",
+        "content": "profile-content-0"
+      },
+      {
+        "role": "assistant",
+        "tool_calls": [
+          {
+            "id": "profile-write",
+            "type": "function",
+            "function": {
+              "name": "write_file",
+              "arguments": "{\"path\":\"scoped.txt\",\"content\":\"profile-content-0\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "content": "Successfully wrote 17 bytes to /private/tmp/hand-bound-journeys-profiles-20260908/workspace/scoped.txt",
+        "tool_call_id": "profile-write"
+      }
+    ],
+    "max_completion_tokens": 8192,
+    "stream": true,
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "bash",
+          "description": "Execute a bash command and return its output. The command runs in a shell with a configurable timeout (default 120 seconds). IMPORTANT: always wrap file paths in double quotes (e.g. cat \"/path/with spaces/file.txt\") so paths containing spaces or special characters survive shell tokenization.",
+          "parameters": {
+            "properties": {
+              "command": {
+                "description": "The bash command to execute",
+                "type": "string"
+              },
+              "timeout": {
+                "description": "Timeout in seconds (default: 120)",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "command"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "edit_file",
+          "description": "Edit a file by replacing an exact string match. The old_string must match exactly one occurrence in the file. Use this for targeted edits rather than rewriting entire files.",
+          "parameters": {
+            "properties": {
+              "new_string": {
+                "description": "The replacement text",
+                "type": "string"
+              },
+              "old_string": {
+                "description": "The exact text to find and replace",
+                "type": "string"
+              },
+              "path": {
+                "description": "The path to the file to edit",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "old_string",
+              "new_string"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "load_skill",
+          "description": "Load the full body of a skill by name. Use after consulting the Skills Index to read a skill's instructions; the body is returned as the tool output and becomes available in your next response. Pass the exact skill name from the index.",
+          "parameters": {
+            "properties": {
+              "name": {
+                "description": "Exact skill name as listed in the Skills Index",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "process",
+          "description": "Manage invocation-owned background shell processes: start, list, read, send, cancel, wait or forget. Start executes in the startup workspace with host permissions. Background work survives foreground cancellation but is cancelled when Hand exits. Send writes exact data; include a newline for line-oriented input. Read returns bounded output and artifact references. Wait defaults to 1000ms, maximum 30000ms, then reports current state.",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {
+              "action": {
+                "enum": [
+                  "start",
+                  "list",
+                  "read",
+                  "send",
+                  "cancel",
+                  "wait",
+                  "forget"
+                ],
+                "type": "string"
+              },
+              "command": {
+                "maxLength": 65536,
+                "type": "string"
+              },
+              "data": {
+                "maxLength": 65536,
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "wait_ms": {
+                "maximum": 30000,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "action"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "read_file",
+          "description": "Read the contents of a file at the given path. Returns the file contents as text. For image files (jpg, png, gif, webp, bmp), returns the image for visual inspection.",
+          "parameters": {
+            "properties": {
+              "path": {
+                "description": "The absolute or relative path to the file to read",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "search",
+          "description": "Find files by basename glob and/or content regex. Returns path:line:text matches and a completeness summary. Honours workspace .gitignore files; ignored/hidden files can be included explicitly. Binary and symlink entries are excluded. Limits, cancellation and scan errors are reported; incomplete results do not establish absence. No shell or rg required.",
+          "parameters": {
+            "properties": {
+              "content": {
+                "description": "Regex to search each text line",
+                "type": "string"
+              },
+              "include_hidden": {
+                "description": "Include dot files/directories (except .git metadata, always excluded)",
+                "type": "boolean"
+              },
+              "include_ignored": {
+                "description": "Include .gitignore-excluded entries and default dependency/state directories",
+                "type": "boolean"
+              },
+              "max_bytes": {
+                "description": "Output byte budget including status; default 65536",
+                "maximum": 262144,
+                "minimum": 1024,
+                "type": "integer"
+              },
+              "max_results": {
+                "description": "Match cap; default 100",
+                "maximum": 10000,
+                "minimum": 1,
+                "type": "integer"
+              },
+              "name_glob": {
+                "description": "Basename glob, e.g. *.go; no multi-segment globs",
+                "type": "string"
+              },
+              "path": {
+                "description": "Directory relative to workspace, default .",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "skill_manage",
+          "description": "Create, patch, replace, remove, list, or get skills \u2014 durable procedural knowledge that survives across sessions. Use to capture workflows, conventions, or reusable techniques worth keeping.",
+          "parameters": {
+            "properties": {
+              "action": {
+                "description": "Operation to perform.",
+                "enum": [
+                  "create",
+                  "patch",
+                  "replace",
+                  "remove",
+                  "list",
+                  "get"
+                ],
+                "type": "string"
+              },
+              "body": {
+                "description": "Full SKILL.md content for create/replace. May include YAML-ish frontmatter (---\ndescription: ...\n---\n) at the top. Max 32000 characters.",
+                "maxLength": 32000,
+                "type": "string"
+              },
+              "name": {
+                "description": "Skill name (kebab-case, 1-64 chars). Required for create/patch/replace/remove/get.",
+                "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+                "type": "string"
+              },
+              "new_string": {
+                "description": "Required for patch. The replacement string.",
+                "type": "string"
+              },
+              "old_string": {
+                "description": "Required for patch. The string to replace. Must occur exactly once in the existing body.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "action"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "todo_write",
+          "description": "Persistent todo list for tracking long, multi-stage work. DO NOT use this as a planning scratchpad before starting a task \u2014 start working directly and call your real tools. Reserve todo_write for genuinely long-running work with roughly 5+ independent subtasks that will span many turns. When initializing a list, emit every `add` call as a parallel tool call in the SAME assistant response (the runtime serialises them safely) \u2014 never call `add` once per turn, that wastes round trips. Operations: list (default), add, update, complete, remove. The full current list is returned every call.",
+          "parameters": {
+            "properties": {
+              "content": {
+                "description": "Todo body, required for add and optional for update.",
+                "type": "string"
+              },
+              "id": {
+                "description": "Todo id, required for update/complete/remove. Returned by add.",
+                "type": "string"
+              },
+              "op": {
+                "description": "Operation to perform. Default: list.",
+                "enum": [
+                  "list",
+                  "add",
+                  "update",
+                  "complete",
+                  "remove"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "Status, used by update. Add starts items as pending; complete is shorthand for status=completed.",
+                "enum": [
+                  "pending",
+                  "in_progress",
+                  "completed"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "web_fetch",
+          "description": "Fetch the content of a web page at the given URL. Returns the page content converted to readable markdown text. Use this to read documentation, articles, API responses, or any web content.",
+          "parameters": {
+            "properties": {
+              "headers": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "description": "Optional HTTP headers to include in the request",
+                "type": "object"
+              },
+              "url": {
+                "description": "The URL to fetch (must start with http:// or https://)",
+                "type": "string"
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "web_search",
+          "description": "Search the web for information. Returns search results with titles, URLs, and snippets. Use this when you need current information, documentation, or to find web resources.",
+          "parameters": {
+            "properties": {
+              "max_results": {
+                "description": "Maximum number of results to return (default: 5, max: 10)",
+                "type": "integer"
+              },
+              "query": {
+                "description": "The search query",
+                "type": "string"
+              }
+            },
+            "required": [
+              "query"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "write_file",
+          "description": "Write content to a file at the given path. Creates the file and any parent directories if they don't exist. Overwrites existing files.",
+          "parameters": {
+            "properties": {
+              "content": {
+                "description": "The content to write to the file",
+                "type": "string"
+              },
+              "path": {
+                "description": "The absolute or relative path to the file to write",
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "content"
+            ],
+            "type": "object"
+          }
+        }
+      }
+    ],
+    "stream_options": {
+      "include_usage": true
+    }
+  }
+]

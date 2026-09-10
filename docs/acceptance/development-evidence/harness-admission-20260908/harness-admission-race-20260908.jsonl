@@ -1,0 +1,40 @@
+{"Time":"2026-09-08T20:48:49.258539+08:00","Action":"start","Package":"github.com/sausheong/harness/llm"}
+{"Time":"2026-09-08T20:48:49.840602+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionDenialUnwindsWithoutDispatch"}
+{"Time":"2026-09-08T20:48:49.840659+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionDenialUnwindsWithoutDispatch","Output":"=== RUN   TestAdmissionDenialUnwindsWithoutDispatch\n"}
+{"Time":"2026-09-08T20:48:49.840751+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionDenialUnwindsWithoutDispatch","Output":"--- PASS: TestAdmissionDenialUnwindsWithoutDispatch (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.84077+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionDenialUnwindsWithoutDispatch","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.840779+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible"}
+{"Time":"2026-09-08T20:48:49.840782+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible","Output":"=== RUN   TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible\n"}
+{"Time":"2026-09-08T20:48:49.840797+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/generation"}
+{"Time":"2026-09-08T20:48:49.840801+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/generation","Output":"=== RUN   TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/generation\n"}
+{"Time":"2026-09-08T20:48:49.840911+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/generation","Output":"--- PASS: TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/generation (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.840928+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/generation","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.84103+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/retry"}
+{"Time":"2026-09-08T20:48:49.841042+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/retry","Output":"=== RUN   TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/retry\n"}
+{"Time":"2026-09-08T20:48:49.84107+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/retry","Output":"--- PASS: TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/retry (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.841092+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/retry","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.841105+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/compaction"}
+{"Time":"2026-09-08T20:48:49.841112+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/compaction","Output":"=== RUN   TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/compaction\n"}
+{"Time":"2026-09-08T20:48:49.841126+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/compaction","Output":"--- PASS: TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/compaction (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.841136+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible/compaction","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.841165+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible","Output":"--- PASS: TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.841167+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionSettlementPrecedesTerminalAndFailureIsVisible","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.841177+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionConcurrentReservations"}
+{"Time":"2026-09-08T20:48:49.84118+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionConcurrentReservations","Output":"=== RUN   TestAdmissionConcurrentReservations\n"}
+{"Time":"2026-09-08T20:48:49.84233+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionConcurrentReservations","Output":"--- PASS: TestAdmissionConcurrentReservations (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.842338+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionConcurrentReservations","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.842371+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionCancellationSettlesUnknownOnce"}
+{"Time":"2026-09-08T20:48:49.842376+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionCancellationSettlesUnknownOnce","Output":"=== RUN   TestAdmissionCancellationSettlesUnknownOnce\n"}
+{"Time":"2026-09-08T20:48:49.842532+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionCancellationSettlesUnknownOnce","Output":"--- PASS: TestAdmissionCancellationSettlesUnknownOnce (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.842544+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestAdmissionCancellationSettlesUnknownOnce","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.843277+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverFailedRequestCanCarryReportedUsage"}
+{"Time":"2026-09-08T20:48:49.843282+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverFailedRequestCanCarryReportedUsage","Output":"=== RUN   TestUsageObserverFailedRequestCanCarryReportedUsage\n"}
+{"Time":"2026-09-08T20:48:49.843325+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverFailedRequestCanCarryReportedUsage","Output":"--- PASS: TestUsageObserverFailedRequestCanCarryReportedUsage (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.843332+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverFailedRequestCanCarryReportedUsage","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.843389+08:00","Action":"run","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverReportsMissingTerminal"}
+{"Time":"2026-09-08T20:48:49.843395+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverReportsMissingTerminal","Output":"=== RUN   TestUsageObserverReportsMissingTerminal\n"}
+{"Time":"2026-09-08T20:48:49.843441+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverReportsMissingTerminal","Output":"--- PASS: TestUsageObserverReportsMissingTerminal (0.00s)\n"}
+{"Time":"2026-09-08T20:48:49.843446+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Test":"TestUsageObserverReportsMissingTerminal","Elapsed":0}
+{"Time":"2026-09-08T20:48:49.843506+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Output":"PASS\n"}
+{"Time":"2026-09-08T20:48:50.851467+08:00","Action":"output","Package":"github.com/sausheong/harness/llm","Output":"ok  \tgithub.com/sausheong/harness/llm\t1.593s\n"}
+{"Time":"2026-09-08T20:48:50.851529+08:00","Action":"pass","Package":"github.com/sausheong/harness/llm","Elapsed":1.593}

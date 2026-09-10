@@ -1,0 +1,7 @@
+{"ImportPath":"github.com/sausheong/harness/runtime [github.com/sausheong/harness/runtime.test]","Action":"build-output","Output":"# github.com/sausheong/harness/runtime [github.com/sausheong/harness/runtime.test]\n"}
+{"ImportPath":"github.com/sausheong/harness/runtime [github.com/sausheong/harness/runtime.test]","Action":"build-output","Output":"runtime/skills_authoring_test.go:27:33: undefined: llm.EventToolCall\n"}
+{"ImportPath":"github.com/sausheong/harness/runtime [github.com/sausheong/harness/runtime.test]","Action":"build-output","Output":"runtime/skills_authoring_test.go:29:33: undefined: llm.EventToolCall\n"}
+{"ImportPath":"github.com/sausheong/harness/runtime [github.com/sausheong/harness/runtime.test]","Action":"build-fail"}
+{"Time":"2026-09-08T16:58:42.991814+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T16:58:42.991862+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"FAIL\tgithub.com/sausheong/harness/runtime [build failed]\n"}
+{"Time":"2026-09-08T16:58:42.991874+08:00","Action":"fail","Package":"github.com/sausheong/harness/runtime","Elapsed":0,"FailedBuild":"github.com/sausheong/harness/runtime [github.com/sausheong/harness/runtime.test]"}

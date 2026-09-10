@@ -1,0 +1,272 @@
+{
+  "status": "development_audit_incomplete",
+  "required_scenarios": 14,
+  "mapped_scenarios": 14,
+  "qualified_scenarios": 0,
+  "basis": "Read current test/runner assertions; source mapping is not a passing final-candidate execution record.",
+  "scenarios": [
+    {
+      "requirement": "M4.1",
+      "scenario": "stdout_json_only",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        },
+        {
+          "path": "internal/rpc/transport_test.go",
+          "sha256": "78d248c68ea2b545242de7c3e80b0902c5fda5c32e03dd375cad1849e0c28c4d"
+        }
+      ],
+      "development_scope": "Python client parses framed stdout from built Hand; transport handles negotiation.",
+      "remaining_proof": "Refresh built-client run on final candidate and explicitly inventory every stdout line."
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "non_go_client_lifecycle",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        }
+      ],
+      "development_scope": "Python journey asserts approval, write, steering, cancellation and reconnect terminal recovery.",
+      "remaining_proof": "Fresh exact-candidate built journey on required platforms."
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "approval_steer_cancel",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        },
+        {
+          "path": "internal/rpc/approval_test.go",
+          "sha256": "0326f49e5edee233f09d555ee62e32f123fac7baf8aeed506629082f0a397c48"
+        }
+      ],
+      "development_scope": "Python fixture checks approved file contents, steering continuation and two cancelled provider calls.",
+      "remaining_proof": "Final native runs and required concurrency repetitions."
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "version_size_errors",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "protocol/framing_test.go",
+          "sha256": "ce34f97de8a69e4c15b16b60edd8db26f2f224b998245ad63298e5d8c91eb5f7"
+        },
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        },
+        {
+          "path": "cmd/hand/rpc_frame_binary_test.go",
+          "sha256": "a855285f687ee59d22be2d12a37506c919c1aea71f2aaf424b022ceb83d73a97"
+        }
+      ],
+      "development_scope": "Framing unit tests and built Python version rejection checks exist. Built oversized-frame test proves bounded rejection, no trailing prompt admission, empty ledger and zero provider calls. Same connection rejects unsupported version, duplicate ID and unnegotiated prompt before successful hello. Linux arm64 built-client framing also passed through the reusable source-bound runner.",
+      "remaining_proof": "Final native candidate/version-error and frame-size qualification.",
+      "run_evidence": "docs/acceptance/rpc-framing-recovery.json",
+      "run_evidence_linux": "docs/acceptance/rpc-linux-framing.json"
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "duplicate_request_id",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/rpc/ledger_test.go",
+          "sha256": "f948ee59c044f399946e1c572033af5382b67bb8641af16cffec8a6c2695c2d2"
+        },
+        {
+          "path": "internal/rpc/dispatcher_test.go",
+          "sha256": "84d0a4d47eaf6236ab2cad3ed3667aab4af0336695765b894eac3c5d5241b95d"
+        }
+      ],
+      "development_scope": "Concurrent duplicate admission, restart and backend call-count assertions exist.",
+      "remaining_proof": "Final repeated native qualification and built-client bindings."
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "no_sideeffect_replay",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        },
+        {
+          "path": "internal/rpc/control_ledger_test.go",
+          "sha256": "f64d98b22a9010f337b81f82362ad7c52fb639e7f0319c61efaecdae21886c0c"
+        }
+      ],
+      "development_scope": "Built Python checks approved write once and restore replay preserving later user edits; durable control replay tests exist.",
+      "remaining_proof": "Fresh final-candidate journey and all control side-effect scenario reconciliation."
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "slow_consumer_terminal_retained",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/rpc/dispatcher_test.go",
+          "sha256": "84d0a4d47eaf6236ab2cad3ed3667aab4af0336695765b894eac3c5d5241b95d"
+        },
+        {
+          "path": "internal/rpc/transport_test.go",
+          "sha256": "78d248c68ea2b545242de7c3e80b0902c5fda5c32e03dd375cad1849e0c28c4d"
+        },
+        {
+          "path": "internal/rpc/slow_consumer_recovery_test.go",
+          "sha256": "2914465aa481a5d647a7a06d43e19e68d01d118bcad52ecfe4041ec8134c4b39"
+        }
+      ],
+      "development_scope": "Combined framed-transport regression overflows progress, times out unread response, reopens ledger, recovers exact terminal and refuses repeated file side effect; 20 race repetitions passed.",
+      "remaining_proof": "Built-process and final native platform/candidate qualification; in-process combined gap now covered.",
+      "run_evidence": "docs/acceptance/slow-consumer-recovery.json"
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "disconnect_cleanup",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "internal/rpc/transport_test.go",
+          "sha256": "78d248c68ea2b545242de7c3e80b0902c5fda5c32e03dd375cad1849e0c28c4d"
+        },
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        }
+      ],
+      "development_scope": "Transport checks joined backend on disconnect; Python observes cancelled provider requests.",
+      "remaining_proof": "Actual child-tree cleanup within five seconds across required native platforms, final candidate."
+    },
+    {
+      "requirement": "M4.1",
+      "scenario": "no_hidden_trust_prompt",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_rpc_client.py",
+          "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+        },
+        {
+          "path": "sdk/scoped_journey_test.go",
+          "sha256": "44d1f54922337ef4e06115438577dd00fb3471cd47e0e72888f2e46f044db3de"
+        },
+        {
+          "path": "scripts/check_rpc_cold_start.py",
+          "sha256": "4b1fd3d9f83e85261b87901bb0051f29601ffe9b50c1c05859c776750b9988df"
+        }
+      ],
+      "development_scope": "Built unattended macOS client with legacy workspace grants: explicit RPC denial, provider refusal, fresh process/session cancellation, no file effect, unchanged settings and no implicit trust. Same two-process cold-start journey passed in Linux arm64 container.",
+      "remaining_proof": "Final exact-candidate/released-Harness qualification on required platforms.",
+      "run_evidence": "docs/acceptance/rpc-cold-start.json",
+      "run_evidence_linux": "docs/acceptance/rpc-cold-linux.json"
+    },
+    {
+      "requirement": "M4.2",
+      "scenario": "external_module_build",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_sdk_compatibility.py",
+          "sha256": "323f05ae8da14742f8291deefa5f8b4f8c75ac80259172d273cc3337aad5ebde"
+        },
+        {
+          "path": "examples/compatibility/main.go",
+          "sha256": "1dc931c9959ecd334efa3aeb456a6dd89c230daedb838511d8e7c635f67a6126"
+        }
+      ],
+      "development_scope": "External module runner builds with public SDK/protocol imports using local checkout dependencies.",
+      "remaining_proof": "Repeat for clean candidate; released dependency mode remains required."
+    },
+    {
+      "requirement": "M4.2",
+      "scenario": "released_package_example",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_sdk_compatibility.py",
+          "sha256": "323f05ae8da14742f8291deefa5f8b4f8c75ac80259172d273cc3337aad5ebde"
+        }
+      ],
+      "development_scope": "Runner has version mode and rejects replacement dependencies/mismatched binary dependency inventory.",
+      "remaining_proof": "Actual released Harness integration and released-package example qualification; development replaces are insufficient."
+    },
+    {
+      "requirement": "M4.2",
+      "scenario": "cli_rpc_sdk_equivalence",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "scripts/check_sdk_compatibility.py",
+          "sha256": "323f05ae8da14742f8291deefa5f8b4f8c75ac80259172d273cc3337aad5ebde"
+        },
+        {
+          "path": "examples/compatibility/main.go",
+          "sha256": "1dc931c9959ecd334efa3aeb456a6dd89c230daedb838511d8e7c635f67a6126"
+        }
+      ],
+      "development_scope": "Three-interface local-provider completion comparison exists.",
+      "remaining_proof": "Fresh candidate completion/cancellation evidence and remaining approved-tool/workspace-effect equivalence audit."
+    },
+    {
+      "requirement": "M4.2",
+      "scenario": "context_cancel_cleanup",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "sdk/process_test.go",
+          "sha256": "4f94ee23d513538542d58c87c7126c40bfd83f53ed8abb01394a914237708754"
+        },
+        {
+          "path": "sdk/process_descendants_test.go",
+          "sha256": "ccbb764499651596ba15230bcfcf75a4f22c0905270dcb60433b2097cefca25b"
+        },
+        {
+          "path": "sdk/client_test.go",
+          "sha256": "0308b4a04d6696adfa081675eebb365672418740a21839b103f9f523d5676dbb"
+        }
+      ],
+      "development_scope": "Cooperative close, uncooperative cancellation, descendants and blocked client reads have permanent tests.",
+      "remaining_proof": "Final native platform/process-tree timing evidence; do not substitute cancellation signal for all-child cleanup."
+    },
+    {
+      "requirement": "M4.2",
+      "scenario": "compatibility_fixture",
+      "status": "in_progress",
+      "source_evidence": [
+        {
+          "path": "examples/compatibility/main.go",
+          "sha256": "1dc931c9959ecd334efa3aeb456a6dd89c230daedb838511d8e7c635f67a6126"
+        },
+        {
+          "path": "sdk/snapshots_test.go",
+          "sha256": "122629877a7b16f60314aaf2a3a6255796683a1f3df92c83abf5b6ffe8ce1c67"
+        },
+        {
+          "path": "sdk/snapshot_integrity_test.go",
+          "sha256": "c15ed8cf0a58bfd2f6175e7a0a3b6eb5725e7d4d172d903a0aa50d64aac1729d"
+        },
+        {
+          "path": "sdk/submit_identity_test.go",
+          "sha256": "31cbbe8519aa0833157551e1f796ab8523085e7bcb1a0fd58915d71e5a240e43"
+        },
+        {
+          "path": "sdk/terminal_outcome_test.go",
+          "sha256": "6fb3114061186b3e2f490411807672f5bdbc85206c22ae06cf039e7fdf5bbd93"
+        }
+      ],
+      "development_scope": "Public compatibility executable plus immutable snapshots, identity and outcome regressions exist.",
+      "remaining_proof": "Freeze fixture/version matrix and rerun against exact released dependencies; aggregate coverage still below threshold."
+    }
+  ]
+}

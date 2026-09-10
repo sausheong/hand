@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-tool-viewer-rpc-20260909/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_6d779c1e282886c8",
+  "sessions": [
+    {
+      "id": "ses_6d779c1e282886c8",
+      "agentId": "hand",
+      "storeKey": "workspace_ae00d779bececb5a_7ad77ea162c46bdd47c28f50ecdd6b77",
+      "name": "",
+      "createdAt": "2026-09-08T18:53:48.611183Z",
+      "lastActive": "2026-09-08T18:53:48.611334Z"
+    }
+  ]
+}

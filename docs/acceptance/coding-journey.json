@@ -1,0 +1,39 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenario": "coding_task_approve_test_resume",
+  "command": "go test -race -count=1 -timeout=3m -run ^TestBinaryCodingEditTestResumeJourney$ -json ./cmd/hand",
+  "tests": {
+    "pass": 1,
+    "fail": 0,
+    "skip": 0
+  },
+  "assertions": [
+    "Original Add implementation fails independent repository test",
+    "Compiled Hand with explicit invocation approval writes corrected implementation",
+    "Actual bash tool runs go test and produces success marker only after success",
+    "New Hand process resumes same persisted session with original task, answer and both tool results",
+    "User content edited between processes remains unchanged"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/coding-journey-20260909/coding_journey_binary_test.go.gz",
+      "sha256": "4d8763a557134470283320177a73c02b40b845f0e70e5a6cd1a5b35c0cc68cc3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/coding-journey-20260909/hand-coding-journey-20260909.jsonl.gz",
+      "sha256": "b9ccb4e617fa41202c289b08655761ee16d9e85d782ec98f3e387ccfbf8908c5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/coding-journey-20260909/hand-coding-journey-native-20260909.jsonl.gz",
+      "sha256": "656cf0001f1c901c917a982b999a686a3c272a1ea609bd0319dc1b6d32c6473b"
+    }
+  ],
+  "limitations": [
+    "Local scripted provider demonstrates application semantics, not model task quality",
+    "Approval uses explicit --yes; interactive decision path has separate PTY evidence",
+    "Test harness uses race detector; child Hand compiled with ordinary go build",
+    "Dirty development source and local Harness, not final released candidate",
+    "Initial sandbox run failed at loopback bind; approved native execution passed, initial output retained"
+  ]
+}

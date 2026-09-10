@@ -1,0 +1,10 @@
+{"Time":"2026-09-09T08:31:25.641315+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-09T08:31:26.488865+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReplayedAttachmentsVisibleAfterRestart"}
+{"Time":"2026-09-09T08:31:26.489068+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReplayedAttachmentsVisibleAfterRestart","Output":"=== RUN   TestReplayedAttachmentsVisibleAfterRestart\n"}
+{"Time":"2026-09-09T08:31:26.541949+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReplayedAttachmentsVisibleAfterRestart","Output":"    replay_attachments_test.go:61: attachments invisible [\u003e inspect this   ✓\n"}
+{"Time":"2026-09-09T08:31:26.541992+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReplayedAttachmentsVisibleAfterRestart","Output":"            generated]\n"}
+{"Time":"2026-09-09T08:31:26.543034+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReplayedAttachmentsVisibleAfterRestart","Output":"--- FAIL: TestReplayedAttachmentsVisibleAfterRestart (0.05s)\n"}
+{"Time":"2026-09-09T08:31:26.543055+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Test":"TestReplayedAttachmentsVisibleAfterRestart","Elapsed":0.05}
+{"Time":"2026-09-09T08:31:26.5432+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\n"}
+{"Time":"2026-09-09T08:31:26.544725+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\tgithub.com/sausheong/hand/internal/tui\t0.903s\n"}
+{"Time":"2026-09-09T08:31:26.544738+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Elapsed":0.903}

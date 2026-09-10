@@ -1,0 +1,192 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scenario": "legacy_broad_grant_ack",
+  "partial_imports": [
+    {
+      "initial_grants": 1,
+      "final_grants": 3,
+      "prefix_preserved": true,
+      "repeated_resume_unchanged": true
+    },
+    {
+      "initial_grants": 2,
+      "final_grants": 3,
+      "prefix_preserved": true,
+      "repeated_resume_unchanged": true
+    }
+  ],
+  "raw_report": "docs/acceptance/development-evidence/permission-partial-20260909/run.json",
+  "binary_sha256": "b3ca237a19ed01a122055ffb0aab0b7a74bbe0fc522cf33ffb8743077d123ef4",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/acknowledge.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/acknowledge.stdout",
+      "sha256": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/check_permission_migration.py.txt",
+      "sha256": "ad65f18ad1b0df5e5205ae8fcea62b2c0caec88baa469abcc59a505ed16783bf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/complete-import.jsonl",
+      "sha256": "de452eb9843afcfde96d50c05a19ad91ceacd5ba403a86686586ad9e4d0c4dbb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/corrupt.stderr",
+      "sha256": "4cfe037c25889512f9c765bc6fb799b1d5408cce34711756270726618b162210"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/corrupt.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/fresh-authority.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/fresh-authority.stdout",
+      "sha256": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/idempotent-acknowledge.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/idempotent-acknowledge.stdout",
+      "sha256": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/inspect.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/inspect.stdout",
+      "sha256": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-inspect-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-inspect-1.stdout",
+      "sha256": "cc90dd336e775e4a1b7f1e6597134f4b915d22a9c7efd2e51fbaa28d2a97648e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-inspect-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-inspect-2.stdout",
+      "sha256": "68d7319687a29668033688ec1f7ca87a9d37236f68c52ea7e6ba55d00778d2e2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-repeat-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-repeat-1.stdout",
+      "sha256": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-repeat-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-repeat-2.stdout",
+      "sha256": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-resume-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-resume-1.stdout",
+      "sha256": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-resume-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/partial-resume-2.stdout",
+      "sha256": "6d2581b3e36ffb6944dcc3288bfcba628c768d86613ee20d467b917ac25f84ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/prefix-1.jsonl",
+      "sha256": "251fbb32d558bbfc9ac55f6ae9600a05d8ea5f2bb90d638346bc5421f13a0302"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/prefix-2.jsonl",
+      "sha256": "130b31874f3abdaaf100e71ae8dee5a351eecdc6cb17b9e1db0a8db1573ace8f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/recovered-1.jsonl",
+      "sha256": "de452eb9843afcfde96d50c05a19ad91ceacd5ba403a86686586ad9e4d0c4dbb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/recovered-2.jsonl",
+      "sha256": "de452eb9843afcfde96d50c05a19ad91ceacd5ba403a86686586ad9e4d0c4dbb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/reject-wrong-fingerprint.stderr",
+      "sha256": "c92ed546c648beb02ffe1283cf17c81880325e6002d6f9abd20acbc236af0ab8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/reject-wrong-fingerprint.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/reopen-revoked.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/reopen-revoked.stdout",
+      "sha256": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/revoke-0.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/revoke-0.stdout",
+      "sha256": "a0e71bd3a3027e118f4537ef709bcfd7bc6743e3e90bb7aeb29210afb93691c1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/revoke-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/revoke-1.stdout",
+      "sha256": "4f367a9091935abcabc8c428bf84ee501d438531f6affd7ffad936d38bd784b0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/revoke-2.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/revoke-2.stdout",
+      "sha256": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/run.json",
+      "sha256": "dd247689487fd3ee65ff4ba77b6211ff5862af68180b48ae688fba3974632a1b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/unchanged-after-rejection.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-partial-20260909/unchanged-after-rejection.stdout",
+      "sha256": "9eb853057def883222b32a6fa08777b631bb707fd560b70bb9ae249acc85c096"
+    }
+  ],
+  "limitations": [
+    "Native macOS built CLI development journey",
+    "Authentic journal record prefixes model partial durable import; no process killed during AcknowledgeLegacy",
+    "Final clean candidate and released Harness qualification pending"
+  ]
+}

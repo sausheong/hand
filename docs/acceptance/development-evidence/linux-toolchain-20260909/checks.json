@@ -1,0 +1,52 @@
+[
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "--config",
+      "/private/tmp/hand-public-docker-20260909",
+      "run",
+      "--rm",
+      "--network",
+      "none",
+      "sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee",
+      "go",
+      "version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "--config",
+      "/private/tmp/hand-public-docker-20260909",
+      "run",
+      "--rm",
+      "--network",
+      "none",
+      "sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee",
+      "gcc",
+      "--version"
+    ],
+    "exit_code": 0
+  },
+  {
+    "command": [
+      "/usr/local/bin/docker",
+      "--config",
+      "/private/tmp/hand-public-docker-20260909",
+      "run",
+      "--rm",
+      "--network",
+      "none",
+      "sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee",
+      "go",
+      "env",
+      "-json",
+      "GOOS",
+      "GOARCH",
+      "CGO_ENABLED",
+      "GOVERSION"
+    ],
+    "exit_code": 0
+  }
+]

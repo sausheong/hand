@@ -1,0 +1,82 @@
+{
+  "development_harness_candidate": "d4b97f3eb310581d659c29560e046802979c146c",
+  "harness_base": "0d55a8f90fdc7dafb5c377f18a9668860aa6111a",
+  "harness_patch_sha256": "a74fdad0acdafcb1e630860079c86f9c1d70831174c076c7a68fa7c9c8a1bcde",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "harness_full": {
+    "passed": 894,
+    "failed": 0,
+    "skipped": 0
+  },
+  "harness_vet_exit_code": 0,
+  "harness_session_repetitions": 20,
+  "harness_session_test_and_subtest_passes": 120,
+  "hand_workflow_repetitions": 20,
+  "hand_workflow_test_passes": 40,
+  "final_store_repetitions": 20,
+  "final_store_test_passes": 100,
+  "verification_note": "Session/replay and Hand workflow repetitions preceded the final parent-directory fsync/Mkdir correction. Final storage repetitions and both full suites include the correction. No claim of final candidate qualification.",
+  "artifacts": [
+    {
+      "path": "/private/tmp/hand-session-attachments-first-20260908.jsonl",
+      "sha256": "a56b617dc7a2eaa504293c713b68cfeed0b1a7d97d12d1c8d120db87167f2392"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-targeted-20260908.jsonl",
+      "sha256": "05a277a2db6848a67ed80ed851af1994c35852660b0af19713b0e6df0c0d8481"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-repeat-20260908.jsonl",
+      "sha256": "0e4e09d9e66c01dc6dbb1eaa1cc784b5de46cf625c12cefab03773a57d391372"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-attachment-workflows-repeat-20260908.jsonl",
+      "sha256": "592c0cb9bd54918cdb2fc2271be2b0b0a0f8b1824aa91d40d39fc6a84cc7b734"
+    },
+    {
+      "path": "/private/tmp/hand-attachment-workflows-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-store-final-repeat-20260908.jsonl",
+      "sha256": "91eb6d423dc99fc508853c020d28d1f0a98097cf8fb4a10fe9fa9d9d4e31e5a1"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-store-final-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-harness-durable-20260908.jsonl",
+      "sha256": "62b015ed3d642529591f57a917179169b8e2eec7f920d2f0944295242d18b66d"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-harness-durable-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-harness-durable-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-hand-full-20260908.jsonl",
+      "sha256": "8930675d141c612a4e2dd38fc085a6ea37aa1e12a2a48fae196b5c16dcb7a548"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-hand-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-hand-coverage-20260908.out",
+      "sha256": "b0e9529a75d10b9aec2a2b3ce28a0ca72fe3882692b699aa739e145875e3c9b8"
+    },
+    {
+      "path": "/private/tmp/hand-session-attachments-hand-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "status": "development_linux_built_cli_passed",
+  "requirement": "M6.3",
+  "platform": "linux-arm64",
+  "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+  "boundary": {
+    "network": "none",
+    "docker_socket_mounted": false,
+    "source_and_binary_mounts": "read-only",
+    "writable_mount": "temporary evidence directory"
+  },
+  "run": {
+    "status": "development_passed",
+    "qualification": "development",
+    "paid_calls": 0,
+    "binary_sha256": "97cef8efd2d65442e6a39abc732c7706cc2c21040b3c299f63664ea59b6f84be",
+    "runner_sha256": "8b9a5794853f6216c2f205b1598099ec86f9866ee638cf447f4367e3960711c5",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "advisory": {
+      "currency": "USD",
+      "limit_nano": 1000000,
+      "committed_nano": 15,
+      "compaction_nano": 0,
+      "strict": false,
+      "exhausted": false,
+      "attempts": 2,
+      "unpriced_attempts": 1,
+      "uncertain_attempts": 1,
+      "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+    },
+    "advisory_terminal": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 20,
+        "known": true,
+        "output_tokens": 10,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 2,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "strict_refusal_cases": [
+      "missing",
+      "expired",
+      "unbounded"
+    ],
+    "session_id": "ses_c3b86148bc57a2e1",
+    "exhausted": {
+      "approval_id": "",
+      "error": "llm error: provider admission: session cost budget: budget_exhausted",
+      "iteration": 1,
+      "reason": "session_cost_budget",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "charged": {
+      "currency": "USD",
+      "limit_nano": 1000000,
+      "committed_nano": 15,
+      "compaction_nano": 0,
+      "strict": true,
+      "exhausted": false,
+      "attempts": 1,
+      "unpriced_attempts": 0,
+      "uncertain_attempts": 0,
+      "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+    },
+    "completed": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 10,
+        "known": true,
+        "output_tokens": 5,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 1,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "unknown_price": {
+      "approval_id": "",
+      "error": "llm error: provider admission: request price is unknown or unbounded: no route price supplied",
+      "iteration": 1,
+      "reason": "cost_price_unknown",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "reported_totals_known": true,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "installed_prices": [
+      {
+        "provider": "local",
+        "model": "fixture",
+        "destination": "http://127.0.0.1:43141/v1",
+        "currency": "USD",
+        "source": "scripted local fixture; not a market tariff",
+        "version": "fixture-1",
+        "effective_at": "2026-09-09T02:07:56.111237Z",
+        "expires_at": "2026-09-09T04:07:56.111237Z",
+        "input_nano_per_million": 1000000,
+        "output_nano_per_million": 1000000,
+        "cache_write_nano_per_million": 1000000,
+        "cache_read_nano_per_million": 1000000,
+        "fixed_nano": 0,
+        "all_charges_bounded": true
+      }
+    ],
+    "clean_exits": 4,
+    "local_provider_requests": 2
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/advisory-restart.json",
+      "sha256": "566add9e3a870ad30aa2f5ba78e48584088c6c8b4b9a51c3a4875c39580a6015"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/advisory-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/charged-restart.json",
+      "sha256": "0b33c7e1b9b255d104f009962b9086707ff8b209c8460770fed6dfa953fb46d5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/charged-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/first.json",
+      "sha256": "cd6f4407507f5d78ff59a99521390cbc1829bb628c4528c40443ee741c811ca4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/provider-requests.json",
+      "sha256": "d43113f8339975d91248d0955d37499a7993b37ce8b60d5a1adc4b7885c00f17"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/restart.json",
+      "sha256": "6d6766571853f96c5671d920d92dee1b2ceb3cd4210245baf5eec3cfe5af344f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/run.json",
+      "sha256": "82a56ced5c6c7be063b5dbf7f36bdf102be67b53d2a2902bde463ea42b8d33e6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-advisory-linux-20260909/stdout.log",
+      "sha256": "f2f22503dbef16820de8692794885bc0ea8940c802f78282692a5ce13b5b566f"
+    }
+  ],
+  "limitations": [
+    "Development Hand/local Harness, not a clean released candidate",
+    "Linux ARM64 only; AMD64 and final full platform suite remain open",
+    "In-container loopback provider only; no external billing evidence"
+  ]
+}

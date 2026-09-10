@@ -1,0 +1,6 @@
+{"ImportPath":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]","Action":"build-output","Output":"internal/rpc/extensions_test.go:118:35: record.Response undefined (type RequestRecord has no field or method Response)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]","Action":"build-fail"}
+{"Time":"2026-09-09T00:04:43.829785+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-09T00:04:43.830053+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\tgithub.com/sausheong/hand/internal/rpc [build failed]\n"}
+{"Time":"2026-09-09T00:04:43.830062+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/rpc [github.com/sausheong/hand/internal/rpc.test]"}

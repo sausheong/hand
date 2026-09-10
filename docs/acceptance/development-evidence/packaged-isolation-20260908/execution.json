@@ -1,0 +1,10 @@
+{
+  "backend": "container",
+  "docker": "/usr/local/bin/docker",
+  "socket": "/Users/sausheong/.docker/run/docker.sock",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "worker": "/private/tmp/hand-packaged-isolation-final-20260908/hand-tool-worker-linux",
+  "writable": true,
+  "network": false,
+  "worker_sha256": "226a00c1ad6f6667543df9e366b46640063711e797461aaf2fe922c91b8e6d82"
+}

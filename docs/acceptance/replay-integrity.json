@@ -1,0 +1,66 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M3.1",
+    "M3.3"
+  ],
+  "scope": "Malformed session replay and output viewer admission through in-process TUI history API",
+  "before": {
+    "fail": 6
+  },
+  "after": {
+    "pass": 298
+  },
+  "command": "go test -race -count=1 -coverprofile=/private/tmp/hand-replay-final-20260909.cover -json ./internal/tui",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off"
+  },
+  "exit_code": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/hand-replay-null-before-20260909.jsonl",
+      "sha256": "04b247051a3fc9fc3331fb9d0e75bd0c5ab53a00120757df183b8097cceb2529"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/hand-replay-20260909.jsonl",
+      "sha256": "2c64506379f9f95f9b598aa37b9be2e8ab6b497843d0908c8eff15349a0ce015"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/hand-replay-final-20260909.jsonl",
+      "sha256": "8964715359812148e44640396c16551ca416ec0d9d65578fd11d5ec5f5ae38d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/hand-replay-final-20260909.cover",
+      "sha256": "47f1aa30452f17bec6d7cc1d795d045642c7ed8ffdcb4669aea2c1446fe9f000"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/replay.go.txt",
+      "sha256": "79b0a4a396a1a3140ea15d8b877fdae436e42d06e670ef67b90d4194dc1e8f60"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/replay_test.go.txt",
+      "sha256": "9b047697fa1db7372ee0c5819fdd0eda32b73769cea1f26d44af5b4646d9f68d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/transcript_blocks.go.txt",
+      "sha256": "36bd04c87812e7d8e972b7cb70c00f54c038bd929d009fa937b28357db0b5c0c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/replay-integrity-20260909/output.go.txt",
+      "sha256": "5903dfa69214bcb97efe5b275f790798181799b47a2e6492a4641784b56eb89e"
+    }
+  ],
+  "findings": [
+    "Null tool result previously rendered as success; null messages, calls, notes and compaction also accepted",
+    "All five recognised entry types now require object data and malformed entries render ordered errors",
+    "Malformed tool result cannot enter full output viewer",
+    "Removed unreachable duplicate replay decoder; source blocks own both valid and error presentation"
+  ],
+  "limitations": [
+    "Direct TUI history API, not proof malformed records pass durable session validation",
+    "No built binary PTY or native Linux rendering qualification",
+    "Initial final-suite build failed due unused import; fixed, failed log retained",
+    "Full aggregate coverage requires refresh after these production edits; no completion claim"
+  ]
+}

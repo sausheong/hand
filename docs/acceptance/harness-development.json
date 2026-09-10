@@ -1,0 +1,60 @@
+{
+  "status": "development_only",
+  "base_commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+  "checkout": "/private/tmp/hand-harness-development-20260908",
+  "branch": "codex/hand-hardening",
+  "patch": "docs/acceptance/harness-development.patch",
+  "patch_sha256": "8e582c1b7bb1ce8ce41b6c8ef273bc7ad7a31e6f754fd48f922b786a1804688d",
+  "released": false,
+  "integrated_into_hand": false,
+  "test_runs": [
+    {
+      "raw": "/private/tmp/hand-harness-construction-tests.jsonl",
+      "passed_tests_and_subtests": 260,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "raw": "/private/tmp/hand-harness-file-tests.jsonl",
+      "passed_tests_and_subtests": 67,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "raw": "/private/tmp/hand-harness-usage-tests.jsonl",
+      "passed_tests_and_subtests": 386,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "raw": "/private/tmp/hand-harness-process-tests.jsonl",
+      "passed_tests_and_subtests": 294,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "raw": "/private/tmp/hand-harness-artifact-tests.jsonl",
+      "passed_tests_and_subtests": 282,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "raw": "/private/tmp/hand-harness-full-tests.jsonl",
+      "passed_tests_and_subtests": 771,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "raw": "/private/tmp/hand-harness-308f702-tests.jsonl",
+      "candidate_commit": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+      "sha256": "2b2676e5d2d318de18899235c9a56a686b5446549f1ef5a3e8857e20a9deb58e",
+      "passed_tests_and_subtests": 771,
+      "failed": 0,
+      "skipped": 0,
+      "coverage": "/private/tmp/hand-harness-308f702-coverage.out"
+    }
+  ],
+  "usage_migration": "InputTokens includes cache counters; Hand gauge must stop adding them after released dependency integration.",
+  "candidate_commit": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+  "release_proposal": "docs/acceptance/harness-release-proposal.md"
+}

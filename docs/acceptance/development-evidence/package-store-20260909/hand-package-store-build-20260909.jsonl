@@ -1,0 +1,6 @@
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-output","Output":"internal/packages/store.go:10:2: \"fmt\" imported and not used\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]","Action":"build-fail"}
+{"Time":"2026-09-09T01:24:46.662794+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/packages"}
+{"Time":"2026-09-09T01:24:46.66284+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"FAIL\tgithub.com/sausheong/hand/internal/packages [build failed]\n"}
+{"Time":"2026-09-09T01:24:46.662847+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/packages","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/packages [github.com/sausheong/hand/internal/packages.test]"}

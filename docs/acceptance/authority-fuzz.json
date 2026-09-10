@@ -1,0 +1,41 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "global_gate": "G-TEST",
+  "package_race_test_records": {
+    "pass": 63
+  },
+  "fuzz": {
+    "seconds": 60.01,
+    "executions": 1460064
+  },
+  "command": "go test ./internal/permissions -run '^$' -fuzz '^FuzzAuthorityJournalJSON$' -fuzztime=60s -parallel=2 -json",
+  "assertions": [
+    "Structurally accepted records are valid single JSON values",
+    "Typed accepted records round-trip through canonical serialization",
+    "Duplicate version keys rejected even with escaped key spelling"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/authority-fuzz-20260909/authority_fuzz_test.go.txt",
+      "sha256": "6db845db56fb36b0cbd211cb76ee639565df4cffaae7530b15a14e56c1f6e9c4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-fuzz-20260909/authority_json.go.txt",
+      "sha256": "785394520b9695fd4032e91ef4da85f9b25daa626ce1396099b63c4adf7f6792"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-fuzz-20260909/hand-authority-fuzz-20260909.jsonl",
+      "sha256": "d35423d6b4e4db21c680a56cfa5982fdb72d7366490c83099b57ed1f907e126e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/authority-fuzz-20260909/hand-authority-fuzz-seeds-20260909.jsonl",
+      "sha256": "ce0fa7f538f5172ef074a5db9d9298bb64909b801f5c157beaee1bf12d5b7272"
+    }
+  ],
+  "limitations": [
+    "Native macOS development parser qualification",
+    "Structural validation is followed by typed and policy validation during actual replay",
+    "This target does not establish final platform, coverage or whole-goal completion"
+  ]
+}

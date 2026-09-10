@@ -1,0 +1,52 @@
+{
+  "status": "failed_infrastructure",
+  "test_records": {
+    "pass": 1108,
+    "fail": 6
+  },
+  "volume_cleanup_exit_code": 0,
+  "diagnosis": "Linux fixture socket is group 0 mode 0660. Non-root runner lacked supplementary group and Docker fixture commands failed with permission denied.",
+  "correction": "Added explicit --socket-group argument, set to observed group 0, retaining non-root UID and existing source/cache restrictions.",
+  "corrected_run": {
+    "status": "running",
+    "session_id": 46336,
+    "path": "/private/tmp/harness-linux-group-fixed-20260909"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/run.json.gz",
+      "sha256": "e5f9fa4e70f09f63a9b0cba8336d6a4b7d7b7bc827c37d341aba86637271f3b4",
+      "uncompressed_sha256": "ec6bbedfde53dca320266285ff67a2e1e4d6a5d7158f414418677a2e3701e519"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/suite.log.gz",
+      "sha256": "882e853311ac1238827a501afd3cff6cdafc5a71ba2b0a854cd4d5f3bf54842d",
+      "uncompressed_sha256": "dc79505fab7bf6566ec6d4fc918562db79a65c1084ebc2c93064a7d3ea377111"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/environment.log.gz",
+      "sha256": "65dabe45cbceb7c03e3c64749e10e1dde6c86e4bd85a6e2f4eb64c9a3317ca28",
+      "uncompressed_sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/coverage.out.gz",
+      "sha256": "c718c56add4095b7fc3304a6f229c1129ca4d8b4772f63d98c0778fc162932c9",
+      "uncompressed_sha256": "635210a47a67464879d134dddc9317fe8500ff8c53134e20689d1ca90139e56a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/check_harness_linux-before-group-20260909.py.gz",
+      "sha256": "35a662d72e71fa32f071412e290103b02ddd6a82a0408bf312c3120120da89aa",
+      "uncompressed_sha256": "344ccc7ce01817949d128f7a437552a164d3fbac767b7661f42ed9c546e1dcd9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-linux-first-20260909/check_harness_linux.py.gz",
+      "sha256": "ad7ba0ad6e76e12e7a9790e3048bb51beaf1fad79c6fc69e667987e8342ca9e6",
+      "uncompressed_sha256": "08e16545f271ced7a0743bc1fc7156192add8ae330150fa0990b2f793f6b76d0"
+    }
+  ]
+}

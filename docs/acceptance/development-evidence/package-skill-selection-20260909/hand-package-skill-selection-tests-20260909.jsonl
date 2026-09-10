@@ -1,0 +1,52 @@
+{"Time":"2026-09-09T02:34:43.261818+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:34:43.261978+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/packages"}
+{"Time":"2026-09-09T02:34:43.692805+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources"}
+{"Time":"2026-09-09T02:34:43.692859+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources","Output":"=== RUN   TestInstalledTextResources\n"}
+{"Time":"2026-09-09T02:34:43.692884+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/prompt"}
+{"Time":"2026-09-09T02:34:43.69289+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/prompt","Output":"=== RUN   TestInstalledTextResources/prompt\n"}
+{"Time":"2026-09-09T02:34:43.73266+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/prompt","Output":"--- PASS: TestInstalledTextResources/prompt (0.04s)\n"}
+{"Time":"2026-09-09T02:34:43.732721+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/prompt","Elapsed":0.04}
+{"Time":"2026-09-09T02:34:43.732776+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/skill"}
+{"Time":"2026-09-09T02:34:43.732796+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/skill","Output":"=== RUN   TestInstalledTextResources/skill\n"}
+{"Time":"2026-09-09T02:34:43.757491+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/skill","Output":"--- PASS: TestInstalledTextResources/skill (0.02s)\n"}
+{"Time":"2026-09-09T02:34:43.757534+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/skill","Elapsed":0.02}
+{"Time":"2026-09-09T02:34:43.757571+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/invalid-utf8"}
+{"Time":"2026-09-09T02:34:43.75758+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/invalid-utf8","Output":"=== RUN   TestInstalledTextResources/invalid-utf8\n"}
+{"Time":"2026-09-09T02:34:43.785886+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/invalid-utf8","Output":"--- PASS: TestInstalledTextResources/invalid-utf8 (0.03s)\n"}
+{"Time":"2026-09-09T02:34:43.785925+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/invalid-utf8","Elapsed":0.03}
+{"Time":"2026-09-09T02:34:43.785959+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/too-large"}
+{"Time":"2026-09-09T02:34:43.785989+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/too-large","Output":"=== RUN   TestInstalledTextResources/too-large\n"}
+{"Time":"2026-09-09T02:34:43.815547+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/too-large","Output":"--- PASS: TestInstalledTextResources/too-large (0.03s)\n"}
+{"Time":"2026-09-09T02:34:43.815577+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/too-large","Elapsed":0.03}
+{"Time":"2026-09-09T02:34:43.815595+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/unlisted"}
+{"Time":"2026-09-09T02:34:43.815607+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/unlisted","Output":"=== RUN   TestInstalledTextResources/unlisted\n"}
+{"Time":"2026-09-09T02:34:43.843213+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/unlisted","Output":"--- PASS: TestInstalledTextResources/unlisted (0.03s)\n"}
+{"Time":"2026-09-09T02:34:43.843251+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/unlisted","Elapsed":0.03}
+{"Time":"2026-09-09T02:34:43.843262+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/wrong-kind"}
+{"Time":"2026-09-09T02:34:43.843269+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/wrong-kind","Output":"=== RUN   TestInstalledTextResources/wrong-kind\n"}
+{"Time":"2026-09-09T02:34:43.871555+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/wrong-kind","Output":"--- PASS: TestInstalledTextResources/wrong-kind (0.03s)\n"}
+{"Time":"2026-09-09T02:34:43.871588+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/wrong-kind","Elapsed":0.03}
+{"Time":"2026-09-09T02:34:43.871611+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/corrupt"}
+{"Time":"2026-09-09T02:34:43.871619+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/corrupt","Output":"=== RUN   TestInstalledTextResources/corrupt\n"}
+{"Time":"2026-09-09T02:34:43.903316+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/corrupt","Output":"--- PASS: TestInstalledTextResources/corrupt (0.03s)\n"}
+{"Time":"2026-09-09T02:34:43.903345+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/corrupt","Elapsed":0.03}
+{"Time":"2026-09-09T02:34:43.903412+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/cancelled"}
+{"Time":"2026-09-09T02:34:43.903425+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/cancelled","Output":"=== RUN   TestInstalledTextResources/cancelled\n"}
+{"Time":"2026-09-09T02:34:43.93152+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/cancelled","Output":"--- PASS: TestInstalledTextResources/cancelled (0.03s)\n"}
+{"Time":"2026-09-09T02:34:43.931554+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources/cancelled","Elapsed":0.03}
+{"Time":"2026-09-09T02:34:43.931574+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources","Output":"--- PASS: TestInstalledTextResources (0.24s)\n"}
+{"Time":"2026-09-09T02:34:43.931583+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Test":"TestInstalledTextResources","Elapsed":0.24}
+{"Time":"2026-09-09T02:34:43.931784+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"PASS\n"}
+{"Time":"2026-09-09T02:34:44.21234+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval"}
+{"Time":"2026-09-09T02:34:44.212374+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Output":"=== RUN   TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval\n"}
+{"Time":"2026-09-09T02:34:44.251011+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Output":"--- PASS: TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval (0.04s)\n"}
+{"Time":"2026-09-09T02:34:44.251035+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSelectInstalledPackageSkillsOwnedSnapshotAndRemoval","Elapsed":0.04}
+{"Time":"2026-09-09T02:34:44.251765+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled"}
+{"Time":"2026-09-09T02:34:44.251773+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"=== RUN   TestReloadSkillsOwnedAndCancelled\n"}
+{"Time":"2026-09-09T02:34:44.258516+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Output":"--- PASS: TestReloadSkillsOwnedAndCancelled (0.01s)\n"}
+{"Time":"2026-09-09T02:34:44.258532+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestReloadSkillsOwnedAndCancelled","Elapsed":0.01}
+{"Time":"2026-09-09T02:34:44.258672+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:34:44.94167+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/packages","Output":"ok  \tgithub.com/sausheong/hand/internal/packages\t1.680s\n"}
+{"Time":"2026-09-09T02:34:44.941728+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/packages","Elapsed":1.6800000000000002}
+{"Time":"2026-09-09T02:34:45.264854+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.003s\n"}
+{"Time":"2026-09-09T02:34:45.264984+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.003}

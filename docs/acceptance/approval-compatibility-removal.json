@@ -1,0 +1,126 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "changes": [
+    "Migrated final service identity/viewer/scrolling approval fixtures to live broker requests.",
+    "Removed raw ApprovalRequest/ApprovalWarning Update handlers and Respond-channel fallback.",
+    "All terminal decisions require service-owned pending request ID and full run identity."
+  ],
+  "tests": {
+    "migrated_race_repetitions": 20,
+    "migrated_pass": 60,
+    "full_tui_race_pass": 337,
+    "fail": 0,
+    "skip": 0
+  },
+  "pty": {
+    "status": "development_passed",
+    "sources_unchanged": true,
+    "results": [
+      {
+        "decision": "deny",
+        "status": "passed",
+        "error": null,
+        "exit_code": 0,
+        "phase": "exit",
+        "requests": 2,
+        "skill_exists": false
+      },
+      {
+        "decision": "allow",
+        "status": "passed",
+        "error": null,
+        "exit_code": 0,
+        "phase": "exit",
+        "requests": 2,
+        "skill_exists": true
+      },
+      {
+        "decision": "cancel",
+        "status": "passed",
+        "error": null,
+        "exit_code": 0,
+        "phase": "exit",
+        "requests": 1,
+        "skill_exists": false
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/0-hand-final-approval-migration-20260909.jsonl.gz",
+      "sha256": "3841e207a1d97eb4fd75f1ef2b9c0bd5a1579bf49caae1f6f8548cc0406d8204",
+      "source": "/private/tmp/hand-final-approval-migration-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/1-hand-final-approval-migration-corrected-20260909.jsonl.gz",
+      "sha256": "76a5f569aa90977c0ac9410d0a085a3d753228809a16e5eceb35c55ef34e5bea",
+      "source": "/private/tmp/hand-final-approval-migration-corrected-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/2-hand-approval-compatibility-removal-20260909.jsonl.gz",
+      "sha256": "c3370f0db91f1c7558c1b52da7c5821e98ed4e0030ba4cf801d038c6cafad59e",
+      "source": "/private/tmp/hand-approval-compatibility-removal-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/3-model.go.gz",
+      "sha256": "e38fac712ef97fa663259b6f627c3d19ce8c3b7e66e88dfd3621c85671823291",
+      "source": "internal/tui/model.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/4-model_test.go.gz",
+      "sha256": "e042e51c58a341756fe2c904e02527a69d9f44b85326508db51f44748b35a170",
+      "source": "internal/tui/model_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/5-application_test.go.gz",
+      "sha256": "818d22a43282426defcd48a2e6f8ea900e18432b9e6edb20154e943c4c78ab46",
+      "source": "internal/tui/application_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/6-approval_viewer_test.go.gz",
+      "sha256": "7b93b48d0682df17de4c3b47c8ca532cd7b3931cf0fa0975ecb621fb8a5f99c4",
+      "source": "internal/tui/approval_viewer_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/7-report.json.gz",
+      "sha256": "b132b46bc8863912c99fe0e40fb493b6ca53db5cb7beb57ad90a55c41e01be37",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/report.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/8-terminal.pty.gz",
+      "sha256": "3cf4c5f138e0c9f95d926093a381781ce2fc378e75b3dd3a66a3f3f44b25e348",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/cancel/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/9-requests.json.gz",
+      "sha256": "ee9544f5732d37fb34186fd7cfd89b6b89a101267d23b726234a59b6b6cb31e3",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/cancel/requests.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/10-terminal.pty.gz",
+      "sha256": "355d70cdbd724afa652afd5052472c618818eaa68c29cd0b7c122ef43c1b7531",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/allow/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/11-requests.json.gz",
+      "sha256": "d086661c18934aadf3548c660b83402971fc4a4f1b91808f1ddad06076354ed4",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/allow/requests.json"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/12-terminal.pty.gz",
+      "sha256": "46d336b3a49378c1508cf50a8cc268d152375ee4a0bec28c946f52bf6ef10ed4",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/deny/terminal.pty"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/approval-compatibility-removal-20260909/13-requests.json.gz",
+      "sha256": "97a6bb65a0fc37660cce0edcaa8113f0a3fd749ae5861b67afa1cfe3c15f32e8",
+      "source": "/private/tmp/hand-approval-transport-pty-20260909/deny/requests.json"
+    }
+  ],
+  "limitations": [
+    "Initial unused-import compile failure retained and corrected.",
+    "Dirty development Hand/local Harness; full candidate/platform/coverage qualification pending.",
+    "Runtime startup composition still warrants final architectural review; focused cleanup does not qualify all M2.1 scenarios."
+  ]
+}

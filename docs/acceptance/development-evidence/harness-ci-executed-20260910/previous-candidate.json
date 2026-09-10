@@ -1,0 +1,22 @@
+{
+  "status": "frozen_local_unpublished",
+  "commit": "0972eed3eabe53dd310239bc66643aa89b915bd0",
+  "branch": "codex/hand-release-v0.4.0",
+  "checkout": "/private/tmp/hand-harness-gate-review-20260909-27_gtk26/reconstructed",
+  "base_commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+  "source_fingerprint": "c04759d354adec6b17dbdb13c7da27c24b41e55d6c080699569bfde66096fe33",
+  "clean": true,
+  "bundle": {
+    "path": "docs/acceptance/development-evidence/harness-frozen-candidate-20260909/candidate.bundle",
+    "sha256": "3e3f2d43b02366632e43d991f93efcf01aae86afca1f3d05e1b8e393d2f66854"
+  },
+  "patch": {
+    "path": "docs/acceptance/development-evidence/harness-frozen-candidate-20260909/harness-current.patch",
+    "sha256": "4981d6b7a809ca24e8357e6caabfb1e0e2757fe9bd49bc874f30b69f8a905c40"
+  },
+  "proposed_version": "v0.4.0",
+  "qualification": "Exact-candidate macOS and Linux suites pass 1114 records each; macOS container cancellation passes 20 repetitions. Hosted fixture provisioning and release review remain open.",
+  "publication_authorised": false,
+  "macos_evidence": "docs/acceptance/harness-frozen-macos.json",
+  "linux_evidence": "docs/acceptance/harness-frozen-linux.json"
+}

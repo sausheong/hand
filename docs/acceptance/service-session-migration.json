@@ -1,0 +1,35 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M2.1",
+    "M1.4"
+  ],
+  "repetitions": 20,
+  "pass": 40,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "Real Stop subprocess produces an actual captured service continuation with original session identity and iteration two.",
+    "Delayed old continuation cannot start work during /new or after session commit; new session history remains empty.",
+    "Duplicate active continuation event while second backend turn is held cannot start a third backend turn; run completes verified at exactly two iterations."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-session-migration-20260909/hand-service-session-duplicate-20260909.jsonl.gz",
+      "sha256": "3ca864a72ca433dab7ff93d60c674f876b2439e4c87d22379db9d7a688123c14"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-session-migration-20260909/hand-service-session-stale-20260909.jsonl.gz",
+      "sha256": "8a040b9414cf4117f164562815254f5df18c39c65366981ffc63c45f4ede76b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-session-migration-20260909/lifecycle_regression_test.go.gz",
+      "sha256": "6c90ffed22b2092cfbdd637160d9bf2a59fad09771790771d6638864242c3caa"
+    }
+  ],
+  "limitations": [
+    "Test-only migration; remaining superseded-check/model-change legacy fixtures and production handler removal still pending.",
+    "No full candidate/platform qualification; local fake backend with actual Stop subprocess and actual session store.",
+    "Duplicate-event check proves backend turn uniqueness, not presentation deduplication."
+  ]
+}

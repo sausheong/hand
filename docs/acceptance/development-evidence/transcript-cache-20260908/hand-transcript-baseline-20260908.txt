@@ -1,0 +1,10 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/sausheong/hand/internal/tui
+cpu: Apple M4 Max
+BenchmarkTranscript10000Blocks-16    	      34	  20510904 ns/op	        21.03 p95-ms
+--- BENCH: BenchmarkTranscript10000Blocks-16
+    transcript_benchmark_test.go:35: latency_ms_sorted=[22.974125]
+    transcript_benchmark_test.go:35: latency_ms_sorted=[20.122875 20.17425 20.220292 20.249292 20.251709 20.252417 20.270291 20.282709 20.351167 20.362833 20.404167 20.42725 20.431042 20.445875 20.450125 20.458625 20.468541 20.482042 20.50775 20.560792 20.563667 20.571875 20.586084 20.593042 20.593625 20.640792 20.664667 20.690542 20.692167 20.720167 20.788333 21.024125 21.029917 21.032208]
+PASS
+ok  	github.com/sausheong/hand/internal/tui	1.376s

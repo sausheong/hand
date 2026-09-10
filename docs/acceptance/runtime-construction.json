@@ -1,0 +1,55 @@
+{
+  "status": "development_focused_tests_passed",
+  "requirement": "M2.1",
+  "tests": {
+    "hand-runtime-construction-20260909.jsonl": {
+      "pass": 3
+    },
+    "hand-runtime-construction-cli-20260909.jsonl": {
+      "pass": 8
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/runtime_construction.go.gz",
+      "sha256": "da89690e0dd625d894e36259d7a37e39f20db83b86fa8ce0ab91d7c293ea1f0e",
+      "uncompressed_sha256": "c757937d553b102ff94db27ddb449d585c0eaca3075d5daf5362c541272ef30e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/runtime_construction_test.go.gz",
+      "sha256": "768085c72b9adb8871b929b6acbf19fb1c93429cbb220d68fc388e0c36369d88",
+      "uncompressed_sha256": "e2e96f2fe1cb27e4254558e8390916c99a54fa5e8a77dfbd8eb65a3bbe0edba1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/main.go.gz",
+      "sha256": "40f3505775d949085dccca37af5e18b3d2e43e85e71ae1ae250f77eb340b5b39",
+      "uncompressed_sha256": "dca2fe53f69a34c8b935d1949231ff11b49ca6f9acf95bda0ef00e54135f9790"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/startup.go.gz",
+      "sha256": "2c95609c9d7a3819ed4989249a9225a3c5e3f2d0b37decd515ca28a0c7549d92",
+      "uncompressed_sha256": "2d7a448ce82dadd5249936350d94c7e9d13e678a9f0bb0715d648566f3676428"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/hand-runtime-construction-20260909.jsonl.gz",
+      "sha256": "5a648a118baea74a6d2b4fea44c296515cb4429b94b2ed36e8ca5b5824b2031a",
+      "uncompressed_sha256": "0e16776c3da096aa999a3ff8d3d1ed0db4a05f1b0d7413c017606eaf1bf4ecd0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/hand-runtime-construction-cli-20260909.jsonl.gz",
+      "sha256": "f534398f31b272d6d9b2b221e2c9a0c5dade7a52e8bb835db3711b01ad063c26",
+      "uncompressed_sha256": "4dc2a1973aa0fc912a8dd19263aba15880f972ded2d9a519713e4bb96ff2f991"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runtime-construction-20260909/hand-runtime-construction-vet-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Full Hand suite and coverage must be refreshed after production source change",
+    "Clean candidate, released Harness and platform qualification remain pending",
+    "CLI still composes dependency inputs; application constructor owns runtime build and MCP startup selection",
+    "Legacy agentio timeout helper remains covered by its existing tests but is no longer used by production CLI"
+  ]
+}

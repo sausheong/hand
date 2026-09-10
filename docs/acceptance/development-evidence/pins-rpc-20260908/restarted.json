@@ -1,0 +1,189 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select-pinned",
+      "method": "session.select",
+      "params": {
+        "id": "ses_e9c6d18366c8b567"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select-pinned",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_e9c6d18366c8b567"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "list-after",
+      "method": "context.pins",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "list-after",
+      "result": [
+        {
+          "id": "objective",
+          "kind": "objective",
+          "text": "Preserve this objective across restart"
+        },
+        {
+          "id": "constraint",
+          "kind": "constraint",
+          "text": "Keep user changes"
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "remove-objective",
+      "method": "context.unpin",
+      "params": {
+        "id": "objective"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "remove-objective",
+      "result": {
+        "removed": "objective"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pin-objective",
+      "method": "context.pin",
+      "params": {
+        "id": "objective",
+        "kind": "objective",
+        "text": "Preserve this objective across restart"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pin-objective",
+      "result": {
+        "updated": "objective"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "list-replayed",
+      "method": "context.pins",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "list-replayed",
+      "result": [
+        {
+          "id": "constraint",
+          "kind": "constraint",
+          "text": "Keep user changes"
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "remove-constraint",
+      "method": "context.unpin",
+      "params": {
+        "id": "constraint"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "remove-constraint",
+      "result": {
+        "removed": "constraint"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "empty",
+      "method": "context.pins",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "empty",
+      "result": []
+    }
+  }
+]

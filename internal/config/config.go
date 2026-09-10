@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 
 	"github.com/sausheong/harness/tools/mcp"
 )
@@ -64,7 +65,10 @@ var ValidMarkdownStyles = []string{"ascii", "dark", "dracula", "light", "notty",
 // never stored here — each provider reads its key from its own
 // standard environment variable.
 type Config struct {
-	Model string `json:"model"`
+	Execution      ExecutionConfig         `json:"execution,omitempty"`
+	DefaultProfile string                  `json:"default_profile,omitempty"`
+	Profiles       map[string]ModelProfile `json:"profiles,omitempty"`
+	Model          string                  `json:"model"`
 	// BaseURL overrides the selected provider's default API endpoint,
 	// e.g. to point at a LiteLLM proxy or other OpenAI-compatible
 	// gateway. Empty means use the provider's own default. Not every
@@ -120,9 +124,15 @@ const DefaultHookTimeoutSeconds = 30
 // (with Args) whenever Event fires, restricted to tool calls matching
 // Matcher when Event is PreToolUse or PostToolUse. See
 // agentio.BuildLifecycleHooks for the exit-code contract (0 = allow,
-// 2 = deny/abort with stderr as the reason, anything else = fail open
-// with a logged warning) and which env vars each event receives.
+// 2 = deny/abort; other failures use FailurePolicy). Input is JSON on stdin.
 type HookConfig struct {
+	// FailurePolicy is "deny" (default for validators) or "warn" (default
+	// for observe-only events). Observe-only events cannot use "deny".
+	FailurePolicy string `json:"failure_policy,omitempty"`
+	// LegacyEnv temporarily exports small bulk payloads for old scripts.
+	// Large payloads are rejected, never silently truncated. Migrate to stdin.
+	LegacyEnv bool `json:"legacy_env,omitempty"`
+
 	Event string `json:"event"`
 	// Matcher is the exact tool name to restrict this hook to; "" or
 	// "*" matches every tool. Ignored for events with no tool name.
@@ -140,12 +150,14 @@ type HookConfig struct {
 // mcp.ServerConfig) — it controls approval gating for this server's
 // tools, not the connection itself.
 type MCPServer struct {
-	Name    string            `json:"name"`
-	Command string            `json:"command,omitempty"`
-	Args    []string          `json:"args,omitempty"`
-	Env     map[string]string `json:"env,omitempty"`
-	URL     string            `json:"url,omitempty"`
-	Headers map[string]string `json:"headers,omitempty"`
+	// Optional permits startup without this server when connection fails.
+	Optional bool              `json:"optional,omitempty"`
+	Name     string            `json:"name"`
+	Command  string            `json:"command,omitempty"`
+	Args     []string          `json:"args,omitempty"`
+	Env      map[string]string `json:"env,omitempty"`
+	URL      string            `json:"url,omitempty"`
+	Headers  map[string]string `json:"headers,omitempty"`
 	// Trusted skips approval gating for every tool this server exposes.
 	// Default false: an MCP tool is gated like bash/write_file/edit_file
 	// until its server is marked trusted.
@@ -188,12 +200,30 @@ func Load(path string) (Config, error) {
 	if err := json.Unmarshal(data, &cfg); err != nil {
 		return Config{}, fmt.Errorf("parse config %s: %w", path, err)
 	}
+	if err := ValidateExecution(cfg); err != nil {
+		return cfg, err
+	}
+	if err := ValidateProfiles(cfg); err != nil {
+		return Config{}, err
+	}
+	if err := ValidateHooks(cfg.Hooks); err != nil {
+		return Config{}, err
+	}
 	return cfg, nil
 }
 
 // Save writes cfg to path as indented JSON, creating any missing
 // parent directories.
 func Save(path string, cfg Config) error {
+	if err := ValidateExecution(cfg); err != nil {
+		return err
+	}
+	if err := ValidateProfiles(cfg); err != nil {
+		return err
+	}
+	if err := ValidateHooks(cfg.Hooks); err != nil {
+		return err
+	}
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return fmt.Errorf("create config directory: %w", err)
 	}
@@ -325,12 +355,13 @@ func (cfg Config) ToServerConfigs() []mcp.ServerConfig {
 	servers := make([]mcp.ServerConfig, len(cfg.MCPServers))
 	for i, s := range cfg.MCPServers {
 		servers[i] = mcp.ServerConfig{
-			Name:    s.Name,
-			Command: s.Command,
-			Args:    s.Args,
-			Env:     s.Env,
-			URL:     s.URL,
-			Headers: s.Headers,
+			Name:     s.Name,
+			Optional: s.Optional,
+			Command:  s.Command,
+			Args:     s.Args,
+			Env:      s.Env,
+			URL:      s.URL,
+			Headers:  s.Headers,
 		}
 	}
 	return servers
@@ -366,4 +397,26 @@ func (cfg Config) AllMCPServerNames() []string {
 		names[i] = s.Name
 	}
 	return names
+}
+
+// ValidateHooks prevents a misspelled policy from silently disabling a validator.
+func ValidateHooks(hooks []HookConfig) error {
+	for i, h := range hooks {
+		validEvent := false
+		for _, event := range ValidHookEvents {
+			if h.Event == event {
+				validEvent = true
+			}
+		}
+		if !validEvent || strings.TrimSpace(h.Command) == "" || h.Timeout < 0 {
+			return fmt.Errorf("hook %d: invalid event, command or timeout", i)
+		}
+		if h.FailurePolicy != "" && h.FailurePolicy != "deny" && h.FailurePolicy != "warn" {
+			return fmt.Errorf("hook %d: failure_policy must be deny or warn", i)
+		}
+		if (h.Event == "PostToolUse" || h.Event == "SessionStart") && h.FailurePolicy == "deny" {
+			return fmt.Errorf("hook %d: %s is observe-only; use a PreToolUse, UserPromptSubmit or Stop validator", i, h.Event)
+		}
+	}
+	return nil
 }

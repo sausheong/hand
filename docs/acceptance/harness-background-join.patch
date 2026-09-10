@@ -1,0 +1,354 @@
+diff --git a/USAGE.md b/USAGE.md
+index 2e6e067..813176b 100644
+--- a/USAGE.md
++++ b/USAGE.md
+@@ -26,7 +26,7 @@ record makes current occupancy unknown; model/session changes also require
+ resetting a consumer's gauge.
+ 
+ `EventDone.Usage` is a reported-only aggregate for the run, including observed
+-retries and synchronous compaction. It is incomplete whenever any request
++retries and run-owned background and synchronous compaction. It is incomplete whenever any request
+ record has unavailable usage. RunTurn returns the aggregate for that call,
+ including refusal retries, rather than only the last attempt. Request records
+ are available on error paths even when no EventDone is emitted.
+@@ -34,8 +34,18 @@ are available on error paths even when no EventDone is emitted.
+ Compaction returns its attempt records in `compaction.Result.Requests`.
+ `Manager.OnUsage` optionally observes all compaction attempts, including
+ background compaction. The observer must be concurrency-safe. Background work
+-is not charged to a run that has already ended: applications should collect
+-its records separately for session accounting. When combining event and
++started with `MaybeCompactAsyncContext` retains the caller's cancellation and
++usage observer. Runtime joins its background producer and flushes the session
++before emitting EventDone or closing the event stream. Cancellation during
++that join produces EventAborted instead of a successful EventDone. This may
++add summarisation latency at the end of a run; consume the stream until it
++closes, including after cancellation.
++
++The legacy `MaybeCompactAsync` API still creates detached work. Applications
++using it must own that producer separately and collect its session accounting.
++`JoinInFlight` cancels on caller cancellation and still waits for the producer
++to exit; prevent new launches while joining or releasing session ownership.
++Providers must honour cancellation for bounded shutdown. When combining event and
+ callback streams, deduplicate by request ID.
+ 
+ `llm.WithUsageObserver` can be used by other adapters with `llm.ObserveChat`.
+diff --git a/compaction/compaction.go b/compaction/compaction.go
+index e2d6c33..1af6b65 100644
+--- a/compaction/compaction.go
++++ b/compaction/compaction.go
+@@ -79,6 +79,7 @@ type Manager struct {
+ // via MaybeCompactAsync. The done channel is closed when the goroutine
+ // returns; result holds the outcome for any waiter that wants it.
+ type inFlightCompaction struct {
++	cancel context.CancelFunc
+ 	done   chan struct{}
+ 	result Result
+ 	err    error
+@@ -207,6 +208,11 @@ func (m *Manager) MaybeCompact(ctx context.Context, sess *session.Session, reaso
+ // enough for the three-stage fallback path) so that a returning
+ // caller's cancellation can't kill the in-flight summary.
+ func (m *Manager) MaybeCompactAsync(sess *session.Session, reason Reason) <-chan struct{} {
++	return m.MaybeCompactAsyncContext(context.Background(), sess, reason)
++}
++
++// MaybeCompactAsyncContext retains caller cancellation and usage observation.
++func (m *Manager) MaybeCompactAsyncContext(parent context.Context, sess *session.Session, reason Reason) <-chan struct{} {
+ 	if m == nil || m.Summarizer == nil || sess == nil {
+ 		ch := make(chan struct{})
+ 		close(ch)
+@@ -221,27 +227,26 @@ func (m *Manager) MaybeCompactAsync(sess *session.Session, reason Reason) <-chan
+ 	if m.inFlight == nil {
+ 		m.inFlight = make(map[string]*inFlightCompaction)
+ 	}
+-	fl := &inFlightCompaction{done: make(chan struct{})}
+-	m.inFlight[key] = fl
+-	m.inFlightMu.Unlock()
+-
+ 	timeout := m.Summarizer.Timeout
+ 	if timeout == 0 {
+ 		timeout = 60 * time.Second
+ 	}
++	ctx, cancel := context.WithTimeout(parent, 2*timeout)
++	fl := &inFlightCompaction{done: make(chan struct{}), cancel: cancel}
++	m.inFlight[key] = fl
++	m.inFlightMu.Unlock()
++
+ 	go func() {
+-		defer close(fl.done)
+-		ctx, cancel := context.WithTimeout(context.Background(), 2*timeout)
+-		defer cancel()
+-		res, err := m.MaybeCompact(ctx, sess, reason, "")
+-		fl.result = res
+-		fl.err = err
+-		// Drop our entry from the map so a subsequent burst can fire a
+-		// fresh compaction (the next turn's WaitForInFlight will see no
+-		// entry and proceed straight to its own threshold check).
+-		m.inFlightMu.Lock()
+-		delete(m.inFlight, key)
+-		m.inFlightMu.Unlock()
++		defer func() {
++			cancel()
++			m.inFlightMu.Lock()
++			close(fl.done)
++			if m.inFlight[key] == fl {
++				delete(m.inFlight, key)
++			}
++			m.inFlightMu.Unlock()
++		}()
++		fl.result, fl.err = m.MaybeCompact(ctx, sess, reason, "")
+ 	}()
+ 	return fl.done
+ }
+@@ -310,6 +315,9 @@ func (m *Manager) ForgetSession(sess *session.Session) {
+ 	if m == nil || sess == nil {
+ 		return
+ 	}
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	m.JoinInFlight(ctx, sess)
+ 	key := stableKey(sess)
+ 	m.mu.Lock()
+ 	delete(m.locks, key)
+@@ -399,3 +407,26 @@ func classifySummarizerError(err error) string {
+ 		return "summarizer_error"
+ 	}
+ }
++
++// JoinInFlight waits for the current background producer, returning its result
++// and error. Cancellation cancels that producer, then still waits for it to
++// finish; it never reports a join while session writes can continue. Callers
++// must prevent concurrent new launches while ending session ownership.
++func (m *Manager) JoinInFlight(ctx context.Context, sess *session.Session) (Result, bool, error) {
++	if m == nil || sess == nil {
++		return Result{}, false, nil
++	}
++	m.inFlightMu.Lock()
++	fl, ok := m.inFlight[stableKey(sess)]
++	m.inFlightMu.Unlock()
++	if !ok {
++		return Result{}, false, nil
++	}
++	select {
++	case <-fl.done:
++	case <-ctx.Done():
++		fl.cancel()
++		<-fl.done
++	}
++	return fl.result, true, fl.err
++}
+diff --git a/runtime/compaction_join_test.go b/runtime/compaction_join_test.go
+new file mode 100644
+index 0000000..2ad1e12
+--- /dev/null
++++ b/runtime/compaction_join_test.go
+@@ -0,0 +1,133 @@
++package runtime
++
++import (
++	"context"
++	"sync"
++	"testing"
++	"time"
++
++	"github.com/sausheong/harness/compaction"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/llm/llmtest"
++	"github.com/sausheong/harness/session"
++)
++
++type joinedSummaryProvider struct {
++	llmtest.Base
++	entered, cancelled, release chan struct{}
++}
++
++func (p *joinedSummaryProvider) ChatStream(ctx context.Context, _ llm.ChatRequest) (<-chan llm.ChatEvent, error) {
++	close(p.entered)
++	select {
++	case <-p.release:
++	case <-ctx.Done():
++		close(p.cancelled)
++		<-p.release
++		return nil, ctx.Err()
++	}
++	ch := make(chan llm.ChatEvent, 2)
++	ch <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Summary of original work and constraints."}
++	ch <- llm.ChatEvent{Type: llm.EventDone, Usage: &llm.Usage{InputTokens: 70, OutputTokens: 7}}
++	close(ch)
++	return ch, nil
++}
++
++func TestRuntimeJoinsDeferredBackgroundCompactionAndUsage(t *testing.T) {
++	for _, cancelRun := range []bool{false, true} {
++		name := "complete"
++		if cancelRun {
++			name = "cancel"
++		}
++		t.Run(name, func(t *testing.T) {
++			sess := session.NewSession("agent", "key")
++			for i := 0; i < 8; i++ {
++				sess.Append(session.UserMessageEntry("question"))
++				sess.Append(session.AssistantMessageEntry("answer"))
++			}
++			summary := &joinedSummaryProvider{entered: make(chan struct{}), cancelled: make(chan struct{}), release: make(chan struct{})}
++			var releaseOnce sync.Once
++			release := func() { releaseOnce.Do(func() { close(summary.release) }) }
++			defer release()
++			manager := &compaction.Manager{PreserveTurns: 1, Summarizer: &compaction.Summarizer{Provider: summary, Model: "summary", Timeout: time.Second}}
++			rt := &Runtime{Tools: usageNoopExecutor{}, LLM: &requestUsageProvider{total: 1}, Session: sess, Model: "generation", ContextWindow: 1000000, MaxTurns: 1, Compaction: manager}
++			rt.AgentLoop.Hooks.OnStop = func(ctx context.Context, _ string) {
++				manager.MaybeCompactAsyncContext(ctx, sess, compaction.ReasonManual)
++			}
++			ledger := &llm.UsageLedger{}
++			ctx, cancel := context.WithCancel(llm.WithUsageObserver(context.Background(), ledger.Record))
++			defer cancel()
++			events, err := rt.Run(ctx, "go", nil)
++			if err != nil {
++				t.Fatal(err)
++			}
++			joined := make(chan struct{})
++			var observed []AgentEvent
++			go func() {
++				for event := range events {
++					observed = append(observed, event)
++				}
++				close(joined)
++			}()
++			select {
++			case <-summary.entered:
++			case <-time.After(3 * time.Second):
++				t.Fatal("background summary not started")
++			}
++			if cancelRun {
++				cancel()
++				select {
++				case <-summary.cancelled:
++				case <-time.After(time.Second):
++					t.Fatal("parent cancellation lost")
++				}
++			}
++			select {
++			case <-joined:
++				t.Fatal("runtime stream closed before background joined")
++			case <-time.After(20 * time.Millisecond):
++			}
++			release()
++			select {
++			case <-joined:
++			case <-time.After(3 * time.Second):
++				t.Fatal("runtime did not join background")
++			}
++			if manager.HasInFlight(sess) {
++				t.Fatal("producer remains after runtime close")
++			}
++			var doneCount, abortedCount int
++			for i, event := range observed {
++				if event.Type == EventDone {
++					doneCount++
++					if i != len(observed)-1 || event.Usage == nil || event.Usage.InputTokens != 20070 {
++						t.Fatalf("done must be last with final accounting: %+v", event)
++					}
++				}
++				if event.Type == EventAborted {
++					abortedCount++
++				}
++				if event.Type == EventError && !cancelRun {
++					t.Fatalf("unexpected error: %v", event.Error)
++				}
++			}
++			if cancelRun && (doneCount != 0 || abortedCount != 1) {
++				t.Fatalf("cancel: done=%d aborted=%d", doneCount, abortedCount)
++			}
++			if !cancelRun && (doneCount != 1 || abortedCount != 0) {
++				t.Fatalf("success: done=%d aborted=%d", doneCount, abortedCount)
++			}
++			records := ledger.Records()
++			if len(records) != 2 || records[1].Category != llm.CallCompaction {
++				t.Fatal("background observer context lost", records)
++			}
++			if cancelRun {
++				if records[1].Status != "cancelled" {
++					t.Fatal(records[1])
++				}
++			} else if records[1].Usage == nil || records[1].Usage.InputTokens != 70 {
++				t.Fatal(records[1])
++			}
++		})
++	}
++}
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index 6ab25e3..48ac678 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -3,6 +3,7 @@ package runtime
+ import (
+ 	"context"
+ 	"encoding/base64"
++	"errors"
+ 	"fmt"
+ 	"log/slog"
+ 	"sort"
+@@ -190,7 +191,7 @@ func (r *Runtime) emit(ev AgentEvent) {
+ // maybeKickoffAsyncCompaction conditionally fires Compaction.MaybeCompactAsync
+ // when the just-finished turn left the session close enough to the trigger
+ // threshold that the NEXT turn would compact synchronously.
+-func (r *Runtime) maybeKickoffAsyncCompaction(msgs []llm.Message, parts []llm.SystemPromptPart, toolDefs []llm.ToolDef) {
++func (r *Runtime) maybeKickoffAsyncCompaction(ctx context.Context, msgs []llm.Message, parts []llm.SystemPromptPart, toolDefs []llm.ToolDef) {
+ 	if r.Compaction == nil || r.Model == "" {
+ 		return
+ 	}
+@@ -212,7 +213,7 @@ func (r *Runtime) maybeKickoffAsyncCompaction(msgs []llm.Message, parts []llm.Sy
+ 	if !preemptThresholdHit && !preemptCountHit {
+ 		return
+ 	}
+-	r.Compaction.MaybeCompactAsync(r.Session, compaction.ReasonPreventive)
++	r.Compaction.MaybeCompactAsyncContext(ctx, r.Session, compaction.ReasonPreventive)
+ }
+ 
+ // providerSupportsCaching returns true when the runtime's provider implements
+@@ -307,9 +308,35 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 	tr.Mark("agent.run.start", "user_msg_len", len(userMsg), "images", len(images))
+ 
+ 	go func() {
++		completed := false
+ 		defer close(events)
+ 		defer r.runMu.Unlock()
+ 		defer tr.Summary()
++		// Registered before stop hooks so their deferred work runs before the
++		// final producer join and persistence fence. Events stays open throughout.
++		defer func() {
++			result, joined, err := r.Compaction.JoinInFlight(ctx, r.Session)
++			if joined {
++				kind := EventCompactionSkipped
++				if result.Compacted {
++					kind = EventCompactionDone
++				}
++				r.emit(AgentEvent{Type: kind, Compaction: &result})
++			}
++			if r.Session != nil {
++				err = errors.Join(err, r.Session.Flush())
++			}
++			if err != nil {
++				r.emit(AgentEvent{Type: EventError, Error: err})
++			}
++			if completed {
++				if ctx.Err() != nil {
++					r.emit(AgentEvent{Type: EventAborted})
++				} else if err == nil {
++					r.emit(AgentEvent{Type: EventDone, Usage: ledger.Total()})
++				}
++			}
++		}()
+ 
+ 		// Flush the per-session calibrator once at Run end (all exit paths:
+ 		// normal, error, abort) instead of writing to disk on every LLM
+@@ -790,8 +817,8 @@ func (r *Runtime) Run(ctx context.Context, userMsg string, images []llm.ImageCon
+ 					return
+ 				}
+ 				stopReason = "completed"
+-				r.emit(AgentEvent{Type: EventDone, Usage: ledger.Total()})
+-				r.maybeKickoffAsyncCompaction(msgs, parts, toolDefs)
++				completed = true
++				r.maybeKickoffAsyncCompaction(ctx, msgs, parts, toolDefs)
+ 				return
+ 			}
+ 

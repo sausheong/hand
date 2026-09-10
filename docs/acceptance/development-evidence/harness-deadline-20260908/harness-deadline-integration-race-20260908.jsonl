@@ -1,0 +1,32 @@
+{"Time":"2026-09-08T21:32:09.401715+08:00","Action":"start","Package":"github.com/sausheong/harness/budget"}
+{"Time":"2026-09-08T21:32:09.438339+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T21:32:09.945847+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume"}
+{"Time":"2026-09-08T21:32:09.945896+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume","Output":"=== RUN   TestDeadlineExpiresAcrossRestartAndExplicitResume\n"}
+{"Time":"2026-09-08T21:32:10.488962+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary"}
+{"Time":"2026-09-08T21:32:10.489019+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"=== RUN   TestCostBudgetRuntimeAndIndependentSummary\n"}
+{"Time":"2026-09-08T21:32:10.495265+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"2026/09/08 21:32:10 INFO compaction triggered session_id=ses_41d0a3593138fafe reason=manual\n"}
+{"Time":"2026-09-08T21:32:10.497987+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"2026/09/08 21:32:10 INFO compaction complete session_id=ses_41d0a3593138fafe reason=manual turns_compacted=19 duration_ms=2\n"}
+{"Time":"2026-09-08T21:32:10.499327+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Output":"--- PASS: TestCostBudgetRuntimeAndIndependentSummary (0.01s)\n"}
+{"Time":"2026-09-08T21:32:10.499341+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestCostBudgetRuntimeAndIndependentSummary","Elapsed":0.01}
+{"Time":"2026-09-08T21:32:10.499393+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets"}
+{"Time":"2026-09-08T21:32:10.499401+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Output":"=== RUN   TestRunTurnCannotBypassSessionBudgets\n"}
+{"Time":"2026-09-08T21:32:10.499784+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Output":"--- PASS: TestRunTurnCannotBypassSessionBudgets (0.00s)\n"}
+{"Time":"2026-09-08T21:32:10.499797+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRunTurnCannotBypassSessionBudgets","Elapsed":0}
+{"Time":"2026-09-08T21:32:10.506724+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction"}
+{"Time":"2026-09-08T21:32:10.506732+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"=== RUN   TestTokenBudgetGovernsRuntimeAndManualCompaction\n"}
+{"Time":"2026-09-08T21:32:10.509511+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"2026/09/08 21:32:10 INFO compaction triggered session_id=ses_657e64724c0d3ef7 reason=manual\n"}
+{"Time":"2026-09-08T21:32:10.511085+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"2026/09/08 21:32:10 INFO compaction complete session_id=ses_657e64724c0d3ef7 reason=manual turns_compacted=19 duration_ms=1\n"}
+{"Time":"2026-09-08T21:32:10.511509+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Output":"--- PASS: TestTokenBudgetGovernsRuntimeAndManualCompaction (0.00s)\n"}
+{"Time":"2026-09-08T21:32:10.511517+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestTokenBudgetGovernsRuntimeAndManualCompaction","Elapsed":0}
+{"Time":"2026-09-08T21:32:10.511735+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T21:32:10.987437+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume","Output":"--- PASS: TestDeadlineExpiresAcrossRestartAndExplicitResume (1.04s)\n"}
+{"Time":"2026-09-08T21:32:10.987488+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineExpiresAcrossRestartAndExplicitResume","Elapsed":1.04}
+{"Time":"2026-09-08T21:32:10.98755+08:00","Action":"run","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation"}
+{"Time":"2026-09-08T21:32:10.987563+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation","Output":"=== RUN   TestDeadlineValidationAndParentCancellation\n"}
+{"Time":"2026-09-08T21:32:10.987924+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation","Output":"--- PASS: TestDeadlineValidationAndParentCancellation (0.00s)\n"}
+{"Time":"2026-09-08T21:32:10.987952+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Test":"TestDeadlineValidationAndParentCancellation","Elapsed":0}
+{"Time":"2026-09-08T21:32:10.989191+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"PASS\n"}
+{"Time":"2026-09-08T21:32:11.527543+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t2.089s\n"}
+{"Time":"2026-09-08T21:32:11.527656+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":2.089}
+{"Time":"2026-09-08T21:32:12.001137+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"ok  \tgithub.com/sausheong/harness/budget\t2.599s\n"}
+{"Time":"2026-09-08T21:32:12.001233+08:00","Action":"pass","Package":"github.com/sausheong/harness/budget","Elapsed":2.599}

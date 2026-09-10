@@ -1,0 +1,10 @@
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-output","Output":"# github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-output","Output":"internal/agentio/spec.go:24:6: BuildSystemPrompt redeclared in this block\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-output","Output":"\tinternal/agentio/spec.go:18:6: other declaration of BuildSystemPrompt\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-output","Output":"internal/agentio/spec.go:26:23: undefined: projectInstructionFiles\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-output","Output":"internal/agentio/spec.go:27:16: undefined: os\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-output","Output":"internal/agentio/spec.go:27:28: undefined: filepath\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]","Action":"build-fail"}
+{"Time":"2026-09-08T16:51:28.665043+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T16:51:28.665115+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"FAIL\tgithub.com/sausheong/hand/internal/agentio [build failed]\n"}
+{"Time":"2026-09-08T16:51:28.665123+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/agentio [github.com/sausheong/hand/internal/agentio.test]"}

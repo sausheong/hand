@@ -1,0 +1,16 @@
+{"Time":"2026-09-09T02:32:58.783299+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-09T02:32:59.351898+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildReviewerRuntime_InheritsMemoryAndSkills"}
+{"Time":"2026-09-09T02:32:59.351954+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildReviewerRuntime_InheritsMemoryAndSkills","Output":"=== RUN   TestBuildReviewerRuntime_InheritsMemoryAndSkills\n"}
+{"Time":"2026-09-09T02:32:59.352701+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildReviewerRuntime_InheritsMemoryAndSkills","Output":"--- PASS: TestBuildReviewerRuntime_InheritsMemoryAndSkills (0.00s)\n"}
+{"Time":"2026-09-09T02:32:59.352711+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildReviewerRuntime_InheritsMemoryAndSkills","Elapsed":0}
+{"Time":"2026-09-09T02:32:59.353244+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest"}
+{"Time":"2026-09-09T02:32:59.353259+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest","Output":"=== RUN   TestSkillAuthoringRefreshesNextModelRequest\n"}
+{"Time":"2026-09-09T02:32:59.368154+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest","Output":"--- PASS: TestSkillAuthoringRefreshesNextModelRequest (0.01s)\n"}
+{"Time":"2026-09-09T02:32:59.368167+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest","Elapsed":0.01}
+{"Time":"2026-09-09T02:32:59.368202+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills"}
+{"Time":"2026-09-09T02:32:59.368206+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills","Output":"=== RUN   TestRefreshSkillsDiscoversAuthoredAndRemovedSkills\n"}
+{"Time":"2026-09-09T02:32:59.375293+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills","Output":"--- PASS: TestRefreshSkillsDiscoversAuthoredAndRemovedSkills (0.01s)\n"}
+{"Time":"2026-09-09T02:32:59.375301+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills","Elapsed":0.01}
+{"Time":"2026-09-09T02:32:59.37591+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-09T02:33:00.382734+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t1.599s\n"}
+{"Time":"2026-09-09T02:33:00.3829+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":1.6}

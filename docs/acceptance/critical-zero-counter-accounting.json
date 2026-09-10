@@ -1,0 +1,197 @@
+{
+  "status": "development_accounting_verified",
+  "profiles_current": false,
+  "numeric_metrics_unchanged": true,
+  "groups": {
+    "lifecycle": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.56867112100966,
+      "statements": 6735,
+      "covered": 5561,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": [
+        {
+          "path": "internal/tui/events.go",
+          "sha256": "32bc67344075feb9122dc606e980a4c7c7b7970afa244242d1ee9be14b9c2d81",
+          "instrumented_sha256": "e941e4c4885fed5d0508a34618ed7076c4a7ce7cc76ca57050410443d7b494e6",
+          "counters": 0,
+          "method": "go tool cover -mode=atomic",
+          "module": "github.com/sausheong/hand"
+        }
+      ]
+    },
+    "permissions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 91.3265306122449,
+      "statements": 588,
+      "covered": 537,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "persistence": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.89412852519649,
+      "statements": 2163,
+      "covered": 1793,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "execution": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 82.61474269819193,
+      "statements": 1438,
+      "covered": 1188,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "checkpoints": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.08527131782945,
+      "statements": 1290,
+      "covered": 1046,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "budgets": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.48514851485149,
+      "statements": 1010,
+      "covered": 823,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "protocol": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.92419825072886,
+      "statements": 1715,
+      "covered": 1405,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "extensions": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 81.44959733407387,
+      "statements": 3601,
+      "covered": 2933,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    },
+    "accounting": {
+      "status": "incomplete",
+      "percentage": null,
+      "observed_percentage": 83.68404014244092,
+      "statements": 3089,
+      "covered": 2585,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ],
+      "zero_counter_sources": []
+    }
+  },
+  "profiles": [
+    {
+      "module": "github.com/sausheong/hand",
+      "path": "/private/tmp/hand-startup-journey-native-20260909.cover",
+      "sha256": "f4d51b15876c76d685bb1a4a17f201fe243b378da0e86881383c97fe067e647b"
+    },
+    {
+      "module": "github.com/sausheong/harness",
+      "path": "/private/tmp/hand-catalogue-harness-20260909.cover",
+      "sha256": "9ea08e26d278da615bbb69ce94209407a33be24d3d6a4c599b743b4e26e7ea94"
+    }
+  ],
+  "limitations": [
+    "Historical profiles predate latest Harness production change; this is an accounting check, not fresh product test evidence.",
+    "Zero-counter proof applies only to exact files; executable platform files and unresolved patterns remain gaps.",
+    "Pending capabilities and final candidate qualification remain required."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/hand-critical-zero-counter-20260909.log.gz",
+      "sha256": "e7cae62040141ccc5eecd0cb1a578baeaa634d3bd12d59c3363ba664a0779412",
+      "uncompressed_sha256": "117fc4bdb296bd556625a81f37d10c4467b0be0b0c0d32ada08ebf919a64c424"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/hand-critical-zero-validate-20260909.log.gz",
+      "sha256": "79325747da6dad89f8b1727aa39fd59420ff64035c23402707e28f97fd89bbe1",
+      "uncompressed_sha256": "c1de396add63b60b7739446ae754c9af4d1c4c8af85083ffc8071726ef9e4e98"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/critical_coverage.py.gz",
+      "sha256": "15c952678979b263e15949e5ae6327cc461e8f69cf1abc0d53780accd7cb8cd1",
+      "uncompressed_sha256": "e13b0aa46e28772d8925af3370d7d2837b4ac09413d50dc4fa3612dffd4ed805"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/test_critical_coverage.py.gz",
+      "sha256": "dd4fb56651ea58859d205c68e36f885f9ea5954807bb7bbccf0a016618e7f6b0",
+      "uncompressed_sha256": "38b7830f825ae8f25892b7d2e407fa5f4c9d160f35eb0a374afdf98641c7377b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/validate.py.gz",
+      "sha256": "05273c6715b5da6c97a081b6ac76e722474954dcd20b8904fc8998e0191c7915",
+      "uncompressed_sha256": "8a6e967ecacdd941a0774ec987d0ef3113fa7ae2ec806d7e43d5f6ef2f5ce83c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/coverage_changes.py.gz",
+      "sha256": "84d5e04e2629b2056e0a75bad1758f5139df1e2528e3c8df427d8bbd135d409b",
+      "uncompressed_sha256": "00866ff44e47a62f67d06c207f01f7307c87f626fe2c3ceb741f903243b7111a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/events.go.gz",
+      "sha256": "e0aeff41f65a05fffca5a23704c22964bda2a0209190df123cedf96e97ddbb58",
+      "uncompressed_sha256": "32bc67344075feb9122dc606e980a4c7c7b7970afa244242d1ee9be14b9c2d81"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/critical-zero-counter-20260909/critical-coverage-map.json.gz",
+      "sha256": "f98852d8525d4de05d8a45b5526872e03bfadf3e3598dcb0d970b5910c1aa0bf",
+      "uncompressed_sha256": "da28201c1106eb9fa028b6e8814394906c015e58d6a08d517b716327cd19a718"
+    }
+  ],
+  "tests": {
+    "critical_coverage": 7,
+    "validation_runner": 6,
+    "failures": 0
+  }
+}

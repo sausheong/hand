@@ -1,0 +1,196 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "tool": "write_file",
+      "input": {
+        "path": "file",
+        "content": "before"
+      }
+    },
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "hand-worker-test-476f70f3bb4842478a16f67faac22bd9",
+      "--rm",
+      "--pull=never",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-container-20260908/workspace,dst=/workspace,bind-recursive=disabled",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-linux-arm64-final-20260908,dst=/hand-worker,readonly",
+      "--tmpfs",
+      "/tmp:rw,nosuid,nodev,size=64m,mode=1777",
+      "--workdir",
+      "/workspace",
+      "--interactive",
+      "--entrypoint",
+      "/hand-worker",
+      "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"version\":1,\"result\":{\"output\":\"Successfully wrote 6 bytes to /workspace/file\"}}\n",
+    "stderr": ""
+  },
+  {
+    "request": {
+      "version": 1,
+      "tool": "read_file",
+      "input": {
+        "path": "file"
+      }
+    },
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "hand-worker-test-8a3c1a13a6034190bb00eb4e9605b6f9",
+      "--rm",
+      "--pull=never",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-container-20260908/workspace,dst=/workspace,bind-recursive=disabled",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-linux-arm64-final-20260908,dst=/hand-worker,readonly",
+      "--tmpfs",
+      "/tmp:rw,nosuid,nodev,size=64m,mode=1777",
+      "--workdir",
+      "/workspace",
+      "--interactive",
+      "--entrypoint",
+      "/hand-worker",
+      "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"version\":1,\"result\":{\"output\":\"before\"}}\n",
+    "stderr": ""
+  },
+  {
+    "request": {
+      "version": 1,
+      "tool": "edit_file",
+      "input": {
+        "path": "file",
+        "old_string": "before",
+        "new_string": "after"
+      }
+    },
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "hand-worker-test-85486222f8754c43a27d4a3ddf9e1d1b",
+      "--rm",
+      "--pull=never",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-container-20260908/workspace,dst=/workspace,bind-recursive=disabled",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-linux-arm64-final-20260908,dst=/hand-worker,readonly",
+      "--tmpfs",
+      "/tmp:rw,nosuid,nodev,size=64m,mode=1777",
+      "--workdir",
+      "/workspace",
+      "--interactive",
+      "--entrypoint",
+      "/hand-worker",
+      "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"version\":1,\"result\":{\"output\":\"Successfully edited file\"}}\n",
+    "stderr": ""
+  },
+  {
+    "request": {
+      "version": 1,
+      "tool": "write_file",
+      "input": {
+        "path": "denied",
+        "content": "x"
+      }
+    },
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "hand-worker-test-950b088b7fbc40b082cd5b9fc9c015aa",
+      "--rm",
+      "--pull=never",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-container-20260908/workspace,dst=/workspace,bind-recursive=disabled,readonly",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-linux-arm64-final-20260908,dst=/hand-worker,readonly",
+      "--tmpfs",
+      "/tmp:rw,nosuid,nodev,size=64m,mode=1777",
+      "--workdir",
+      "/workspace",
+      "--interactive",
+      "--entrypoint",
+      "/hand-worker",
+      "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"version\":1,\"result\":{\"output\":\"\",\"error\":\"failed to write file: create temp: open /workspace/.tmp-denied-1509743105: read-only file system\"}}\n",
+    "stderr": ""
+  },
+  {
+    "request": {
+      "version": 1,
+      "tool": "read_file",
+      "input": {
+        "path": "escape"
+      }
+    },
+    "command": [
+      "docker",
+      "run",
+      "--name",
+      "hand-worker-test-be35014be2da4411995d53930f1613e3",
+      "--rm",
+      "--pull=never",
+      "--network=none",
+      "--read-only",
+      "--cap-drop=ALL",
+      "--security-opt=no-new-privileges",
+      "--user",
+      "501:20",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-container-20260908/workspace,dst=/workspace,bind-recursive=disabled",
+      "--mount",
+      "type=bind,src=/private/tmp/hand-tool-worker-linux-arm64-final-20260908,dst=/hand-worker,readonly",
+      "--tmpfs",
+      "/tmp:rw,nosuid,nodev,size=64m,mode=1777",
+      "--workdir",
+      "/workspace",
+      "--interactive",
+      "--entrypoint",
+      "/hand-worker",
+      "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"version\":1,\"result\":{\"output\":\"\",\"error\":\"failed to read file: open /workspace/escape: no such file or directory\"}}\n",
+    "stderr": ""
+  }
+]

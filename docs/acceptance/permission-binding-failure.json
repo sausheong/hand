@@ -1,0 +1,42 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M2.2",
+    "M5.1"
+  ],
+  "scope": "Reject missing authority-rebinding commit before model/profile state changes",
+  "before": "Nil commit callback panicked during configuration switch; raw trace retained",
+  "after": {
+    "pass": 9,
+    "fail": 0,
+    "skip": 0
+  },
+  "assertions": [
+    "Bound authority cannot switch without rebinding support",
+    "Nil commit callback is an error, not panic",
+    "Failed model/profile switch preserves provider pointer, model and authority",
+    "Valid prepared switch still commits both states"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-binding-failure-20260909/hand-permission-binding-after-20260909.jsonl",
+      "sha256": "fe91d2df3ac7f4c7438f1e1e0f90f26defe213f47128f77e38f2486213869098"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-binding-failure-20260909/hand-permission-binding-before-20260909.jsonl",
+      "sha256": "141ee572f64ca2a36c823b9576ec38c98b75b1c43223e6a223e7953ebbcff49e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-binding-failure-20260909/permission_binding.go.txt",
+      "sha256": "12a3c477292544db6be1f231a6e7b3734adf9b442af17ad107b680f91ad61f3d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-binding-failure-20260909/permission_binding_test.go.txt",
+      "sha256": "a26bbbb91fe80022908b6819163a9f4f62f9928ea715b9080105dcfbb092391a"
+    }
+  ],
+  "limitations": [
+    "Native macOS development targeted race suite",
+    "Final full aggregate and platform qualification remain pending"
+  ]
+}

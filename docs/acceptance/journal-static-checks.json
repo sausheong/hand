@@ -1,0 +1,46 @@
+{
+  "status": "development_static_checks_passed_after_test_fix",
+  "checks": {
+    "build": "passed",
+    "vet": "passed after replacing runtime mutex copy in test",
+    "format": "566 Go files outside docs checked, no formatting changes needed; modified test rechecked",
+    "targeted_race_test_records": {
+      "pass": 4
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/hand-profile-vet-fixed-20260909.jsonl.gz",
+      "sha256": "94e82a59e927c714b4d8e28893ce316811b6eddc56b8deea154e7a07c6d88558"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/profile_cancellation_test.go.gz",
+      "sha256": "81e61ba73d3ca5839ab444bcc46244809f303d015b783b0c419a24c4c9cb71ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/hand-journal-static-20260909.json.gz",
+      "sha256": "6740b2f63fa955c985a3f036241e7ba04a7d1875bcdfbdf80037cc9757443ff4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/hand-journal-format-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/hand-journal-vet-fixed-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/hand-journal-build-20260909.log.gz",
+      "sha256": "63fe9e564881f429cb0591ebe15b38a617c588ef7399ef652546a57edf5cfa6e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journal-static-20260909/hand-journal-vet-20260909.log.gz",
+      "sha256": "288a818f55dfe010ff00fb6cb9cac497cf7bbf4bd0359f5df267a107ae7b2074"
+    }
+  ],
+  "limitations": [
+    "Full native suite ran before this test-only assertion fix; production source unchanged",
+    "Targeted regression and full vet rerun after fix; full suite not repeated without production changes",
+    "Dirty development checkout with unreleased Harness, not final candidate qualification"
+  ]
+}

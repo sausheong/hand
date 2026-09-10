@@ -1,0 +1,46 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Durable one-time dispatch claim followed by fixed-origin HTTPS sender with no redirects/retries, exact admitted body, bounded response and cancellation/deadline shutdown.",
+  "tests": {
+    "focused": 9,
+    "socketpair_http_cases": 6,
+    "evaluation_suite": 132,
+    "failures": 0,
+    "skips": 0
+  },
+  "accounting": "Every dispatched request remains pending/uncertain at the full bound until separate authentic reconciliation; complete/error responses are not zero-cost proof.",
+  "limitations": [
+    "No real provider calls: HTTP tests use actual socket pairs with injected local connections.",
+    "Default TLS verification settings checked, not a live TLS handshake or network-isolation qualification.",
+    "DNS/connect environment may impose delays beyond Python socket timeout; upstream resolution and isolated deployment remain required qualification work.",
+    "Trusted run/token configuration, incoming HTTP server, in-flight revocation-to-cancellation wiring, response usage parsing and live pricing/approval remain pending.",
+    "Legacy development ledgers lacking dispatch schema are rejected; no paid budget reset or migration performed."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-forward-20260909/evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_budget.py",
+      "sha256": "a3c7d20a75f59ec2e42939c0032fba5e245a9aaa241a62a2524649ef4023e1ff",
+      "uncompressed_sha256": "a0a67b8dfb9c0066bbe43b2e08e4b28e90ed644587079686dd69232eecce9267"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-forward-20260909/evaluation_forward.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_forward.py",
+      "sha256": "20dd98f630c3d39297d82e0815d7254991c59afc3d07998db6f0c013127e2a1e",
+      "uncompressed_sha256": "1acfaef81c356efde7c6a75ab64fbdb7a4b85cfc9c42d5ac54d7d052d3464f54"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-forward-20260909/test_evaluation_forward.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_forward.py",
+      "sha256": "b29b715c074bb591d8aa93ac0348033ea9ac29e7b3b70b75fb9a533f7971310b",
+      "uncompressed_sha256": "cc0ca552a9ea7b7cd309baf44e49559b59219d9f6ae7614583ec8588434a3fb3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-forward-20260909/hand-evaluation-forward-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-forward-20260909.log",
+      "sha256": "215e576d064c1fc82b241e6ecc2ef77cc58d810efe669393bfece5b0f3064a7a",
+      "uncompressed_sha256": "cb553ccc93423082e25b72554cdfc318cba56336c064652900d15727ce22f162"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "status": "development_passed",
+  "full_test_records": 134,
+  "inventory_count": 44,
+  "repetitions": 20,
+  "runner": "scripts/check_rpc_linux.py",
+  "raw_report": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/run.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/build-note.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/build-tests.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/check_rpc_linux.py.txt",
+      "sha256": "2548f0ae509b1975bd793170ce8ae427e3855b80d82005ebae65ea8dee8f59eb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/full.log",
+      "sha256": "3a395a6a5a5cca1540e5dee57432e6c6f6f190f389c591b4546941b584dbad67"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/inventory.log",
+      "sha256": "22057d06a6bbbda874377880498d720dc5325d76ec683d1279e3d8c15a74b44b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/repeated.log",
+      "sha256": "ef79cdb1360538974f2ec6a60ab6bc23c64147d1790518bda3f6f0975a0e93a9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-runner-20260909/run.json",
+      "sha256": "1432f161b616c7649cf2c1b54f7b409dc39f674ecb00e2bb4a613096ac85c1a4"
+    }
+  ],
+  "limitations": [
+    "Linux arm64 package runner, not race-instrumented",
+    "Local Harness, dirty Hand checkout; no final-candidate qualification"
+  ]
+}

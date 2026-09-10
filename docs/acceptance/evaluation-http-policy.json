@@ -1,0 +1,38 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Raw HTTP header-pair validation with exact framing/authority/version, constant-time run-token comparison, reviewed beta combinations and credential-free upstream header projection.",
+  "tests": {
+    "focused": 5,
+    "captured_sdk_header_sets": 6,
+    "evaluation_suite": 118,
+    "failures": 0,
+    "skips": 0
+  },
+  "limitations": [
+    "No socket or request forwarding; test framing and run credentials are injected around actual SDK-captured headers.",
+    "Frozen beta semantics and live model/pricing/approval still require review; token spelling alone proves no billing property.",
+    "Run lookup, expiry/revocation, body/quote admission, HTTP server parsing, upstream isolation, provider key injection and response accounting remain integration work.",
+    "Body and header evidence are not yet jointly bound into a complete durable transport admission record."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-policy-20260909/evaluation_http_policy.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_http_policy.py",
+      "sha256": "ad2e9a4e713c0bab7db9c6985b8feda6d6d549b67269f16f29bdb24a13b5a91f",
+      "uncompressed_sha256": "ed15b4abed7562ad8b2b242303cfd5ce572a2f144eddc52f1ce3795437c2e52b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-policy-20260909/test_evaluation_http_policy.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_http_policy.py",
+      "sha256": "2f5dbb5247f4f1fd4e461315f2c8b726dfb4238b6bdff8fa57bdbf4cc2ef3a8b",
+      "uncompressed_sha256": "0fb3342263e77b391de2c20f1043a7dd0ff88b1ecc146cf84dc342a3049c2711"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-policy-20260909/hand-evaluation-http-policy-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-http-policy-20260909.log",
+      "sha256": "8e6b7ee460c9f34b79547ff5dfe23cfb94dff2646ae44b93152a0d07684fde70",
+      "uncompressed_sha256": "ccd0eb200b5c048fcc57fc5583dbf5630a67bc11e9594847905202155c65c40e"
+    }
+  ]
+}

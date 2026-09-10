@@ -1,0 +1,24 @@
+{"Time":"2026-09-08T17:23:11.242589+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:23:11.264372+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T17:23:11.264469+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T17:23:11.870561+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextInspectionOwnershipAndSnapshot"}
+{"Time":"2026-09-08T17:23:11.870706+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextInspectionOwnershipAndSnapshot","Output":"=== RUN   TestContextInspectionOwnershipAndSnapshot\n"}
+{"Time":"2026-09-08T17:23:11.870973+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextInspectionOwnershipAndSnapshot","Output":"--- PASS: TestContextInspectionOwnershipAndSnapshot (0.00s)\n"}
+{"Time":"2026-09-08T17:23:11.870983+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextInspectionOwnershipAndSnapshot","Elapsed":0}
+{"Time":"2026-09-08T17:23:11.874673+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T17:23:12.879171+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.636s\n"}
+{"Time":"2026-09-08T17:23:12.879218+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.637}
+{"Time":"2026-09-08T17:23:12.969235+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure"}
+{"Time":"2026-09-08T17:23:12.969285+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure","Output":"=== RUN   TestContextCommandAndEstimateDisclosure\n"}
+{"Time":"2026-09-08T17:23:13.01997+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure","Output":"--- PASS: TestContextCommandAndEstimateDisclosure (0.05s)\n"}
+{"Time":"2026-09-08T17:23:13.020001+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure","Elapsed":0.05}
+{"Time":"2026-09-08T17:23:13.028064+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T17:23:13.898603+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay"}
+{"Time":"2026-09-08T17:23:13.898644+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"=== RUN   TestSkillsReloadRPCAndReplay\n"}
+{"Time":"2026-09-08T17:23:13.949607+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"--- PASS: TestSkillsReloadRPCAndReplay (0.05s)\n"}
+{"Time":"2026-09-08T17:23:13.949634+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Elapsed":0.05}
+{"Time":"2026-09-08T17:23:13.949975+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T17:23:14.031416+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t2.767s\n"}
+{"Time":"2026-09-08T17:23:14.031711+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":2.767}
+{"Time":"2026-09-08T17:23:14.955063+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t3.691s\n"}
+{"Time":"2026-09-08T17:23:14.9551+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":3.691}

@@ -1,0 +1,15 @@
+{"Time":"2026-09-08T21:54:16.489874+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T21:54:17.097381+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults"}
+{"Time":"2026-09-08T21:54:17.09744+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults","Output":"=== RUN   TestStreamingReconcileMixedResults\n"}
+{"Time":"2026-09-08T21:54:17.097561+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running"}
+{"Time":"2026-09-08T21:54:17.097569+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running","Output":"=== RUN   TestStreamingReconcileMixedResults/running\n"}
+{"Time":"2026-09-08T21:54:17.124764+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running","Output":"2026/09/08 21:54:17 WARN tool error tool=running id=running error=\"interrupted mixed stream\"\n"}
+{"Time":"2026-09-08T21:54:17.13704+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running","Output":"    streaming_reconcile_test.go:157: completed result changed: {Artifacts:map[] ToolCallID:completed Output: Error:interrupted mixed stream IsError:true Aborted:true Images:[]}\n"}
+{"Time":"2026-09-08T21:54:17.137112+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running","Output":"    streaming_reconcile_test.go:151: pending pairs: 0/0\n"}
+{"Time":"2026-09-08T21:54:17.137363+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running","Output":"--- FAIL: TestStreamingReconcileMixedResults/running (0.04s)\n"}
+{"Time":"2026-09-08T21:54:17.137388+08:00","Action":"fail","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults/running","Elapsed":0.04}
+{"Time":"2026-09-08T21:54:17.137449+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults","Output":"--- FAIL: TestStreamingReconcileMixedResults (0.04s)\n"}
+{"Time":"2026-09-08T21:54:17.13746+08:00","Action":"fail","Package":"github.com/sausheong/harness/runtime","Test":"TestStreamingReconcileMixedResults","Elapsed":0.04}
+{"Time":"2026-09-08T21:54:17.138692+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"FAIL\n"}
+{"Time":"2026-09-08T21:54:17.140156+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"FAIL\tgithub.com/sausheong/harness/runtime\t0.649s\n"}
+{"Time":"2026-09-08T21:54:17.140196+08:00","Action":"fail","Package":"github.com/sausheong/harness/runtime","Elapsed":0.651}

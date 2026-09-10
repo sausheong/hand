@@ -1,0 +1,21 @@
+{"Time":"2026-09-08T11:30:08.814495+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T11:30:09.30681+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution"}
+{"Time":"2026-09-08T11:30:09.306884+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution","Output":"=== RUN   TestLedgerDuplicateAndRestartDoNotGrantExecution\n"}
+{"Time":"2026-09-08T11:30:09.336995+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution","Output":"--- PASS: TestLedgerDuplicateAndRestartDoNotGrantExecution (0.03s)\n"}
+{"Time":"2026-09-08T11:30:09.337025+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerDuplicateAndRestartDoNotGrantExecution","Elapsed":0.03}
+{"Time":"2026-09-08T11:30:09.337051+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied"}
+{"Time":"2026-09-08T11:30:09.337056+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied","Output":"=== RUN   TestLedgerCompletedResultSurvivesRestartAndIsCopied\n"}
+{"Time":"2026-09-08T11:30:09.35421+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied","Output":"--- PASS: TestLedgerCompletedResultSurvivesRestartAndIsCopied (0.02s)\n"}
+{"Time":"2026-09-08T11:30:09.354248+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerCompletedResultSurvivesRestartAndIsCopied","Elapsed":0.02}
+{"Time":"2026-09-08T11:30:09.354258+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail"}
+{"Time":"2026-09-08T11:30:09.354267+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail","Output":"=== RUN   TestLedgerExclusiveWriterAndTruncatedTail\n"}
+{"Time":"2026-09-08T11:30:09.363743+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail","Output":"--- PASS: TestLedgerExclusiveWriterAndTruncatedTail (0.01s)\n"}
+{"Time":"2026-09-08T11:30:09.363767+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerExclusiveWriterAndTruncatedTail","Elapsed":0.01}
+{"Time":"2026-09-08T11:30:09.363781+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart"}
+{"Time":"2026-09-08T11:30:09.363785+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Output":"=== RUN   TestLedgerPendingIntentIsUncertainAfterRestart\n"}
+{"Time":"2026-09-08T11:30:09.368441+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Output":"    ledger_test.go:116: default params false invalid_request: params must be an object\n"}
+{"Time":"2026-09-08T11:30:09.368844+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Output":"--- FAIL: TestLedgerPendingIntentIsUncertainAfterRestart (0.01s)\n"}
+{"Time":"2026-09-08T11:30:09.368859+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestLedgerPendingIntentIsUncertainAfterRestart","Elapsed":0.01}
+{"Time":"2026-09-08T11:30:09.368871+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\n"}
+{"Time":"2026-09-08T11:30:09.369695+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\tgithub.com/sausheong/hand/internal/rpc\t0.555s\n"}
+{"Time":"2026-09-08T11:30:09.369715+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":0.555}

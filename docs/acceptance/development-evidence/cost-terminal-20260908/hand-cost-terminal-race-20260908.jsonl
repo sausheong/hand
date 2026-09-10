@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T21:25:58.822667+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T21:25:59.536536+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostAmountExactDecimal"}
+{"Time":"2026-09-08T21:25:59.536604+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostAmountExactDecimal","Output":"=== RUN   TestCostAmountExactDecimal\n"}
+{"Time":"2026-09-08T21:25:59.536634+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostAmountExactDecimal","Output":"--- PASS: TestCostAmountExactDecimal (0.00s)\n"}
+{"Time":"2026-09-08T21:25:59.536639+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostAmountExactDecimal","Elapsed":0}
+{"Time":"2026-09-08T21:25:59.536645+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostTerminalExplicitDecisionAndDisplay"}
+{"Time":"2026-09-08T21:25:59.536656+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostTerminalExplicitDecisionAndDisplay","Output":"=== RUN   TestCostTerminalExplicitDecisionAndDisplay\n"}
+{"Time":"2026-09-08T21:25:59.596053+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostTerminalExplicitDecisionAndDisplay","Output":"--- PASS: TestCostTerminalExplicitDecisionAndDisplay (0.06s)\n"}
+{"Time":"2026-09-08T21:25:59.596071+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestCostTerminalExplicitDecisionAndDisplay","Elapsed":0.06}
+{"Time":"2026-09-08T21:25:59.600465+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T21:26:00.614504+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.792s\n"}
+{"Time":"2026-09-08T21:26:00.614619+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.792}

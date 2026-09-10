@@ -1,0 +1,84 @@
+{
+  "requirement": "G-JOURNEY",
+  "status": "incomplete",
+  "qualified_scenarios": 0,
+  "scenarios": [
+    {
+      "id": "coding_task_approve_test_resume",
+      "status": "development_passed",
+      "implementation": "cmd/hand/coding_journey_binary_test.go",
+      "evidence": "docs/acceptance/coding-rpc-journey.json",
+      "remaining": "Fresh final candidate run; interactive approval remains separate PTY evidence"
+    },
+    {
+      "id": "steer_during_tool_cancel",
+      "status": "development_passed",
+      "implementation": "cmd/hand/steer_cancel_journey_test.go",
+      "evidence": "docs/acceptance/steer-cancel-journey.json",
+      "remaining": "Fresh final candidate/platform repetitions"
+    },
+    {
+      "id": "resume_after_crash_budget",
+      "status": "development_passed",
+      "implementation": "cmd/hand/crash_budget_journey_test.go",
+      "evidence": "docs/acceptance/crash-budget-journey.json",
+      "remaining": "Fresh final candidate/platform repetitions; qualify other budget dimensions separately"
+    },
+    {
+      "id": "restore_with_user_edits",
+      "status": "development_passed",
+      "implementation": "cmd/hand/coding_journey_binary_test.go",
+      "evidence": "docs/acceptance/restore-journey.json",
+      "remaining": "Fresh final candidate/platform run"
+    },
+    {
+      "id": "rpc_sdk_same_task",
+      "status": "development_passed",
+      "implementation": "cmd/hand/coding_journey_binary_test.go",
+      "evidence": "docs/acceptance/coding-rpc-journey.json",
+      "remaining": "Fresh final candidate run against pinned released public SDK"
+    },
+    {
+      "id": "extension_reload_failure",
+      "status": "development_passed",
+      "implementation": "scripts/check_extension_rpc.py",
+      "evidence": "docs/acceptance/extension-journey-refresh.json",
+      "remaining": "Fresh final candidate/platform repetitions"
+    },
+    {
+      "id": "isolated_background_server",
+      "status": "development_passed",
+      "implementation": "scripts/check_background_server.py",
+      "evidence": "docs/acceptance/background-server-journey.json",
+      "remaining": "Fresh final candidate and Linux/macOS isolation qualification"
+    }
+  ],
+  "static_checks": {
+    "go_vet": "passed_after_fix",
+    "initial_failure": "Atomic configuration test copied Runtime containing sync.Mutex; replaced with independently constructed expected value",
+    "focused_configuration_tests": 2
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/journey-audit-20260909/runtime_configuration_test.go.gz",
+      "sha256": "51705dbbb5eb781b93e006b63570eed39aab8ea12bd465f9bf280212f2940be1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journey-audit-20260909/hand-journey-vet-20260909.log.gz",
+      "sha256": "45c0016de6a58e75102f8a16cef10a2782f35e61bc4d2b216ec086498ea9d0a2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journey-audit-20260909/hand-journey-vet-fixed-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/journey-audit-20260909/hand-journey-config-test-20260909.jsonl.gz",
+      "sha256": "3047ede3228ab050e85f651269b036e550bfd8a8151c3a46eecd557e759fc777"
+    }
+  ],
+  "limitations": [
+    "No scenario is finally qualified by this audit",
+    "Historical evidence is marked separately and requires current implementation validation",
+    "Static checks are development checks, not clean released-candidate qualification"
+  ]
+}

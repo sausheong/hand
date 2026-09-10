@@ -1,0 +1,13 @@
+test_byte_limits_fail_before_creating_destination (test_evaluation_checkout.CheckoutTests.test_byte_limits_fail_before_creating_destination) ... ok
+test_destination_symlink_ancestor_rejected (test_evaluation_checkout.CheckoutTests.test_destination_symlink_ancestor_rejected) ... ok
+test_existing_destination_preserved (test_evaluation_checkout.CheckoutTests.test_existing_destination_preserved) ... ok
+test_global_hooks_filters_templates_and_environment_not_executed (test_evaluation_checkout.CheckoutTests.test_global_hooks_filters_templates_and_environment_not_executed) ... ok
+test_missing_or_noncommit_pin_creates_no_destination (test_evaluation_checkout.CheckoutTests.test_missing_or_noncommit_pin_creates_no_destination) ... ok
+test_pinned_bytes_modes_and_independent_objects (test_evaluation_checkout.CheckoutTests.test_pinned_bytes_modes_and_independent_objects) ... ok
+test_prepared_index_accepts_patch_without_status_refresh (test_evaluation_checkout.CheckoutTests.test_prepared_index_accepts_patch_without_status_refresh) ... ok
+test_source_symlink_is_explicit_failure_not_omission (test_evaluation_checkout.CheckoutTests.test_source_symlink_is_explicit_failure_not_omission) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.845s
+
+OK

@@ -1,0 +1,18 @@
+import sys,json,os,subprocess,time,hashlib
+from pathlib import Path
+root=Path('/Users/sausheong/projects/hand');sys.path.insert(0,str(root/'scripts'))
+from evidence import source_snapshot
+old=json.loads((root/'docs/acceptance/current-native-suite.json').read_text())
+env=old['environment'];roots=[root,Path('/private/tmp/hand-harness-persistence-20260908')]
+report={'environment':env,'source_before':{str(p):source_snapshot(p) for p in roots}}
+report['fixtures']={k:{'path':env[k],'sha256':hashlib.sha256(Path(env[k]).read_bytes()).hexdigest()} for k in ['HAND_TEST_WORKER_BINARY','HAND_TEST_EXTENSION_PEER_BINARY']}
+command=['go','test','-p=1','-race','-count=1','-timeout=15m','-coverpkg=./...','-coverprofile=/private/tmp/hand-sdk-full-20260909.cover','-json','./...']
+report['command']=command
+start=time.monotonic()
+with open('/private/tmp/hand-sdk-full-20260909.jsonl','wb') as f:
+ report['exit_code']=subprocess.run(command,cwd=root,env={**os.environ,**env},stdout=f,stderr=subprocess.STDOUT).returncode
+report['seconds']=time.monotonic()-start
+report['source_after']={str(p):source_snapshot(p) for p in roots}
+Path('/private/tmp/hand-sdk-full-20260909-result.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'exit_code':report['exit_code'],'seconds':report['seconds'],'sources_unchanged':report['source_before']==report['source_after']}))
+sys.exit(report['exit_code'])

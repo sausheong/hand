@@ -1,0 +1,166 @@
+#!/usr/bin/env python3
+"""Validate completion evidence; does not run Hand's future acceptance suites."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+HERE = Path(__file__).resolve().parent
+PLAN = HERE.parent / '2026-09-07-hand-implementation-plan.md'
+CRITICAL = ('lifecycle', 'permissions', 'persistence', 'execution', 'checkpoints',
+            'budgets', 'protocol', 'extensions', 'accounting')
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def dependency_problems(module, required_version):
+    problems = []
+    if module.get('Path') != 'github.com/sausheong/harness':
+        problems.append('effective Harness module identity is missing/incorrect')
+    if module.get('Version') != required_version or module.get('Main') is True:
+        problems.append('effective Harness is not the pinned go.mod version')
+    if module.get('Replace') is not None:
+        problems.append('effective Harness uses a replacement; released dependency required')
+    if module.get('Error'):
+        problems.append('effective Harness module resolution failed')
+    return problems
+
+
+def evidence_location_problems(path, root):
+    if path is not None and path.resolve().is_relative_to(root.resolve()):
+        return ['evidence must be outside the candidate checkout']
+    return []
+
+
+def validate(manifest, evidence, base, identity, profile):
+    problems = []
+    def require(condition, reason):
+        if not condition:
+            problems.append(reason)
+    require(manifest.get('schema_version') == 1, 'unsupported manifest schema')
+    require(evidence.get('schema_version') == 1, 'unsupported/missing evidence schema')
+    for key, value in identity.items():
+        require(evidence.get(key) == value, f'stale/missing identity: {key}')
+    require(evidence.get('clean_source') is True, 'candidate was not recorded clean')
+    results = evidence.get('results', [])
+    require(isinstance(results, list), 'results must be an array')
+    if not isinstance(results, list):
+        return problems
+    result_map = {r.get('id'): r for r in results}
+    require(len(result_map) == len(results), 'duplicate requirement records')
+    known = {r['id'] for r in manifest['requirements']}
+    require(set(result_map) <= known, 'unknown requirement IDs')
+    for req in manifest['requirements']:
+        if req['profile'] == 'full' and profile == 'offline':
+            continue
+        rid = req['id']
+        result = result_map.get(rid, {})
+        require(result.get('status') == 'passed', f'{rid}: not passed')
+        tests = result.get('scenarios', [])
+        test_map = {t.get('id'): t for t in tests}
+        require(len(test_map) == len(tests), f'{rid}: duplicate scenarios')
+        require(set(test_map) == set(req['scenarios']), f'{rid}: scenario coverage mismatch')
+        for sid in req['scenarios']:
+            test = test_map.get(sid, {})
+            label = f'{rid}/{sid}'
+            require(test.get('status') == 'passed', f'{label}: not passed')
+            require(bool(test.get('procedure')), f'{label}: missing reproducible procedure')
+            require(bool(test.get('expected')) and bool(test.get('observed')),
+                    f'{label}: missing oracle or observation')
+            require(bool(test.get('artifacts')), f'{label}: missing artefacts')
+            for artifact in test.get('artifacts', []):
+                path = (base / artifact.get('path', '')).resolve()
+                if not path.is_relative_to(base.resolve()) or not path.is_file():
+                    problems.append(f'{label}: missing/out-of-bundle artefact')
+                elif digest(path) != artifact.get('sha256'):
+                    problems.append(f'{label}: artefact digest mismatch')
+    metrics = evidence.get('metrics', {})
+    def number(key, minimum=None, maximum=None):
+        value = metrics.get(key)
+        valid = type(value) in (int, float) and value == value and abs(value) != float('inf')
+        require(valid, f'missing/invalid metric: {key}')
+        if valid:
+            if minimum is not None:
+                require(value >= minimum, f'{key} below {minimum}')
+            if maximum is not None:
+                require(value <= maximum, f'{key} above {maximum}')
+    number('statement_coverage_pct', 80, 100)
+    number('changed_statement_coverage_pct', 80, 100)
+    for group in CRITICAL:
+        number(group + '_coverage_pct', 80, 100)
+    for key in ('required_skips', 'open_acceptance_defects', 'open_p0_p1_defects'):
+        number(key, 0, 0)
+    number('ui_key_p95_ms', 0, 100)
+    number('cancel_start_p95_ms', 0, 1000)
+    number('child_cleanup_max_ms', 0, 5000)
+    number('critical_repetitions', 20)
+    number('fuzz_seconds_per_target', 60)
+    for osname in ('linux', 'darwin'):
+        require(osname in evidence.get('native_platforms', []), f'missing native {osname} run')
+    review = evidence.get('review', {})
+    require(review.get('disposition') == 'accepted', 'acceptance review missing/rejected')
+    require(bool(review.get('reviewer')) and bool(review.get('report')),
+            'review identity/report missing')
+    if profile == 'full':
+        number('live_tasks', 30)
+        number('repeats_per_arm_per_mode', 3)
+        number('live_modes', 2, 2)
+        number('live_arms', 2, 2)
+        number('hand_task_success_pct', 80, 100)
+        number('hand_heldout_success_pct', 80, 100)
+        require(evidence.get('live_budget_authorised') is True, 'live budget not authorised')
+        require(evidence.get('comparison_conclusion') in ('advantage_demonstrated', 'not_established'),
+                'missing honest comparative conclusion')
+    return problems
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--profile', choices=['offline', 'full'], default='full')
+    parser.add_argument('--evidence', type=Path, help='Evidence JSON outside the source checkout')
+    args = parser.parse_args()
+    try:
+        manifest = json.loads((HERE / 'requirements.json').read_text())
+        expected = set(re.findall(r'^### (M\d+\.\d+) ', PLAN.read_text(), re.M))
+        expected |= {'M7.D', 'G-TEST', 'G-PLATFORM', 'G-PERF', 'G-JOURNEY', 'G-REVIEW', 'G-LIVE'}
+        ids = [r['id'] for r in manifest['requirements']]
+        if set(ids) != expected or len(ids) != len(set(ids)):
+            raise ValueError('manifest does not cover every plan work package/global gate')
+        root = HERE.parents[1]
+        def git(*argv):
+            return subprocess.check_output(['git', '-C', str(root), *argv], text=True).strip()
+        harness = re.search(r'github.com/sausheong/harness\s+(\S+)',
+                            (root / 'go.mod').read_text()).group(1)
+        identity = dict(source_commit=git('rev-parse', 'HEAD'), harness_version=harness,
+                        manifest_sha256=digest(HERE / 'requirements.json'), plan_sha256=digest(PLAN))
+        evidence = json.loads(args.evidence.read_text()) if args.evidence else {}
+        base = args.evidence.resolve().parent if args.evidence else HERE
+        problems = validate(manifest, evidence, base, identity, args.profile)
+        problems.extend(evidence_location_problems(args.evidence, root))
+        # Resolve the actual build dependency, including go.work and replace.
+        # Reading go.mod alone can falsely qualify a local development Harness.
+        # This check must not download modules or a toolchain during validation.
+        effective = json.loads(subprocess.check_output(
+            ['go', 'list', '-m', '-json', 'github.com/sausheong/harness'], cwd=root,
+            env={**os.environ, 'GOPROXY': 'off', 'GOSUMDB': 'off', 'GOTOOLCHAIN': 'local'},
+            text=True, timeout=30))
+        problems.extend(dependency_problems(effective, harness))
+        if git('status', '--porcelain', '--untracked-files=all'):
+            problems.insert(0, 'source checkout is dirty/untracked; final evidence needs a clean candidate')
+        status = 'not_complete' if problems else ('offline_ready' if args.profile == 'offline' else 'complete')
+        print(json.dumps(dict(status=status, profile=args.profile, **identity,
+                              problems=problems, pending_full=['G-LIVE'] if args.profile == 'offline' else []), indent=2))
+        return 1 if problems else 0
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, subprocess.SubprocessError) as exc:
+        print(json.dumps(dict(status='invalid_evidence', error=str(exc))))
+        return 2
+
+
+if __name__ == '__main__':
+    sys.exit(main())

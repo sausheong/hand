@@ -1,0 +1,32 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "repetitions": 20,
+  "pass": 40,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "In-workspace image bytes and MIME reach application backend exactly once.",
+    "Model receives original filename context; user transcript substitutes image placeholder.",
+    "Outside-workspace image without explicit grant is rejected before any backend call; diagnostic retains path."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-image-input-20260909/hand-service-image-input-corrected-20260909.jsonl.gz",
+      "sha256": "6ee3c5480ad7f239d5f031c2c93ff7e771de0807d2b9c30dfd5d9f8853902056"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-image-input-20260909/hand-service-image-input-20260909.jsonl.gz",
+      "sha256": "e82be1eb126d5b8839ce2984f069b5e77d4df90a1ef299413d8a51c96fbf7997"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-image-input-20260909/model_test.go.gz",
+      "sha256": "4c52b13d94a2718d102728b018cecb7e96eaa539da63e4f6aa79ef2da78d9f3f"
+    }
+  ],
+  "limitations": [
+    "Initial migration incorrectly expected model prompt placeholder and an outside-path backend call; corrected from actual documented parser/runtime behaviour, retaining raw failures.",
+    "Fixtures use extension-labelled byte payload, not image decoder or live vision evaluation.",
+    "Test-only migration, not final platform/candidate/coverage qualification."
+  ]
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "arguments": [
+      "init",
+      "-q"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "add",
+      "--",
+      "hand-package.json",
+      "main.py"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "commit",
+      "-qm",
+      "package CLI fixture"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "f621379ba2cd1f62b46c66a407a7737ea1980c68\n",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  },
+  {
+    "arguments": [
+      "bundle",
+      "create",
+      "/private/tmp/hand-package-launch-cli-journey-20260909/source.bundle",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\n"
+  }
+]

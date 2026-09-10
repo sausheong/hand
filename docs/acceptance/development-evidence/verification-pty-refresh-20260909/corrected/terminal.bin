@@ -1,0 +1,618 @@
+hand: execution boundary: unrestricted host
+[?25l[?1049h[2J[H[?25l[?2004h[H[1;38;5;111mHand v0.2.1+dirty (commit e6dd26351c1b1436616e1c2b8da0086a3580d882-dirty)[0m                                                                   
+[38;5;60mlocal/fixture[0m                                                                                                                               
+[38;5;60m/private/tmp/hand-verification-pty-separated-20260909/fixture/workspace[0m                                                                     
+[38;5;60m[0m                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+[38;5;60mready[0m   [38;5;60mlocal/fixture[0m[38;5;60m  ·  [0m[38;5;60mctx 0/128k (0%)[0m[38;5;60m  ·  [0m[38;5;60mturn 0 tok[0m[38;5;60m  ·  [0m[38;5;60msession 0 tok[0m                                                                  
+[38;5;60m╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮[0m
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m/verify unit[0m[40m[7m [0m[0m[40m[0m[40m                                                                                                                           [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[45;H[H
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+[38;5;60mVerification commands (review before confirming):[0m                                                                                           
+[38;5;60munit: ["/bin/sh","-c","printf x \u003e\u003e \"$1\"; cat source","verify","/private/tmp/hand-verification-pty-separated-[m                    
+[38;5;60m20260909/fixture/command-executions"][0m                                                                                                       
+[38;5;60mExecution: unrestricted host; commands can access host resources[0m                                                                            
+[38;5;60mTo run: /verify-confirm unit bdf6b152b4895e734e65606cc1ec64a457b6b05fc8aa43b41b69ac1efd1b20e9[0m                                               
+[38;5;60mCommands may change files or external state; checkpoints do not undo external effects.[0m                                                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m/verify-confirm unit bdf6b152b4895e734e65606cc1ec64a457b6b05fc8aa43b41b69ac1efd1b20e9[0m[40m[7m [0m[0m[40m[0m[40m                                                  [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60mVerification unit: passed (exit 0)[0m                                                                                                          
+[38;5;60mEvidence: c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1[0m                                                                  
+[38;5;60mRecheck: /verify-check unit c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1[0m                                                
+[38;5;60mstdout: original source[0m                                                                                                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m/verify-check unit c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1[0m[40m[7m [0m[0m[40m[0m[40m                                                    [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+[38;5;60mVerification unit: stale (exit 0)[0m                                                                                                           
+[38;5;60mEvidence: c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1[0m                                                                  
+[38;5;60mRecheck: /verify-check unit c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1[0m                                                
+[38;5;60mstdout: original source[0m                                                                                                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;38;5;111m› /verify-list list saved verification IDs: [offset][0m[K
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m/verify-list[0m[40m[7m [0m[0m[40m[0m[40m                                                                                                                           [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+[38;5;60mSaved verification evidence: 1 records[0m                                                                                                      
+[38;5;60mc44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1[0m                                                                            
+[38;5;60mIDs alone do not prove tests passed. Use /verify-check PROFILE ID to assess.[0m                                                                
+[38;5;60mTo delete one listed record: /verify-delete ID confirm. Referenced snapshots and output remain.[0m                                             
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60mready[0m   [38;5;60mlocal/fixture[0m[38;5;60m  ·  [0m[38;5;60mctx 0/128k (0%)[0m[38;5;60m  ·  [0m[38;5;60mturn 0 tok[0m[38;5;60m  ·  [0m[38;5;60msession 0 tok[0m                                                                  
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m/verify-delete c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1 confirm[0m[40m[7m [0m[0m[40m[0m[40m                                                [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+[38;5;60mDeleted verification record c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1. Referenced snapshots and output retained.[0m     
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m/quit[0m[40m[7m [0m[0m[40m[0m[40m                                                                                                                                  [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[38;5;60m│[0m[37m┃ [0m[30m                                                                                                                                        [0m[38;5;60m│[0m
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[45;H[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1049l[?25h

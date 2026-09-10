@@ -1,0 +1,64 @@
+{
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "base": "a70fab4c661cdb24529e57647dda15c89bf59571",
+  "candidate": "1b79b1d12a8e08b06ee49251b2b5c9a1293a2e54",
+  "patch_sha256": "bc7eeb17634f9a6b50aa9f9acacda3f8a46ad15a79c11cdb199bba9f19a4368d",
+  "results": {
+    "hand-artifact-reader-final-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 38,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass"
+      }
+    },
+    "hand-artifact-reader-first-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 36,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-reader-20260908/hand-artifact-reader-final-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-artifact-reader-final-20260908.jsonl",
+      "sha256": "1826cc215aa53b4e5c19f538afb193c43428f421074eae8d203a745f0c22fc0e"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-reader-20260908/hand-artifact-reader-final-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-artifact-reader-final-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-reader-20260908/hand-artifact-reader-first-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-artifact-reader-first-20260908.jsonl",
+      "sha256": "3b1cc865a238c5a6e041f9bcf92ddf7339b8661065d765cbd900b2d2acddee7f"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-reader-20260908/hand-artifact-reader-first-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-artifact-reader-first-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-reader-20260908/hand-artifact-reader-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-artifact-reader-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "targeted_race_exit_code": 0,
+  "vet_exit_code": 0,
+  "limitations": [
+    "Only process and bash package suites were run for this candidate. Full Harness and Hand regression qualification remains pending.",
+    "Artifact reference persistence and Hand viewer wiring remain pending.",
+    "Legacy captures without a digest are explicitly unverifiable; native process-kill and durability qualification remain pending."
+  ]
+}

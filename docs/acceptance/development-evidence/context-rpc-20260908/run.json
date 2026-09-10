@@ -1,0 +1,117 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "binary_sha256": "d94fc581c5e265ea3c95f7fed2d53dafbda6e57df0dce095ec79ba3203a2d9ff",
+  "runner_sha256": "38dc86de62c76d6d09bed8a2941dcbfe4aae2c8b030073614f5c1fe61a5edbb3",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "model_runs_requested": 0,
+  "initial": {
+    "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+    "estimated_tokens": 2074,
+    "contributions": [
+      {
+        "kind": "static_prompt",
+        "name": "Installed identity, guidance, skills and memory",
+        "count": 1,
+        "estimated_tokens": 157
+      },
+      {
+        "kind": "messages",
+        "name": "Effective conversation",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_results",
+        "name": "Effective tool results",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_schemas",
+        "name": "Registered tool schemas",
+        "count": 11,
+        "estimated_tokens": 1916
+      }
+    ],
+    "limitations": [
+      "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+      "Estimates include only effective history after compaction; raw archived history is not counted.",
+      "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+      "Components round down individually; their sum can differ slightly from the total."
+    ]
+  },
+  "refreshed": {
+    "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+    "estimated_tokens": 2290,
+    "contributions": [
+      {
+        "kind": "static_prompt",
+        "name": "Installed identity, guidance, skills and memory",
+        "count": 1,
+        "estimated_tokens": 373
+      },
+      {
+        "kind": "messages",
+        "name": "Effective conversation",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_results",
+        "name": "Effective tool results",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_schemas",
+        "name": "Registered tool schemas",
+        "count": 11,
+        "estimated_tokens": 1916
+      }
+    ],
+    "limitations": [
+      "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+      "Estimates include only effective history after compaction; raw archived history is not counted.",
+      "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+      "Components round down individually; their sum can differ slightly from the total."
+    ]
+  },
+  "removed": {
+    "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+    "estimated_tokens": 2074,
+    "contributions": [
+      {
+        "kind": "static_prompt",
+        "name": "Installed identity, guidance, skills and memory",
+        "count": 1,
+        "estimated_tokens": 157
+      },
+      {
+        "kind": "messages",
+        "name": "Effective conversation",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_results",
+        "name": "Effective tool results",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_schemas",
+        "name": "Registered tool schemas",
+        "count": 11,
+        "estimated_tokens": 1916
+      }
+    ],
+    "limitations": [
+      "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+      "Estimates include only effective history after compaction; raw archived history is not counted.",
+      "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+      "Components round down individually; their sum can differ slightly from the total."
+    ]
+  },
+  "clean_exit": true
+}

@@ -1,0 +1,89 @@
+{
+  "status": "development_ownership_regressions_passed",
+  "hook_trials_per_path": 30,
+  "hook_cancel_join_samples_ms": [
+    0.278709,
+    0.593833,
+    0.298667,
+    0.610167,
+    0.630833,
+    0.553625,
+    0.607417,
+    0.300208,
+    251.842417,
+    0.662708,
+    0.617,
+    0.332416,
+    0.614625,
+    0.616834,
+    0.561208,
+    0.287459,
+    0.307083,
+    0.663125,
+    0.791125,
+    0.67225,
+    0.677792,
+    0.617833,
+    0.408375,
+    0.817459,
+    0.657,
+    0.32375,
+    0.554917,
+    0.589791,
+    252.452042,
+    0.31875
+  ],
+  "hook_cancel_join_max_ms": 252.452042,
+  "test_records": {
+    "hook_pass_records": 60,
+    "sdk_pass_records": 5
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-hook-cleanup-repeat-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/subprocess-ownership-20260909/hand-hook-cleanup-repeat-20260909.jsonl.gz",
+      "sha256": "6c08f3567055cc464efbc3c19c473c216a2ffe9f7566fe2ba6aaa75a620f5cf2",
+      "uncompressed_sha256": "121d35372ed986b6f4c4d4795e8d6c501581048d7947b92773d4a52ab7c467ce"
+    },
+    {
+      "source": "/private/tmp/hand-sdk-descendants-before-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/subprocess-ownership-20260909/hand-sdk-descendants-before-20260909.jsonl.gz",
+      "sha256": "c6f4585253a9cd1b2a21cf0d9b806170efd39bc7a368a5cd7667aa364bf95224",
+      "uncompressed_sha256": "b4def014d7493e134b60666378ce1c439211caafd66c5e779fc712a01ce36e24"
+    },
+    {
+      "source": "/private/tmp/hand-sdk-descendants-fixed-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/subprocess-ownership-20260909/hand-sdk-descendants-fixed-20260909.jsonl.gz",
+      "sha256": "ff8601c2829e247ef969de806a1e0069b5a80f9f0bd687d44efc1ca1d835f819",
+      "uncompressed_sha256": "098a12c22fb64c88c98de59b32c3f004c070da2cff8a7b788c6f8c89047cb737"
+    },
+    {
+      "source": "sdk/process.go",
+      "path": "docs/acceptance/development-evidence/subprocess-ownership-20260909/process.go.gz",
+      "sha256": "7cbc15f58405ce6bab968d84aa3a5d121d910e54c3ee367bd46e4ee7641819c4",
+      "uncompressed_sha256": "027f7f2ba1dc2c5e72ddbbc3852a2989ea16fe0342eac2506cef5af72ab1101f"
+    },
+    {
+      "source": "sdk/process_descendants_test.go",
+      "path": "docs/acceptance/development-evidence/subprocess-ownership-20260909/process_descendants_test.go.gz",
+      "sha256": "57bbb8b862a23992b91231ed807457514a3b29ff0b240aa6b35098eb189f4171",
+      "uncompressed_sha256": "ccbb764499651596ba15230bcfcf75a4f22c0905270dcb60433b2097cefca25b"
+    },
+    {
+      "source": "internal/agentio/hooks_process_test.go",
+      "path": "docs/acceptance/development-evidence/subprocess-ownership-20260909/hooks_process_test.go.gz",
+      "sha256": "cfe651465ef5a6b8c259ec00c92d8ef14d13887b22393bdeacf0e62f19160884",
+      "uncompressed_sha256": "e3e306b5195c4f152b1c7d64d6a391ed7b882cac644e1429e43bfa536a3f13ee"
+    }
+  ],
+  "commands": [
+    "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=30 -json ./internal/agentio -run '^TestHook(CancellationOwnsDescendants|NormalExitCleansDescendants)$'",
+    "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./sdk -run '^TestProcess'"
+  ],
+  "sdk_fix": "Create an owned process group, retain EOF grace period, terminate descendants after both normal exit and forced shutdown.",
+  "limitations": [
+    "Native macOS only; final candidate and Linux qualification pending",
+    "SDK descendant scenarios run once each; hook scenarios run 30 times each",
+    "Hook join timings measure runner return, while absence of scheduled late writes independently checks descendant termination"
+  ]
+}

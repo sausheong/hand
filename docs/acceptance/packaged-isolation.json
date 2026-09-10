@@ -1,0 +1,82 @@
+{
+  "status": "development_passed",
+  "release_candidate": false,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/run.json",
+      "sha256": "083020a47096373318cfa171065b0cc30b661449e5dfdf68b7d71b1cc9025efc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/execution.json",
+      "sha256": "bb3c0ccdb859c6a88cf884dbe9409b474da3e000125522d3fd2caae8f7ce9481"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/stdout.log",
+      "sha256": "f62a0d3f3a41d7eb0081414e7787c5d68df951e842d4169f645198bda2139b01"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/rpc/client-two.stderr",
+      "sha256": "4be440b976bbee1508f0bf555fe6312238c5f8dd95b3e6082940fcb27d1abc4f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/rpc/provider-requests.json",
+      "sha256": "a8ecca41abe5a96db64749b530d5ac9539ba7142d7c3c162019bc53a1ec51be6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/rpc/client-one.stderr",
+      "sha256": "6eab5a5e8b1613246466930e7dfde3be58d3a28d515055900836295be3cbcf63"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/rpc/client-one.json",
+      "sha256": "c14a658801b8239926772bbf564a6560e311435890f118033910506c4eed702e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/rpc/client-two.json",
+      "sha256": "30417f5f4e5a8b088ce39bdc05074a1263bafdd6189ed3602b379e8ca36b4a53"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/packaged-isolation-20260908/rpc/run.json",
+      "sha256": "64bba3f4d693a5134d73954cf448145caf9dfc7509fe96594ac9bde044417d15"
+    }
+  ],
+  "runner": "scripts/check_packaged_isolation.py",
+  "runner_sha256": "228fa61a77d998590d5828e4bd17014949c8a80bcfbbb03a19dd5b45cc145a98",
+  "rpc": {
+    "status": "passed",
+    "qualification": "development",
+    "binary_sha256": "4b11e38a6742791db066eeffca73cd694990a603a7ddfe6c7791d84a10360799",
+    "runner_sha256": "c2a3d55f43c0cf15b1540c781ec91868c23048356ca4e400184dbd7a67f8dcc0",
+    "execution_config": {
+      "backend": "container",
+      "docker": "/usr/local/bin/docker",
+      "socket": "/Users/sausheong/.docker/run/docker.sock",
+      "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+      "worker": "/private/tmp/hand-packaged-isolation-final-20260908/hand-tool-worker-linux",
+      "writable": true,
+      "network": false,
+      "worker_sha256": "226a00c1ad6f6667543df9e366b46640063711e797461aaf2fe922c91b8e6d82"
+    },
+    "scenarios": [
+      "non_go_client_lifecycle",
+      "approval_once_before_write",
+      "steering_delivery",
+      "followup_queue",
+      "duplicate_request_no_sideeffect_replay",
+      "version_error",
+      "cancel_terminal",
+      "disconnect_cleanup",
+      "reconnect_terminal_recovery"
+    ],
+    "provider_calls": 5,
+    "cancelled_provider_requests": 2
+  },
+  "limitations": [
+    "macOS arm64 CLI and Linux arm64 worker only",
+    "Development archive identity is baseline plus staged changes, not clean candidate",
+    "Native Linux-host and AMD64 journeys remain open"
+  ]
+}

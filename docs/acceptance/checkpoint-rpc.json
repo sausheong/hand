@@ -1,0 +1,125 @@
+{
+  "qualification": "development",
+  "status": "passed",
+  "requires": "checkpoint-startup-integration.patch",
+  "harness_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "report": {
+    "status": "passed",
+    "qualification": "development",
+    "binary_sha256": "85ef77973963b2cf5af8b4e7d77677b8a5826aed6810b603d94151e2950d71f0",
+    "runner_sha256": "51b4fa115bf75dfaff9dd107c66d9e8f5496d7900e61c5a15e36fa545d8f3098",
+    "scenarios": [
+      "non_go_client_lifecycle",
+      "approval_once_before_write",
+      "steering_delivery",
+      "followup_queue",
+      "duplicate_request_no_sideeffect_replay",
+      "version_error",
+      "cancel_terminal",
+      "disconnect_cleanup",
+      "reconnect_terminal_recovery"
+    ],
+    "provider_calls": 5,
+    "cancelled_provider_requests": 2,
+    "checkpoints": {
+      "snapshots": 2,
+      "starts": 3,
+      "finishes": 3,
+      "status": "passed"
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/checkpoints/82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86.json",
+      "sha256": "c5a858c19d39816fe831cbe42b44e529cf2a2d78d389425c6476b07cc3af9c70"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/checkpoints/e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57.json",
+      "sha256": "6f5bcd75e190cf96cf775c64a79f12243c31472a9884e77591a44bb023c08e26"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/client-one.json",
+      "sha256": "ffb9420dddf5ccab3a23fb0c4fc0d878592d13c2c348654d249f120c6a73bea5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/client-one.stderr",
+      "sha256": "98e24e202082b019d18caa9ed6b6f4f0f6250569ed2e49af2e56b10d6cc40782"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/client-two.json",
+      "sha256": "6b01dc28b7d25eb35289df6890f0e1ddea9546f7645b864a0a90bda65fd8d8a5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/client-two.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/authority/120af76ad48a54976dad9f16414fd0d5b4dd9778da39115faeaffc135b6c35b9/99bff49f4cc5869dba3d2d183450b1e1330973ba213f82ee38165fc41046c7be/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/catalogues/120af76ad48a5497/catalogue.json",
+      "sha256": "27886822ad740d11d93a428f3eb1b3a9539d4adf5db2c76af72cc8eec5825f2a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/catalogues/120af76ad48a5497/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_120af76ad48a5497_9b7072207ed6be6637b83e9098f4b63c.lock",
+      "sha256": "979b421c9fd8764670c039d5a1dd84530b476fa12b85d1f1568aa0062a428945"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_120af76ad48a5497_a7c4adafb606a697799b18859d861680.lock",
+      "sha256": "2f41c612312776ff40e8376454e618b17050a2e82f30237c849e8051529917e1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_120af76ad48a5497_c7eb0a157a7b6079b02ce18a1d4a290b.lock",
+      "sha256": "979b421c9fd8764670c039d5a1dd84530b476fa12b85d1f1568aa0062a428945"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/hand/workspace_120af76ad48a5497_9b7072207ed6be6637b83e9098f4b63c.jsonl",
+      "sha256": "4a95219a7e291f80cbaca78a705d58b6d097ca7d1532da96eaa813703572e5a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/hand/workspace_120af76ad48a5497_a7c4adafb606a697799b18859d861680.jsonl",
+      "sha256": "5e76de436d5ac8fa7558c4a9c944592ffde548fcecfd2b47a22e55add6ccece6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/hand/workspace_120af76ad48a5497_c7eb0a157a7b6079b02ce18a1d4a290b.jsonl",
+      "sha256": "0723f15b70271392e7b2104d231dc4454692064392d1f745aa24c8739dc5757d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/home/.hand/sessions/rpc-120af76ad48a54976dad9f16414fd0d5b4dd9778da39115faeaffc135b6c35b9/requests.jsonl",
+      "sha256": "c82bc919adf39b0ab4eac008e7bbd9164c44971217414da534ae2b01a28e5db9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/provider-requests.json",
+      "sha256": "ddb11097a9b710b5238bd20a78ca2cc24b96d6b229c898c175d4f66297688a2c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/run.json",
+      "sha256": "22af4b40762fdc51cca43c24742a873191b27007020ea417e398d5c3f70e642f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/checkpoint-rpc-20260908/workspace/approved.txt",
+      "sha256": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7"
+    }
+  ],
+  "limitations": [
+    "macOS local fixture, host execution only; no live model calls.",
+    "Checkpoint restore/UI, SDK options, configuration limits and final acceptance remain pending."
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "qualification": "development_only",
+  "source_head": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+  "version": "development-rpc-startup-dirty-20260909",
+  "commands": [
+    {
+      "command": [
+        "make",
+        "dist",
+        "DIST_DIR=/private/tmp/hand-rpc-platform-build-20260909/dist",
+        "VERSION=development-rpc-startup-dirty-20260909"
+      ],
+      "exit_code": 0,
+      "seconds": 34.63728562509641,
+      "log": "command-0.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/smoke_dist.py",
+        "--dist",
+        "/private/tmp/hand-rpc-platform-build-20260909/dist",
+        "--version",
+        "development-rpc-startup-dirty-20260909",
+        "--commit",
+        "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+        "--require-worker"
+      ],
+      "exit_code": 0,
+      "seconds": 1.7373350829584524,
+      "log": "command-1.log"
+    }
+  ],
+  "limitations": [
+    "Dirty Hand checkout and local unreleased Harness",
+    "Build checks on all targets; native help/version smoke only for current host",
+    "No full runtime suite, live evaluation or release qualification",
+    "Development archive bytes remain in temporary output; durable records retain checksums, raw build/smoke logs and source inventory. Final archives require fresh clean candidate builds."
+  ],
+  "source_unchanged": true,
+  "source_hashes": {
+    "/Users/sausheong/projects/hand": "11bd954aeebb7d5bc2727a3982ae9b3d412c0e74ae518307c2a85c57433b481f",
+    "/private/tmp/hand-harness-persistence-20260908": "a13a2bb5706b08843daaabcc7d09e3848decffc868ca88fbd1d8f5be01b98524"
+  },
+  "status": "development_build_smoke_passed",
+  "archive_checks": {
+    "archives": [
+      {
+        "target": "darwin-amd64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      },
+      {
+        "target": "darwin-arm64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": true
+      },
+      {
+        "target": "linux-amd64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      },
+      {
+        "target": "linux-arm64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      }
+    ]
+  },
+  "effective_harness": {
+    "Path": "github.com/sausheong/harness",
+    "Main": true,
+    "Dir": "/private/tmp/hand-harness-persistence-20260908",
+    "GoMod": "/private/tmp/hand-harness-persistence-20260908/go.mod",
+    "GoVersion": "1.25.1"
+  },
+  "go_environment": {
+    "GOARCH": "arm64",
+    "GOFLAGS": "",
+    "GOMOD": "/Users/sausheong/projects/hand/go.mod",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.25.1",
+    "GOWORK": "/Users/sausheong/projects/hand/go.work"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/0-run.json.gz",
+      "sha256": "19a6c4998b14ba74431e07d3464121660220fe21f80a7edcffd3696c355da2f4",
+      "uncompressed_sha256": "c1f4fd97ae1c6daf11e41d5a7db1d129b65b347aab6468035d84eafb26be65da"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/1-command-0.log.gz",
+      "sha256": "b442ee83bff9c3bd9e0a3a8c3473b3479a979161a8b6741737befabcf40a3d06",
+      "uncompressed_sha256": "47eb2d45d480f1f64e3001517ac2b5c8636fcfdc50973d3b7e510b09adf405f8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/2-command-1.log.gz",
+      "sha256": "08456063140e297953fe91469c46badddff2d5aae0e114eb583baab629ce6b9e",
+      "uncompressed_sha256": "47d699c4e39a852b19c4d5746f09fbce5d7e4bc0c8aba0b21e080ab7b0ffe768"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/3-source-before.json.gz",
+      "sha256": "aa85deb56c2c5a0dd858ed5addc0019a09ceccf79ec7039a93ed69894b59c221",
+      "uncompressed_sha256": "780beb974360a2f43711b1b470ad982cb18f7e7e750a2c1190f68260abb2144e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/4-effective-harness.json.gz",
+      "sha256": "9e2058cd970f32628cb73531aaa44cf9312cc17e75cce14eed3be4844981bc28",
+      "uncompressed_sha256": "f0f6c6127782e5b3dbe43b51cd0fe2afd4c3a1f3d8cd8cca6f84ca486cbc4ba7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/5-go-environment.json.gz",
+      "sha256": "533febfbebc3fa6a870addb622fba2341ea32c985d2cb2b373e3b92c389fccd7",
+      "uncompressed_sha256": "fa3b39bca531d205e1b3889ee40dcae43e0d17af5b6dd4bbf3cf49da2c987680"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/6-SHA256SUMS.gz",
+      "sha256": "1905ffea83973c34e870ecb400e4ab3017c43d08491a4247216a7d1f3533cd08",
+      "uncompressed_sha256": "9f1ebde0c769339396af642126b99475832f98725c3b75cc680c3debd027e863"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/7-hand-rpc-platform-build-20260909.py.gz",
+      "sha256": "98a6738288c149e0cddc190aff0faa123557ec5191abe2a40ca5100aa31ac82e",
+      "uncompressed_sha256": "62e1c3b832dce010ac66e3343c115cc5d39f9737acf9ed42a1f8fcbbce69968b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/8-build_dist.py.gz",
+      "sha256": "b53c98c745d992f81ec509e6db9182de24054a66c533dcd54b3938b0d2cab081",
+      "uncompressed_sha256": "403d1f16da73684481fab2bc195bced1099174a87586fe6221e4887921d80121"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-platform-build-20260909/9-smoke_dist.py.gz",
+      "sha256": "a41bd8fed02dcfccac2e875c5a988fae9f9efdb36f022b782191b074bef9756d",
+      "uncompressed_sha256": "c9088046b4d4e19854a382b33eb0313955d8e48314c8d81ae7b0cb208b5e2656"
+    }
+  ],
+  "archives": [
+    {
+      "path": "/private/tmp/hand-rpc-platform-build-20260909/dist/hand-development-rpc-startup-dirty-20260909-darwin-amd64.tar.gz",
+      "sha256": "be8c3bc0352743b1eeeabf62038944d6da19e10479eb00aa7aed965b3a92fd9d",
+      "bytes": 33713489
+    },
+    {
+      "path": "/private/tmp/hand-rpc-platform-build-20260909/dist/hand-development-rpc-startup-dirty-20260909-darwin-arm64.tar.gz",
+      "sha256": "869a00f7075f39f4cd33443a2adabfd0265455587dc90b8e9731b77f2015f80d",
+      "bytes": 31766309
+    },
+    {
+      "path": "/private/tmp/hand-rpc-platform-build-20260909/dist/hand-development-rpc-startup-dirty-20260909-linux-amd64.tar.gz",
+      "sha256": "cdac8a94791f4b55660268edaa177c262e7b9e4283d9d108ef7e2194191e2e7e",
+      "bytes": 32726070
+    },
+    {
+      "path": "/private/tmp/hand-rpc-platform-build-20260909/dist/hand-development-rpc-startup-dirty-20260909-linux-arm64.tar.gz",
+      "sha256": "51094717477ce6cc672704e13d98c69447bd773979ea35d2f0070729adc3a236",
+      "bytes": 30347404
+    }
+  ]
+}

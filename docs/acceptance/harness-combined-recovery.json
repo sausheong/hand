@@ -1,0 +1,180 @@
+{
+  "development_harness_candidate": "98ac7017027e0ba4009e9ae0d136e716e7a76db5",
+  "harness_base": "82e89fced176de827d0e5f8bac6e74c235c2bcde",
+  "harness_patch_sha256": "b15cd5f6d72c862ce4600d558e7ca56b91cd38c2a5d323fffacbd775ca21f993",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "harness_full": {
+    "tests_and_subtests": {
+      "pass": 908,
+      "fail": 0,
+      "skip": 0
+    },
+    "packages": {
+      "github.com/sausheong/harness/attachment": "pass",
+      "github.com/sausheong/harness/compaction": "pass",
+      "github.com/sausheong/harness/examples/support-agent": "pass",
+      "github.com/sausheong/harness/providers/gemini": "pass",
+      "github.com/sausheong/harness/providers/local": "pass",
+      "github.com/sausheong/harness/llm": "pass",
+      "github.com/sausheong/harness/providers/litellm": "pass",
+      "github.com/sausheong/harness/providers/openrouter": "pass",
+      "github.com/sausheong/harness/providers/anthropic": "pass",
+      "github.com/sausheong/harness/providers/openai": "pass",
+      "github.com/sausheong/harness/process": "pass",
+      "github.com/sausheong/harness/llm/llmtest": "pass",
+      "github.com/sausheong/harness/tokens": "pass",
+      "github.com/sausheong/harness/tool": "pass",
+      "github.com/sausheong/harness/tool/memory": "pass",
+      "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+      "github.com/sausheong/harness/tool/skills": "pass",
+      "github.com/sausheong/harness/runtime": "pass",
+      "github.com/sausheong/harness/tools/browser": "pass",
+      "github.com/sausheong/harness/tools/file": "pass",
+      "github.com/sausheong/harness/tool/skills/disk": "pass",
+      "github.com/sausheong/harness/tools/mcp": "pass",
+      "github.com/sausheong/harness/tools/todo": "pass",
+      "github.com/sausheong/harness/tools/bash": "pass",
+      "github.com/sausheong/harness/tools/web": "pass",
+      "github.com/sausheong/harness/session": "pass"
+    }
+  },
+  "hand_full": {
+    "tests_and_subtests": {
+      "pass": 588,
+      "fail": 0,
+      "skip": 0
+    },
+    "packages": {
+      "github.com/sausheong/hand/internal/app": "pass",
+      "github.com/sausheong/hand/internal/permissions": "pass",
+      "github.com/sausheong/hand/internal/config": "pass",
+      "github.com/sausheong/hand/internal/tui": "pass",
+      "github.com/sausheong/hand/internal/agentio": "pass",
+      "github.com/sausheong/hand/cmd/hand": "pass",
+      "github.com/sausheong/hand/internal/sessionio": "pass"
+    }
+  },
+  "harness_repeated": {
+    "tests_and_subtests": {
+      "pass": 160,
+      "fail": 0,
+      "skip": 0
+    },
+    "packages": {
+      "github.com/sausheong/harness/session": "pass"
+    }
+  },
+  "hand_repeated": {
+    "tests_and_subtests": {
+      "pass": 40,
+      "fail": 0,
+      "skip": 0
+    },
+    "packages": {
+      "github.com/sausheong/hand/internal/sessionio": "pass"
+    }
+  },
+  "repetitions": 20,
+  "killed_child_trials": 40,
+  "harness_vet_exit_code": 0,
+  "hand_vet_exit_code": 0,
+  "regression_before": {
+    "tests_and_subtests": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 0
+    },
+    "packages": {
+      "github.com/sausheong/hand/internal/sessionio": "fail"
+    }
+  },
+  "verification_note": "Hand final process handle expired; complete package pass events and empty stderr verified. Harness terminal exit zero observed. Before regression used prior manager source verified against prior manifest hash. These are development tests, not full scenario acceptance.",
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-first-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-first-20260908.jsonl",
+      "sha256": "bc50d307fe083b59a8a9692ed623d4d8b249b7b5f37f67cf70c429a86f2c634f"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-first-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-first-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-hand-coverage-20260908.out",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-hand-coverage-20260908.out",
+      "sha256": "727711a4e6d82e168f3a90712e0f0fd390e9382772e1fa3e2f118d370e28b1f5"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-hand-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-hand-full-20260908.jsonl",
+      "sha256": "9bccb791c46ad746d38ced132c362b55922b4bf694798959bd2acfc6bc8ed6cf"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-hand-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-hand-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-hand-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-hand-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-harness-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-harness-full-20260908.jsonl",
+      "sha256": "f8fa97fde659140c6477f132d64a002164e65119e1db44696be513a31b6b1591"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-harness-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-harness-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-harness-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-harness-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-manager-before-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-manager-before-20260908.jsonl",
+      "sha256": "781ddeecac24b12848335e5ae0da2bbc5f8f6b18c8b61bc10459d6664c69a307"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-manager-before-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-manager-before-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-manager-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-manager-repeat-20260908.jsonl",
+      "sha256": "3cd7f9f8c689586f050345d15cd554006384b1f02c74cb2a19b983c8a2ef202b"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-manager-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-manager-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-repeat-20260908.jsonl",
+      "sha256": "22f92f2e4508f2da08a1d3bb376355f0f7c54f6ea22ff45c82635c0c59d87719"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-combined-recovery-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-combined-recovery-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-manager-before-combined.go.txt",
+      "original_execution_path": "/private/tmp/hand-manager-before-combined.go",
+      "sha256": "1b18ab151f46a31691e4617dab1b5f0ba95681ccd206f4d622327a1cb79e68b1"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/combined-recovery-20260908/hand-manager-before-combined-overlay.json",
+      "original_execution_path": "/private/tmp/hand-manager-before-combined-overlay.json",
+      "sha256": "f0b40282401f80cf3c0d7f100bcceb3e92906ae2844e3cc726a3653dc904af72"
+    }
+  ]
+}

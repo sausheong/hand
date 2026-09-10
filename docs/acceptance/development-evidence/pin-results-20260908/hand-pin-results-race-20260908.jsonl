@@ -1,0 +1,24 @@
+{"Time":"2026-09-08T17:25:40.036928+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:25:40.073885+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T17:25:40.073956+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T17:25:40.381279+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins"}
+{"Time":"2026-09-08T17:25:40.381353+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins","Output":"=== RUN   TestContextPinUpdatesPreserveOtherPins\n"}
+{"Time":"2026-09-08T17:25:40.382416+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins","Output":"--- PASS: TestContextPinUpdatesPreserveOtherPins (0.00s)\n"}
+{"Time":"2026-09-08T17:25:40.382434+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContextPinUpdatesPreserveOtherPins","Elapsed":0}
+{"Time":"2026-09-08T17:25:40.384959+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T17:25:40.896689+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay"}
+{"Time":"2026-09-08T17:25:40.896741+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"=== RUN   TestSkillsReloadRPCAndReplay\n"}
+{"Time":"2026-09-08T17:25:40.983897+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"--- PASS: TestSkillsReloadRPCAndReplay (0.09s)\n"}
+{"Time":"2026-09-08T17:25:40.983941+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Elapsed":0.09}
+{"Time":"2026-09-08T17:25:40.984746+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T17:25:41.390623+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.353s\n"}
+{"Time":"2026-09-08T17:25:41.390687+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.354}
+{"Time":"2026-09-08T17:25:41.555938+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPinCommandsUseJoinedOperations"}
+{"Time":"2026-09-08T17:25:41.555985+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPinCommandsUseJoinedOperations","Output":"=== RUN   TestPinCommandsUseJoinedOperations\n"}
+{"Time":"2026-09-08T17:25:41.621877+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPinCommandsUseJoinedOperations","Output":"--- PASS: TestPinCommandsUseJoinedOperations (0.07s)\n"}
+{"Time":"2026-09-08T17:25:41.621898+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestPinCommandsUseJoinedOperations","Elapsed":0.07}
+{"Time":"2026-09-08T17:25:41.625538+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T17:25:41.995544+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.922s\n"}
+{"Time":"2026-09-08T17:25:41.995703+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.9220000000000002}
+{"Time":"2026-09-08T17:25:42.638014+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t2.564s\n"}
+{"Time":"2026-09-08T17:25:42.638109+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":2.564}

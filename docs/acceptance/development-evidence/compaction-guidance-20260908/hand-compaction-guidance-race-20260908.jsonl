@@ -1,0 +1,15 @@
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"# github.com/sausheong/hand/internal/app\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"internal/app/controller.go:87:31: too many return values\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"\thave (compaction.Result, error)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"\twant (error)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"internal/app/controller.go:89:42: undefined: operation\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"internal/app/controller.go:91:31: too many return values\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"\thave (compaction.Result, error)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-output","Output":"\twant (error)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/app","Action":"build-fail"}
+{"Time":"2026-09-08T17:32:30.550803+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:32:30.550888+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\tgithub.com/sausheong/hand/internal/app [build failed]\n"}
+{"Time":"2026-09-08T17:32:30.550898+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:32:30.5509+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T17:32:30.550935+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\tgithub.com/sausheong/hand/internal/tui [build failed]\n"}
+{"Time":"2026-09-08T17:32:30.550946+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/app"}

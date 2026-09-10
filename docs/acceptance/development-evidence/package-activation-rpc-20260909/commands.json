@@ -1,0 +1,74 @@
+[
+  {
+    "arguments": [
+      "inspect",
+      "--source",
+      "/private/tmp/hand-package-activation-rpc-20260909/source"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"python-task-note\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"main.py\",\n        \"kind\": \"extension\",\n        \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n        \"size\": 3339\n      }\n    ],\n    \"runtimes\": [\n      {\n        \"name\": \"python\",\n        \"command\": \"python3\",\n        \"minimum_version\": \"3.9.0\"\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"task-note\",\n        \"entrypoint\": \"main.py\",\n        \"runtime\": \"python\",\n        \"capabilities\": [\n          \"commands\",\n          \"questions\",\n          \"state\",\n          \"context.transform\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-install",
+      "--source",
+      "/private/tmp/hand-package-activation-rpc-20260909/source",
+      "--pin",
+      "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+      "--store",
+      "/private/tmp/hand-package-activation-rpc-20260909/store",
+      "--out",
+      "/private/tmp/hand-package-activation-rpc-20260909/install.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-activation-rpc-20260909/install.json\",\n  \"approval_digest\": \"7054fdec5a22245e216fe0247e6989d58da9c4dcd0c820ac10bb5dd4525bd254\",\n  \"review\": {\n    \"origin\": {\n      \"kind\": \"local\",\n      \"location\": \"/private/tmp/hand-package-activation-rpc-20260909/source\"\n    },\n    \"action\": \"install\",\n    \"store\": \"/private/tmp/hand-package-activation-rpc-20260909/store\",\n    \"generation\": 0,\n    \"name\": \"python-task-note\",\n    \"previous\": \"\",\n    \"digest\": \"7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec\",\n    \"source\": \"/private/tmp/hand-package-activation-rpc-20260909/source\",\n    \"manifest\": {\n      \"schema\": 1,\n      \"name\": \"python-task-note\",\n      \"version\": \"1.0.0\",\n      \"compatibility\": {\n        \"minimum_hand\": \"0.1.0\",\n        \"extension_protocol\": 1\n      },\n      \"files\": [\n        {\n          \"path\": \"main.py\",\n          \"kind\": \"extension\",\n          \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n          \"size\": 3339\n        }\n      ],\n      \"runtimes\": [\n        {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        }\n      ],\n      \"extensions\": [\n        {\n          \"name\": \"task-note\",\n          \"entrypoint\": \"main.py\",\n          \"runtime\": \"python\",\n          \"capabilities\": [\n            \"commands\",\n            \"questions\",\n            \"state\",\n            \"context.transform\"\n          ]\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "apply",
+      "--review",
+      "/private/tmp/hand-package-activation-rpc-20260909/install.json",
+      "--approve",
+      "7054fdec5a22245e216fe0247e6989d58da9c4dcd0c820ac10bb5dd4525bd254"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"result\": {\n    \"committed\": true,\n    \"generation\": 1\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-runtimes",
+      "--store",
+      "/private/tmp/hand-package-activation-rpc-20260909/store",
+      "--names",
+      "python-task-note",
+      "--out",
+      "/private/tmp/hand-package-activation-rpc-20260909/runtime.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-activation-rpc-20260909/runtime.json\",\n  \"reviews\": [\n    {\n      \"package\": \"python-task-note\",\n      \"review\": {\n        \"requirement\": {\n          \"name\": \"python\",\n          \"command\": \"python3\",\n          \"minimum_version\": \"3.9.0\"\n        },\n        \"executable\": \"/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14\",\n        \"sha256\": \"cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43\",\n        \"size\": 52448,\n        \"boundary\": \"host execution of reviewed interpreter --version; not an OS sandbox; runtime libraries are not snapshotted\"\n      },\n      \"approved_digest\": \"\"\n    }\n  ],\n  \"review_digests\": {\n    \"python-task-note/python\": \"3e89669615c017604337e1262cd31ce0cf98e3fb64ca1a7c01bb6da659f4c81b\"\n  }\n}\n",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "review-extensions",
+      "--store",
+      "/private/tmp/hand-package-activation-rpc-20260909/store",
+      "--names",
+      "python-task-note",
+      "--workspace",
+      "/private/tmp/hand-package-activation-rpc-20260909/workspace",
+      "--snapshots",
+      "/private/tmp/hand-package-activation-rpc-20260909/snapshots",
+      "--runtime-approvals",
+      "/private/tmp/hand-package-activation-rpc-20260909/runtime.json",
+      "--out",
+      "/private/tmp/hand-package-activation-rpc-20260909/startup.json"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"review_file\": \"/private/tmp/hand-package-activation-rpc-20260909/startup.json\",\n  \"approval_digest\": \"853f61c5f8037e6f09458a9be1ed0ef07d470b29cb80b0677bc5938634ee15cc\",\n  \"review\": {\n    \"version\": 1,\n    \"snapshot_root\": \"/private/tmp/hand-package-activation-rpc-20260909/snapshots\",\n    \"identities\": {\n      \"task-note\": \"package:python-task-note:task-note\"\n    },\n    \"reviews\": [\n      {\n        \"specification\": {\n          \"name\": \"task-note\",\n          \"digest\": \"6c6f599bb4ef2b1323cc261a50f035ee5db9c61876f42a5509dd14c872e0b0eb\",\n          \"capabilities\": [\n            \"commands\",\n            \"context.transform\",\n            \"questions\",\n            \"state\"\n          ],\n          \"order\": 0,\n          \"mandatory\": false\n        },\n        \"binary\": {\n          \"path\": \"/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14\",\n          \"sha256\": \"cbf84109626aa1013bbe408fbb9590bd0f1c1548f038b2221c6b8b87de26ca43\",\n          \"size\": 52448,\n          \"mode\": 493\n        },\n        \"assets\": [\n          {\n            \"path\": \"/private/tmp/hand-package-activation-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py\",\n            \"relative\": \"main.py\",\n            \"sha256\": \"e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08\",\n            \"size\": 3339,\n            \"mode\": 256\n          }\n        ],\n        \"arguments\": [\n          \"-I\",\n          \"-B\",\n          \"${package}/main.py\"\n        ],\n        \"workspace\": \"/private/tmp/hand-package-activation-rpc-20260909/workspace\",\n        \"environment\": {},\n        \"boundary\": \"unrestricted host subprocess; capabilities are not an OS sandbox; runtime libraries are not snapshotted\"\n      }\n    ]\n  }\n}\n",
+    "stderr": ""
+  }
+]

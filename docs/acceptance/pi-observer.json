@@ -1,0 +1,43 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "pi_runtime_executed": false,
+  "tests": {
+    "focused": 10,
+    "evaluation_suite": 83,
+    "failures": 0,
+    "skips": 0
+  },
+  "capability": "Bounded LF-only Pi RPC observer requiring admission, full settlement and correlated final statistics; unknown costs remain unknown.",
+  "limitations": [
+    "Synthetic protocol streams are observer tests, not Pi runtime evidence or model performance.",
+    "No subprocess adapter, spending gateway, process-join proof, cost reconciliation or independent task scoring supplied by the observer.",
+    "Pinned Pi runtime qualification and complete paired executor remain outstanding."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/pi-observer-20260909/evaluation_pi_events.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_pi_events.py",
+      "sha256": "955baa2d31caf6d046fa98e78a5570a6025aa51f149bd957c56f5b2ac77a08a1",
+      "uncompressed_sha256": "1b20a189ea1783bf7519c60f5805b34a52367bf8e98213f7ca759149a21fa788"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-observer-20260909/test_evaluation_pi_events.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_pi_events.py",
+      "sha256": "e01ca4863d9ef2e53e97d7d3daef4456d82ea92aa3f192aaf94127300239cabb",
+      "uncompressed_sha256": "3717ffa9db3a5a612be7d3d430a5c49e67680e895782e7813b9cdb1117c85128"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-observer-20260909/hand-pi-observer-20260909.log.gz",
+      "source": "/private/tmp/hand-pi-observer-20260909.log",
+      "sha256": "d106adcd76e33d0d06bf21ad83a954b3de0d38a87c87aae282955eacf1b18861",
+      "uncompressed_sha256": "7679cfac82622a01ba95fedd7aa2f93ccedc87446225cb71e21ecf79bd2213bd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-observer-20260909/hand-pi-observer-all-20260909.log.gz",
+      "source": "/private/tmp/hand-pi-observer-all-20260909.log",
+      "sha256": "fc894ef43a13dad96b4dc4a0caef9c2d04fe88f649c2955417ecdb7458e52633",
+      "uncompressed_sha256": "f6d22e079c0f0c0590122416063483504eb8fd7604506b7a91902b40e64cd418"
+    }
+  ]
+}

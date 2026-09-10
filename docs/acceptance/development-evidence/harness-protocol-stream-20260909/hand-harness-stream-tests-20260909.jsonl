@@ -1,0 +1,12 @@
+{"Time":"2026-09-09T03:24:15.355358+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-09T03:24:15.792413+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip"}
+{"Time":"2026-09-09T03:24:15.792452+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip","Output":"=== RUN   TestHostProtocolStreamRoundTrip\n"}
+{"Time":"2026-09-09T03:24:15.800204+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip","Output":"--- PASS: TestHostProtocolStreamRoundTrip (0.01s)\n"}
+{"Time":"2026-09-09T03:24:15.800229+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip","Elapsed":0.01}
+{"Time":"2026-09-09T03:24:15.800272+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation"}
+{"Time":"2026-09-09T03:24:15.800279+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation","Output":"=== RUN   TestHostProtocolStreamCancellationAndValidation\n"}
+{"Time":"2026-09-09T03:24:15.806044+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation","Output":"--- PASS: TestHostProtocolStreamCancellationAndValidation (0.01s)\n"}
+{"Time":"2026-09-09T03:24:15.80606+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation","Elapsed":0.01}
+{"Time":"2026-09-09T03:24:15.806135+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"PASS\n"}
+{"Time":"2026-09-09T03:24:16.818368+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"ok  \tgithub.com/sausheong/harness/execution\t1.462s\n"}
+{"Time":"2026-09-09T03:24:16.818485+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Elapsed":1.463}

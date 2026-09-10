@@ -2,62 +2,25 @@ package tui
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
+	"github.com/sausheong/hand/internal/app"
 	"os"
 	"path/filepath"
 	"strings"
-	"sync"
 	"testing"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	teatest "github.com/charmbracelet/x/exp/teatest"
-	"github.com/sausheong/hand/internal/agentio"
 	"github.com/sausheong/hand/internal/config"
 	"github.com/sausheong/harness/llm"
 	"github.com/sausheong/harness/runtime"
-	"github.com/sausheong/harness/tool"
 )
 
-type fakeRunner struct {
-	events chan runtime.AgentEvent
-	err    error
-
-	mu         sync.Mutex
-	lastImages []llm.ImageContent
-	lastMsg    string
-}
-
-func (f *fakeRunner) Run(ctx context.Context, userMsg string, images []llm.ImageContent) (<-chan runtime.AgentEvent, error) {
-	f.mu.Lock()
-	f.lastImages = images
-	f.lastMsg = userMsg
-	f.mu.Unlock()
-	if f.err != nil {
-		return nil, f.err
-	}
-	return f.events, nil
-}
-
-func (f *fakeRunner) getLastImages() []llm.ImageContent {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	return f.lastImages
-}
-
-func (f *fakeRunner) getLastMsg() string {
-	f.mu.Lock()
-	defer f.mu.Unlock()
-	return f.lastMsg
-}
-
-var toolResultOK = tool.ToolResult{Output: "ok"}
-
 func TestModel_StreamsAssistantTextIntoTranscript(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
+	events := make(chan app.BackendEvent, 4)
+	m := applicationModel(t, app.New(applicationBackend{run: func(context.Context, string) (<-chan app.BackendEvent, error) { return events, nil }}, app.Options{MaxIterations: 1}), t.TempDir())
+	defer m.CloseApplication()
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -65,9 +28,9 @@ func TestModel_StreamsAssistantTextIntoTranscript(t *testing.T) {
 	tm.Type("hello there")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
-	events <- runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "Hi"}
-	events <- runtime.AgentEvent{Type: runtime.EventTextDelta, Text: " back"}
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	events <- app.BackendEvent{Text: "Hi"}
+	events <- app.BackendEvent{Text: " back"}
+	events <- app.BackendEvent{Done: true}
 	close(events)
 
 	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
@@ -79,9 +42,9 @@ func TestModel_StreamsAssistantTextIntoTranscript(t *testing.T) {
 }
 
 func TestModel_ToolCallAndResultRender(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
+	events := make(chan app.BackendEvent, 4)
+	m := applicationModel(t, app.New(applicationBackend{run: func(context.Context, string) (<-chan app.BackendEvent, error) { return events, nil }}, app.Options{MaxIterations: 1}), t.TempDir())
+	defer m.CloseApplication()
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -89,9 +52,9 @@ func TestModel_ToolCallAndResultRender(t *testing.T) {
 	tm.Type("run a build")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
-	events <- runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: "read_file"}}
-	events <- runtime.AgentEvent{Type: runtime.EventToolResult, Result: &toolResultOK}
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	events <- app.BackendEvent{Kind: "tool_call", Details: app.Details{ToolPresent: true, ToolName: "read_file"}}
+	events <- app.BackendEvent{Kind: "tool_result", Details: app.Details{ResultPresent: true, Output: "ok"}}
+	events <- app.BackendEvent{Done: true}
 	close(events)
 
 	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
@@ -103,9 +66,9 @@ func TestModel_ToolCallAndResultRender(t *testing.T) {
 }
 
 func TestModel_ToolCallShowsInputAndResultDetail(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
+	events := make(chan app.BackendEvent, 4)
+	m := applicationModel(t, app.New(applicationBackend{run: func(context.Context, string) (<-chan app.BackendEvent, error) { return events, nil }}, app.Options{MaxIterations: 1}), t.TempDir())
+	defer m.CloseApplication()
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -113,12 +76,9 @@ func TestModel_ToolCallShowsInputAndResultDetail(t *testing.T) {
 	tm.Type("what does model.go do")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
-	events <- runtime.AgentEvent{
-		Type:     runtime.EventToolCallStart,
-		ToolCall: &llm.ToolCall{Name: "read_file", Input: json.RawMessage(`{"path":"internal/tui/model.go"}`)},
-	}
-	events <- runtime.AgentEvent{Type: runtime.EventToolResult, Result: &tool.ToolResult{Output: "package tui\n"}}
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
+	events <- app.BackendEvent{Kind: "tool_call", Details: app.Details{ToolPresent: true, ToolName: "read_file", ToolInput: `{"path":"internal/tui/model.go"}`}}
+	events <- app.BackendEvent{Kind: "tool_result", Details: app.Details{ResultPresent: true, Output: "package tui\n"}}
+	events <- app.BackendEvent{Done: true}
 	close(events)
 
 	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
@@ -129,174 +89,21 @@ func TestModel_ToolCallShowsInputAndResultDetail(t *testing.T) {
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
 }
 
-func TestModel_ApprovalPromptBlocksAndRespondsYes(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
-
-	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
-	m.BindProgram(tm.GetProgram())
-
-	tm.Type("write a file")
-	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
-
-	respond := make(chan agentio.Decision, 1)
-	tm.Send(agentio.ApprovalRequest{
-		Tool:    "write_file",
-		Input:   json.RawMessage(`{"path":"x.txt"}`),
-		Respond: respond,
-	})
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "Allow write_file?")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("y")})
-
-	select {
-	case decision := <-respond:
-		if decision != agentio.DecisionOnce {
-			t.Fatalf("expected DecisionOnce after pressing y, got %v", decision)
-		}
-	case <-time.After(2 * time.Second):
-		t.Fatal("Respond never received a value after pressing y")
-	}
-
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
-	close(events)
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "approved: write_file")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
-	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+type imageCaptureBackend struct {
+	calls  int
+	images []llm.ImageContent
+	prompt string
 }
 
-func TestModel_ApprovalPromptShowsPreview(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
-
-	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
-	m.BindProgram(tm.GetProgram())
-
-	tm.Type("run a command")
-	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
-
-	respond := make(chan agentio.Decision, 1)
-	tm.Send(agentio.ApprovalRequest{
-		Tool:    "bash",
-		Input:   json.RawMessage(`{"command":"go test ./..."}`),
-		Preview: "$ go test ./...",
-		Respond: respond,
-	})
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "$ go test ./...") && contains(bts, "Allow bash?")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("n")})
-	<-respond
-
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
+func (b *imageCaptureBackend) Run(_ context.Context, prompt string, images []llm.ImageContent) (<-chan app.BackendEvent, error) {
+	b.calls++
+	b.prompt, b.images = prompt, images
+	events := make(chan app.BackendEvent, 1)
+	events <- app.BackendEvent{Done: true}
 	close(events)
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "ready")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
-	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
+	return events, nil
 }
-
-func TestModel_ApprovalPromptRespondsNoOnAnyOtherKey(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
-
-	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
-	m.BindProgram(tm.GetProgram())
-
-	tm.Type("run rm -rf")
-	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
-
-	respond := make(chan agentio.Decision, 1)
-	tm.Send(agentio.ApprovalRequest{
-		Tool:    "bash",
-		Input:   json.RawMessage(`{"command":"rm -rf /"}`),
-		Respond: respond,
-	})
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "Allow bash?")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
-
-	select {
-	case decision := <-respond:
-		if decision != agentio.DecisionDeny {
-			t.Fatalf("expected DecisionDeny after pressing enter on a pending prompt, got %v", decision)
-		}
-	case <-time.After(2 * time.Second):
-		t.Fatal("Respond never received a value")
-	}
-
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
-	close(events)
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "ready")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
-	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
-}
-
-func TestModel_ApprovalPromptRespondsAlwaysOnA(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
-
-	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
-	m.BindProgram(tm.GetProgram())
-
-	tm.Type("write a file")
-	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
-
-	respond := make(chan agentio.Decision, 1)
-	tm.Send(agentio.ApprovalRequest{
-		Tool:    "write_file",
-		Input:   json.RawMessage(`{"path":"x.txt"}`),
-		Respond: respond,
-	})
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "Allow write_file? [y]es / [a]lways / [n]o")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("a")})
-
-	select {
-	case decision := <-respond:
-		if decision != agentio.DecisionAlways {
-			t.Fatalf("expected DecisionAlways after pressing a, got %v", decision)
-		}
-	case <-time.After(2 * time.Second):
-		t.Fatal("Respond never received a value after pressing a")
-	}
-
-	events <- runtime.AgentEvent{Type: runtime.EventDone}
-	close(events)
-
-	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
-		return contains(bts, "always allowed: write_file")
-	}, teatest.WithDuration(2*time.Second))
-
-	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
-	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
-}
+func (*imageCaptureBackend) StopReason() string { return "" }
 
 // The two image-extraction tests below call startRun directly rather
 // than driving a real tea.Program: a temp-dir path (macOS's default
@@ -314,14 +121,15 @@ func TestModel_ImagePathInWorkspaceAttachedAndPlaceholderShown(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	runner := &fakeRunner{events: make(chan runtime.AgentEvent)}
-	m := NewModel(runner, dir)
-
-	m.startRun("look at " + imgPath)
-
-	images := runner.getLastImages()
+	backend := &imageCaptureBackend{}
+	m := applicationModel(t, app.New(backend, app.Options{MaxIterations: 1, InputTypes: []string{"text", "image"}}), dir)
+	driveApplication(t, m, m.startRun("look at "+imgPath))
+	images := backend.images
 	if len(images) != 1 {
 		t.Fatalf("Run was called with %d images, want 1", len(images))
+	}
+	if string(images[0].Data) != "fake png bytes" || backend.prompt != "look at "+imgPath || backend.calls != 1 {
+		t.Fatal("attachment or backend prompt changed", backend.prompt)
 	}
 	if images[0].MimeType != "image/png" {
 		t.Fatalf("MimeType = %q, want image/png", images[0].MimeType)
@@ -344,22 +152,23 @@ func TestModel_ImagePathOutsideWorkspaceNotAttached(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	runner := &fakeRunner{events: make(chan runtime.AgentEvent)}
-	m := NewModel(runner, workspace)
-
-	m.startRun("look at " + imgPath)
-
-	if images := runner.getLastImages(); images != nil {
+	backend := &imageCaptureBackend{}
+	m := applicationModel(t, app.New(backend, app.Options{MaxIterations: 1, InputTypes: []string{"text", "image"}}), workspace)
+	driveApplication(t, m, m.startRun("look at "+imgPath))
+	if images := backend.images; len(images) != 0 {
 		t.Fatalf("Run was called with %d images, want nil (path outside workspace)", len(images))
 	}
 
+	if backend.calls != 0 || backend.prompt != "" || m.running {
+		t.Fatal("outside attachment reached backend", backend.calls, backend.prompt)
+	}
 	transcript := strings.Join(m.transcript, "\n")
 	if !strings.Contains(transcript, imgPath) {
 		t.Fatalf("transcript = %q, want the raw path left unchanged", transcript)
 	}
 }
 
-// The usage tests below call handleAgentEvent/handleCommand directly
+// The usage tests below call renderApplicationEvent/handleCommand directly
 // rather than driving a real tea.Program, for the same reason the
 // slash-command dropdown tests in commands_test.go do: this is pure
 // state-handling logic with no goroutines involved, so a direct
@@ -371,10 +180,10 @@ func TestModel_ImagePathOutsideWorkspaceNotAttached(t *testing.T) {
 // must go through sanitizeForTerminal before rendering, not just the
 // summarized detail field next to it.
 func TestHandleAgentEvent_SanitizesToolNameOnToolCallStart(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 	malicious := "mcp__evil__\x1b]0;pwned\x07tool"
 
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: malicious}})
+	m.renderApplicationEvent(app.Event{Kind: "tool_call", Details: app.Details{ToolPresent: true, ToolName: malicious}})
 
 	if len(m.transcript) != 1 {
 		t.Fatalf("transcript = %v, want exactly one entry", m.transcript)
@@ -389,10 +198,10 @@ func TestHandleAgentEvent_SanitizesToolNameOnToolCallStart(t *testing.T) {
 // external content exactly like a successful Output is — summarizeToolResult
 // sanitizes Output, but the Error branch was rendering raw.
 func TestHandleAgentEvent_SanitizesToolResultError(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 	malicious := "command failed\x1b]52;c;ZXZpbA==\x07"
 
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolResult, Result: &tool.ToolResult{Error: malicious}})
+	m.renderApplicationEvent(app.Event{Kind: "tool_result", Details: app.Details{ResultPresent: true, ToolError: malicious}})
 
 	if len(m.transcript) != 1 {
 		t.Fatalf("transcript = %v, want exactly one entry", m.transcript)
@@ -406,20 +215,20 @@ func TestHandleAgentEvent_SanitizesToolResultError(t *testing.T) {
 }
 
 func TestHandleAgentEvent_EventDoneCapturesUsage(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 	usage := &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
 
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: usage})
+	m.renderApplicationEvent(app.Event{Kind: "usage", Details: app.Details{UsageKnown: true, InputTokens: usage.InputTokens, OutputTokens: usage.OutputTokens, CacheCreationInputTokens: usage.CacheCreationInputTokens, CacheReadInputTokens: usage.CacheReadInputTokens}})
 
-	if m.lastUsage != usage {
+	if m.lastUsage == nil || *m.lastUsage != *usage {
 		t.Fatalf("lastUsage = %v, want %v", m.lastUsage, usage)
 	}
 }
 
 func TestHandleAgentEvent_EventDoneWithNoUsageStaysNil(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone})
+	m.renderApplicationEvent(app.Event{Kind: "usage"})
 
 	if m.lastUsage != nil {
 		t.Fatalf("lastUsage = %v, want nil", m.lastUsage)
@@ -427,7 +236,7 @@ func TestHandleAgentEvent_EventDoneWithNoUsageStaysNil(t *testing.T) {
 }
 
 func TestRunUsageCommand_NoUsageYet(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 
 	m.handleCommand("/usage")
 
@@ -437,7 +246,7 @@ func TestRunUsageCommand_NoUsageYet(t *testing.T) {
 }
 
 func TestRunUsageCommand_WithUsage(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.lastUsage = &llm.Usage{InputTokens: 100, OutputTokens: 20, CacheCreationInputTokens: 5, CacheReadInputTokens: 3}
 
 	m.handleCommand("/usage")
@@ -450,23 +259,23 @@ func TestRunUsageCommand_WithUsage(t *testing.T) {
 
 // Regression: the status line must always show a context/token gauge
 // (not just when running, and not just via /usage) — driven directly
-// via handleAgentEvent, same rationale as the tests above.
+// via renderApplicationEvent, same rationale as the tests above.
 
 func TestStatusLine_ShowsContextGaugeWhenIdleWithNoTurnsYet(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.setModel("anthropic/claude-sonnet-5")
 
 	got := m.statusLine()
 	if !strings.Contains(got, "ready") {
 		t.Fatalf("statusLine() = %q, want it to contain \"ready\" while idle", got)
 	}
-	if !strings.Contains(got, "ctx 0/200k (0%)") {
-		t.Fatalf("statusLine() = %q, want a ctx gauge showing 0 used before any turn completes", got)
+	if !strings.Contains(got, "ctx unknown") {
+		t.Fatalf("statusLine() = %q, want context explicitly unknown before a request reports usage", got)
 	}
 }
 
 func TestStatusLine_ShowsLiveElapsedTimeWhileRunning(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.running = true
 	m.turnStart = time.Now().Add(-3 * time.Second)
 
@@ -485,10 +294,10 @@ func TestStatusLine_ShowsLiveElapsedTimeWhileRunning(t *testing.T) {
 // EventDone) — which reads as a hung UI. The tool-call count is
 // concrete, immediately-available evidence that something is happening.
 func TestStatusLine_ShowsToolCallCountWhileRunning(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 	m.running = true
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: "bash"}})
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventToolCallStart, ToolCall: &llm.ToolCall{Name: "bash"}})
+	m.renderApplicationEvent(app.Event{Kind: "tool_call", Details: app.Details{ToolPresent: true, ToolName: "bash"}})
+	m.renderApplicationEvent(app.Event{Kind: "tool_call", Details: app.Details{ToolPresent: true, ToolName: "bash"}})
 
 	got := m.statusLine()
 	if !strings.Contains(got, "2 tool calls") {
@@ -497,7 +306,7 @@ func TestStatusLine_ShowsToolCallCountWhileRunning(t *testing.T) {
 }
 
 func TestStatusLine_OmitsToolCallCountBeforeAnyToolCall(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.running = true
 
 	if got := m.statusLine(); strings.Contains(got, "tool call") {
@@ -506,12 +315,15 @@ func TestStatusLine_OmitsToolCallCountBeforeAnyToolCall(t *testing.T) {
 }
 
 func TestStartRun_ResetsToolCallCount(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
+	events := make(chan app.BackendEvent, 4)
+	m := applicationModel(t, app.New(applicationBackend{run: func(context.Context, string) (<-chan app.BackendEvent, error) { return events, nil }}, app.Options{MaxIterations: 1}), t.TempDir())
+	defer m.CloseApplication()
 	m.toolCallsThisTurn = 5
 
-	m.startRun("go again")
+	cmd := m.startRun("go again")
+	events <- app.BackendEvent{Done: true}
+	close(events)
+	driveApplication(t, m, cmd)
 
 	if m.toolCallsThisTurn != 0 {
 		t.Fatalf("toolCallsThisTurn = %d after startRun, want reset to 0", m.toolCallsThisTurn)
@@ -524,7 +336,7 @@ func TestStartRun_ResetsToolCallCount(t *testing.T) {
 // keys to the viewport at all, so there was no way to scroll back
 // through earlier output.
 func TestHandleKey_ScrollsViewportIndependentlyOfTextarea(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.resize(80, 24)
 	lines := make([]string, 200)
 	for i := range lines {
@@ -554,7 +366,7 @@ func TestHandleKey_ScrollsViewportIndependentlyOfTextarea(t *testing.T) {
 // asserted their direction specifically — a copy-paste slip (e.g.
 // ctrl+u wired to HalfPageDown) would pass every other scroll test.
 func TestHandleKey_PgDownAndCtrlUScrollCorrectDirections(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.resize(80, 24)
 	lines := make([]string, 200)
 	for i := range lines {
@@ -583,7 +395,7 @@ func TestHandleKey_PgDownAndCtrlUScrollCorrectDirections(t *testing.T) {
 // silently deny the tool call — exactly the moment a user most wants to
 // scroll back through a long diff or command preview before deciding.
 func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m, cmd, returned, release := pendingServiceApproval(t)
 	m.resize(80, 24)
 	lines := make([]string, 200)
 	for i := range lines {
@@ -591,9 +403,6 @@ func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
 	}
 	m.transcript = lines
 	m.refreshViewport()
-
-	respond := make(chan agentio.Decision, 1)
-	m.pending = &agentio.ApprovalRequest{Tool: "bash", Respond: respond}
 
 	for _, key := range []tea.KeyMsg{{Type: tea.KeyPgUp}, {Type: tea.KeyPgDown}, {Type: tea.KeyCtrlU}, {Type: tea.KeyCtrlD}} {
 		m.handleKey(key)
@@ -603,10 +412,13 @@ func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
 		t.Fatal("scrolling while an approval is pending must not resolve it")
 	}
 	select {
-	case d := <-respond:
-		t.Fatalf("scrolling sent a decision (%v) on the approval's Respond channel, want none", d)
+	case <-returned:
+		t.Fatal("scrolling resolved the live approval")
 	default:
 	}
+	m.handleKey(tea.KeyMsg{Type: tea.KeyCtrlC})
+	release()
+	driveApplication(t, m, cmd)
 }
 
 // Regression: refreshViewport used to call GotoBottom() unconditionally
@@ -614,7 +426,7 @@ func TestHandleKey_ScrollDuringPendingApprovalDoesNotRespond(t *testing.T) {
 // delta, a tool result) it yanked the view back down even if the user
 // had just scrolled up to reread something.
 func TestRefreshViewport_PreservesManualScrollPosition(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.resize(80, 24)
 	lines := make([]string, 200)
 	for i := range lines {
@@ -637,7 +449,7 @@ func TestRefreshViewport_PreservesManualScrollPosition(t *testing.T) {
 }
 
 func TestRefreshViewport_StillFollowsBottomWhenAlreadyThere(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.resize(80, 24)
 	m.transcript = []string{"line 1"}
 	m.refreshViewport()
@@ -651,10 +463,10 @@ func TestRefreshViewport_StillFollowsBottomWhenAlreadyThere(t *testing.T) {
 }
 
 func TestHandleAgentEvent_EventDoneAccumulatesSessionUsage(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: &llm.Usage{InputTokens: 100, OutputTokens: 10}})
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventDone, Usage: &llm.Usage{InputTokens: 50, OutputTokens: 5}})
+	m.renderApplicationEvent(app.Event{Kind: "usage", Details: app.Details{UsageKnown: true, InputTokens: 100, OutputTokens: 10}})
+	m.renderApplicationEvent(app.Event{Kind: "usage", Details: app.Details{UsageKnown: true, InputTokens: 50, OutputTokens: 5}})
 
 	want := llm.Usage{InputTokens: 150, OutputTokens: 15}
 	if m.sessionUsage != want {
@@ -667,9 +479,9 @@ func TestHandleAgentEvent_EventDoneAccumulatesSessionUsage(t *testing.T) {
 }
 
 func TestModel_RunEndedMsgFreezesLastTurnDuration(t *testing.T) {
-	events := make(chan runtime.AgentEvent, 4)
-	runner := &fakeRunner{events: events}
-	m := NewModel(runner, t.TempDir())
+	events := make(chan app.BackendEvent, 4)
+	m := applicationModel(t, app.New(applicationBackend{run: func(context.Context, string) (<-chan app.BackendEvent, error) { return events, nil }}, app.Options{MaxIterations: 1}), t.TempDir())
+	defer m.CloseApplication()
 
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(80, 24))
 	m.BindProgram(tm.GetProgram())
@@ -677,7 +489,7 @@ func TestModel_RunEndedMsgFreezesLastTurnDuration(t *testing.T) {
 	tm.Type("hello")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
 
-	events <- runtime.AgentEvent{Type: runtime.EventDone, Usage: &llm.Usage{InputTokens: 10, OutputTokens: 2}}
+	events <- app.BackendEvent{Kind: "usage", Done: true, Details: app.Details{UsageKnown: true, InputTokens: 10, OutputTokens: 2}}
 	close(events)
 
 	teatest.WaitFor(t, tm.Output(), func(bts []byte) bool {
@@ -689,7 +501,7 @@ func TestModel_RunEndedMsgFreezesLastTurnDuration(t *testing.T) {
 }
 
 func TestUsageLine_ShowsLiveTurnEstimateWhileRunning(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.running = true
 	m.streamBuf.WriteString(strings.Repeat("a", 400)) // 400/4 = 100 estimated tokens
 
@@ -700,7 +512,7 @@ func TestUsageLine_ShowsLiveTurnEstimateWhileRunning(t *testing.T) {
 }
 
 func TestUsageLine_ShowsCompletedTurnTotalWhenIdle(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.lastUsage = &llm.Usage{InputTokens: 100, OutputTokens: 20}
 
 	got := m.usageLine()
@@ -716,7 +528,7 @@ func TestUsageLine_ShowsCompletedTurnTotalWhenIdle(t *testing.T) {
 // bugs came from. The status line stays put, so it's where this needs
 // to live.
 func TestUsageLine_ShowsActiveModel(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.setModel("openrouter/anthropic/claude-sonnet-5")
 
 	got := m.usageLine()
@@ -730,9 +542,9 @@ func TestUsageLine_ShowsActiveModel(t *testing.T) {
 // signal that harness's automatic preventive compaction (or a manual
 // /compact) is worth watching for.
 func TestContextSummary_UsesAlertStyleAboveThreshold(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.setModel("anthropic/claude-sonnet-5") // 200k window
-	m.lastUsage = &llm.Usage{InputTokens: 190_000}
+	m.lastRequestUsage = &llm.Usage{InputTokens: 190_000}
 
 	got := m.contextSummary()
 	want := statusAlertStyle.Render(fmt.Sprintf("ctx %s/%s (%.0f%%)", formatTokenCount(190_000), formatTokenCount(200_000), 95.0))
@@ -742,9 +554,9 @@ func TestContextSummary_UsesAlertStyleAboveThreshold(t *testing.T) {
 }
 
 func TestContextSummary_UsesIdleStyleBelowThreshold(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.setModel("anthropic/claude-sonnet-5") // 200k window
-	m.lastUsage = &llm.Usage{InputTokens: 10_000}
+	m.lastRequestUsage = &llm.Usage{InputTokens: 10_000}
 
 	got := m.contextSummary()
 	want := statusIdleStyle.Render(fmt.Sprintf("ctx %s/%s (%.0f%%)", formatTokenCount(10_000), formatTokenCount(200_000), 5.0))
@@ -763,8 +575,8 @@ func TestContextSummary_UsesIdleStyleBelowThreshold(t *testing.T) {
 // Ctrl+C worked) for a real stretch of wall-clock time. See
 // refreshViewport's own comment for the full account.
 func TestModel_LiveStreamStaysPlainUntilFlush(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "some **bold** text"})
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
+	m.renderApplicationEvent(app.Event{Kind: "text", Text: "some **bold** text"})
 	m.refreshViewport()
 
 	content := m.viewport.View()
@@ -788,7 +600,7 @@ func TestModel_LiveStreamStaysPlainUntilFlush(t *testing.T) {
 // (standing in for 400 deltas of one long response, ending around 20KB)
 // and checks the running total, not just one call in isolation.
 func TestRefreshViewport_StaysFastAcrossALongGrowingStream(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.resize(80, 24)
 
 	start := time.Now()
@@ -797,13 +609,16 @@ func TestRefreshViewport_StaysFastAcrossALongGrowingStream(t *testing.T) {
 		m.refreshViewport()
 	}
 	elapsed := time.Since(start)
-	if elapsed > time.Second {
-		t.Fatalf("400 refreshViewport calls across a growing ~20KB stream took %v, want well under 1s — something whose cost compounds with delta count (e.g. a Markdown render) was reintroduced into this hot path", elapsed)
+	// The full qualification suite runs this under the race detector with
+	// repository-wide atomic coverage. Leave enough headroom for shared CI
+	// runners while retaining a low upper bound for a 400-delta response.
+	if elapsed > 5*time.Second {
+		t.Fatalf("400 refreshViewport calls across a growing ~20KB stream took %v, want under 5s under race and coverage instrumentation — something whose cost compounds with delta count (e.g. a Markdown render) was reintroduced into this hot path", elapsed)
 	}
 }
 
 func TestRunModelCommand_RefreshesContextWindowOnSwitch(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	m.setModel("anthropic/claude-sonnet-5")
 	// Same provider ("anthropic") on both sides so this doesn't need a
 	// BuildProvider — SwitchModel only rebuilds the LLM client when the
@@ -823,165 +638,22 @@ func TestRunModelCommand_RefreshesContextWindowOnSwitch(t *testing.T) {
 }
 
 func TestNewModel_DefaultsMarkdownStyleToConfigDefault(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := NewModel(nil, t.TempDir())
 	if m.markdownStyle != config.DefaultMarkdownStyle {
 		t.Fatalf("markdownStyle = %q, want the config default %q", m.markdownStyle, config.DefaultMarkdownStyle)
 	}
 }
 
 func TestSetMarkdownStyle_AffectsFlushedRendering(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
+	m := applicationModel(t, app.New(nil, app.Options{}), t.TempDir())
 	m.SetMarkdownStyle("light")
 
-	m.handleAgentEvent(runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "some **bold** text"})
+	m.renderApplicationEvent(app.Event{Kind: "text", Text: "some **bold** text"})
 	m.flushStream()
 
 	want := renderMarkdown("some **bold** text", m.termWidth, "light")
 	if len(m.transcript) != 1 || m.transcript[0] != want {
 		t.Fatalf("transcript = %v, want a single entry rendered with the \"light\" style: %q", m.transcript, want)
-	}
-}
-
-func TestMaybeContinueGoalLoop_NoHooksConfigured(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	m.goalIteration = 1
-
-	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
-		t.Fatal("with no goal hooks configured, maybeContinueGoalLoop should return nil")
-	}
-}
-
-func TestMaybeContinueGoalLoop_SkipsOnTurnErrored(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	var reason string
-	m.SetGoalLoop([]config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 2"}},
-	}, &reason, 10)
-	m.goalIteration = 1
-	m.turnErrored = true
-
-	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
-		t.Fatal("an errored turn must never be second-guessed by an automatic continuation")
-	}
-}
-
-func TestMaybeContinueGoalLoop_SkipsOnGoalCancelled(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	var reason string
-	m.SetGoalLoop([]config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 2"}},
-	}, &reason, 10)
-	m.goalIteration = 1
-	m.goalCancelled = true
-
-	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
-		t.Fatal("a user-cancelled turn must never be second-guessed by an automatic continuation")
-	}
-}
-
-func TestMaybeContinueGoalLoop_StopsAtIterationCap(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	var reason string
-	m.SetGoalLoop([]config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 2"}},
-	}, &reason, 2)
-	m.goalIteration = 2
-
-	if cmd := m.maybeContinueGoalLoop(); cmd != nil {
-		t.Fatal("reaching the iteration cap should return nil, not another check")
-	}
-	if len(m.transcript) == 0 || !strings.Contains(m.transcript[len(m.transcript)-1], "reached the 2-iteration cap") {
-		t.Fatalf("transcript = %v, want a line noting the cap was reached", m.transcript)
-	}
-}
-
-func TestMaybeContinueGoalLoop_ReturnsCmdThatEvaluatesTheConfiguredHook(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	var reason string
-	m.SetGoalLoop([]config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "echo 'next step'; exit 2"}},
-	}, &reason, 10)
-	m.goalIteration = 1
-
-	cmd := m.maybeContinueGoalLoop()
-	if cmd == nil {
-		t.Fatal("with hooks configured, below the cap, and no error/cancel, maybeContinueGoalLoop should return a Cmd")
-	}
-	msg, ok := cmd().(goalLoopResultMsg)
-	if !ok {
-		t.Fatalf("cmd() = %T, want goalLoopResultMsg", cmd())
-	}
-	if !msg.outcome.Continue || msg.outcome.NextPrompt != "next step" {
-		t.Fatalf("outcome = %+v, want Continue=true and NextPrompt from the hook's stdout", msg.outcome)
-	}
-}
-
-func TestStartAutoContinue_IncrementsIterationAndUsesDistinctTranscriptLine(t *testing.T) {
-	runner := &fakeRunner{}
-	m := NewModel(runner, t.TempDir())
-	m.goalIteration = 1
-	m.goalMaxIterations = 5
-
-	m.startAutoContinue("next step")
-
-	if m.goalIteration != 2 {
-		t.Fatalf("goalIteration = %d, want 2", m.goalIteration)
-	}
-	last := m.transcript[len(m.transcript)-1]
-	if strings.Contains(last, "> next step") {
-		t.Fatal("an auto-continued turn must not be rendered like user-typed input")
-	}
-	if !strings.Contains(last, "goal loop 2/5") || !strings.Contains(last, "next step") {
-		t.Fatalf("transcript line = %q, want it to name the iteration and the next prompt", last)
-	}
-	if runner.getLastMsg() != "next step" {
-		t.Fatalf("Run() was called with %q, want %q", runner.getLastMsg(), "next step")
-	}
-}
-
-func TestUpdate_RunEndedMsg_DispatchesGoalLoopCheckWhenHooksConfigured(t *testing.T) {
-	m := NewModel(&fakeRunner{}, t.TempDir())
-	var reason string
-	m.SetGoalLoop([]config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 0"}},
-	}, &reason, 10)
-	m.goalIteration = 1
-	m.turnStart = time.Now()
-
-	_, cmd := m.Update(runEndedMsg{})
-	if cmd == nil {
-		t.Fatal("runEndedMsg should dispatch a goal-loop check when Stop hooks are configured")
-	}
-}
-
-func TestUpdate_GoalLoopResultMsg_ContinuesWhenOutcomeSaysSo(t *testing.T) {
-	runner := &fakeRunner{}
-	m := NewModel(runner, t.TempDir())
-	m.goalIteration = 1
-	m.goalMaxIterations = 10
-
-	m.Update(goalLoopResultMsg{outcome: agentio.GoalLoopOutcome{Continue: true, NextPrompt: "keep going"}})
-
-	if m.goalIteration != 2 {
-		t.Fatalf("goalIteration = %d, want 2 (startAutoContinue should have run)", m.goalIteration)
-	}
-	if runner.getLastMsg() != "keep going" {
-		t.Fatalf("Run() was called with %q, want %q", runner.getLastMsg(), "keep going")
-	}
-}
-
-func TestUpdate_GoalLoopResultMsg_NoOpWhenOutcomeSaysDone(t *testing.T) {
-	runner := &fakeRunner{}
-	m := NewModel(runner, t.TempDir())
-	m.goalIteration = 1
-
-	m.Update(goalLoopResultMsg{outcome: agentio.GoalLoopOutcome{Continue: false}})
-
-	if m.goalIteration != 1 {
-		t.Fatalf("goalIteration = %d, want unchanged at 1", m.goalIteration)
-	}
-	if runner.getLastMsg() != "" {
-		t.Fatal("Run() should not have been called when the outcome says done")
 	}
 }
 

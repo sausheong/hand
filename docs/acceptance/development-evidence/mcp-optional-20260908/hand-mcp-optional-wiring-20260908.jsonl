@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T10:57:13.108531+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/config"}
+{"Time":"2026-09-08T10:57:13.601599+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T10:57:13.636588+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/config","Test":"TestOptionalMCPConfiguration"}
+{"Time":"2026-09-08T10:57:13.636627+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestOptionalMCPConfiguration","Output":"=== RUN   TestOptionalMCPConfiguration\n"}
+{"Time":"2026-09-08T10:57:13.636787+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Test":"TestOptionalMCPConfiguration","Output":"--- PASS: TestOptionalMCPConfiguration (0.00s)\n"}
+{"Time":"2026-09-08T10:57:13.636798+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/config","Test":"TestOptionalMCPConfiguration","Elapsed":0}
+{"Time":"2026-09-08T10:57:13.636807+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Output":"PASS\n"}
+{"Time":"2026-09-08T10:57:14.273355+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestMCPStartupStatusVisible"}
+{"Time":"2026-09-08T10:57:14.273406+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestMCPStartupStatusVisible","Output":"=== RUN   TestMCPStartupStatusVisible\n"}
+{"Time":"2026-09-08T10:57:14.274609+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestMCPStartupStatusVisible","Output":"--- PASS: TestMCPStartupStatusVisible (0.00s)\n"}
+{"Time":"2026-09-08T10:57:14.274627+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestMCPStartupStatusVisible","Elapsed":0}
+{"Time":"2026-09-08T10:57:14.275024+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T10:57:14.650985+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/config","Output":"ok  \tgithub.com/sausheong/hand/internal/config\t1.542s\n"}
+{"Time":"2026-09-08T10:57:14.651133+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/config","Elapsed":1.5430000000000001}
+{"Time":"2026-09-08T10:57:15.283831+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.682s\n"}
+{"Time":"2026-09-08T10:57:15.283986+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.682}

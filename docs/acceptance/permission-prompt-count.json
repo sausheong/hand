@@ -1,0 +1,77 @@
+{
+  "status": "development_passed",
+  "requirement": "M5.1",
+  "scenario": "routine_work_prompt_count",
+  "platforms": [
+    "macos/arm64 native",
+    "linux/arm64 container"
+  ],
+  "routine_operations": 4,
+  "routine_prompts": 2,
+  "broader_operations": 4,
+  "broader_prompts": 4,
+  "policy": "Explicit always decisions create exact file-write and shell-command persistent grants; same scopes reused, broader scopes denied",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/check_permission_prompts.py.txt",
+      "sha256": "6fefca53be8bc26aef331958134b994c91ac138b1e5daad01774be0f6e20cb34"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/check_rpc_client.py.txt",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/container/container.json",
+      "sha256": "030bc63e48cc9ee6bbe426f8c81dcc2394a3245f7abafa483ad9c7bc65a216ba"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/container/container.log",
+      "sha256": "a16c5f2893884b82e9f8e57449de7ddfc1709f255752a0c1fc0b310d75f77121"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/linux/external-private.txt",
+      "sha256": "f3a095e90e985f857973440882832f2482d23cb8d1695465f47b43a20ab84136"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/linux/prompts.json",
+      "sha256": "196974f44175d65a3b673f79727d176bad0467fe58105afb63fba25d7a80f09b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/linux/prompts.stderr",
+      "sha256": "ed456d83270077650dcec7d5cc469933e8d0d56d108c6a734b8f68f202e593f8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/linux/provider-requests.json",
+      "sha256": "327ea09d8878028428572deb917b9622ee8e73ba6228aee11948a2e2bd911b26"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/linux/run.json",
+      "sha256": "368a68644c5c055ecad333f770038175571d6f31f1ec574ecd44b3ec2f7c0cd3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/macos/external-private.txt",
+      "sha256": "f3a095e90e985f857973440882832f2482d23cb8d1695465f47b43a20ab84136"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/macos/prompts.json",
+      "sha256": "2f88bb6da5bf17fd7491f4f79e612da7baa8df7bc7a7df19b7aa26ab6fe3f8c4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/macos/prompts.stderr",
+      "sha256": "91289778a75ee4e4f356c02dec811ae864dc5723f416a29bad475d9f5b871c8e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/macos/provider-requests.json",
+      "sha256": "210e6a4acfda745c4d665175e479673cb252cb4d9e9c7970423dd07c7b2539b4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/permission-prompts-20260909/macos/run.json",
+      "sha256": "0abbdd8d29a4d58ce036f749ef199a63b7f8dac047140e4de825dd0d492da1b1"
+    }
+  ],
+  "limitations": [
+    "Deterministic local provider; small representative fixture, not user-study evidence",
+    "Unrestricted host shell grants do not sandbox arbitrary code executed by an approved command",
+    "Final source-bound clean candidate and released Harness qualification pending"
+  ]
+}

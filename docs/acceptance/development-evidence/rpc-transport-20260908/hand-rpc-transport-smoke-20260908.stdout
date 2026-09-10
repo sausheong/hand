@@ -1,0 +1,1 @@
+{"version":1,"request_id":"hello-1","result":{"max_frame_bytes":1048576,"methods":["hello","state","prompt","cancel","events.poll","request.get"],"retained_bytes":2097152,"retained_events":256,"version":1}}

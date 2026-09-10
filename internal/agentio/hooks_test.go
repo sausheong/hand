@@ -53,7 +53,7 @@ func TestBuildLifecycleHooks_PreToolUse_DeniesOnExitTwoWithStderrAndEnv(t *testi
 
 func TestBuildLifecycleHooks_PreToolUse_FailsOpenOnOtherNonzeroExit(t *testing.T) {
 	hooks := []config.HookConfig{
-		{Event: "PreToolUse", Command: "sh", Args: []string{"-c", "exit 1"}},
+		{Event: "PreToolUse", FailurePolicy: "warn", Command: "sh", Args: []string{"-c", "exit 1"}},
 	}
 	lc := agentio.BuildLifecycleHooks(hooks, "/tmp/work", alwaysAllow, nil)
 
@@ -116,7 +116,7 @@ func TestBuildLifecycleHooks_PreToolUse_FallsThroughToApprovalHookWhenNotDenied(
 
 func TestBuildLifecycleHooks_PreToolUse_TimeoutFailsOpen(t *testing.T) {
 	hooks := []config.HookConfig{
-		{Event: "PreToolUse", Command: "sh", Args: []string{"-c", "sleep 5"}, Timeout: 1},
+		{Event: "PreToolUse", FailurePolicy: "warn", Command: "sh", Args: []string{"-c", "exec sleep 5"}, Timeout: 1},
 	}
 	lc := agentio.BuildLifecycleHooks(hooks, "/tmp/work", alwaysAllow, nil)
 
@@ -162,7 +162,7 @@ func TestBuildLifecycleHooks_UserPromptSubmit_ExitZeroPassesThroughUnchanged(t *
 func TestBuildLifecycleHooks_AfterToolUse_RunsRegardlessOfExitCode(t *testing.T) {
 	outFile := filepath.Join(t.TempDir(), "posttooluse.out")
 	hooks := []config.HookConfig{
-		{Event: "PostToolUse", Command: "sh", Args: []string{"-c", `echo "$HAND_TOOL_NAME $HAND_TOOL_RESULT" > "` + outFile + `"; exit 1`}},
+		{Event: "PostToolUse", LegacyEnv: true, Command: "sh", Args: []string{"-c", `echo "$HAND_TOOL_NAME $HAND_TOOL_RESULT" > "` + outFile + `"; exit 1`}},
 	}
 	lc := agentio.BuildLifecycleHooks(hooks, "/tmp/work", alwaysAllow, nil)
 
@@ -294,14 +294,14 @@ func TestEvaluateStopHooks_FirstAllowingHookDefersToNext(t *testing.T) {
 
 func TestEvaluateStopHooks_FailsOpenOnOtherExitOrTimeout(t *testing.T) {
 	other := []config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "exit 1"}},
+		{Event: "Stop", FailurePolicy: "warn", Command: "sh", Args: []string{"-c", "exit 1"}},
 	}
 	if outcome := agentio.EvaluateStopHooks(context.Background(), other, "/tmp/work", "completed", 1); outcome.Continue {
 		t.Fatal("a non-2 nonzero exit should fail open (Continue=false)")
 	}
 
 	timeout := []config.HookConfig{
-		{Event: "Stop", Command: "sh", Args: []string{"-c", "sleep 5"}, Timeout: 1},
+		{Event: "Stop", FailurePolicy: "warn", Command: "sh", Args: []string{"-c", "exec sleep 5"}, Timeout: 1},
 	}
 	if outcome := agentio.EvaluateStopHooks(context.Background(), timeout, "/tmp/work", "completed", 1); outcome.Continue {
 		t.Fatal("a timed-out hook should fail open (Continue=false)")

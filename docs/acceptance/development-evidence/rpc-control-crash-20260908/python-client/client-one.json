@@ -1,0 +1,564 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 999,
+      "id": "version",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "",
+      "error": {
+        "code": "unsupported_version",
+        "message": "supported protocol version is 1"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approval-run",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-approve"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approval-run",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "cdba38b9152bd797736b52503a5d9c31ed524e4836e03d298ce54e013c764ea9",
+        "session_id": "ses_04f84af525574578",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "OFWG5ITRZEBLXXSJQUXMSBN23R:3",
+            "sequence": 3,
+            "session_id": "ses_04f84af525574578",
+            "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+            "request_id": "approval-run",
+            "timestamp": "2026-09-08T04:38:41.954287Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "YS7PWZRK3I63BMSLIMZ6KYO6RO",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Path: approved.txt\n@@ -0,0 +1 @@\n+ approved once\n\\ No newline at end of file",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"approved.txt\", \"content\": \"approved once\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "steer",
+      "method": "steer",
+      "params": {
+        "text": "steer note from Python"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "steer",
+      "result": {
+        "ID": "C2F6I6Q2FJDZEXRPIRUSPRWHNT",
+        "SessionID": "ses_04f84af525574578",
+        "Queue": "steering",
+        "Text": "steer note from Python",
+        "Claimed": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "queue",
+      "method": "followup.enqueue",
+      "params": {
+        "text": "queued Python follow-up"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "queue",
+      "result": {
+        "ID": "FQ2ZZAXJPZ6734YU2V5JD2ULRC",
+        "SessionID": "ses_04f84af525574578",
+        "Queue": "followup",
+        "Text": "queued Python follow-up",
+        "Claimed": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approve",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "approval_id": "YS7PWZRK3I63BMSLIMZ6KYO6RO",
+        "decision": "once"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approve",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "cdba38b9152bd797736b52503a5d9c31ed524e4836e03d298ce54e013c764ea9",
+        "session_id": "ses_04f84af525574578",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "cdba38b9152bd797736b52503a5d9c31ed524e4836e03d298ce54e013c764ea9",
+        "session_id": "ses_04f84af525574578",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "cdba38b9152bd797736b52503a5d9c31ed524e4836e03d298ce54e013c764ea9",
+        "session_id": "ses_04f84af525574578",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "cdba38b9152bd797736b52503a5d9c31ed524e4836e03d298ce54e013c764ea9",
+        "session_id": "ses_04f84af525574578",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "OFWG5ITRZEBLXXSJQUXMSBN23R:12",
+          "sequence": 12,
+          "session_id": "ses_04f84af525574578",
+          "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T04:38:42.023166Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approval-run",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-approve"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approval-run",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "cdba38b9152bd797736b52503a5d9c31ed524e4836e03d298ce54e013c764ea9",
+        "session_id": "ses_04f84af525574578",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "OFWG5ITRZEBLXXSJQUXMSBN23R:12",
+          "sequence": 12,
+          "session_id": "ses_04f84af525574578",
+          "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T04:38:42.023166Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "remove",
+      "method": "queue.remove",
+      "params": {
+        "id": "FQ2ZZAXJPZ6734YU2V5JD2ULRC"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "remove",
+      "result": {
+        "removed": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-0",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-0",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_740830709fdd5fcf"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang-0",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang-0",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "840b501cdeee879d225f08e0b4b49dc353942108466f9f153a55af54ae8f8523",
+        "session_id": "ses_740830709fdd5fcf",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "840b501cdeee879d225f08e0b4b49dc353942108466f9f153a55af54ae8f8523",
+        "session_id": "ses_740830709fdd5fcf",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "840b501cdeee879d225f08e0b4b49dc353942108466f9f153a55af54ae8f8523",
+        "session_id": "ses_740830709fdd5fcf",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "SEVLJP73NBQPDU2MFNS4HRV2HS:17",
+          "sequence": 17,
+          "session_id": "ses_740830709fdd5fcf",
+          "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:2",
+          "request_id": "hang-0",
+          "timestamp": "2026-09-08T04:38:42.12311Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-1",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-1",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_62a68b133aab8853"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang-1",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang-1",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "f2593cc4c6d2253742f49f0e654b57e23c7402fc018655d0e917733549431af8",
+        "session_id": "ses_62a68b133aab8853",
+        "run_id": "RWLIOE5TJ54HTMGIDJARV274YF:3",
+        "state": "accepted"
+      }
+    }
+  }
+]

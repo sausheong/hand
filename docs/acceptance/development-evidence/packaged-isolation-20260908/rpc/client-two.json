@@ -1,0 +1,150 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "container: workspace writable=true; network=false; other host paths unmounted; model-provider requests remain on host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "c7cc757144a7d6d9ba176693331624e0f958a62486be4bf4f68c9fd480286479",
+        "session_id": "ses_e85737e64ba4b660",
+        "run_id": "7U45VHJ4OTOMZW4XHWFUT6B6XQ:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "QDXJHYRROJ3VWSYAEEMBIBQ5NB:21",
+          "sequence": 21,
+          "session_id": "ses_e85737e64ba4b660",
+          "run_id": "7U45VHJ4OTOMZW4XHWFUT6B6XQ:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T06:29:24.798484Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "351541f04293f2dbab7616359bec7efc20ff9cadfa0fe0d3684bc1a15272ce34",
+        "session_id": "ses_e7e22bded03f6ba8",
+        "run_id": "7U45VHJ4OTOMZW4XHWFUT6B6XQ:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "FO6SM42XVR43CIFOBTYBBE6PSK:12",
+          "sequence": 12,
+          "session_id": "ses_e7e22bded03f6ba8",
+          "run_id": "7U45VHJ4OTOMZW4XHWFUT6B6XQ:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T06:29:24.637446Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

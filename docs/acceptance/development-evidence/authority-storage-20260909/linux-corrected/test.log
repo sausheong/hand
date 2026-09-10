@@ -1,0 +1,113 @@
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/future-version
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/grant-and-revoke
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/unknown-revocation
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/ephemeral-grant-on-disk
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/project-provenance
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/foreign-workspace
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/foreign-configuration
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/lifetime-substitution
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/relative-resource
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/noncanonical-resource
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/broad-tool-without-acknowledgement
+=== RUN   TestAuthorityCorruptReplayNeverPublishesPartialGrants/nonfilesystem-tree
+--- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/future-version (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/grant-and-revoke (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/unknown-revocation (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/ephemeral-grant-on-disk (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/project-provenance (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/foreign-workspace (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/foreign-configuration (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/lifetime-substitution (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/relative-resource (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/noncanonical-resource (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/broad-tool-without-acknowledgement (0.00s)
+    --- PASS: TestAuthorityCorruptReplayNeverPublishesPartialGrants/nonfilesystem-tree (0.00s)
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/duplicate-version
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/version-alias
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/scope-escalation
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/escaped-scope-duplicate
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/scope-alias
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/null-session
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/missing-session
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/null-revoke
+=== RUN   TestAuthorityRejectsAmbiguousJournalFields/unknown-field
+--- PASS: TestAuthorityRejectsAmbiguousJournalFields (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/duplicate-version (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/version-alias (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/scope-escalation (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/escaped-scope-duplicate (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/scope-alias (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/null-session (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/missing-session (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/null-revoke (0.00s)
+    --- PASS: TestAuthorityRejectsAmbiguousJournalFields/unknown-field (0.00s)
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/public-directory
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/public-file
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/symlink
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/directory-file
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/oversized-file
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/oversized-record
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/trailing-json
+=== RUN   TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/malformed-json
+--- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence (0.02s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/public-directory (0.00s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/public-file (0.00s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/symlink (0.00s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/directory-file (0.00s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/oversized-file (0.02s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/oversized-record (0.00s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/trailing-json (0.00s)
+    --- PASS: TestAuthorityRejectsUnsafeStorageWithoutChangingEvidence/malformed-json (0.00s)
+=== RUN   TestAuthorityPersistRevokeAndExclusiveOwnership
+--- PASS: TestAuthorityPersistRevokeAndExclusiveOwnership (0.00s)
+=== RUN   TestAuthorityRejectsProjectStorageAndTruncation
+--- PASS: TestAuthorityRejectsProjectStorageAndTruncation (0.00s)
+=== RUN   TestAuthorityChangedResourceRequiresReapproval
+--- PASS: TestAuthorityChangedResourceRequiresReapproval (0.00s)
+=== RUN   TestAuthorityPersistenceFailureDoesNotGrant
+--- PASS: TestAuthorityPersistenceFailureDoesNotGrant (0.00s)
+=== RUN   TestAuthorityRevokedResourceDoesNotBlockReopen
+--- PASS: TestAuthorityRevokedResourceDoesNotBlockReopen (0.00s)
+=== RUN   TestLegacyMigrationRequiresExactAcknowledgement
+--- PASS: TestLegacyMigrationRequiresExactAcknowledgement (0.00s)
+=== RUN   TestBroadToolGrantCannotUseOrdinaryProvenance
+--- PASS: TestBroadToolGrantCannotUseOrdinaryProvenance (0.00s)
+=== RUN   TestScopedGrantLifetimeConfigAndRevocation
+--- PASS: TestScopedGrantLifetimeConfigAndRevocation (0.00s)
+=== RUN   TestScopedGrantSymlinkAndPrefixEscape
+--- PASS: TestScopedGrantSymlinkAndPrefixEscape (0.00s)
+=== RUN   TestScopedCommandAndMCPExactIdentity
+--- PASS: TestScopedCommandAndMCPExactIdentity (0.00s)
+=== RUN   TestScopedProjectProvenanceRejected
+--- PASS: TestScopedProjectProvenanceRejected (0.00s)
+=== RUN   TestLoad_MissingFileReturnsEmptyWithoutCreating
+--- PASS: TestLoad_MissingFileReturnsEmptyWithoutCreating (0.00s)
+=== RUN   TestSaveLoad_RoundTrip
+--- PASS: TestSaveLoad_RoundTrip (0.00s)
+=== RUN   TestSettings_IsAlwaysAllowed
+--- PASS: TestSettings_IsAlwaysAllowed (0.00s)
+=== RUN   TestStore_SetAlwaysAllow_PersistsAndReflectsAcrossStores
+--- PASS: TestStore_SetAlwaysAllow_PersistsAndReflectsAcrossStores (0.00s)
+=== RUN   TestStore_SetAlwaysAllow_NoOpWhenAlreadyAllowed
+--- PASS: TestStore_SetAlwaysAllow_NoOpWhenAlreadyAllowed (0.00s)
+=== RUN   TestSave_WritesOwnerOnlyPermissions
+--- PASS: TestSave_WritesOwnerOnlyPermissions (0.00s)
+=== RUN   TestLoad_TightensLoosePermissions
+--- PASS: TestLoad_TightensLoosePermissions (0.00s)
+=== RUN   TestNewStoreFromSettings_UsesGivenSettingsNotDisk
+--- PASS: TestNewStoreFromSettings_UsesGivenSettingsNotDisk (0.00s)
+=== RUN   TestNewEmptyStore_IgnoresExistingFile
+--- PASS: TestNewEmptyStore_IgnoresExistingFile (0.00s)
+=== RUN   TestLoadTrust_MissingFileReturnsEmptyWithoutCreating
+--- PASS: TestLoadTrust_MissingFileReturnsEmptyWithoutCreating (0.00s)
+=== RUN   TestMarkTrusted_PersistsAndReflectsAcrossLoads
+--- PASS: TestMarkTrusted_PersistsAndReflectsAcrossLoads (0.00s)
+=== RUN   TestMarkTrusted_NoOpWhenAlreadyTrusted
+--- PASS: TestMarkTrusted_NoOpWhenAlreadyTrusted (0.00s)
+=== RUN   TestSaveTrust_WritesOwnerOnlyPermissions
+--- PASS: TestSaveTrust_WritesOwnerOnlyPermissions (0.00s)
+PASS

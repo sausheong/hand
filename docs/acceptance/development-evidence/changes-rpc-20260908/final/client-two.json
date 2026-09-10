@@ -1,0 +1,206 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "f6392dc06ed54fd097e6f7fb15a22315d8b30d94f77b5a9e088b4da9f94e201a",
+        "session_id": "ses_f04c88d8c2849f84",
+        "run_id": "BWPZ43BCUKMZEVDM4PXNVEATT2:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "XEVDI3QD5QNNCLGZTQAXSXKWV4:21",
+          "sequence": 21,
+          "session_id": "ses_f04c88d8c2849f84",
+          "run_id": "BWPZ43BCUKMZEVDM4PXNVEATT2:3",
+          "request_id": "hang-1",
+          "timestamp": "2026-09-08T07:17:27.269913Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "206d1de062544dca646b830cb4fcb496178c914f9edbf27423db64e719555950",
+        "session_id": "ses_36eb3b459f8f2372",
+        "run_id": "BWPZ43BCUKMZEVDM4PXNVEATT2:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "N3GSASBEGQQYLC2HDPPKSNTZDM:12",
+          "sequence": 12,
+          "session_id": "ses_36eb3b459f8f2372",
+          "run_id": "BWPZ43BCUKMZEVDM4PXNVEATT2:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T07:17:27.095759Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-select-original",
+      "method": "session.select",
+      "params": {
+        "id": "ses_36eb3b459f8f2372"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-select-original",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_36eb3b459f8f2372"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-reconnected",
+      "method": "checkpoint.changes",
+      "params": {
+        "run_id": "ASILA2M7YLK5VJSUJKG7BB623I"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-reconnected",
+      "result": {
+        "run_id": "ASILA2M7YLK5VJSUJKG7BB623I",
+        "before": "e5f1aa367519bea2a3aad21d46fff60a129a01e4dc5ac1e04e135a912fa25e57",
+        "after": "82d65a2e2e4540c34094756b2556b0de7d55c836044399911d22a7bfc7f06e86",
+        "changes": [
+          {
+            "Path": "approved.txt",
+            "Before": null,
+            "After": {
+              "path": "approved.txt",
+              "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+              "mode": 384,
+              "size": 13,
+              "kind": "regular"
+            }
+          }
+        ],
+        "next": 1,
+        "total": 1,
+        "before_omissions": 0,
+        "after_omissions": 0
+      }
+    }
+  }
+]

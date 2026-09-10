@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Check archive contents/checksums and execute the host's binary without credentials."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import subprocess
+import struct
+import tarfile
+import tempfile
+
+
+def verify_worker(tar, prefix, target, version, commit):
+    member = tar.getmember(prefix + '/hand-tool-worker-linux')
+    if not member.isfile() or not member.mode & 0o111:
+        raise ValueError('worker must be a regular executable')
+    data = tar.extractfile(member).read()
+    arch = target.split('-')[1]
+    # Check the actual ELF header, not just a manifest label.
+    machine = {'amd64': 62, 'arm64': 183}[arch]
+    if len(data) < 64 or data[:6] != b'\x7fELF\x02\x01' or struct.unpack_from('<H', data, 18)[0] != machine:
+        raise ValueError('worker is not Linux ELF for target architecture')
+    manifest = json.load(tar.extractfile(prefix + '/WORKER.json'))
+    expected = dict(schema_version=1, file='hand-tool-worker-linux', os='linux',
+                    arch=arch, sha256=hashlib.sha256(data).hexdigest(),
+                    commit=commit, version=version, protocol_version=1)
+    if manifest != expected:
+        raise ValueError('worker manifest does not match executable or release')
+    return manifest
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--dist', type=Path, required=True)
+    p.add_argument('--version', required=True)
+    p.add_argument('--commit', required=True)
+    p.add_argument('--require-worker', action='store_true')
+    args = p.parse_args()
+    sums = {}
+    for line in (args.dist / 'SHA256SUMS').read_text().splitlines():
+        value, filename = line.split()
+        if filename in sums: raise ValueError('duplicate checksum entry')
+        sums[filename] = value
+    targets = ['darwin-amd64', 'darwin-arm64', 'linux-amd64', 'linux-arm64']
+    names = {f'hand-{args.version}-{target}.tar.gz' for target in targets}
+    if set(sums) != names: raise ValueError('checksum inventory does not match targets')
+    host = platform.system().lower() + '-' + {'x86_64': 'amd64', 'aarch64': 'arm64'}.get(platform.machine(), platform.machine())
+    checked = []
+    for target in targets:
+        prefix = f'hand-{args.version}-{target}'
+        archive = args.dist / (prefix + '.tar.gz')
+        if hashlib.sha256(archive.read_bytes()).hexdigest() != sums[archive.name]:
+            raise ValueError('checksum mismatch: ' + archive.name)
+        with tarfile.open(archive) as tar:
+            for name in ['hand', 'README.md', 'LICENSE']:
+                member = tar.getmember(prefix + '/' + name)
+                if not member.isfile() or member.size == 0:
+                    raise ValueError('missing/invalid archive content: ' + name)
+            if args.require_worker:
+                verify_worker(tar, prefix, target, args.version, args.commit)
+            native = target == host
+            if native:
+                with tempfile.TemporaryDirectory(prefix='hand-dist-smoke-') as temp:
+                    root = Path(temp)
+                    binary = root / 'hand'
+                    binary.write_bytes(tar.extractfile(prefix + '/hand').read())
+                    binary.chmod(0o700)
+                    home = root / 'home'
+                    home.mkdir()
+                    env = {k: v for k, v in os.environ.items() if not k.endswith('_API_KEY')}
+                    env['HOME'] = str(home)
+                    for flag in ['--version', '--help']:
+                        r = subprocess.run([str(binary), flag], cwd=home, env=env,
+                                           capture_output=True, text=True, timeout=10, check=True)
+                        if flag == '--version' and (args.version not in r.stdout or args.commit not in r.stdout):
+                            raise ValueError('incorrect release identity')
+                    if list(home.iterdir()): raise ValueError('smoke run created state')
+        checked.append(dict(target=target, checksum='passed', contents='passed', worker='passed' if args.require_worker else 'not_checked', native_smoke=native))
+    print(json.dumps(dict(archives=checked), indent=2))
+
+
+if __name__ == '__main__': main()

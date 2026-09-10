@@ -1,0 +1,13 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "binary_sha256": "2f8988262e1419a0c2cc2665bb952aa97cb9fd57f1b9408e8c7931abccbba6aa",
+  "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+  "extension_sha256": "b36d29d68055efc756984ca2690f6e2243c09fe79fa1bfd983c28561f5344944",
+  "runner_sha256": "26cf5b94a2047bde0fde6c7633e3562d3794c7649ab753824c98ef9714cb9239",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "poll_runner_sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3",
+  "provider_calls": 0,
+  "error": "AssertionError({'version': 1, 'request_id': 'view', 'result': {'blocks': [{'kind': 'text', 'text': 'Tool result viewer \u2014 supplied data, not an independently verified execution record.'}, {'kind': 'list', 'items': ['Supplied record contains no error.', \"This view does not change Hand's run outcome or permissions.\"]}, {'kind': 'code', 'text': '{\\n  \"tool\": \"fixture\",\\n  \"output\": \"container RPC content\"\\n}', 'language': 'json'}]}})"
+}

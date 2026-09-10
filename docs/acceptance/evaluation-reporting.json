@@ -1,0 +1,46 @@
+{
+  "status": "development_reporter_implemented",
+  "tests": {
+    "command": "PYTHONPATH=scripts python3 -m unittest test_evaluation_manifest test_evaluation_schedule test_evaluation_results",
+    "passed": 12,
+    "failed": 0,
+    "log": "docs/acceptance/development-evidence/evaluation-reporting-20260909/tests.log",
+    "sha256": "fb4f9aa8879de210e18f3e3bedae7d73c00bdeb624b61e619d22b469952a5614"
+  },
+  "artifacts": [
+    {
+      "source": "scripts/evaluation_results.py",
+      "path": "docs/acceptance/development-evidence/evaluation-reporting-20260909/scripts-evaluation_results.py",
+      "sha256": "eed43adceb1915a6634a34aee8ad68a6af98b229f13a2788198ba1a600ab914d"
+    },
+    {
+      "source": "scripts/test_evaluation_results.py",
+      "path": "docs/acceptance/development-evidence/evaluation-reporting-20260909/scripts-test_evaluation_results.py",
+      "sha256": "e57c9f92b486bea663f2d6b5b4706301a8d36559e6d2d630672e424b293ca0ee"
+    },
+    {
+      "source": "scripts/evaluation_schedule.py",
+      "path": "docs/acceptance/development-evidence/evaluation-reporting-20260909/scripts-evaluation_schedule.py",
+      "sha256": "49a4d4ad4d7fe100714b41bdcf41178f608c573592d3773ba90ff6e7b0bbcc4b"
+    },
+    {
+      "source": "scripts/evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-reporting-20260909/scripts-evaluation_manifest.py",
+      "sha256": "41fd94dbd119e08f4ee452e9d16b58286dad2bd99a7b4ed052b6ff8977a4d0ea"
+    },
+    {
+      "source": "docs/acceptance/evaluation/README.md",
+      "path": "docs/acceptance/development-evidence/evaluation-reporting-20260909/docs-acceptance-evaluation-README.md",
+      "sha256": "f93656998128aa047f7bf7e90b8655729a89dfafa32379de028228e44bd4299f"
+    }
+  ],
+  "actual_comparative_runs": 0,
+  "paid_calls": 0,
+  "qualification": "incomplete",
+  "limitations": [
+    "Tests use synthetic records only; they do not constitute a task corpus or comparative evidence.",
+    "The real catalogue still contains one calibration task. Thirty varied tasks, held-out freezing, an authorised executor, scoring reconciliation and live runs remain required.",
+    "The reporter preserves missing runs and unknown costs and reports cost cap violations; it does not authorise or enforce paid execution.",
+    "Reported verification outcomes require independent reconciliation with raw evidence; a complete record set remains explicitly unreviewed."
+  ]
+}

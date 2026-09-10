@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "id": "hand-calibration-v1",
+  "purpose": "calibration",
+  "seed": 20260908,
+  "order": "counterbalanced",
+  "repetitions": 1,
+  "planned_total_usd": 0,
+  "per_run_budget": {
+    "timeout_seconds": 300,
+    "max_requests": 20,
+    "max_input_tokens": 100000,
+    "max_output_tokens": 20000,
+    "max_cost_usd": 0
+  },
+  "agents": [],
+  "modes": [],
+  "tasks": [
+    {
+      "id": "preserve-write-mode",
+      "split": "calibration",
+      "category": "bug_fix",
+      "prompt": "Fix write_file so replacing an existing file preserves its ordinary permission bits, including executable bits. Keep new files private with mode 0600. Preserve replacement content and atomic replacement behaviour.",
+      "review_criterion": "Review the implementation for correct mode preservation across arbitrary existing ordinary modes, restrictive new-file creation, unchanged error behaviour and atomic replacement. A test-only change or hard-coded special-case modes is not success.",
+      "repository": {
+        "url": "https://github.com/sausheong/harness.git",
+        "commit": "09c30fe2d529d6125f423593f621e970a7ce8735"
+      },
+      "working_directory": ".",
+      "fixtures": [
+        {
+          "source": "testdata/write_mode_test.go",
+          "destination": "tools/file/acceptance_mode_test.go",
+          "sha256": "5670bddc173fddb5e27e69bc9b076cbe9380ead243a084f3c2dfa6cc3b79ea17"
+        }
+      ],
+      "verification": [
+        {
+          "argv": [
+            "go",
+            "test",
+            "-json",
+            "-count=1",
+            "./tools/file",
+            "-run",
+            "^TestAcceptanceWriteMode$"
+          ],
+          "expected_exit": 0,
+          "timeout_seconds": 60,
+          "result_format": "go_test_json",
+          "expected_tests": [
+            {
+              "package": "github.com/sausheong/harness/tools/file",
+              "test": "TestAcceptanceWriteMode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancel-shell-descendants",
+      "split": "calibration",
+      "category": "bug_fix",
+      "prompt": "Fix shell tool cancellation so cancelling an active command promptly joins it and terminates its descendant processes. A child that has started must not write files after cancellation. Preserve ordinary command results and error reporting, and avoid killing unrelated processes.",
+      "review_criterion": "Review process ownership, cancellation and cleanup on normal and cancelled exits. The implementation must manage actual descendants, not hide their output or special-case the oracle command. Verify that unrelated process groups are not targeted and that cancellation still reports an error.",
+      "repository": {
+        "url": "https://github.com/sausheong/harness.git",
+        "commit": "09c30fe2d529d6125f423593f621e970a7ce8735"
+      },
+      "working_directory": ".",
+      "fixtures": [
+        {
+          "source": "testdata/bash_cancel_test.go",
+          "destination": "tools/bash/acceptance_cancel_test.go",
+          "sha256": "d108bc1b0cf6b7eee5aefa602b4766d52cd08097f8d9f26ceb1b4bdb1229a482"
+        }
+      ],
+      "verification": [
+        {
+          "argv": [
+            "go",
+            "test",
+            "-json",
+            "-count=1",
+            "./tools/bash",
+            "-run",
+            "^TestAcceptanceBashCancellationOwnsDescendants$"
+          ],
+          "expected_exit": 0,
+          "timeout_seconds": 60,
+          "result_format": "go_test_json",
+          "expected_tests": [
+            {
+              "package": "github.com/sausheong/harness/tools/bash",
+              "test": "TestAcceptanceBashCancellationOwnsDescendants"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "search-large-text",
+      "split": "calibration",
+      "category": "bug_fix",
+      "prompt": "Fix Hand content search so ordinary text files larger than 64 KiB are searched rather than silently omitted. Keep streaming line scanning, filename filters, correct line numbers and the caller-specified result cap.",
+      "review_criterion": "Review that arbitrary large ordinary text files use bounded streaming scanning without whole-file reads, filename filters and result caps are preserved, and the solution is not hard-coded to the fixture sizes or marker. This calibration does not qualify all search correctness or cancellation behaviour.",
+      "repository": {
+        "url": "https://github.com/sausheong/hand.git",
+        "commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882"
+      },
+      "working_directory": ".",
+      "fixtures": [
+        {
+          "source": "testdata/search_large_test.go",
+          "destination": "internal/agentio/acceptance_large_search_test.go",
+          "sha256": "a3da4651ecdf58291ca544b4fd2588d8611ab2245cd93cb9b56a03d38f934334"
+        }
+      ],
+      "verification": [
+        {
+          "argv": [
+            "go",
+            "test",
+            "-json",
+            "-count=1",
+            "./internal/agentio",
+            "-run",
+            "^TestAcceptanceLargeTextSearch$"
+          ],
+          "expected_exit": 0,
+          "timeout_seconds": 120,
+          "result_format": "go_test_json",
+          "expected_tests": [
+            {
+              "package": "github.com/sausheong/hand/internal/agentio",
+              "test": "TestAcceptanceLargeTextSearch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kokoro-config-reject-directories",
+      "split": "calibration",
+      "category": "bug_fix",
+      "prompt": "Fix KoKoroConfig.validate in src/kokoro_onnx/config.py so a directory supplied as either the voices path or model path raises IsADirectoryError naming that path. Preserve FileNotFoundError and download hints for missing files, accept regular files and symlinks to regular files, and do not load model data or mutate configuration during validation.",
+      "review_criterion": "Review both path checks and arbitrary filenames. Preserve missing-file diagnostics and Espeak configuration. No hard-coded fixture names, oracle edits, model loading, network calls or test-only fix; assess regression risk separately from test success.",
+      "repository": {
+        "url": "https://github.com/thewh1teagle/kokoro-onnx.git",
+        "commit": "8534fd94db73be4f3d07b3eefd623c1eb8c8a806"
+      },
+      "working_directory": ".",
+      "fixtures": [
+        {
+          "source": "testdata/kokoro_config_test.py",
+          "destination": "test_acceptance_config.py",
+          "sha256": "1c706258b4ceb8e895c37d99fa6e3a7d185e8690e026267cd000f161f02a7a5d"
+        },
+        {
+          "source": "testdata/python_unittest_driver.py",
+          "destination": "acceptance_unittest_driver.py",
+          "sha256": "f8e350fda7e54c80ca77dcf0e38bb34c321eb1ff0ab7a5a138a0b25b0c8460f8"
+        }
+      ],
+      "verification": [
+        {
+          "argv": [
+            "python3",
+            "-I",
+            "acceptance_unittest_driver.py",
+            "--start-directory",
+            ".",
+            "--pattern",
+            "test_acceptance_config.py"
+          ],
+          "expected_exit": 0,
+          "timeout_seconds": 30,
+          "result_format": "python_unittest_json",
+          "expected_tests": [
+            {
+              "package": "python.unittest",
+              "test": "test_acceptance_config.ConfigPaths.test_voices_directory_is_rejected"
+            },
+            {
+              "package": "python.unittest",
+              "test": "test_acceptance_config.ConfigPaths.test_model_directory_is_rejected"
+            },
+            {
+              "package": "python.unittest",
+              "test": "test_acceptance_config.ConfigPaths.test_missing_voices_retains_download_hint"
+            },
+            {
+              "package": "python.unittest",
+              "test": "test_acceptance_config.ConfigPaths.test_missing_model_retains_download_hint"
+            },
+            {
+              "package": "python.unittest",
+              "test": "test_acceptance_config.ConfigPaths.test_regular_files_and_symlinks_preserve_configuration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "goclaw-explain-routing",
+      "split": "calibration",
+      "category": "feature",
+      "prompt": "Add explainable deterministic routing to internal/router. Export RouteDecision with AgentID string, MatchKind string and BindingIndex int, and Router.Explain(channel.InboundMessage) RouteDecision. Every nonempty channel/account/peer-ID/peer-kind constraint in a binding must match. Select the most specific eligible binding by peer.id > peer.kind > accountId > channel, regardless of binding order; equal ranks use the first binding. Explain returns the original binding index and those exact MatchKind names. With no eligible explicit match, return the fallback agent, kind fallback and index -1. Route must agree with Explain. Preserve IsKnownPeer and existing applicable tests. Explain/Route must be read-only and safe for concurrent callers.",
+      "review_criterion": "Review arbitrary rule combinations, all populated constraints, stable tie-breaking and original indices. Reject sorting/mutating caller bindings, duplicated selection logic that can drift, hard-coded fixture names or bypassed tests. Confirm the API is documented and concurrent reads are race-free.",
+      "repository": {
+        "url": "https://github.com/sausheong/goclaw.git",
+        "commit": "6a002981f8c40e542e23fd7d86db6ea32999fe98"
+      },
+      "working_directory": ".",
+      "fixtures": [
+        {
+          "source": "testdata/goclaw_explain_test.go",
+          "destination": "internal/router/acceptance_explain_test.go",
+          "sha256": "c2ddc1bd43b4c6d4ff6627cefc60dd0a477f8982fc62f279189eb77770c23483"
+        }
+      ],
+      "verification": [
+        {
+          "argv": [
+            "go",
+            "test",
+            "-json",
+            "-count=1",
+            "-race",
+            "./internal/router"
+          ],
+          "timeout_seconds": 60,
+          "expected_exit": 0,
+          "result_format": "go_test_json",
+          "expected_tests": [
+            {
+              "package": "github.com/sausheong/goclaw/internal/router",
+              "test": "TestRouterChannelMatch"
+            },
+            {
+              "package": "github.com/sausheong/goclaw/internal/router",
+              "test": "TestRouterPeerMatch"
+            },
+            {
+              "package": "github.com/sausheong/goclaw/internal/router",
+              "test": "TestRouterFallback"
+            },
+            {
+              "package": "github.com/sausheong/goclaw/internal/router",
+              "test": "TestAcceptanceExplainSpecificity"
+            },
+            {
+              "package": "github.com/sausheong/goclaw/internal/router",
+              "test": "TestAcceptanceExplainConstraintsAndFallback"
+            },
+            {
+              "package": "github.com/sausheong/goclaw/internal/router",
+              "test": "TestAcceptanceExplainStableAndReadOnly"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

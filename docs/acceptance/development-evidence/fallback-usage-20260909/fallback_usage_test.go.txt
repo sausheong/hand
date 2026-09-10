@@ -1,0 +1,112 @@
+package app
+
+import (
+	"context"
+	"encoding/json"
+	"errors"
+	"reflect"
+	"testing"
+
+	"github.com/sausheong/hand/internal/sessionio"
+	"github.com/sausheong/harness/llm"
+	"github.com/sausheong/harness/runtime"
+	"github.com/sausheong/harness/session"
+	"github.com/sausheong/harness/tool"
+)
+
+type fallbackUsageProvider struct {
+	persistedUsageProvider
+	models []string
+}
+
+func (p *fallbackUsageProvider) ChatStream(ctx context.Context, request llm.ChatRequest) (<-chan llm.ChatEvent, error) {
+	p.models = append(p.models, request.Model)
+	if len(p.models) == 1 {
+		return nil, errors.New("529 overloaded")
+	}
+	return p.persistedUsageProvider.ChatStream(ctx, request)
+}
+
+func TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen(t *testing.T) {
+	store := session.NewStore(t.TempDir())
+	if err := store.Create("hand", "key"); err != nil {
+		t.Fatal(err)
+	}
+	sess, err := store.LoadExclusive("hand", "key")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() {
+		if sess != nil {
+			sess.Close()
+		}
+	}()
+	provider := &fallbackUsageProvider{}
+	backend := &HarnessBackend{Runtime: &runtime.Runtime{LLM: provider, Session: sess, Tools: tool.NewRegistry(), AgentID: "hand", Model: "primary", FallbackModel: "fallback", MaxTurns: 2}}
+	var attempts []llm.RequestUsage
+	ctx := llm.WithUsageObserver(context.Background(), func(record llm.RequestUsage) { attempts = append(attempts, record) })
+	stream, err := backend.Run(ctx, "go", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var saved Details
+	summaries := 0
+	for event := range stream {
+		if event.Err != nil {
+			t.Fatal(event.Err)
+		}
+		if event.Kind == "session_usage" {
+			saved = event.Details
+			summaries++
+		}
+	}
+	if !reflect.DeepEqual(provider.models, []string{"primary", "fallback"}) || len(attempts) != 2 {
+		t.Fatal("fallback attempts lost", provider.models, attempts)
+	}
+	if attempts[0].Model != "primary" || attempts[0].Status != "failed" || attempts[0].Usage != nil || attempts[0].Source != "unavailable" {
+		t.Fatal("failed attempt became known", attempts[0])
+	}
+	if attempts[1].Model != "fallback" || attempts[1].Category != llm.CallRetry || attempts[1].Status != "completed" || attempts[1].ID == attempts[0].ID {
+		t.Fatal("fallback provenance lost", attempts[1])
+	}
+	if summaries != 1 || saved.InputTokens != 40 || saved.OutputTokens != 5 || saved.CacheReadInputTokens != 20 || saved.UsageRequests != 2 || saved.UsageUnknown != 1 || saved.UsagePriorUnknown {
+		t.Fatal("incorrect accounting snapshot", saved)
+	}
+	wire, err := NewWireEvents("request").Encode(Event{Kind: "terminal", Details: saved})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var payload struct {
+		Usage struct {
+			Known   bool `json:"known"`
+			Input   int  `json:"input_tokens"`
+			Unknown int  `json:"unknown_requests"`
+		} `json:"usage"`
+	}
+	if err := json.Unmarshal(wire.Payload, &payload); err != nil {
+		t.Fatal(err)
+	}
+	if payload.Usage.Known || payload.Usage.Input != 40 || payload.Usage.Unknown != 1 {
+		t.Fatal("wire hid uncertainty or counted cache twice", string(wire.Payload))
+	}
+	if err := sess.Close(); err != nil {
+		t.Fatal(err)
+	}
+	sess, err = store.LoadExclusive("hand", "key")
+	if err != nil {
+		t.Fatal(err)
+	}
+	summary, err := sessionio.ReadUsage(sess)
+	if err != nil || summary.Requests != 2 || summary.Unknown != 1 || summary.Total != (llm.Usage{InputTokens: 40, OutputTokens: 5, CacheReadInputTokens: 20}) || summary.PriorUsageUnknown {
+		t.Fatal("reopen changed accounting", summary, err)
+	}
+	for _, attempt := range attempts {
+		if err := sessionio.RecordRequestUsage(sess, attempt); err != nil {
+			t.Fatal(err)
+		}
+	}
+	replayed, err := sessionio.ReadUsage(sess)
+	if err != nil || !reflect.DeepEqual(summary, replayed) {
+		t.Fatal("duplicate observation charged twice", replayed, err)
+	}
+}

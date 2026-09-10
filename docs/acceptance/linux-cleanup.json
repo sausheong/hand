@@ -1,0 +1,95 @@
+{
+  "status": "development_linux_paths_passed",
+  "platform": "linux/arm64",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "network": "none",
+  "root_filesystem": "read-only",
+  "capabilities": "all dropped",
+  "tmpfs": "/tmp,64MiB",
+  "test_counts": {
+    "hooks": {
+      "TestHookNormalExitCleansDescendants": 30,
+      "TestHookCancellationOwnsDescendants": 30
+    },
+    "sdk": {
+      "TestProcessCloseOwnsDescendants/graceful": 30,
+      "TestProcessCloseOwnsDescendants": 30,
+      "TestProcessCloseOwnsDescendants/forced": 30
+    }
+  },
+  "hook_cancel_join_samples_ms": [
+    0.126375,
+    0.272375,
+    0.185583,
+    0.566166,
+    0.247125,
+    0.331125,
+    0.180041,
+    0.231625,
+    0.319542,
+    0.24375,
+    0.320333,
+    0.285916,
+    0.268708,
+    0.254292,
+    0.479375,
+    0.233583,
+    0.263292,
+    0.315083,
+    0.235125,
+    0.31,
+    0.211,
+    0.295584,
+    0.269417,
+    0.457417,
+    0.315375,
+    0.299875,
+    0.331666,
+    1.091125,
+    0.313292,
+    0.331209
+  ],
+  "hook_cancel_join_max_ms": 1.091125,
+  "binaries": {
+    "/private/tmp/hand-hooks-linux-20260909.test": "37bcb03d4b578b1aa1fe8ceb3cc0a69f15c6ea817641a4ad3bdd7cd7496f4558",
+    "/private/tmp/hand-sdk-linux-20260909.test": "cc03bb3f28375c07f06da997c0087b9f459c8693fc6ccf321a6681d7b2ce91be"
+  },
+  "source_unchanged_during_tests": true,
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-linux-cleanup-inputs-20260909.json",
+      "path": "docs/acceptance/development-evidence/linux-cleanup-20260909/hand-linux-cleanup-inputs-20260909.json.gz",
+      "sha256": "ecbf78fb6527588ad76fb5553561b0c4bf2f1accda738a91531d34cc119b69cd",
+      "uncompressed_sha256": "bf8445fa0e50a2f38a839cd8a24a44443074b3c40d37c28398f56ee1a52a0b12"
+    },
+    {
+      "source": "/private/tmp/hand-hooks-linux-cleanup-20260909.log",
+      "path": "docs/acceptance/development-evidence/linux-cleanup-20260909/hand-hooks-linux-cleanup-20260909.log.gz",
+      "sha256": "1accf4f11922320d75ca8f385ae81bbc63812f3043815a9bb52e5b595d81224c",
+      "uncompressed_sha256": "e7c8dd325d7ce19a3c9ce4805bd72994cf612414a6319460c10a110c22156a94"
+    },
+    {
+      "source": "/private/tmp/hand-sdk-linux-cleanup-20260909.log",
+      "path": "docs/acceptance/development-evidence/linux-cleanup-20260909/hand-sdk-linux-cleanup-20260909.log.gz",
+      "sha256": "e05f58aeb518e392fe92593934ec217b7f498b5cffa57d55e1f7db1b92d3b959",
+      "uncompressed_sha256": "2d2c8830e23894eac979f5a66b1c4db02f721bde95f19f03e8c7e5445526fc67"
+    },
+    {
+      "source": "internal/agentio/hooks_process_test.go",
+      "path": "docs/acceptance/development-evidence/linux-cleanup-20260909/hooks_process_test.go.gz",
+      "sha256": "cfe651465ef5a6b8c259ec00c92d8ef14d13887b22393bdeacf0e62f19160884",
+      "uncompressed_sha256": "e3e306b5195c4f152b1c7d64d6a391ed7b882cac644e1429e43bfa536a3f13ee"
+    },
+    {
+      "source": "sdk/process_descendants_test.go",
+      "path": "docs/acceptance/development-evidence/linux-cleanup-20260909/process_descendants_test.go.gz",
+      "sha256": "57bbb8b862a23992b91231ed807457514a3b29ff0b240aa6b35098eb189f4171",
+      "uncompressed_sha256": "ccbb764499651596ba15230bcfcf75a4f22c0905270dcb60433b2097cefca25b"
+    }
+  ],
+  "limitations": [
+    "Cross-compiled CGO-disabled test binaries; Linux race instrumentation was not enabled",
+    "Development source and local Harness dependency; final released candidate remains unqualified",
+    "These four cleanup paths do not establish all platform acceptance scenarios"
+  ]
+}

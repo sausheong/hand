@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T08:49:59.240994+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T08:50:00.339372+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot"}
+{"Time":"2026-09-08T08:50:00.339443+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot","Output":"=== RUN   TestAttachmentPolicyExactSnapshot\n"}
+{"Time":"2026-09-08T08:50:00.341158+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot","Output":"--- PASS: TestAttachmentPolicyExactSnapshot (0.00s)\n"}
+{"Time":"2026-09-08T08:50:00.341185+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot","Elapsed":0}
+{"Time":"2026-09-08T08:50:00.341199+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles"}
+{"Time":"2026-09-08T08:50:00.341204+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles","Output":"=== RUN   TestAttachmentPolicyLimitsAndSpecialFiles\n"}
+{"Time":"2026-09-08T08:50:00.34535+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles","Output":"--- PASS: TestAttachmentPolicyLimitsAndSpecialFiles (0.00s)\n"}
+{"Time":"2026-09-08T08:50:00.345368+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles","Elapsed":0}
+{"Time":"2026-09-08T08:50:00.345858+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"PASS\n"}
+{"Time":"2026-09-08T08:50:01.356255+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"ok  \tgithub.com/sausheong/hand/internal/agentio\t2.115s\n"}
+{"Time":"2026-09-08T08:50:01.356377+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":2.115}

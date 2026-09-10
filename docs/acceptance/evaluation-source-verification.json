@@ -1,0 +1,102 @@
+{
+  "status": "development_source_verification_implemented",
+  "source_status": "local_sources_verified",
+  "catalogue_status": "draft",
+  "task_count": 2,
+  "source_count": 1,
+  "source_summary": [
+    {
+      "commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+      "tree": "6e9fb5d032e8c51f123617e012999fe923fcb2be",
+      "regular_files": 162,
+      "regular_bytes": 1126234,
+      "language_extensions": {
+        "Go": {
+          "files": 151,
+          "bytes": 1036539
+        }
+      }
+    }
+  ],
+  "tests": {
+    "command": "PYTHONPATH=scripts python3 -m unittest test_evidence test_evaluation_manifest test_evaluation_schedule test_evaluation_results test_evaluation_sources",
+    "passed": 22,
+    "failed": 0
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/hand-evaluation-source-inventory-20260909.json.gz",
+      "sha256": "d60dc65c744877ecc0f253c130f95f58a64e643e2831d40a4daafee31345b144",
+      "raw_sha256": "bf6908f85b5cb861ab3824bd517847ab9f8a18f2e0d049a9cd2b5ac4209ac728",
+      "raw_bytes": 36462,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/hand-evaluation-repositories-20260909.json.gz",
+      "sha256": "92881f933706e5f9ae1352e44f8436a7448df0d66c781ea5cd8d76b6ab79cd44",
+      "raw_sha256": "d19f659f7c195e5216c6249e2bebaa723c6efad0f6806325fcfaef7b0e850af6",
+      "raw_bytes": 99,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/hand-source-verification-tests-20260909.log.gz",
+      "sha256": "c4b61cf49ee5de24167ea90496db9ed9397e27f14099e8e4c95b617cb8be59e9",
+      "raw_sha256": "62d94553381b961891fabcb09e87ad28016a93509b74d861e89bd25159cddeb4",
+      "raw_bytes": 121,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/scripts-evaluation_sources.py.gz",
+      "sha256": "cfe36dd89cd5c5b39cb360aa434ec2ff88f6c8383724e8ff4fbd068839b9d6ea",
+      "raw_sha256": "a228f2eedc875ad7594e8bca2f22b13c2ce409f2e95dcc48932c2cbe9b8b6eab",
+      "raw_bytes": 5929,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/scripts-test_evaluation_sources.py.gz",
+      "sha256": "6e5eed3da3e50f199e800c65291a3ff8643c52c05521a84df01fa1ff9acc6517",
+      "raw_sha256": "96c6eff9b77f1eb6708fc8244df1fbdc7011b29f14cbf2dd19e708c6fb90dfd3",
+      "raw_bytes": 3231,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/scripts-test_evidence.py.gz",
+      "sha256": "82ddd2dc37b003806804a885c5a0e81d4d172e8da895814bdb4850888f4386ce",
+      "raw_sha256": "a7ea4aacdcef80b63036716f2228243ab44da40d1428df4db19f0a031eacc5b5",
+      "raw_bytes": 1947,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/.gitignore.gz",
+      "sha256": "50d707c216d64ecba45a795986956c8fe758bd88f98fb0e604679cc11c80b49e",
+      "raw_sha256": "5eb3872220ce55502a75e4e3431ec7dfe4866868aa8d16b46cd4fd67328d9ea4",
+      "raw_bytes": 29,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/docs-acceptance-evaluation-calibration.json.gz",
+      "sha256": "0c9c14f7d98e9229d4c843111f1c9a5ca604536c6295d1aa9b8e4d9ea285423d",
+      "raw_sha256": "8e33c03db22e869ded8c62ac67c02d53b4566dd12b96cfb18fc967f1b67109a4",
+      "raw_bytes": 3225,
+      "encoding": "gzip"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-source-verification-20260909/docs-acceptance-evaluation-README.md.gz",
+      "sha256": "127d4b58ca2ab62e221cfadbd20d038bf0a4250a308ac3dad9b1a9a3ada361cd",
+      "raw_sha256": "0366ded8fb5ab9612755ac48279015ffa55ee5aa6b7744785e6d9f22a11b5f40",
+      "raw_bytes": 12645,
+      "encoding": "gzip"
+    }
+  ],
+  "paid_calls": 0,
+  "comparative_runs": 0,
+  "limitations": [
+    "No network fetch, checkout, hook, build, test or model run was performed.",
+    "Explicit local mappings prove availability of commit/tree objects, not remote origin ownership.",
+    "File extensions and byte counts describe the entire committed tree, including tests/vendor/generated files; they are not lines of authored code or proof of task diversity.",
+    "Symlinks and submodules are listed separately; their targets were not followed or fetched.",
+    "The working tree is ignored. This does not qualify candidate changes or verify task oracles.",
+    "The current two Go bug-fix calibration tasks do not fulfil the 30-task diverse corpus or held-out requirement.",
+    "Generated Python cache files are now ignored by source fingerprints; a regression test verifies that actual Python source edits still change the fingerprint."
+  ]
+}

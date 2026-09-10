@@ -1,0 +1,256 @@
+diff --git a/runtime/builder.go b/runtime/builder.go
+index 20ba74e..be18dd6 100644
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -222,9 +222,12 @@ func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeIn
+ 		IngestSource:       inputs.IngestSource,
+ 		AgentLoop:          loop,
+ 		StaticSystemPrompt: staticPrompt,
+-		CalibratorStore:    deps.CalibratorStore,
+-		mcpClients:         mcpClients,
+-		mcpStatus:          mcpStatus,
++		refreshToolPrompt: func(names []string) string {
++			return BuildStaticSystemPrompt(spec.Workspace, spec.SystemPrompt, spec.ID, spec.Name, names, deps.ConfigSummary, skillsIndex, memoryIndex, deps.MemoryFiles)
++		},
++		CalibratorStore: deps.CalibratorStore,
++		mcpClients:      mcpClients,
++		mcpStatus:       mcpStatus,
+ 	}
+ 
+ 	// Seed the calibrator from prior (ratio, count) for this session so a
+diff --git a/runtime/mcp_attach.go b/runtime/mcp_attach.go
+new file mode 100644
+index 0000000..d2cdf53
+--- /dev/null
++++ b/runtime/mcp_attach.go
+@@ -0,0 +1,53 @@
++package runtime
++
++import (
++	"errors"
++	"fmt"
++
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tools/mcp"
++)
++
++var ErrMCPAttachBusy = errors.New("runtime is active; defer MCP attachment until idle")
++
++// AttachMCP transfers ownership only on success. The caller retains ownership
++// on all errors, including busy, and may retry or close the client. Connection
++// happens outside the runtime, so local runs can continue during discovery.
++func (r *Runtime) AttachMCP(client *mcp.Client, optional bool) error {
++	if client == nil {
++		return errors.New("nil MCP client")
++	}
++	if !r.runMu.TryLock() {
++		return ErrMCPAttachBusy
++	}
++	defer r.runMu.Unlock()
++	r.mcpMu.Lock()
++	defer r.mcpMu.Unlock()
++	if r.mcpClosed {
++		return errors.New("runtime is closed")
++	}
++	reg, ok := r.Tools.(*tool.Registry)
++	if !ok || r.refreshToolPrompt == nil {
++		return errors.New("runtime does not support dynamic MCP attachment")
++	}
++	name := client.Name()
++	for _, s := range r.mcpStatus {
++		if s.Name == name && s.State == "connected" {
++			return fmt.Errorf("MCP server %q already connected", name)
++		}
++	}
++	if err := reg.RegisterUnique(client.Tools()); err != nil {
++		return err
++	}
++	r.StaticSystemPrompt = r.refreshToolPrompt(reg.Names())
++	r.mcpClients = append(r.mcpClients, client)
++	status := MCPServerStatus{Name: name, Optional: optional, State: "connected", Tools: len(client.Tools())}
++	for i, s := range r.mcpStatus {
++		if s.Name == name {
++			r.mcpStatus[i] = status
++			return nil
++		}
++	}
++	r.mcpStatus = append(r.mcpStatus, status)
++	return nil
++}
+diff --git a/runtime/mcp_attach_test.go b/runtime/mcp_attach_test.go
+new file mode 100644
+index 0000000..cc92206
+--- /dev/null
++++ b/runtime/mcp_attach_test.go
+@@ -0,0 +1,59 @@
++package runtime
++
++import (
++	"context"
++	"errors"
++	"os"
++	"testing"
++	"time"
++
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tools/mcp"
++)
++
++func TestMCPAttachAtIdleUpdatesCatalogueAndOwnsShutdown(t *testing.T) {
++	config, marker := constructionServer(t)
++	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
++	defer cancel()
++	client, err := mcp.Connect(ctx, config)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer client.Close()
++	reg := tool.NewRegistry()
++	rt, err := BuildRuntime(RuntimeDeps{}, RuntimeInputs{Tools: reg}, AgentSpec{ID: "test"})
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Close()
++	rt.runMu.Lock()
++	err = rt.AttachMCP(client, true)
++	rt.runMu.Unlock()
++	if !errors.Is(err, ErrMCPAttachBusy) || len(reg.Names()) != 0 {
++		t.Fatalf("active attachment: %v", err)
++	}
++	if _, err = os.Stat(marker); !os.IsNotExist(err) {
++		t.Fatal("rejected attachment closed caller's client")
++	}
++	if err = rt.AttachMCP(client, true); err != nil {
++		t.Fatal(err)
++	}
++	if len(reg.Names()) != 1 || rt.Tools.ToolDefs()[0].Name != "mcp__healthy__echo" || rt.StaticSystemPrompt != BuildStaticSystemPrompt("", "", "test", "", reg.Names(), "", "", "", "") {
++		t.Fatal("tool catalogue and model context diverged")
++	}
++	if status := rt.MCPStatus(); len(status) != 1 || status[0].State != "connected" {
++		t.Fatalf("status %+v", status)
++	}
++	if err = rt.AttachMCP(client, true); err == nil {
++		t.Fatal("duplicate attachment accepted")
++	}
++	if err = rt.Close(); err != nil {
++		t.Fatal(err)
++	}
++	if _, err = os.Stat(marker); err != nil {
++		t.Fatal("attached client not joined on close")
++	}
++	if err = rt.AttachMCP(client, true); err == nil {
++		t.Fatal("attachment after close")
++	}
++}
+diff --git a/runtime/runtime.go b/runtime/runtime.go
+index 7685e96..fa542e8 100644
+--- a/runtime/runtime.go
++++ b/runtime/runtime.go
+@@ -148,8 +148,11 @@ type Runtime struct {
+ 	// mcpClients holds the MCP client sessions resolved from
+ 	// AgentSpec.MCPServers. Released by Close. Untouched when MCP is
+ 	// not used.
+-	mcpClients []*mcp.Client
+-	mcpStatus  []MCPServerStatus
++	mcpClients        []*mcp.Client
++	mcpMu             sync.Mutex
++	mcpClosed         bool
++	refreshToolPrompt func([]string) string
++	mcpStatus         []MCPServerStatus
+ 
+ 	// runMu enforces the Runtime contract that one session exchange runs at a
+ 	// time. TryLock lets a second caller receive a normal error instead of
+@@ -164,6 +167,9 @@ type Runtime struct {
+ // Returns the first Close error encountered, if any; remaining
+ // clients are still closed.
+ func (r *Runtime) Close() error {
++	r.mcpMu.Lock()
++	defer r.mcpMu.Unlock()
++	r.mcpClosed = true
+ 	var firstErr error
+ 	for _, c := range r.mcpClients {
+ 		if err := c.Close(); err != nil && firstErr == nil {
+@@ -1192,5 +1198,7 @@ type MCPServerStatus struct {
+ }
+ 
+ func (r *Runtime) MCPStatus() []MCPServerStatus {
++	r.mcpMu.Lock()
++	defer r.mcpMu.Unlock()
+ 	return append([]MCPServerStatus(nil), r.mcpStatus...)
+ }
+diff --git a/tool/tool.go b/tool/tool.go
+index b37b5f8..2c92c6f 100644
+--- a/tool/tool.go
++++ b/tool/tool.go
+@@ -323,3 +323,25 @@ func ValidatePathInWorkDir(path, workDir string) error {
+ func RegisterCron(reg *Registry, agentID string, scheduler JobScheduler) {
+ 	reg.Register(&CronTool{AgentID: agentID, Scheduler: scheduler})
+ }
++
++// RegisterUnique atomically installs a batch only if every name is new and
++// unique within the batch. This supports complete dynamic tool catalogues.
++func (r *Registry) RegisterUnique(batch []Tool) error {
++	r.mu.Lock()
++	defer r.mu.Unlock()
++	names := make(map[string]bool, len(batch))
++	for _, t := range batch {
++		if t == nil {
++			return fmt.Errorf("nil tool in batch")
++		}
++		name := t.Name()
++		if name == "" || names[name] || r.tools[name] != nil {
++			return fmt.Errorf("tool name collision: %q", name)
++		}
++		names[name] = true
++	}
++	for _, t := range batch {
++		r.tools[t.Name()] = t
++	}
++	return nil
++}
+diff --git a/tool/tool_test.go b/tool/tool_test.go
+index 3e0a7d5..53f42c0 100644
+--- a/tool/tool_test.go
++++ b/tool/tool_test.go
+@@ -13,10 +13,10 @@ type stubTool struct {
+ 	name string
+ }
+ 
+-func (s *stubTool) Name() string                              { return s.name }
+-func (s *stubTool) Description() string                       { return s.name + " description" }
+-func (s *stubTool) Parameters() json.RawMessage               { return json.RawMessage(`{}`) }
+-func (s *stubTool) IsConcurrencySafe(_ json.RawMessage) bool  { return false }
++func (s *stubTool) Name() string                             { return s.name }
++func (s *stubTool) Description() string                      { return s.name + " description" }
++func (s *stubTool) Parameters() json.RawMessage              { return json.RawMessage(`{}`) }
++func (s *stubTool) IsConcurrencySafe(_ json.RawMessage) bool { return false }
+ func (s *stubTool) Execute(ctx context.Context, in json.RawMessage) (ToolResult, error) {
+ 	return ToolResult{}, nil
+ }
+@@ -57,3 +57,26 @@ func TestNamesAreDeterministic(t *testing.T) {
+ 	assert.Equal(t, []string{"alpha", "mango", "zebra"}, got,
+ 		"Names() must return tools sorted by name")
+ }
++
++func TestRegisterUniqueRejectsWholeConflictingBatch(t *testing.T) {
++	reg := NewRegistry()
++	reg.Register(&stubTool{name: "existing"})
++	for _, batch := range [][]Tool{
++		{&stubTool{name: "new"}, &stubTool{name: "existing"}},
++		{&stubTool{name: "new"}, &stubTool{name: "new"}},
++		{&stubTool{name: "new"}, nil},
++	} {
++		if err := reg.RegisterUnique(batch); err == nil {
++			t.Fatal("invalid batch accepted")
++		}
++		if len(reg.Names()) != 1 {
++			t.Fatal("partial batch published")
++		}
++	}
++	if err := reg.RegisterUnique([]Tool{&stubTool{name: "new"}, &stubTool{name: "other"}}); err != nil {
++		t.Fatal(err)
++	}
++	if len(reg.Names()) != 3 {
++		t.Fatal("valid batch missing")
++	}
++}

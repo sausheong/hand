@@ -1,0 +1,31 @@
+{
+  "status": "development_passed",
+  "command": "go test ./sdk -run '^$' -fuzz '^FuzzSnapshotDecoders$' -fuzztime=60s -parallel=2 -json",
+  "exit_code": 0,
+  "last_progress": [
+    "1m1s",
+    "483690"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-fuzz-20260909/hand-sdk-terminal-fuzz-20260909.jsonl",
+      "sha256": "fba05983e450b9b6f0b86afe729d6b94bfdec7ad0a0c31858f336c030d178453"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-fuzz-20260909/snapshot_fuzz_test.go.txt",
+      "sha256": "233081425efb6c04fe7ee9a1161f553a74565ea33d6bbeb2d6786ab9621c1395"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-fuzz-20260909/snapshot_json.go.txt",
+      "sha256": "e3a9dc7ec0e41d1325f1558b417630cd217b0ebf84945def14b2f188cde5c5be"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-fuzz-20260909/snapshots.go.txt",
+      "sha256": "e6546c2a82eeb7d0cfab54b002de9db2218661016e92e812a35b3ebd78ced244"
+    }
+  ],
+  "limits": [
+    "Snapshot event/execution target only; not all required parser targets",
+    "Non-race fuzzing; final candidate and released dependency pending"
+  ]
+}

@@ -1,0 +1,32 @@
+{"Time":"2026-09-09T01:02:06.834807+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolproxy"}
+{"Time":"2026-09-09T01:02:06.876645+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T01:02:06.876727+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T01:02:07.150351+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip"}
+{"Time":"2026-09-09T01:02:07.150444+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"=== RUN   TestNativeProxyWorkerRoundtrip\n"}
+{"Time":"2026-09-09T01:02:07.167969+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"    proxy_test.go:80: write: {Output: Error: Metadata:map[] Images:[]} tool worker execution failed; operation may have completed: container requires absolute Docker executable/socket and immutable sha256 image ID\n"}
+{"Time":"2026-09-09T01:02:07.168332+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"--- FAIL: TestNativeProxyWorkerRoundtrip (0.02s)\n"}
+{"Time":"2026-09-09T01:02:07.16835+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Elapsed":0.02}
+{"Time":"2026-09-09T01:02:07.168376+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Output":"FAIL\n"}
+{"Time":"2026-09-09T01:02:07.170542+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Output":"FAIL\tgithub.com/sausheong/hand/internal/toolproxy\t0.333s\n"}
+{"Time":"2026-09-09T01:02:07.17057+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/toolproxy","Elapsed":0.336}
+{"Time":"2026-09-09T01:02:07.46098+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney"}
+{"Time":"2026-09-09T01:02:07.461146+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"=== RUN   TestNativeScopedSDKContainerJourney\n"}
+{"Time":"2026-09-09T01:02:07.478991+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"    scoped_journey_test.go:73: container execution requires absolute docker/socket/worker paths and immutable image/worker SHA-256 digests\n"}
+{"Time":"2026-09-09T01:02:07.479569+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Output":"--- FAIL: TestNativeScopedSDKContainerJourney (0.02s)\n"}
+{"Time":"2026-09-09T01:02:07.479592+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeScopedSDKContainerJourney","Elapsed":0.02}
+{"Time":"2026-09-09T01:02:07.479606+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker"}
+{"Time":"2026-09-09T01:02:07.479615+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"=== RUN   TestNativeSDKRejectsChangedWorker\n"}
+{"Time":"2026-09-09T01:02:07.480091+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"    scoped_journey_test.go:224: container execution requires absolute docker/socket/worker paths and immutable image/worker SHA-256 digests\n"}
+{"Time":"2026-09-09T01:02:07.480334+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Output":"--- FAIL: TestNativeSDKRejectsChangedWorker (0.00s)\n"}
+{"Time":"2026-09-09T01:02:07.480342+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestNativeSDKRejectsChangedWorker","Elapsed":0}
+{"Time":"2026-09-09T01:02:07.480366+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\n"}
+{"Time":"2026-09-09T01:02:07.482149+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\tgithub.com/sausheong/hand/sdk\t0.605s\n"}
+{"Time":"2026-09-09T01:02:07.482161+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Elapsed":0.606}
+{"Time":"2026-09-09T01:02:07.717922+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown"}
+{"Time":"2026-09-09T01:02:07.717949+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"=== RUN   TestNativeBackgroundContainerInputOutputAndShutdown\n"}
+{"Time":"2026-09-09T01:02:07.718463+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"    process_backend_test.go:35: container requires absolute Docker executable/socket and immutable sha256 image ID\n"}
+{"Time":"2026-09-09T01:02:07.71886+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Output":"--- FAIL: TestNativeBackgroundContainerInputOutputAndShutdown (0.00s)\n"}
+{"Time":"2026-09-09T01:02:07.718878+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Test":"TestNativeBackgroundContainerInputOutputAndShutdown","Elapsed":0}
+{"Time":"2026-09-09T01:02:07.719067+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\n"}
+{"Time":"2026-09-09T01:02:07.720161+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"FAIL\tgithub.com/sausheong/hand/internal/app\t0.843s\n"}
+{"Time":"2026-09-09T01:02:07.720168+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/app","Elapsed":0.843}

@@ -1,0 +1,122 @@
+{
+  "development_harness_candidate": "82e89fced176de827d0e5f8bac6e74c235c2bcde",
+  "harness_base": "d4b97f3eb310581d659c29560e046802979c146c",
+  "harness_patch_sha256": "e63e96958f57b7ba5970ba1838718a7073b9da0093eb895ab8b79e34b20016bd",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "harness_full": {
+    "passed": 900,
+    "failed": 0,
+    "skipped": 0
+  },
+  "harness_vet_exit_code": 0,
+  "large_migration_repetitions": 20,
+  "large_migration_test_and_subtest_passes": 80,
+  "compatibility_and_clones_repetitions": 20,
+  "compatibility_and_clones_passes": 40,
+  "hand_import_repetitions": 20,
+  "hand_import_passes": 20,
+  "exact_limit_regression": {
+    "before_failures": 1,
+    "after_passes": 1,
+    "before_method": "Go overlay restoring the prior DecodedLen check"
+  },
+  "verification_note": "Large-image repetitions preceded the omitted-data guard and exact-limit correction; compatibility/clone repetitions cover the guard. Final complete suites include both corrections. Development evidence only, not frozen release qualification.",
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-first-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-first-20260908.jsonl",
+      "sha256": "6c115de60b6bd540429e20016963736ad87fa387938d9e1a3db12855ad54ac7c"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-repeat-20260908.jsonl",
+      "sha256": "5be9759a171a97001466e8d91634b2bc556ea8db9bdab06974539c4cdc3e4e30"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-image-migration-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-manager-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-manager-repeat-20260908.jsonl",
+      "sha256": "2e48a5f427c2368c2fd6829a9744e0f171800f6ae6ac3198bdcd6e4c4fc610cd"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-manager-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-image-migration-manager-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-harness-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-harness-full-20260908.jsonl",
+      "sha256": "b406ecb783138bcdeddb9079b174760af8e8c8c6a42738ace208b64571d7137f"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-clones-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-clones-repeat-20260908.jsonl",
+      "sha256": "b95a47c74864a2afb2b8dc6faeb2d079b2cbe7a058968e08d31ccd392eea7ac7"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-clones-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-image-migration-clones-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-exact-limit-before-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-exact-limit-before-20260908.jsonl",
+      "sha256": "f1d447fbc042bd84bc6ce87a34c234c2e000aef9fac34303f848274012dd3a2a"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-exact-limit-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-exact-limit-20260908.jsonl",
+      "sha256": "278c1150df2f0671c4ce7002799bdfc2b5baf3327db27da2768de96a787c38f7"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-limit-before.go.txt",
+      "original_execution_path": "/private/tmp/hand-image-limit-before.go",
+      "sha256": "2f990f85d2fc42082bfdba16b53d5a2df435b9ba015d680bf1534d955453fa9c"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-limit-before-overlay.json",
+      "original_execution_path": "/private/tmp/hand-image-limit-before-overlay.json",
+      "sha256": "131001840a9976bf6f8ff8ceb8acafd74d9939137044e2b66e3fd4741086fd22"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-harness-qualified-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-harness-qualified-20260908.jsonl",
+      "sha256": "8585160038ff1acbcf871967aed54287d397258392c7c7742244af2b3ed3b2c9"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-harness-qualified-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-image-migration-harness-qualified-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-harness-qualified-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-image-migration-harness-qualified-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-hand-final-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-image-migration-hand-final-20260908.jsonl",
+      "sha256": "ec79bd653caa67c8e59946cdb38379fd0f781c4ac10aa398ba35aa9dd0dafdf5"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-hand-final-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-image-migration-hand-final-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-hand-final-coverage-20260908.out",
+      "original_execution_path": "/private/tmp/hand-image-migration-hand-final-coverage-20260908.out",
+      "sha256": "e416f095f4d577939fbdaedf95ae006a2743cf60fd82440ce510538816a6635e"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/image-migration-20260908/hand-image-migration-hand-final-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-image-migration-hand-final-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

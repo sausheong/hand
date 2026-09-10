@@ -1,0 +1,115 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-container-extension-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--extension-config",
+    "/private/tmp/hand-container-extension-terminal-20260909/review.json",
+    "--approve-extension-config",
+    "e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0"
+  ],
+  "binary_sha256": "2f8988262e1419a0c2cc2665bb952aa97cb9fd57f1b9408e8c7931abccbba6aa",
+  "runner_sha256": "79508ceb9ce74d70e09e2713eaf8cf7f77498c7c54650c9052555e6b2a04a939",
+  "paid_calls": 0,
+  "model_prompts_sent": 0,
+  "terminal_size": [
+    140,
+    45
+  ],
+  "peer_sha256": "563d866b814cb3fbebdad56363d5b1a7e7c2ac3e342e0041609c63a02ec0f26d",
+  "review_digest": "e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0",
+  "container_execution": {
+    "backend": "container",
+    "docker": "/usr/local/bin/docker",
+    "socket": "/Users/sausheong/.docker/run/docker.sock",
+    "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "worker": "/private/tmp/hand-container-worker-20260909",
+    "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+    "writable": false,
+    "network": false
+  },
+  "container_cleanup": true,
+  "completed_commands": [
+    "/extension task-note note",
+    "Remember the native terminal",
+    "/extension task-note note",
+    "ESC",
+    "/extension task-note note",
+    "CTRL_C",
+    "/reload /private/tmp/hand-container-extension-terminal-20260909/review.json e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0",
+    "/extension task-note note",
+    "ESC",
+    "/state"
+  ],
+  "exit_code": 0,
+  "persisted_revisions": 1,
+  "final_state": {
+    "version": 1,
+    "data": {
+      "note": "Remember the native terminal"
+    }
+  },
+  "snapshot_cleanup": true,
+  "terminal_sha256": "be479cd8b52fb19418a964f6e400a0a901ab152053eb0c8cb1bdaa3bc21a2afc",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/container-commands.json",
+      "sha256": "8f397f2f89ca92b900d385861ceadeed65812b2d69c88650834262ec4998049d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/home/.hand/authority/6bad1d4e5c56bd2f4bef8b9bcca12910ce15ff73a0d1d6ea355ebbb00b76dce7/dd0b6203e711834e712c6de7092a88f1feaced8389ca018f8f967a3cce94936a/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/home/.hand/config.json",
+      "sha256": "d71956554c71095ac989a6907b1528167a8ce55ceb304f2a9f1ad75bbd5b29c3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/home/.hand/sessions/catalogues/6bad1d4e5c56bd2f/catalogue.json",
+      "sha256": "74c3c5dd8c26e615e09b832043572e30f213c02a949bf6513bedbe68414c652f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/home/.hand/sessions/catalogues/6bad1d4e5c56bd2f/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/home/.hand/sessions/hand/.leases/workspace_6bad1d4e5c56bd2f_307ede07e194a1c04fdd0b390837b6e7.lock",
+      "sha256": "3c339963776bb6c0d0836a4a047858d802a02125fc9917b6d9882696c8e2ff45"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/home/.hand/sessions/hand/workspace_6bad1d4e5c56bd2f_307ede07e194a1c04fdd0b390837b6e7.jsonl",
+      "sha256": "430dc7f6c79db907b6d310609e4a99f21b9e2271ac786ef12f4e2835195e12b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/input.json",
+      "sha256": "e6eb39d3fb2ff995c1a382b99520baa31a2a683a9ada6ad1737fcd7a9e1fa391"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/review.json",
+      "sha256": "e338f1b300214d532f7c4ee6f397b7133eed05f77c75e7a0044c07d319df90a0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/review.stderr",
+      "sha256": "1da9e7efd5b60f9fb6a9cb3ebf1bd45b677e183e3f09e68b18755a98c8b8f493"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/run.json",
+      "sha256": "3c17d924609f1744d03312b947d24a6cc00708d019abb4304da6f90bb8351a0f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-extension-terminal-20260909/terminal.bin",
+      "sha256": "be479cd8b52fb19418a964f6e400a0a901ab152053eb0c8cb1bdaa3bc21a2afc"
+    }
+  ],
+  "implementation_binding": {
+    "path": "docs/acceptance/container-activation-integration.json",
+    "sha256": "cd5a4b5d2f31db4cddeb3c9368689a92c168db8ff7bedafe7fb209c0fb125eaf"
+  },
+  "limitations": [
+    "Development binary and unreleased Harness; final qualification pending. Real PTY completed all ten commands, persisted one note revision, recovered after cancellation via reviewed reload and left no new containers. Runner now supports an explicitly selected container fixture configuration. No model prompts or paid provider calls. This is not final latency or accessibility qualification."
+  ]
+}

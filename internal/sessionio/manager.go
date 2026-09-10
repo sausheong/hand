@@ -1,0 +1,256 @@
+package sessionio
+
+import (
+	"context"
+	"crypto/rand"
+	"encoding/hex"
+	"errors"
+	"fmt"
+	"path/filepath"
+	"strings"
+	"time"
+
+	"github.com/sausheong/harness/session"
+)
+
+// Manager binds the workspace catalogue to durable Harness sessions. The
+// caller owns each returned session lease and must join its work before Close.
+type Manager struct {
+	store               *session.Store
+	catalogue           *Catalogue
+	root, agent, prefix string
+	legacyKeys          []string
+	forkCheckpoint      func(string) error // immutable per-manager fault boundary seam
+	exportCheckpoint    func(string) error
+}
+
+type Selection struct {
+	Session *session.Session
+	Record  SessionRecord
+	Backups []string
+}
+
+func NewManager(root, workspace, agent string) (*Manager, error) {
+	if !validComponent(agent) {
+		return nil, errors.New("invalid session agent")
+	}
+	catalogue, err := OpenCatalogue(root, workspace)
+	if err != nil {
+		return nil, err
+	}
+	root, err = filepath.Abs(root)
+	if err != nil {
+		return nil, err
+	}
+	keys := []string{KeyForWorkspace(workspace)}
+	canonical := KeyForWorkspace(catalogue.workspace)
+	if canonical != keys[0] {
+		keys = append(keys, canonical)
+	}
+	return &Manager{store: session.NewStore(root), catalogue: catalogue, root: root, agent: agent, prefix: "workspace_" + canonical + "_", legacyKeys: keys}, nil
+}
+
+func (m *Manager) Catalogue() *Catalogue { return m.catalogue }
+
+func (m *Manager) owns(key string) bool {
+	if strings.HasPrefix(key, m.prefix) {
+		return true
+	}
+	for _, legacy := range m.legacyKeys {
+		if key == legacy {
+			return true
+		}
+	}
+	return false
+}
+
+// Reconcile registers legacy and orphaned durable sessions without removing
+// their files. A busy unregistered session is left to its active creator; a
+// non-busy corrupt candidate is an explicit error, not silently skipped.
+func (m *Manager) Reconcile(ctx context.Context) ([]string, error) {
+	if _, err := m.CleanupForkStaging(ctx); err != nil {
+		return nil, err
+	}
+	snapshot, err := m.catalogue.Snapshot()
+	if err != nil {
+		return nil, err
+	}
+	registered := make(map[string]bool)
+	for _, r := range snapshot.Sessions {
+		if r.AgentID == m.agent {
+			registered[r.StoreKey] = true
+		}
+	}
+	infos, err := m.store.List(m.agent)
+	if err != nil {
+		return nil, err
+	}
+	var backups []string
+	for _, info := range infos {
+		if err := ctx.Err(); err != nil {
+			return backups, err
+		}
+		if !m.owns(info.Key) || registered[info.Key] {
+			continue
+		}
+		sess, paths, err := m.openDurable(ctx, info.Key)
+		backups = append(backups, paths...)
+		if errors.Is(err, session.ErrSessionBusy) {
+			continue
+		}
+		if err != nil {
+			return backups, fmt.Errorf("reconcile session %s: %w", info.Key, err)
+		}
+		record := SessionRecord{ID: sess.ID, AgentID: m.agent, StoreKey: info.Key, Name: "Recovered session", CreatedAt: info.CreatedAt}
+		if record.CreatedAt.IsZero() {
+			record.CreatedAt = time.Now().UTC()
+		}
+		for _, key := range m.legacyKeys {
+			if info.Key == key {
+				record.Name = "Imported session"
+			}
+		}
+		err = m.catalogue.Register(record, false)
+		closeErr := sess.Close()
+		if err = errors.Join(err, closeErr); err != nil {
+			return backups, err
+		}
+	}
+	return backups, nil
+}
+
+func (m *Manager) openDurable(ctx context.Context, key string) (*session.Session, []string, error) {
+	// MigrateLegacy is idempotent for the versioned format and keeps its lease
+	// through return. It also validates graph identity before use.
+	sess, report, err := m.store.MigrateLegacy(ctx, m.agent, key)
+	var backups []string
+	if report.BackupPath != "" {
+		backups = append(backups, report.BackupPath)
+	}
+	if err == nil {
+		return sess, backups, nil
+	}
+	var record *session.RecordError
+	if !errors.As(err, &record) || !record.RecoverableTail {
+		return nil, backups, err
+	}
+	// Recovery and legacy conversion must validate one retained prefix while
+	// holding one lease; an intermediate normal-format load cannot parse older
+	// duplicate graphs or oversized inline images.
+	sess, report, err = m.store.MigrateRecovering(ctx, m.agent, key)
+	if report.BackupPath != "" {
+		backups = append(backups, report.BackupPath)
+	}
+	return sess, backups, err
+}
+
+func (m *Manager) Create(ctx context.Context, name string) (Selection, error) {
+	var selected Selection
+	if err := ctx.Err(); err != nil {
+		return selected, err
+	}
+	if !validSessionName(name) {
+		return selected, errors.New("invalid session name")
+	}
+	var random [16]byte
+	if _, err := rand.Read(random[:]); err != nil {
+		return selected, err
+	}
+	key := m.prefix + hex.EncodeToString(random[:])
+	if err := m.store.Create(m.agent, key); err != nil {
+		return selected, err
+	}
+	sess, paths, err := m.openDurable(ctx, key)
+	selected.Backups = paths
+	if err != nil {
+		return selected, err
+	}
+	record := SessionRecord{ID: sess.ID, AgentID: m.agent, StoreKey: key, Name: name, CreatedAt: time.Now().UTC()}
+	if err := ctx.Err(); err != nil {
+		return selected, errors.Join(err, sess.Close())
+	}
+	if err := m.catalogue.Register(record, true); err != nil {
+		return selected, errors.Join(err, sess.Close())
+	}
+	selected.Session = sess
+	selected.Record = record
+	return selected, nil
+}
+
+// Open imports/reconciles before selecting a session. Empty ID resumes the
+// last active session, or creates one if this workspace has no sessions.
+func (m *Manager) Open(ctx context.Context, id string, fresh bool) (Selection, error) {
+	var selected Selection
+	if id != "" && fresh {
+		return selected, errors.New("explicit session and new session are mutually exclusive")
+	}
+	backups, err := m.Reconcile(ctx)
+	selected.Backups = backups
+	if err != nil {
+		return selected, err
+	}
+	if fresh {
+		next, err := m.Create(ctx, "")
+		next.Backups = append(backups, next.Backups...)
+		return next, err
+	}
+	snapshot, err := m.catalogue.Snapshot()
+	if err != nil {
+		return selected, err
+	}
+	if id == "" {
+		id = snapshot.LastActiveID
+		if id == "" {
+			for _, r := range snapshot.Sessions {
+				if r.AgentID == m.agent {
+					id = r.ID
+					break
+				}
+			}
+		}
+	}
+	if id == "" {
+		next, err := m.Create(ctx, "")
+		next.Backups = append(backups, next.Backups...)
+		return next, err
+	}
+	var record SessionRecord
+	found := false
+	for _, r := range snapshot.Sessions {
+		if r.ID == id {
+			record = r
+			found = true
+			break
+		}
+	}
+	if !found || record.AgentID != m.agent || !m.owns(record.StoreKey) {
+		return selected, errors.New("session does not belong to this workspace and agent")
+	}
+	sess, paths, err := m.openDurable(ctx, record.StoreKey)
+	selected.Backups = append(backups, paths...)
+	if err != nil {
+		return selected, err
+	}
+	if sess.ID != record.ID {
+		sess.Close()
+		return selected, errors.New("backend session identity differs from catalogue")
+	}
+	if err := ctx.Err(); err != nil {
+		return selected, errors.Join(err, sess.Close())
+	}
+	if err := m.catalogue.Select(id); err != nil {
+		return selected, errors.Join(err, sess.Close())
+	}
+	selected.Session = sess
+	selected.Record = record
+	return selected, nil
+}
+
+// SessionPath is used for explicit export/reconciliation diagnostics, not as
+// authority to open a session without the manager's validation and lease.
+func (m *Manager) SessionPath(record SessionRecord) (string, error) {
+	if record.AgentID != m.agent || !m.owns(record.StoreKey) || !validComponent(record.StoreKey) {
+		return "", errors.New("session is outside workspace")
+	}
+	return filepath.Join(m.root, m.agent, record.StoreKey+".jsonl"), nil
+}

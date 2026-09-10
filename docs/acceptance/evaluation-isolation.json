@@ -1,0 +1,141 @@
+{
+  "status": "development_real_agent_isolation_passed",
+  "synthetic_upstream": true,
+  "provider_calls": 0,
+  "binary_sha256": "bb688ad11f7448cacf3ac3d0aabe4842fff7dc9ba1d5a038464f0c6f15a0d584",
+  "runner_sha256": "d2b05f3a826b1a532b4ee616a293b9844ef1b1da508e9b9bd3f98d7767fc9112",
+  "fixture_sha256": "9a76a96335857ffa9b48bbfabd27552aa257e1d4fb8a849f874add74f1847b61",
+  "source_unchanged": true,
+  "agent": {
+    "inaccessible_host_and_gateway_paths": {
+      "/private/tmp/hand-gateway-isolation-source-verified-20260910/private/host-sentinel": true,
+      "/private-config/config.json": true,
+      "/var/run/docker.sock": true,
+      "/audit/budget.sqlite": true
+    },
+    "provider_secret_absent": true,
+    "external_connections_denied": {
+      "('1.1.1.1', 443)": true,
+      "('172.17.0.2', 8765)": true
+    },
+    "network_state": {
+      "interface_flags": {
+        "lo": 9,
+        "tunl0": 128,
+        "gre0": 128,
+        "gretap0": 4098,
+        "erspan0": 4098,
+        "ip_vti0": 128,
+        "ip6_vti0": 128,
+        "sit0": 128,
+        "ip6tnl0": 128,
+        "ip6gre0": 128
+      },
+      "ipv4_routes": [],
+      "ipv6_addresses": [
+        "00000000000000000000000000000001 01 80 10 80       lo"
+      ]
+    },
+    "no_routable_external_interface": true,
+    "gateway_rejections": {
+      "wrong-token": true,
+      "wrong-model": true,
+      "foreign-host": true,
+      "absolute-target": true
+    },
+    "hand_completed": true,
+    "actual_tool_marker_read": true,
+    "passed": true,
+    "proxy_joined": true
+  },
+  "gateway": {
+    "requests": [
+      {
+        "provider_credential_substituted": true,
+        "tool_marker_seen": false
+      },
+      {
+        "provider_credential_substituted": true,
+        "tool_marker_seen": true
+      }
+    ],
+    "failures": [],
+    "requests_charged": 2,
+    "joined": true
+  },
+  "cleanup": [
+    {
+      "container": "hand-gateway-probe-a55415dfc00143879f76b4ab4a01d6ca-agent",
+      "removed": true,
+      "absent": true
+    },
+    {
+      "container": "hand-gateway-probe-a55415dfc00143879f76b4ab4a01d6ca-gateway",
+      "removed": true,
+      "absent": true
+    },
+    {
+      "container": "hand-gateway-probe-a55415dfc00143879f76b4ab4a01d6ca-outside",
+      "removed": true,
+      "absent": true
+    }
+  ],
+  "volume_removed": true,
+  "provider_secret_absent_from_agent_files": true,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/report.json.gz",
+      "sha256": "ec0b008854449cf61054e037a74e8084d8eefa97608a86da225af82999c9e7d8",
+      "raw_sha256": "a9736ec8f0a04b6c9c0c7c9c1f3edf36667c900bb0be085a816925b2eb338636"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/agent.stdout.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/agent.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/workspace__agent-report.json.gz",
+      "sha256": "6151540368a41fae366656edba0d1a3ace57b2af49650b350ddd2ca87e1f2645",
+      "raw_sha256": "7b603d3e912b8fe1fb42752640a3fdd520cafd4c813f34ce5446491738691c74"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/workspace__example.go.gz",
+      "sha256": "4136866b16f70708916fcc7431150bf57de3fe67014409a034eeee4dd078d2ab",
+      "raw_sha256": "c797013ef74bc8344d6c5317324324b36696cd3fd6d84a05819d524e388c2bf5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/workspace__hand.jsonl.gz",
+      "sha256": "425f0288686968246261ebc9385deb468b68044178ddcc9d3b27db7a9c5c7124",
+      "raw_sha256": "0a856d64049d9a4fd1e733c61ba7865cbb3f980169c5d4403557fee116fa6c42"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/workspace__hand.stderr.gz",
+      "sha256": "6c7dca3307f1148883d6ff5cb1c76783d3e259fb4735c3d45cd682be05f90a71",
+      "raw_sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/audit__requests__9aff75d4bfac47e38751057c3560b6a5__report.json.gz",
+      "sha256": "e1d9d1fd4adb4bf0da3ddbe52b920a039fdaeb3bb304ff946b7fab415d32d0f5",
+      "raw_sha256": "20bcec12f23bc62b2437f2cbe0d9d1a1f922ba31c12c25defc74f04a6752a322"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/audit__requests__cab46f1a793146799901221274c62c1a__report.json.gz",
+      "sha256": "6ee88619ae074566f2a0e348ef4df07d6006f1e2c9495cd260478146674d7853",
+      "raw_sha256": "98a01a1e11621a870d3412aad71ed31f49cacb5213c69f821005d17e704516dc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-isolation-20260910/audit__gateway-report.json.gz",
+      "sha256": "26401d8a9706016d90e60e3662d3d49220a5350705cef02d0f74e7073640c5ac",
+      "raw_sha256": "be7722b13cff0441e00b08ed04fab1625d241225f25d75299fbb2c5aff74c146"
+    }
+  ],
+  "limitations": [
+    "Real Linux Hand process and tool turn in a network-disabled container; synthetic upstream and credentials only.",
+    "Uses the Linux regression binary from before the portable unsupported-platform fallback refactor; final clean-candidate rerun remains required."
+  ]
+}

@@ -1,0 +1,2 @@
+hand: execution boundary: unrestricted host
+time=2026-09-09T01:28:27.261Z level=WARN msg="tool error" tool=write_file id=untrusted-write error="user denied scoped operation"

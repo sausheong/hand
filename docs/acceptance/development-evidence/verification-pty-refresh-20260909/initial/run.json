@@ -1,0 +1,19 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-verification-pty-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--checkpoint-dir",
+    "/private/tmp/hand-verification-pty-20260909-evidence/fixture/checkpoints",
+    "--verification-config",
+    "/private/tmp/hand-verification-pty-20260909-evidence/fixture/verification.json"
+  ],
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "7a6a457591e2fc1a12c1ed558b025d320f3ac6a3dba092a7cdc619018cdba439",
+  "error": "TimeoutExpired(['/private/tmp/hand-verification-pty-20260909', '--model', 'local/fixture', '--base-url', 'http://127.0.0.1:1/v1', '--checkpoint-dir', '/private/tmp/hand-verification-pty-20260909-evidence/fixture/checkpoints', '--verification-config', '/private/tmp/hand-verification-pty-20260909-evidence/fixture/verification.json'], 5)",
+  "terminal_sha256": "518d3f0bccf3c4f650f6fbc8bbdd5e5d293d8d140cff1191af018096a618993b"
+}

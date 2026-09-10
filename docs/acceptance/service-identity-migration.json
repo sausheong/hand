@@ -1,0 +1,33 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "repetitions": 20,
+  "pass_including_subtests": 120,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "Actual pending service approval rejects session/run/generation mismatches without resolving current request.",
+    "Obsolete stream messages do not overwrite current approval or finish current run.",
+    "Cancellation dismisses approval and cancels backend context but retains ownership until backend closes.",
+    "Late queued and backend text discarded after cancellation; duplicate terminal schedules no work.",
+    "Running /new rejected; /quit emits Quit only after cancelled backend joins."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-identity-migration-20260909/hand-service-identity-quit-migration-20260909.jsonl.gz",
+      "sha256": "b43ac594c7084ba9bb6d4a8e8e41807eb656f1148879304f91f27119393c759b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-identity-migration-20260909/hand-service-identity-migration-20260909.jsonl.gz",
+      "sha256": "8aba7e0c2428ed5226099964c5457844f9576dc85eef9ed1a08a14c37aec93b8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-identity-migration-20260909/identity_test.go.gz",
+      "sha256": "704d4c55784c8600003eb4b44f4f420d42a16ab2e76c86c5a17560f0c316e2e1"
+    }
+  ],
+  "limitations": [
+    "Fake backend with real service approval broker; no actual tool execution or paid provider calls.",
+    "Test-only migration; legacy adapter removal and final candidate/platform qualification remain."
+  ]
+}

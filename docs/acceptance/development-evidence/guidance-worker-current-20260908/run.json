@@ -1,0 +1,69 @@
+{
+  "status": "development_passed",
+  "binary_sha256": "30dfe26acc88bdce5c9499f950f1f8d8cba5ac58e1eca1a1da02f3e862da7b90",
+  "runner_sha256": "7d28b9dd53e96801d57abe48fe0ae0ea04f89d68e6fb0014571ee3b35f08742c",
+  "provider_calls": 0,
+  "boundary": "native worker fixture, no container qualification",
+  "invocations": [
+    {
+      "name": "nested",
+      "exit_code": 0,
+      "stdout_sha256": "a0f03edd69cc02b84d28edae22f47c40394ad25c5a493d549164021d21cbd026"
+    },
+    {
+      "name": "skill",
+      "exit_code": 0,
+      "stdout_sha256": "aab9d1e1574ee5673af06901057d678160a528b0f55e1fc4f8a3d9e44c676066"
+    },
+    {
+      "name": "resource",
+      "exit_code": 0,
+      "stdout_sha256": "f1f5a1e737d03f3df5550bc0fa318bf5f0b7c140dbf4d6a62342ba9fe5804718"
+    },
+    {
+      "name": "updated",
+      "exit_code": 0,
+      "stdout_sha256": "20dd6c89acfae813f9ec01fa2d95c5e91eaba462b5a48a53cb2cc581314c88b5"
+    },
+    {
+      "name": "write-before-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "eddb013d3be3df9f863d4b664120646f01e6239e17ced9fcd3e2bfb9e46e412c"
+    },
+    {
+      "name": "write-stale-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "dd14efdf205ac4742d8099c8aedfe7bc28127ac6f752f2961f07c980fc6bf826"
+    },
+    {
+      "name": "write-current-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "7f39d67ad0804a74a7bb6eccd63e46a1c1ed033a5d3862f99e7caac6ce14dc56"
+    },
+    {
+      "name": "edit-before-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "dd14efdf205ac4742d8099c8aedfe7bc28127ac6f752f2961f07c980fc6bf826"
+    },
+    {
+      "name": "edit-current-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "a1b93085417c7b0ce823323142d6cb1be7a34eae2daf675127b56f1918908c71"
+    },
+    {
+      "name": "search-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "ea34e35f9c1b0b9ccd19dbebf19548b5a4de62eb976158b2a074a551a1ef90a4"
+    },
+    {
+      "name": "search-bounded-guidance",
+      "exit_code": 0,
+      "stdout_sha256": "245bc679ced872201d22dfcc5e2bc32b0fd0d3a85b0e6a57d9c198574da8b3a3"
+    },
+    {
+      "name": "outside-denied",
+      "exit_code": 0,
+      "stdout_sha256": "20d3117aeec1ce333aedd976e8edebd0dde5256a913771d13c068924297216b2"
+    }
+  ]
+}

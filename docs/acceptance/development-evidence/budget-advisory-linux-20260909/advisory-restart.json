@@ -1,0 +1,255 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "context.state",
+          "context.state.replace",
+          "budget.run",
+          "budget.run.select",
+          "budget.run.tokens.decide",
+          "budget.run.cost.decide",
+          "budget.run.time.decide",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select-advisory",
+      "method": "session.select",
+      "params": {
+        "id": "ses_c3b86148bc57a2e1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select-advisory",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_c3b86148bc57a2e1"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "durable-advisory",
+      "method": "budget.cost",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "durable-advisory",
+      "result": {
+        "currency": "USD",
+        "limit_nano": 1000000,
+        "committed_nano": 15,
+        "compaction_nano": 0,
+        "strict": false,
+        "exhausted": false,
+        "attempts": 2,
+        "unpriced_attempts": 1,
+        "uncertain_attempts": 1,
+        "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "advisory-prompt",
+      "method": "prompt",
+      "params": {
+        "text": "Complete with explicitly unknown advisory pricing."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "advisory-prompt",
+      "result": {
+        "id": "advisory-prompt",
+        "fingerprint": "914b9516830cc555e4291b56de00341fd9066a58d950162ce563ba15662554f8",
+        "session_id": "ses_c3b86148bc57a2e1",
+        "run_id": "SFVA2NSA2KO6JK2XZBJ32CCX6D:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "3Y2HPBC7IDXTP6R74KX7JC6M64:7",
+          "sequence": 7,
+          "session_id": "ses_c3b86148bc57a2e1",
+          "run_id": "SFVA2NSA2KO6JK2XZBJ32CCX6D:1",
+          "request_id": "advisory-prompt",
+          "timestamp": "2026-09-09T03:07:56.264341709Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 20,
+              "known": true,
+              "output_tokens": 10,
+              "prior_unknown": false,
+              "reported_totals_known": true,
+              "requests": 2,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-prices",
+      "method": "budget.prices.set",
+      "params": {
+        "prices": [
+          {
+            "provider": "local",
+            "model": "fixture",
+            "destination": "http://127.0.0.1:43141/v1",
+            "currency": "USD",
+            "source": "scripted local fixture; not a market tariff",
+            "version": "fixture-1",
+            "effective_at": "2026-09-09T02:07:56.111237+00:00",
+            "expires_at": "2026-09-09T04:07:56.111237+00:00",
+            "input_nano_per_million": 1000000,
+            "output_nano_per_million": 1000000,
+            "cache_write_nano_per_million": 1000000,
+            "cache_read_nano_per_million": 1000000,
+            "fixed_nano": 0,
+            "all_charges_bounded": true
+          }
+        ],
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-prices",
+      "result": {
+        "price_count": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "strict-after-unknown",
+      "method": "budget.cost.decide",
+      "params": {
+        "currency": "USD",
+        "limit_nano": 2000000,
+        "strict": true,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "strict-after-unknown",
+      "error": {
+        "code": "budget_rejected",
+        "message": "unpriced prior attempts prevent a strict cost guarantee"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "uncertainty-retained",
+      "method": "budget.cost",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "uncertainty-retained",
+      "result": {
+        "currency": "USD",
+        "limit_nano": 1000000,
+        "committed_nano": 15,
+        "compaction_nano": 0,
+        "strict": false,
+        "exhausted": false,
+        "attempts": 2,
+        "unpriced_attempts": 1,
+        "uncertain_attempts": 1,
+        "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+      }
+    }
+  }
+]

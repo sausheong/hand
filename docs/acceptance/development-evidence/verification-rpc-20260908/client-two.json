@@ -1,0 +1,394 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pass",
+      "method": "verification.run",
+      "params": {
+        "confirmed": true,
+        "profile": "pass",
+        "digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:RCDEEK2UTQFGFXWPADD43EZTG2",
+        "id": "pass",
+        "fingerprint": "d8b956778cc8043536801a3350cb10e5556e2a4d47eabba391d58f761b5b99d0",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "pass",
+          "result": {
+            "completed": true,
+            "verification": {
+              "id": "f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "cat source"
+                ],
+                "profile": "pass",
+                "profile_digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c",
+                "workspace": "/private/tmp/hand-verification-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "after": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "omissions": null,
+                "started": "2026-09-08T08:30:14.129077Z",
+                "finished": "2026-09-08T08:30:14.138914Z",
+                "exit_code": 0,
+                "stdout": "original source",
+                "stderr": "",
+                "stdout_bytes": 15,
+                "stderr_bytes": 0,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "passed"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-pass",
+      "method": "request.get",
+      "params": {
+        "id": "pass"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-pass",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:RCDEEK2UTQFGFXWPADD43EZTG2",
+        "id": "pass",
+        "fingerprint": "d8b956778cc8043536801a3350cb10e5556e2a4d47eabba391d58f761b5b99d0",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "pass",
+          "result": {
+            "completed": true,
+            "verification": {
+              "id": "f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "cat source"
+                ],
+                "profile": "pass",
+                "profile_digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c",
+                "workspace": "/private/tmp/hand-verification-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "after": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+                "omissions": null,
+                "started": "2026-09-08T08:30:14.129077Z",
+                "finished": "2026-09-08T08:30:14.138914Z",
+                "exit_code": 0,
+                "stdout": "original source",
+                "stderr": "",
+                "stdout_bytes": 15,
+                "stderr_bytes": 0,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "passed"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "stale-again",
+      "method": "verification.check",
+      "params": {
+        "profile": "pass",
+        "id": "f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "stale-again",
+      "result": {
+        "id": "f4b31d3e4b2459f857cae5652123b9c3dabead5b84c172df3b0f91b85ee4cd87",
+        "record": {
+          "command": [
+            "/bin/sh",
+            "-c",
+            "cat source"
+          ],
+          "profile": "pass",
+          "profile_digest": "2f16b7405f8ff2c1c7d5413c33b3bec75a010fb91f317091792896ff3757090c",
+          "workspace": "/private/tmp/hand-verification-rpc-20260908/workspace",
+          "boundary": "unrestricted host; commands can access host resources",
+          "before": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+          "after": "0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d",
+          "omissions": null,
+          "started": "2026-09-08T08:30:14.129077Z",
+          "finished": "2026-09-08T08:30:14.138914Z",
+          "exit_code": 0,
+          "stdout": "original source",
+          "stderr": "",
+          "stdout_bytes": 15,
+          "stderr_bytes": 0,
+          "stdout_truncated": false,
+          "stderr_truncated": false,
+          "stdout_artifact": {
+            "bytes": 0,
+            "truncated": false
+          },
+          "stderr_artifact": {
+            "bytes": 0,
+            "truncated": false
+          }
+        },
+        "assessment": {
+          "status": "stale"
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "verification.run",
+      "params": {
+        "confirmed": true,
+        "profile": "hang",
+        "digest": "3560815fcec4bdb10d83bba5d21ed5119e6411b296b8e10903801b850dd6bdf3"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GZO3DYDPWYKI67RHRLFUWUSQ2D",
+        "id": "cancel",
+        "fingerprint": "1c842655a8741b73b62ba4f76c0f4b08c5575c08829543864fc043a90fe53162",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel-command",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel-command",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-cancel",
+      "method": "request.get",
+      "params": {
+        "id": "cancel"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-cancel",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GZO3DYDPWYKI67RHRLFUWUSQ2D",
+        "id": "cancel",
+        "fingerprint": "1c842655a8741b73b62ba4f76c0f4b08c5575c08829543864fc043a90fe53162",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "get-cancel",
+      "method": "request.get",
+      "params": {
+        "id": "cancel"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "get-cancel",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:GZO3DYDPWYKI67RHRLFUWUSQ2D",
+        "id": "cancel",
+        "fingerprint": "1c842655a8741b73b62ba4f76c0f4b08c5575c08829543864fc043a90fe53162",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "request_id": "cancel",
+          "result": {
+            "completed": false,
+            "error": "signal: killed",
+            "verification": {
+              "id": "5bb3b9c1dc2c985692a5236a2e26d6ad60597ec3e75f33b21b8e3747f4bda826",
+              "record": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "printf %s \"$$\" > marker; exec sleep 30"
+                ],
+                "profile": "hang",
+                "profile_digest": "3560815fcec4bdb10d83bba5d21ed5119e6411b296b8e10903801b850dd6bdf3",
+                "workspace": "/private/tmp/hand-verification-rpc-20260908/workspace",
+                "boundary": "unrestricted host; commands can access host resources",
+                "before": "ab87e6c83a2b3edb7219e5b5461f23204dd3a9e218262f14c766dfeaa70167e8",
+                "omissions": null,
+                "started": "2026-09-08T08:30:14.262082Z",
+                "finished": "2026-09-08T08:30:14.289403Z",
+                "exit_code": -1,
+                "run_error": "signal: killed",
+                "snapshot_error": "context canceled",
+                "stdout": "",
+                "stderr": "",
+                "stdout_bytes": 0,
+                "stderr_bytes": 0,
+                "stdout_truncated": false,
+                "stderr_truncated": false,
+                "stdout_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                },
+                "stderr_artifact": {
+                  "bytes": 0,
+                  "truncated": false
+                }
+              },
+              "assessment": {
+                "status": "unverified",
+                "reason": "context canceled"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "disconnect",
+      "method": "verification.run",
+      "params": {
+        "confirmed": true,
+        "profile": "hang",
+        "digest": "3560815fcec4bdb10d83bba5d21ed5119e6411b296b8e10903801b850dd6bdf3"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "disconnect",
+      "result": {
+        "kind": "control",
+        "operation_id": "operation:3J3R6Y5JQLXUHSDIY27HYBEX5Z",
+        "id": "disconnect",
+        "fingerprint": "1c842655a8741b73b62ba4f76c0f4b08c5575c08829543864fc043a90fe53162",
+        "session_id": "ses_28ae8295feb0b88e",
+        "state": "accepted"
+      }
+    }
+  }
+]

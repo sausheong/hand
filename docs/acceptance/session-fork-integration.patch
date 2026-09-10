@@ -1,0 +1,2125 @@
+--- /dev/null
++++ b/internal/sessionio/manager.go
+@@ -0,0 +1,260 @@
++package sessionio
++
++import (
++	"context"
++	"crypto/rand"
++	"encoding/hex"
++	"errors"
++	"fmt"
++	"path/filepath"
++	"strings"
++	"time"
++
++	"github.com/sausheong/harness/session"
++)
++
++// Manager binds the workspace catalogue to durable Harness sessions. The
++// caller owns each returned session lease and must join its work before Close.
++type Manager struct {
++	store               *session.Store
++	catalogue           *Catalogue
++	root, agent, prefix string
++	legacyKeys          []string
++}
++
++type Selection struct {
++	Session *session.Session
++	Record  SessionRecord
++	Backups []string
++}
++
++func NewManager(root, workspace, agent string) (*Manager, error) {
++	if !validComponent(agent) {
++		return nil, errors.New("invalid session agent")
++	}
++	catalogue, err := OpenCatalogue(root, workspace)
++	if err != nil {
++		return nil, err
++	}
++	root, err = filepath.Abs(root)
++	if err != nil {
++		return nil, err
++	}
++	keys := []string{KeyForWorkspace(workspace)}
++	canonical := KeyForWorkspace(catalogue.workspace)
++	if canonical != keys[0] {
++		keys = append(keys, canonical)
++	}
++	return &Manager{store: session.NewStore(root), catalogue: catalogue, root: root, agent: agent, prefix: "workspace_" + canonical + "_", legacyKeys: keys}, nil
++}
++
++func (m *Manager) Catalogue() *Catalogue { return m.catalogue }
++
++func (m *Manager) owns(key string) bool {
++	if strings.HasPrefix(key, m.prefix) {
++		return true
++	}
++	for _, legacy := range m.legacyKeys {
++		if key == legacy {
++			return true
++		}
++	}
++	return false
++}
++
++// Reconcile registers legacy and orphaned durable sessions without removing
++// their files. A busy unregistered session is left to its active creator; a
++// non-busy corrupt candidate is an explicit error, not silently skipped.
++func (m *Manager) Reconcile(ctx context.Context) ([]string, error) {
++	snapshot, err := m.catalogue.Snapshot()
++	if err != nil {
++		return nil, err
++	}
++	registered := make(map[string]bool)
++	for _, r := range snapshot.Sessions {
++		if r.AgentID == m.agent {
++			registered[r.StoreKey] = true
++		}
++	}
++	infos, err := m.store.List(m.agent)
++	if err != nil {
++		return nil, err
++	}
++	var backups []string
++	for _, info := range infos {
++		if err := ctx.Err(); err != nil {
++			return backups, err
++		}
++		if !m.owns(info.Key) || registered[info.Key] {
++			continue
++		}
++		sess, paths, err := m.openDurable(ctx, info.Key)
++		if errors.Is(err, session.ErrSessionBusy) {
++			continue
++		}
++		if err != nil {
++			return backups, fmt.Errorf("reconcile session %s: %w", info.Key, err)
++		}
++		backups = append(backups, paths...)
++		record := SessionRecord{ID: sess.ID, AgentID: m.agent, StoreKey: info.Key, Name: "Recovered session", CreatedAt: info.CreatedAt}
++		if record.CreatedAt.IsZero() {
++			record.CreatedAt = time.Now().UTC()
++		}
++		for _, key := range m.legacyKeys {
++			if info.Key == key {
++				record.Name = "Imported session"
++			}
++		}
++		err = m.catalogue.Register(record, false)
++		closeErr := sess.Close()
++		if err = errors.Join(err, closeErr); err != nil {
++			return backups, err
++		}
++	}
++	return backups, nil
++}
++
++func (m *Manager) openDurable(ctx context.Context, key string) (*session.Session, []string, error) {
++	// MigrateLegacy is idempotent for the versioned format and keeps its lease
++	// through return. It also validates graph identity before use.
++	sess, report, err := m.store.MigrateLegacy(ctx, m.agent, key)
++	var backups []string
++	if report.BackupPath != "" {
++		backups = append(backups, report.BackupPath)
++	}
++	if err == nil {
++		return sess, backups, nil
++	}
++	var record *session.RecordError
++	if !errors.As(err, &record) || !record.RecoverableTail {
++		return nil, backups, err
++	}
++	recovered, recovery, err := m.store.LoadRecovering(ctx, m.agent, key)
++	if recovery.BackupPath != "" {
++		backups = append(backups, recovery.BackupPath)
++	}
++	if err != nil {
++		return nil, backups, err
++	}
++	if err := recovered.Close(); err != nil {
++		return nil, backups, err
++	}
++	// Closing before migration can allow another writer to acquire the lease;
++	// the next call fails busy in that case rather than bypassing ownership.
++	sess, report, err = m.store.MigrateLegacy(ctx, m.agent, key)
++	if report.BackupPath != "" {
++		backups = append(backups, report.BackupPath)
++	}
++	return sess, backups, err
++}
++
++func (m *Manager) Create(ctx context.Context, name string) (Selection, error) {
++	var selected Selection
++	if err := ctx.Err(); err != nil {
++		return selected, err
++	}
++	if !validSessionName(name) {
++		return selected, errors.New("invalid session name")
++	}
++	var random [16]byte
++	if _, err := rand.Read(random[:]); err != nil {
++		return selected, err
++	}
++	key := m.prefix + hex.EncodeToString(random[:])
++	if err := m.store.Create(m.agent, key); err != nil {
++		return selected, err
++	}
++	sess, paths, err := m.openDurable(ctx, key)
++	selected.Backups = paths
++	if err != nil {
++		return selected, err
++	}
++	record := SessionRecord{ID: sess.ID, AgentID: m.agent, StoreKey: key, Name: name, CreatedAt: time.Now().UTC()}
++	if err := ctx.Err(); err != nil {
++		return selected, errors.Join(err, sess.Close())
++	}
++	if err := m.catalogue.Register(record, true); err != nil {
++		return selected, errors.Join(err, sess.Close())
++	}
++	selected.Session = sess
++	selected.Record = record
++	return selected, nil
++}
++
++// Open imports/reconciles before selecting a session. Empty ID resumes the
++// last active session, or creates one if this workspace has no sessions.
++func (m *Manager) Open(ctx context.Context, id string, fresh bool) (Selection, error) {
++	var selected Selection
++	if id != "" && fresh {
++		return selected, errors.New("explicit session and new session are mutually exclusive")
++	}
++	backups, err := m.Reconcile(ctx)
++	selected.Backups = backups
++	if err != nil {
++		return selected, err
++	}
++	if fresh {
++		next, err := m.Create(ctx, "")
++		next.Backups = append(backups, next.Backups...)
++		return next, err
++	}
++	snapshot, err := m.catalogue.Snapshot()
++	if err != nil {
++		return selected, err
++	}
++	if id == "" {
++		id = snapshot.LastActiveID
++		if id == "" {
++			for _, r := range snapshot.Sessions {
++				if r.AgentID == m.agent {
++					id = r.ID
++					break
++				}
++			}
++		}
++	}
++	if id == "" {
++		next, err := m.Create(ctx, "")
++		next.Backups = append(backups, next.Backups...)
++		return next, err
++	}
++	var record SessionRecord
++	found := false
++	for _, r := range snapshot.Sessions {
++		if r.ID == id {
++			record = r
++			found = true
++			break
++		}
++	}
++	if !found || record.AgentID != m.agent || !m.owns(record.StoreKey) {
++		return selected, errors.New("session does not belong to this workspace and agent")
++	}
++	sess, paths, err := m.openDurable(ctx, record.StoreKey)
++	selected.Backups = append(backups, paths...)
++	if err != nil {
++		return selected, err
++	}
++	if sess.ID != record.ID {
++		sess.Close()
++		return selected, errors.New("backend session identity differs from catalogue")
++	}
++	if err := ctx.Err(); err != nil {
++		return selected, errors.Join(err, sess.Close())
++	}
++	if err := m.catalogue.Select(id); err != nil {
++		return selected, errors.Join(err, sess.Close())
++	}
++	selected.Session = sess
++	selected.Record = record
++	return selected, nil
++}
++
++// SessionPath is used for explicit export/reconciliation diagnostics, not as
++// authority to open a session without the manager's validation and lease.
++func (m *Manager) SessionPath(record SessionRecord) (string, error) {
++	if record.AgentID != m.agent || !m.owns(record.StoreKey) || !validComponent(record.StoreKey) {
++		return "", errors.New("session is outside workspace")
++	}
++	return filepath.Join(m.root, m.agent, record.StoreKey+".jsonl"), nil
++}
+--- /dev/null
++++ b/internal/sessionio/manager_test.go
+@@ -0,0 +1,207 @@
++package sessionio
++
++import (
++	"bytes"
++	"context"
++	"errors"
++	"os"
++	"path/filepath"
++	"testing"
++
++	"github.com/sausheong/harness/session"
++)
++
++func managerFixture(t *testing.T) *Manager {
++	t.Helper()
++	m, err := NewManager(t.TempDir(), t.TempDir(), "hand")
++	if err != nil {
++		t.Fatal(err)
++	}
++	return m
++}
++func TestManagerNewPreservesLegacyAndResumesLastActive(t *testing.T) {
++	m := managerFixture(t)
++	key := m.legacyKeys[0]
++	path := filepath.Join(m.root, m.agent, key+".jsonl")
++	if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
++		t.Fatal(err)
++	}
++	original := []byte(`{"id":"old","type":"message","role":"user","timestamp":123,"data":{"text":"previous work"}}` + "\n")
++	if err := os.WriteFile(path, original, 0600); err != nil {
++		t.Fatal(err)
++	}
++	fresh, err := m.Open(context.Background(), "", true)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer fresh.Session.Close()
++	if len(fresh.Session.Entries()) != 0 || len(fresh.Backups) != 1 {
++		t.Fatal("fresh session or import backup missing", fresh.Backups)
++	}
++	backup, err := os.ReadFile(fresh.Backups[0])
++	if err != nil || !bytes.Equal(backup, original) {
++		t.Fatal("only copy of history lost", err)
++	}
++	snapshot, err := m.catalogue.Snapshot()
++	if err != nil || len(snapshot.Sessions) != 2 || snapshot.LastActiveID != fresh.Session.ID {
++		t.Fatal("new session replaced legacy catalogue", snapshot, err)
++	}
++	oldID := snapshot.Sessions[0].ID
++	fresh.Session.Append(session.UserMessageEntry("new work"))
++	if err := fresh.Session.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	fresh.Session.Close()
++	resumed, err := m.Open(context.Background(), "", false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if resumed.Session.ID != fresh.Session.ID || len(resumed.Session.History()) != 1 {
++		t.Fatal("auto-resume lost new session")
++	}
++	resumed.Session.Close()
++	old, err := m.Open(context.Background(), oldID, false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer old.Session.Close()
++	if len(old.Session.History()) != 1 || old.Session.History()[0].ID != "old" {
++		t.Fatal("legacy history no longer resumable")
++	}
++	again, err := m.Reconcile(context.Background())
++	if err != nil || len(again) != 0 {
++		t.Fatal("repeat import duplicated backup", err)
++	}
++	snapshot, _ = m.catalogue.Snapshot()
++	if len(snapshot.Sessions) != 2 {
++		t.Fatal("repeat import duplicated sessions")
++	}
++}
++
++func TestManagerReconcilesOrphanAndExcludesForeignWorkspace(t *testing.T) {
++	m := managerFixture(t)
++	if err := m.store.Create(m.agent, m.prefix+"orphan"); err != nil {
++		t.Fatal(err)
++	}
++	if err := m.store.Create(m.agent, "workspace_other_foreign"); err != nil {
++		t.Fatal(err)
++	}
++	selected, err := m.Open(context.Background(), "", false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer selected.Session.Close()
++	if selected.Record.StoreKey != m.prefix+"orphan" {
++		t.Fatal("orphan not recovered", selected.Record)
++	}
++	snapshot, _ := m.catalogue.Snapshot()
++	if len(snapshot.Sessions) != 1 {
++		t.Fatal("foreign session imported")
++	}
++}
++
++func TestManagerWriterOwnershipAndIndependentNewSession(t *testing.T) {
++	m := managerFixture(t)
++	first, err := m.Open(context.Background(), "", false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer first.Session.Close()
++	other, err := NewManager(m.root, m.catalogue.workspace, m.agent)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if _, err := other.Open(context.Background(), first.Session.ID, false); !errors.Is(err, session.ErrSessionBusy) {
++		t.Fatal("second writer admitted", err)
++	}
++	second, err := other.Open(context.Background(), "", true)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer second.Session.Close()
++	if second.Session.ID == first.Session.ID {
++		t.Fatal("new session reused identity")
++	}
++	first.Session.Append(session.UserMessageEntry("still writable"))
++	if err := first.Session.Flush(); err != nil {
++		t.Fatal(err)
++	}
++}
++
++func TestManagerDetectsMissingAndReplacedBackend(t *testing.T) {
++	for _, missing := range []bool{false, true} {
++		m := managerFixture(t)
++		selected, err := m.Open(context.Background(), "", false)
++		if err != nil {
++			t.Fatal(err)
++		}
++		selected.Session.Close()
++		path, err := m.SessionPath(selected.Record)
++		if err != nil {
++			t.Fatal(err)
++		}
++		if err := os.Remove(path); err != nil {
++			t.Fatal(err)
++		}
++		if !missing {
++			if err := m.store.Create(m.agent, selected.Record.StoreKey); err != nil {
++				t.Fatal(err)
++			}
++		}
++		if _, err := m.Open(context.Background(), selected.Record.ID, false); err == nil {
++			t.Fatal("missing/replaced backend silently accepted")
++		}
++	}
++}
++
++func TestManagerRecoversTailAndRejectsInteriorCorruption(t *testing.T) {
++	for _, tail := range []bool{false, true} {
++		m := managerFixture(t)
++		path := filepath.Join(m.root, m.agent, m.legacyKeys[0]+".jsonl")
++		if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
++			t.Fatal(err)
++		}
++		original := `{"id":"old","type":"message","data":{"text":"keep"}}` + "\n" + `{"id":`
++		if !tail {
++			original += "\n" + `{"id":"later"}`
++		}
++		if err := os.WriteFile(path, []byte(original), 0600); err != nil {
++			t.Fatal(err)
++		}
++		selected, err := m.Open(context.Background(), "", false)
++		if tail {
++			if err != nil {
++				t.Fatal(err)
++			}
++			selected.Session.Close()
++			if len(selected.Backups) < 1 || len(selected.Session.Entries()) != 1 {
++				t.Fatal("tail recovery missing")
++			}
++		} else {
++			if err == nil {
++				selected.Session.Close()
++				t.Fatal("interior corruption dropped")
++			}
++			raw, _ := os.ReadFile(path)
++			if string(raw) != original {
++				t.Fatal("interior corruption modified")
++			}
++		}
++	}
++}
++
++func TestManagerRejectsCancelledAndConflictingSelection(t *testing.T) {
++	m := managerFixture(t)
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if _, err := m.Create(ctx, "name"); !errors.Is(err, context.Canceled) {
++		t.Fatal(err)
++	}
++	if _, err := m.Open(context.Background(), "id", true); err == nil {
++		t.Fatal("conflicting flags accepted")
++	}
++	snapshot, err := m.catalogue.Snapshot()
++	if err != nil || len(snapshot.Sessions) != 0 {
++		t.Fatal("rejected request created catalogue", err)
++	}
++}
+--- a/internal/app/controller.go
++++ b/internal/app/controller.go
+@@ -4,6 +4,7 @@
+ 	"context"
+ 	"fmt"
+ 	"github.com/sausheong/hand/internal/config"
++	"github.com/sausheong/hand/internal/sessionio"
+ 	"sync"
+ 
+ 	"github.com/sausheong/harness/compaction"
+@@ -26,6 +27,8 @@
+ 	ownerOnce            sync.Once
+ 	Owner                *Service // set before first use; shared by configuration and turn operations
+ 	Rt                   *runtime.Runtime
++	Sessions             *sessionio.Manager
++	sessionWarning       string
+ 	Store                *session.Store
+ 	SessionKey           string
+ 	BaseURL              string
+@@ -120,11 +123,11 @@
+ 	return nil
+ }
+ 
+-// NewSession discards this workspace's saved session and points the
+-// runtime at a fresh, empty one — the interactive equivalent of the
+-// --new-session flag.
+-func (c *Controller) NewSession() error {
+-	_, release, err := c.owner().reserve(context.Background(), Idle)
++// NewSession selects a new durable session while preserving all old history.
++func (c *Controller) NewSession() error { return c.NewSessionContext(context.Background()) }
++
++func (c *Controller) NewSessionContext(ctx context.Context) error {
++	_, release, err := c.owner().reserve(ctx, Idle)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -134,19 +137,60 @@
+ 	if c.Rt.Compaction.HasInFlight(c.Rt.Session) {
+ 		return fmt.Errorf("background compaction is still active; retry session change after it finishes")
+ 	}
+-
+-	if err := c.Store.Delete(c.Rt.AgentID, c.SessionKey); err != nil {
+-		return fmt.Errorf("discard session: %w", err)
+-	}
+-	sess, err := c.Store.Load(c.Rt.AgentID, c.SessionKey)
+-	if err != nil {
+-		return fmt.Errorf("load fresh session: %w", err)
+-	}
+-	c.Rt.Session = sess
++	old := c.Rt.Session
++	if old != nil && old.PersistenceError() != nil {
++		return old.PersistenceError()
++	}
++	if old != nil && len(old.Entries()) > 0 {
++		if err := old.Flush(); err != nil {
++			return fmt.Errorf("save current session: %w", err)
++		}
++	}
++	if err := ctx.Err(); err != nil {
++		return err
++	}
++	var next *session.Session
++	var key string
++	if c.Sessions != nil {
++		selected, err := c.Sessions.Create(ctx, "")
++		if err != nil {
++			return err
++		}
++		next = selected.Session
++		key = selected.Record.StoreKey
++	} else {
++		// Compatibility for internal embedders without a workspace manager. A new
++		// backend key still preserves the prior file; production supplies Sessions.
++		if c.Store == nil {
++			return fmt.Errorf("session store unavailable")
++		}
++		key = session.NewSession(c.Rt.AgentID, "").ID
++		if err := c.Store.Create(c.Rt.AgentID, key); err != nil {
++			return err
++		}
++		next, err = c.Store.LoadExclusive(c.Rt.AgentID, key)
++		if err != nil {
++			return err
++		}
++	}
++	c.Rt.Session = next
++	c.SessionKey = key
++	c.sessionWarning = ""
+ 	c.owner().mu.Lock()
+-	c.owner().options.SessionID = sess.ID
++	c.owner().options.SessionID = next.ID
+ 	c.owner().mu.Unlock()
++	if old != nil {
++		if err := old.Close(); err != nil {
++			c.sessionWarning = "new session selected; previous writer cleanup failed: " + err.Error()
++		}
++	}
+ 	return nil
++}
++
++func (c *Controller) SessionWarning() string {
++	c.mu.RLock()
++	defer c.mu.RUnlock()
++	return c.sessionWarning
+ }
+ 
+ // Compact forces a compaction pass on the active session
+--- /dev/null
++++ b/internal/app/session_integration_test.go
+@@ -0,0 +1,77 @@
++package app
++
++import (
++	"context"
++	"testing"
++
++	"github.com/sausheong/hand/internal/sessionio"
++	"github.com/sausheong/harness/runtime"
++	"github.com/sausheong/harness/session"
++)
++
++func TestControllerNewUsesCatalogueAndPreservesPriorSession(t *testing.T) {
++	manager, err := sessionio.NewManager(t.TempDir(), t.TempDir(), "hand")
++	if err != nil {
++		t.Fatal(err)
++	}
++	selected, err := manager.Open(context.Background(), "", false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	selected.Session.Append(session.UserMessageEntry("original work"))
++	rt := &runtime.Runtime{AgentID: "hand", Session: selected.Session}
++	controller := &Controller{Rt: rt, Sessions: manager, SessionKey: selected.Record.StoreKey}
++	if err := controller.NewSession(); err != nil {
++		t.Fatal(err)
++	}
++	defer rt.Session.Close()
++	if rt.Session.ID == selected.Session.ID || len(rt.Session.Entries()) != 0 || controller.owner().options.SessionID != rt.Session.ID {
++		t.Fatal("new session identity not committed")
++	}
++	snapshot, err := manager.Catalogue().Snapshot()
++	if err != nil || len(snapshot.Sessions) != 2 || snapshot.LastActiveID != rt.Session.ID {
++		t.Fatal("catalogue lost old session", err)
++	}
++	old, err := manager.Open(context.Background(), selected.Session.ID, false)
++	if err != nil {
++		t.Fatal("old writer lease not released", err)
++	}
++	defer old.Session.Close()
++	if len(old.Session.History()) != 1 {
++		t.Fatal("new discarded original history")
++	}
++}
++
++func TestControllerResumeFailureKeepsCurrentLeaseAndSameSessionIsIdempotent(t *testing.T) {
++	manager, err := sessionio.NewManager(t.TempDir(), t.TempDir(), "hand")
++	if err != nil {
++		t.Fatal(err)
++	}
++	current, err := manager.Open(context.Background(), "", false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	rt := &runtime.Runtime{AgentID: "hand", Session: current.Session}
++	controller := &Controller{Rt: rt, Sessions: manager, SessionKey: current.Record.StoreKey}
++	defer rt.Session.Close()
++	if err := controller.ResumeSession("missing"); err == nil {
++		t.Fatal("unknown session accepted")
++	}
++	if rt.Session != current.Session {
++		t.Fatal("failed resume changed backend")
++	}
++	if err := controller.ResumeSession(current.Session.ID); err != nil {
++		t.Fatal("same-session resume tried to reacquire its own lease", err)
++	}
++	current.Session.Append(session.UserMessageEntry("still owned"))
++	if err := current.Session.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	if err := controller.RenameSession("retained name"); err != nil {
++		t.Fatal(err)
++	}
++	records, err := controller.ListSessions()
++	if err != nil || len(records) != 1 || records[0].Name != "retained name" {
++		t.Fatal("name not listed", err)
++	}
++}
+--- /dev/null
++++ b/internal/app/sessions.go
+@@ -0,0 +1,129 @@
++package app
++
++import (
++	"context"
++	"errors"
++	"fmt"
++	"sort"
++
++	"github.com/sausheong/hand/internal/sessionio"
++	"github.com/sausheong/harness/session"
++)
++
++func (c *Controller) ListSessions() ([]sessionio.SessionRecord, error) {
++	return c.ListSessionsContext(context.Background())
++}
++
++func (c *Controller) ListSessionsContext(ctx context.Context) ([]sessionio.SessionRecord, error) {
++	if err := ctx.Err(); err != nil {
++		return nil, err
++	}
++	c.mu.RLock()
++	defer c.mu.RUnlock()
++	if c.Sessions == nil {
++		return nil, errors.New("workspace sessions unavailable")
++	}
++	snapshot, err := c.Sessions.Catalogue().Snapshot()
++	if err != nil {
++		return nil, err
++	}
++	if err := ctx.Err(); err != nil {
++		return nil, err
++	}
++	records := make([]sessionio.SessionRecord, 0, len(snapshot.Sessions))
++	for _, record := range snapshot.Sessions {
++		if record.AgentID == c.Rt.AgentID {
++			records = append(records, record)
++		}
++	}
++	sort.SliceStable(records, func(i, j int) bool {
++		if records[i].LastActive.Equal(records[j].LastActive) {
++			return records[i].ID < records[j].ID
++		}
++		return records[i].LastActive.After(records[j].LastActive)
++	})
++	return records, nil
++}
++
++func (c *Controller) RenameSession(name string) error {
++	return c.RenameSessionContext(context.Background(), name)
++}
++
++func (c *Controller) RenameSessionContext(ctx context.Context, name string) error {
++	_, release, err := c.owner().reserve(ctx, Idle)
++	if err != nil {
++		return err
++	}
++	defer release()
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	if c.Sessions == nil || c.Rt.Session == nil {
++		return errors.New("workspace sessions unavailable")
++	}
++	if err := ctx.Err(); err != nil {
++		return err
++	}
++	return c.Sessions.Catalogue().Rename(c.Rt.Session.ID, name)
++}
++
++// ResumeSession preserves the current writer and view until the target has
++// been validated, leased and selected successfully.
++func (c *Controller) ResumeSession(id string) error {
++	return c.ResumeSessionContext(context.Background(), id)
++}
++
++func (c *Controller) ResumeSessionContext(ctx context.Context, id string) error {
++	if id == "" {
++		return errors.New("session ID is required")
++	}
++	_, release, err := c.owner().reserve(ctx, Idle)
++	if err != nil {
++		return err
++	}
++	defer release()
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	if c.Sessions == nil {
++		return errors.New("workspace sessions unavailable")
++	}
++	if c.Rt.Compaction.HasInFlight(c.Rt.Session) {
++		return errors.New("background compaction is still active")
++	}
++	old := c.Rt.Session
++	if old != nil {
++		if err := old.Flush(); err != nil {
++			return fmt.Errorf("save current session: %w", err)
++		}
++		if old.ID == id {
++			return c.Sessions.Catalogue().Select(id)
++		}
++	}
++	selected, err := c.Sessions.Open(ctx, id, false)
++	if err != nil {
++		return err
++	}
++	c.Rt.Session = selected.Session
++	c.SessionKey = selected.Record.StoreKey
++	c.sessionWarning = ""
++	c.owner().mu.Lock()
++	c.owner().options.SessionID = selected.Session.ID
++	c.owner().mu.Unlock()
++	if old != nil {
++		if err := old.Close(); err != nil {
++			c.sessionWarning = "session resumed; previous writer cleanup failed: " + err.Error()
++		}
++	}
++	if len(selected.Backups) > 0 {
++		c.sessionWarning += fmt.Sprintf(" session recovery preserved %d backup(s)", len(selected.Backups))
++	}
++	return nil
++}
++
++func (c *Controller) SessionHistory() []session.SessionEntry {
++	c.mu.RLock()
++	defer c.mu.RUnlock()
++	if c.Rt.Session == nil {
++		return nil
++	}
++	return c.Rt.Session.History()
++}
+--- a/internal/tui/commands.go
++++ b/internal/tui/commands.go
+@@ -21,7 +21,11 @@
+ 	{"/help", "show this message"},
+ 	{"/model", "show the active model, or /model <name> to switch"},
+ 	{"/profile", "list profiles, or /profile <name> to switch"},
+-	{"/new", "discard this workspace's saved session and start fresh"},
++	{"/new", "create a new session while keeping previous history"},
++	{"/resume", "list sessions, or /resume <session ID>"},
++	{"/name", "name the current session: /name <text>"},
++	{"/fork", "copy the selected history into a new session"},
++	{"/tree", "show session branches, or /tree <entry ID> to select"},
+ 	{"/clear", "clear the on-screen transcript (keeps the saved session)"},
+ 	{"/compact", "force a context-compaction pass now"},
+ 	{"/usage", "show token usage: this turn, session total, and context window"},
+@@ -113,6 +117,13 @@
+ func (m *Model) handleCommand(text string) tea.Cmd {
+ 	fields := strings.Fields(text)
+ 	name, args := fields[0], fields[1:]
++	if m.sessionChanging {
++		if name == "/exit" || name == "/quit" {
++			m.quitAfterSession = true
++			m.sessionCancel()
++		}
++		return nil
++	}
+ 	if m.profileChanging {
+ 		if name == "/exit" || name == "/quit" {
+ 			m.quitAfterProfile = true
+@@ -121,7 +132,7 @@
+ 		return nil
+ 	}
+ 
+-	if m.running && (name == "/new" || name == "/model" || name == "/profile" || name == "/compact" || name == "/exit" || name == "/quit") {
++	if m.running && (name == "/new" || name == "/resume" || name == "/name" || name == "/tree" || name == "/fork" || name == "/model" || name == "/profile" || name == "/compact" || name == "/exit" || name == "/quit") {
+ 		if name == "/exit" || name == "/quit" {
+ 			m.quitAfterRun = true
+ 			m.goalCancelled = true
+@@ -147,6 +158,19 @@
+ 		return nil
+ 	}
+ 	switch name {
++	case "/fork":
++		if m.controller == nil || len(args) != 0 {
++			m.transcript = append(m.transcript, errorLineStyle.Render("usage: /fork (requires workspace sessions)"))
++			m.refreshViewport()
++			return nil
++		}
++		return m.startSessionChange("fork", m.controller.ForkSession)
++	case "/tree":
++		return m.runTreeCommand(args)
++	case "/resume":
++		return m.runResumeCommand(args)
++	case "/name":
++		return m.runNameCommand(strings.TrimSpace(text[len(name):]))
+ 	case "/profile":
+ 		cmd := m.runProfileCommand(args)
+ 		m.refreshViewport()
+@@ -166,7 +190,7 @@
+ 		m.runModelCommand(args)
+ 
+ 	case "/new":
+-		m.runNewCommand()
++		return m.runNewCommand()
+ 
+ 	case "/compact":
+ 		return m.runCompactCommand()
+@@ -221,21 +245,13 @@
+ 	m.transcript = append(m.transcript, approvedStyle.Render(msg))
+ }
+ 
+-func (m *Model) runNewCommand() {
++func (m *Model) runNewCommand() tea.Cmd {
+ 	if m.controller == nil {
+ 		m.transcript = append(m.transcript, errorLineStyle.Render("/new is not available in this build"))
+-		return
+-	}
+-	m.abandonGoal("superseded_by_command")
+-	if err := m.controller.NewSession(); err != nil {
+-		m.transcript = append(m.transcript, errorLineStyle.Render("new session failed: "+err.Error()))
+-		return
+-	}
+-	m.identity.SessionID = m.controller.SessionID()
+-	m.identity.Generation++
+-	m.transcript = nil
+-	m.streamBuf.Reset()
+-	m.transcript = append(m.transcript, approvedStyle.Render("started a new session"))
++		m.refreshViewport()
++		return nil
++	}
++	return m.startSessionChange("new", m.controller.NewSessionContext)
+ }
+ 
+ func (m *Model) runCompactCommand() tea.Cmd {
+--- /dev/null
++++ b/internal/tui/sessions.go
+@@ -0,0 +1,90 @@
++package tui
++
++import (
++	"context"
++	"fmt"
++	tea "github.com/charmbracelet/bubbletea"
++	"github.com/sausheong/hand/internal/app"
++	"github.com/sausheong/harness/llm"
++	"strings"
++	"time"
++)
++
++func (m *Model) runResumeCommand(args []string) tea.Cmd {
++	if m.controller == nil {
++		m.transcript = append(m.transcript, errorLineStyle.Render("workspace sessions unavailable"))
++		m.refreshViewport()
++		return nil
++	}
++	if len(args) == 0 {
++		controller := m.controller
++		return m.startSessionOperation("list", func(ctx context.Context) sessionChangedMsg {
++			result := sessionChangedMsg{preserveView: true}
++			records, err := controller.ListSessionsContext(ctx)
++			if err != nil {
++				result.err = err
++				return result
++			}
++			if len(records) == 0 {
++				result.lines = append(result.lines, toolCallStyle.Render("no saved sessions"))
++				return result
++			}
++			active := controller.SessionID()
++			for _, record := range records {
++				if err := ctx.Err(); err != nil {
++					result.err = err
++					return result
++				}
++				marker := " "
++				if record.ID == active {
++					marker = "*"
++				}
++				name := record.Name
++				if name == "" {
++					name = "(unnamed)"
++				}
++				result.lines = append(result.lines, toolCallStyle.Render(sanitizeForTerminal(fmt.Sprintf("%s %s  %s", marker, record.ID, name))))
++			}
++			return result
++		})
++	}
++	if len(args) != 1 {
++		m.transcript = append(m.transcript, errorLineStyle.Render("usage: /resume [session ID]"))
++		m.refreshViewport()
++		return nil
++	}
++	return m.startSessionChange("resume", func(ctx context.Context) error { return m.controller.ResumeSessionContext(ctx, args[0]) })
++}
++
++func (m *Model) runNameCommand(name string) tea.Cmd {
++	name = strings.TrimSpace(name)
++	if m.controller == nil {
++		m.transcript = append(m.transcript, errorLineStyle.Render("workspace sessions unavailable"))
++		return nil
++	}
++	if name == "" {
++		m.transcript = append(m.transcript, errorLineStyle.Render("usage: /name <session name>"))
++		return nil
++	}
++	controller := m.controller
++	return m.startSessionOperation("name", func(ctx context.Context) sessionChangedMsg {
++		result := sessionChangedMsg{preserveView: true, err: controller.RenameSessionContext(ctx, name)}
++		if result.err == nil {
++			result.lines = []string{approvedStyle.Render("session named " + sanitizeForTerminal(name))}
++		}
++		return result
++	})
++}
++
++// Reset transient figures rather than attributing another session's usage to
++// the selected history. Persisted accounting is loaded separately when present.
++func (m *Model) resetSessionView() {
++	m.streamBuf.Reset()
++	m.dismissApproval()
++	m.lastUsage = nil
++	m.sessionUsage = llm.Usage{}
++	m.lastModelInfo = app.ModelInfo{}
++	m.toolCallsThisTurn = 0
++	m.lastTurnDuration = 0
++	m.turnStart = time.Time{}
++}
+--- /dev/null
++++ b/internal/tui/sessions_test.go
+@@ -0,0 +1,155 @@
++package tui
++
++import (
++	"context"
++	"strings"
++	"testing"
++
++	"github.com/sausheong/hand/internal/sessionio"
++	"github.com/sausheong/harness/llm"
++	"github.com/sausheong/harness/runtime"
++	"github.com/sausheong/harness/session"
++)
++
++func sessionUIFixture(t *testing.T) (*Model, *sessionio.Manager, string) {
++	t.Helper()
++	manager, err := sessionio.NewManager(t.TempDir(), t.TempDir(), "hand")
++	if err != nil {
++		t.Fatal(err)
++	}
++	old, err := manager.Open(context.Background(), "", false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	old.Session.Append(session.UserMessageEntry("original transcript"))
++	if err := old.Session.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	old.Session.Close()
++	current, err := manager.Open(context.Background(), "", true)
++	if err != nil {
++		t.Fatal(err)
++	}
++	current.Session.Append(session.UserMessageEntry("current transcript"))
++	controller := &Controller{Rt: &runtime.Runtime{AgentID: "hand", Session: current.Session}, Sessions: manager, SessionKey: current.Record.StoreKey}
++	m := NewModel(&fakeRunner{}, t.TempDir())
++	m.SetController(controller)
++	m.LoadHistory(current.Session.History())
++	t.Cleanup(func() { controller.Rt.Session.Close() })
++	return m, manager, old.Session.ID
++}
++
++func TestSessionCommandsListNameAndResume(t *testing.T) {
++	m, manager, oldID := sessionUIFixture(t)
++	m.Update(m.handleCommand("/name My  current notes")())
++	snapshot, err := manager.Catalogue().Snapshot()
++	if err != nil {
++		t.Fatal(err)
++	}
++	found := false
++	for _, record := range snapshot.Sessions {
++		if record.ID == m.controller.SessionID() {
++			found = record.Name == "My  current notes"
++		}
++	}
++	if !found {
++		t.Fatal("name not persisted exactly")
++	}
++	m.Update(m.handleCommand("/resume")())
++	if !strings.Contains(strings.Join(m.transcript, "\n"), oldID) {
++		t.Fatal("saved session not listed")
++	}
++	before := m.identity
++	m.lastUsage = &llm.Usage{InputTokens: 99}
++	m.sessionUsage = llm.Usage{InputTokens: 99}
++	m.toolCallsThisTurn = 4
++	if cmd := m.handleCommand("/resume " + oldID); cmd != nil {
++		m.Update(cmd())
++	}
++	text := strings.Join(m.transcript, "\n")
++	if m.identity.SessionID != oldID || m.identity.Generation <= before.Generation || !strings.Contains(text, "original transcript") || strings.Contains(text, "current transcript") {
++		t.Fatal("resume did not replace transcript/identity", text)
++	}
++	if m.lastUsage != nil || m.sessionUsage.InputTokens != 0 || m.toolCallsThisTurn != 0 {
++		t.Fatal("prior session counters leaked")
++	}
++	m.Update(runEventMsg{identity: before, event: runtime.AgentEvent{Type: runtime.EventTextDelta, Text: "stale text"}})
++	if strings.Contains(strings.Join(m.transcript, "\n"), "stale text") || m.streamBuf.Len() != 0 {
++		t.Fatal("stale event changed resumed view")
++	}
++}
++
++func TestSessionCommandsPreserveViewOnFailureAndRejectActiveRun(t *testing.T) {
++	m, manager, oldID := sessionUIFixture(t)
++	current := m.controller.SessionID()
++	other, err := manager.Open(context.Background(), oldID, false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer other.Session.Close()
++	if cmd := m.handleCommand("/resume " + oldID); cmd != nil {
++		m.Update(cmd())
++	}
++	if m.controller.SessionID() != current || !strings.Contains(strings.Join(m.transcript, "\n"), "current transcript") {
++		t.Fatal("busy target replaced current session")
++	}
++	m.running = true
++	if cmd := m.handleCommand("/resume " + oldID); cmd != nil {
++		m.Update(cmd())
++	}
++	m.handleCommand("/name forbidden")
++	if m.controller.SessionID() != current {
++		t.Fatal("active run switched session")
++	}
++	snapshot, err := manager.Catalogue().Snapshot()
++	if err != nil {
++		t.Fatal(err)
++	}
++	for _, record := range snapshot.Sessions {
++		if record.Name == "forbidden" {
++			t.Fatal("active run renamed session")
++		}
++	}
++}
++
++func TestSessionMetadataPreservesViewAndCounters(t *testing.T) {
++	for _, command := range []string{"/resume", "/name retained"} {
++		t.Run(command, func(t *testing.T) {
++			m, _, _ := sessionUIFixture(t)
++			before := m.identity
++			m.sessionUsage = llm.Usage{InputTokens: 77}
++			m.toolCallsThisTurn = 3
++			cmd := m.handleCommand(command)
++			if cmd == nil || !m.sessionChanging {
++				t.Fatal("metadata did not launch guarded worker")
++			}
++			m.Update(cmd())
++			if m.identity != before || m.sessionUsage.InputTokens != 77 || m.toolCallsThisTurn != 3 || !strings.Contains(strings.Join(m.transcript, "\n"), "current transcript") {
++				t.Fatal("metadata operation replaced session state")
++			}
++		})
++	}
++}
++
++func TestSessionMetadataCancelledContextDoesNotRename(t *testing.T) {
++	m, manager, _ := sessionUIFixture(t)
++	before, err := manager.Catalogue().Snapshot()
++	if err != nil {
++		t.Fatal(err)
++	}
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if err := m.controller.RenameSessionContext(ctx, "forbidden"); err != context.Canceled {
++		t.Fatalf("rename: %v", err)
++	}
++	if _, err := m.controller.ListSessionsContext(ctx); err != context.Canceled {
++		t.Fatalf("list: %v", err)
++	}
++	after, err := manager.Catalogue().Snapshot()
++	if err != nil {
++		t.Fatal(err)
++	}
++	if before.Generation != after.Generation {
++		t.Fatal("cancelled operation mutated catalogue")
++	}
++}
+--- a/cmd/hand/main.go
++++ b/cmd/hand/main.go
+@@ -32,7 +32,6 @@
+ 	"github.com/sausheong/harness/providers/openai"
+ 	"github.com/sausheong/harness/providers/openrouter"
+ 	"github.com/sausheong/harness/runtime"
+-	"github.com/sausheong/harness/session"
+ )
+ 
+ func runOneShot(ctx context.Context, rt *runtime.Runtime, prompt string, hooks []config.HookConfig, workspace string, stopReason *string, maxIterations int, profiles ...config.ModelProfile) error {
+@@ -222,10 +221,14 @@
+ 	markdownStyleFlag := flag.String("markdown-style", "", fmt.Sprintf("glamour style for rendering assistant Markdown output: %s (overrides ~/.hand/config.json for this run; unrecognized values fall back to %q)", strings.Join(config.ValidMarkdownStyles, ", "), config.DefaultMarkdownStyle))
+ 	compactionThresholdFlag := flag.Float64("compaction-threshold", 0, fmt.Sprintf("fraction (0-1] of the context window that triggers preventive compaction (overrides ~/.hand/config.json for this run; 0 means use the config/default of %g)", config.DefaultCompactionThreshold))
+ 	maxIterationsFlag := flag.Int("max-iterations", 0, fmt.Sprintf("cap how many turns a Stop-hook-driven goal loop may chain automatically (overrides ~/.hand/config.json for this run; 0 means use the config/default of %d)", config.DefaultMaxGoalIterations))
+-	newSessionFlag := flag.Bool("new-session", false, "discard this workspace's saved session and start fresh")
++	newSessionFlag := flag.Bool("new-session", false, "create a new session while preserving existing history")
++	sessionFlag := flag.String("session", "", "resume a saved session by its stable ID")
+ 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
+ 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
+ 	flag.Parse()
++	if *newSessionFlag && *sessionFlag != "" {
++		return fmt.Errorf("--session and --new-session are mutually exclusive")
++	}
+ 	if *versionFlag {
+ 		fmt.Println(versionString())
+ 		return nil
+@@ -356,16 +359,22 @@
+ 	if err != nil {
+ 		return fmt.Errorf("resolve session store directory: %w", err)
+ 	}
+-	store := session.NewStore(storeDir)
+-	sessionKey := sessionio.KeyForWorkspace(workspace)
+-	if *newSessionFlag {
+-		if err := store.Delete(spec.ID, sessionKey); err != nil {
+-			return fmt.Errorf("discard previous session: %w", err)
+-		}
+-	}
+-	sess, err := store.Load(spec.ID, sessionKey)
+-	if err != nil {
+-		return fmt.Errorf("load session: %w", err)
++	manager, err := sessionio.NewManager(storeDir, workspace, spec.ID)
++	if err != nil {
++		return fmt.Errorf("open workspace sessions: %w", err)
++	}
++	selected, err := manager.Open(context.Background(), *sessionFlag, *newSessionFlag)
++	if err != nil {
++		return fmt.Errorf("select workspace session: %w", err)
++	}
++	sess := selected.Session
++	defer func() {
++		if sess != nil {
++			runErr = errors.Join(runErr, sess.Close())
++		}
++	}()
++	for _, backup := range selected.Backups {
++		fmt.Fprintf(os.Stderr, "hand: preserved session backup at %s\n", backup)
+ 	}
+ 
+ 	// BuildRuntimeWithTimeout connects every configured MCP server
+@@ -393,6 +402,7 @@
+ 		return fmt.Errorf("build runtime: %w", err)
+ 	}
+ 	defer rt.Close()
++	defer func() { runErr = errors.Join(runErr, rt.Session.Close()) }()
+ 	rt.DynamicIdentityHint = agentio.ModelIdentityHint(model)
+ 	rt.ContextWindow = profile.ContextLimit
+ 	rt.Reasoning, _ = llm.ParseReasoningMode(profile.Reasoning)
+@@ -407,8 +417,8 @@
+ 		BuildProfileProvider:   buildProfileProvider,
+ 		Owner:                  app.NewHarness(rt, &stopReason, cfg.Hooks, workspace, maxIterations, profile),
+ 		Rt:                     rt,
+-		Store:                  store,
+-		SessionKey:             sessionKey,
++		Sessions:               manager,
++		SessionKey:             selected.Record.StoreKey,
+ 		BaseURL:                baseURL,
+ 		BuildProvider:          buildProvider,
+ 		BuildModelIdentityHint: agentio.ModelIdentityHint,
+--- /dev/null
++++ b/cmd/hand/session_integration_test.go
+@@ -0,0 +1,77 @@
++package main
++
++import (
++	"encoding/json"
++	"flag"
++	"fmt"
++	"io"
++	"net/http"
++	"net/http/httptest"
++	"os"
++	"strings"
++	"testing"
++
++	"github.com/sausheong/hand/internal/sessionio"
++)
++
++func TestInvocationNewAndExplicitResumePreserveHistory(t *testing.T) {
++	requests := make(chan string, 4)
++	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		var body map[string]json.RawMessage
++		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
++			http.Error(w, "bad request", 400)
++			return
++		}
++		requests <- string(body["messages"])
++		w.Header().Set("Content-Type", "text/event-stream")
++		fmt.Fprint(w, "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"fixture answer\"},\"finish_reason\":null}]}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n\n")
++	}))
++	defer server.Close()
++	invocationFixture(t)
++	invoke := func(extra ...string) {
++		t.Helper()
++		os.Args = append([]string{"hand", "--model=local/fixture", "--base-url=" + server.URL + "/v1"}, extra...)
++		flag.CommandLine = flag.NewFlagSet("hand", flag.ContinueOnError)
++		flag.CommandLine.SetOutput(io.Discard)
++		if err := run(); err != nil {
++			t.Fatal(err)
++		}
++	}
++	invoke("-p", "first conversation")
++	<-requests
++	root, err := sessionio.StoreDir()
++	if err != nil {
++		t.Fatal(err)
++	}
++	workspace, err := os.Getwd()
++	if err != nil {
++		t.Fatal(err)
++	}
++	catalogue, err := sessionio.OpenCatalogue(root, workspace)
++	if err != nil {
++		t.Fatal(err)
++	}
++	snapshot, err := catalogue.Snapshot()
++	if err != nil || len(snapshot.Sessions) != 1 {
++		t.Fatal("initial session not catalogued", err)
++	}
++	first := snapshot.LastActiveID
++	invoke("--new-session", "-p", "second conversation")
++	secondRequest := <-requests
++	if strings.Contains(secondRequest, "first conversation") {
++		t.Fatal("new session reused old context")
++	}
++	snapshot, err = catalogue.Snapshot()
++	if err != nil || len(snapshot.Sessions) != 2 || snapshot.LastActiveID == first {
++		t.Fatal("new deleted previous session", err)
++	}
++	invoke("--session="+first, "-p", "continue first")
++	resumed := <-requests
++	if !strings.Contains(resumed, "first conversation") || !strings.Contains(resumed, "continue first") || strings.Contains(resumed, "second conversation") {
++		t.Fatal("explicit resume used wrong history", resumed)
++	}
++	snapshot, err = catalogue.Snapshot()
++	if err != nil || snapshot.LastActiveID != first {
++		t.Fatal("explicit selection not persisted", err)
++	}
++}
+--- /dev/null
++++ b/cmd/hand/session_binary_test.go
+@@ -0,0 +1,83 @@
++package main
++
++import (
++	"context"
++	"encoding/json"
++	"fmt"
++	"net/http"
++	"net/http/httptest"
++	"os"
++	"os/exec"
++	"path/filepath"
++	"strings"
++	"testing"
++	"time"
++
++	"github.com/sausheong/hand/internal/sessionio"
++)
++
++func TestBinaryNewSessionAndResumeAcrossProcesses(t *testing.T) {
++	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
++	defer cancel()
++	binary := filepath.Join(t.TempDir(), "hand")
++	build := exec.CommandContext(ctx, "go", "build", "-o", binary, ".")
++	if out, err := build.CombinedOutput(); err != nil {
++		t.Fatalf("build binary: %v: %s", err, out)
++	}
++	requests := make(chan string, 4)
++	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		var body map[string]json.RawMessage
++		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
++			http.Error(w, "bad request", 400)
++			return
++		}
++		requests <- string(body["messages"])
++		w.Header().Set("Content-Type", "text/event-stream")
++		fmt.Fprint(w, "data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"binary answer\"},\"finish_reason\":null}]}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n\n")
++	}))
++	defer server.Close()
++	home, workspace := t.TempDir(), t.TempDir()
++	invoke := func(args ...string) {
++		t.Helper()
++		flags := append([]string{"--model=local/fixture", "--base-url=" + server.URL + "/v1"}, args...)
++		cmd := exec.CommandContext(ctx, binary, flags...)
++		cmd.Dir = workspace
++		cmd.Env = append(os.Environ(), "HOME="+home)
++		out, err := cmd.CombinedOutput()
++		if err != nil {
++			t.Fatalf("binary invocation: %v: %s", err, out)
++		}
++		if !strings.Contains(string(out), "binary answer") {
++			t.Fatalf("missing answer: %s", out)
++		}
++	}
++	invoke("-p", "binary original conversation")
++	<-requests
++	catalogue, err := sessionio.OpenCatalogue(filepath.Join(home, ".hand", "sessions"), workspace)
++	if err != nil {
++		t.Fatal(err)
++	}
++	first, err := catalogue.Snapshot()
++	if err != nil || len(first.Sessions) != 1 {
++		t.Fatal("first process did not save session", err)
++	}
++	id := first.LastActiveID
++	invoke("--new-session", "-p", "binary alternate conversation")
++	alternate := <-requests
++	if strings.Contains(alternate, "binary original conversation") {
++		t.Fatal("new process reused original context")
++	}
++	second, err := catalogue.Snapshot()
++	if err != nil || len(second.Sessions) != 2 || second.LastActiveID == id {
++		t.Fatal("new process replaced original session", err)
++	}
++	invoke("--session="+id, "-p", "binary resume original")
++	resumed := <-requests
++	if !strings.Contains(resumed, "binary original conversation") || strings.Contains(resumed, "binary alternate conversation") {
++		t.Fatal("resumed process loaded wrong context")
++	}
++	final, err := catalogue.Snapshot()
++	if err != nil || final.LastActiveID != id || len(final.Sessions) != 2 {
++		t.Fatal("resume did not retain both sessions", err)
++	}
++}
+--- a/internal/tui/model.go
++++ b/internal/tui/model.go
+@@ -38,6 +38,11 @@
+ // between the Program and the approval hook that needs to Send into it
+ // (see internal/agentio.Sender and cmd/hand/main.go).
+ type Model struct {
++	sessionChanging   bool
++	sessionGeneration uint64
++	sessionCancel     context.CancelFunc
++	sessionDone       chan struct{}
++	quitAfterSession  bool
+ 	lastModelInfo     app.ModelInfo
+ 	profileDone       chan struct{}
+ 	profileGeneration uint64
+@@ -283,6 +288,8 @@
+ 		m.spinner, cmd = m.spinner.Update(msg)
+ 		return m, cmd
+ 
++	case sessionChangedMsg:
++		return m, m.finishSessionChange(msg)
+ 	case profileChangedMsg:
+ 		if !m.profileChanging || msg.generation != m.profileGeneration {
+ 			return m, nil
+@@ -398,6 +405,13 @@
+ }
+ 
+ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
++	if m.sessionChanging && msg.String() == "ctrl+c" {
++		m.sessionCancel()
++		return m, nil
++	}
++	if m.sessionChanging && msg.String() == "enter" {
++		return m, nil
++	}
+ 	if m.profileChanging && msg.String() == "ctrl+c" {
+ 		m.profileCancel()
+ 		return m, nil
+@@ -551,7 +565,7 @@
+ // chain (goalIteration/goalCancelled) since this is a fresh,
+ // human-initiated turn, not an automatic continuation of a previous one.
+ func (m *Model) startRun(text string) tea.Cmd {
+-	if m.compacting || m.running || m.profileChanging {
++	if m.compacting || m.running || m.profileChanging || m.sessionChanging {
+ 		return nil
+ 	}
+ 	m.abandonGoal("superseded_by_input")
+--- a/internal/tui/application.go
++++ b/internal/tui/application.go
+@@ -163,6 +163,10 @@
+ // CloseApplication joins a goal after Program.Run has returned, including
+ // terminal disconnects and program errors. Do not call concurrently with Update.
+ func (m *Model) CloseApplication() {
++	if m.sessionDone != nil {
++		m.sessionCancel()
++		<-m.sessionDone
++	}
+ 	if m.profileDone != nil {
+ 		m.profileCancel()
+ 		<-m.profileDone
+--- /dev/null
++++ b/internal/tui/session_operation.go
+@@ -0,0 +1,106 @@
++package tui
++
++import (
++	"context"
++
++	tea "github.com/charmbracelet/bubbletea"
++)
++
++type sessionChangedMsg struct {
++	generation        uint64
++	kind, id, warning string
++	lines             []string
++	err               error
++	preserveView      bool
++}
++
++func (m *Model) startSessionChange(kind string, change func(context.Context) error) tea.Cmd {
++	m.abandonGoal("session_change_requested")
++	controller := m.controller
++	width, style := m.termWidth, m.markdownStyle
++	return m.startSessionOperation(kind, func(ctx context.Context) sessionChangedMsg {
++		result := sessionChangedMsg{kind: kind, err: change(ctx)}
++		if result.err == nil {
++			result.id = controller.SessionID()
++			result.warning = controller.SessionWarning()
++			// Once backend selection committed, cancellation must not restore an
++			// obsolete UI identity. Only replay is optional at this point.
++			for _, entry := range controller.SessionHistory() {
++				if ctx.Err() != nil {
++					result.warning += " history replay cancelled; session selection committed"
++					break
++				}
++				if line, ok := replayEntry(entry, width, style); ok {
++					result.lines = append(result.lines, line)
++				}
++			}
++		}
++		return result
++	})
++}
++
++// Session metadata operations share cancellation and joining with selection,
++// but retain the current identity, transcript and usage counters.
++func (m *Model) startSessionOperation(kind string, operation func(context.Context) sessionChangedMsg) tea.Cmd {
++	ctx, cancel := context.WithCancel(context.Background())
++	m.sessionChanging = true
++	m.sessionCancel = cancel
++	m.quitAfterSession = false
++	m.sessionGeneration++
++	generation := m.sessionGeneration
++	done := make(chan struct{})
++	m.sessionDone = done
++	results := make(chan sessionChangedMsg, 1)
++	go func() {
++		defer close(done)
++		defer cancel()
++		result := operation(ctx)
++		result.generation = generation
++		result.kind = kind
++		results <- result
++	}()
++	m.transcript = append(m.transcript, toolCallStyle.Render("session operation in progress; Ctrl+C cancels"))
++	m.refreshViewport()
++	return func() tea.Msg { return <-results }
++}
++
++func (m *Model) finishSessionChange(result sessionChangedMsg) tea.Cmd {
++	if !m.sessionChanging || result.generation != m.sessionGeneration {
++		return nil
++	}
++	// The result is sent before worker exit; join it before releasing UI guards.
++	<-m.sessionDone
++	m.sessionDone = nil
++	m.sessionChanging = false
++	m.sessionCancel = nil
++	if result.err != nil {
++		m.transcript = append(m.transcript, errorLineStyle.Render("session operation failed: "+sanitizeForTerminal(result.err.Error())))
++	} else if result.preserveView {
++		m.transcript = append(m.transcript, result.lines...)
++	} else {
++		m.abandonGoal("session_changed")
++		m.identity.SessionID = result.id
++		m.identity.Generation++
++		m.resetSessionView()
++		m.transcript = result.lines
++		text := "resumed session " + sanitizeForTerminal(result.id)
++		if result.kind == "fork" {
++			text = "forked selected history into a new session; source is saved"
++		}
++		if result.kind == "branch" {
++			text = "selected session branch; other branches are saved"
++		}
++		if result.kind == "new" {
++			text = "started a new session; previous history is saved"
++		}
++		m.transcript = append(m.transcript, approvedStyle.Render(text))
++		if result.warning != "" {
++			m.transcript = append(m.transcript, errorLineStyle.Render(sanitizeForTerminal(result.warning)))
++		}
++	}
++	m.refreshViewport()
++	if m.quitAfterSession {
++		return tea.Quit
++	}
++	return nil
++}
+--- /dev/null
++++ b/internal/tui/session_operation_test.go
+@@ -0,0 +1,89 @@
++package tui
++
++import (
++	"context"
++	"errors"
++	"testing"
++	"time"
++
++	tea "github.com/charmbracelet/bubbletea"
++)
++
++func TestSessionChangeCancellationKeepsGuardUntilWorkerJoins(t *testing.T) {
++	m, _, _ := sessionUIFixture(t)
++	started, cancelled, release := make(chan struct{}), make(chan struct{}), make(chan struct{})
++	cmd := m.startSessionChange("resume", func(ctx context.Context) error {
++		close(started)
++		<-ctx.Done()
++		close(cancelled)
++		<-release
++		return ctx.Err()
++	})
++	<-started
++	old := m.identity
++	m.Update(tea.KeyMsg{Type: tea.KeyCtrlC})
++	<-cancelled
++	if !m.sessionChanging {
++		t.Fatal("cancel released session guard before worker joined")
++	}
++	m.textarea.SetValue("must not submit")
++	m.Update(tea.KeyMsg{Type: tea.KeyEnter})
++	if m.running {
++		t.Fatal("prompt started during cancelled worker")
++	}
++	m.Update(sessionChangedMsg{generation: m.sessionGeneration - 1, kind: "new", id: "obsolete"})
++	if !m.sessionChanging || m.identity != old {
++		t.Fatal("stale result changed session")
++	}
++	close(release)
++	m.Update(cmd())
++	if m.sessionChanging || m.identity != old {
++		t.Fatal("cancelled switch changed identity or retained guard")
++	}
++}
++
++func TestSessionChangeShutdownJoinsWorker(t *testing.T) {
++	m, _, _ := sessionUIFixture(t)
++	cancelled, release := make(chan struct{}), make(chan struct{})
++	m.startSessionChange("new", func(ctx context.Context) error { <-ctx.Done(); close(cancelled); <-release; return ctx.Err() })
++	closed := make(chan struct{})
++	go func() { m.CloseApplication(); close(closed) }()
++	<-cancelled
++	select {
++	case <-closed:
++		t.Fatal("shutdown abandoned session worker")
++	case <-time.After(20 * time.Millisecond):
++	}
++	close(release)
++	select {
++	case <-closed:
++	case <-time.After(time.Second):
++		t.Fatal("shutdown did not join released worker")
++	}
++}
++
++func TestSessionChangeCommitsResultDespiteLateCancellation(t *testing.T) {
++	m, _, oldID := sessionUIFixture(t)
++	cmd := m.startSessionChange("resume", func(ctx context.Context) error {
++		if err := m.controller.ResumeSessionContext(ctx, oldID); err != nil {
++			return err
++		}
++		return nil
++	})
++	result := cmd().(sessionChangedMsg)
++	m.sessionCancel()
++	m.Update(result)
++	if m.identity.SessionID != oldID || m.controller.SessionID() != oldID {
++		t.Fatal("late cancel split backend and UI identities")
++	}
++}
++
++func TestSessionChangeFailurePreservesIdentity(t *testing.T) {
++	m, _, _ := sessionUIFixture(t)
++	before := m.identity
++	cmd := m.startSessionChange("resume", func(context.Context) error { return errors.New("target unavailable") })
++	m.Update(cmd())
++	if m.identity != before || m.sessionChanging {
++		t.Fatal("failed session change mutated identity")
++	}
++}
+--- a/internal/tui/identity_test.go
++++ b/internal/tui/identity_test.go
+@@ -84,10 +84,17 @@
+ 			m.SetController(&Controller{Rt: &runtime.Runtime{AgentID: "hand", Session: sess, Provider: "test", Model: "old"}, Store: store, SessionKey: "test"})
+ 			m.goalIteration = 1
+ 			result := goalLoopResultMsg{identity: m.identity, generation: m.goalGeneration, outcome: agentio.GoalLoopOutcome{Continue: true, NextPrompt: "obsolete"}}
+-			m.handleCommand(command)
++			cmd := m.handleCommand(command)
+ 			m.Update(result)
+ 			if runner.getLastMsg() != "" {
+ 				t.Fatal("old goal restarted after command")
++			}
++			if cmd != nil {
++				m.Update(cmd())
++			}
++			m.CloseApplication()
++			if err := m.controller.Rt.Session.Close(); err != nil {
++				t.Fatal(err)
+ 			}
+ 		})
+ 	}
+--- /dev/null
++++ b/internal/app/session_tree.go
+@@ -0,0 +1,68 @@
++package app
++
++import (
++	"context"
++	"errors"
++
++	"github.com/sausheong/harness/session"
++)
++
++// SessionNode exposes conversation topology without copying payloads into the UI.
++type SessionNode struct {
++	ID, ParentID, Type, Role string
++	Selected                 bool
++}
++
++func (c *Controller) SessionTree(ctx context.Context) ([]SessionNode, error) {
++	_, release, err := c.owner().reserve(ctx, Idle)
++	if err != nil {
++		return nil, err
++	}
++	defer release()
++	c.mu.RLock()
++	defer c.mu.RUnlock()
++	if c.Rt.Session == nil {
++		return nil, errors.New("session unavailable")
++	}
++	if c.Rt.Compaction.HasInFlight(c.Rt.Session) {
++		return nil, errors.New("background compaction is still active")
++	}
++	leaf := c.Rt.Session.LeafID()
++	nodes := make([]SessionNode, 0)
++	for _, entry := range c.Rt.Session.Entries() {
++		if err := ctx.Err(); err != nil {
++			return nil, err
++		}
++		if entry.Type == session.EntryTypeSelection || entry.Type == session.EntryTypeHeader {
++			continue
++		}
++		nodes = append(nodes, SessionNode{ID: entry.ID, ParentID: entry.ParentID, Type: string(entry.Type), Role: entry.Role, Selected: entry.ID == leaf})
++	}
++	return nodes, nil
++}
++
++// SelectSessionNode persists the selected leaf before reporting success. Future
++// messages extend that node; all other branches remain in the session graph.
++func (c *Controller) SelectSessionNode(ctx context.Context, id string) error {
++	_, release, err := c.owner().reserve(ctx, Idle)
++	if err != nil {
++		return err
++	}
++	defer release()
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	if c.Rt.Session == nil {
++		return errors.New("session unavailable")
++	}
++	if c.Rt.Compaction.HasInFlight(c.Rt.Session) {
++		return errors.New("background compaction is still active")
++	}
++	if err := ctx.Err(); err != nil {
++		return err
++	}
++	if err := c.Rt.Session.Branch(id); err != nil {
++		return err
++	}
++	c.sessionWarning = ""
++	return nil
++}
+--- /dev/null
++++ b/internal/tui/session_tree.go
+@@ -0,0 +1,54 @@
++package tui
++
++import (
++	"context"
++	"fmt"
++
++	tea "github.com/charmbracelet/bubbletea"
++)
++
++func (m *Model) runTreeCommand(args []string) tea.Cmd {
++	if m.controller == nil {
++		m.transcript = append(m.transcript, errorLineStyle.Render("workspace sessions unavailable"))
++		m.refreshViewport()
++		return nil
++	}
++	if len(args) > 1 {
++		m.transcript = append(m.transcript, errorLineStyle.Render("usage: /tree [entry ID]"))
++		m.refreshViewport()
++		return nil
++	}
++	controller := m.controller
++	if len(args) == 1 {
++		return m.startSessionChange("branch", func(ctx context.Context) error { return controller.SelectSessionNode(ctx, args[0]) })
++	}
++	return m.startSessionOperation("tree", func(ctx context.Context) sessionChangedMsg {
++		result := sessionChangedMsg{preserveView: true}
++		nodes, err := controller.SessionTree(ctx)
++		if err != nil {
++			result.err = err
++			return result
++		}
++		if len(nodes) == 0 {
++			result.lines = []string{toolCallStyle.Render("session has no conversation nodes")}
++			return result
++		}
++		result.lines = append(result.lines, toolCallStyle.Render("session tree (* selected; use /tree <entry ID> to continue from a node)"))
++		for _, node := range nodes {
++			if err := ctx.Err(); err != nil {
++				result.err = err
++				return result
++			}
++			marker := " "
++			if node.Selected {
++				marker = "*"
++			}
++			parent := node.ParentID
++			if parent == "" {
++				parent = "root"
++			}
++			result.lines = append(result.lines, toolCallStyle.Render(sanitizeForTerminal(fmt.Sprintf("%s %s <- %s  %s %s", marker, node.ID, parent, node.Type, node.Role))))
++		}
++		return result
++	})
++}
+--- /dev/null
++++ b/internal/tui/session_tree_test.go
+@@ -0,0 +1,81 @@
++package tui
++
++import (
++	"context"
++	"strings"
++	"testing"
++
++	"github.com/sausheong/harness/session"
++)
++
++func TestSessionTreeSelectionPersistsAcrossRestart(t *testing.T) {
++	m, manager, _ := sessionUIFixture(t)
++	sess := m.controller.Rt.Session
++	root := sess.LeafID()
++	sess.Append(session.UserMessageEntry("later branch"))
++	later := sess.LeafID()
++	before := m.identity
++	m.Update(m.handleCommand("/tree")())
++	display := strings.Join(m.transcript, "\n")
++	if !strings.Contains(display, root) || !strings.Contains(display, "* "+later) {
++		t.Fatal("tree omitted topology/selection", display)
++	}
++	if m.identity != before {
++		t.Fatal("listing changed identity")
++	}
++	m.Update(m.handleCommand("/tree " + root)())
++	if sess.LeafID() != root || m.identity.Generation <= before.Generation {
++		t.Fatal("node selection did not update identity/leaf")
++	}
++	if strings.Contains(strings.Join(m.transcript, "\n"), "later branch") {
++		t.Fatal("selected replay included other branch")
++	}
++	if err := sess.Close(); err != nil {
++		t.Fatal(err)
++	}
++	reopened, err := manager.Open(context.Background(), sess.ID, false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	m.controller.Rt.Session = reopened.Session
++	if reopened.Session.LeafID() != root {
++		t.Fatal("selection lost on restart")
++	}
++	nodes, err := m.controller.SessionTree(context.Background())
++	if err != nil || len(nodes) != 2 {
++		t.Fatal("tree lost other branch or exposed control record", nodes, err)
++	}
++	if err := m.controller.SelectSessionNode(context.Background(), later); err != nil {
++		t.Fatal(err)
++	}
++	if len(reopened.Session.History()) != 2 {
++		t.Fatal("original branch inaccessible")
++	}
++}
++
++func TestSessionTreeInvalidCancelledAndActiveSelection(t *testing.T) {
++	m, _, _ := sessionUIFixture(t)
++	sess := m.controller.Rt.Session
++	leaf := sess.LeafID()
++	before := m.identity
++	m.Update(m.handleCommand("/tree missing")())
++	if sess.LeafID() != leaf || m.identity != before {
++		t.Fatal("failed selection changed view")
++	}
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if err := m.controller.SelectSessionNode(ctx, leaf); err != context.Canceled {
++		t.Fatalf("cancel: %v", err)
++	}
++	if _, err := m.controller.SessionTree(ctx); err != context.Canceled {
++		t.Fatalf("cancelled tree: %v", err)
++	}
++	count := len(sess.Entries())
++	m.running = true
++	if cmd := m.handleCommand("/tree " + leaf); cmd != nil {
++		t.Fatal("active command launched")
++	}
++	if len(sess.Entries()) != count {
++		t.Fatal("active command persisted a selection")
++	}
++}
+--- /dev/null
++++ b/internal/sessionio/fork.go
+@@ -0,0 +1,93 @@
++package sessionio
++
++import (
++	"context"
++	"crypto/rand"
++	"encoding/hex"
++	"errors"
++	"os"
++	"path/filepath"
++	"time"
++
++	"github.com/sausheong/harness/session"
++)
++
++// Fork writes a complete selected history outside the discoverable namespace,
++// then atomically links it into that namespace. Reconcile can therefore never
++// mistake an interrupted partial copy for a completed fork. Entry IDs are
++// scoped to the new session; payload/tool-call references are preserved.
++func (m *Manager) Fork(ctx context.Context, history []session.SessionEntry) (Selection, error) {
++	var result Selection
++	if err := ctx.Err(); err != nil {
++		return result, err
++	}
++	staging, err := os.MkdirTemp(m.root, ".fork-")
++	if err != nil {
++		return result, err
++	}
++	defer os.RemoveAll(staging)
++	store := session.NewStore(staging)
++	if err := store.Create(m.agent, "copy"); err != nil {
++		return result, err
++	}
++	copy, err := store.LoadExclusive(m.agent, "copy")
++	if err != nil {
++		return result, err
++	}
++	closed := false
++	defer func() {
++		if !closed {
++			copy.Close()
++		}
++	}()
++	for _, entry := range history {
++		if err := ctx.Err(); err != nil {
++			return result, err
++		}
++		copy.Append(entry)
++		if err := copy.PersistenceError(); err != nil {
++			return result, err
++		}
++	}
++	if err := copy.Flush(); err != nil {
++		return result, err
++	}
++	if err := copy.Close(); err != nil {
++		return result, err
++	}
++	closed = true
++	if err := ctx.Err(); err != nil {
++		return result, err
++	}
++	var random [16]byte
++	if _, err := rand.Read(random[:]); err != nil {
++		return result, err
++	}
++	key := m.prefix + hex.EncodeToString(random[:])
++	targetDir := filepath.Join(m.root, m.agent)
++	if err := os.MkdirAll(targetDir, 0700); err != nil {
++		return result, err
++	}
++	if err := os.Link(filepath.Join(staging, m.agent, "copy.jsonl"), filepath.Join(targetDir, key+".jsonl")); err != nil {
++		return result, err
++	}
++	// From this point an error leaves a complete recoverable orphan, never a
++	// partially copied session. Open validates the newly published graph again.
++	next, paths, err := m.openDurable(ctx, key)
++	result.Backups = paths
++	if err != nil {
++		return result, err
++	}
++	if err := next.Flush(); err != nil {
++		return result, errors.Join(err, next.Close())
++	}
++	record := SessionRecord{ID: next.ID, AgentID: m.agent, StoreKey: key, Name: "Forked session", CreatedAt: time.Now().UTC()}
++	if err := ctx.Err(); err != nil {
++		return result, errors.Join(err, next.Close())
++	}
++	if err := m.catalogue.Register(record, true); err != nil {
++		return result, errors.Join(err, next.Close())
++	}
++	result.Session, result.Record = next, record
++	return result, nil
++}
+--- /dev/null
++++ b/internal/sessionio/fork_test.go
+@@ -0,0 +1,53 @@
++package sessionio
++
++import (
++	"context"
++	"os"
++	"strings"
++	"testing"
++
++	"github.com/sausheong/harness/session"
++)
++
++func TestForkFailureDoesNotPublishPartialCopy(t *testing.T) {
++	root := t.TempDir()
++	m, err := NewManager(root, t.TempDir(), "hand")
++	if err != nil {
++		t.Fatal(err)
++	}
++	source, err := m.Create(context.Background(), "source")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer source.Session.Close()
++	before, err := m.Catalogue().Snapshot()
++	if err != nil {
++		t.Fatal(err)
++	}
++	entry := session.UserMessageEntry("valid prefix")
++	entry.ID = "same"
++	if _, err := m.Fork(context.Background(), []session.SessionEntry{entry, entry}); err == nil {
++		t.Fatal("invalid duplicate graph published")
++	}
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if _, err := m.Fork(ctx, nil); err != context.Canceled {
++		t.Fatalf("cancel: %v", err)
++	}
++	if _, err := m.Reconcile(context.Background()); err != nil {
++		t.Fatal(err)
++	}
++	after, err := m.Catalogue().Snapshot()
++	if err != nil || len(after.Sessions) != len(before.Sessions) || after.LastActiveID != before.LastActiveID {
++		t.Fatal("failed fork changed catalogue", err)
++	}
++	files, err := os.ReadDir(root)
++	if err != nil {
++		t.Fatal(err)
++	}
++	for _, file := range files {
++		if strings.HasPrefix(file.Name(), ".fork-") {
++			t.Fatal("staging directory leaked")
++		}
++	}
++}
+--- /dev/null
++++ b/internal/app/session_fork.go
+@@ -0,0 +1,39 @@
++package app
++
++import (
++	"context"
++	"errors"
++)
++
++func (c *Controller) ForkSession(ctx context.Context) error {
++	_, release, err := c.owner().reserve(ctx, Idle)
++	if err != nil {
++		return err
++	}
++	defer release()
++	c.mu.Lock()
++	defer c.mu.Unlock()
++	if c.Sessions == nil || c.Rt.Session == nil {
++		return errors.New("workspace sessions unavailable")
++	}
++	old := c.Rt.Session
++	if c.Rt.Compaction.HasInFlight(old) {
++		return errors.New("background compaction is still active")
++	}
++	if err := old.Flush(); err != nil {
++		return err
++	}
++	selected, err := c.Sessions.Fork(ctx, old.History())
++	if err != nil {
++		return err
++	}
++	c.Rt.Session, c.SessionKey = selected.Session, selected.Record.StoreKey
++	c.sessionWarning = ""
++	c.owner().mu.Lock()
++	c.owner().options.SessionID = selected.Session.ID
++	c.owner().mu.Unlock()
++	if err := old.Close(); err != nil {
++		c.sessionWarning = "fork selected; previous writer cleanup failed: " + err.Error()
++	}
++	return nil
++}
+--- /dev/null
++++ b/internal/tui/session_fork_test.go
+@@ -0,0 +1,54 @@
++package tui
++
++import (
++	"context"
++	"strings"
++	"testing"
++
++	"github.com/sausheong/harness/session"
++)
++
++func TestSessionForkPreservesSourceAndCopiesSelectedBranch(t *testing.T) {
++	m, manager, _ := sessionUIFixture(t)
++	source := m.controller.Rt.Session
++	root := source.LeafID()
++	source.Append(session.UserMessageEntry("excluded branch"))
++	if err := source.Branch(root); err != nil {
++		t.Fatal(err)
++	}
++	before := m.identity
++	m.Update(m.handleCommand("/fork")())
++	fork := m.controller.Rt.Session
++	if fork.ID == source.ID || m.identity.SessionID != fork.ID || m.identity.Generation <= before.Generation {
++		t.Fatal("fork identity not committed")
++	}
++	if len(fork.History()) != 1 || fork.LeafID() != root {
++		t.Fatal("fork did not copy selected history")
++	}
++	if strings.Contains(strings.Join(m.transcript, "\n"), "excluded branch") {
++		t.Fatal("fork replay included unrelated branch")
++	}
++	fork.Append(session.UserMessageEntry("fork-only continuation"))
++	if err := fork.Flush(); err != nil {
++		t.Fatal(err)
++	}
++	original, err := manager.Open(context.Background(), source.ID, false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer original.Session.Close()
++	if original.Session.LeafID() != root || len(original.Session.History()) != 1 || len(original.Session.Entries()) != 3 {
++		t.Fatal("fork mutated source graph")
++	}
++	if err := fork.Close(); err != nil {
++		t.Fatal(err)
++	}
++	reopened, err := manager.Open(context.Background(), fork.ID, false)
++	if err != nil {
++		t.Fatal(err)
++	}
++	m.controller.Rt.Session = reopened.Session
++	if len(reopened.Session.History()) != 2 {
++		t.Fatal("fork continuation lost on reopen")
++	}
++}

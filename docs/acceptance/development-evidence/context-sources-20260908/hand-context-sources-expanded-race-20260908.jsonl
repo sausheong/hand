@@ -1,0 +1,88 @@
+{"Time":"2026-09-08T17:18:03.894112+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T17:18:03.932025+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T17:18:03.932097+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T17:18:04.450241+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval"}
+{"Time":"2026-09-08T17:18:04.450307+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval","Output":"=== RUN   TestSkillOperationsRequireApproval\n"}
+{"Time":"2026-09-08T17:18:04.450334+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/create"}
+{"Time":"2026-09-08T17:18:04.450343+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/create","Output":"=== RUN   TestSkillOperationsRequireApproval/create\n"}
+{"Time":"2026-09-08T17:18:04.450489+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/create","Output":"--- PASS: TestSkillOperationsRequireApproval/create (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.450503+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/create","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.450576+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/patch"}
+{"Time":"2026-09-08T17:18:04.450585+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/patch","Output":"=== RUN   TestSkillOperationsRequireApproval/patch\n"}
+{"Time":"2026-09-08T17:18:04.450671+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/patch","Output":"--- PASS: TestSkillOperationsRequireApproval/patch (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.450688+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/patch","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.450759+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/replace"}
+{"Time":"2026-09-08T17:18:04.450767+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/replace","Output":"=== RUN   TestSkillOperationsRequireApproval/replace\n"}
+{"Time":"2026-09-08T17:18:04.450784+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/replace","Output":"--- PASS: TestSkillOperationsRequireApproval/replace (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.450789+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/replace","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.450869+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/remove"}
+{"Time":"2026-09-08T17:18:04.450875+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/remove","Output":"=== RUN   TestSkillOperationsRequireApproval/remove\n"}
+{"Time":"2026-09-08T17:18:04.450908+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/remove","Output":"--- PASS: TestSkillOperationsRequireApproval/remove (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.450916+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/remove","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.450998+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/unknown"}
+{"Time":"2026-09-08T17:18:04.45103+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/unknown","Output":"=== RUN   TestSkillOperationsRequireApproval/unknown\n"}
+{"Time":"2026-09-08T17:18:04.451034+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/unknown","Output":"--- PASS: TestSkillOperationsRequireApproval/unknown (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.451037+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/unknown","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.451116+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/#00"}
+{"Time":"2026-09-08T17:18:04.45112+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/#00","Output":"=== RUN   TestSkillOperationsRequireApproval/#00\n"}
+{"Time":"2026-09-08T17:18:04.451156+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/#00","Output":"--- PASS: TestSkillOperationsRequireApproval/#00 (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.451171+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval/#00","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.451206+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval","Output":"--- PASS: TestSkillOperationsRequireApproval (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.451228+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillOperationsRequireApproval","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.452943+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestContextSourcesMatchInstalledPrompt"}
+{"Time":"2026-09-08T17:18:04.45295+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestContextSourcesMatchInstalledPrompt","Output":"=== RUN   TestContextSourcesMatchInstalledPrompt\n"}
+{"Time":"2026-09-08T17:18:04.468863+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestContextSourcesMatchInstalledPrompt","Output":"--- PASS: TestContextSourcesMatchInstalledPrompt (0.02s)\n"}
+{"Time":"2026-09-08T17:18:04.46889+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestContextSourcesMatchInstalledPrompt","Elapsed":0.02}
+{"Time":"2026-09-08T17:18:04.473965+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_EmptyBothYieldsEmptyIndex"}
+{"Time":"2026-09-08T17:18:04.473983+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_EmptyBothYieldsEmptyIndex","Output":"=== RUN   TestBuildSkillProvider_EmptyBothYieldsEmptyIndex\n"}
+{"Time":"2026-09-08T17:18:04.474912+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_EmptyBothYieldsEmptyIndex","Output":"--- PASS: TestBuildSkillProvider_EmptyBothYieldsEmptyIndex (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.474925+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_EmptyBothYieldsEmptyIndex","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.475027+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_ProjectOverridesGlobalByName"}
+{"Time":"2026-09-08T17:18:04.475038+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_ProjectOverridesGlobalByName","Output":"=== RUN   TestBuildSkillProvider_ProjectOverridesGlobalByName\n"}
+{"Time":"2026-09-08T17:18:04.490532+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_ProjectOverridesGlobalByName","Output":"--- PASS: TestBuildSkillProvider_ProjectOverridesGlobalByName (0.02s)\n"}
+{"Time":"2026-09-08T17:18:04.490563+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_ProjectOverridesGlobalByName","Elapsed":0.02}
+{"Time":"2026-09-08T17:18:04.490608+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject"}
+{"Time":"2026-09-08T17:18:04.490613+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject","Output":"=== RUN   TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject\n"}
+{"Time":"2026-09-08T17:18:04.495997+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject","Output":"--- PASS: TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject (0.01s)\n"}
+{"Time":"2026-09-08T17:18:04.496017+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildSkillProvider_FallsBackToGlobalWhenNotInProject","Elapsed":0.01}
+{"Time":"2026-09-08T17:18:04.496079+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillConventionalPathsProvenanceAndRefresh"}
+{"Time":"2026-09-08T17:18:04.496084+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillConventionalPathsProvenanceAndRefresh","Output":"=== RUN   TestSkillConventionalPathsProvenanceAndRefresh\n"}
+{"Time":"2026-09-08T17:18:04.509202+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillConventionalPathsProvenanceAndRefresh","Output":"--- PASS: TestSkillConventionalPathsProvenanceAndRefresh (0.01s)\n"}
+{"Time":"2026-09-08T17:18:04.50922+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillConventionalPathsProvenanceAndRefresh","Elapsed":0.01}
+{"Time":"2026-09-08T17:18:04.50934+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillDiscoveryBoundsVisible"}
+{"Time":"2026-09-08T17:18:04.509346+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillDiscoveryBoundsVisible","Output":"=== RUN   TestSkillDiscoveryBoundsVisible\n"}
+{"Time":"2026-09-08T17:18:04.511399+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillDiscoveryBoundsVisible","Output":"--- PASS: TestSkillDiscoveryBoundsVisible (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.511405+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSkillDiscoveryBoundsVisible","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.511462+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsExpectedFields"}
+{"Time":"2026-09-08T17:18:04.511471+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsExpectedFields","Output":"=== RUN   TestBuildAgentSpec_SetsExpectedFields\n"}
+{"Time":"2026-09-08T17:18:04.51205+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsExpectedFields","Output":"--- PASS: TestBuildAgentSpec_SetsExpectedFields (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.51206+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsExpectedFields","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.51213+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_EmptyFallbackModel"}
+{"Time":"2026-09-08T17:18:04.512133+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_EmptyFallbackModel","Output":"=== RUN   TestBuildAgentSpec_EmptyFallbackModel\n"}
+{"Time":"2026-09-08T17:18:04.512194+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_EmptyFallbackModel","Output":"--- PASS: TestBuildAgentSpec_EmptyFallbackModel (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.512213+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_EmptyFallbackModel","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.51226+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsMCPServers"}
+{"Time":"2026-09-08T17:18:04.512264+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsMCPServers","Output":"=== RUN   TestBuildAgentSpec_SetsMCPServers\n"}
+{"Time":"2026-09-08T17:18:04.512322+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsMCPServers","Output":"--- PASS: TestBuildAgentSpec_SetsMCPServers (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.512332+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_SetsMCPServers","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.51239+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_NilMCPServers"}
+{"Time":"2026-09-08T17:18:04.512393+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_NilMCPServers","Output":"=== RUN   TestBuildAgentSpec_NilMCPServers\n"}
+{"Time":"2026-09-08T17:18:04.51245+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_NilMCPServers","Output":"--- PASS: TestBuildAgentSpec_NilMCPServers (0.00s)\n"}
+{"Time":"2026-09-08T17:18:04.512459+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestBuildAgentSpec_NilMCPServers","Elapsed":0}
+{"Time":"2026-09-08T17:18:04.513237+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"PASS\n"}
+{"Time":"2026-09-08T17:18:04.831469+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure"}
+{"Time":"2026-09-08T17:18:04.831512+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure","Output":"=== RUN   TestContextCommandAndEstimateDisclosure\n"}
+{"Time":"2026-09-08T17:18:04.881023+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure","Output":"--- PASS: TestContextCommandAndEstimateDisclosure (0.05s)\n"}
+{"Time":"2026-09-08T17:18:04.881043+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestContextCommandAndEstimateDisclosure","Elapsed":0.05}
+{"Time":"2026-09-08T17:18:04.893566+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T17:18:05.010494+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay"}
+{"Time":"2026-09-08T17:18:05.010531+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"=== RUN   TestSkillsReloadRPCAndReplay\n"}
+{"Time":"2026-09-08T17:18:05.063223+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Output":"--- PASS: TestSkillsReloadRPCAndReplay (0.05s)\n"}
+{"Time":"2026-09-08T17:18:05.063246+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSkillsReloadRPCAndReplay","Elapsed":0.05}
+{"Time":"2026-09-08T17:18:05.064033+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T17:18:05.517553+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"ok  \tgithub.com/sausheong/hand/internal/agentio\t1.623s\n"}
+{"Time":"2026-09-08T17:18:05.51761+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":1.624}
+{"Time":"2026-09-08T17:18:05.906125+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t1.974s\n"}
+{"Time":"2026-09-08T17:18:05.906223+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":1.974}
+{"Time":"2026-09-08T17:18:06.073027+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t2.141s\n"}
+{"Time":"2026-09-08T17:18:06.07317+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":2.141}

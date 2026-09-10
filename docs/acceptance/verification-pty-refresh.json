@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-verification-pty-20260909",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--checkpoint-dir",
+    "/private/tmp/hand-verification-pty-separated-20260909/fixture/checkpoints",
+    "--verification-config",
+    "/private/tmp/hand-verification-pty-separated-20260909/fixture/verification.json"
+  ],
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "runner_sha256": "b7c664d0d01da567a5d3765ad2b2a17233e40784f8a280e16318e5f455e3afc0",
+  "deleted_selected": true,
+  "snapshots_retained": true,
+  "command_executions": 1,
+  "terminal_echo_disabled": true,
+  "reviewed": true,
+  "confirmed": true,
+  "saved_id": "c44178bc0c36941d60d16a6096bf6fadfefbb75de6621c7f74dbfa92404d2fc1",
+  "later_edit_stale": true,
+  "exit_code": 0,
+  "provider_calls": 0,
+  "terminal_sha256": "dda38963a9ff822e6de941d760affe982f3cc524065998896749b2f94b420d00",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/check_verification_terminal.py",
+      "sha256": "b7c664d0d01da567a5d3765ad2b2a17233e40784f8a280e16318e5f455e3afc0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/checkpoints/0d24bb96641ebd91f51e827fb06ee78076d9cbbd78919a5484f27299838f1d7d.json",
+      "sha256": "c6c6baafa0fef385711e0878cd672112f769eca983e70f1ebd1b5a4b3b470ed6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/command-executions",
+      "sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/evidence/.verification.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/home/.hand/authority/ca90642dec3b6752c4e26cf5423babe8e2fbcadf857c8284328ae2a4ca3e7bab/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/home/.hand/sessions/catalogues/ca90642dec3b6752/catalogue.json",
+      "sha256": "cab09fc9ea878f1e77ef0bbea773b06a13cf67eb410072c507d67e176887941b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/home/.hand/sessions/catalogues/ca90642dec3b6752/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/home/.hand/sessions/hand/.leases/workspace_ca90642dec3b6752_5cf36e0f4c548a682adea44cae567f49.lock",
+      "sha256": "82e16204a97a679cd8e1c1593c7bccc4cc3d8b9243791ad5d32a1642c021077c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/home/.hand/sessions/hand/workspace_ca90642dec3b6752_5cf36e0f4c548a682adea44cae567f49.jsonl",
+      "sha256": "48b19c9c7b74e24c4b30dfa13bb5f98e802dffe58df40e8df90941ba22eff18a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/verification.json",
+      "sha256": "a30bfa7f30224b6c9336a6510427a1ce4e6c5d6a4d4ae39f2b5fce4a9e986e29"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/fixture/workspace/source",
+      "sha256": "c788e2315fa2282f79146ae97215c0f34be5e3f3b22101fc983793911427bc44"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/run.json",
+      "sha256": "f85075aa7f3b8a9b753b073016c87ca08236085bbefb88364c4f0dce7c1247ee"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/corrected/terminal.bin",
+      "sha256": "dda38963a9ff822e6de941d760affe982f3cc524065998896749b2f94b420d00"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/checkpoints/.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/home/.hand/authority/bad2293a3a5a51d490e15c1be1b5df5c9a2c55711a951348186d37f46a664abe/bcb6e0421f5e4c633e42926115bcb9b61b1634546a60186a8afd7e5247c5f5d0/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/home/.hand/sessions/catalogues/bad2293a3a5a51d4/catalogue.json",
+      "sha256": "4cd49eef3251dd2011d3a06c11859604c5ebf6feac4597114a6b3c20754611ce"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/home/.hand/sessions/catalogues/bad2293a3a5a51d4/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/home/.hand/sessions/hand/.leases/workspace_bad2293a3a5a51d4_d876203e9dd4b749c297ea34ffff02dd.lock",
+      "sha256": "f74222e08796ef655edce820b9d2e1a98f27f05140cc82ec166899022034c660"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/home/.hand/sessions/hand/workspace_bad2293a3a5a51d4_d876203e9dd4b749c297ea34ffff02dd.jsonl",
+      "sha256": "8f7b0946434e37ba41565bbe6c7aca241dd0ecd053927d0e7d64e8a50904e12a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/verification.json",
+      "sha256": "75084fcfd4e9a8b0e6f73bbd4a19e1d593558ad203c3d00c186439761eab6e67"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/fixture/workspace/source",
+      "sha256": "1beb6dbff81f8e9fd943092c8be12611c6dc42cca13eb1d61edbc37cfc0540a3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/run.json",
+      "sha256": "36deb9fc6dc7979ae2e80621f8779613c264b39d3d0867cfbcdab082c76ca29f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/verification-pty-refresh-20260909/initial/terminal.bin",
+      "sha256": "518d3f0bccf3c4f650f6fbc8bbdd5e5d293d8d140cff1191af018096a618993b"
+    }
+  ],
+  "limitations": [
+    "Native macOS development binary with local Harness, not clean released-dependency candidate",
+    "Initial run stalled with command text and Enter batched; corrected runner separates typing from Enter and disables terminal echo",
+    "No paid model calls; unavailable loopback provider endpoint",
+    "This verifies verification review/run/stale/list/delete, not every integrated coding journey"
+  ]
+}

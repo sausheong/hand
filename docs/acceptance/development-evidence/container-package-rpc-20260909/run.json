@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "24c7fee0cd942298dbf356ef524cc5e2857ad133a10a6b1314dee5b911bd36c1",
+  "runner_sha256": "62445026e0feb8184216cb0a0cf0ce5698f8da8d17edda38b0fd713f2167d22b",
+  "provider_calls": 0,
+  "limitations": [
+    "Installed Python package journey; not final candidate or platform qualification."
+  ],
+  "container_execution": {
+    "backend": "container",
+    "docker": "/usr/local/bin/docker",
+    "socket": "/Users/sausheong/.docker/run/docker.sock",
+    "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "worker": "/private/tmp/hand-container-worker-20260909",
+    "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+    "writable": false,
+    "network": false
+  },
+  "container_cleanup": true,
+  "image_interpreter": "/usr/local/bin/python3",
+  "unapproved_runtime_rejected": true,
+  "package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "startup_digest": "2d17c6a7095217d11ae63b725e1d067fdd09352d47a7e8144ad7b1375d9dda07",
+  "source_removed_before_review": true,
+  "real_question_answer": true,
+  "restart_replay": true,
+  "cancellation_joined": true,
+  "snapshots_removed": true
+}

@@ -1,0 +1,44 @@
+{"Time":"2026-09-08T16:56:16.132413+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T16:56:16.720527+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIdentity"}
+{"Time":"2026-09-08T16:56:16.720576+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIdentity","Output":"=== RUN   TestBuildStaticSystemPromptIdentity\n"}
+{"Time":"2026-09-08T16:56:16.721209+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIdentity","Output":"--- PASS: TestBuildStaticSystemPromptIdentity (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.721225+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIdentity","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.72124+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentityAndPaths"}
+{"Time":"2026-09-08T16:56:16.72125+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentityAndPaths","Output":"=== RUN   TestBuildStaticSystemPromptDefaultIdentityAndPaths\n"}
+{"Time":"2026-09-08T16:56:16.72179+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentityAndPaths","Output":"--- PASS: TestBuildStaticSystemPromptDefaultIdentityAndPaths (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.721798+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentityAndPaths","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.721809+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSystemPromptOverride"}
+{"Time":"2026-09-08T16:56:16.721812+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSystemPromptOverride","Output":"=== RUN   TestBuildStaticSystemPromptSystemPromptOverride\n"}
+{"Time":"2026-09-08T16:56:16.722474+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSystemPromptOverride","Output":"--- PASS: TestBuildStaticSystemPromptSystemPromptOverride (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.722481+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSystemPromptOverride","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.722495+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSelfIdentityLine"}
+{"Time":"2026-09-08T16:56:16.7225+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSelfIdentityLine","Output":"=== RUN   TestBuildStaticSystemPromptSelfIdentityLine\n"}
+{"Time":"2026-09-08T16:56:16.722956+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSelfIdentityLine","Output":"--- PASS: TestBuildStaticSystemPromptSelfIdentityLine (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.722967+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptSelfIdentityLine","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.723253+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptWithIdentityFile"}
+{"Time":"2026-09-08T16:56:16.723258+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptWithIdentityFile","Output":"=== RUN   TestBuildStaticSystemPromptWithIdentityFile\n"}
+{"Time":"2026-09-08T16:56:16.724004+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptWithIdentityFile","Output":"--- PASS: TestBuildStaticSystemPromptWithIdentityFile (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.724017+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptWithIdentityFile","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.724033+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptConfigOverride"}
+{"Time":"2026-09-08T16:56:16.724036+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptConfigOverride","Output":"=== RUN   TestBuildStaticSystemPromptConfigOverride\n"}
+{"Time":"2026-09-08T16:56:16.72456+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptConfigOverride","Output":"--- PASS: TestBuildStaticSystemPromptConfigOverride (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.724566+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptConfigOverride","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.72457+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentity"}
+{"Time":"2026-09-08T16:56:16.724572+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentity","Output":"=== RUN   TestBuildStaticSystemPromptDefaultIdentity\n"}
+{"Time":"2026-09-08T16:56:16.724826+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentity","Output":"--- PASS: TestBuildStaticSystemPromptDefaultIdentity (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.724834+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptDefaultIdentity","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.724844+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptByteStableAcrossCalls"}
+{"Time":"2026-09-08T16:56:16.724846+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptByteStableAcrossCalls","Output":"=== RUN   TestBuildStaticSystemPromptByteStableAcrossCalls\n"}
+{"Time":"2026-09-08T16:56:16.725367+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptByteStableAcrossCalls","Output":"--- PASS: TestBuildStaticSystemPromptByteStableAcrossCalls (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.72538+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptByteStableAcrossCalls","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.725383+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryIndex"}
+{"Time":"2026-09-08T16:56:16.725389+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryIndex","Output":"=== RUN   TestBuildStaticSystemPromptIncludesMemoryIndex\n"}
+{"Time":"2026-09-08T16:56:16.725751+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryIndex","Output":"--- PASS: TestBuildStaticSystemPromptIncludesMemoryIndex (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.725758+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryIndex","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.725767+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryFiles"}
+{"Time":"2026-09-08T16:56:16.725769+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryFiles","Output":"=== RUN   TestBuildStaticSystemPromptIncludesMemoryFiles\n"}
+{"Time":"2026-09-08T16:56:16.726115+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryFiles","Output":"--- PASS: TestBuildStaticSystemPromptIncludesMemoryFiles (0.00s)\n"}
+{"Time":"2026-09-08T16:56:16.726123+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestBuildStaticSystemPromptIncludesMemoryFiles","Elapsed":0}
+{"Time":"2026-09-08T16:56:16.727183+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T16:56:17.743484+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t1.611s\n"}
+{"Time":"2026-09-08T16:56:17.743594+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":1.611}

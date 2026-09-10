@@ -53,7 +53,7 @@ func waitForRequest(t *testing.T, sender *fakeSender) agentio.ApprovalRequest {
 }
 
 func TestApprovalHook_UngatedToolsAllowedImmediately(t *testing.T) {
-	for _, name := range []string{"read_file", "web_fetch", "web_search", "todo_write", "search"} {
+	for _, name := range []string{"read_file", "web_fetch", "web_search", "search"} {
 		t.Run(name, func(t *testing.T) {
 			sender := &fakeSender{}
 			hook := agentio.NewApprovalHook(sender, nil, "", nil, nil)

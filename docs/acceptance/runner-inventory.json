@@ -1,0 +1,75 @@
+{
+  "actual_profile": {
+    "passed": 7,
+    "skipped": [],
+    "failed": [],
+    "missing": [],
+    "packages": [
+      "github.com/sausheong/hand/protocol"
+    ],
+    "unfinished": [],
+    "missing_packages": []
+  },
+  "expected_tests": [
+    "FuzzDecodeRequest",
+    "TestConcurrentFramesDoNotInterleave",
+    "TestFrameLimitsAndTruncatedDisconnect",
+    "TestRequestFramingAndValidation",
+    "TestWriterPoisonedAfterPartialFrame"
+  ],
+  "fault_injection": {
+    "description": "Removed Fuzz event records from a copy of authentic events; not product evidence",
+    "missing": [
+      [
+        "github.com/sausheong/hand/protocol",
+        "FuzzDecodeRequest"
+      ]
+    ]
+  },
+  "status": "development_inventory_verified",
+  "requirement": "M0.1",
+  "runner_tests": 10,
+  "runner_failures": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/validate.py.gz",
+      "sha256": "c0382b0562bee61f022367b671078e017215009b4ec2a62404d110032b74be6b",
+      "uncompressed_sha256": "d1ccb9f02b5cf892d8f3e95bb92dd763a6b6056d1afd9395d4efd8f97e7de9cc"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/test_validate.py.gz",
+      "sha256": "ce08b9fa410ed21ffe99a4a98a92f71f3acde4171d15a937c3db628947e0eb61",
+      "uncompressed_sha256": "88d2383304219192a03d5dd87806f195755edb80e2af61d69113e0f6beb0b732"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/hand-runner-inventory-final-tests-20260909.log.gz",
+      "sha256": "768e4557adfc2250c1950520aeba403bdb526e25099716067eca952283975819",
+      "uncompressed_sha256": "6ebfdfd4b3c00fc8d529c9d9843a65a06a2c956847a10a8789c0a9c804012d92"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/hand-protocol-inventory-20260909.txt.gz",
+      "sha256": "ea3af70bda0b01e3e56e54032aa945d207f35ff89940c0040e2b7eba117f233d",
+      "uncompressed_sha256": "aae19e5d1dd09854bf77ad4fbb48e93a9095d389a289578bc7fe44e1053583d3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/hand-protocol-inventory-events-20260909.jsonl.gz",
+      "sha256": "f347d109a4dcf79d33858226a926f2ef715589c64819237a9f17314af4ad3ed8",
+      "uncompressed_sha256": "5382581e6e94ec0375f06b5230bc63f7102228c4734f39fa1b3a50ea7c763e2c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/framing_test.go.gz",
+      "sha256": "b8ba5544a60b815c43a1b022522bb0eb2cc6b56b80201817bbd23dbee386b5a9",
+      "uncompressed_sha256": "ce34f97de8a69e4c15b16b60edd8db26f2f224b998245ad63298e5d8c91eb5f7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/runner-inventory-20260909/framing.go.gz",
+      "sha256": "3e736a5f633b16bbc5f1550d7f4ba9851a052501fb1db57a325847d7e3096282",
+      "uncompressed_sha256": "ede9619b768772ef3fcfb9ac6c826232d8dc466f28a5dacf41ef880ae7d1207d"
+    }
+  ],
+  "limitations": [
+    "Protocol package is a focused development run, not full candidate qualification",
+    "Fault-injected event copy only verifies missing-test detection",
+    "Examples are covered by inventory parser regression; this protocol package has no executable examples"
+  ]
+}

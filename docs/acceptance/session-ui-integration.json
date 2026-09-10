@@ -1,0 +1,101 @@
+{
+  "checkout": "/private/tmp/hand-session-integration-20260908",
+  "primary_integrated": false,
+  "primary_harness_version": "v0.3.9",
+  "development_harness_candidate": "5cc93a3d6a1a504cd348d435db8ebd7e68050d28",
+  "development_dependency_mode": "isolated local replacement; not final acceptance",
+  "aggregate_patch_includes_previous_session_integration": true,
+  "patch_excludes_go_mod_replace": true,
+  "full_tests_passed": 504,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "targeted_ui_controller_repeat_passes": 80,
+  "repetitions": 20,
+  "sources": [
+    {
+      "path": "internal/sessionio/manager.go",
+      "before_sha256": null,
+      "after_sha256": "4fa6371db71e0984a6dd89f6fc4416f1b1747574a2e054fe42b0932c19ebe3a1"
+    },
+    {
+      "path": "internal/sessionio/manager_test.go",
+      "before_sha256": null,
+      "after_sha256": "bb0d5f7ed0db1818b7f50724adaaa6a5a33c1fa2cf5c92dd9cf6592412c5da7d"
+    },
+    {
+      "path": "internal/app/controller.go",
+      "before_sha256": "5a99045e52b0be64484ae77b0e42a64148cb08cf328b4ce09e1d8079b8656cca",
+      "after_sha256": "93ab55b7ada9798d3e78fccef6739f311733f1979f6a85aa1a334c3adc16773f"
+    },
+    {
+      "path": "internal/app/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2d094ca9f433cd13ec0be66eec60bd60e7fef4dab4c673ff92209bc6f1a3d519"
+    },
+    {
+      "path": "internal/app/sessions.go",
+      "before_sha256": null,
+      "after_sha256": "f785cdbcdf105d39c73b0de1de076e267d7dd8ea4f0f8f764ccd042c7d6d2eb0"
+    },
+    {
+      "path": "internal/tui/commands.go",
+      "before_sha256": "71e8a5d655719976cff20722314695538f92d324a3d038b127732fb6382d95d7",
+      "after_sha256": "397b404b2de73b47618da857e4c1d37f47059dd50f98702165ab6c7865bd866e"
+    },
+    {
+      "path": "internal/tui/sessions.go",
+      "before_sha256": null,
+      "after_sha256": "79d6a6ba3789a7cff29f695e8d098822792147b27fc72999df146b3fc3b36975"
+    },
+    {
+      "path": "internal/tui/sessions_test.go",
+      "before_sha256": null,
+      "after_sha256": "321f6935dccb1aa068d4f9433e08dec7cece9f9737c5c1cba91ba8b3ea730828"
+    },
+    {
+      "path": "cmd/hand/main.go",
+      "before_sha256": "58ec6d21038f14012a2c6dd7ae31345b566b1ee9ce9556aa229a19f13af62683",
+      "after_sha256": "f346e1c2ab275dacd68c47df169cb7db6756a5c91073b194ebbd2df4b72374a8"
+    },
+    {
+      "path": "cmd/hand/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2aac513aec6783c271f239e562f6b3d4b0fb24ba575b6d1d737b6fd51da2aba9"
+    },
+    {
+      "path": "cmd/hand/session_binary_test.go",
+      "before_sha256": null,
+      "after_sha256": "17a6d1fb55990e2e2f8f06698e837c99a3405618613d9f90a1234a6af69d4eda"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/session-ui-integration.patch",
+      "sha256": "d937fa2c10f70fe1c4584e215afbc222d75501fcbf6d2df49076213378334ac5"
+    },
+    {
+      "path": "/private/tmp/hand-session-ui-full-20260908.jsonl",
+      "sha256": "83260114a3d972057e4b84c20b2dee67442c3a0727b3cc6742af40e626a9bf2e"
+    },
+    {
+      "path": "/private/tmp/hand-session-ui-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-ui-coverage-20260908.out",
+      "sha256": "03ae2053cb2e97f86be27f1a06b544304388e45d494367d772f39e0999ce01ff"
+    },
+    {
+      "path": "/private/tmp/hand-session-ui-repeat-20260908.jsonl",
+      "sha256": "b2659b202317dfecf584e7bf6a88b8027ad8efb0f19a9d14a15d43aa11d0f680"
+    },
+    {
+      "path": "/private/tmp/hand-session-ui-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-ui-regressions-20260908.txt",
+      "sha256": "eaa0c4cc952580877da4325627c46302f84921a9100d3df3c94eae266945db55"
+    }
+  ]
+}

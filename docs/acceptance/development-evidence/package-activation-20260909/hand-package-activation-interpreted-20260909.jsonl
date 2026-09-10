@@ -1,0 +1,16 @@
+{"Time":"2026-09-09T02:21:25.702437+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:21:26.284562+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney"}
+{"Time":"2026-09-09T02:21:26.284633+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney\n"}
+{"Time":"2026-09-09T02:21:26.284653+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go"}
+{"Time":"2026-09-09T02:21:26.284658+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney/go\n"}
+{"Time":"2026-09-09T02:21:26.986348+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney/go (0.70s)\n"}
+{"Time":"2026-09-09T02:21:26.986371+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/go","Elapsed":0.7}
+{"Time":"2026-09-09T02:21:26.986431+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python"}
+{"Time":"2026-09-09T02:21:26.986437+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney/python\n"}
+{"Time":"2026-09-09T02:21:27.523888+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney/python (0.54s)\n"}
+{"Time":"2026-09-09T02:21:27.523922+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney/python","Elapsed":0.54}
+{"Time":"2026-09-09T02:21:27.523932+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney (1.24s)\n"}
+{"Time":"2026-09-09T02:21:27.523941+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Elapsed":1.24}
+{"Time":"2026-09-09T02:21:27.524176+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:21:28.532315+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.830s\n"}
+{"Time":"2026-09-09T02:21:28.532364+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.83}

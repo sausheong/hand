@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-tui-restore-fixture-20260908/workspace",
+  "generation": 6,
+  "lastActiveId": "ses_02f7db4d4109c47c",
+  "sessions": [
+    {
+      "id": "ses_02f7db4d4109c47c",
+      "agentId": "hand",
+      "storeKey": "workspace_298a6b62d7e171f1_14542710b6ef2969934148f4e560463a",
+      "name": "",
+      "createdAt": "2026-09-08T07:57:57.425985Z",
+      "lastActive": "2026-09-08T07:58:09.90075Z"
+    },
+    {
+      "id": "ses_85fd8260920b9280",
+      "agentId": "hand",
+      "storeKey": "workspace_298a6b62d7e171f1_d2bb60f5dd2df987e35c698c015c309a",
+      "name": "",
+      "createdAt": "2026-09-08T07:57:57.623892Z",
+      "lastActive": "2026-09-08T07:57:57.624084Z"
+    },
+    {
+      "id": "ses_ce75421b196dceb0",
+      "agentId": "hand",
+      "storeKey": "workspace_298a6b62d7e171f1_ddd8ba7d398e7d16ba92ab9cca163448",
+      "name": "",
+      "createdAt": "2026-09-08T07:57:57.721359Z",
+      "lastActive": "2026-09-08T07:57:57.811064Z"
+    }
+  ]
+}

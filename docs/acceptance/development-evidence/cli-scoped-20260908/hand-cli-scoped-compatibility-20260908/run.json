@@ -1,0 +1,179 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "hand_version": null,
+  "binary": "/private/tmp/hand-cli-scoped-binary-20260908",
+  "binary_sha256": "707c5f65ff73b822f751030da1f61e68e8451d0ce033d1d6d732220bdc66416f",
+  "fixture_sha256": "abe53f67488b61dc0ccbec72d86cc4d41d36148b13c8805bac1956edfe20e855",
+  "runner_sha256": "323f05ae8da14742f8291deefa5f8b4f8c75ac80259172d273cc3337aad5ebde",
+  "commands": [
+    {
+      "argv": [
+        "go",
+        "mod",
+        "init",
+        "example.com/hand-sdk-compatibility"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/init.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/init.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "73d1cba4ce56e0c4ac0790ed494087d410f816848558b6fca23a63ad55e8020e"
+    },
+    {
+      "argv": [
+        "go",
+        "mod",
+        "edit",
+        "-require=github.com/sausheong/hand@v0.0.0"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/require.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/require.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "mod",
+        "edit",
+        "-replace=github.com/sausheong/hand=/private/tmp/hand-session-integration-20260908"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/replace-hand.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/replace-hand.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "mod",
+        "edit",
+        "-replace=github.com/sausheong/harness=/private/tmp/hand-harness-persistence-20260908"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/replace-harness.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/replace-harness.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "build",
+        "-mod=mod",
+        "-o",
+        "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer/consumer",
+        "."
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/build.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/build.stderr",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "list",
+        "-m",
+        "-json",
+        "github.com/sausheong/hand",
+        "github.com/sausheong/harness"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/modules.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/modules.stderr",
+      "stdout_sha256": "61e4ff0a8a1c10d3e7c64844eb07b154af576be526f180cd5a5e70e0c63bd58b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "go",
+        "version",
+        "-m",
+        "/private/tmp/hand-cli-scoped-binary-20260908"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/binary-build-info.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/binary-build-info.stderr",
+      "stdout_sha256": "600e6a4514a11603504db45e20ac6d29d39fed1f948e317379116b1a4f74731f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/private/tmp/hand-cli-scoped-binary-20260908",
+        "--version"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/binary-version.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/binary-version.stderr",
+      "stdout_sha256": "2b68ea52f15ed8d8c72557bb9274a800068c8fe2d7c3f425700ca3239f3110f5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer/consumer",
+        "/private/tmp/hand-cli-scoped-binary-20260908"
+      ],
+      "cwd": "/private/tmp/hand-cli-scoped-compatibility-20260908/consumer",
+      "exit_code": 0,
+      "stdout": "/private/tmp/hand-cli-scoped-compatibility-20260908/journey.stdout",
+      "stderr": "/private/tmp/hand-cli-scoped-compatibility-20260908/journey.stderr",
+      "stdout_sha256": "9353efefafa236b885ef6815ef2fa772be7e9cbabb273516aff14d113011321b",
+      "stderr_sha256": "f77b1d83d9c18fa2ce33966e2c6bf7d992a2ec260464f61949b7e8c20586ca21"
+    }
+  ],
+  "scope": "external module build and local completion/cancellation equivalence only",
+  "hand_checkout": "/private/tmp/hand-session-integration-20260908",
+  "harness_checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "journey": {
+    "cancelled_provider_requests": 3,
+    "observations": {
+      "cli_jsonl": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "cli_jsonl_cancel": {
+        "text": "cancel started",
+        "status": "cancelled",
+        "terminals": 1
+      },
+      "embedded_sdk": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "embedded_sdk_cancel": {
+        "text": "cancel started",
+        "status": "cancelled",
+        "terminals": 1
+      },
+      "subprocess_sdk": {
+        "text": "compatible answer",
+        "status": "completed",
+        "terminals": 1
+      },
+      "subprocess_sdk_cancel": {
+        "text": "cancel started",
+        "status": "cancelled",
+        "terminals": 1
+      }
+    },
+    "provider_calls": 6,
+    "scope": "local fixture completion and cancellation journeys; excludes live evaluation",
+    "status": "passed"
+  },
+  "go_mod_sha256": "f6f7a0b0d9294024ec828735f4b32242f6ab6f2c5b1de74273d767e508b29717"
+}

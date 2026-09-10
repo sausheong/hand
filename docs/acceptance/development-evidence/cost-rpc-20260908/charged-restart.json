@@ -1,0 +1,143 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select-again",
+      "method": "session.select",
+      "params": {
+        "id": "ses_01fc0f36ac6d9fe0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select-again",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_01fc0f36ac6d9fe0"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "durable-charge",
+      "method": "budget.cost",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "durable-charge",
+      "result": {
+        "currency": "USD",
+        "limit_nano": 1000000,
+        "committed_nano": 15,
+        "compaction_nano": 0,
+        "strict": true,
+        "exhausted": false,
+        "attempts": 1,
+        "unpriced_attempts": 0,
+        "uncertain_attempts": 0,
+        "disclosure": "Amounts are billionths of the named currency and include reservations. Unknown charges are not free. Estimates, billing lag and non-cancellable requests prevent an exact invoice cap."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "durable-prices",
+      "method": "budget.prices",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "durable-prices",
+      "result": [
+        {
+          "provider": "local",
+          "model": "fixture",
+          "destination": "http://127.0.0.1:50129/v1",
+          "currency": "USD",
+          "source": "scripted local fixture; not a market tariff",
+          "version": "fixture-1",
+          "effective_at": "2026-09-08T12:23:28.338839Z",
+          "expires_at": "2026-09-08T14:23:28.338839Z",
+          "input_nano_per_million": 1000000,
+          "output_nano_per_million": 1000000,
+          "cache_write_nano_per_million": 1000000,
+          "cache_read_nano_per_million": 1000000,
+          "fixed_nano": 0,
+          "all_charges_bounded": true
+        }
+      ]
+    }
+  }
+]

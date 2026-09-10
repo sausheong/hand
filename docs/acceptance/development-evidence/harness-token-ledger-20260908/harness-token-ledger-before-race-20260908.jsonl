@@ -1,0 +1,23 @@
+{"ImportPath":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]","Action":"build-output","Output":"# github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]\n"}
+{"ImportPath":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]","Action":"build-output","Output":"budget/tokens_test.go:76:11: s.Compact(\"summary\", 0) (no value) used as value\n"}
+{"ImportPath":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]","Action":"build-fail"}
+{"Time":"2026-09-08T20:52:49.597496+08:00","Action":"start","Package":"github.com/sausheong/harness/budget"}
+{"Time":"2026-09-08T20:52:49.597543+08:00","Action":"output","Package":"github.com/sausheong/harness/budget","Output":"FAIL\tgithub.com/sausheong/harness/budget [build failed]\n"}
+{"Time":"2026-09-08T20:52:49.597552+08:00","Action":"fail","Package":"github.com/sausheong/harness/budget","Elapsed":0,"FailedBuild":"github.com/sausheong/harness/budget [github.com/sausheong/harness/budget.test]"}
+{"Time":"2026-09-08T20:52:50.454611+08:00","Action":"start","Package":"github.com/sausheong/harness/session"}
+{"Time":"2026-09-08T20:52:50.902841+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction"}
+{"Time":"2026-09-08T20:52:50.902892+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction","Output":"=== RUN   TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction\n"}
+{"Time":"2026-09-08T20:52:50.950851+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction","Output":"--- PASS: TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction (0.05s)\n"}
+{"Time":"2026-09-08T20:52:50.950902+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationsPreserveSelectedLeafAcrossRestartAndCompaction","Elapsed":0.05}
+{"Time":"2026-09-08T20:52:50.951122+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationValidation"}
+{"Time":"2026-09-08T20:52:50.951155+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationValidation","Output":"=== RUN   TestAnnotationValidation\n"}
+{"Time":"2026-09-08T20:52:50.951524+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationValidation","Output":"--- PASS: TestAnnotationValidation (0.00s)\n"}
+{"Time":"2026-09-08T20:52:50.951544+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationValidation","Elapsed":0}
+{"Time":"2026-09-08T20:52:50.951613+08:00","Action":"run","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationConcurrentAppendAndClosedWriter"}
+{"Time":"2026-09-08T20:52:50.95163+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationConcurrentAppendAndClosedWriter","Output":"=== RUN   TestAnnotationConcurrentAppendAndClosedWriter\n"}
+{"Time":"2026-09-08T20:52:51.093298+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationConcurrentAppendAndClosedWriter","Output":"2026/09/08 20:52:51 WARN session persistence degraded; in-memory state may not survive restart reason=\"acquire writer lease\" error=\"session writer is closed\"\n"}
+{"Time":"2026-09-08T20:52:51.098649+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationConcurrentAppendAndClosedWriter","Output":"--- PASS: TestAnnotationConcurrentAppendAndClosedWriter (0.15s)\n"}
+{"Time":"2026-09-08T20:52:51.098679+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Test":"TestAnnotationConcurrentAppendAndClosedWriter","Elapsed":0.15}
+{"Time":"2026-09-08T20:52:51.101764+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"PASS\n"}
+{"Time":"2026-09-08T20:52:52.115163+08:00","Action":"output","Package":"github.com/sausheong/harness/session","Output":"ok  \tgithub.com/sausheong/harness/session\t1.660s\n"}
+{"Time":"2026-09-08T20:52:52.115358+08:00","Action":"pass","Package":"github.com/sausheong/harness/session","Elapsed":1.661}

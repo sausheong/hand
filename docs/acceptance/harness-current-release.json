@@ -1,0 +1,16 @@
+{
+  "base": "09c30fe2d529d6125f423593f621e970a7ce8735",
+  "source_head": "5998569d24ce063207cc237263d89f22d532e25f",
+  "candidate_commit": null,
+  "source_worktree_sha256": "a13a2bb5706b08843daaabcc7d09e3848decffc868ca88fbd1d8f5be01b98524",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "proposed_version": "v0.4.0",
+  "permission": "requested_pending",
+  "published": false,
+  "patch": "docs/acceptance/development-evidence/harness-capture-review-20260909/harness-current.patch",
+  "patch_sha256": "b16393e06e5e0e9efc9a535d698695ec2231d5e0d35b9e96080326cea5d45bba",
+  "latest_local_evidence": "docs/acceptance/harness-capture-review.json",
+  "native_ci": "pending",
+  "full_native_refresh": "pending",
+  "upstream_refs": "must recheck before publication"
+}

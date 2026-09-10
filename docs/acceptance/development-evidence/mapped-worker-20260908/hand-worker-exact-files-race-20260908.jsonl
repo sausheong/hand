@@ -1,0 +1,72 @@
+{"Time":"2026-09-08T13:56:18.3363+08:00","Action":"start","Package":"github.com/sausheong/harness/tools/file"}
+{"Time":"2026-09-08T13:56:18.906179+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFilePreservesMode"}
+{"Time":"2026-09-08T13:56:18.906251+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFilePreservesMode","Output":"=== RUN   TestEditFilePreservesMode\n"}
+{"Time":"2026-09-08T13:56:18.912159+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFilePreservesMode","Output":"--- PASS: TestEditFilePreservesMode (0.01s)\n"}
+{"Time":"2026-09-08T13:56:18.912174+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFilePreservesMode","Elapsed":0.01}
+{"Time":"2026-09-08T13:56:18.912198+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileTool"}
+{"Time":"2026-09-08T13:56:18.912203+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileTool","Output":"=== RUN   TestReadFileTool\n"}
+{"Time":"2026-09-08T13:56:18.912751+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileTool","Output":"--- PASS: TestReadFileTool (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.912757+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileTool","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.912766+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolMissing"}
+{"Time":"2026-09-08T13:56:18.912773+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolMissing","Output":"=== RUN   TestReadFileToolMissing\n"}
+{"Time":"2026-09-08T13:56:18.912845+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolMissing","Output":"--- PASS: TestReadFileToolMissing (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.91285+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolMissing","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.912857+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirClamps"}
+{"Time":"2026-09-08T13:56:18.91286+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirClamps","Output":"=== RUN   TestReadFileToolWorkDirClamps\n"}
+{"Time":"2026-09-08T13:56:18.913777+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirClamps","Output":"--- PASS: TestReadFileToolWorkDirClamps (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.913791+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirClamps","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.913795+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirRejectsEscapingFileSymlink"}
+{"Time":"2026-09-08T13:56:18.913798+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirRejectsEscapingFileSymlink","Output":"=== RUN   TestReadFileToolWorkDirRejectsEscapingFileSymlink\n"}
+{"Time":"2026-09-08T13:56:18.915035+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirRejectsEscapingFileSymlink","Output":"--- PASS: TestReadFileToolWorkDirRejectsEscapingFileSymlink (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.915054+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFileToolWorkDirRejectsEscapingFileSymlink","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.915063+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileTool"}
+{"Time":"2026-09-08T13:56:18.915069+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileTool","Output":"=== RUN   TestWriteFileTool\n"}
+{"Time":"2026-09-08T13:56:18.921569+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileTool","Output":"--- PASS: TestWriteFileTool (0.01s)\n"}
+{"Time":"2026-09-08T13:56:18.921598+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileTool","Elapsed":0.01}
+{"Time":"2026-09-08T13:56:18.921603+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileTool"}
+{"Time":"2026-09-08T13:56:18.921606+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileTool","Output":"=== RUN   TestEditFileTool\n"}
+{"Time":"2026-09-08T13:56:18.928016+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileTool","Output":"--- PASS: TestEditFileTool (0.01s)\n"}
+{"Time":"2026-09-08T13:56:18.928027+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileTool","Elapsed":0.01}
+{"Time":"2026-09-08T13:56:18.928032+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileToolNotFound"}
+{"Time":"2026-09-08T13:56:18.928041+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileToolNotFound","Output":"=== RUN   TestEditFileToolNotFound\n"}
+{"Time":"2026-09-08T13:56:18.928612+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileToolNotFound","Output":"--- PASS: TestEditFileToolNotFound (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.928618+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFileToolNotFound","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.928627+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedText"}
+{"Time":"2026-09-08T13:56:18.928631+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedText","Output":"=== RUN   TestReadFile_RejectsOversizedText\n"}
+{"Time":"2026-09-08T13:56:18.946931+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedText","Output":"--- PASS: TestReadFile_RejectsOversizedText (0.02s)\n"}
+{"Time":"2026-09-08T13:56:18.946947+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedText","Elapsed":0.02}
+{"Time":"2026-09-08T13:56:18.946954+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_AllowsNormalText"}
+{"Time":"2026-09-08T13:56:18.946958+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_AllowsNormalText","Output":"=== RUN   TestReadFile_AllowsNormalText\n"}
+{"Time":"2026-09-08T13:56:18.947563+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_AllowsNormalText","Output":"--- PASS: TestReadFile_AllowsNormalText (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.947569+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_AllowsNormalText","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.94758+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedImage"}
+{"Time":"2026-09-08T13:56:18.947584+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedImage","Output":"=== RUN   TestReadFile_RejectsOversizedImage\n"}
+{"Time":"2026-09-08T13:56:18.95514+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedImage","Output":"--- PASS: TestReadFile_RejectsOversizedImage (0.01s)\n"}
+{"Time":"2026-09-08T13:56:18.955154+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_RejectsOversizedImage","Elapsed":0.01}
+{"Time":"2026-09-08T13:56:18.955158+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_RejectsOversized"}
+{"Time":"2026-09-08T13:56:18.955161+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_RejectsOversized","Output":"=== RUN   TestEditFile_RejectsOversized\n"}
+{"Time":"2026-09-08T13:56:18.977543+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_RejectsOversized","Output":"--- PASS: TestEditFile_RejectsOversized (0.02s)\n"}
+{"Time":"2026-09-08T13:56:18.977561+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_RejectsOversized","Elapsed":0.02}
+{"Time":"2026-09-08T13:56:18.977566+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_HonorsCancelledContext"}
+{"Time":"2026-09-08T13:56:18.97757+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_HonorsCancelledContext","Output":"=== RUN   TestReadFile_HonorsCancelledContext\n"}
+{"Time":"2026-09-08T13:56:18.978044+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_HonorsCancelledContext","Output":"--- PASS: TestReadFile_HonorsCancelledContext (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.978054+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestReadFile_HonorsCancelledContext","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.978075+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_HonorsCancelledContext"}
+{"Time":"2026-09-08T13:56:18.978079+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_HonorsCancelledContext","Output":"=== RUN   TestEditFile_HonorsCancelledContext\n"}
+{"Time":"2026-09-08T13:56:18.978605+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_HonorsCancelledContext","Output":"--- PASS: TestEditFile_HonorsCancelledContext (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.978617+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestEditFile_HonorsCancelledContext","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.978623+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileIsRestrictive"}
+{"Time":"2026-09-08T13:56:18.978627+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileIsRestrictive","Output":"=== RUN   TestWriteFileIsRestrictive\n"}
+{"Time":"2026-09-08T13:56:18.987547+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileIsRestrictive","Output":"--- PASS: TestWriteFileIsRestrictive (0.01s)\n"}
+{"Time":"2026-09-08T13:56:18.987559+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFileIsRestrictive","Elapsed":0.01}
+{"Time":"2026-09-08T13:56:18.987565+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFilePreservesExecutableMode"}
+{"Time":"2026-09-08T13:56:18.987569+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFilePreservesExecutableMode","Output":"=== RUN   TestWriteFilePreservesExecutableMode\n"}
+{"Time":"2026-09-08T13:56:18.992942+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFilePreservesExecutableMode","Output":"--- PASS: TestWriteFilePreservesExecutableMode (0.01s)\n"}
+{"Time":"2026-09-08T13:56:18.992953+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestWriteFilePreservesExecutableMode","Elapsed":0.01}
+{"Time":"2026-09-08T13:56:18.99296+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestFailedWritePreservesExistingContentAndMode"}
+{"Time":"2026-09-08T13:56:18.992964+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestFailedWritePreservesExistingContentAndMode","Output":"=== RUN   TestFailedWritePreservesExistingContentAndMode\n"}
+{"Time":"2026-09-08T13:56:18.993917+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestFailedWritePreservesExistingContentAndMode","Output":"--- PASS: TestFailedWritePreservesExistingContentAndMode (0.00s)\n"}
+{"Time":"2026-09-08T13:56:18.993937+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestFailedWritePreservesExistingContentAndMode","Elapsed":0}
+{"Time":"2026-09-08T13:56:18.993952+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Output":"PASS\n"}
+{"Time":"2026-09-08T13:56:20.009407+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Output":"ok  \tgithub.com/sausheong/harness/tools/file\t1.673s\n"}
+{"Time":"2026-09-08T13:56:20.00944+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Elapsed":1.673}

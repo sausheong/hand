@@ -1,0 +1,41 @@
+{
+  "status": "development_usage_uncertainty_display_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -timeout=3m -json ./internal/tui",
+  "test_records": {
+    "before": {
+      "fail": 4
+    },
+    "after": {
+      "pass": 325
+    }
+  },
+  "assertions": [
+    "Unmeasured history and unknown attempts label session subtotal incomplete",
+    "Fully known usage retains normal total display",
+    "Compaction usage read failure preserves prior reported subtotal and marks it incomplete",
+    "Usage command discloses uncertainty after compaction read failure"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/usage-status-20260909/hand-usage-status-before-20260909.jsonl.gz",
+      "sha256": "e2682e914fda946f8b8e078ca88449938911f94d5a8512c69ec82aefd63b87ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-status-20260909/hand-usage-status-after-20260909.jsonl.gz",
+      "sha256": "3acf420ee15ff495fbcfe65c973e7ff7c22d43c6297f26c60932ed406d5ac98f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-status-20260909/model.go.txt",
+      "sha256": "0f5c32acabb841460eb60073c4910d4fbf5328b2bd56ca18920a5745994955ee"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-status-20260909/usage_unavailable_test.go.txt",
+      "sha256": "c1890e0a588d87218c90e6b8c6b0c98517ae7c355a1704516b82e768f8e2d86f"
+    }
+  ],
+  "limitations": [
+    "Compaction result handling regression, not filesystem fault injection",
+    "Dirty development source/local Harness; no final acceptance closure",
+    "Full coverage requires refresh after production changes"
+  ]
+}

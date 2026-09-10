@@ -1,0 +1,9 @@
+# Durable usage origins
+
+Staged Hand records a versioned `hand.usage_tracking` annotation before provider work begins. Existing history without an origin is conservatively marked as having unknown prior consumption. New recorded attempts cannot erase that uncertainty. Missing usage on individual recorded attempts remains a separate count; unknown historical consumption is not assigned a made-up request count or token total.
+
+Usage snapshots carry this flag through startup/resume, manual compaction and cancelled-run terminal delivery. `/usage` discloses unknown earlier consumption even when no attempts have been recorded. Session totals are labelled reported. Fork staging records a fresh accounting origin before copying inherited history, so the fork starts at zero without charging the parent's consumption again. Future, missing and conflicting origin fields fail validation. A failed initial origin write prevents provider execution. Compaction with no summariser still skips without creating an origin.
+
+Tests cover fresh/legacy restart, idempotence, invalid origins, fork accounting, cancellation and UI disclosure. Targeted checks passed 20 race-enabled repetitions (240 test/subtest passes). Full race/coverage validation passed 572 tests/subtests, zero failures/skips; vet passed. The initial sandbox run could not bind its HTTP fixture and also exposed a no-manager compaction regression; the regression was fixed and the full suite ran with local HTTP permission. Initial logs are preserved.
+
+[Aggregate patch](session-usage-origin-integration.patch) and [hashed evidence](session-usage-origin-integration.json). The patch excludes the temporary go.mod replacement. Primary Hand still uses Harness v0.3.9; staged validation uses unpublished Harness 3b7fe5e. This is development evidence, not final coverage, platform or full-plan acceptance.

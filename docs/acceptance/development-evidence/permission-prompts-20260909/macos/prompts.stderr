@@ -1,0 +1,5 @@
+hand: execution boundary: unrestricted host
+time=2026-09-09T09:49:06.363+08:00 level=WARN msg="tool error" tool=write_file id=step-4 error="user denied scoped operation"
+time=2026-09-09T09:49:06.387+08:00 level=WARN msg="tool error" tool=bash id=step-5 error="user denied scoped operation"
+time=2026-09-09T09:49:06.414+08:00 level=WARN msg="tool error" tool=web_fetch id=step-6 error="user denied scoped operation"
+time=2026-09-09T09:49:06.443+08:00 level=WARN msg="tool error" tool=read_file id=step-7 error="user denied scoped operation"

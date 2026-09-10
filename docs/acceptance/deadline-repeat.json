@@ -1,0 +1,40 @@
+{
+  "status": "development_repeated_deadlines_passed",
+  "requirement": "M6.3",
+  "repetitions": 30,
+  "race": true,
+  "test_pass_counts": {
+    "TestDirectBudgetAdaptersRetainDeadlineCause/backend": 30,
+    "TestDirectBudgetAdaptersRetainDeadlineCause/controller": 30,
+    "TestDirectBudgetAdaptersRetainDeadlineCause": 30,
+    "TestRunDeadlineCoversCompletionValidator": 30
+  },
+  "passed_records": 120,
+  "failures": 0,
+  "skips": 0,
+  "assertions": [
+    "Backend and controller adapters retain run deadline exhaustion cause",
+    "Owned provider signals stopped",
+    "Completion validator cannot report verified success after deadline",
+    "Expired budget cannot renew merely by executing again"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/deadline-repeat-20260909/run_budget_compaction_test.go.txt",
+      "sha256": "c4a8cf63dbae69490d48e4003131d92e03966aefe1ad9c0d8e6614e9a814cb63"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/deadline-repeat-20260909/run_budget_test.go.txt",
+      "sha256": "6799f4fea9641637aa615b28553e3b2a3d734e9645b35bd5b8f9a62893c56806"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/deadline-repeat-20260909/tests.jsonl",
+      "sha256": "214d9b9db179743c41d9f952c0226d18e8048055197c5eefb9f211c608d35663"
+    }
+  ],
+  "limitations": [
+    "Elapsed test runtime is not UI action-to-cancellation latency",
+    "In-process provider/validator fixture; not process-tree child cleanup proof",
+    "Final exact-candidate platform and full critical repetition coverage remain open"
+  ]
+}

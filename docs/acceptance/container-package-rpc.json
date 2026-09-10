@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "24c7fee0cd942298dbf356ef524cc5e2857ad133a10a6b1314dee5b911bd36c1",
+  "runner_sha256": "62445026e0feb8184216cb0a0cf0ce5698f8da8d17edda38b0fd713f2167d22b",
+  "provider_calls": 0,
+  "limitations": [
+    "Development binary with unreleased Harness, not final candidate qualification. Built package CLI installs the real Python example, deletes its source, rejects missing runtime approval, probes the pinned image only after explicit fixture approval and writes approved startup metadata. RPC questions/state, durable restart replay, cancellation and container cleanup passed. No paid or provider requests occurred. Further platform/coverage/performance and final acceptance work remains."
+  ],
+  "container_execution": {
+    "backend": "container",
+    "docker": "/usr/local/bin/docker",
+    "socket": "/Users/sausheong/.docker/run/docker.sock",
+    "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "worker": "/private/tmp/hand-container-worker-20260909",
+    "worker_sha256": "4cf17b4afd9c124f2c0e357205502303cc13cf94aa93a064fa5b2b3086cfe17b",
+    "writable": false,
+    "network": false
+  },
+  "container_cleanup": true,
+  "image_interpreter": "/usr/local/bin/python3",
+  "unapproved_runtime_rejected": true,
+  "package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "startup_digest": "2d17c6a7095217d11ae63b725e1d067fdd09352d47a7e8144ad7b1375d9dda07",
+  "source_removed_before_review": true,
+  "real_question_answer": true,
+  "restart_replay": true,
+  "cancellation_joined": true,
+  "snapshots_removed": true,
+  "source_bindings": [
+    {
+      "path": "docs/acceptance/container-package-cli-integration.json",
+      "sha256": "38bee5619044521efa0629061ad3f084b25454e9633ceef8306617c0f8d8cb00"
+    },
+    {
+      "path": "docs/acceptance/harness-image-config.json",
+      "sha256": "45c5fd1dea5c825c7061e0c9168293d13844b8c1160497a2912ad07852d380bc"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/commands.json",
+      "sha256": "5ddb8e8a4d2e26a7293740f0f6c534cc25f13c6e9d7c1b299ea1a77c209af7db"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/container-commands.json",
+      "sha256": "27d7eb3f36f47da90aa450a46c44b8b63b56a9c684e9ab0401f4b9b5052b450e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/container.json",
+      "sha256": "cc6b696c28909e969c9f9a37501c0a6e3c20f35295a0428ed66b68b5a48bdbb8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/authority/f61f848a4dcaee05f649b5d6b5996577868680c3d2820e9fa28ed8a060daa9ac/e97caf8b4cd379cc844869cfe7078ec356edda76683d78d46416d15c4e238f5e/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/config.json",
+      "sha256": "9c86244bb757df3962c35a8f854553c8d6042a8633d037bc8313d6a9b02042f7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/sessions/catalogues/f61f848a4dcaee05/catalogue.json",
+      "sha256": "eb917d02fec5ccb61c4d508c6b20630db0a8b769f49e6c433f788ef10f29fe24"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/sessions/catalogues/f61f848a4dcaee05/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/sessions/hand/.leases/workspace_f61f848a4dcaee05_4e25463121d054fe4c7430033d271cf5.lock",
+      "sha256": "22d27eb64001cd5384e3e6377d9562adb0d7d0882c7486995d61ff6788a7f828"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/sessions/hand/workspace_f61f848a4dcaee05_4e25463121d054fe4c7430033d271cf5.jsonl",
+      "sha256": "c7aa537fa9097cdc4c4abb0ea87c15eb7ff730922b54eb7f82c585eeafaae011"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/home/.hand/sessions/rpc-f61f848a4dcaee05f649b5d6b5996577868680c3d2820e9fa28ed8a060daa9ac/requests.jsonl",
+      "sha256": "02cfa291ebbcc9e16d2f7cf2c3f218948b4cb337420be763b69f00d0db845dff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/install.json",
+      "sha256": "fa67ae60a03c913094b76fcc9d4f3e80bb915b4d2569a90816bf5890a05ad730"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/rpc-0.json",
+      "sha256": "f0d71975f3b8ac73cab3d4ab5d4f3df06fc057dd70dafeab0ec8b21b3b4d1bf8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/rpc-0.stderr",
+      "sha256": "a660e479ac75265e147d3cd7e6fdb19d1d5bf98ce781cf1d78d738819c72240e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/rpc-1.json",
+      "sha256": "1e7e8abcce4e1a3ef8ceb2ef1e97023b64e3eef1f4ac5d9aef8b08a65e08d2e1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/rpc-1.stderr",
+      "sha256": "a660e479ac75265e147d3cd7e6fdb19d1d5bf98ce781cf1d78d738819c72240e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/run.json",
+      "sha256": "ff6fff98a8acf0a7e5c351c224523d6a5f89a37ab50b62f3a785e48e70791f24"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/runtime.json",
+      "sha256": "610326bfc0f248d3747d189cf5a7c10a61607d3bd2ebdfbec16de72971cea1cb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/startup.json",
+      "sha256": "2d17c6a7095217d11ae63b725e1d067fdd09352d47a7e8144ad7b1375d9dda07"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/store/lock.json",
+      "sha256": "4f993a2aaeab770dd1074557c7eafa9acda9bc54df06631f55e0dd759c166293"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/hand-package.json",
+      "sha256": "6c01fe91966a8f78213cf0cad2152b44f2e08cd1844828d09c97503845958989"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/store/objects/7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec/main.py",
+      "sha256": "e98eb27af0fc5b6059ea21c7a060a8228f72f36b9070d7d1ea5e703cfd911b08"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/container-package-rpc-20260909/store/store.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "runner_dependencies": [
+    {
+      "path": "scripts/check_rpc_client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "scripts/check_extension_rpc.py",
+      "sha256": "982f90323ea1d8f981d390f27cf5932bb185f245d8b631da5492c2cd7eb86ce3"
+    }
+  ]
+}

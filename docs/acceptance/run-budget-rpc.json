@@ -1,0 +1,180 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "run-terminal-integration.patch",
+  "harness_delta": "harness-run-binding.patch",
+  "result": {
+    "status": "development_passed",
+    "qualification": "development",
+    "paid_calls": 0,
+    "binary_sha256": "274da2f67683da8ce17a9474947e2b4878da112e117a759377063c040b15329b",
+    "runner_sha256": "500bbc8ea61fdc41477c6b3a3162ddd9efcc7b0818ad8f857530db66685aa256",
+    "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+    "session_id": "ses_c7ea75988f4256ab",
+    "exhausted": {
+      "approval_id": "",
+      "error": "llm error: provider admission: run token budget: budget_exhausted\nbudget_exhausted",
+      "iteration": 1,
+      "reason": "run_token_budget",
+      "state": "idle",
+      "status": "budget_exhausted",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 0,
+        "known": true,
+        "output_tokens": 0,
+        "prior_unknown": false,
+        "requests": 0,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "charged": {
+      "id": "repair",
+      "selected": true,
+      "configured": true,
+      "tokens": {
+        "limit": 100000,
+        "committed": 15,
+        "exhausted": false,
+        "attempts": 2,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved"
+      },
+      "cost": {
+        "currency": "USD",
+        "limit_nano": 100000,
+        "committed_nano": 15,
+        "compaction_nano": 0,
+        "strict": true,
+        "exhausted": false,
+        "attempts": 1,
+        "unpriced_attempts": 0,
+        "uncertain_attempts": 0,
+        "disclosure": "Billionths of the named currency, including reservations. Unknown charges are not free; estimates and billing lag prevent an exact invoice cap."
+      },
+      "time": {
+        "configured": false,
+        "decided_at": "0001-01-01T00:00:00Z",
+        "deadline": "0001-01-01T00:00:00Z",
+        "expired": false,
+        "remaining_millis": 0,
+        "disclosure": "Wall-clock allowance includes idle time and completion validation. Restart does not renew it."
+      },
+      "disclosure": "Selection persists across prompts and restart. Run and session limits both apply. Decisions change absolute ceilings without erasing charges."
+    },
+    "completed": {
+      "approval_id": "",
+      "error": "",
+      "iteration": 1,
+      "reason": "answer_completed",
+      "state": "idle",
+      "status": "completed",
+      "text": "",
+      "truncated": false,
+      "usage": {
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 10,
+        "known": true,
+        "output_tokens": 5,
+        "prior_unknown": false,
+        "requests": 1,
+        "unknown_requests": 0
+      },
+      "verified": false
+    },
+    "clean_exits": 3,
+    "local_provider_requests": 1
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/charged-restart.json",
+      "sha256": "0085c7dfea7e1b9f594dd51eab8514989de9d65330942d9c412435bf5efe1df3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/charged-restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/client.py",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/first.json",
+      "sha256": "cb5c4f8174cd71af6d81f12403b6e6114f4231fb80f28cb37642ab6166a8826c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/first.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/authority/19d965c20168eca19f2c714f70ad6a6d3df7614601c4dcfd149dcd55d85c8093/d94b0efe51d773aaf6a3833c8b58f3e486088e7201c3f7c0436558710d5281cf/grants.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/config.json",
+      "sha256": "8dbd6d775976b2a4d5c5f6bc8ff44a3d49a0de8f5cbd641c97786b4c92434c5b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/.session-staging.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/catalogues/19d965c20168eca1/catalogue.json",
+      "sha256": "0bad343a46e05773bb9aefc49b7e314cc7682f6bed34c3df335475f6169789e0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/catalogues/19d965c20168eca1/catalogue.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_19d965c20168eca1_44abe0449b6a21bdb2aba99aa559aa43.lock",
+      "sha256": "184a81f3e80b90a06348193420cac8f10d433ad4e5e5087c8b3102ead40f731f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/hand/.leases/workspace_19d965c20168eca1_b328ba2731027b1664c3f6300f6a30ca.lock",
+      "sha256": "b1caa96e886d3a71282d555ec928c3ab9713476f02a7f86621beb26d45cba789"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/hand/workspace_19d965c20168eca1_44abe0449b6a21bdb2aba99aa559aa43.jsonl",
+      "sha256": "6710a95f7889adc1deaf18b4a6d8d509caf7e131a8fcd82eff62fac21a28a119"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/hand/workspace_19d965c20168eca1_b328ba2731027b1664c3f6300f6a30ca.jsonl",
+      "sha256": "a9895b9c232bfc81d01f40315fa2b734121f8840d16cfe87837af5f9c162b617"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/home/.hand/sessions/rpc-19d965c20168eca19f2c714f70ad6a6d3df7614601c4dcfd149dcd55d85c8093/requests.jsonl",
+      "sha256": "52fe31acd6d2fac85ba631bb21d94df2150c1cebb9a5f686db9545c5a6efe628"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/provider-requests.json",
+      "sha256": "a09d414eced2e30357ec7b82dfd9926c218dcbd583c32af400f6a2de45341a55"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/restart.json",
+      "sha256": "ea82dcad5811bddae6498bf38b224a8a97d5ddc7d0776d4c0ea1237e760c7a40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/restart.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/run.json",
+      "sha256": "8636df51e140733d4aa023f7ac019d37be78a3c69fa777d8e6fc257624703640"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/run-budget-rpc-20260908/runner.py",
+      "sha256": "500bbc8ea61fdc41477c6b3a3162ddd9efcc7b0818ad8f857530db66685aa256"
+    }
+  ],
+  "limitations": [
+    "Dirty native macOS ARM64 development build; not a clean final candidate or released Harness qualification.",
+    "Local scripted providers only; no paid calls.",
+    "Deadline timing is a single observation, not repeated performance qualification.",
+    "Actual PTY run-budget journey remains pending."
+  ]
+}

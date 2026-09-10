@@ -1,0 +1,123 @@
+{
+  "development_harness_candidate": "f7614ba75e963a4e5de71a25151e3e1af55f172a",
+  "harness_base": "b2433fa75b98ef820b4a4af9177962a61970f91e",
+  "patch_sha256": "c58ede278c60da73c5bd820257415d8f171a5d57811826dce574bdcf21fb4ffc",
+  "primary_harness_version": "v0.3.9",
+  "primary_integrated": false,
+  "hand_source_manifest": "docs/acceptance/input-queue-tui-integration.json",
+  "results": {
+    "hand-steering-boundary-hand-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 600,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/hand/internal/app": "pass",
+        "github.com/sausheong/hand/internal/config": "pass",
+        "github.com/sausheong/hand/internal/permissions": "pass",
+        "github.com/sausheong/hand/internal/tui": "pass",
+        "github.com/sausheong/hand/internal/agentio": "pass",
+        "github.com/sausheong/hand/cmd/hand": "pass",
+        "github.com/sausheong/hand/internal/sessionio": "pass"
+      }
+    },
+    "hand-steering-boundary-harness-full-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 913,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/attachment": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/examples/support-agent": "pass",
+        "github.com/sausheong/harness/providers/openai": "pass",
+        "github.com/sausheong/harness/llm/llmtest": "pass",
+        "github.com/sausheong/harness/providers/anthropic": "pass",
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/providers/local": "pass",
+        "github.com/sausheong/harness/providers/openrouter": "pass",
+        "github.com/sausheong/harness/process": "pass",
+        "github.com/sausheong/harness/providers/gemini": "pass",
+        "github.com/sausheong/harness/providers/litellm": "pass",
+        "github.com/sausheong/harness/tool": "pass",
+        "github.com/sausheong/harness/tool/memory": "pass",
+        "github.com/sausheong/harness/tokens": "pass",
+        "github.com/sausheong/harness/tool/memory/jsonl": "pass",
+        "github.com/sausheong/harness/tool/skills": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/tools/browser": "pass",
+        "github.com/sausheong/harness/tools/file": "pass",
+        "github.com/sausheong/harness/tool/skills/disk": "pass",
+        "github.com/sausheong/harness/tools/mcp": "pass",
+        "github.com/sausheong/harness/tools/todo": "pass",
+        "github.com/sausheong/harness/tools/bash": "pass",
+        "github.com/sausheong/harness/tools/web": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    },
+    "hand-steering-boundary-repeat-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 60,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    }
+  },
+  "repeat_count": 20,
+  "harness_full_exit_code": 0,
+  "hand_full_exit_code": 0,
+  "harness_vet_exit_code": 0,
+  "hand_vet_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-hand-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-hand-full-20260908.jsonl",
+      "sha256": "ade0e35ed59f37c24c952bc023deb755d94e9aaca6a620c8a4304164e5a2e30d"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-hand-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-hand-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-hand-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-hand-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-harness-full-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-harness-full-20260908.jsonl",
+      "sha256": "b37f9ff6d16b4128ff32e6e14c500bf6ff8b628a9633b8b6a6c200501f37403d"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-harness-full-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-harness-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-harness-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-harness-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-repeat-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-repeat-20260908.jsonl",
+      "sha256": "e0e530f3200b4d8c01451ddafc5da5f32f7a2b33fc05261e82252ac9515d5960"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/steering-boundary-20260908/hand-steering-boundary-repeat-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-steering-boundary-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limitations": [
+    "Harness Run/RunSync seam only; Hand queue claiming/acknowledgement and terminal steering remain pending.",
+    "RunTurn does not use the new boundary.",
+    "Native platforms, crash recovery around steering delivery and final qualification remain pending."
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "status": "development_workload_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off python3 scripts/check_transcript_performance.py --output /private/tmp/hand-transcript-provenance-20260909",
+  "measurement": {
+    "status": "development_workload_passed",
+    "blocks": 10000,
+    "runs": [
+      {
+        "events": 1000,
+        "p95_ms": 0.449917,
+        "max_ms": 0.972333
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.450416,
+        "max_ms": 1.253792
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.458542,
+        "max_ms": 1.331917
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.447166,
+        "max_ms": 1.301125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.43825,
+        "max_ms": 0.931583
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.463417,
+        "max_ms": 1.034667
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.4505,
+        "max_ms": 0.981792
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.43575,
+        "max_ms": 0.983917
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.440125,
+        "max_ms": 1.207875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.434417,
+        "max_ms": 0.958416
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.434791,
+        "max_ms": 1.10125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.4515,
+        "max_ms": 1.125625
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.439209,
+        "max_ms": 1.178875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.433542,
+        "max_ms": 1.086459
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.444458,
+        "max_ms": 1.210083
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.457959,
+        "max_ms": 1.232875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.461792,
+        "max_ms": 1.1815
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.457708,
+        "max_ms": 1.178292
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.451,
+        "max_ms": 1.201875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.446834,
+        "max_ms": 0.977125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.449,
+        "max_ms": 1.067916
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.440625,
+        "max_ms": 1.150417
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.448834,
+        "max_ms": 0.92225
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.442917,
+        "max_ms": 0.969042
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.442416,
+        "max_ms": 1.1595
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.442666,
+        "max_ms": 1.139542
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.441791,
+        "max_ms": 0.969875
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.453875,
+        "max_ms": 1.132125
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.453583,
+        "max_ms": 0.944584
+      },
+      {
+        "events": 1000,
+        "p95_ms": 0.501625,
+        "max_ms": 1.410084
+      }
+    ],
+    "total_events": 30000,
+    "ui_key_p95_ms": 0.449792,
+    "worst_run_p95_ms": 0.501625,
+    "max_ms": 1.410084,
+    "calibration_groups": 30,
+    "workload_sufficient": true,
+    "threshold_ms": 100,
+    "scope": "In-process stream refresh, key handling and View; excludes terminal display and OS event delivery."
+  },
+  "machine": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "logical_cpus": 16,
+    "cpu": "Apple M4 Max",
+    "memory_bytes": 68719476736
+  },
+  "toolchain": {
+    "CGO_ENABLED": "1",
+    "GOARCH": "arm64",
+    "GOMOD": "/Users/sausheong/projects/hand/go.mod",
+    "GOOS": "darwin",
+    "GOVERSION": "go1.25.1",
+    "GOWORK": "/Users/sausheong/projects/hand/go.work"
+  },
+  "sources_unchanged": true,
+  "clean_source": false,
+  "commit": "e6dd26351c1b1436616e1c2b8da0086a3580d882",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/go-env.json.gz",
+      "sha256": "67dbfc192a3cf40e4ab23cee9ff476b9ece5dc079269c3ea289dc7c8b37a975c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/sources.json.gz",
+      "sha256": "8547aed1bf916c0044514aee0125d6df143924821615d4baf2611063fd3e8307"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/commit.txt.gz",
+      "sha256": "a383f18ae35cad2695d2d4c3d6609d3098896b99b6fb9c4377b5e82083102591"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/report.json.gz",
+      "sha256": "734900832d00521fbd22344677cdc27aed7626a388b6ffde5cde0c0c278eb8da"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/cpu.txt.gz",
+      "sha256": "32627f7338598cd0358249a3b1682a7a2cdad2423631085d96c138c1c4735970"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/benchmark.log.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/status.txt.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/benchmark.log.gz",
+      "sha256": "5a42081e3db3289ffe3e4b848c2e444f1ffb9d8c26c5d6f0688846d0deb0aa74"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/memory.txt.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/harness-module.json.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/memory.txt.gz",
+      "sha256": "f44828f414bf2625c78a39c541983c8b08b42e2c0e46271bff572972619d47b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/harness-module.json.gz",
+      "sha256": "9e2058cd970f32628cb73531aaa44cf9312cc17e75cce14eed3be4844981bc28"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/status.txt.gz",
+      "sha256": "472672827784dad7f298180e253a681753e0aa3d4718a79d8dec940511c4b55b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/cpu.txt.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/go-env.json.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/commit.txt.stderr.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/check_transcript_performance.py.gz",
+      "sha256": "8dc351edaef4c5427ac30b8e30f6133f1553b77548594e7161e0b1534b1e9806"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/test_transcript_provenance.py.gz",
+      "sha256": "a8b2b4121b002eed0a976caf518a875da3d298f8a452fb55beae69bdfcb58c66"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-provenance-20260909/hand-transcript-provenance-tests-20260909.log.gz",
+      "sha256": "752c16d7415bc0f6686aad5c9560c9485cf9823960a9b40e3dcbe1745c2477fa"
+    }
+  ],
+  "tooling_tests": 5,
+  "limitations": [
+    "Development workload evidence only; final candidate, released Harness and full acceptance review remain required.",
+    "In-process UI refresh, accepted key and View; excludes terminal display."
+  ]
+}

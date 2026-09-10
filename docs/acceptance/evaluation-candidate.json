@@ -1,0 +1,127 @@
+{
+  "status": "development_candidate_verification_passed",
+  "python_runner_tests": 97,
+  "focused_tests": 6,
+  "source_files": [
+    {
+      "path": "scripts/evaluation_baseline.py",
+      "sha256": "a136073b74b5a172a7c74884632124be5dcbc8a0e9cd287699cccb15888e9843"
+    },
+    {
+      "path": "scripts/test_evaluation_baseline.py",
+      "sha256": "2821c2fe903b12ea83bbb81a135d5874be3808b5513de379669bffac8c4161d3"
+    }
+  ],
+  "runs": [
+    {
+      "stage": "missing_module_cache",
+      "task": "preserve-write-mode",
+      "status": "candidate_tests_failed"
+    },
+    {
+      "stage": "missing_module_cache",
+      "task": "cancel-shell-descendants",
+      "status": "candidate_tests_failed"
+    },
+    {
+      "stage": "corrected",
+      "task": "preserve-write-mode",
+      "status": "candidate_tests_passed"
+    },
+    {
+      "stage": "corrected",
+      "task": "cancel-shell-descendants",
+      "status": "candidate_tests_passed"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/hand-candidate-tests-20260909.log",
+      "sha256": "18e387187e3fa786988871f2a4529cda3df1452851cd94e53b7224516c0804cb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/hand-candidate-all-tests-20260909.log",
+      "sha256": "c05c81d9a4f383c7f161f11db4de1ad3a5d220df7378437d8631b3c94c479827"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/hand-candidate-real-20260909.json",
+      "sha256": "0fa6ac4aafd7c230ecd8d87dab89f1f4ef8e83527dfc86fc9a81c0dd8f7c1014"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-preserve-write-mode-report.json",
+      "sha256": "8cc61312b84748d1a37d297a6312a3db3787d68102ab99f4158a034f44010f40"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-preserve-write-mode.patch",
+      "sha256": "8e582c1b7bb1ce8ce41b6c8ef273bc7ad7a31e6f754fd48f922b786a1804688d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-preserve-write-mode-0-stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-preserve-write-mode-0-stderr.log",
+      "sha256": "bb64e94e7f201930dab621fd95484c922d40c604264964bef625ca78f6443697"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-cancel-shell-descendants-report.json",
+      "sha256": "9150aded707374d8688d79f4904d4fa91e69c1e744f326413e5f9c4a2caba571"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-cancel-shell-descendants.patch",
+      "sha256": "8e582c1b7bb1ce8ce41b6c8ef273bc7ad7a31e6f754fd48f922b786a1804688d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-cancel-shell-descendants-0-stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/missing_module_cache-cancel-shell-descendants-0-stderr.log",
+      "sha256": "239df594c22802a46f131e0073cb7c1e565b06a08c90a170010ad5335bca0103"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/hand-candidate-corrected-20260909.json",
+      "sha256": "f62a5dd3d55fa94de90f7b5b292828f84df588cc2891ef53d0f8e755501deb4d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-preserve-write-mode-report.json",
+      "sha256": "1fe03bd2973048a2b1f24bfeee83d24a03350f444591434827f47e1dec5d000c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-preserve-write-mode.patch",
+      "sha256": "8e582c1b7bb1ce8ce41b6c8ef273bc7ad7a31e6f754fd48f922b786a1804688d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-preserve-write-mode-0-stdout.log",
+      "sha256": "ee0b0eefd9768258c3dabfa70114824d355d671fef73101ea0a3dcc31a4f11d7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-preserve-write-mode-0-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-cancel-shell-descendants-report.json",
+      "sha256": "603fe209f28d1f1428f7553ddbb36cbd6699bd7e703107d4347ccfa614e709b5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-cancel-shell-descendants.patch",
+      "sha256": "8e582c1b7bb1ce8ce41b6c8ef273bc7ad7a31e6f754fd48f922b786a1804688d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-cancel-shell-descendants-0-stdout.log",
+      "sha256": "80f39c410e49138ea4fed03cbb0f99de7319b7182e8c192518d772fbf1af1ee8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-candidate-20260909/corrected-cancel-shell-descendants-0-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Pinned offline candidate patch verification through the same fixture and Go event pipeline as baseline verification.",
+  "limitations": [
+    "No agent execution or paid model calls",
+    "Both tasks remain calibration tasks, not held-out evaluation",
+    "Passing tests does not establish task success or defeat forged test output; independent review is required",
+    "Local execution is not a sandbox; only reviewed offline candidate code may be used",
+    "Full corpus, comparative executor, cost enforcement and final acceptance remain pending"
+  ]
+}

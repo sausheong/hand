@@ -1,0 +1,52 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scope": "SDK execution snapshot identity and lifecycle ambiguity rejection",
+  "before": {
+    "fail": 6
+  },
+  "after": {
+    "pass": 36
+  },
+  "exit_code": 0,
+  "command": "go test -race -count=1 -json ./sdk",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HAND_TEST_PYTHON_IMAGE": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "HAND_TEST_CONTAINER_ARCH": "arm64",
+    "HAND_TEST_WORKER_BINARY": "/private/tmp/hand-budget-worker-20260909",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "/private/tmp/hand-budget-peer-20260909.test",
+    "HAND_TEST_PUBLIC_FETCH_URL": "https://example.com/"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-execution-integrity-20260909/hand-sdk-execution-before-20260909.jsonl",
+      "sha256": "e1192d7d777afa1c2ae1ee87a9ea5b52b07d69d7910b9d00ab346fc73cd334be"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-execution-integrity-20260909/hand-sdk-execution-final-20260909.jsonl",
+      "sha256": "632510131006b6644106440c631358a1e7c5d616cc9a5e9a3bd0803a3057c112"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-execution-integrity-20260909/snapshot_integrity_test.go.txt",
+      "sha256": "7b5a3a9e74668d60b02bbbcd4de66a43e53c07d67072bbb82dffe13a786c089c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-execution-integrity-20260909/snapshot_json.go.txt",
+      "sha256": "e3a9dc7ec0e41d1325f1558b417630cd217b0ebf84945def14b2f188cde5c5be"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-execution-integrity-20260909/snapshots.go.txt",
+      "sha256": "3ab7a134eaac5f70e3c19f5525a4997d888fef33b4d8ca32f176275ad6b982b7"
+    }
+  ],
+  "limits": [
+    "Unknown additive fields remain supported",
+    "Event page schema audit still pending",
+    "Local Harness and native macOS development run; full final qualification pending"
+  ]
+}

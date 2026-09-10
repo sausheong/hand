@@ -1,0 +1,26 @@
+{
+  "status": "draft",
+  "planned_runs": 0,
+  "qualification_gaps": [
+    "fewer than 30 tasks",
+    "fewer than 10 held-out tasks",
+    "fewer than three repetitions",
+    "Hand and Pi revisions/model settings are not both pinned",
+    "both comparison modes are not configured",
+    "task categories are incomplete"
+  ],
+  "fixtures": [
+    {
+      "task": "preserve-write-mode",
+      "source": "testdata/write_mode_test.go",
+      "sha256": "5670bddc173fddb5e27e69bc9b076cbe9380ead243a084f3c2dfa6cc3b79ea17"
+    },
+    {
+      "task": "cancel-shell-descendants",
+      "source": "testdata/bash_cancel_test.go",
+      "sha256": "d108bc1b0cf6b7eee5aefa602b4766d52cd08097f8d9f26ceb1b4bdb1229a482"
+    }
+  ],
+  "authorisation": "Not granted by this manifest or validator. Paid execution requires separate user authorisation.",
+  "manifest_sha256": "8e33c03db22e869ded8c62ac67c02d53b4566dd12b96cfb18fc967f1b67109a4"
+}

@@ -1,0 +1,70 @@
+{
+  "status": "development_loopback_listener_passed",
+  "candidate_qualified": false,
+  "tests": {
+    "loopback_tcp": 3,
+    "evaluation_suite": 152,
+    "failures": 0,
+    "skips": 0
+  },
+  "scenarios": [
+    "Real HTTP client traverses TCP listener/controller/upstream fixture",
+    "Connection slot rejects extra socket without starting another worker",
+    "Shutdown joins stalled intake and returns all slots"
+  ],
+  "execution": {
+    "initial": "Sandbox denied socket.bind before any listener test ran; three infrastructure errors retained.",
+    "authorised": "Elevated execution approved for local loopback tests and complete fixture-only evaluation suite.",
+    "docker_access": false,
+    "external_provider_calls": false
+  },
+  "limitations": [
+    "Host loopback TCP and socket-pair upstream only; no actual Pi/Hand SDK network session through this listener yet.",
+    "No container network isolation, live upstream TLS/provider/accounting or paid approval established.",
+    "Final clean Hand/released Harness and global acceptance gates remain open."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/test_evaluation_listener.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_listener.py",
+      "sha256": "7d763c3f59cca056d18b411a7c34a67ec99b3d553f51527ff3e0b0043ca034a2",
+      "uncompressed_sha256": "744adc2f6683d535f6c50f72ae5872e8f6f92f8155d2a9afbc7fca849c9cc347"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/test_evaluation_gateway.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_gateway.py",
+      "sha256": "526aecb6c7a9cf3894e08b86fbb8f64e86a4ac7e5751f8111d3f71c094ee27c1",
+      "uncompressed_sha256": "5b17a0bb2d80d8c1639b4300e1ff72d628ea4bb831b50177618d3e9b0dddcc0c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/evaluation_http_server.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_http_server.py",
+      "sha256": "e0ce1774475d5f0bffe85bd06616aac170b50007a466f07b60e609beed11b22f",
+      "uncompressed_sha256": "6b6a783f1ed12f54ea2fa76ccd771038b25fdb7df18cc9afa4a9ea2b5f0a3dde"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/hand-evaluation-listener-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-listener-20260909.log",
+      "sha256": "b691f15f975e9d59926545ea211f620cba3255da293a11d21caaa6e24221190b",
+      "uncompressed_sha256": "156eefb391f71cfa60a6dfc20680ca0aa5e2446a81687eb69b0dec78f604f405"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/hand-evaluation-listener-authorised-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-listener-authorised-20260909.log",
+      "sha256": "c1bbedcb2f6a143b350e6bcf314a372d3489d53f04668ca211dbcdec5a0f3599",
+      "uncompressed_sha256": "7590085f32f78a5fe22f4a62c3bed67e543c035be6a5d9d64e33fcabdcafde49"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/hand-evaluation-listener-full-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-listener-full-20260909.log",
+      "sha256": "9cb8dfb1d4aedaf43e2fa6bd69b0daba8c7e3c4cc80d248228dcf337608f6ce9",
+      "uncompressed_sha256": "d60516f1aa91e035caf966e59e741022374bdb89f52de91564c829183210812b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-listener-20260909/hand-evaluation-listener-final-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-listener-final-20260909.log",
+      "sha256": "2df3da33fabd087189c2d53fcb1d9ab03f81f3d585e416b558b82331283bea02",
+      "uncompressed_sha256": "fabd6222c4093213c498bb4b7749a420873c64cc1839a7b4f430e9ed3b33c2e5"
+    }
+  ]
+}

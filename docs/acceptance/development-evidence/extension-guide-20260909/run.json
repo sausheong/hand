@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "example": "task-note",
+  "source_root": "/Users/sausheong/projects/hand",
+  "hand_binary_sha256": "5b259490cff20f6592eb8abe62b71d9ec82152af987eb0b8c508dc82ad4bc009",
+  "script_sha256": "47d26b348c20f7c20d895cab1e7b448b4b557312e56024af78b8fa993b8f784c",
+  "extension_executions": 0,
+  "package_directory": "/private/tmp/hand-extension-guide-20260909/package",
+  "package_digest": "0f661862eb98509698d5fa03c5fdbe98faf31649ad4d02e7b987514d47166935",
+  "executable_sha256": "37610113a2f630bfd512f8f0b35759b8945f36834b0c3dc0fde206f88bd78f38",
+  "manifest_sha256": "d12ea78bdd9f622c27aa40d38d5612a75f098fe0a6db71ea56a4c56a43e2c687",
+  "capabilities": [
+    "commands",
+    "questions",
+    "state",
+    "context.transform"
+  ],
+  "limitations": [
+    "Native build for the selected Go environment; not a signed release or cross-platform archive.",
+    "Pin identifies these built bytes. Reproduce with the same source, Go toolchain and dependencies.",
+    "Verification-hook additionally requires host Git; no example is executed during packaging."
+  ]
+}

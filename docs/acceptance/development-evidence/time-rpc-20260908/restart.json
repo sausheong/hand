@@ -1,0 +1,386 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.time",
+          "budget.time.decide",
+          "budget.cost",
+          "budget.cost.decide",
+          "budget.prices",
+          "budget.prices.set",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "select",
+      "method": "session.select",
+      "params": {
+        "id": "ses_fffe47cff5f3de1e"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "select",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_fffe47cff5f3de1e"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restored",
+      "method": "budget.time",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restored",
+      "result": {
+        "configured": true,
+        "decided_at": "2026-09-08T13:37:33.996571Z",
+        "deadline": "2026-09-08T13:37:35.996571Z",
+        "expired": true,
+        "remaining_millis": 0,
+        "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "time-start",
+      "method": "budget.time.decide",
+      "params": {
+        "seconds": 2,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "time-start",
+      "result": {
+        "seconds": 2
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "after-replay",
+      "method": "budget.time",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "after-replay",
+      "result": {
+        "configured": true,
+        "decided_at": "2026-09-08T13:37:33.996571Z",
+        "deadline": "2026-09-08T13:37:35.996571Z",
+        "expired": true,
+        "remaining_millis": 0,
+        "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "still-expired",
+      "method": "prompt",
+      "params": {
+        "text": "Do not renew the deadline implicitly."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "still-expired",
+      "result": {
+        "id": "still-expired",
+        "fingerprint": "66a21db5cc272a2d6a493dac15a624ee5ecbf8a9ae97f1d5e121f053cfd7c943",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-expired"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-expired",
+        "fingerprint": "66a21db5cc272a2d6a493dac15a624ee5ecbf8a9ae97f1d5e121f053cfd7c943",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "still-expired"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "still-expired",
+        "fingerprint": "66a21db5cc272a2d6a493dac15a624ee5ecbf8a9ae97f1d5e121f053cfd7c943",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "VDC5ME5EHPHDDUEO6HVNUMTVZR:2",
+          "sequence": 2,
+          "session_id": "ses_fffe47cff5f3de1e",
+          "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:1",
+          "request_id": "still-expired",
+          "timestamp": "2026-09-08T13:37:36.183711Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "session time budget: budget_exhausted",
+            "iteration": 1,
+            "reason": "session_time_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "renew",
+      "method": "budget.time.decide",
+      "params": {
+        "seconds": 60,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "renew",
+      "result": {
+        "seconds": 60
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "renewed",
+      "method": "budget.time",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "renewed",
+      "result": {
+        "configured": true,
+        "decided_at": "2026-09-08T13:37:36.197812Z",
+        "deadline": "2026-09-08T13:38:36.197812Z",
+        "expired": false,
+        "remaining_millis": 59990,
+        "disclosure": "Wall-clock allowance includes idle time. Restart does not renew it. A new explicit decision is required after expiry; token and monetary charges remain."
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "resumed",
+      "method": "prompt",
+      "params": {
+        "text": "Complete the renewed local fixture."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "resumed",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "9aec4b1348b4c1a2166d555bc688a92fbf926cce10c08e0fa2fb6fa4383fe788",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "9aec4b1348b4c1a2166d555bc688a92fbf926cce10c08e0fa2fb6fa4383fe788",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "9aec4b1348b4c1a2166d555bc688a92fbf926cce10c08e0fa2fb6fa4383fe788",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "resumed"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "resumed",
+        "fingerprint": "9aec4b1348b4c1a2166d555bc688a92fbf926cce10c08e0fa2fb6fa4383fe788",
+        "session_id": "ses_fffe47cff5f3de1e",
+        "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "5AYGOA6EMMRAWFBG5XAIMA2QHH:9",
+          "sequence": 9,
+          "session_id": "ses_fffe47cff5f3de1e",
+          "run_id": "R2RLTD67W27MM75DJOF3WI2ARC:2",
+          "request_id": "resumed",
+          "timestamp": "2026-09-08T13:37:36.237112Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 10,
+              "known": true,
+              "output_tokens": 5,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

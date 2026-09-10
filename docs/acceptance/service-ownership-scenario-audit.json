@@ -1,0 +1,195 @@
+{
+  "requirement": "M2.1",
+  "status": "incomplete",
+  "scenarios_mapped": 5,
+  "scenarios_qualified": 0,
+  "test_result": {
+    "repetitions": 20,
+    "top_level_pass": 320,
+    "pass_including_subtests": 380,
+    "fail": 0,
+    "skip": 0,
+    "race": true,
+    "tests": [
+      "TestCancellationJoinsCompletionChecker",
+      "TestCancellationRetainsOwnershipUntilBackendJoins",
+      "TestCompletionCommitRejectsLateCancelAndAdvancesIdentity",
+      "TestDetailsAggregateBound",
+      "TestFullProgressQueueCannotBlockCancellationOrTerminal",
+      "TestGoalEventOrderingAndFinalIterationVerification",
+      "TestGoalStreamPublishesBoundedToolDetailsAndUsageInOrder",
+      "TestHarnessDetailsAreIndependentSnapshots",
+      "TestHarnessMalformedEvents",
+      "TestHarnessUsageAndCompactionDetails",
+      "TestMalformedBackendCannotComplete",
+      "TestMalformedBackendCannotComplete/missing_done",
+      "TestMalformedBackendCannotComplete/nil",
+      "TestMalformedBackendCannotComplete/start_error",
+      "TestOldStreamCannotCancelLaterCompactionReservation",
+      "TestOldStreamCannotCancelNewRunAndStartClaimsSynchronously",
+      "TestStartOwnsImageData",
+      "TestStreamPreservesUnicodeTextAndOrdering",
+      "TestTerminalErrorIsBoundedWithoutLosingOriginalCause"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "cli_tui_same_lifecycle",
+      "finding": "Both production clients use Service.Start. TUI duplicate goal loop and single-turn runtime adapter removed; all test construction uses an application service.",
+      "sources": [
+        "cmd/hand/main.go",
+        "internal/tui/model.go",
+        "internal/tui/application.go"
+      ]
+    },
+    {
+      "id": "invalid_transitions_rejected",
+      "tests": [
+        "TestCancellationRetainsOwnershipUntilBackendJoins",
+        "TestCancellationJoinsCompletionChecker",
+        "TestOldStreamCannotCancelNewRunAndStartClaimsSynchronously",
+        "TestOldStreamCannotCancelLaterCompactionReservation"
+      ]
+    },
+    {
+      "id": "immutable_ordered_events",
+      "tests": [
+        "TestHarnessDetailsAreIndependentSnapshots",
+        "TestGoalEventOrderingAndFinalIterationVerification",
+        "TestGoalStreamPublishesBoundedToolDetailsAndUsageInOrder",
+        "TestStartOwnsImageData"
+      ]
+    },
+    {
+      "id": "cleanup_before_terminal",
+      "tests": [
+        "TestCancellationRetainsOwnershipUntilBackendJoins",
+        "TestCancellationJoinsCompletionChecker",
+        "TestFullProgressQueueCannotBlockCancellationOrTerminal"
+      ],
+      "remaining": "Backend/checker join covered; integrated tool and persistence cleanup on final candidate still required."
+    },
+    {
+      "id": "no_ui_runtime_mutation",
+      "finding": "Production TUI has no runtime field/interface. CLI delegates initial configuration and now runtime construction/MCP startup policy to internal/app; CLI composes inputs and renders startup UI.",
+      "remaining": "Final ownership audit and exact-candidate platform/integrated qualification remain required.",
+      "evidence": "docs/acceptance/runtime-construction.json"
+    }
+  ],
+  "next_steps": [
+    "Review remaining runtime startup composition boundaries and architectural invariants.",
+    "Collect full clean-candidate lifecycle parity, persistence/tool cleanup and ordered immutable event evidence with released Harness on supported platforms."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/hand-service-ownership-audit-20260909.jsonl.gz",
+      "sha256": "a4779502f4211bea6f380a1e731e77a2fb292262faa02df4bfd79156a0b41b07",
+      "source": "/private/tmp/hand-service-ownership-audit-20260909.jsonl"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__service.go.gz",
+      "sha256": "539609e91199a762e97c349b243efa44092986dc692ec66aed6dd921ebe759e1",
+      "source": "internal/app/service.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__stream.go.gz",
+      "sha256": "10469f798fac1ac7a12695ac8fb922ed5a41a426d10b3ae60dd69f26d586e871",
+      "source": "internal/app/stream.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__details.go.gz",
+      "sha256": "649559a029b4c9919395c629f1ffa026e54a5a5c570c2828c718883026d58c35",
+      "source": "internal/app/details.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__service_test.go.gz",
+      "sha256": "cf697af218325a7ca1b5b8638c6d8700353fca47ec2419072774312b06372118",
+      "source": "internal/app/service_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__stream_test.go.gz",
+      "sha256": "4009176afe880595ed7c1236cab9d11e7921e8fe7bfb1ac8758b6b2258ccba1b",
+      "source": "internal/app/stream_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__details_test.go.gz",
+      "sha256": "e8a47639c3ff373611d565b89f464b16417edd30609503f7708bee8868f765c7",
+      "source": "internal/app/details_test.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__app__controller.go.gz",
+      "sha256": "e3d0f881149d1084b2173f77ca527edc15feb2189728976c0937e15597e2e548",
+      "source": "internal/app/controller.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__tui__model.go.gz",
+      "sha256": "7f6550a0a52342a625e501824db60e096ed24f4362db6f68eb273e6bc4be8cea",
+      "source": "internal/tui/model.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/internal__tui__application.go.gz",
+      "sha256": "0720fa225b25e456aac2fd3a3c46766d6839ebfe5a58794f1d9db141613ecab6",
+      "source": "internal/tui/application.go"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-ownership-audit-20260909/cmd__hand__main.go.gz",
+      "sha256": "7739e247685b4f6b431581c9027f7c812f4c8eca5d87c0faeec47b1472fec27a",
+      "source": "cmd/hand/main.go"
+    }
+  ],
+  "limitations": [
+    "Focused development tests, not full suite, supported-platform or final released-candidate qualification.",
+    "Source copies captured after tests; no before/after inventory collected, so no immutable candidate provenance claim.",
+    "No product code or aggregate coverage change.",
+    "Initial report script expected 320 records but saw 380 because it included subtests; corrected aggregation without rerunning tests."
+  ],
+  "constructor_migration": {
+    "status": "production_constructor_and_service_fixtures_migrated_legacy_handlers_remain",
+    "evidence": "docs/acceptance/application-constructor.json",
+    "remaining": "Migrate older callers/tests and remove legacy TUI loop and Controller.Run; move startup runtime configuration into app.",
+    "evidence_after_setter_removal": "docs/acceptance/service-setter-removal.json"
+  },
+  "outcome_fixture_migration": {
+    "status": "passed",
+    "evidence": "docs/acceptance/outcome-service-migration.json"
+  },
+  "goal_fixture_migration": {
+    "tests": 9,
+    "evidence": "docs/acceptance/service-goal-migration.json",
+    "remaining": "Legacy lifecycle and stale-event fixtures remain; remove duplicate runtime/goal handlers after migration."
+  },
+  "goal_loop_removal": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/legacy-goal-removal.json"
+  },
+  "runtime_adapter_removal": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/runtime-adapter-removal.json"
+  },
+  "controller_adapter_removal": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/controller-adapter-removal.json"
+  },
+  "initial_runtime_configuration": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/initial-runtime-config.json"
+  },
+  "approval_compatibility_removal": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/approval-compatibility-removal.json"
+  },
+  "startup_ownership": {
+    "evidence": "docs/acceptance/startup-owner.json",
+    "status": "development_passed",
+    "remaining": "CLI dependency composition and final real MCP cleanup qualification remain"
+  },
+  "startup_mcp_cleanup": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/startup-mcp.json",
+    "remaining": "Final candidate and supported-platform qualification; remaining CLI dependency composition"
+  },
+  "startup_handshake_cleanup": {
+    "status": "development_passed",
+    "evidence": "docs/acceptance/startup-handshake.json"
+  }
+}

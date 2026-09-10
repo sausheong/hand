@@ -1,0 +1,28 @@
+[
+  {
+    "arguments": [
+      "go",
+      "build",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "/private/tmp/hand-tool-viewer-package-20260909/package/tool-viewer",
+      "./examples/extensions/go-tool-viewer"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "/private/tmp/hand-package-text-20260909",
+      "packages",
+      "inspect",
+      "--source",
+      "/private/tmp/hand-tool-viewer-package-20260909/package"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"tool-viewer\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"tool-viewer\",\n        \"kind\": \"extension\",\n        \"sha256\": \"73bbb9dac35b256c3fc5b8858d90ab56eb5383b74692e3195b3b6f2887739cf9\",\n        \"size\": 3023154,\n        \"executable\": true\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"tool-viewer\",\n        \"entrypoint\": \"tool-viewer\",\n        \"capabilities\": [\n          \"commands\",\n          \"presentation\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"f6a3e01821cfbe10403d0cd895177fd4cf6e889e369d209b36b7b2e2a8b1931d\"\n}\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T07:24:24.371492+08:00","Action":"start","Package":"github.com/sausheong/harness/tools/file"}
+{"Time":"2026-09-09T07:24:24.849684+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode"}
+{"Time":"2026-09-09T07:24:24.84972+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Output":"=== RUN   TestAcceptanceWriteMode\n"}
+{"Time":"2026-09-09T07:24:24.876594+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Output":"--- PASS: TestAcceptanceWriteMode (0.03s)\n"}
+{"Time":"2026-09-09T07:24:24.876608+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Elapsed":0.03}
+{"Time":"2026-09-09T07:24:24.876618+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Output":"PASS\n"}
+{"Time":"2026-09-09T07:24:24.877197+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Output":"ok  \tgithub.com/sausheong/harness/tools/file\t0.506s\n"}
+{"Time":"2026-09-09T07:24:24.877205+08:00","Action":"pass","Package":"github.com/sausheong/harness/tools/file","Elapsed":0.506}

@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T10:08:20.720416+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T10:08:21.307891+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputIdentityAndCompleteResult"}
+{"Time":"2026-09-08T10:08:21.307952+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputIdentityAndCompleteResult","Output":"=== RUN   TestToolOutputIdentityAndCompleteResult\n"}
+{"Time":"2026-09-08T10:08:21.3454+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputIdentityAndCompleteResult","Output":"--- PASS: TestToolOutputIdentityAndCompleteResult (0.04s)\n"}
+{"Time":"2026-09-08T10:08:21.345433+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputIdentityAndCompleteResult","Elapsed":0.04}
+{"Time":"2026-09-08T10:08:21.345458+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputCancellationWhileControllerLocked"}
+{"Time":"2026-09-08T10:08:21.345462+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputCancellationWhileControllerLocked","Output":"=== RUN   TestToolOutputCancellationWhileControllerLocked\n"}
+{"Time":"2026-09-08T10:08:21.345758+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputCancellationWhileControllerLocked","Output":"--- PASS: TestToolOutputCancellationWhileControllerLocked (0.00s)\n"}
+{"Time":"2026-09-08T10:08:21.345772+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestToolOutputCancellationWhileControllerLocked","Elapsed":0}
+{"Time":"2026-09-08T10:08:21.345795+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T10:08:22.361762+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.641s\n"}
+{"Time":"2026-09-08T10:08:22.361898+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.641}

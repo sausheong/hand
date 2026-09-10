@@ -1,0 +1,31 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scenario": "version_size_errors",
+  "command": "go test -race -count=1 -json ./cmd/hand -run '^TestBinaryRPCRejectsOversizedFrameBeforeProvider$'",
+  "exit_code": 0,
+  "assertions": [
+    "Fresh built Hand negotiates with valid JSON-only stdout",
+    "Oversized syntactically valid prompt closes stream with bounded stderr diagnostic and nonzero exit",
+    "Trailing valid prompt not processed; local provider receives zero calls",
+    "Durable RPC request ledger exists and remains empty"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-frame-binary-20260909/hand-rpc-frame-binary-20260909.jsonl",
+      "sha256": "75e639622541d132f4d32f8e4baca6606e206b464a63f874175551725a156c46"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-frame-binary-20260909/hand-rpc-frame-ledger-20260909.jsonl",
+      "sha256": "078296843165f99a852b7813470ebc161205d835d4dd6f1358aeef0d02749613"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-frame-binary-20260909/rpc_frame_binary_test.go.txt",
+      "sha256": "318d4f2231f5a8e3413a12e2da7da3fabf7d4a8a0847a282ae8889ff668ae6f3"
+    }
+  ],
+  "limits": [
+    "Native macOS development binary; child executable not race-instrumented",
+    "Final candidate/released Harness/Linux built-client qualification pending"
+  ]
+}

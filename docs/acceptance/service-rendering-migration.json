@@ -1,0 +1,49 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "migrated_tests": [
+    "TestHandleAgentEvent_SanitizesToolNameOnToolCallStart",
+    "TestHandleAgentEvent_SanitizesToolResultError",
+    "TestHandleAgentEvent_EventDoneCapturesUsage",
+    "TestHandleAgentEvent_EventDoneWithNoUsageStaysNil",
+    "TestStatusLine_ShowsToolCallCountWhileRunning",
+    "TestHandleAgentEvent_EventDoneAccumulatesSessionUsage",
+    "TestModel_LiveStreamStaysPlainUntilFlush",
+    "TestSetMarkdownStyle_AffectsFlushedRendering",
+    "TestFlushStream_RendersMarkdown",
+    "TestFullOutputLiveReplayAndScrolling"
+  ],
+  "full_tui_race_pass_including_subtests": 337,
+  "fail": 0,
+  "skip": 0,
+  "assertions": [
+    "Application text renders with selected Markdown style.",
+    "Untrusted tool names and errors cannot emit terminal control sequences.",
+    "Live full tool output matches durable replay and remains scrollable.",
+    "Known and unknown usage handling and accumulated session totals retain prior assertions.",
+    "Tool-call counter uses application details."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/service-rendering-migration-20260909/hand-service-rendering-migration-20260909.jsonl.gz",
+      "sha256": "81ff712fa718f59f5295ec5160c3ee7df90983a00efcf80ec152303ae00bb235"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-rendering-migration-20260909/model_test.go.gz",
+      "sha256": "9f4f80461427a131cc62d79e3fd3a445c5bdb73015c290c67e37fb76c6a97dd9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-rendering-migration-20260909/markdown_test.go.gz",
+      "sha256": "dc20350ff7b901cdc8a86dd5446a0bb2214846f9806854f9a54661f7ab8d92ff"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/service-rendering-migration-20260909/output_test.go.gz",
+      "sha256": "af9c276f98f3949de1bbfa45203da49f4654f9bf8f643f1136ce6850ccaf03e7"
+    }
+  ],
+  "limitations": [
+    "Rendering-only direct event tests; not a claim of provider transport or full runtime integration.",
+    "Legacy error-event fixture, runtime streaming and approval adapter fixtures still remain.",
+    "No product change or refreshed full candidate coverage."
+  ]
+}

@@ -1,0 +1,225 @@
+diff --git a/SESSION_FORMAT.md b/SESSION_FORMAT.md
+index b32e8af..af6046f 100644
+--- a/SESSION_FORMAT.md
++++ b/SESSION_FORMAT.md
+@@ -107,3 +107,14 @@ and invalid retained graphs remain errors with no source replacement.
+ TailRecovered and DiscardedTailBytes are set only after replacement; Migrated
+ still indicates replacement when a later directory sync fails. The source hash
+ covers the full original including the discarded tail. Restart is idempotent.
++
++### Listing metadata
++
++`Store.List` scans records up to the legacy image import record limit and checks
++scan/read errors. Each `SessionInfo.MetadataError` is empty only when that file's
++metadata scan completed. On failure the key stays discoverable for explicit
++recovery, but ID and entry count are cleared; timestamps use file modification
++time when available. Non-regular files are reported without opening them.
++Listing extracts syntactic metadata; it does not validate the session graph or
++replace leased loading/migration. Callers must not interpret a metadata error as
++an empty, valid session.
+diff --git a/session/list_metadata_test.go b/session/list_metadata_test.go
+new file mode 100644
+index 0000000..5ec0181
+--- /dev/null
++++ b/session/list_metadata_test.go
+@@ -0,0 +1,56 @@
++package session
++
++import (
++	"errors"
++	"io"
++	"os"
++	"path/filepath"
++	"strings"
++	"testing"
++)
++
++func TestListMetadataLargeLegacyAndDamage(t *testing.T) {
++	dir := t.TempDir()
++	large := `{"id":"a","type":"message","timestamp":100,"data":{"content":"` + strings.Repeat("x", 2<<20) + `"}}` + "\n" + `{"id":"b","type":"message","timestamp":200}` + "\n"
++	for name, raw := range map[string]string{"large": large, "damaged": large + `{"unfinished":`} {
++		if err := os.WriteFile(filepath.Join(dir, name+".jsonl"), []byte(raw), 0600); err != nil {
++			t.Fatal(err)
++		}
++	}
++	if err := os.Symlink(filepath.Join(dir, "large.jsonl"), filepath.Join(dir, "link.jsonl")); err != nil {
++		t.Fatal(err)
++	}
++	infos, err := NewStore(dir).List("")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(infos) != 3 {
++		t.Fatalf("lost discoverable files: %+v", infos)
++	}
++	for _, info := range infos {
++		if info.Key == "large" {
++			if info.MetadataError != "" || info.EntryCount != 2 || info.CreatedAt.Unix() != 100 || info.LastActivity.Unix() != 200 {
++				t.Fatalf("incomplete metadata: %+v", info)
++			}
++		} else if info.MetadataError == "" || info.EntryCount != 0 || info.ID != "" {
++			t.Fatalf("damage presented as complete: %+v", info)
++		}
++	}
++}
++
++type metadataFailReader struct{}
++
++func (metadataFailReader) Read([]byte) (int, error) { return 0, io.ErrUnexpectedEOF }
++func TestMetadataScanFailsWithoutPartialCounts(t *testing.T) {
++	valid := `{"id":"a","type":"message","timestamp":100}` + "\n"
++	_, err := scanSessionMetadata(io.MultiReader(strings.NewReader(valid), metadataFailReader{}), 100)
++	if !errors.Is(err, io.ErrUnexpectedEOF) {
++		t.Fatalf("lost read error: %v", err)
++	}
++	for _, raw := range []string{valid + strings.Repeat("x", 101), valid + "{\n"} {
++		info, err := scanSessionMetadata(strings.NewReader(raw), 100)
++		if err == nil || info.EntryCount != 0 {
++			t.Fatalf("partial success: %+v %v", info, err)
++		}
++	}
++}
+diff --git a/session/store.go b/session/store.go
+index be53497..1e2d3bd 100644
+--- a/session/store.go
++++ b/session/store.go
+@@ -24,6 +24,9 @@ type SessionInfo struct {
+ 	CreatedAt    time.Time `json:"createdAt"`
+ 	LastActivity time.Time `json:"lastActivity"`
+ 	EntryCount   int       `json:"entryCount"`
++	// MetadataError means counts, identity and record timestamps are unavailable.
++	// The key remains discoverable for explicit recovery. Listing is not graph validation.
++	MetadataError string `json:"metadataError,omitempty"`
+ }
+ 
+ // Store handles JSONL file I/O for sessions.
+@@ -262,57 +265,34 @@ func (s *Store) List(agentID string) ([]SessionInfo, error) {
+ 		path := filepath.Join(dir, entry.Name())
+ 
+ 		info := SessionInfo{Key: key}
+-
+-		// Count lines and extract timestamps from first/last entries
+-		f, err := os.Open(path)
+-		if err != nil {
+-			continue
+-		}
+-
+-		scanner := bufio.NewScanner(f)
+-		scanner.Buffer(make([]byte, 0, 64*1024), 1*1024*1024)
+-		var firstTS, lastTS int64
+-		lineCount := 0
+-		for scanner.Scan() {
+-			line := scanner.Bytes()
+-			if len(line) == 0 {
+-				continue
+-			}
+-			lineCount++
+-			var partial struct {
+-				Timestamp int64     `json:"timestamp"`
+-				Type      EntryType `json:"type"`
+-				ID        string    `json:"id"`
+-			}
+-			if json.Unmarshal(line, &partial) == nil {
+-				if partial.Type == EntryTypeHeader {
+-					lineCount--
+-					info.ID = partial.ID
++		fi, statErr := entry.Info()
++		if statErr != nil {
++			info.MetadataError = statErr.Error()
++		} else if !fi.Mode().IsRegular() {
++			info.MetadataError = "session file is not regular"
++		} else {
++			info.CreatedAt = fi.ModTime()
++			info.LastActivity = fi.ModTime()
++			f, openErr := os.Open(path)
++			if openErr != nil {
++				info.MetadataError = openErr.Error()
++			} else {
++				metadata, scanErr := scanSessionMetadata(f, MaxLegacyImageRecordBytes)
++				closeErr := f.Close()
++				if scanErr == nil {
++					scanErr = closeErr
+ 				}
+-				if partial.Timestamp > 0 {
+-					if firstTS == 0 {
+-						firstTS = partial.Timestamp
++				if scanErr != nil {
++					info.MetadataError = scanErr.Error()
++				} else {
++					info.ID, info.EntryCount = metadata.ID, metadata.EntryCount
++					if !metadata.CreatedAt.IsZero() {
++						info.CreatedAt = metadata.CreatedAt
++						info.LastActivity = metadata.LastActivity
+ 					}
+-					lastTS = partial.Timestamp
+ 				}
+ 			}
+ 		}
+-		f.Close()
+-
+-		info.EntryCount = lineCount
+-		if firstTS > 0 {
+-			info.CreatedAt = time.Unix(firstTS, 0)
+-		} else {
+-			// Fall back to file modification time
+-			if fi, err := entry.Info(); err == nil {
+-				info.CreatedAt = fi.ModTime()
+-			}
+-		}
+-		if lastTS > 0 {
+-			info.LastActivity = time.Unix(lastTS, 0)
+-		} else {
+-			info.LastActivity = info.CreatedAt
+-		}
+ 
+ 		sessions = append(sessions, info)
+ 	}
+@@ -320,6 +300,48 @@ func (s *Store) List(agentID string) ([]SessionInfo, error) {
+ 	return sessions, nil
+ }
+ 
++// scanSessionMetadata extracts complete syntactic metadata with bounded per-record
++// memory. Legacy graph conversion and full format validation belong to loading.
++func scanSessionMetadata(reader io.Reader, limit int) (SessionInfo, error) {
++	var info SessionInfo
++	scanner := bufio.NewScanner(reader)
++	scanner.Buffer(make([]byte, 0, min(64*1024, limit)), limit+1)
++	lineNumber := 0
++	for scanner.Scan() {
++		lineNumber++
++		line := bytes.TrimSpace(scanner.Bytes())
++		if len(line) == 0 {
++			continue
++		}
++		if len(scanner.Bytes()) > limit {
++			return SessionInfo{}, ErrSessionRecordTooLarge
++		}
++		var partial struct {
++			Timestamp int64     `json:"timestamp"`
++			Type      EntryType `json:"type"`
++			ID        string    `json:"id"`
++		}
++		if err := json.Unmarshal(line, &partial); err != nil {
++			return SessionInfo{}, fmt.Errorf("metadata line %d: %w", lineNumber, err)
++		}
++		if partial.Type == EntryTypeHeader {
++			info.ID = partial.ID
++		} else {
++			info.EntryCount++
++		}
++		if partial.Timestamp > 0 {
++			if info.CreatedAt.IsZero() {
++				info.CreatedAt = time.Unix(partial.Timestamp, 0)
++			}
++			info.LastActivity = time.Unix(partial.Timestamp, 0)
++		}
++	}
++	if err := scanner.Err(); err != nil {
++		return SessionInfo{}, fmt.Errorf("scan session metadata: %w", err)
++	}
++	return info, nil
++}
++
+ // Exists checks whether a session file exists for the given agent and key.
+ func (s *Store) Exists(agentID, key string) bool {
+ 	if validateStoreIDs(agentID, key) != nil {

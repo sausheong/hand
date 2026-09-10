@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "707c5f65ff73b822f751030da1f61e68e8451d0ce033d1d6d732220bdc66416f",
+  "runner_sha256": "b84ae210254dafad761fef7c3780af4777d153817ecdb25b7883bc430efc8085",
+  "scenarios": [
+    "non_go_client_lifecycle",
+    "approval_once_before_write",
+    "steering_delivery",
+    "followup_queue",
+    "duplicate_request_no_sideeffect_replay",
+    "version_error",
+    "cancel_terminal",
+    "disconnect_cleanup",
+    "reconnect_terminal_recovery"
+  ],
+  "provider_calls": 5,
+  "cancelled_provider_requests": 2
+}

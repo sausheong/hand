@@ -1,0 +1,58 @@
+{
+  "status": "development_native_scenarios_passed",
+  "tests": {
+    "cli": [
+      "TestNativePackageCLIContainerRuntimeAndLaunchReviews"
+    ],
+    "app": [
+      "TestNativeContainerPackagePythonReviewAndLaunch"
+    ]
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-native-package-cli-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/native-package-qualification-20260909/hand-native-package-cli-tests-20260909.jsonl.gz",
+      "sha256": "e905b2650a6d8c3f1526693dab605fe220c301cec38daa8ab56188162aabd46f",
+      "uncompressed_sha256": "3e53c10dd99721b1feb544f926b9cb94fc76370a42b52fcdf0b26a6e340b670b"
+    },
+    {
+      "source": "/private/tmp/hand-native-package-cli-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/native-package-qualification-20260909/hand-native-package-cli-coverage-20260909.out.gz",
+      "sha256": "fc856494afc5f74e5c8b7b9118ec920adced2dfd5e53f190c0e0813fb551fce5",
+      "uncompressed_sha256": "23033d9af8e02e4aa19be759e93f6bd1ec25553563a22fde469ad324b63d60db"
+    },
+    {
+      "source": "/private/tmp/hand-native-package-app-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/native-package-qualification-20260909/hand-native-package-app-tests-20260909.jsonl.gz",
+      "sha256": "8c6bd6e988fb95110f1c4986b32d17137f4a4989805ea0a93f59e956866556f1",
+      "uncompressed_sha256": "74654a490e3d61966ffba4f4f283c6b7863ac7850f07206848a70676db46ac87"
+    },
+    {
+      "source": "/private/tmp/hand-native-package-app-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/native-package-qualification-20260909/hand-native-package-app-coverage-20260909.out.gz",
+      "sha256": "39b4caf62d2333e7f212a8095e6da432a916fd492ca2a0a60ba2a7ba53ece84d",
+      "uncompressed_sha256": "a37b732d55f90b3ec01e1dc90df2a80d0d903c66084fcc2ed15e5a450ba37724"
+    },
+    {
+      "source": "cmd/hand/packages_test.go",
+      "path": "docs/acceptance/development-evidence/native-package-qualification-20260909/cmd-hand-packages_test.go.gz",
+      "sha256": "662c7cae1d5b6328d3bf20e739fc9583ab1d1284b83b4c68ad8f7972df0cbf64",
+      "uncompressed_sha256": "745000724d0374e2e94910da4fc5c3f3d9b4b4fb141837809500030eb019749b"
+    },
+    {
+      "source": "internal/app/package_container_test.go",
+      "path": "docs/acceptance/development-evidence/native-package-qualification-20260909/internal-app-package_container_test.go.gz",
+      "sha256": "72fa47c8047a4579daff06577c325c4aa310832ab5eaabca50b6bad0fc662ad6",
+      "uncompressed_sha256": "19a783cf809a0a827cd87abef1c4beecfe3b40a1ef9c6f0612c950dcaf1aa4f2"
+    }
+  ],
+  "image": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+  "socket": "/Users/sausheong/.docker/run/docker.sock",
+  "race": true,
+  "reproduction": "Set HAND_TEST_PYTHON_IMAGE to the recorded image and HARNESS_TEST_CONTAINER_SOCKET to the local socket; run go test -race -count=1 -coverpkg=./... -json for each recorded test in ./cmd/hand and ./internal/app.",
+  "limitations": [
+    "Two native tests previously skipped now have separate passing development evidence; historical full-suite skips are preserved",
+    "Exact final candidate and released Harness qualification remain required",
+    "This does not qualify the remaining native fixtures"
+  ]
+}

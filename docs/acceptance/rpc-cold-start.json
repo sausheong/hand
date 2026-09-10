@@ -1,0 +1,87 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scenario": "no_hidden_trust_prompt",
+  "binary_sha256": "955d3d67437561de499c1253fa17bca70d55fdf36f8b3f54446dfe5980184184",
+  "command": [
+    "python3",
+    "scripts/check_rpc_cold_start.py",
+    "--hand-binary",
+    "/private/tmp/hand-cold-start-20260909",
+    "--out",
+    "/private/tmp/hand-rpc-cold-start-fixed-20260909"
+  ],
+  "assertions": [
+    "Nonterminal stdin/stdout pipes negotiate without terminal answers",
+    "Untrusted workspace legacy grants still require explicit RPC approval",
+    "Deny reaches provider as a tool refusal and leaves target absent",
+    "Restart into distinct session requires approval again; cancellation leaves target absent",
+    "No trust store created and legacy settings unchanged"
+  ],
+  "initial_failure": "Runner reused durable session.new request ID; earlier session correctly replayed. Fixed by unique request IDs and distinct-session assertion.",
+  "provider_calls": 3,
+  "raw_report": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/run.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/check_rpc_client.py.txt",
+      "sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/check_rpc_cold_start.py.txt",
+      "sha256": "4b1fd3d9f83e85261b87901bb0051f29601ffe9b50c1c05859c776750b9988df"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/cold-0.json",
+      "sha256": "172838fb9fcb99794e8de8608e29c827bbf3ebd22207faf5189d72130fda00a3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/cold-0.stderr",
+      "sha256": "cac39ff176b9ea745f0bc75e0ebbf09ecd074c6a11fa68baa036d455ddaf7d3b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/cold-1.json",
+      "sha256": "47b5eb8757ba07a90ec7849a3ccc1268e7e824561a94b30519861f0f2944bb67"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/cold-1.stderr",
+      "sha256": "9c395c6095b29fe35a1ce336195284bdcdd81e9666a3c4f61d786e437b165d45"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/provider-requests.json",
+      "sha256": "dc3accef902518274fd2f645766ecb71b465d657af6ec14e415a4f0f1790e0fe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/corrected/run.json",
+      "sha256": "91bfba11c78975977ce794321b3af9c1677722ae6692bd7970a6c1ea6b6d5ef6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/initial/cold-0.json",
+      "sha256": "41182d8c829f5e2fb4cbdd1d3c4bdc0b02ec1814482b9f9b6fadfa4f635a1aa1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/initial/cold-0.stderr",
+      "sha256": "bb6d2b1979879b19ef96736d3525a7b934050a6f3fde2cd62df45a0f631d4f7b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/initial/cold-1.json",
+      "sha256": "555502c2fdd3de40f294dc43fe3ea79c1a17c9ba150696fe9ab3c372c68b34a2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/initial/cold-1.stderr",
+      "sha256": "83578d099fbc1d67df96576b618314e513cd6094f6765fdd024c7d2119d2d26f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/initial/provider-requests.json",
+      "sha256": "c092a4e1aed3b9424fe0d7c883e1fd1acda5b98e8bd0f9dc75e9f2d681796362"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-start-20260909/initial/run.json",
+      "sha256": "7d6edec694493beeccf26c0c7e5815a5bf994043b3f1886e2df6c0ed2d7569a5"
+    }
+  ],
+  "limitations": [
+    "Native macOS development binary, local Harness workspace",
+    "Linux cold-start journey and final clean-candidate released-dependency qualification remain pending",
+    "No live paid provider calls; deterministic local HTTP fixture"
+  ]
+}

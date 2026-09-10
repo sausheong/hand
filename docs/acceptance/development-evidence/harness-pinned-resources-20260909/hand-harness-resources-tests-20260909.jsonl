@@ -1,0 +1,26 @@
+{"Time":"2026-09-09T03:26:58.486586+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-09T03:26:58.990071+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity"}
+{"Time":"2026-09-09T03:26:58.990114+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity","Output":"=== RUN   TestPinnedResourceSnapshotIntegrity\n"}
+{"Time":"2026-09-09T03:26:59.003948+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity","Output":"--- PASS: TestPinnedResourceSnapshotIntegrity (0.01s)\n"}
+{"Time":"2026-09-09T03:26:59.003974+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestPinnedResourceSnapshotIntegrity","Elapsed":0.01}
+{"Time":"2026-09-09T03:26:59.004+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip"}
+{"Time":"2026-09-09T03:26:59.004005+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip","Output":"=== RUN   TestHostProtocolStreamRoundTrip\n"}
+{"Time":"2026-09-09T03:26:59.010995+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip","Output":"--- PASS: TestHostProtocolStreamRoundTrip (0.01s)\n"}
+{"Time":"2026-09-09T03:26:59.01101+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamRoundTrip","Elapsed":0.01}
+{"Time":"2026-09-09T03:26:59.011111+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation"}
+{"Time":"2026-09-09T03:26:59.011116+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation","Output":"=== RUN   TestHostProtocolStreamCancellationAndValidation\n"}
+{"Time":"2026-09-09T03:26:59.015852+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation","Output":"--- PASS: TestHostProtocolStreamCancellationAndValidation (0.00s)\n"}
+{"Time":"2026-09-09T03:26:59.015863+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostProtocolStreamCancellationAndValidation","Elapsed":0}
+{"Time":"2026-09-09T03:26:59.015939+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolStreamRoundTrip"}
+{"Time":"2026-09-09T03:26:59.015951+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolStreamRoundTrip","Output":"=== RUN   TestContainerProtocolStreamRoundTrip\n"}
+{"Time":"2026-09-09T03:26:59.015995+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolStreamRoundTrip","Output":"    stream_test.go:76: native container fixture required\n"}
+{"Time":"2026-09-09T03:26:59.016013+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolStreamRoundTrip","Output":"--- SKIP: TestContainerProtocolStreamRoundTrip (0.00s)\n"}
+{"Time":"2026-09-09T03:26:59.016022+08:00","Action":"skip","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolStreamRoundTrip","Elapsed":0}
+{"Time":"2026-09-09T03:26:59.016046+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources"}
+{"Time":"2026-09-09T03:26:59.01605+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Output":"=== RUN   TestContainerProtocolPinnedResources\n"}
+{"Time":"2026-09-09T03:26:59.016075+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Output":"    stream_test.go:112: native container fixture required\n"}
+{"Time":"2026-09-09T03:26:59.016087+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Output":"--- SKIP: TestContainerProtocolPinnedResources (0.00s)\n"}
+{"Time":"2026-09-09T03:26:59.016103+08:00","Action":"skip","Package":"github.com/sausheong/harness/execution","Test":"TestContainerProtocolPinnedResources","Elapsed":0}
+{"Time":"2026-09-09T03:26:59.016203+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"PASS\n"}
+{"Time":"2026-09-09T03:27:00.027768+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"ok  \tgithub.com/sausheong/harness/execution\t1.541s\n"}
+{"Time":"2026-09-09T03:27:00.027833+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Elapsed":1.541}

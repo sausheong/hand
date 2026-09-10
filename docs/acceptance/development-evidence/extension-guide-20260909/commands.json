@@ -1,0 +1,28 @@
+[
+  {
+    "arguments": [
+      "go",
+      "build",
+      "-trimpath",
+      "-buildvcs=false",
+      "-o",
+      "/private/tmp/hand-extension-guide-20260909/package/task-note",
+      "./examples/extensions/go-task-note"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "arguments": [
+      "/private/tmp/hand-wire-usage-20260909",
+      "packages",
+      "inspect",
+      "--source",
+      "/private/tmp/hand-extension-guide-20260909/package"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"manifest\": {\n    \"schema\": 1,\n    \"name\": \"task-note\",\n    \"version\": \"1.0.0\",\n    \"compatibility\": {\n      \"minimum_hand\": \"0.1.0\",\n      \"extension_protocol\": 1\n    },\n    \"files\": [\n      {\n        \"path\": \"task-note\",\n        \"kind\": \"extension\",\n        \"sha256\": \"37610113a2f630bfd512f8f0b35759b8945f36834b0c3dc0fde206f88bd78f38\",\n        \"size\": 3023650,\n        \"executable\": true\n      }\n    ],\n    \"extensions\": [\n      {\n        \"name\": \"task-note\",\n        \"entrypoint\": \"task-note\",\n        \"capabilities\": [\n          \"commands\",\n          \"questions\",\n          \"state\",\n          \"context.transform\"\n        ]\n      }\n    ]\n  },\n  \"package_digest\": \"0f661862eb98509698d5fa03c5fdbe98faf31649ad4d02e7b987514d47166935\"\n}\n",
+    "stderr": ""
+  }
+]

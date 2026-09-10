@@ -1,0 +1,3 @@
+=== RUN   TestBinaryRPCRejectsOversizedFrameBeforeProvider
+--- PASS: TestBinaryRPCRejectsOversizedFrameBeforeProvider (0.06s)
+PASS

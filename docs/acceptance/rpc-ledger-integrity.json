@@ -1,0 +1,51 @@
+{
+  "status": "development_fault_tests_passed",
+  "corruption_cases": 16,
+  "test_records": {
+    "pass": 68,
+    "fail": 0,
+    "skip": 0
+  },
+  "rpc_package_coverage": {
+    "statements": 1075,
+    "covered": 811,
+    "percentage": 75.44186046511628
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-ledger-integrity-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-ledger-integrity-20260909/hand-rpc-ledger-integrity-20260909.jsonl.gz",
+      "sha256": "6c7002fb02880e344827dcb97d9bd8785331b0cd0ea581dcf8adf134adc4cbde",
+      "uncompressed_sha256": "d976c749b8a91025c2c12bb47592139cbd9dd784c0f30dcad63638ae3a27bec9"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-integrity-full-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-ledger-integrity-20260909/hand-rpc-integrity-full-20260909.jsonl.gz",
+      "sha256": "ae395166cfc1ed764d9a9af2e1da8a482d69535009b40f652f2c004b935aa769",
+      "uncompressed_sha256": "7d58507a9695a3b2002400758472558a378408f6d5fb6c5d3840c2f5eb6ba806"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-integrity-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/rpc-ledger-integrity-20260909/hand-rpc-integrity-coverage-20260909.out.gz",
+      "sha256": "2352b3801af5af8dbd606bdd5b8ff6bee8e4a3853585015639dd337bde87305b",
+      "uncompressed_sha256": "9e8300568df0eade1d6219a461e06cc2d98f8ad2ba9bcd3f3930890807a5eaf4"
+    },
+    {
+      "source": "internal/rpc/ledger_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-ledger-integrity-20260909/ledger_integrity_test.go.gz",
+      "sha256": "0c48300bb8d5e3e5f51b6679a20a59d46f81937a982bee10b77270ce2a2f5916",
+      "uncompressed_sha256": "531347c19e3bfafabac9ca2b65b7b136eb31c5a44f66f48d1887cf3cc8154ecd"
+    }
+  ],
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -coverpkg=./... -coverprofile=/private/tmp/hand-rpc-integrity-coverage-20260909.out -json ./internal/rpc",
+  "assertions": [
+    "Invalid identities and state transitions reject ledger open",
+    "Corrupt evidence bytes remain unchanged",
+    "Failure releases exclusive writer lock",
+    "Repaired accepted intent remains uncertain and cannot grant replay execution"
+  ],
+  "limitations": [
+    "Development evidence only; final candidate and critical coverage gates remain open",
+    "RPC package coverage is not the combined Hand/Harness protocol critical-group metric"
+  ]
+}

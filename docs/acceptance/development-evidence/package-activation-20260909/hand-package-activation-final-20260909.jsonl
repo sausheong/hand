@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T02:20:51.556098+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:20:52.164009+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney"}
+{"Time":"2026-09-09T02:20:52.164085+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Output":"=== RUN   TestInstalledPackageExtensionActivationJourney\n"}
+{"Time":"2026-09-09T02:20:53.054606+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Output":"--- PASS: TestInstalledPackageExtensionActivationJourney (0.89s)\n"}
+{"Time":"2026-09-09T02:20:53.054643+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestInstalledPackageExtensionActivationJourney","Elapsed":0.89}
+{"Time":"2026-09-09T02:20:53.055118+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:20:54.067068+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.510s\n"}
+{"Time":"2026-09-09T02:20:54.067211+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.511}

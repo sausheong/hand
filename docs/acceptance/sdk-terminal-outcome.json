@@ -1,0 +1,56 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scope": "SDK terminal snapshot outcome contract matches server known statuses and explicit verification semantics",
+  "before": {
+    "fail": 1
+  },
+  "after": {
+    "pass": 65
+  },
+  "exit_code": 0,
+  "command": "go test -race -count=1 -json ./sdk",
+  "environment": {
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HAND_TEST_PYTHON_IMAGE": "sha256:6771159cd4fa5d9bba1258caf0b82e6b73458c694d178ad97c5e925c2d0e1a91",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "HAND_TEST_CONTAINER_ARCH": "arm64",
+    "HAND_TEST_WORKER_BINARY": "/private/tmp/hand-budget-worker-20260909",
+    "HAND_TEST_EXTENSION_PEER_BINARY": "/private/tmp/hand-budget-peer-20260909.test",
+    "HAND_TEST_PUBLIC_FETCH_URL": "https://example.com/"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-outcome-20260909/hand-sdk-terminal-before-20260909.jsonl",
+      "sha256": "dff54caa7564c3384c044f678d1784fb82c3bf18e84bef2b12fea89278e7b27f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-outcome-20260909/hand-sdk-terminal-final-20260909.jsonl",
+      "sha256": "0ca8fe117176691ea54793854ca6fe4a4d4f1577d346c13785dc7453ada6efc6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-outcome-20260909/snapshot_integrity_test.go.txt",
+      "sha256": "c15ed8cf0a58bfd2f6175e7a0a3b6eb5725e7d4d172d903a0aa50d64aac1729d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-outcome-20260909/snapshots.go.txt",
+      "sha256": "e6546c2a82eeb7d0cfab54b002de9db2218661016e92e812a35b3ebd78ced244"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-outcome-20260909/snapshots_test.go.txt",
+      "sha256": "122629877a7b16f60314aaf2a3a6255796683a1f3df92c83abf5b6ffe8ce1c67"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/sdk-terminal-outcome-20260909/terminal_outcome_test.go.txt",
+      "sha256": "6fb3114061186b3e2f490411807672f5bdbc85206c22ae06cf039e7fdf5bbd93"
+    }
+  ],
+  "limits": [
+    "Version 1 terminal records lacking explicit verified boolean now rejected, matching current server contract",
+    "Nonterminal future event kinds remain supported",
+    "Local Harness development run; fresh aggregate coverage/fuzz and final qualification pending"
+  ]
+}

@@ -1,0 +1,41 @@
+{"Time":"2026-09-08T15:50:41.613701+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T15:50:42.181136+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC"}
+{"Time":"2026-09-08T15:50:42.181189+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"=== RUN   TestCheckpointChangesRPC\n"}
+{"Time":"2026-09-08T15:50:42.23671+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"    checkpoint_test.go:79: {1 not-confirmed [] request_conflict: invalid request identity}\n"}
+{"Time":"2026-09-08T15:50:42.238832+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"--- FAIL: TestCheckpointChangesRPC (0.06s)\n"}
+{"Time":"2026-09-08T15:50:42.238859+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Elapsed":0.06}
+{"Time":"2026-09-08T15:50:42.238901+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen"}
+{"Time":"2026-09-08T15:50:42.238917+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen","Output":"=== RUN   TestControlQueueReplayPersistsAcrossReopen\n"}
+{"Time":"2026-09-08T15:50:42.257681+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen","Output":"--- PASS: TestControlQueueReplayPersistsAcrossReopen (0.02s)\n"}
+{"Time":"2026-09-08T15:50:42.257706+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlQueueReplayPersistsAcrossReopen","Elapsed":0.02}
+{"Time":"2026-09-08T15:50:42.257819+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute"}
+{"Time":"2026-09-08T15:50:42.257832+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute","Output":"=== RUN   TestControlUncertainDoesNotExecute\n"}
+{"Time":"2026-09-08T15:50:42.272422+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute","Output":"--- PASS: TestControlUncertainDoesNotExecute (0.01s)\n"}
+{"Time":"2026-09-08T15:50:42.272467+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlUncertainDoesNotExecute","Elapsed":0.01}
+{"Time":"2026-09-08T15:50:42.27266+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists"}
+{"Time":"2026-09-08T15:50:42.272727+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists","Output":"=== RUN   TestControlLargeQueueResponsePersists\n"}
+{"Time":"2026-09-08T15:50:42.36787+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists","Output":"--- PASS: TestControlLargeQueueResponsePersists (0.10s)\n"}
+{"Time":"2026-09-08T15:50:42.367903+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLargeQueueResponsePersists","Elapsed":0.1}
+{"Time":"2026-09-08T15:50:42.368078+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity"}
+{"Time":"2026-09-08T15:50:42.368093+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity","Output":"=== RUN   TestControlLedgerRejectsInvalidResponseIdentity\n"}
+{"Time":"2026-09-08T15:50:42.385668+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity","Output":"--- PASS: TestControlLedgerRejectsInvalidResponseIdentity (0.02s)\n"}
+{"Time":"2026-09-08T15:50:42.385679+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerRejectsInvalidResponseIdentity","Elapsed":0.02}
+{"Time":"2026-09-08T15:50:42.386064+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes"}
+{"Time":"2026-09-08T15:50:42.38607+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes\n"}
+{"Time":"2026-09-08T15:50:42.386153+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending"}
+{"Time":"2026-09-08T15:50:42.386158+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes/pending\n"}
+{"Time":"2026-09-08T15:50:42.417338+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes/pending (0.03s)\n"}
+{"Time":"2026-09-08T15:50:42.417368+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/pending","Elapsed":0.03}
+{"Time":"2026-09-08T15:50:42.417474+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted"}
+{"Time":"2026-09-08T15:50:42.417479+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes/accepted\n"}
+{"Time":"2026-09-08T15:50:42.450941+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes/accepted (0.03s)\n"}
+{"Time":"2026-09-08T15:50:42.450972+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/accepted","Elapsed":0.03}
+{"Time":"2026-09-08T15:50:42.451101+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed"}
+{"Time":"2026-09-08T15:50:42.451106+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed","Output":"=== RUN   TestControlLedgerKilledWriterNeverReexecutes/completed\n"}
+{"Time":"2026-09-08T15:50:42.487822+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes/completed (0.04s)\n"}
+{"Time":"2026-09-08T15:50:42.487845+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes/completed","Elapsed":0.04}
+{"Time":"2026-09-08T15:50:42.487872+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes","Output":"--- PASS: TestControlLedgerKilledWriterNeverReexecutes (0.10s)\n"}
+{"Time":"2026-09-08T15:50:42.487894+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestControlLedgerKilledWriterNeverReexecutes","Elapsed":0.1}
+{"Time":"2026-09-08T15:50:42.488524+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\n"}
+{"Time":"2026-09-08T15:50:42.490018+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"FAIL\tgithub.com/sausheong/hand/internal/rpc\t0.876s\n"}
+{"Time":"2026-09-08T15:50:42.49003+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":0.876}

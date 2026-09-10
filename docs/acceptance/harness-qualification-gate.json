@@ -1,0 +1,61 @@
+{
+  "status": "development_only",
+  "date": "2026-09-09",
+  "result": "Harness CI now rejects skipped, failed, empty and unfinished test streams for full and repeated suites.",
+  "unit_tests": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "real_stream_validation": {
+    "status": "passed",
+    "passed_test_records": 77,
+    "packages": 3,
+    "errors": []
+  },
+  "mutated_skip_validation": {
+    "status": "failed",
+    "passed_test_records": 76,
+    "packages": 3,
+    "errors": [
+      "skip test: ('github.com/sausheong/hand/internal/isolation', 'TestMissingBackendIsNotHostFallback')"
+    ]
+  },
+  "tag_check": {
+    "command": "git ls-remote --tags https://github.com/sausheong/harness.git 'refs/tags/v0.4.0*'",
+    "exit_code": 0,
+    "matching_refs": []
+  },
+  "source_snapshot": "docs/acceptance/development-evidence/harness-qualification-gate-20260909/source-snapshot.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-qualification-gate-20260909/0-check_test_events.py.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/scripts/check_test_events.py",
+      "sha256": "40d0d71bf56bae932601d6c92c4bf9a6aba2bd0c8248905ea6cfc3992a610c98",
+      "uncompressed_sha256": "5c4b6ef3d15395d8865ab0b1abde207526eaeab1e87bd1ae386148b725af869f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-qualification-gate-20260909/1-test_check_test_events.py.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/scripts/test_check_test_events.py",
+      "sha256": "cd8db259bccc84a5709ca4786d4405185bbe920118b67ed383ae1d1d836db019",
+      "uncompressed_sha256": "28801662cd39774b32fcfc9884dbf690776494dfd0056e9fed68e096fd8d0f77"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-qualification-gate-20260909/2-qualify.yml.gz",
+      "source": "/private/tmp/hand-harness-persistence-20260908/.github/workflows/qualify.yml",
+      "sha256": "69367738696f53d57f8e32b25dbbbe8a3c75471b9f3c9d44df78d01bf072a515",
+      "uncompressed_sha256": "349208b99d8fea666eeadb7959f0d7bd2337485ecc9ec62a263fd9623e0e980b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-qualification-gate-20260909/3-hand-isolation-routing-fixed-20260909.jsonl.gz",
+      "source": "/private/tmp/hand-isolation-routing-fixed-20260909.jsonl",
+      "sha256": "d0d92fa942da7ed6397aa4ab7b38ef5dcd5873e16843fa5a98666bc148afce76",
+      "uncompressed_sha256": "a0c404cf7b652c95415566c8c47640bd9d01974d62aa65316ea9d03f2fceb18b"
+    }
+  ],
+  "limitations": [
+    "No hosted workflow, Docker suite or release executed.",
+    "Hosted workflow still needs configured container fixtures; it will now fail on their absence instead of qualifying skips.",
+    "Existing cumulative release patch predates these CI changes and must be refreshed before publication."
+  ]
+}

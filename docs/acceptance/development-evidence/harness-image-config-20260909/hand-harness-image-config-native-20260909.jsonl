@@ -1,0 +1,12 @@
+{"Time":"2026-09-09T03:45:35.762008+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-09T03:45:35.915353+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected"}
+{"Time":"2026-09-09T03:45:35.915389+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected","Output":"=== RUN   TestImageImplicitVolumesRejected\n"}
+{"Time":"2026-09-09T03:45:35.91552+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected","Output":"--- PASS: TestImageImplicitVolumesRejected (0.00s)\n"}
+{"Time":"2026-09-09T03:45:35.91553+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestImageImplicitVolumesRejected","Elapsed":0}
+{"Time":"2026-09-09T03:45:35.915566+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection"}
+{"Time":"2026-09-09T03:45:35.915574+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection","Output":"=== RUN   TestNativeImageVolumeRejection\n"}
+{"Time":"2026-09-09T03:45:36.017769+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection","Output":"--- PASS: TestNativeImageVolumeRejection (0.10s)\n"}
+{"Time":"2026-09-09T03:45:36.017816+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestNativeImageVolumeRejection","Elapsed":0.1}
+{"Time":"2026-09-09T03:45:36.018315+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"PASS\n"}
+{"Time":"2026-09-09T03:45:37.021645+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"ok  \tgithub.com/sausheong/harness/execution\t1.259s\n"}
+{"Time":"2026-09-09T03:45:37.021817+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Elapsed":1.26}

@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "commands": [
+    {
+      "label": "inspect",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "reject-wrong-fingerprint",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "wrong"
+      ],
+      "exit_code": 2
+    },
+    {
+      "label": "unchanged-after-rejection",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "acknowledge",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "44a0f2096e0d2455a6ccfc9528e3150d5d4863478c284acaf93d09613d1cb61e"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "idempotent-acknowledge",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--ack-legacy-permissions",
+        "44a0f2096e0d2455a6ccfc9528e3150d5d4863478c284acaf93d09613d1cb61e"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "revoke",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture",
+        "--revoke-permission",
+        "legacy-785f95d23c449aa89ad94069de4a7b21be2ac4835de89fb721ab841d450e2dc2"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "reopen-revoked",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "corrupt",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 2
+    },
+    {
+      "label": "fresh-authority",
+      "command": [
+        "/private/tmp/hand-permission-migration-20260909",
+        "--permissions",
+        "--model=local/fixture"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "binary_sha256": "b3ca237a19ed01a122055ffb0aab0b7a74bbe0fc522cf33ffb8743077d123ef4",
+  "runner_sha256": "f5326f543c4cf97c89ec3525d6b1bb4687f7773e62452ab02bb06ca9c3158c42",
+  "no_credentials": true,
+  "no_model_calls": true,
+  "legacy_settings_unchanged": true,
+  "quarantine_preserved": true,
+  "fresh_authority_has_no_grants": true,
+  "artifacts": {
+    "reject-wrong-fingerprint.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "acknowledge.stdout": "a78a1ba8e90e2b42e2d94d6f0c1b8031dfa9463f91be405777ff7a34014be107",
+    "inspect.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fresh-authority.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "idempotent-acknowledge.stdout": "a78a1ba8e90e2b42e2d94d6f0c1b8031dfa9463f91be405777ff7a34014be107",
+    "idempotent-acknowledge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fresh-authority.stdout": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329",
+    "reject-wrong-fingerprint.stderr": "c92ed546c648beb02ffe1283cf17c81880325e6002d6f9abd20acbc236af0ab8",
+    "inspect.stdout": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329",
+    "acknowledge.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reopen-revoked.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revoke.stdout": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329",
+    "unchanged-after-rejection.stdout": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329",
+    "corrupt.stderr": "4f2748e4130d487cb9b2503598700961eda04cb4d801868af12854cc252ca96f",
+    "corrupt.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "revoke.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unchanged-after-rejection.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "reopen-revoked.stdout": "90d992dc14595fe800060e91a566287252ceb3945ea0d86766f5bdc3ea93e329"
+  }
+}

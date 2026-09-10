@@ -1,0 +1,72 @@
+{
+  "status": "all_original_skips_have_separate_development_passes",
+  "original_report": "docs/acceptance/current-coverage.json",
+  "records": [
+    {
+      "package": "github.com/sausheong/hand/cmd/hand",
+      "test": "TestNativePackageCLIContainerRuntimeAndLaunchReviews",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestContainerExtensionFileCallbackBoundary",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestContainerExtensionActivationAndReviewedReload",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestExtensionResourceIPC/network.fetch/public-fetch",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestNativeContainerPackagePythonReviewAndLaunch",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/app",
+      "test": "TestNativeBackgroundContainerInputOutputAndShutdown",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/extensions",
+      "test": "TestContainerExtensionRealExample",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/extensions",
+      "test": "TestContainerPythonImageInterpreter",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/packages",
+      "test": "TestNativeContainerPythonRuntimeVersion",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/internal/toolproxy",
+      "test": "TestNativeProxyWorkerRoundtrip",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/sdk",
+      "test": "TestNativeScopedSDKContainerJourney",
+      "development_pass": true
+    },
+    {
+      "package": "github.com/sausheong/hand/sdk",
+      "test": "TestNativeSDKRejectsChangedWorker",
+      "development_pass": true
+    }
+  ],
+  "evidence": [
+    "docs/acceptance/native-package-qualification.json",
+    "docs/acceptance/native-worker-sdk.json",
+    "docs/acceptance/native-extensions-fetch.json"
+  ],
+  "limitation": "Historical skips remain unchanged. Final candidate must reproduce all required evidence on the exact released dependency."
+}

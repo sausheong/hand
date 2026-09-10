@@ -1,0 +1,38 @@
+[
+  {
+    "label": "base",
+    "commit": "09c30fe2d529d6125f423593f621e970a7ce8735",
+    "exit_code": 1,
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-json",
+      "-count=1",
+      "./tools/file",
+      "-run",
+      "^TestAcceptanceWriteMode$"
+    ],
+    "raw": "base.jsonl",
+    "checkout": "/private/tmp/hand-evaluation-write-mode-base-20260908",
+    "sha256": "0d588d6b97bef9b141b49f36f169798d21f57a3840252cb33bfa17c158aca0e0"
+  },
+  {
+    "label": "candidate",
+    "commit": "308f702545c138fc5ad51a585c5d6f0a0f6ccc77",
+    "exit_code": 0,
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-json",
+      "-count=1",
+      "./tools/file",
+      "-run",
+      "^TestAcceptanceWriteMode$"
+    ],
+    "raw": "candidate.jsonl",
+    "checkout": "/private/tmp/hand-evaluation-write-mode-candidate-20260908",
+    "sha256": "c7430b02bc56b43e8291691c4c7842c5acf84f2e60a8682a027deb887a85a9af"
+  }
+]

@@ -1,0 +1,93 @@
+package tui
+
+import (
+	"errors"
+	"strings"
+	"testing"
+
+	"github.com/sausheong/hand/internal/app"
+	"github.com/sausheong/hand/internal/config"
+	"github.com/sausheong/harness/llm"
+	"github.com/sausheong/harness/runtime"
+)
+
+type profileTestProvider struct{ llm.LLMProvider }
+
+func TestProfileCommandKeepsUIAndRuntimeConsistent(t *testing.T) {
+	c := &Controller{Rt: &runtime.Runtime{Provider: "local", Model: "old"}}
+	if err := c.ConfigureProfiles(map[string]config.ModelProfile{"new": {Provider: "local", Model: "new", ContextLimit: 24576}}, ""); err != nil {
+		t.Fatal(err)
+	}
+	fail := true
+	c.BuildProfileProvider = func(config.ModelProfile) (llm.LLMProvider, error) {
+		if fail {
+			return nil, errors.New("unavailable")
+		}
+		return &profileTestProvider{}, nil
+	}
+	m := NewModel(nil, t.TempDir())
+	m.SetController(c)
+	m.setModel("local/old")
+	original := m.contextWindow
+	m.lastRequestUsage = &llm.Usage{InputTokens: 123}
+	driveApplication(t, m, m.handleCommand("/profile new"))
+	if m.model != "local/old" || m.contextWindow != original || m.lastRequestUsage == nil {
+		t.Fatal("failed switch changed UI")
+	}
+	fail = false
+	driveApplication(t, m, m.handleCommand("/profile new"))
+	if m.model != "local/new" || m.contextWindow != 24576 || m.contextWindow != c.ContextLimit() || m.lastRequestUsage != nil {
+		t.Fatal("UI/runtime context diverged")
+	}
+	m.handleCommand("/profile")
+	if !strings.Contains(m.View(), "new (active)") {
+		t.Fatal("profile list missing")
+	}
+	m.running = true
+	m.handleCommand("/profile missing")
+	if c.CurrentProfile() != "new" {
+		t.Fatal("busy command changed profile")
+	}
+}
+
+func TestProfileSwitchCancellationJoinsAndPreservesRuntime(t *testing.T) {
+	entered, release := make(chan struct{}), make(chan struct{})
+	c := &Controller{Rt: &runtime.Runtime{Provider: "local", Model: "old"}}
+	if err := c.ConfigureProfiles(map[string]config.ModelProfile{"new": {Provider: "local", Model: "new"}}, ""); err != nil {
+		t.Fatal(err)
+	}
+	c.BuildProfileProvider = func(config.ModelProfile) (llm.LLMProvider, error) {
+		close(entered)
+		<-release
+		return &profileTestProvider{}, nil
+	}
+	m := NewModel(nil, t.TempDir())
+	m.SetController(c)
+	m.setModel("local/old")
+	cmd := m.handleCommand("/profile new")
+	<-entered
+	if !m.profileChanging || cmd == nil {
+		t.Fatal("switch did not run asynchronously")
+	}
+	m.profileCancel()
+	close(release)
+	m.CloseApplication()
+	driveApplication(t, m, cmd)
+	if m.profileChanging || c.CurrentModel() != "local/old" || m.model != "local/old" {
+		t.Fatal("cancelled switch committed")
+	}
+	m.Update(profileChangedMsg{generation: m.profileGeneration - 1, name: "obsolete"})
+	if c.CurrentModel() != "local/old" {
+		t.Fatal("stale switch result applied")
+	}
+}
+
+func TestUsageDistinguishesRequestedAliasFromServingIdentity(t *testing.T) {
+	m := NewModel(nil, t.TempDir())
+	m.renderApplicationEvent(app.Event{Kind: "state", Model: app.ModelInfo{Profile: "proxy", RequestedModel: "openrouter/vendor/alias", ContextLimit: 24576, ContextSource: "llamacpp_props:fixture#sha256=digest"}})
+	m.runUsageCommand()
+	text := strings.Join(m.transcript, "\n")
+	if !strings.Contains(text, "last run requested: openrouter/vendor/alias") || !strings.Contains(text, "serving model: unknown") || !strings.Contains(text, "source: llamacpp_props:fixture#sha256=digest") {
+		t.Fatal(text)
+	}
+}

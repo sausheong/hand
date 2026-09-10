@@ -1,0 +1,28 @@
+{"Time":"2026-09-09T10:49:33.48566+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T10:49:34.137927+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart"}
+{"Time":"2026-09-09T10:49:34.138202+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart","Output":"=== RUN   TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart\n"}
+{"Time":"2026-09-09T10:49:34.205125+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart","Output":"--- PASS: TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart (0.07s)\n"}
+{"Time":"2026-09-09T10:49:34.205154+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart","Elapsed":0.07}
+{"Time":"2026-09-09T10:49:34.20519+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership"}
+{"Time":"2026-09-09T10:49:34.205198+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership","Output":"=== RUN   TestCostBudgetViewFailuresReleaseOwnership\n"}
+{"Time":"2026-09-09T10:49:34.205212+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/runtime"}
+{"Time":"2026-09-09T10:49:34.205223+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/runtime","Output":"=== RUN   TestCostBudgetViewFailuresReleaseOwnership/runtime\n"}
+{"Time":"2026-09-09T10:49:34.205351+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/runtime","Output":"--- PASS: TestCostBudgetViewFailuresReleaseOwnership/runtime (0.00s)\n"}
+{"Time":"2026-09-09T10:49:34.205379+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/runtime","Elapsed":0}
+{"Time":"2026-09-09T10:49:34.205387+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/session"}
+{"Time":"2026-09-09T10:49:34.205393+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/session","Output":"=== RUN   TestCostBudgetViewFailuresReleaseOwnership/session\n"}
+{"Time":"2026-09-09T10:49:34.205445+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/session","Output":"--- PASS: TestCostBudgetViewFailuresReleaseOwnership/session (0.00s)\n"}
+{"Time":"2026-09-09T10:49:34.205453+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/session","Elapsed":0}
+{"Time":"2026-09-09T10:49:34.205474+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/cancelled"}
+{"Time":"2026-09-09T10:49:34.205483+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/cancelled","Output":"=== RUN   TestCostBudgetViewFailuresReleaseOwnership/cancelled\n"}
+{"Time":"2026-09-09T10:49:34.205564+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/cancelled","Output":"--- PASS: TestCostBudgetViewFailuresReleaseOwnership/cancelled (0.00s)\n"}
+{"Time":"2026-09-09T10:49:34.205577+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/cancelled","Elapsed":0}
+{"Time":"2026-09-09T10:49:34.205583+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/busy"}
+{"Time":"2026-09-09T10:49:34.205634+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/busy","Output":"=== RUN   TestCostBudgetViewFailuresReleaseOwnership/busy\n"}
+{"Time":"2026-09-09T10:49:34.205645+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/busy","Output":"--- PASS: TestCostBudgetViewFailuresReleaseOwnership/busy (0.00s)\n"}
+{"Time":"2026-09-09T10:49:34.20565+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership/busy","Elapsed":0}
+{"Time":"2026-09-09T10:49:34.205722+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership","Output":"--- PASS: TestCostBudgetViewFailuresReleaseOwnership (0.00s)\n"}
+{"Time":"2026-09-09T10:49:34.205728+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCostBudgetViewFailuresReleaseOwnership","Elapsed":0}
+{"Time":"2026-09-09T10:49:34.206339+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T10:49:35.218896+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.733s\n"}
+{"Time":"2026-09-09T10:49:35.218962+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.733}

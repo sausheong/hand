@@ -1,0 +1,135 @@
+{
+  "status": "development_regressions_fixed",
+  "requirements": [
+    "M4.1",
+    "M2.1",
+    "M3.4"
+  ],
+  "test_records": {
+    "hand-rpc-startup-eof-before-20260909.jsonl": {
+      "fail": 1
+    },
+    "hand-rpc-startup-eof-after-20260909.jsonl": {
+      "pass": 3,
+      "fail": 3
+    },
+    "hand-rpc-startup-eof-pollable-20260909.jsonl": {
+      "pass": 6
+    },
+    "hand-rpc-startup-eof-repeat-20260909.jsonl": {
+      "pass": 20
+    },
+    "hand-rpc-prepared-transport-20260909.jsonl": {
+      "pass": 120
+    },
+    "hand-rpc-startup-negotiation-20260909.jsonl": {
+      "pass": 1
+    }
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-rpc-startup-eof-before-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/0-hand-rpc-startup-eof-before-20260909.jsonl.gz",
+      "sha256": "35edd9728c4fdd9f02e9381382321b0d8450a798f4ad087928dd5e8121a6ed21",
+      "uncompressed_sha256": "29340089199a6bc56b5c8e18a12f75fc7838e29822a1a665743954b02bb0bfc0"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-eof-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/1-hand-rpc-startup-eof-after-20260909.jsonl.gz",
+      "sha256": "6b9b977f7d95f3b15a5e71b33dcc6ac5fdc27c3709665dc4b6b2d78f9d5576a8",
+      "uncompressed_sha256": "ec6f8e5a8caff749df114bcaae5e5fff7e471dab0cb735fb2e289c8cc5e7643d"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-eof-pollable-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/2-hand-rpc-startup-eof-pollable-20260909.jsonl.gz",
+      "sha256": "950c363c36a81a1f8d3de4dae0de815d7ae714c0e4e6d358439e473f5951f148",
+      "uncompressed_sha256": "7d86158e9a762c3ce2613ef42f2c4699326ab033b72d1988620d375c19a9b9ba"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-eof-repeat-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/3-hand-rpc-startup-eof-repeat-20260909.jsonl.gz",
+      "sha256": "bb8daeb3e1ec40a326810b5239d543e82075d2596f816a1015233f75426e18ad",
+      "uncompressed_sha256": "d70dde7cb1dcf6bc1f4870a777973bc6c841b6de82c0c4f6c1a7bb320483f451"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-prepared-transport-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/4-hand-rpc-prepared-transport-20260909.jsonl.gz",
+      "sha256": "f1c48d2c53582572af7145aaa9c63fbbe8b46be2dd69c8d94afaed81414e4980",
+      "uncompressed_sha256": "c417e971744830c5fe5882431b97273dbceeb471a14caa062214261c2a629af1"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-negotiation-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/5-hand-rpc-startup-negotiation-20260909.jsonl.gz",
+      "sha256": "bed22962cc120e6f281214468af6d45090eeb5718c9c8df54aeb1ceda5dd4fb7",
+      "uncompressed_sha256": "5bb8b85581cbe4bc61c43a888e9c86c60f02928df648a9f13bece14ecaa85982"
+    },
+    {
+      "source": "/private/tmp/hand-rpc-startup-eof-vet-20260909.log",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/6-hand-rpc-startup-eof-vet-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "internal/rpc/prepared_transport.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/7-prepared_transport.go.gz",
+      "sha256": "2ad5eee0820c03e75da46c29bb7418a987d1895acd72e2f0c29fc95151f444d6",
+      "uncompressed_sha256": "b239e2d940fbdc2a6833e81036a6366cc525fd49eaf0d4c45261b3906122f878"
+    },
+    {
+      "source": "internal/rpc/transport.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/8-transport.go.gz",
+      "sha256": "16c283069ce39273e7c602d8241de439c9ad736473e2b4a9883d5e6152a3d996",
+      "uncompressed_sha256": "c8220f7b0d48ba50b22f0c8873f46c36b36596a11759001a791d86ffd70e9e04"
+    },
+    {
+      "source": "internal/rpc/transport_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/9-transport_test.go.gz",
+      "sha256": "a244f69be535408052f8c296f42c2ad8d91c3fb8bf784d2aff43dbe9a21556a1",
+      "uncompressed_sha256": "5cf8ba464f32a27d87693c5759876c14772faa569488bdfb081100867f9e549b"
+    },
+    {
+      "source": "cmd/hand/main.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/10-main.go.gz",
+      "sha256": "c633194abf5eaf8f88ab1402487f642986824d44fc864b454f9df55cc4728ae1",
+      "uncompressed_sha256": "8686c742cdb1c09bdb55abf9ce1e9d1e090297c400415985521900fc5acd6602"
+    },
+    {
+      "source": "cmd/hand/rpc.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/11-rpc.go.gz",
+      "sha256": "2f179b67f5b2ea20ea978c2eeb020aaeb5f04e2a229f5b7686b659a3953db9cf",
+      "uncompressed_sha256": "3f0ea6fe96be11b548cda747105cfa546a129ea606485279833cdf2147ad10b0"
+    },
+    {
+      "source": "cmd/hand/rpc_stdio_unix.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/12-rpc_stdio_unix.go.gz",
+      "sha256": "63d3d87b16789926a1233a55d11cb46308b5345385aff3da3f9238ba4c0b85e4",
+      "uncompressed_sha256": "8a4529648d7af8178a56a7405335aaadeb119c4d51803a2e3b2cf91c1f304c53"
+    },
+    {
+      "source": "cmd/hand/rpc_stdio_other.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/13-rpc_stdio_other.go.gz",
+      "sha256": "86c708195af913566b40ea4debeec1bbf87fd3e08ed3121e7c1e5848f6a027ac",
+      "uncompressed_sha256": "4d918b05e7cbf2723610d3e67b65505d478018c956b92928106a5e2f2c064538"
+    },
+    {
+      "source": "cmd/hand/startup_signal_binary_test.go",
+      "path": "docs/acceptance/development-evidence/rpc-startup-eof-20260909/14-startup_signal_binary_test.go.gz",
+      "sha256": "ef723577430969acef00539d55619cb341560b1ed1076fc4d971b584df0d0bc9",
+      "uncompressed_sha256": "ef59ff58dc7e3986d9e79703a6567c60ea982ba56ede625094b5ba6e950976bc"
+    }
+  ],
+  "vet_exit_code": 0,
+  "fixes": [
+    "Start the bounded RPC frame reader before runtime construction so EOF cancels startup",
+    "Transfer the same reader and queued request to the ready dispatcher",
+    "Use owned nonblocking duplicate stdio descriptors on Linux/macOS so cancellation can interrupt and join inherited pipe reads"
+  ],
+  "limitations": [
+    "Native macOS development evidence; no full candidate or Linux runtime qualification",
+    "Additional queued-frame startup disconnect audit remains open",
+    "Unsupported-platform stdio adapter fails explicitly; no coverage exclusion or waiver applied",
+    "Compiled Hand uses ordinary go build; parent tests and transport tests use race detection"
+  ],
+  "eof_cleanup_trials": 20,
+  "eof_cleanup_max_ms": 258.474
+}

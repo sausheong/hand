@@ -1,0 +1,9 @@
+{"Time":"2026-09-09T02:50:15.985933+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:50:16.574986+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationExampleHostCommandAndFinishObserver"}
+{"Time":"2026-09-09T02:50:16.575042+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationExampleHostCommandAndFinishObserver","Output":"=== RUN   TestVerificationExampleHostCommandAndFinishObserver\n"}
+{"Time":"2026-09-09T02:50:17.200916+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationExampleHostCommandAndFinishObserver","Output":"2026/09/09 02:50:17 WARN extension lifecycle delivery failed extension=verification-hook event=run.finish error=\"verification_failed: Git whitespace check failed; inspect staged and unstaged changes with git diff --check\"\n"}
+{"Time":"2026-09-09T02:50:17.204894+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationExampleHostCommandAndFinishObserver","Output":"--- PASS: TestVerificationExampleHostCommandAndFinishObserver (0.63s)\n"}
+{"Time":"2026-09-09T02:50:17.204911+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestVerificationExampleHostCommandAndFinishObserver","Elapsed":0.63}
+{"Time":"2026-09-09T02:50:17.204945+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:50:18.21288+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.227s\n"}
+{"Time":"2026-09-09T02:50:18.212997+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.227}

@@ -1,0 +1,254 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "budget.tokens",
+          "budget.tokens.decide",
+          "summarizer.review",
+          "summarizer.select",
+          "summarizer.status",
+          "context.pins",
+          "context.pin",
+          "context.unpin",
+          "context.inspect",
+          "skills.reload",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "verification.profiles",
+          "verification.check",
+          "verification.run",
+          "verification.list",
+          "verification.delete",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-session",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-session",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_d055d09780f5de42"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "unconfirmed",
+      "method": "budget.tokens.decide",
+      "params": {
+        "limit": 1
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "unconfirmed",
+      "error": {
+        "code": "confirmation_required",
+        "message": "explicitly confirm the absolute session token ceiling"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "small-limit",
+      "method": "budget.tokens.decide",
+      "params": {
+        "limit": 1,
+        "confirmed": true
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "small-limit",
+      "result": {
+        "limit": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "exhaust",
+      "method": "prompt",
+      "params": {
+        "text": "Complete the local fixture."
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "exhaust",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "a8703acda257d2be78ba8c2dd3c5f5aecc653bcac3f6ecbc3577b3dd8dc06475",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "L6WJQUSAS6LSZ6TIABAI7EF2C5:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "a8703acda257d2be78ba8c2dd3c5f5aecc653bcac3f6ecbc3577b3dd8dc06475",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "L6WJQUSAS6LSZ6TIABAI7EF2C5:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "a8703acda257d2be78ba8c2dd3c5f5aecc653bcac3f6ecbc3577b3dd8dc06475",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "L6WJQUSAS6LSZ6TIABAI7EF2C5:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "exhaust"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "exhaust",
+        "fingerprint": "a8703acda257d2be78ba8c2dd3c5f5aecc653bcac3f6ecbc3577b3dd8dc06475",
+        "session_id": "ses_d055d09780f5de42",
+        "run_id": "L6WJQUSAS6LSZ6TIABAI7EF2C5:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "R6333Q5MS44REKBVMGWBIUCGRQ:4",
+          "sequence": 4,
+          "session_id": "ses_d055d09780f5de42",
+          "run_id": "L6WJQUSAS6LSZ6TIABAI7EF2C5:1",
+          "request_id": "exhaust",
+          "timestamp": "2026-09-08T13:01:38.632486Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "llm error: provider admission: budget_exhausted",
+            "iteration": 1,
+            "reason": "session_token_budget",
+            "state": "idle",
+            "status": "budget_exhausted",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 0,
+              "unknown_requests": 0
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "exhausted-state",
+      "method": "budget.tokens",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "exhausted-state",
+      "result": {
+        "limit": 1,
+        "committed": 0,
+        "exhausted": true,
+        "attempts": 0,
+        "uncertain_attempts": 0,
+        "estimate_method": "UTF-8 bytes/4 plus framing and fixed image allowance; output cap reserved; not an invoice guarantee"
+      }
+    }
+  }
+]

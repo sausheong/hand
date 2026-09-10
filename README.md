@@ -10,13 +10,44 @@ project scaffolding forced onto your repo. It's built on top of
 [`harness`](https://github.com/sausheong/harness), a Go library for building
 LLM agents.
 
+> **Current release: v0.3.0.** This release pins Harness v0.4.0 and supports
+> macOS and Linux on AMD64 and ARM64. Hand's interfaces remain pre-1.0; pin
+> the release you deploy and follow the migration and rollback guide when
+> upgrading.
+
+## What's in v0.3.0
+
+v0.3.0 turns Hand from a compact interactive agent into a fuller coding-agent
+runtime while retaining a single native CLI:
+
+- Explicit host or Docker-container tool execution. Container mode uses an
+  immutable image and worker digest, an allowlisted environment, explicit
+  mounts and limits, and never falls back to host execution.
+- Durable sessions with resume, naming, branching, export, attachments,
+  checkpoints, restore previews and interrupted-operation recovery.
+- Scoped, revocable permissions; mandatory verification profiles; Stop-hook
+  goal loops; token, cost, run and wall-clock budgets.
+- Mid-run steering and follow-up queues, background processes, full output
+  artifacts, context pins and inspectable agent state.
+- Named provider profiles with explicit context, output, reasoning and input
+  capabilities, plus verified local-model metadata discovery.
+- Versioned JSONL and RPC automation, an embeddable Go SDK, and reviewed,
+  digest-pinned packages and extensions.
+
+Container isolation applies to commands run through the tool backend. Local or
+remote MCP servers, hooks and explicitly approved host extensions execute
+outside that container; Hand requires those boundaries to be acknowledged in
+container mode. See [Execution isolation](#execution-isolation).
+
 ## Installing
 
-Hand ships as a single static binary — no runtime dependencies.
+The CLI is a native Go executable. Distribution archives also include a Linux
+tool worker for optional container execution. Shell tools and optional
+servers/extensions have their own runtime requirements.
 
 ### Build from source
 
-You need [Go 1.25+](https://go.dev/dl/).
+You need [Go 1.25.1+](https://go.dev/dl/).
 
 ```sh
 git clone https://github.com/sausheong/hand.git
@@ -36,25 +67,13 @@ Make sure that directory is on your `PATH`.
 
 ### Download a prebuilt binary
 
-Every [release](https://github.com/sausheong/hand/releases) ships a
-`hand-<version>-<os>-<arch>.tar.gz` archive for each platform —
-`darwin-amd64`, `darwin-arm64`, `linux-amd64`, `linux-arm64` — plus a
-`SHA256SUMS` file, all built and published automatically by CI when the
-release is tagged (see [Releasing](#releasing) below). Grab the one
-matching your platform:
+Choose an archive and `SHA256SUMS` from the same
+[release](https://github.com/sausheong/hand/releases). Supported targets are
+`darwin-amd64`, `darwin-arm64`, `linux-amd64` and `linux-arm64`.
+Follow [installation, upgrades and rollback](docs/installation-and-upgrades.md)
+to verify the checksum before extraction, preserve the complete CLI/worker
+installation, and back up existing sessions before upgrading.
 
-```sh
-curl -LO https://github.com/sausheong/hand/releases/latest/download/hand-<version>-<os>-<arch>.tar.gz
-tar -xzf hand-<version>-<os>-<arch>.tar.gz
-mv hand-<version>-<os>-<arch>/hand /usr/local/bin/hand   # anywhere on your PATH
-```
-
-To verify the download against `SHA256SUMS` (also attached to the release):
-
-```sh
-curl -LO https://github.com/sausheong/hand/releases/latest/download/SHA256SUMS
-shasum -a 256 -c SHA256SUMS --ignore-missing   # or: sha256sum -c ... on Linux
-```
 
 ## Setting up an API key
 
@@ -137,18 +156,43 @@ everything for that run instead:
 hand -p "fix the failing test in pkg/foo" --yes
 ```
 
+One-shot exit codes are stable for scripts:
+
+| Code | Meaning |
+|------|---------|
+| `0` | Answer completed; all configured mandatory Stop validators passed |
+| `2` | Invalid invocation or configuration |
+| `3` | Required prompt/Stop validation failed |
+| `4` | Tool-turn or goal-iteration limit exhausted |
+| `5` | Provider, runtime or infrastructure failure |
+| `130` | Interrupted or cancelled |
+
+A normal answer without mandatory validators is **not verified coding success**.
+Passing validators establishes only what those checks actually test. Reaching
+`--max-turns` or `--max-iterations` never returns success. SIGINT and SIGTERM
+cancel an active one-shot run, drain its events and allow runtime cleanup
+before exit, including during MCP startup.
+
 ### Flags
 
 | Flag               | Description |
 |---------------------|-------------|
 | `--model`           | `provider/model` to use for this run, e.g. `anthropic/claude-sonnet-5` — overrides `~/.hand/config.json` |
+| `--profile`         | Named provider/model profile from config |
 | `--base-url`        | Custom API base URL — required for `litellm`, optional for `openai`/`openrouter`, not supported for `gemini` |
+| `--context-limit`   | Explicit active context limit for this invocation |
+| `--reasoning`       | `off`, `low`, `medium` or `high`; the selected profile must declare support |
 | `--max-turns`       | Cap the agent's tool-use loop for this run (default: 50, or `max_turns` in config) |
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
 | `--markdown-style`  | Glamour style for rendering assistant Markdown: `dark`, `light`, `ascii`, `notty`, `pink`, `dracula`, `tokyo-night` (default `dark`) — overrides `~/.hand/config.json` |
 | `--compaction-threshold` | Fraction (0-1] of the context window that triggers preventive compaction (default `0.4`) — overrides `~/.hand/config.json` |
 | `--max-iterations`  | Cap how many turns a [Stop-hook goal loop](#goal-loop) may chain automatically (default `10`, or `max_goal_iterations` in config) |
-| `--new-session`     | Discard this workspace's saved session and start fresh |
+| `--new-session`     | Create a new session while preserving existing history |
+| `--session`         | Resume a saved session by stable ID |
+| `--export-session`  | Export a stopped session to a new JSONL path without starting a model |
+| `--checkpoint-dir`  | Store bounded run checkpoints in a private directory outside the workspace |
+| `--rpc`             | Serve the versioned JSONL RPC protocol on stdin/stdout |
+| `--jsonl`           | Emit versioned JSONL events in one-shot mode |
 | `-p "<prompt>"`     | Run one turn non-interactively and exit (no TUI) |
 | `--yes`             | Auto-approve all gated tool calls for this run (only valid with `-p`) |
 
@@ -158,16 +202,24 @@ Inside the interactive UI, a message starting with `/` runs a command
 instead of being sent to the model. Typing `/` shows an auto-complete
 dropdown (arrow keys to move, Tab or Enter to fill it in).
 
-| Command          | Description |
-|-------------------|-------------|
-| `/help`           | Show the command list |
-| `/model`          | Show the active model, or `/model <provider/model>` to switch |
-| `/new`            | Discard this workspace's saved session and start fresh |
-| `/clear`          | Clear the on-screen transcript (the saved session is untouched) |
-| `/compact`        | Force a context-compaction pass now |
-| `/usage`          | Show token usage: this turn, session total, and context window |
-| `/skills`         | List available skills (personal + project) |
-| `/exit`           | Quit Hand (`/quit` also works) |
+| Area | Commands |
+|------|----------|
+| Help and display | `/help`, `/clear`, `/output`, `/exit` (`/quit`) |
+| Models and context | `/model`, `/profile`, `/context`, `/compact`, `/summarizer`, `/summarizer-confirm`, `/summarizer-follow`, `/pins`, `/pin`, `/unpin` |
+| Sessions | `/new`, `/resume`, `/name`, `/tree`, `/fork`, `/export` |
+| Work in progress | `/steer`, `/followup`, `/queue`, `/process`, `/state` |
+| Safety and evidence | `/boundary`, `/permissions`, `/changes`, `/restore-preview`, `/restore-confirm`, `/restore-cancel`, `/recoveries`, `/recovery-resolve`, `/verify`, `/verify-confirm`, `/verify-check`, `/verify-list`, `/verify-delete` |
+| Usage and budgets | `/usage`, `/budget`, `/budget-tokens`, `/cost`, `/prices`, `/prices-review`, `/prices-confirm`, `/run-budget`, `/time-budget` |
+| Integrations | `/mcp`, `/skills`, `/reload`, `/extension` |
+
+Run `/help` for exact arguments. Commands that mutate durable state use review,
+digest confirmation or explicit acknowledgement rather than applying an unseen
+change immediately.
+
+Manual `/compact` runs in the background while the terminal remains responsive.
+The footer shows its progress; Ctrl+C requests cancellation. New turns and
+session/model changes wait until the compaction worker has stopped. `/quit`
+cancels an active compaction and exits after the worker returns.
 
 Conversations are saved per-workspace, so quitting and re-running `hand` in
 the same directory picks up where you left off — including across a
@@ -236,10 +288,53 @@ itself scannable rather than a full pager for every command.
 Hand doesn't capture the mouse, so your terminal's normal text
 selection/copy works exactly as it would anywhere else.
 
+## Search
+
+Search results include a completeness footer. The `search` tool streams large
+files and honours workspace/nested `.gitignore` rules; `include_ignored` and
+`include_hidden` broaden that scope explicitly. Git metadata, binary content
+and non-regular entries are excluded and counted. Read errors, lines exceeding
+1 MiB, cancellation and result/output limits are reported explicitly. An
+incomplete search cannot establish that a match is absent. Git and `rg` are
+not required. The default output budget is 64 KiB, configurable up to 256 KiB.
+
+## Execution isolation
+
+Host mode is the default and is labelled as unrestricted host execution. To run
+shell tools and compatible reviewed extensions inside a container, configure a
+local Docker engine, a previously pulled immutable image, and the matching
+`hand-tool-worker-linux` shipped in the release archive:
+
+```json
+"execution": {
+  "backend": "container",
+  "docker": "/absolute/path/to/docker",
+  "socket": "/absolute/path/to/docker.sock",
+  "image": "sha256:<64 hex digits>",
+  "worker": "/absolute/path/to/hand-tool-worker-linux",
+  "worker_sha256": "<digest from WORKER.json>",
+  "writable": false,
+  "network": false
+}
+```
+
+The container receives only its declared workspace and declared resources. Writes
+and network access are off unless enabled. Image and worker identities must be
+immutable, paths must be absolute, and an unavailable backend is an error—Hand
+does not retry the command on the host. `/boundary` reports the effective trust
+boundary.
+
+MCP servers and hooks are integration processes or remote services other than
+the containerized tool worker. If either is configured with container mode,
+startup fails until `trust_external_mcp` or `trust_external_hooks` is explicitly
+set for the relevant boundary. These acknowledgements expose the boundary; they
+do not move those integrations into the container or reduce their
+operating-system authority.
+
 ## Approval prompts
 
-Hand gates anything that isn't read-only: `bash`, `write_file`, `edit_file`,
-and any tool from an untrusted MCP server. Each prompt reads
+Hand gates `bash`, `write_file`, `edit_file`, persistent `todo_write`, mutating
+`skill_manage` operations, unknown tools, and tools from untrusted MCP servers. Each prompt reads
 `Allow <tool>? [y]es / [a]lways / [n]o`:
 
 - **[y]es** — run just this call
@@ -367,13 +462,17 @@ knowledge for next time. Self-authored skills always land in the
 **project-local** store (`<workspace>/.hand/skills/`), never your personal
 `~/.hand/skills/`, so an agent-authored skill stays scoped to the repo it
 was learned in rather than silently spreading across every project you use
-Hand in. Note that `load_skill`/`skill_manage` are **not** gated — no
-approval prompt — since they're confined to the skills directory rather
-than able to touch arbitrary files, unlike `write_file`. A skill created or
-edited mid-session shows up in the system prompt starting the *next* run,
-not immediately, since the index is fixed at startup.
+Hand in. `load_skill` and the `skill_manage` get/list operations are read-only
+and do not prompt. Create, patch, replace and remove require approval,
+including in one-shot mode. The index refreshes for subsequent model requests
+after self-authoring. Use `/reload` while idle to refresh external skill edits.
 
 Run `/skills` to see what's currently loaded, from both directories.
+
+Installed package skills can be selected explicitly with `--package-skills`.
+Their `load_skill` results include source provenance and support bounded,
+hash-verified reads of declared relative text resources. See
+[installed package skills](docs/package-skills.md) for selection and usage.
 
 ### Hooks
 
@@ -386,18 +485,31 @@ arbitrary command, so it gets the same trust tier as an `mcp_servers` entry
 (also global-only) rather than something a cloned repo could ship and have
 run automatically the first time Hand touches it.
 
-**The five events:**
+Every hook receives a versioned JSON object on **stdin**:
 
-| Event | Fires | Can block? | Extra env vars |
-|-------|-------|------------|-----------------|
-| `PreToolUse` | Before any tool call — built-in, MCP, or skill-related | Yes | `HAND_TOOL_NAME`, `HAND_TOOL_INPUT` |
-| `PostToolUse` | After a tool call returns (success or error) | No (observe-only) | `HAND_TOOL_NAME`, `HAND_TOOL_INPUT`, `HAND_TOOL_RESULT`, `HAND_TOOL_ERROR` (if any) |
-| `SessionStart` | Once, when a session begins | No | — |
-| `UserPromptSubmit` | Once per turn, before your message is sent | Yes | `HAND_PROMPT` |
-| `Stop` | Once, when a turn ends (any outcome) | Yes — see [Goal loop](#goal-loop) | `HAND_STOP_REASON`, `HAND_GOAL_ITERATION` |
+```json
+{"version":1,"event":"PreToolUse","workspace":"/work/project","tool_name":"bash","tool_input":{"command":"go test ./..."}}
+```
 
-Every hook also receives `HAND_HOOK_EVENT` (the event name) and
-`HAND_WORKSPACE`, plus the rest of Hand's own process environment.
+| Event | Fires | Can block? | JSON payload fields |
+|-------|-------|------------|---------------------|
+| `PreToolUse` | Before a tool call | Yes | `tool_name`, `tool_input` |
+| `PostToolUse` | After a tool call | Observe-only | `tool_name`, `tool_input`, `tool_result`, `tool_error` |
+| `SessionStart` | When a session begins | Observe-only | Common metadata |
+| `UserPromptSubmit` | Before sending the user's message | Yes | `prompt` |
+| `Stop` | After a turn ends | Yes — see [Goal loop](#goal-loop) | `stop_reason`, `goal_iteration` |
+
+`tool_input` is a JSON object; prompt, output and error fields are strings.
+Empty optional fields may be omitted. Small metadata environment variables
+remain available: `HAND_HOOK_VERSION`, `HAND_HOOK_EVENT`, `HAND_WORKSPACE`,
+`HAND_TOOL_NAME`, `HAND_STOP_REASON` and `HAND_GOAL_ITERATION` where applicable.
+
+**Migration:** scripts reading `HAND_PROMPT`, `HAND_TOOL_INPUT`,
+`HAND_TOOL_RESULT` or `HAND_TOOL_ERROR` should read the corresponding JSON
+stdin fields instead. Temporarily setting `"legacy_env": true` exports these
+fields too, but rejects any environment value larger than 16 KiB. It never
+silently truncates them. The default stdin protocol supports large payloads
+without relying on operating-system argument/environment limits.
 
 **Ordering relative to gating.** `PreToolUse` hooks run for *every* tool
 call, not just gated ones — `read_file` and `web_search` trigger matching
@@ -405,21 +517,27 @@ hooks too, even though neither ever shows an approval prompt. For a gated
 tool, a `PreToolUse` hook runs *before* the interactive approval prompt, so
 a hook can auto-deny a call before you're ever asked about it.
 
-**The exit-code contract** (deliberately the simplest form that works —
-matches the convention from Claude Code's own hooks, so anyone already
-familiar with it can write one for Hand without learning a new contract):
+**Exit codes and failure policies:**
 
-- **Exit `0`** — allow. For `PostToolUse`/`SessionStart` this is the only
-  outcome that matters; they can't block regardless of exit code.
-- **Exit `2`** — deny (`PreToolUse`, with stderr shown as the approval
-  denial reason), abort the turn (`UserPromptSubmit`, with stderr as the
-  error), or keep going (`Stop` — see [Goal loop](#goal-loop) below, its
-  own variant of this same convention). Nothing else happens after the
-  first hook that returns this.
-- **Anything else, or a timeout** (default 30s, `timeout_seconds` to
-  change) — *fails open*: the call proceeds (or, for `Stop`, the turn
-  simply ends) and a warning is logged, rather than a typo or a crashing
-  script silently blocking every tool call or looping forever.
+- Exit `0` allows the operation or passes the validator.
+- Exit `2` denies `PreToolUse`, aborts `UserPromptSubmit`, or requests another
+  goal iteration for `Stop`. Stop uses stdout, then stderr, as its next prompt.
+- Other nonzero exits, spawn errors, timeouts and excessive output fail
+  validators closed by default (`"failure_policy": "deny"`). A failed Stop
+  validator returns an error, so one-shot mode cannot report success.
+- Optional observers may set `"failure_policy": "warn"` to log failures and
+  continue. This is the default for observe-only `PostToolUse` and
+  `SessionStart`; these events reject `"deny"` because they cannot veto work.
+  Cancellation stops validation even with `"warn"`.
+
+Timeout defaults to 30 seconds (`timeout_seconds` overrides it). stdout and
+stderr capture is limited to 64 KiB each while the process runs; exceeding
+that limit is a validation failure. On macOS and Linux, cancellation joins the
+hook's process group and bounded pipe draining before the run settles.
+
+Existing validator configurations now fail closed on script errors. To retain
+legacy warning-only behaviour for an optional script, explicitly select
+`"failure_policy": "warn"`. Use a blocking event for mandatory validation.
 
 A `matcher` (exact tool name, or `"*"`/omitted for every tool) restricts a
 `PreToolUse`/`PostToolUse` hook to specific tools — including MCP ones, e.g.
@@ -432,8 +550,8 @@ Two worked examples:
 { "event": "PreToolUse", "matcher": "bash", "command": "./scripts/check-command.sh" }
 ```
 
-`check-command.sh` reads `$HAND_TOOL_INPUT` (the raw JSON tool input,
-containing the shell command), and exits `2` with a reason on stderr to
+`check-command.sh` reads `tool_input` from its JSON stdin payload
+(containing the shell command), and exits `2` with a reason on stderr to
 block anything it doesn't like — e.g. a company policy against `curl | sh`.
 
 ```json
@@ -463,13 +581,20 @@ next prompt Hand runs automatically:
 {
   "event": "Stop",
   "command": "sh",
-  "args": ["-c", "make test 2>&1 | tail -20 && exit 0 || (make test 2>&1 | tail -20; exit 2)"]
+  "args": ["-c", "if make test; then exit 0; else exit 2; fi"]
 }
 ```
 
 A rough sketch: exit `0` if `make test` passes, otherwise print the
 failure output and exit `2` — Hand then runs another turn with that output
 as the prompt, and repeats until the tests pass or the loop gives up.
+
+The TUI displays one final result for each user request, including its automatic
+continuations. It distinguishes completion, verification failure, exhausted
+limits, cancellation and execution failure. A completed answer explicitly
+states whether configured mandatory checks passed. The final allowed iteration
+still runs validation: it may succeed at the cap, but a request for another
+iteration reports a limit failure.
 
 In the interactive TUI, an auto-continued turn shows up with a distinct
 `↻ continuing (goal loop N/max): ...` transcript line, never rendered like
@@ -501,12 +626,28 @@ run):
 ```json
 {
   "model": "anthropic/claude-sonnet-5",
+  "default_profile": "primary",
+  "profiles": {
+    "primary": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "credential_env": "ANTHROPIC_API_KEY",
+      "input_types": ["text", "image"],
+      "context_limit": 200000,
+      "max_output": 64000,
+      "reasoning": "medium",
+      "reasoning_levels": ["off", "low", "medium", "high"]
+    }
+  },
   "base_url": "",
   "max_turns": 50,
   "max_goal_iterations": 10,
   "fallback_model": "",
   "markdown_style": "dark",
   "compaction_threshold": 0.4,
+  "execution": {
+    "backend": "host"
+  },
   "mcp_servers": [
     {
       "name": "github",
@@ -547,6 +688,12 @@ run):
   terminal in a way that can corrupt the input box) falls back to `dark`.
   `max_goal_iterations` is unrelated to `max_turns` — see
   [Goal loop](#goal-loop).
+- `default_profile` selects one entry from `profiles`. Profiles bind the
+  provider, bare model ID, credential environment-variable name, endpoint and
+  declared capabilities. Hand never stores the credential value. Explicit
+  context and output limits win over verified catalogue/server metadata;
+  unknown limits use a labelled conservative fallback rather than an
+  advertised maximum being guessed as active.
 - `compaction_threshold` controls how eagerly Hand summarizes older
   conversation to keep token usage down — preventive compaction fires once
   the estimated context passes this fraction of the model's context window
@@ -561,6 +708,8 @@ run):
   means and how gating/trust works.
 - `hooks` — see [Hooks](#hooks) above for the five events, the exit-code
   contract, and what each `HAND_*` environment variable carries.
+- `execution` — see [Execution isolation](#execution-isolation). `host` is
+  unrestricted; `container` is fail-closed and requires pinned runtime inputs.
 
 ## Development
 
@@ -573,20 +722,49 @@ make fmt     # go fmt ./...
 make install # go install ./cmd/hand
 ```
 
+For the offline CI checks, run `python3 scripts/validate.py --output /tmp/hand-validation-001`
+with a new output directory. It inventories tests, checks formatting/build/vet,
+runs uncached race-enabled tests with coverage, rejects skipped or missing tests,
+and checks `--help`/`--version` without credentials. Raw logs and a JSON report
+remain in the output directory, including on failure. The v0.3.0 release
+candidate was also qualified with the retained-scope checker and isolated-agent
+gateway probes described in [`docs/acceptance/`](docs/acceptance/).
+
+`hand --version` reports the version and source commit without loading configuration.
+The Go binary needs no separate language runtime; shell execution requires Bash
+on macOS/Linux, and optional MCP servers/extensions may require their own runtimes.
+
 ## Releasing
 
 ```sh
 make dist                      # cross-compile darwin/linux amd64/arm64 into dist/*.tar.gz + SHA256SUMS
-make release VERSION=v0.1.1    # tag and push — the step below then runs automatically
+make release VERSION=v0.3.0    # tag and push — the step below then runs automatically
 ```
 
 Pushing a `v*` tag triggers
-[`.github/workflows/release.yml`](.github/workflows/release.yml): it runs
-`make dist` on a clean runner and publishes a GitHub release with the
+[`.github/workflows/release.yml`](.github/workflows/release.yml): it first requires
+the shared Linux/macOS validation workflow to pass for that commit, then runs
+`make dist`, verifies checksums and archive contents, smoke-tests the native binary,
+and publishes a GitHub release with the
 resulting archives and checksums attached, via
 [`softprops/action-gh-release`](https://github.com/softprops/action-gh-release).
-Nothing needs to be built or uploaded by hand beyond `make release` itself.
+The distribution directory must be new; use `DIST_DIR` to retain prior builds.
+Every archive includes the Linux worker and its digest manifest, and CI requires
+worker validation. Publish only a reviewed commit whose branch validation is
+green; the tag workflow repeats validation before creating the release.
 
 ## License
 
 MIT — see [`LICENSE`](./LICENSE).
+
+Permission migration, revocation and rejected-journal recovery are described in
+[the permission migration guide](docs/permission-migration.md).
+
+Session navigation, checkpoint previews, interrupted restore recovery and named
+verification are described in [sessions and restore](docs/sessions-and-restore.md).
+
+For subprocess or embedded integrations, see [automation and the Go SDK](docs/automation-and-sdk.md).
+
+See [packages and extensions](docs/extensions.md) for installation, activation, updates and rollback.
+
+For common errors and recovery steps, see [troubleshooting](docs/troubleshooting.md).

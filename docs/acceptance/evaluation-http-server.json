@@ -1,0 +1,57 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Incoming HTTP/1 handler with authenticated bounded intake and incremental chunked response bridge; threaded server has explicit connection slots/timeouts.",
+  "tests": {
+    "focused_http_integration": 5,
+    "evaluation_suite": 149,
+    "failures": 0,
+    "skips": 0
+  },
+  "scenarios": [
+    "Complete incoming HTTP request traverses controller and upstream capture",
+    "First downstream chunk arrives before upstream completion",
+    "Truncated upstream deliberately lacks terminal chunk",
+    "Duplicate Content-Length fails before upstream dispatch",
+    "Stalled headers hit absolute intake deadline"
+  ],
+  "limitations": [
+    "Tests instantiate actual handler over socket pairs, not a TCP listener or container network.",
+    "Server connection-slot lifecycle and real SDK-over-listener integration remain qualification work.",
+    "No real provider calls, paid approvals, external isolation or authentic billing.",
+    "One request per socket; effects on measured comparison latency must be disclosed and measured equally for both arms.",
+    "Full agent-session integration and exact-candidate gates remain pending."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-server-20260909/evaluation_http_server.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_http_server.py",
+      "sha256": "e0ce1774475d5f0bffe85bd06616aac170b50007a466f07b60e609beed11b22f",
+      "uncompressed_sha256": "6b6a783f1ed12f54ea2fa76ccd771038b25fdb7df18cc9afa4a9ea2b5f0a3dde"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-server-20260909/test_evaluation_http_server.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_http_server.py",
+      "sha256": "08f80723e04fed93eb8c8d18838e86fabd17909dc2cd4d64744573eecad0824e",
+      "uncompressed_sha256": "9b3f5e21a8ae46ceae3bab859b4c5cdec1e6193d9a5d6bee63201b453bbe3087"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-server-20260909/evaluation_gateway.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_gateway.py",
+      "sha256": "5484f5bb0aaf6690fa9930af0ace21bba07d8980ef530e3bc247431a128947e7",
+      "uncompressed_sha256": "2a608c0000daf3d4dd350d37b88476b72831f661b354417447614eeaa1352855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-server-20260909/evaluation_forward.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_forward.py",
+      "sha256": "04cf5f775b8b0ee569371c2d9583cb38c91a64d2118a74ad7017f329b84fdd97",
+      "uncompressed_sha256": "a4bdf997b36d59d144a29e62c2e632e9f55f978c3e5d3fced05d18348bc8ccb1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-http-server-20260909/hand-evaluation-http-server-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-http-server-20260909.log",
+      "sha256": "fea3dfd642797996166a292437701ed690973db92f5c5a9665645e384f2cfdd1",
+      "uncompressed_sha256": "f701977d323b20ea3c71305832fe218b29a42e12890e078addf3ea3ec14f3239"
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "status": "published_dependency_native_regressions_passed",
+  "harness_version": "v0.4.0",
+  "harness_sum": "h1:HoGrAbqYvmgsuR3RU14f6hHrOogrDhmSjqzQWsbEhMg=",
+  "local_workspace_override_removed": true,
+  "initial_test_records": {
+    "pass": 1907,
+    "fail": 2,
+    "skip": 0
+  },
+  "failure": "RPC startup backlog diagnostic lost when notified EOF races buffered frames and Close",
+  "fix": "Watcher owns connection closure and drains finite EOF input; complete startup frames retain backlog diagnostics during cancellation.",
+  "initial_evidence": [
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/initial-run.json.gz",
+      "sha256": "3c22dd3902e979984ad5af662680413348ade5270350d791f2f4b241c1882533"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/initial-tests.log.gz",
+      "sha256": "7dc186cc23df8a9877675ee59493a98bcbdb6394a5907177e1013b110206994d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/initial-coverage.out.gz",
+      "sha256": "5b6d358d5fc6ad3ffb62a221a606d95daff39ea5cbe747e60c7fb40e18c06db1"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/initial-vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/initial-worker-build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/initial-peer-build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    }
+  ],
+  "test_records": {
+    "pass": 1910,
+    "fail": 0,
+    "skip": 0
+  },
+  "packages_passed": 26,
+  "overall_coverage": {
+    "statements": 16062,
+    "covered": 13178,
+    "percentage": 82.04457726310547
+  },
+  "source_unchanged": true,
+  "qualified_source_fingerprint": "0060b03a7cbe6d63ed95805dd4b74572d7027f61b4b04e59f1ad6ee193b3d9ff",
+  "module": {
+    "Path": "github.com/sausheong/harness",
+    "Version": "v0.4.0",
+    "Time": "2026-09-09T16:52:13Z",
+    "Dir": "/Users/sausheong/go/pkg/mod/github.com/sausheong/harness@v0.4.0",
+    "GoMod": "/Users/sausheong/go/pkg/mod/cache/download/github.com/sausheong/harness/@v/v0.4.0.mod",
+    "GoVersion": "1.25.1",
+    "Sum": "h1:HoGrAbqYvmgsuR3RU14f6hHrOogrDhmSjqzQWsbEhMg=",
+    "GoModSum": "h1:IZSFCsLSuYBGMYu1FpIWPmftWaj1+p3itYNuJaIg3K0="
+  },
+  "rpc_binary_repetitions": 20,
+  "critical_groups": {
+    "lifecycle": {
+      "status": "incomplete",
+      "observed_percentage": 82.59456264775413,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "permissions": {
+      "status": "incomplete",
+      "observed_percentage": 91.3265306122449,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "persistence": {
+      "status": "incomplete",
+      "observed_percentage": 82.1544151641239,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "execution": {
+      "status": "incomplete",
+      "observed_percentage": 82.0285908781484,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "checkpoints": {
+      "status": "incomplete",
+      "observed_percentage": 81.08527131782945,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "budgets": {
+      "status": "incomplete",
+      "observed_percentage": 80.99009900990099,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "protocol": {
+      "status": "incomplete",
+      "observed_percentage": 82.00636942675159,
+      "missing_profiles": [],
+      "unmatched_patterns": [
+        "github.com/sausheong/hand/cmd/hand/rpc_peer_linux.go",
+        "github.com/sausheong/hand/cmd/hand/rpc_stdio_other.go"
+      ],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "extensions": {
+      "status": "incomplete",
+      "observed_percentage": 81.44959733407387,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    },
+    "accounting": {
+      "status": "incomplete",
+      "observed_percentage": 82.87471673680803,
+      "missing_profiles": [],
+      "unmatched_patterns": [],
+      "pending_capabilities": [
+        "Integrated implementation requires final scenario audit, platform evidence and released Harness qualification; coverage mapping alone does not establish completion"
+      ]
+    }
+  },
+  "final_evidence": [
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/final-vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/final-worker-build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/final-coverage.out.gz",
+      "sha256": "306ce900a100f2c36eb17df16b99eb901ae6aaa11504a1726ee21331d90902bd",
+      "raw_sha256": "e3f7812fd30b0a98c1bb214a4ef3f1dd438809648eac46910bcf75fb224d7ee0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/final-peer-build.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/final-tests.log.gz",
+      "sha256": "29752288cf29bd9de7b9bfbd40637313f7e1384fc6706f8e3bdb6a77de9e93fb",
+      "raw_sha256": "90ce2867e7d2d789b0b4d4d11a1682464cc44478101cf44f0fd3069ca1955e6f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/final-run.json.gz",
+      "sha256": "58a5d14990b57efb10a77fe985ed9571cac9b74c65755a2a46e3db06a4e652ee",
+      "raw_sha256": "8a4ab6d767a1021fc6f8c436602ea39ff2625c0b8147e965c7a1a1ee6ab078c9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/hand-published-critical-20260910.json.gz",
+      "sha256": "b9f6d36e3de282cdf7939191b27f42e18a7d472ad0455e11c65a0ccc0a280a4e",
+      "raw_sha256": "545f9d7fda73d97bd59eb755c9b92eaeab26525e692ac6a400a9a52bb38e3e6f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/hand-published-changed-20260910.json.gz",
+      "sha256": "a2e17a4ba632fc94f1ed76dd4ffe909a971dea31e3c46ccf8a2c235a7658b28d",
+      "raw_sha256": "a3dd3942d2732f87c05ef47b29720bee922040fe8ae96dc6ed5a36082a485257"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/hand-rpc-startup-repeat-20260910.log.gz",
+      "sha256": "62f7a31676ebfad100bacdc1c8fe1d479a4a4f08bff6c8bbd9a2c8d6fe153ea4",
+      "raw_sha256": "84f9372a6266c87de89182d7b09abec640a872644d2d57e2814f6dc53b7437b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/hand-published-integration-20260910/hand-published-integration-final-20260910.py.gz",
+      "sha256": "b5e220ce05fec481cd657911ddfe61988e319451b19ac9f087575ce0f219a065",
+      "raw_sha256": "a593d8f0887234f0eeb408ae36b8a55a3b3fd1a6ddd2a8fbfa813254be939d1d"
+    }
+  ],
+  "limitations": [
+    "Native macOS Hand qualification; this does not establish all other-platform Hand coverage.",
+    "Observed changed-statement coverage is 81.83%, but missing platform profiles and unclassified evaluation test drivers keep the full changed-code gate incomplete.",
+    "Historical critical-group mapping retains scenario/platform audit prerequisites; numeric coverage alone does not mark the amended overall goal complete.",
+    "Evaluation-agent gateway bypass/credential isolation still requires retained-scope audit."
+  ]
+}

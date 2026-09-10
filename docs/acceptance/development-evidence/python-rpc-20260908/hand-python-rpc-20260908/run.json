@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "binary_sha256": "dc5bf27697fbdc997e32a79d7eb8cd84a18fb3ab5b9758c099d1864b5df643af",
+  "runner_sha256": "731e01c95cd5c777166c1e94fd1c2cd60f7c122494197c91c3f2ed3f81987616",
+  "error": "AssertionError('duplicate execution or unexpected provider call')"
+}

@@ -1,0 +1,682 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 999,
+      "id": "version",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "",
+      "error": {
+        "code": "unsupported_version",
+        "message": "supported protocol version is 1"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approval-run",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-approve"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approval-run",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "655VWAVIZOKOKYWZWENHY3AYF4:3",
+            "sequence": 3,
+            "session_id": "ses_a460ce9ac47c090d",
+            "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+            "request_id": "approval-run",
+            "timestamp": "2026-09-08T08:15:13.41601Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "NPURIVGDBZJQTCNL6NUOEY6MDG",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /private/tmp/hand-checkpoint-options-rpc-20260908/workspace/approved.txt\nArguments: {\"path\": \"approved.txt\", \"content\": \"approved once\"}\nBefore: exists=false mode=---------- bytes=0 sha256=",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"approved.txt\", \"content\": \"approved once\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "steer",
+      "method": "steer",
+      "params": {
+        "text": "steer note from Python"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "steer",
+      "result": {
+        "ID": "WOYEESKV2RSBX2VEMINM5JI3FX",
+        "SessionID": "ses_a460ce9ac47c090d",
+        "Queue": "steering",
+        "Text": "steer note from Python",
+        "Claimed": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "queue",
+      "method": "followup.enqueue",
+      "params": {
+        "text": "queued Python follow-up"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "queue",
+      "result": {
+        "ID": "KVENGOBDMJJDJ2IH2AMZENBSXD",
+        "SessionID": "ses_a460ce9ac47c090d",
+        "Queue": "followup",
+        "Text": "queued Python follow-up",
+        "Claimed": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approve",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "approval_id": "NPURIVGDBZJQTCNL6NUOEY6MDG",
+        "decision": "once"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approve",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "approval-run"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "655VWAVIZOKOKYWZWENHY3AYF4:12",
+          "sequence": 12,
+          "session_id": "ses_a460ce9ac47c090d",
+          "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T08:15:13.500883Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-session",
+      "method": "state",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-session",
+      "result": {
+        "application": {
+          "SessionID": "ses_a460ce9ac47c090d",
+          "RunID": 1,
+          "State": "idle"
+        },
+        "failure": "",
+        "followup_paused": false
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-changes",
+      "method": "checkpoint.changes",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-changes",
+      "result": {
+        "run_id": "EET5CRZG4AEHFTC6XX4GKTUPQL",
+        "before": "108f0ae0221c34b2e2dbe7599e927b98e8a6eed036343e002602899feb41104e",
+        "after": "3238b843151de3814ab822a4fa676d406049afc4b11d0038946e8816a1cf7e81",
+        "changes": [
+          {
+            "Path": "approved.txt",
+            "Before": null,
+            "After": {
+              "path": "approved.txt",
+              "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+              "mode": 384,
+              "size": 13,
+              "kind": "regular"
+            }
+          }
+        ],
+        "next": 1,
+        "total": 1,
+        "before_omissions": 1,
+        "after_omissions": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "checkpoint-invalid",
+      "method": "checkpoint.changes",
+      "params": {
+        "offset": -1
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "checkpoint-invalid",
+      "error": {
+        "code": "checkpoint_unavailable",
+        "message": "invalid checkpoint selection"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "approval-run",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-approve"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "approval-run",
+      "result": {
+        "id": "approval-run",
+        "fingerprint": "021c04d3f0ce86572ea67ba652a8e1e85f25523ed19593decc466c1d799c4f44",
+        "session_id": "ses_a460ce9ac47c090d",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "655VWAVIZOKOKYWZWENHY3AYF4:12",
+          "sequence": 12,
+          "session_id": "ses_a460ce9ac47c090d",
+          "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:1",
+          "request_id": "approval-run",
+          "timestamp": "2026-09-08T08:15:13.500883Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 3,
+              "unknown_requests": 3
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "remove",
+      "method": "queue.remove",
+      "params": {
+        "id": "KVENGOBDMJJDJ2IH2AMZENBSXD"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "remove",
+      "result": {
+        "removed": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-0",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-0",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_8fda29eca8f32f51"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang-0",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang-0",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "8855f5e343dac92ef60e36049612ed4b15b733a11fb04d3f5db4805764a55a50",
+        "session_id": "ses_8fda29eca8f32f51",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "cancel",
+      "method": "cancel",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "cancel",
+      "result": {
+        "requested": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "8855f5e343dac92ef60e36049612ed4b15b733a11fb04d3f5db4805764a55a50",
+        "session_id": "ses_8fda29eca8f32f51",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "hang-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "hang-0",
+        "fingerprint": "8855f5e343dac92ef60e36049612ed4b15b733a11fb04d3f5db4805764a55a50",
+        "session_id": "ses_8fda29eca8f32f51",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "Q62XFYZPVXTEI457U3H5E3EH6J:17",
+          "sequence": 17,
+          "session_id": "ses_8fda29eca8f32f51",
+          "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:2",
+          "request_id": "hang-0",
+          "timestamp": "2026-09-08T08:15:13.614651Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "context canceled",
+            "iteration": 1,
+            "reason": "context_cancelled",
+            "state": "idle",
+            "status": "cancelled",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 1,
+              "unknown_requests": 1
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "new-1",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "new-1",
+      "result": {
+        "model": "local/fixture",
+        "profile": "",
+        "session_id": "ses_6a396f44c6123472"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "hang-1",
+      "method": "prompt",
+      "params": {
+        "text": "rpc-hang"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hang-1",
+      "result": {
+        "id": "hang-1",
+        "fingerprint": "c2d3dc8b2d35cbe1ca0aa4b00b1c90ebd40549fc39b1d79b14cc97914723f44f",
+        "session_id": "ses_6a396f44c6123472",
+        "run_id": "IQJEQWTHGXD5QQNUFQ6HSQG3D7:3",
+        "state": "accepted"
+      }
+    }
+  }
+]

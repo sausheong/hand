@@ -1,0 +1,10 @@
+{"Time":"2026-09-08T02:06:50.208508+08:00","Action":"start","Package":"github.com/sausheong/harness/tools/file"}
+{"Time":"2026-09-08T02:06:50.785833+08:00","Action":"run","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode"}
+{"Time":"2026-09-08T02:06:50.785886+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Output":"=== RUN   TestAcceptanceWriteMode\n"}
+{"Time":"2026-09-08T02:06:50.80925+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Output":"    acceptance_mode_test.go:35: overwrite changed mode 0640 to 0600\n"}
+{"Time":"2026-09-08T02:06:50.815098+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Output":"    acceptance_mode_test.go:35: overwrite changed mode 0751 to 0600\n"}
+{"Time":"2026-09-08T02:06:50.82623+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Output":"--- FAIL: TestAcceptanceWriteMode (0.04s)\n"}
+{"Time":"2026-09-08T02:06:50.826242+08:00","Action":"fail","Package":"github.com/sausheong/harness/tools/file","Test":"TestAcceptanceWriteMode","Elapsed":0.04}
+{"Time":"2026-09-08T02:06:50.826327+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Output":"FAIL\n"}
+{"Time":"2026-09-08T02:06:50.827715+08:00","Action":"output","Package":"github.com/sausheong/harness/tools/file","Output":"FAIL\tgithub.com/sausheong/harness/tools/file\t0.619s\n"}
+{"Time":"2026-09-08T02:06:50.827742+08:00","Action":"fail","Package":"github.com/sausheong/harness/tools/file","Elapsed":0.619}

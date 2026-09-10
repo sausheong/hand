@@ -1,0 +1,56 @@
+{
+  "status": "development_passed",
+  "requirement": "M3.1",
+  "scenario": "disk_full_visible",
+  "platform": "linux/arm64",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "filesystem": {
+    "type": "tmpfs",
+    "max_bytes": 2097152
+  },
+  "network": "none; local HTTP fixture within container only",
+  "test_exit_code": 0,
+  "passed_tests": [
+    "TestBinaryExportReportsRealENOSPC",
+    "TestBinaryConversationReportsRealENOSPC"
+  ],
+  "source": {
+    "path": "cmd/hand/session_enospc_linux_test.go",
+    "sha256": "e1598219f66ddd6825b1f3a44cd39c186dede364f0970b55a044838be2a73e5e"
+  },
+  "binaries": [
+    {
+      "path": "/private/tmp/hand-enospc-20260909",
+      "sha256": "0c0069048d22395207793ab92e8854320758ebc677916054ac779084e3fb38f9"
+    },
+    {
+      "path": "/private/tmp/hand-conversation-enospc-final-20260909.test",
+      "sha256": "4afae7f14a81d006b4f7abdb8db76eb0fecd0f92c6b1f25bda036cd64b36e316"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/conversation-enospc-20260909/hand-conversation-enospc-20260909.log",
+      "sha256": "7afe6bbb2fc059dc0f0ff0786e96daf212f78686a8c8395b0b9b1e04e0500a00"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/conversation-enospc-20260909/hand-conversation-enospc-final-20260909.log",
+      "sha256": "2608f172075365e0f7d43627028b59e1938769953cb6ba9729b4b3ae9491cea9"
+    }
+  ],
+  "assertions": [
+    "Provider fixture receives active conversation request before filling tmpfs to actual kernel ENOSPC",
+    "Local fixture supplies a large assistant response after filesystem exhaustion",
+    "Built Hand returns exit 5 with no-space diagnostic instead of success",
+    "Previously durable journal prefix remains intact",
+    "After freeing space, normal manager reopen recovers both original and active user questions",
+    "Recovered session accepts and flushes a new message",
+    "Export failure and retry regression also passes in the combined run"
+  ],
+  "limitations": [
+    "Local provider fixture only; no paid/model-service requests",
+    "CGO-disabled Linux container binaries are not race-instrumented",
+    "CLI persistence diagnostic established; interactive TUI rendering and native macOS fault qualification remain pending",
+    "Exact final Hand candidate/released Harness and full acceptance review remain pending"
+  ]
+}

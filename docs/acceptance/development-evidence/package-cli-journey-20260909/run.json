@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "provider_calls": 0,
+  "extension_executions": 0,
+  "commands": 17,
+  "binary": "/private/tmp/hand-package-cli-20260909",
+  "binary_sha256": "11f482d46f190c93ce58390aaf1865a2358c69d75d76c8c6779a7f3d13fd9a7c",
+  "runner_sha256": "0750202dddcca73fc0e4b32ca6710189b5b7e408632bc8dac835d0df0ebae282",
+  "initial_package_digest": "7d9511984b6ba64dbcfc2f485f9c9af79274254ecc85b2de1d71f82db46beeec",
+  "updated_package_digest": "f5abc12344579c0f8ca2778dabc2480e77fca6cdb19f367243f55870349c4484",
+  "final_generation": 4,
+  "limitations": [
+    "Development binary and local Harness replacement; not final acceptance.",
+    "Local package commands only; imported-source CLI and activation remain pending."
+  ]
+}

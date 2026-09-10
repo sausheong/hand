@@ -1,0 +1,18 @@
+{"Time":"2026-09-08T17:00:44.280868+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T17:00:44.310019+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T17:00:44.310115+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T17:00:44.852656+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T17:00:44.852777+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T17:00:45.466897+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation"}
+{"Time":"2026-09-08T17:00:45.466957+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation","Output":"=== RUN   TestVerificationEvidencePageAndConfirmation\n"}
+{"Time":"2026-09-08T17:00:45.521421+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation","Output":"--- PASS: TestVerificationEvidencePageAndConfirmation (0.05s)\n"}
+{"Time":"2026-09-08T17:00:45.52145+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestVerificationEvidencePageAndConfirmation","Elapsed":0.05}
+{"Time":"2026-09-08T17:00:45.521474+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T17:00:45.864933+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.582s [no tests to run]\n"}
+{"Time":"2026-09-08T17:00:45.865001+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.584}
+{"Time":"2026-09-08T17:00:45.912192+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T17:00:45.912238+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T17:00:46.529868+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t2.220s\n"}
+{"Time":"2026-09-08T17:00:46.529974+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":2.22}
+{"Time":"2026-09-08T17:00:46.917263+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t2.607s [no tests to run]\n"}
+{"Time":"2026-09-08T17:00:46.917391+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":2.607}

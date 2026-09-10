@@ -1,0 +1,12 @@
+{"Time":"2026-09-09T02:12:17.213572+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T02:12:17.861977+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionStartupRequiresExactApprovalAndBoundary"}
+{"Time":"2026-09-09T02:12:17.862034+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionStartupRequiresExactApprovalAndBoundary","Output":"=== RUN   TestExtensionStartupRequiresExactApprovalAndBoundary\n"}
+{"Time":"2026-09-09T02:12:17.863885+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionStartupRequiresExactApprovalAndBoundary","Output":"--- PASS: TestExtensionStartupRequiresExactApprovalAndBoundary (0.00s)\n"}
+{"Time":"2026-09-09T02:12:17.863902+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionStartupRequiresExactApprovalAndBoundary","Elapsed":0}
+{"Time":"2026-09-09T02:12:17.863914+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks"}
+{"Time":"2026-09-09T02:12:17.863919+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks","Output":"=== RUN   TestExtensionActivationOwnsRuntimeAndCannotStackHooks\n"}
+{"Time":"2026-09-09T02:12:17.864904+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks","Output":"--- PASS: TestExtensionActivationOwnsRuntimeAndCannotStackHooks (0.00s)\n"}
+{"Time":"2026-09-09T02:12:17.864916+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestExtensionActivationOwnsRuntimeAndCannotStackHooks","Elapsed":0}
+{"Time":"2026-09-09T02:12:17.865704+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T02:12:18.872392+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.658s\n"}
+{"Time":"2026-09-09T02:12:18.872518+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.659}

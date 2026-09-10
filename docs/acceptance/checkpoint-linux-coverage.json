@@ -1,0 +1,62 @@
+{
+  "status": "development_platform_tests_passed",
+  "linux_test_pass_records": 90,
+  "macos_race_test_pass_records": 90,
+  "linux_package_coverage": {
+    "statements": 1011,
+    "covered": 826,
+    "percentage": 81.70128585558852
+  },
+  "linux_rename_statements": "6/6 covered",
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-checkpoints-linux-coverage-20260909.log",
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-coverage-20260909/hand-checkpoints-linux-coverage-20260909.log.gz",
+      "sha256": "5bb5f258a22c1e73722d5c247fa1807cccabe183fd0b7a0e4f9dc87159d99c80",
+      "uncompressed_sha256": "fbe53afc529e9a13d31955ffb1fca4a49101a77caa239bb9c782f2a3278e22b9"
+    },
+    {
+      "source": "/private/tmp/hand-checkpoints-linux-final-20260909.log",
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-coverage-20260909/hand-checkpoints-linux-final-20260909.log.gz",
+      "sha256": "9d0d9182379db1a3c92b148e58e6e76c2044c2b6a76229cb33df234ddb8e5bc5",
+      "uncompressed_sha256": "e4603666b08e85e33e8d2af813498e59f7a14e155cb9b0bea32b4a512aa39bd0"
+    },
+    {
+      "source": "/private/tmp/hand-checkpoints-rename-macos-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-coverage-20260909/hand-checkpoints-rename-macos-20260909.jsonl.gz",
+      "sha256": "38f054389b5d29f09d6d4db5c3e1884b17bf2e50a336055b8c9ed3f820998be6",
+      "uncompressed_sha256": "5d4d02f4e55778c7cd8399324d390bbe955298a5be936df3413a7ea4905ff62a"
+    },
+    {
+      "source": "/private/tmp/hand-checkpoints-linux-evidence-20260909/final-coverage.out",
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-coverage-20260909/final-coverage.out.gz",
+      "sha256": "f1dbcbabc1514f79b7264d7eb5dac22f4044543118f2f70e86ee0c097b7a3cce",
+      "uncompressed_sha256": "4df3ac6773985a6a3754431a017461f6c45231e114bd546bdb60378403fba1f9"
+    },
+    {
+      "source": "internal/checkpoints/rename_test.go",
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-coverage-20260909/rename_test.go.gz",
+      "sha256": "5fddcce2b908e4f0bc1c46a91e24687ec94a113e075b5d69581bc01671495e50",
+      "uncompressed_sha256": "cdd3c58f4647199d0acf015420700204a1a686a0a4de37b1030202154dba69b5"
+    },
+    {
+      "source": "internal/checkpoints/rename_linux.go",
+      "path": "docs/acceptance/development-evidence/checkpoint-linux-coverage-20260909/rename_linux.go.gz",
+      "sha256": "c0eb75bd76cd8f9e1b1c1bdcab8d8031cd28999bff2a437b8070a95384c98487",
+      "uncompressed_sha256": "d23ab79bc9aa624d49c4330d2305521ab274dd9932a2c70c0bf7c35a3b6549c8"
+    }
+  ],
+  "binary_sha256": "0f5c5b3b1f5261d5c326c56e79883b08e80e15751c05a92664481965c447dfed",
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "platform": "linux/arm64",
+  "network": "none",
+  "assertions": [
+    "Atomic exchange and exclusive move execute on Linux",
+    "Invalid source, target and directory descriptors reject operations without altering either file"
+  ],
+  "limitations": [
+    "Linux tests used CGO-disabled cross-compiled binary without race instrumentation",
+    "Checkpoint critical group includes additional application code and Harness; package coverage alone is not the critical gate",
+    "Final candidate and released Harness qualification remain open"
+  ]
+}

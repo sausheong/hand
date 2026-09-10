@@ -1,0 +1,124 @@
+{
+  "status": "candidate_native_suites_passed",
+  "commit": "cc756425e8b0c2366b08d33f3184cf9ede3e6f7e",
+  "source_fingerprint": "a8711b65b69550c0712825c754c85322bb836e5470e8d84fe6db2c767e2bb5bd",
+  "clean_after": true,
+  "macos": {
+    "passed": 1114,
+    "skipped": [],
+    "failed": [],
+    "missing": [],
+    "packages": [
+      "github.com/sausheong/harness/attachment",
+      "github.com/sausheong/harness/budget",
+      "github.com/sausheong/harness/compaction",
+      "github.com/sausheong/harness/examples/data-agent",
+      "github.com/sausheong/harness/examples/lta-agent",
+      "github.com/sausheong/harness/examples/minimal",
+      "github.com/sausheong/harness/examples/self-improving-agent",
+      "github.com/sausheong/harness/examples/support-agent",
+      "github.com/sausheong/harness/execution",
+      "github.com/sausheong/harness/llm",
+      "github.com/sausheong/harness/llm/llmtest",
+      "github.com/sausheong/harness/process",
+      "github.com/sausheong/harness/providers/anthropic",
+      "github.com/sausheong/harness/providers/gemini",
+      "github.com/sausheong/harness/providers/litellm",
+      "github.com/sausheong/harness/providers/local",
+      "github.com/sausheong/harness/providers/openai",
+      "github.com/sausheong/harness/providers/openrouter",
+      "github.com/sausheong/harness/runtime",
+      "github.com/sausheong/harness/session",
+      "github.com/sausheong/harness/tokens",
+      "github.com/sausheong/harness/tool",
+      "github.com/sausheong/harness/tool/memory",
+      "github.com/sausheong/harness/tool/memory/jsonl",
+      "github.com/sausheong/harness/tool/skills",
+      "github.com/sausheong/harness/tool/skills/disk",
+      "github.com/sausheong/harness/tools/bash",
+      "github.com/sausheong/harness/tools/browser",
+      "github.com/sausheong/harness/tools/file",
+      "github.com/sausheong/harness/tools/mcp",
+      "github.com/sausheong/harness/tools/todo",
+      "github.com/sausheong/harness/tools/web"
+    ],
+    "unfinished": [],
+    "missing_packages": []
+  },
+  "linux": {
+    "test_records": {
+      "pass": 1114
+    },
+    "package_records": {
+      "pass": 32
+    }
+  },
+  "cancellation_repetitions": 20,
+  "harness_whole_module_coverage": {
+    "statements": 8922,
+    "covered": 6248,
+    "percentage": 70.0291414481058
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/macos-report.json.gz",
+      "sha256": "9b18c50355a77535c0fd42a3c8dff93585d496520fea2ebe1eca791c41b15acc",
+      "uncompressed_sha256": "a9cecc463c38bd77e7b6e4c394a00264f9d742df03da8eba2ee512d33ad3f417"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/macos-tests.jsonl.gz",
+      "sha256": "b2faaa9c6ebf27b48e5f465b1d23dbdadf675eeb76eaa71a039aa9e07a2a4dcf",
+      "uncompressed_sha256": "472fadc975cc6401da9a3918bd7056edc028c16a8a7bfc8953776ac15ada7e2e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/macos-inventory.json.gz",
+      "sha256": "d4b11d0944ba11ee4ebce0a41c8a96ba0db35fcfab3afb2bbcb2994cc2d84c3c",
+      "uncompressed_sha256": "2f7913a9b38c44cb76ba1415d8f107ad8852fd9ef1d7ed18c68f59be724829b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/macos-coverage.out.gz",
+      "sha256": "e810ccabd200234a0279f4ab2cf5c79382398d0664a18b5e869029a307d3343b",
+      "uncompressed_sha256": "8bdfe9651055ba023b5aadd88d878ecc030b40c4c67276d7f58a0ba3205038c7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/linux-run.json.gz",
+      "sha256": "50bbc99c6e618b1051989e8413e6bafbed6037009645e8cfda743af5b5578dc2",
+      "uncompressed_sha256": "2661a364bc44ef2eb16f738fb35a2a613f3c06f3ccc29a5950768f9386c54a83"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/linux-suite.log.gz",
+      "sha256": "4476f54445eb2711c19e3fc9d642e61e0f83d997487d710a944642d34262bb26",
+      "uncompressed_sha256": "fccbfc9a35723c1cda23c87e0394103d5816b9907129cae9f9268629e35b67e0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/linux-environment.log.gz",
+      "sha256": "65dabe45cbceb7c03e3c64749e10e1dde6c86e4bd85a6e2f4eb64c9a3317ca28",
+      "uncompressed_sha256": "ecc9a3c0bde2fe32646db90a0db424d411ceca28c4b0cb4524f491f36e1ad6d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/linux-vet.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/linux-boundary-smoke.log.gz",
+      "sha256": "ba51a6ca86c565f0da45a2fadc345c0ad0894f2f33f0f0ad611a3fc0e899ab02",
+      "uncompressed_sha256": "ac880b0924462b5ad05c1a7e81f7f0329d4d10139436fdc30b4556ac47e90a0a"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/linux-coverage.out.gz",
+      "sha256": "b945d6242bdef21b2fa3d7beb60f62f00ca867742b87af375a42c93744170730",
+      "uncompressed_sha256": "2dc43cc1f777c8bbdf00e12aa80d93bd387c7b86bf1395b1b5ef9deaa4511041"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-revised-qualified-20260910/cancellation-20.jsonl.gz",
+      "sha256": "5fb08df9b5ab1d3749bc688d2b278a39cd0da1134eb77cf39c5f35456942daea",
+      "uncompressed_sha256": "2c1bd7bd6e295d0d87c3356894bddf8523334eff1a61b1abfdac8496f1356088"
+    }
+  ],
+  "limitations": [
+    "Linux ARM64 runs in Docker on macOS with host-shared temporary storage.",
+    "Hosted GitHub checks and Docker-capable macOS runner remain pending.",
+    "Not Hand overall/changed/critical coverage qualification or published-module integration."
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "Id": "sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee",
+  "RepoDigests": [
+    "golang@sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee"
+  ],
+  "Architecture": "arm64",
+  "Os": "linux"
+}

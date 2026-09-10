@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "f68692b54a02bfbbb75c563ef94ab3b356b885c70445c58a026c014d79e0825e",
+  "runner_sha256": "51646e277db792349a2e8b71fba9c0f54d20d5b0480ba319b8af2a14ea6154f6",
+  "checkpoint_changes": {
+    "status": "passed",
+    "run_id": "ELWFUWX6RBZWF5LKMQI3JIKHPS",
+    "changes": 1,
+    "recovered": true
+  },
+  "scenarios": [
+    "non_go_client_lifecycle",
+    "approval_once_before_write",
+    "steering_delivery",
+    "followup_queue",
+    "duplicate_request_no_sideeffect_replay",
+    "version_error",
+    "cancel_terminal",
+    "disconnect_cleanup",
+    "reconnect_terminal_recovery"
+  ],
+  "provider_calls": 5,
+  "cancelled_provider_requests": 2,
+  "checkpoints": {
+    "snapshots": 2,
+    "starts": 3,
+    "finishes": 3,
+    "status": "passed"
+  }
+}

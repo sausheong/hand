@@ -1,0 +1,14 @@
+{"Time":"2026-09-09T08:58:30.160371+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-09T08:58:30.798406+08:00","Action":"run","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome"}
+{"Time":"2026-09-09T08:58:30.798474+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"=== RUN   TestTerminalSnapshotRequiresOutcome\n"}
+{"Time":"2026-09-09T08:58:30.798935+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"    terminal_outcome_test.go:21: invalid outcome accepted: {}\n"}
+{"Time":"2026-09-09T08:58:30.799097+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"    terminal_outcome_test.go:21: invalid outcome accepted: {\"status\":\"completed\",\"reason\":\"stop\"}\n"}
+{"Time":"2026-09-09T08:58:30.79926+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"    terminal_outcome_test.go:21: invalid outcome accepted: {\"status\":\"invented\",\"reason\":\"stop\",\"verified\":false}\n"}
+{"Time":"2026-09-09T08:58:30.799421+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"    terminal_outcome_test.go:21: invalid outcome accepted: {\"status\":\"completed\",\"reason\":null,\"verified\":false}\n"}
+{"Time":"2026-09-09T08:58:30.799576+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"    terminal_outcome_test.go:21: invalid outcome accepted: {\"status\":\"completed\",\"reason\":\"stop\",\"verified\":null}\n"}
+{"Time":"2026-09-09T08:58:30.799727+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"    terminal_outcome_test.go:21: invalid outcome accepted: {\"status\":\"cancelled\",\"reason\":\"user\",\"verified\":true}\n"}
+{"Time":"2026-09-09T08:58:30.800426+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Output":"--- FAIL: TestTerminalSnapshotRequiresOutcome (0.00s)\n"}
+{"Time":"2026-09-09T08:58:30.800443+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Test":"TestTerminalSnapshotRequiresOutcome","Elapsed":0}
+{"Time":"2026-09-09T08:58:30.800528+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\n"}
+{"Time":"2026-09-09T08:58:30.801536+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"FAIL\tgithub.com/sausheong/hand/sdk\t0.641s\n"}
+{"Time":"2026-09-09T08:58:30.801563+08:00","Action":"fail","Package":"github.com/sausheong/hand/sdk","Elapsed":0.641}

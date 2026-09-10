@@ -1,0 +1,41 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenarios": [
+    "coding_task_approve_test_resume",
+    "rpc_sdk_same_task"
+  ],
+  "command": "go test -race -count=1 -timeout=3m -run ^TestBinary(RPC)?CodingEditTestResumeJourney$ -json ./cmd/hand",
+  "tests": {
+    "pass": 2,
+    "fail": 0,
+    "skip": 0
+  },
+  "assertions": [
+    "CLI and public SDK StartProcess execute identical addition repair and real repository test",
+    "SDK negotiates RPC and answers exactly two run-bound one-time approvals",
+    "SDK checks completed terminal then closes and joins process",
+    "Fresh process resumes same session with original task and both tool results",
+    "Intervening user edit preserved"
+  ],
+  "initial_failure": "Test sent allow rather than documented once approval decision; protocol rejected it. Corrected test input and retained failed output.",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/coding-rpc-journey-20260909/coding_journey_binary_test.go.gz",
+      "sha256": "f8093dea058263514fcdac18a60453731d9d36c55785debd9ff65b825900fd5e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/coding-rpc-journey-20260909/hand-coding-rpc-journey-20260909.jsonl.gz",
+      "sha256": "a06daf4851ec8d706362f42c8bb468a2948673d57e964e3bd6c0605d294f7514"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/coding-rpc-journey-20260909/hand-coding-rpc-journey-fixed-20260909.jsonl.gz",
+      "sha256": "ad7377c9eed947b158f6f89bae58b7e10ad1bfd5ceef50f228947cbca43547f3"
+    }
+  ],
+  "limitations": [
+    "Scripted local provider; no live model-quality claim",
+    "Development checkout and local Harness; not final candidate qualification",
+    "Race-enabled test harness, ordinary compiled Hand child"
+  ]
+}

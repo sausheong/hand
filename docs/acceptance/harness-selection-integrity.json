@@ -1,0 +1,92 @@
+{
+  "status": "development_branch_integrity_passed",
+  "defect": "Duplicate graph fields could redirect restored branch selection; selection metadata accepted ambiguous fields.",
+  "change": "Reject duplicate record keys and case aliases of known graph fields while preserving unknown legacy extensions; require exact version-only selection metadata.",
+  "corrupt_cases": 9,
+  "runs": [
+    {
+      "source": "/private/tmp/hand-harness-selection-after-20260909.jsonl",
+      "test_records": {
+        "pass": 169,
+        "fail": 0,
+        "skip": 0
+      }
+    },
+    {
+      "source": "/private/tmp/hand-harness-selection-integration-20260909.jsonl",
+      "test_records": {
+        "pass": 121,
+        "fail": 0,
+        "skip": 0
+      }
+    }
+  ],
+  "fuzz": {
+    "target": "FuzzSessionRecords",
+    "requested_seconds": 60,
+    "executions": 3348003,
+    "new_interesting": 111,
+    "status": "passed",
+    "new_seeds": [
+      "valid branch selection",
+      "valid annotation",
+      "duplicate annotation kind"
+    ]
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-harness-selection-before-20260909.log",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/hand-harness-selection-before-20260909.log.gz",
+      "sha256": "99f03f2453ad84991647c65109335d62aef69025bdc075f0b080507abcdc4f13",
+      "uncompressed_sha256": "334f5b89d5f389fb7f874121f2e3cbee7c1fa6f621cb81ad6df8402909940b64"
+    },
+    {
+      "source": "/private/tmp/hand-harness-selection-after-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/hand-harness-selection-after-20260909.jsonl.gz",
+      "sha256": "5d94f008024f8f4082e799f6543e67f3b395031a8717d9a18f6fb35155232260",
+      "uncompressed_sha256": "d45fbad64dd0cde27e1b59e954bb29790adcad522384f15f9146ed91cdd55363"
+    },
+    {
+      "source": "/private/tmp/hand-harness-selection-integration-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/hand-harness-selection-integration-20260909.jsonl.gz",
+      "sha256": "6ff478917a457fdfb9f809df68adf1663ecfa664ed2d0ca908473dbac8ade318",
+      "uncompressed_sha256": "bacb8831b3c5856ca926727aedf57e3240edf1ca6697ed8b40d9f61c74eba0ca"
+    },
+    {
+      "source": "/private/tmp/hand-harness-selection-fuzz-20260909.log",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/hand-harness-selection-fuzz-20260909.log.gz",
+      "sha256": "95245c7f36fa6ff757cedb7559ec297cdaf2027275583fd656f9b9e705cea90f",
+      "uncompressed_sha256": "3d76eb12f84abae5de15427b86672a064546efddd818aa16238c5b28b71019c3"
+    },
+    {
+      "source": "/private/tmp/hand-harness-persistence-20260908/session/records.go",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/records.go.gz",
+      "sha256": "4dffdab47275a94624bcc73fabf8221dbc93aaf901344c7cd7df84e0a40090d4",
+      "uncompressed_sha256": "649945354e9e62d92d319e2f31915b00a3635930b34e9cff08c605cad1163337"
+    },
+    {
+      "source": "/private/tmp/hand-harness-persistence-20260908/session/graph.go",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/graph.go.gz",
+      "sha256": "f4c39aac44b1686793eec4830ea7cf9c73e31286875a33944a432dada98859d3",
+      "uncompressed_sha256": "cf0882f31fb9fcc7d8deb2ae985335824a93dbaccfa585bcbdb3b73668fab0e6"
+    },
+    {
+      "source": "/private/tmp/hand-harness-persistence-20260908/session/selection_integrity_test.go",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/selection_integrity_test.go.gz",
+      "sha256": "bf05fefac7dc0b6ad3bdd547e171a7a1456d30da6a8879c3eb602e95a158ccfc",
+      "uncompressed_sha256": "08ee4a7a5af15f980a190c02217f276466ef0e94548fdf1984bc092e8354e6cd"
+    },
+    {
+      "source": "/private/tmp/hand-harness-persistence-20260908/session/records_test.go",
+      "path": "docs/acceptance/development-evidence/harness-selection-integrity-20260909/records_test.go.gz",
+      "sha256": "75fea203cbc6d67550722478d02bf0d12f82cd90ca2c88e31fecc955cd0f2c17",
+      "uncompressed_sha256": "26cade831d436f53f2871439ff96e40fd1a79de5438b5ad0e873d496e0b05a33"
+    }
+  ],
+  "limitations": [
+    "Local unreleased Harness candidate; no final frozen-candidate qualification",
+    "Session race suite preceded addition of three fuzz seeds; the subsequent fuzz run executed the expanded corpus",
+    "Existing full Hand/Harness coverage reports predate these production changes",
+    "Logical corruption/recovery byte preservation do not simulate physical power loss"
+  ]
+}

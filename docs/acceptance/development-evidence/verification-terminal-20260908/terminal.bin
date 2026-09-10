@@ -1,0 +1,222 @@
+hand: execution boundary: unrestricted host
+[?25l[?1049h[2J[H[?25l[?2004h[H[1;38;5;111mHand dev (commit unknown)[0m                                                                                                                   
+[38;5;60mlocal/fixture[0m                                                                                                                               
+[38;5;60m/private/tmp/hand-verification-terminal-20260908/fixture/workspace[0m                                                                          
+[38;5;60m[0m                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+                                                                                                                                            
+[38;5;60mready[0m   [38;5;60mlocal/fixture[0m[38;5;60m  ·  [0m[38;5;60mctx 0/128k (0%)[0m[38;5;60m  ·  [0m[38;5;60mturn 0 tok[0m[38;5;60m  ·  [0m[38;5;60msession 0 tok[0m                                                                  
+[38;5;60m╭──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮[0m
+[38;5;60m│[0m[40m[37m┃ [0m[0m[40m[7mT[0m[0m[40m[38;5;240mype a message... (Ctrl+G: external editor)[0m[0m                                                                                             [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m│[0m[38;5;240m[37m┃ [0m[0m[30m [0m                                                                                                                                       [38;5;60m│[0m
+[38;5;60m╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯[0m[45;H[H
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+[38;5;60mVerification commands (review before confirming):[0m                                                                                           
+[38;5;60munit: ["/bin/sh","-c","cat source"][0m                                                                                                         
+[38;5;60mExecution: unrestricted host; commands can access host resources[0m                                                                            
+[38;5;60mTo run: /verify-confirm unit 3b1361a6626bc1fc75f117b4fbf4fbf7dace011c3bd5c7dd52468b79814027d7[0m                                               
+[38;5;60mCommands may change files or external state; checkpoints do not undo external effects.[0m                                                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[45;H[H
+
+
+
+
+
+
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+[38;5;60mVerification unit: passed (exit 0)[0m                                                                                                          
+[38;5;60mEvidence: 2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29[0m                                                                  
+[38;5;60mRecheck: /verify-check unit 2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29[0m                                                
+[38;5;60mstdout: original source[0m                                                                                                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[45;H[H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[38;5;60msession operation in progress; Ctrl+C cancels[0m                                                                                               
+[38;5;60mVerification unit: stale (exit 0)[0m                                                                                                           
+[38;5;60mEvidence: 2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29[0m                                                                  
+[38;5;60mRecheck: /verify-check unit 2a220e49804dd6bb1255775a95578239cdc3f2a5d9a11bf000c75d0fd73f8a29[0m                                                
+[38;5;60mstdout: original source[0m                                                                                                                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[45;H[2K[?2004l[?25h[?1002l[?1003l[?1006l[?1049l[?25h

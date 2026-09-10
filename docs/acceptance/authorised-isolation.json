@@ -1,0 +1,29 @@
+{
+  "status": "development_native_passed",
+  "authorisation": "authorise Docker use for these tests",
+  "date": "2026-09-09",
+  "passed_test_records": 80,
+  "failures": 0,
+  "skips": 0,
+  "packages": [
+    "internal/isolation",
+    "internal/config",
+    "internal/toolworker",
+    "internal/toolproxy"
+  ],
+  "worker": {
+    "path": "/private/tmp/hand-authorised-isolation-worker-20260909",
+    "sha256": "d91636df0d2ff2108d73e36f35083a835fe16ed4f5bb28e838fdf7edfd7b0d69",
+    "platform": "linux/arm64"
+  },
+  "image": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+  "evidence": {
+    "path": "docs/acceptance/development-evidence/authorised-isolation-20260909/tests.jsonl.gz",
+    "sha256": "38d695ff59e4ae71adffbf5573bad36c28e7928ef83ceb12e2e030096d815234",
+    "uncompressed_sha256": "227c9777663650814df49403cc0665ae176e3d599785f658e9f2c54a935757a9"
+  },
+  "limitations": [
+    "Actual worker/container integration and routing tests; not all retained isolation scenarios.",
+    "Dirty Hand and local unreleased Harness; final released dependency qualification remains pending."
+  ]
+}

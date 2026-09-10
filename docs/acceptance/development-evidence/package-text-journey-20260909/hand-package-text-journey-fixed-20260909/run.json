@@ -1,0 +1,8 @@
+{
+  "status": "failed",
+  "qualification": "development",
+  "binary_sha256": "e3891686a7db8a9d6d7bf4b1d2131938091b6f594bce10e6955e5f5154036205",
+  "runner_sha256": "e9af5f94f2c366b8e46e40800035ede961e5a299d5546c8dfa4cf461b6b0f00f",
+  "paid_provider_calls": 0,
+  "error": "AssertionError()"
+}

@@ -1,0 +1,40 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate with raw evidence
+        run: python3 scripts/validate.py --output "${{ runner.temp }}/hand-validation"
+      - name: Preserve evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-${{ matrix.os }}
+          path: ${{ runner.temp }}/hand-validation
+      - name: Cross-compile release targets
+        if: runner.os == 'Linux'
+        run: make dist VERSION=validation
+      - name: Verify archives and smoke-test native release
+        if: runner.os == 'Linux'
+        run: python3 scripts/smoke_dist.py --dist dist --version validation --commit "$GITHUB_SHA" --require-worker

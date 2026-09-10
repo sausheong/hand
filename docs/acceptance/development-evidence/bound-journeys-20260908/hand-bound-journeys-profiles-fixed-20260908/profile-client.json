@@ -1,0 +1,1095 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "profile-0",
+      "method": "profile.select",
+      "params": {
+        "name": "first"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "profile-0",
+      "result": {
+        "model": "local/first",
+        "profile": "first",
+        "session_id": "ses_1a389e220934c2ba"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "inspect",
+      "method": "permission.list",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "inspect",
+      "result": {
+        "grants": [],
+        "next": 0,
+        "total": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "session-0",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "session-0",
+      "result": {
+        "model": "local/first",
+        "profile": "first",
+        "session_id": "ses_3890a44e6b2d927b"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "run-0",
+      "method": "prompt",
+      "params": {
+        "text": "profile-content-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "run-0",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "J2PEC2U6UINBP3NMSZK6B7EEBX:3",
+            "sequence": 3,
+            "session_id": "ses_3890a44e6b2d927b",
+            "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+            "request_id": "run-0",
+            "timestamp": "2026-09-08T05:28:01.429366Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "2N4RZ4ATOATYTSSYJGMTJ3WDQC",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /private/tmp/hand-bound-journeys-profiles-fixed-20260908/workspace/scoped.txt\nArguments: {\"path\": \"scoped.txt\", \"content\": \"profile-content-0\"}\nBefore: exists=false mode=---------- bytes=0 sha256=",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"scoped.txt\", \"content\": \"profile-content-0\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "answer-0",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "approval_id": "2N4RZ4ATOATYTSSYJGMTJ3WDQC",
+        "decision": "always"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "answer-0",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "J2PEC2U6UINBP3NMSZK6B7EEBX:11",
+          "sequence": 11,
+          "session_id": "ses_3890a44e6b2d927b",
+          "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+          "request_id": "run-0",
+          "timestamp": "2026-09-08T05:28:01.476022Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-0"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-0",
+        "fingerprint": "6a42eeccdf64f8af1c37aa56028a08a2ca887b5fe6d0f1472576d7bd5ae346fb",
+        "session_id": "ses_3890a44e6b2d927b",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "J2PEC2U6UINBP3NMSZK6B7EEBX:11",
+          "sequence": 11,
+          "session_id": "ses_3890a44e6b2d927b",
+          "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:1",
+          "request_id": "run-0",
+          "timestamp": "2026-09-08T05:28:01.476022Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "inspect",
+      "method": "permission.list",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "inspect",
+      "result": {
+        "grants": [
+          {
+            "ID": "LXCNIJRNTHHRGQMY2USQUGFWGH",
+            "Operation": "file.write",
+            "Scope": "exact",
+            "Resource": "/private/tmp/hand-bound-journeys-profiles-fixed-20260908/workspace/scoped.txt",
+            "Lifetime": "persistent",
+            "SessionID": "",
+            "InvocationID": "",
+            "Provenance": "user_decision",
+            "Workspace": "/private/tmp/hand-bound-journeys-profiles-fixed-20260908/workspace",
+            "ConfigDigest": "7e64d3fe01ce0b035c6b0b37a85482d392edc91cefe1e61f2df2e6e63e2c0c36"
+          }
+        ],
+        "next": 1,
+        "total": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "profile-1",
+      "method": "profile.select",
+      "params": {
+        "name": "second"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "profile-1",
+      "result": {
+        "model": "local/second",
+        "profile": "second",
+        "session_id": "ses_3890a44e6b2d927b"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "inspect",
+      "method": "permission.list",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "inspect",
+      "result": {
+        "grants": [],
+        "next": 0,
+        "total": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "session-1",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "session-1",
+      "result": {
+        "model": "local/second",
+        "profile": "second",
+        "session_id": "ses_af9984997fb01789"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "run-1",
+      "method": "prompt",
+      "params": {
+        "text": "profile-content-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "run-1",
+      "result": {
+        "id": "run-1",
+        "fingerprint": "a7379a74670a65afd6aa97dafd104ec1c64b3f54270449659134bdd491c04317",
+        "session_id": "ses_af9984997fb01789",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-1",
+        "fingerprint": "a7379a74670a65afd6aa97dafd104ec1c64b3f54270449659134bdd491c04317",
+        "session_id": "ses_af9984997fb01789",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [
+          {
+            "version": 1,
+            "event_id": "CA3G5L2BVRNPGQPNZTHMWNJHD6:14",
+            "sequence": 14,
+            "session_id": "ses_af9984997fb01789",
+            "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+            "request_id": "run-1",
+            "timestamp": "2026-09-08T05:28:01.547984Z",
+            "kind": "approval_required",
+            "payload": {
+              "approval_id": "UXJSZ5DLNU3DGSPIRZNTHVPH3S",
+              "error": "",
+              "iteration": 1,
+              "reason": "",
+              "state": "awaiting_approval",
+              "status": "",
+              "text": "Operation: file.write\nScope: /private/tmp/hand-bound-journeys-profiles-fixed-20260908/workspace/scoped.txt\nArguments: {\"path\": \"scoped.txt\", \"content\": \"profile-content-1\"}\nBefore: exists=true mode=-rw------- bytes=17 sha256=318c2292c46ba749d68f03f1a2acf976bc1ea56d827c991f8987b8b537d4c17f",
+              "tool": {
+                "id": "",
+                "input": "{\"path\": \"scoped.txt\", \"content\": \"profile-content-1\"}",
+                "name": "write_file"
+              },
+              "truncated": false,
+              "verified": false
+            }
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "answer-1",
+      "method": "approval.respond",
+      "params": {
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+        "approval_id": "UXJSZ5DLNU3DGSPIRZNTHVPH3S",
+        "decision": "deny"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "answer-1",
+      "result": {
+        "accepted": true
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-1",
+        "fingerprint": "a7379a74670a65afd6aa97dafd104ec1c64b3f54270449659134bdd491c04317",
+        "session_id": "ses_af9984997fb01789",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-1",
+        "fingerprint": "a7379a74670a65afd6aa97dafd104ec1c64b3f54270449659134bdd491c04317",
+        "session_id": "ses_af9984997fb01789",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "CA3G5L2BVRNPGQPNZTHMWNJHD6:22",
+          "sequence": 22,
+          "session_id": "ses_af9984997fb01789",
+          "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+          "request_id": "run-1",
+          "timestamp": "2026-09-08T05:28:01.57581Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-1"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-1",
+        "fingerprint": "a7379a74670a65afd6aa97dafd104ec1c64b3f54270449659134bdd491c04317",
+        "session_id": "ses_af9984997fb01789",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "CA3G5L2BVRNPGQPNZTHMWNJHD6:22",
+          "sequence": 22,
+          "session_id": "ses_af9984997fb01789",
+          "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:2",
+          "request_id": "run-1",
+          "timestamp": "2026-09-08T05:28:01.57581Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "profile-2",
+      "method": "profile.select",
+      "params": {
+        "name": "first"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "profile-2",
+      "result": {
+        "model": "local/first",
+        "profile": "first",
+        "session_id": "ses_af9984997fb01789"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "inspect",
+      "method": "permission.list",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "inspect",
+      "result": {
+        "grants": [
+          {
+            "ID": "LXCNIJRNTHHRGQMY2USQUGFWGH",
+            "Operation": "file.write",
+            "Scope": "exact",
+            "Resource": "/private/tmp/hand-bound-journeys-profiles-fixed-20260908/workspace/scoped.txt",
+            "Lifetime": "persistent",
+            "SessionID": "",
+            "InvocationID": "",
+            "Provenance": "user_decision",
+            "Workspace": "/private/tmp/hand-bound-journeys-profiles-fixed-20260908/workspace",
+            "ConfigDigest": "7e64d3fe01ce0b035c6b0b37a85482d392edc91cefe1e61f2df2e6e63e2c0c36"
+          }
+        ],
+        "next": 1,
+        "total": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "session-2",
+      "method": "session.new",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "session-2",
+      "result": {
+        "model": "local/first",
+        "profile": "first",
+        "session_id": "ses_cedc7395dd708fed"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "run-2",
+      "method": "prompt",
+      "params": {
+        "text": "profile-content-2"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "run-2",
+      "result": {
+        "id": "run-2",
+        "fingerprint": "920dea1ae9b3406a6c5ed580047ca22926bae047ecabf562548af9917ede30e2",
+        "session_id": "ses_cedc7395dd708fed",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-2"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-2",
+        "fingerprint": "920dea1ae9b3406a6c5ed580047ca22926bae047ecabf562548af9917ede30e2",
+        "session_id": "ses_cedc7395dd708fed",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-2"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-2",
+        "fingerprint": "920dea1ae9b3406a6c5ed580047ca22926bae047ecabf562548af9917ede30e2",
+        "session_id": "ses_cedc7395dd708fed",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-2"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-2",
+        "fingerprint": "920dea1ae9b3406a6c5ed580047ca22926bae047ecabf562548af9917ede30e2",
+        "session_id": "ses_cedc7395dd708fed",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+        "state": "accepted"
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "pending",
+      "method": "approval.pending",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "pending",
+      "result": {
+        "approvals": [],
+        "remaining": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-2"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-2",
+        "fingerprint": "920dea1ae9b3406a6c5ed580047ca22926bae047ecabf562548af9917ede30e2",
+        "session_id": "ses_cedc7395dd708fed",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "6AVM36SNZN3SPDNFDJKCFUIU6G:31",
+          "sequence": 31,
+          "session_id": "ses_cedc7395dd708fed",
+          "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+          "request_id": "run-2",
+          "timestamp": "2026-09-08T05:28:01.664326Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "lookup",
+      "method": "request.get",
+      "params": {
+        "id": "run-2"
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "lookup",
+      "result": {
+        "id": "run-2",
+        "fingerprint": "920dea1ae9b3406a6c5ed580047ca22926bae047ecabf562548af9917ede30e2",
+        "session_id": "ses_cedc7395dd708fed",
+        "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+        "state": "completed",
+        "result": {
+          "version": 1,
+          "event_id": "6AVM36SNZN3SPDNFDJKCFUIU6G:31",
+          "sequence": 31,
+          "session_id": "ses_cedc7395dd708fed",
+          "run_id": "7RYZNBUKAEKNVYD3EOTT7YBDGA:3",
+          "request_id": "run-2",
+          "timestamp": "2026-09-08T05:28:01.664326Z",
+          "kind": "terminal",
+          "payload": {
+            "approval_id": "",
+            "error": "",
+            "iteration": 1,
+            "reason": "answer_completed",
+            "state": "idle",
+            "status": "completed",
+            "text": "",
+            "truncated": false,
+            "usage": {
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 0,
+              "known": true,
+              "output_tokens": 0,
+              "prior_unknown": false,
+              "requests": 2,
+              "unknown_requests": 2
+            },
+            "verified": false
+          }
+        }
+      }
+    }
+  }
+]

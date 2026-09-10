@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T03:51:48.373993+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-09T03:51:49.122527+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestNativePackageCLIContainerRuntimeAndLaunchReviews"}
+{"Time":"2026-09-09T03:51:49.122597+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestNativePackageCLIContainerRuntimeAndLaunchReviews","Output":"=== RUN   TestNativePackageCLIContainerRuntimeAndLaunchReviews\n"}
+{"Time":"2026-09-09T03:51:49.654811+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestNativePackageCLIContainerRuntimeAndLaunchReviews","Output":"--- PASS: TestNativePackageCLIContainerRuntimeAndLaunchReviews (0.53s)\n"}
+{"Time":"2026-09-09T03:51:49.654834+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestNativePackageCLIContainerRuntimeAndLaunchReviews","Elapsed":0.53}
+{"Time":"2026-09-09T03:51:49.654877+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-09T03:51:50.670224+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t2.296s\n"}
+{"Time":"2026-09-09T03:51:50.670325+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":2.296}

@@ -1,0 +1,62 @@
+{
+  "base": "44309157ae4563839a19cf60bd57492cbbd3cbce",
+  "candidate": "4c78cf45c5439e34f7b2789d1d1c9dc85ddab618",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 862,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_session_tests_passed": 2300,
+  "repetitions": 20,
+  "fuzz": {
+    "target": "FuzzLegacyConversion",
+    "requested_seconds": 60,
+    "elapsed_seconds": 61.02,
+    "executions": 4395062,
+    "passed": true
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-migration.patch",
+      "sha256": "febe10cfae8db97781e4b9c8c5054e40a55ac42c4c916e54849745ce71991a06"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-full-20260908.jsonl",
+      "sha256": "c55f0c2414feccdee219747dabad62de5c56a5c4dca60523f46419d4e9e12078"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-coverage-20260908.out",
+      "sha256": "5ea2bedc6e976435b22a39871369a1da6afe5a2dba3f4fd284d8d36a6c91b4ef"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-final-repeat-20260908.jsonl",
+      "sha256": "3a3e0f12cc6716ca87bb534019d8bd6471a6a88115f2cfef94b34230040960c3"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-final-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-final-fuzz-20260908.jsonl",
+      "sha256": "57ca84235616d4f092f61fb4a9b8e65e083c46e45a66b9887d17d82a97b04f8c"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-final-fuzz-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-process-20260908.txt",
+      "sha256": "885d3a6a469413fdf1c80909cfc9cba9f78ce8887cfa8914e31b6e4f3d682584"
+    },
+    {
+      "path": "/private/tmp/hand-harness-legacy-process-fixed-20260908.txt",
+      "sha256": "58539b336445c6b79cc1f54a13362bcd922050b0bec507829e6c7f93af68b115"
+    }
+  ]
+}

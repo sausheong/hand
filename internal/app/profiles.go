@@ -1,0 +1,173 @@
+package app
+
+import (
+	"context"
+	"fmt"
+	"slices"
+
+	"github.com/sausheong/hand/internal/config"
+	"github.com/sausheong/harness/llm"
+	"github.com/sausheong/harness/tokens"
+)
+
+func providerRoute(provider, endpoint string) llm.CallRoute {
+	if endpoint == "" {
+		endpoint = "default endpoint for " + provider
+	}
+	return llm.CallRoute{Provider: provider, Destination: endpoint}
+}
+
+func copyProfile(p config.ModelProfile) config.ModelProfile {
+	p.InputTypes = slices.Clone(p.InputTypes)
+	p.ReasoningLevels = slices.Clone(p.ReasoningLevels)
+	return p
+}
+
+// ConfigureProfiles installs a private copy of the available choices. active
+// identifies the profile already used to construct the runtime, if named.
+func (c *Controller) ConfigureProfiles(profiles map[string]config.ModelProfile, active string) error {
+	_, release, err := c.owner().reserve(context.Background(), Idle)
+	if err != nil {
+		return err
+	}
+	defer release()
+	if err := config.ValidateProfiles(config.Config{Profiles: profiles, DefaultProfile: active}); err != nil {
+		return err
+	}
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	copied := make(map[string]config.ModelProfile, len(profiles))
+	for name, p := range profiles {
+		copied[name] = copyProfile(p)
+	}
+	c.owner().mu.Lock()
+	c.owner().options.InputTypes = slices.Clone(copied[active].InputTypes)
+	c.owner().options.Model.Profile = active
+	c.owner().mu.Unlock()
+	c.profiles = copied
+	c.activeProfile = active
+	if c.Rt != nil {
+		c.Rt.Route = providerRoute(c.Rt.Provider, c.BaseURL)
+		if c.summarizerSelection == nil && c.Rt.Compaction != nil && c.Rt.Compaction.Summarizer != nil {
+			c.Rt.Compaction.Summarizer.Route = c.Rt.Route
+		}
+	}
+	return nil
+}
+
+func (c *Controller) ProfileNames() []string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	names := make([]string, 0, len(c.profiles))
+	for name := range c.profiles {
+		names = append(names, name)
+	}
+	slices.Sort(names)
+	return names
+}
+func (c *Controller) CurrentProfile() string {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return c.activeProfile
+}
+func (c *Controller) ContextLimit() int {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	return tokens.ContextWindowFor(c.Rt.Model, c.Rt.ContextWindow)
+}
+
+// SwitchProfile always constructs a fresh client, including for two profiles
+// of the same provider. An endpoint/credential reference is never inherited.
+func (c *Controller) SwitchProfile(name string) error {
+	return c.SwitchProfileContext(context.Background(), name)
+}
+
+func (c *Controller) SwitchProfileContext(ctx context.Context, name string) error {
+	operation, release, err := c.owner().reserve(ctx, Idle)
+	if err != nil {
+		return err
+	}
+	defer release()
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	p, ok := c.profiles[name]
+	if !ok {
+		return fmt.Errorf("unknown profile %q", name)
+	}
+	if c.Rt.Compaction.HasInFlight(c.Rt.Session) {
+		return fmt.Errorf("background compaction is still active; retry profile switch after it finishes")
+	}
+	if err := p.Validate(); err != nil {
+		return err
+	}
+
+	if c.BuildProfileProvider == nil {
+		return fmt.Errorf("profile switching is not configured")
+	}
+	p, err = PrepareProfile(operation, p)
+	if err != nil {
+		return err
+	}
+	provider, err := c.BuildProfileProvider(copyProfile(p))
+	if err != nil {
+		return err
+	}
+	if provider == nil {
+		return fmt.Errorf("profile factory returned no provider")
+	}
+	if err := operation.Err(); err != nil {
+		return err
+	}
+	hint := c.Rt.DynamicIdentityHint
+	if c.BuildModelIdentityHint != nil {
+		hint = c.BuildModelIdentityHint(p.Provider + "/" + p.Model)
+	}
+	fallback := c.Rt.FallbackModel
+	if p.Provider != c.Rt.Provider {
+		fallback = ""
+	}
+	p.ProfileName = name
+	commitPermissions, err := c.preparePermissions(p)
+	if err != nil {
+		return err
+	}
+	if err := operation.Err(); err != nil {
+		return err
+	}
+	commitPermissions()
+	c.PermissionProfile = copyProfile(p)
+	reasoning, _ := llm.ParseReasoningMode(p.Reasoning)
+	c.Rt.LLM = provider
+	c.Rt.Provider = p.Provider
+	c.Rt.Model = p.Model
+	c.Rt.FallbackModel = fallback
+	c.Rt.DynamicIdentityHint = hint
+	c.Rt.ContextWindow = p.ContextLimit
+	c.Rt.MaxOutputTokens = p.MaxOutput
+	c.Rt.Reasoning = reasoning
+	c.owner().mu.Lock()
+	c.owner().options.InputTypes = slices.Clone(p.InputTypes)
+	c.owner().mu.Unlock()
+	p.ProfileName = name
+	c.owner().mu.Lock()
+	c.owner().options.Model = runtimeModelInfo(c.Rt, p)
+	c.owner().mu.Unlock()
+	c.Rt.Route = providerRoute(p.Provider, p.Endpoint)
+	c.BaseURL = p.Endpoint
+	c.activeProfile = name
+	if c.summarizerSelection == nil && c.Rt.Compaction != nil && c.Rt.Compaction.Summarizer != nil {
+		c.Rt.Compaction.Summarizer.Route = c.Rt.Route
+		c.Rt.Compaction.Summarizer.Provider = provider
+		c.Rt.Compaction.Summarizer.Model = p.Model
+	}
+	return nil
+}
+
+// ProfileConfiguration returns a detached configuration for selection previews.
+// It does not discover metadata, resolve credentials or construct a provider.
+func (c *Controller) ProfileConfiguration(name string) (config.ModelProfile, bool) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+	p, ok := c.profiles[name]
+	return copyProfile(p), ok
+}

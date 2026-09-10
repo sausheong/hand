@@ -1,6 +1,6 @@
 // Command mcpserver is a minimal stdio MCP server used only as a test
 // fixture for internal/agentio's BuildRuntimeWithTimeout tests — it
-// answers the initialize handshake with zero tools, giving a real (not
+// answers the initialize handshake with an echo tool, giving a real (not
 // faked) mcp.Connect call to test against. Not part of hand itself;
 // built on demand by the test from internal/agentio/testdata, a
 // directory name the go tool always excludes from ./... package
@@ -20,6 +20,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"log"
 	"os"
@@ -38,6 +39,9 @@ func main() {
 	}
 
 	server := mcp.NewServer(&mcp.Implementation{Name: "hand-test-fixture"}, nil)
+	server.AddTool(&mcp.Tool{Name: "echo", InputSchema: json.RawMessage(`{"type":"object"}`)}, func(context.Context, *mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		return &mcp.CallToolResult{}, nil
+	})
 	runErr := server.Run(context.Background(), &mcp.StdioTransport{})
 
 	if *marker != "" {

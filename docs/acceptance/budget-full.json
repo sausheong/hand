@@ -1,0 +1,117 @@
+{
+  "status": "development_passed",
+  "hand_aggregate": "run-terminal-integration.patch",
+  "harness_delta": "harness-run-binding.patch",
+  "harness_base": "5998569d24ce063207cc237263d89f22d532e25f",
+  "source_fingerprints_unchanged": true,
+  "fingerprinted_files": {
+    "hand": 387,
+    "harness": 266
+  },
+  "worker_sha256": "26bf316e7367912f154dada5fd17635078d6cc489bd4c8a79fc4e8b7d4d5ffde",
+  "results": {
+    "hand-budget-full-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 968,
+        "skip": 2
+      },
+      "packages": {
+        "github.com/sausheong/hand/cmd/hand-tool-worker": "skip",
+        "github.com/sausheong/hand/examples/compatibility": "skip",
+        "github.com/sausheong/hand/examples/embedded": "skip",
+        "github.com/sausheong/hand/examples/rpc": "skip",
+        "github.com/sausheong/hand/internal/isolation": "pass",
+        "github.com/sausheong/hand/internal/config": "pass",
+        "github.com/sausheong/hand/internal/toolworker": "pass",
+        "github.com/sausheong/hand/internal/permissions": "pass",
+        "github.com/sausheong/hand/internal/app": "pass",
+        "github.com/sausheong/hand/internal/rpc": "pass",
+        "github.com/sausheong/hand/internal/verification": "pass",
+        "github.com/sausheong/hand/protocol": "pass",
+        "github.com/sausheong/hand/internal/checkpoints": "pass",
+        "github.com/sausheong/hand/internal/toolproxy": "pass",
+        "github.com/sausheong/hand/sdk": "pass",
+        "github.com/sausheong/hand/cmd/hand": "pass",
+        "github.com/sausheong/hand/internal/tui": "pass",
+        "github.com/sausheong/hand/internal/agentio": "pass",
+        "github.com/sausheong/hand/internal/sessionio": "pass"
+      },
+      "skipped_tests": [
+        "TestNativeScopedSDKContainerJourney",
+        "TestNativeSDKRejectsChangedWorker"
+      ],
+      "exit_code": 0
+    },
+    "hand-budget-full-sdk-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 2
+      },
+      "packages": {
+        "github.com/sausheong/hand/sdk": "pass"
+      },
+      "skipped_tests": [],
+      "exit_code": 0
+    },
+    "harness-budget-full-race-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 592
+      },
+      "packages": {
+        "github.com/sausheong/harness/llm": "pass",
+        "github.com/sausheong/harness/compaction": "pass",
+        "github.com/sausheong/harness/budget": "pass",
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      },
+      "skipped_tests": [],
+      "exit_code": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/hand-budget-full-after-20260908.json",
+      "sha256": "a300af29ea00a74a39dbc709a099cefcc175f8c110d0fbb5997e270786b14aea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/hand-budget-full-before-20260908.json",
+      "sha256": "a300af29ea00a74a39dbc709a099cefcc175f8c110d0fbb5997e270786b14aea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/hand-budget-full-race-20260908.jsonl",
+      "sha256": "f8548d579f37ff83ea73056ac3aa1943de8c7678a1653fb5b848e5d0fff46cd0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/hand-budget-full-sdk-race-20260908.jsonl",
+      "sha256": "a19fe9b98d56240a52d53bec8b0dd731a7c3f7a77e60a11e0bcffbc22c42a43e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/hand-budget-full-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/harness-budget-full-race-20260908.jsonl",
+      "sha256": "366b220eab0b4a49469a58b64896b5c7bd8f6fdd7bfa9b914af0b33234c75220"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/budget-full-20260908/harness-budget-full-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "vet": "both commands exited 0",
+  "skip_resolution": "Initial Hand full suite skipped two SDK native tests because HARNESS_TEST_BASH_IMAGE was missing. Both passed in the recorded uncached SDK follow-up with the cached pinned Bash image and same source/worker. Four command/example packages have no test files and are not counted as test passes.",
+  "commands": {
+    "hand": "go test -race -count=1 -json ./...",
+    "harness": "go test -race -count=1 -json ./runtime ./compaction ./budget ./llm ./session",
+    "sdk_followup": "go test -race -count=1 -json ./sdk -run TestNativeScopedSDKContainerJourney|TestNativeSDKRejectsChangedWorker"
+  },
+  "fixtures": {
+    "container_image": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "bash_image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "worker": "/private/tmp/hand-budget-worker-20260908"
+  },
+  "limitations": [
+    "Dirty native macOS ARM64 development sources and local Harness replace, not exact released candidate qualification.",
+    "Harness scope is runtime, compaction, budget, llm and session, not every Harness package.",
+    "No final quantitative coverage, repeated performance, native Linux, archive qualification or live evaluation claim."
+  ]
+}

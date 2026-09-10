@@ -1,0 +1,102 @@
+{
+  "status": "development_documentation_coverage",
+  "requirement": "M8.2",
+  "guides": [
+    {
+      "topic": "installation",
+      "document": "docs/installation-and-upgrades.md",
+      "sha256": "e6793af6961bc386a4b5bf2bdb4431f045e9430e0e5aacc74e91ba9fdbeba4a4",
+      "links_checked": [
+        "permission-migration.md"
+      ],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "migration_and_rollback",
+      "document": "docs/installation-and-upgrades.md",
+      "sha256": "e6793af6961bc386a4b5bf2bdb4431f045e9430e0e5aacc74e91ba9fdbeba4a4",
+      "links_checked": [
+        "permission-migration.md"
+      ],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "sessions_and_restore",
+      "document": "docs/sessions-and-restore.md",
+      "sha256": "c4a4bb47b8e700eef6542fde03137ae35f9c1f1940359e8f4e70b089712e5c7e",
+      "links_checked": [
+        "installation-and-upgrades.md",
+        "protocol/v1.md"
+      ],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "policy",
+      "document": "docs/permission-migration.md",
+      "sha256": "0cf2489f591dbb2448e505af8fda2fefdaf1203be6144de8d2f58e283ab6b3e8",
+      "links_checked": [],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "automation_and_sdk",
+      "document": "docs/automation-and-sdk.md",
+      "sha256": "7e9ab781fbd0ba04151e67a87e70aa2b0ae3a88a393dbfcacae6166588b91f80",
+      "links_checked": [
+        "protocol/v1.md",
+        "../examples/rpc/main.go",
+        "../examples/embedded/main.go",
+        "sessions-and-restore.md",
+        "permission-migration.md"
+      ],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "extensions",
+      "document": "docs/extensions.md",
+      "sha256": "19bb111ab1d7a392be977fbac64cadb4ca4507616815e6727769489ce3d86816",
+      "links_checked": [
+        "package-skills.md",
+        "../examples/extensions/README.md"
+      ],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "troubleshooting",
+      "document": "docs/troubleshooting.md",
+      "sha256": "f4db8ac353582c09b347a4d9d6b179e3f117a02c18d5f64ec0ed3b57a03ec2b8",
+      "links_checked": [
+        "permission-migration.md",
+        "sessions-and-restore.md",
+        "installation-and-upgrades.md",
+        "extensions.md",
+        "package-skills.md",
+        "protocol/v1.md",
+        "automation-and-sdk.md",
+        "acceptance/evaluation/README.md"
+      ],
+      "status": "document_present_source_reviewed"
+    },
+    {
+      "topic": "evaluation_commands",
+      "document": "docs/acceptance/evaluation/README.md",
+      "sha256": "14704b545e1b45c8f74900b1f504dd27d730dbb77a9b41ee590efc187c9c80ef",
+      "links_checked": [],
+      "status": "document_present_source_reviewed"
+    }
+  ],
+  "supporting_evidence": [
+    "docs/acceptance/dist-wiring.json",
+    "docs/acceptance/archive-integrity.json",
+    "docs/acceptance/session-restore-guide.json",
+    "docs/acceptance/sdk-guide.json",
+    "docs/acceptance/extension-guide.json",
+    "docs/acceptance/permission-migration.json"
+  ],
+  "remaining": [
+    "Final candidate documentation review and command reproduction",
+    "Complete runtime platform and integrated journey evidence",
+    "Clean checksummed candidate using released Harness",
+    "Authorised live evaluation and complete corpus",
+    "Reconcile final limitations and release evidence; full checker must report complete"
+  ]
+}

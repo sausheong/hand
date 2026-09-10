@@ -1,0 +1,51 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scenario": "no_hidden_trust_prompt",
+  "platform": "linux/arm64 Docker container",
+  "binary_sha256": "214c399a45b683d2336a9227d5a86857a16be84a14cd85a504a4c1c79afe6de2",
+  "binary_build_evidence": "docs/acceptance/rpc-linux-framing.json",
+  "provider_calls": 3,
+  "exit_code": 0,
+  "raw_report": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/run.json",
+  "container_report": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/container.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/container.json",
+      "sha256": "b62f49a1dafbb44af57f9f468b835d9bca4e4db5ad30e1a9b8228ad3bf4e29fb"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/container.log",
+      "sha256": "1e9f28c4ca20f39b7bb87fb1bfb4ef6d58df746313d119c8320c89281e400f00"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/cold-0.json",
+      "sha256": "b16c2a085ab6b054f8f096774bb33895c9f177f987bbf3dd1973f79cb8d6fdc0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/cold-0.stderr",
+      "sha256": "377147521daf06372b6e57c22dcdd07ee326f9c2ef09eadce7b32ff50fa78cfa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/cold-1.json",
+      "sha256": "fc005d926fbff29d96cd09f03bdb3f9bb1d08e9b295ed032a9f10f6e0db37f52"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/cold-1.stderr",
+      "sha256": "df687688a4e9f536a283d6587fb6f5bd03372242a853c6f0033c1c91b4c252e3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/provider-requests.json",
+      "sha256": "dc3accef902518274fd2f645766ecb71b465d657af6ec14e415a4f0f1790e0fe"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-cold-linux-20260909/journey/run.json",
+      "sha256": "1e9f28c4ca20f39b7bb87fb1bfb4ef6d58df746313d119c8320c89281e400f00"
+    }
+  ],
+  "limitations": [
+    "Development binary using local Harness workspace; final clean candidate/released dependency pending",
+    "No race instrumentation",
+    "Loopback fixture inside network-disabled container; no paid provider calls"
+  ]
+}

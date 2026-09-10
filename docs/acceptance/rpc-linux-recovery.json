@@ -1,0 +1,73 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M4.1",
+    "G-TEST"
+  ],
+  "linux_test_records": 134,
+  "linux_slow_consumer_repetitions": 20,
+  "macos_disconnect_race": {
+    "pass": 20
+  },
+  "image": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+  "runtime": "Linux arm64 container, CGO_ENABLED=0, no race instrumentation",
+  "container_options": [
+    "--network none",
+    "--read-only",
+    "--tmpfs /tmp:rw,exec,size=128m,mode=1777",
+    "HAND_TEST_RPC_NOTE_BINARY=/note"
+  ],
+  "binaries": [
+    {
+      "path": "/private/tmp/hand-rpc-recovery-linux-fixed-20260909.test",
+      "sha256": "d013511cd86a0603f250112e4184302533f131ea2b576a5ed608575f8b1b8114"
+    },
+    {
+      "path": "/private/tmp/hand-rpc-note-linux-20260909",
+      "sha256": "d093f129142fd925da95c8d1b13e77b8aee4fe7906a1bda26206822eded8e5ef"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/dispatcher_test.go.txt",
+      "sha256": "dea22c0f8128cfb9968d007d801e1140ffe586c67d1e238d78d57a02c0186797"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/extensions_test.go.txt",
+      "sha256": "fb432262ec2caee988d266c39d18042d792115b4248af8890e9af80580fe3897"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/hand-rpc-disconnect-fixed-20260909.jsonl",
+      "sha256": "ebf9723e1272d6c406efea090e8be5042d25efc3edb9ce48e1fd33bb3985c888"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/hand-rpc-recovery-linux-20260909.log",
+      "sha256": "c779971f4545851985d6f2bfdd961df9463fc408892e8bdb2720cc6e632eface"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/hand-rpc-suite-linux-20260909.log",
+      "sha256": "8e183c4741557829b326972acc54fe96800636294fced927c466218260b1e62e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/hand-rpc-suite-linux-exec-20260909.log",
+      "sha256": "efff2300c36be7d64da6255f21ed5b16197d5f16a5f93a96b962de4a90e2d170"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/hand-rpc-suite-linux-fixed-20260909.log",
+      "sha256": "63c0e7ca6f86fcf0f079d272e4a816228ea5251679832f715d2f469d8c6bd93e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-recovery-20260909/slow_consumer_recovery_test.go.txt",
+      "sha256": "2914465aa481a5d647a7a06d43e19e68d01d118bcad52ecfe4041ec8134c4b39"
+    }
+  ],
+  "failures_preserved": [
+    "Initial full suite: disconnect fixture raced backend startup; extension tried to build without Go",
+    "Second full suite: extension snapshot execution denied by noexec tmpfs; corrected fixture requires exec"
+  ],
+  "limits": [
+    "Compiled test binary rather than built Hand CLI journey",
+    "Native macOS race repetition complements non-race Linux evidence",
+    "Released Harness, clean candidate and full final platform acceptance remain pending"
+  ]
+}

@@ -1,0 +1,17 @@
+{"Time":"2026-09-09T09:40:02.347503+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-09T09:40:03.161612+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthLegacyReviewImportAndChangedConfig"}
+{"Time":"2026-09-09T09:40:03.161693+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthLegacyReviewImportAndChangedConfig","Output":"=== RUN   TestCLIAuthLegacyReviewImportAndChangedConfig\n"}
+{"Time":"2026-09-09T09:40:03.185957+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthLegacyReviewImportAndChangedConfig","Output":"--- PASS: TestCLIAuthLegacyReviewImportAndChangedConfig (0.02s)\n"}
+{"Time":"2026-09-09T09:40:03.185986+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthLegacyReviewImportAndChangedConfig","Elapsed":0.02}
+{"Time":"2026-09-09T09:40:03.186015+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPermissionsInspectionDoesNotRequireCredentials"}
+{"Time":"2026-09-09T09:40:03.186023+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPermissionsInspectionDoesNotRequireCredentials","Output":"=== RUN   TestPermissionsInspectionDoesNotRequireCredentials\n"}
+{"Time":"2026-09-09T09:40:03.191567+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPermissionsInspectionDoesNotRequireCredentials","Output":"{\"grants\":[],\"legacy_fingerprint\":\"7f9b6126193f3b0ea59bf5c8a0b0550c59ff5a8870fae267054a2aae27847bf0\",\"legacy_proposal\":null,\"legacy_warning\":\"Legacy grants are broad per-tool authority and require explicit acknowledgement before import.\"}\n"}
+{"Time":"2026-09-09T09:40:03.192403+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPermissionsInspectionDoesNotRequireCredentials","Output":"--- PASS: TestPermissionsInspectionDoesNotRequireCredentials (0.01s)\n"}
+{"Time":"2026-09-09T09:40:03.19241+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestPermissionsInspectionDoesNotRequireCredentials","Elapsed":0.01}
+{"Time":"2026-09-09T09:40:03.192442+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthCorruptionIdentifiesRecoveryDirectory"}
+{"Time":"2026-09-09T09:40:03.192463+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthCorruptionIdentifiesRecoveryDirectory","Output":"=== RUN   TestCLIAuthCorruptionIdentifiesRecoveryDirectory\n"}
+{"Time":"2026-09-09T09:40:03.203276+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthCorruptionIdentifiesRecoveryDirectory","Output":"--- PASS: TestCLIAuthCorruptionIdentifiesRecoveryDirectory (0.01s)\n"}
+{"Time":"2026-09-09T09:40:03.203294+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestCLIAuthCorruptionIdentifiesRecoveryDirectory","Elapsed":0.01}
+{"Time":"2026-09-09T09:40:03.203728+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-09T09:40:04.212047+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t1.864s\n"}
+{"Time":"2026-09-09T09:40:04.212095+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":1.865}

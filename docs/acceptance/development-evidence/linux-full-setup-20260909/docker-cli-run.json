@@ -1,0 +1,19 @@
+{
+  "source_image": "sha256:625d9431a9f54c5a2bc90f24f0e1c3d55b1349fd857dd85035f98c2c9acbdd4d",
+  "binary_sha256": "9bb9f26fc5c5bab24403c32f11613bc4ed0c0cacb3cc3c051066a24e343d5e19",
+  "verification_command": [
+    "/usr/local/bin/docker",
+    "--config",
+    "/private/tmp/hand-public-docker-20260909",
+    "run",
+    "--rm",
+    "--network",
+    "none",
+    "--mount",
+    "type=bind,source=/private/tmp/hand-linux-docker-cli-20260909/docker,target=/usr/local/bin/docker,readonly",
+    "sha256:c423747fbd96fd8f0b1102d947f51f9b266060217478e5f9bf86f145969562ee",
+    "docker",
+    "--version"
+  ],
+  "exit_code": 0
+}

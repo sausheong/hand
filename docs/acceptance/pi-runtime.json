@@ -1,0 +1,298 @@
+{
+  "status": "offline_pi_runtime_verified",
+  "candidate_qualified": false,
+  "source_commit": "d981de1229ef899957bbe968bc8dcda02a21f477",
+  "source_clean": true,
+  "source_sha256": "c8c517c4e5bf2ece20c9f066584b2b71eb8b6d27556bb305cbf2f3dbeea8ef3b",
+  "source_inventory": "docs/acceptance/development-evidence/pi-runtime-20260909/source-inventory.json.gz",
+  "source_file_count": 1669,
+  "node": "v25.8.1",
+  "package_integrity": {
+    "path": "/private/tmp/hand-pi-package-20260909/earendil-works-pi-coding-agent-0.85.1.tgz",
+    "sha256": "1f498729649bdce647d1160993b4d92bf3c614cc819213bee2f91dd34f2a7af4",
+    "integrity": "sha512-FGRN+OHbWaefBPGaTggAdLjrIHW+s2PzLyglz/5dfLzb9of7uuXMXYC0fJIeZTw+shS32o2cuQ9jF7YSDuL/oQ==",
+    "registry_match": true
+  },
+  "runtime_checks": {
+    "status": "offline_runtime_passed",
+    "version": "0.85.1",
+    "runtime": "/private/tmp/hand-pi-runtime-20260909",
+    "cli_sha256": "e6d7fcf36a239cf3746e67ddf4222081ac01a601b85a3ee688bdfe9c161d754c",
+    "fixture_sha256": "69800f267761a8254a0959d53ac2af001379c84cd29cd684f40567c61bd1fbcd",
+    "cases": [
+      {
+        "name": "success",
+        "argv": [
+          "/opt/homebrew/bin/node",
+          "/private/tmp/hand-pi-runtime-20260909/node_modules/@earendil-works/pi-coding-agent/dist/bundle/cli.js",
+          "--mode",
+          "rpc",
+          "--no-extensions",
+          "-e",
+          "/private/tmp/hand-pi-runtime-20260909/hand-offline-fixture.ts",
+          "--no-skills",
+          "--no-prompt-templates",
+          "--no-themes",
+          "--no-tools",
+          "--provider",
+          "hand-offline-fixture",
+          "--model",
+          "offline-fixture",
+          "--session-dir",
+          "/private/tmp/hand-pi-offline-check-20260909/success/home/sessions"
+        ],
+        "exit_code": 0,
+        "seconds": 0.5207890829769894,
+        "observation": {
+          "status": "observed_unverified",
+          "outcome": "completed",
+          "errors": [],
+          "events": 11,
+          "assistant_messages": 1,
+          "assistant_errors": 0,
+          "statistics": {
+            "tokens": {
+              "input": 4,
+              "output": 2,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 6
+            },
+            "reported_cost_usd": 0
+          },
+          "limitation": "Not task scoring, process cleanup, source authentication, gateway accounting or spending enforcement."
+        }
+      },
+      {
+        "name": "retry",
+        "argv": [
+          "/opt/homebrew/bin/node",
+          "/private/tmp/hand-pi-runtime-20260909/node_modules/@earendil-works/pi-coding-agent/dist/bundle/cli.js",
+          "--mode",
+          "rpc",
+          "--no-extensions",
+          "-e",
+          "/private/tmp/hand-pi-runtime-20260909/hand-offline-fixture.ts",
+          "--no-skills",
+          "--no-prompt-templates",
+          "--no-themes",
+          "--no-tools",
+          "--provider",
+          "hand-offline-fixture",
+          "--model",
+          "offline-fixture",
+          "--session-dir",
+          "/private/tmp/hand-pi-offline-check-20260909/retry/home/sessions"
+        ],
+        "exit_code": 0,
+        "seconds": 2.2420574999414384,
+        "observation": {
+          "status": "observed_unverified",
+          "outcome": "completed",
+          "errors": [],
+          "events": 19,
+          "assistant_messages": 2,
+          "assistant_errors": 1,
+          "statistics": {
+            "tokens": {
+              "input": 8,
+              "output": 4,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 12
+            },
+            "reported_cost_usd": 0
+          },
+          "limitation": "Not task scoring, process cleanup, source authentication, gateway accounting or spending enforcement."
+        }
+      },
+      {
+        "name": "abort",
+        "argv": [
+          "/opt/homebrew/bin/node",
+          "/private/tmp/hand-pi-runtime-20260909/node_modules/@earendil-works/pi-coding-agent/dist/bundle/cli.js",
+          "--mode",
+          "rpc",
+          "--no-extensions",
+          "-e",
+          "/private/tmp/hand-pi-runtime-20260909/hand-offline-fixture.ts",
+          "--no-skills",
+          "--no-prompt-templates",
+          "--no-themes",
+          "--no-tools",
+          "--provider",
+          "hand-offline-fixture",
+          "--model",
+          "offline-fixture",
+          "--session-dir",
+          "/private/tmp/hand-pi-offline-check-20260909/abort/home/sessions"
+        ],
+        "exit_code": 0,
+        "seconds": 0.24287566693965346,
+        "observation": {
+          "status": "observed_unverified",
+          "outcome": "cancelled",
+          "errors": [],
+          "events": 12,
+          "assistant_messages": 1,
+          "assistant_errors": 0,
+          "statistics": {
+            "tokens": {
+              "input": 4,
+              "output": 2,
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "total": 6
+            },
+            "reported_cost_usd": 0
+          },
+          "limitation": "Not task scoring, process cleanup, source authentication, gateway accounting or spending enforcement."
+        }
+      }
+    ],
+    "limitations": [
+      "Deterministic provider only; not model quality, real billing or spending enforcement.",
+      "No tool-process or platform qualification established by this probe."
+    ],
+    "raw_artifacts": [
+      {
+        "path": "abort/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "abort/stdout.jsonl",
+        "sha256": "479e427f26511791ee92ca5b46627334fd4b05e5d641eb7564973b14d82103b6"
+      },
+      {
+        "path": "retry/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "retry/stdout.jsonl",
+        "sha256": "14f38c5205a2cc2793003e4109385f2f4db62db0c7203c5221a8572ac08b0031"
+      },
+      {
+        "path": "success/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "success/stdout.jsonl",
+        "sha256": "dc04d8563945374d281c7c4afb9d64cdf8697f08d3481f47e1c1bec01d80d036"
+      }
+    ]
+  },
+  "evaluation_tooling_tests": {
+    "passed": 84,
+    "failed": 0,
+    "skipped": 0
+  },
+  "limitations": [
+    "Published package SRI matches registry metadata; attestation signature verification and independently reproduced source-to-binary build remain pending.",
+    "Deterministic provider tests RPC semantics, not actual models, paid cost accounting, gateway enforcement, tools or comparative task success.",
+    "Probe archived after moving output-directory reservation before fixture creation; successful executed I/O/lifecycle path unchanged."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-npm-dist-20260909.json.gz",
+      "source": "/private/tmp/hand-pi-npm-dist-20260909.json",
+      "sha256": "b613c2222e2c9b6e6d156346650cbef4d2d3cf062aca0e1daa7f17a01eb87060",
+      "uncompressed_sha256": "10bfb0ddd87b7ea6d4999a141fb465fde61747e9f75489ba5f220b02c12ca9b0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-pack-20260909.json.gz",
+      "source": "/private/tmp/hand-pi-pack-20260909.json",
+      "sha256": "225fe73205ac43b92cc51bf3c5c1bf8c6d1ae66cfe6907044f1e79088edf6c4c",
+      "uncompressed_sha256": "2f74cdba8c608b2bbd9debb15379db0e51e5d49d4c5dbed853bc1580d6a862e9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-package-integrity-20260909.json.gz",
+      "source": "/private/tmp/hand-pi-package-integrity-20260909.json",
+      "sha256": "ae1bea645df112098a7d72cf1e133f1cdc5a402a173cbcc90aabe0864fe0bb48",
+      "uncompressed_sha256": "0a64978fc79e9c8c3d23219f23b6cb7ea4cccb13b6520db5acd473662d63b33d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-install-20260909.log.gz",
+      "source": "/private/tmp/hand-pi-install-20260909.log",
+      "sha256": "75386fd42d75ecf2e42601d3109ba11908f9d064f92b70b2d9a0058504d0a27f",
+      "uncompressed_sha256": "9c61f065fdb07bf82fe6b8ed124e1aa8748b736013150f7bca74175cbd929a7d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-runtime-evaluation-tests-20260909.log.gz",
+      "source": "/private/tmp/hand-pi-runtime-evaluation-tests-20260909.log",
+      "sha256": "edd443cb90819b4c14c7a91f60850584be690a8735ae7fed0737897d01c7f4e0",
+      "uncompressed_sha256": "67a0e40b679ca3d93eb52ab671a614f06739ae22b3d468908ea93d93b9d10741"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-runtime-20260909__package-lock.json.gz",
+      "source": "/private/tmp/hand-pi-runtime-20260909/package-lock.json",
+      "sha256": "311e5ff9c3a7133f439b48694a8b696bda34082884dc17c605094ac84ca1f4b0",
+      "uncompressed_sha256": "ef6e4cab34b19b953c78e2c4a56cd047b1a57749d17fb471ea272b273433076c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__report.json.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/report.json",
+      "sha256": "0e66fdc6fe56f341da8c31c3d62d10b1abd893393c381d5e6596d6e41a4350c4",
+      "uncompressed_sha256": "ac483ce9abacc5c917310c0deb9096c05e5215d2a4fb7f859fae43b110175dcf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__Users__sausheong__projects__hand__scripts__check_pi_offline.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/check_pi_offline.py",
+      "sha256": "f9eab0cecacbf606012c5e77fc0b2e606a463ad63b0b0a0dc505bac059b62877",
+      "uncompressed_sha256": "4359bd7a8ac93b36afdcfff076e288bd9ad2928a7a87edfa1eb46c69ed53a14d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__Users__sausheong__projects__hand__scripts__evaluation_pi_events.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_pi_events.py",
+      "sha256": "955baa2d31caf6d046fa98e78a5570a6025aa51f149bd957c56f5b2ac77a08a1",
+      "uncompressed_sha256": "1b20a189ea1783bf7519c60f5805b34a52367bf8e98213f7ca759149a21fa788"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__Users__sausheong__projects__hand__scripts__test_evaluation_pi_events.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_pi_events.py",
+      "sha256": "d10bf52602605788f6a2e0933d7e4f010038ec7226b6a9e23570f0b76dba35f9",
+      "uncompressed_sha256": "a3897428eafd9b0c840a3feac2b9e6d29c80f26f15bd474dce5dc79317ad17b3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__Users__sausheong__projects__hand__docs__acceptance__evaluation__testdata__pi_offline_provider.ts.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/testdata/pi_offline_provider.ts",
+      "sha256": "8da2ae4ee3fcd3c5449af1488f4ee5660994bef61660e587534235c6910e6de8",
+      "uncompressed_sha256": "69800f267761a8254a0959d53ac2af001379c84cd29cd684f40567c61bd1fbcd"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__success__stdout.jsonl.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/success/stdout.jsonl",
+      "sha256": "b85752c3529aa1c7b89e3412e772198528d495933ab6004ae59c121eebd6f435",
+      "uncompressed_sha256": "dc04d8563945374d281c7c4afb9d64cdf8697f08d3481f47e1c1bec01d80d036"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__success__stderr.log.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/success/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__retry__stdout.jsonl.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/retry/stdout.jsonl",
+      "sha256": "62615cef65c0db5b12c529cd89ef74da99a68daed0626757155dc1a062b8e7ee",
+      "uncompressed_sha256": "14f38c5205a2cc2793003e4109385f2f4db62db0c7203c5221a8572ac08b0031"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__retry__stderr.log.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/retry/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__abort__stdout.jsonl.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/abort/stdout.jsonl",
+      "sha256": "98689ddb4ccab2b5661e3669c084ca50af59b8848c90280ff940f959990a3f6c",
+      "uncompressed_sha256": "479e427f26511791ee92ca5b46627334fd4b05e5d641eb7564973b14d82103b6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/pi-runtime-20260909/__private__tmp__hand-pi-offline-check-20260909__abort__stderr.log.gz",
+      "source": "/private/tmp/hand-pi-offline-check-20260909/abort/stderr.log",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

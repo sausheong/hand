@@ -1,0 +1,20 @@
+{"Time":"2026-09-09T03:38:15.829801+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-09T03:38:16.441233+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary"}
+{"Time":"2026-09-09T03:38:16.441344+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary","Output":"=== RUN   TestContainerExtensionFileCallbackBoundary\n"}
+{"Time":"2026-09-09T03:38:16.459833+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/read-only"}
+{"Time":"2026-09-09T03:38:16.459856+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/read-only","Output":"=== RUN   TestContainerExtensionFileCallbackBoundary/read-only\n"}
+{"Time":"2026-09-09T03:38:17.132388+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/read-only","Output":"--- PASS: TestContainerExtensionFileCallbackBoundary/read-only (0.67s)\n"}
+{"Time":"2026-09-09T03:38:17.13244+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/read-only","Elapsed":0.67}
+{"Time":"2026-09-09T03:38:17.132652+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/writable"}
+{"Time":"2026-09-09T03:38:17.132658+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/writable","Output":"=== RUN   TestContainerExtensionFileCallbackBoundary/writable\n"}
+{"Time":"2026-09-09T03:38:17.709165+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/writable","Output":"--- PASS: TestContainerExtensionFileCallbackBoundary/writable (0.58s)\n"}
+{"Time":"2026-09-09T03:38:17.709197+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/writable","Elapsed":0.58}
+{"Time":"2026-09-09T03:38:17.709222+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/denied"}
+{"Time":"2026-09-09T03:38:17.709227+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/denied","Output":"=== RUN   TestContainerExtensionFileCallbackBoundary/denied\n"}
+{"Time":"2026-09-09T03:38:18.014149+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/denied","Output":"--- PASS: TestContainerExtensionFileCallbackBoundary/denied (0.30s)\n"}
+{"Time":"2026-09-09T03:38:18.014187+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary/denied","Elapsed":0.3}
+{"Time":"2026-09-09T03:38:18.01421+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary","Output":"--- PASS: TestContainerExtensionFileCallbackBoundary (1.57s)\n"}
+{"Time":"2026-09-09T03:38:18.014235+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestContainerExtensionFileCallbackBoundary","Elapsed":1.57}
+{"Time":"2026-09-09T03:38:18.014424+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-09T03:38:19.027353+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t3.197s\n"}
+{"Time":"2026-09-09T03:38:19.027384+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":3.198}

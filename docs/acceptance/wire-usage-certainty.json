@@ -1,0 +1,60 @@
+{
+  "status": "development_passed",
+  "requirement": "M1.1",
+  "scope": "RPC usage certainty distinguishes available reported subtotal from complete totals",
+  "tests": {
+    "before": {
+      "fail": 6
+    },
+    "after": {
+      "pass": 11
+    }
+  },
+  "built_client": "Nine local fixture provider requests without usage each counted unknown; terminal known=false and reported_totals_known=true; no token totals invented",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/check_permission_prompts.py.txt",
+      "sha256": "123f6c201f47ddd85168380de094d3c83d47cc9cb2cdbb0bf0fe416ff1487659"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/hand-wire-usage-after-20260909.jsonl",
+      "sha256": "b5dd57645d6ccd11d317362a9ffb5b4679bebf83bb6c0a5c92ca0200cf7037a8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/hand-wire-usage-before-20260909.jsonl",
+      "sha256": "2a7f42cb6357072b91705e9b395da59c304dd9f47995c21d0a601da47fe1765e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/journey/external-private.txt",
+      "sha256": "f3a095e90e985f857973440882832f2482d23cb8d1695465f47b43a20ab84136"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/journey/prompts.json",
+      "sha256": "0711dffaa53edf14bb3291ce2a0f1765d6f22efc4c1f0a674e9c2eb0079a6649"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/journey/prompts.stderr",
+      "sha256": "575e226425ac0173531da162c5e8155141466a826eadd65a4339b743f72d4009"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/journey/provider-requests.json",
+      "sha256": "d986c212c15c21f4ce8875e8cffd49527ea64a61b0afe18936625e79efc5dd43"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/journey/run.json",
+      "sha256": "9d9ec806ec40da14db15ef8f4ff864f0ab49f5d9f27c0ce4ad4c76badcd25f69"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/wire.go.txt",
+      "sha256": "8637eeed875541199e84c873997486632208f5aac77ef9cef02ea61a9db6e833"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/wire-usage-20260909/wire_usage_test.go.txt",
+      "sha256": "d49bd5535d78114739b8c26c7c06f5c357dd51ff1f3f875e8cba0df4464bbf57"
+    }
+  ],
+  "limitations": [
+    "Native macOS development evidence; final aggregate/platform qualification pending",
+    "Existing durable RPC results are immutable and may retain earlier encoding; clients should check unknown_requests and prior_unknown as well"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "changes": [
+    "Migrated last legacy goal-message tests to service check ownership and captured continuation events.",
+    "Removed goalLoopResultMsg, its Update handler, maybeContinueGoalLoop, startAutoContinue and goal hook configuration fields.",
+    "TUI no longer calls EvaluateStopHooks; legacy single-turn adapter reports only its one-turn result."
+  ],
+  "tests": {
+    "migrated_race_repetitions": 20,
+    "migrated_pass_including_subtests": 140,
+    "full_tui_race_pass": 337,
+    "fail": 0,
+    "skip": 0
+  },
+  "build": {
+    "exit_code": 0,
+    "sha256": "f06361fa65316ade809213b07f9b5b97382a2d3b89f4f5316317aba87aef38f1"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/hand-final-goal-fixtures-20260909.jsonl.gz",
+      "sha256": "6a187b3f4cb201bcf16ffe9a7ab229e546f366ac5109bce5586a632bf028ee49"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/hand-legacy-goal-removal-20260909.jsonl.gz",
+      "sha256": "a2f8bdf4137b4d3aa483089f9f3098db17bc911731c35ef5b6685232a8d3dd83"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/hand-goal-loop-removal-build-20260909.log.gz",
+      "sha256": "310aea7d55bc2c17f455c8f5988fb9097eb7491fdfafccbe8fc6f01fd13675ca"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/model.go.gz",
+      "sha256": "90eb6e72f035234286dc07a5822089b49868e83b7f9b235649af41651cc8e473"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/events.go.gz",
+      "sha256": "ddcc5fe09cc511e38afe91cb4c54272e669f34b63faca137bd76cd2f3282af77"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/application_test.go.gz",
+      "sha256": "f42723fa61897f8212e28088a408791c66b29330c3f08cf3f8791ec19b886a70"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/lifecycle_regression_test.go.gz",
+      "sha256": "87a36979eb370f1d652ed41dbacd12d1e609fc93ef55221d3f163655fdde1f6e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/legacy-goal-removal-20260909/identity_test.go.gz",
+      "sha256": "7de83eb9205b30473f2187a2b9c88897c378c3c4ec5136ef34aca4b7e7bd885c"
+    }
+  ],
+  "limitations": [
+    "Legacy single-turn runtime adapter and runtime-event/approval fixtures remain; M2.1 not complete.",
+    "Full TUI suite and CLI build on development checkout, not final released-candidate/platform/coverage qualification.",
+    "Model-command stale-event case proves no restart after command attempt; successful profile switching is covered separately."
+  ]
+}

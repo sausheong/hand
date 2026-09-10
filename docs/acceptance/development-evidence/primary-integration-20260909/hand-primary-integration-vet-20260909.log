@@ -1,0 +1,1 @@
+google.golang.org/genproto@v0.0.0-20240903143218-8af14fe29dc1: verifying module: google.golang.org/genproto@v0.0.0-20240903143218-8af14fe29dc1: Get "https://sum.golang.org/lookup/google.golang.org/genproto@v0.0.0-20240903143218-8af14fe29dc1": dial tcp: lookup sum.golang.org: no such host

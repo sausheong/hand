@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-evidence-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--checkpoint-dir",
+    "/private/tmp/hand-evidence-terminal-20260908/fixture/checkpoints",
+    "--verification-config",
+    "/private/tmp/hand-evidence-terminal-20260908/fixture/verification.json"
+  ],
+  "binary_sha256": "3df57a803f601792d176b888ca1f1143a05b36649777b6c357ee375333f84ab7",
+  "runner_sha256": "009da3d0149e29fbf662250b2608973ca9107058f6cebe8d7a849387c5187ea4",
+  "deleted_selected": true,
+  "snapshots_retained": true,
+  "reviewed": true,
+  "confirmed": true,
+  "saved_id": "47a811c802081795861ad492248eab6312748fe0a6e77f9eaed99e1029e84702",
+  "later_edit_stale": true,
+  "exit_code": 0,
+  "provider_calls": 0,
+  "terminal_sha256": "33fb6337edd92032fa99fde8191c678eb12ec02814c076256f4f4818bf52e027"
+}

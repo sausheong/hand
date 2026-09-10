@@ -1,0 +1,287 @@
+{
+  "checkout": "/private/tmp/hand-session-integration-20260908",
+  "primary_integrated": false,
+  "primary_harness_version": "v0.3.9",
+  "development_harness_candidate": "c16dccd1770c14165cab442732f7e38a3c37ee6b",
+  "development_dependency_mode": "isolated local replacement; not final acceptance",
+  "aggregate_patch_includes_previous_session_integration": true,
+  "patch_excludes_go_mod_replace": true,
+  "full_tests_passed": 566,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "vet_exit_code": 0,
+  "sources": [
+    {
+      "path": "internal/sessionio/manager.go",
+      "before_sha256": null,
+      "after_sha256": "1b18ab151f46a31691e4617dab1b5f0ba95681ccd206f4d622327a1cb79e68b1"
+    },
+    {
+      "path": "internal/sessionio/manager_test.go",
+      "before_sha256": null,
+      "after_sha256": "bb0d5f7ed0db1818b7f50724adaaa6a5a33c1fa2cf5c92dd9cf6592412c5da7d"
+    },
+    {
+      "path": "internal/app/controller.go",
+      "before_sha256": "5a99045e52b0be64484ae77b0e42a64148cb08cf328b4ce09e1d8079b8656cca",
+      "after_sha256": "b33e6c84a19d3a5c75a00f09b4df64b4c49a56a0f4273f0b59c60eaeff5d96e3"
+    },
+    {
+      "path": "internal/app/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2d094ca9f433cd13ec0be66eec60bd60e7fef4dab4c673ff92209bc6f1a3d519"
+    },
+    {
+      "path": "internal/app/sessions.go",
+      "before_sha256": null,
+      "after_sha256": "f15ef983a8668281800fb7bd90a405cb3c425adc614e185a2709d5e371b647fe"
+    },
+    {
+      "path": "internal/tui/commands.go",
+      "before_sha256": "71e8a5d655719976cff20722314695538f92d324a3d038b127732fb6382d95d7",
+      "after_sha256": "13def5351bf929b7a8a1d8810a9fcad7591e688a484a95280ba8570d25e30b60"
+    },
+    {
+      "path": "internal/tui/sessions.go",
+      "before_sha256": null,
+      "after_sha256": "671850eca7899814ac59bda889704040d7e4b4f9e04f6ea21ffb5f376a38e6c1"
+    },
+    {
+      "path": "internal/tui/sessions_test.go",
+      "before_sha256": null,
+      "after_sha256": "277f3aec81f10e3fdb2993f41a0ee56637da44b07ec16ee206a7747313ecc41b"
+    },
+    {
+      "path": "cmd/hand/main.go",
+      "before_sha256": "58ec6d21038f14012a2c6dd7ae31345b566b1ee9ce9556aa229a19f13af62683",
+      "after_sha256": "3bdb356fdcdbcda9bbd90238416d119b0740aed3d2ac9f5074473f2fd6b9cd85"
+    },
+    {
+      "path": "cmd/hand/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2aac513aec6783c271f239e562f6b3d4b0fb24ba575b6d1d737b6fd51da2aba9"
+    },
+    {
+      "path": "cmd/hand/session_binary_test.go",
+      "before_sha256": null,
+      "after_sha256": "17a6d1fb55990e2e2f8f06698e837c99a3405618613d9f90a1234a6af69d4eda"
+    },
+    {
+      "path": "internal/tui/model.go",
+      "before_sha256": "d9fe34029b96721dd91fc614942f41f9c8cfdf257147fc8ce75543697167ebba",
+      "after_sha256": "41e6e7ff9df9158bd1b3a692cd4dca04ab826407723987147f221d0dcdfb45d1"
+    },
+    {
+      "path": "internal/tui/application.go",
+      "before_sha256": "6f325fea7422e6161425750591891e4be12aa0fd8f973a34885fa2d68abc99eb",
+      "after_sha256": "2f738fa6965ce74bae82e1f0164c3dc91b1280a35c93de74749f798cf139a4d7"
+    },
+    {
+      "path": "internal/tui/session_operation.go",
+      "before_sha256": null,
+      "after_sha256": "180207425dd00346beec6631fb5d8662117a4cfc4d2eeb0b9b354a32eecd4d9b"
+    },
+    {
+      "path": "internal/tui/session_operation_test.go",
+      "before_sha256": null,
+      "after_sha256": "280c18bc4372f3079ed9a20edabfeb8cf3c84278cbd8adc64008cea1756117bd"
+    },
+    {
+      "path": "internal/tui/identity_test.go",
+      "before_sha256": "87d18b19a87a178432db5fe9621e006ed9a1b4e0bfbe9d2ffa35f527b0ea915c",
+      "after_sha256": "88ec271fd89c1ab015db73360f4d1e6c0d49f4ae6d4ec9ebcd861896be5b90ea"
+    },
+    {
+      "path": "internal/app/session_tree.go",
+      "before_sha256": null,
+      "after_sha256": "8c24180eec19abc4b8358b6f01a391769a0d6ffc875f1ea044cbc0fd22455f80"
+    },
+    {
+      "path": "internal/tui/session_tree.go",
+      "before_sha256": null,
+      "after_sha256": "ae70e633c71910e1d63b284bf6e8b618e07baf9278e3505bfdbb96a653d91393"
+    },
+    {
+      "path": "internal/tui/session_tree_test.go",
+      "before_sha256": null,
+      "after_sha256": "ad69a89dc8f5726eb0ef2a56f2268155ff838979caa4000303ca762d5ef73818"
+    },
+    {
+      "path": "internal/sessionio/fork.go",
+      "before_sha256": null,
+      "after_sha256": "83368a04101ee36f7c37ecb6bb9f69ef893de7aaa2993048bb1f28b0a562d83f"
+    },
+    {
+      "path": "internal/sessionio/fork_test.go",
+      "before_sha256": null,
+      "after_sha256": "c444c9084c9d46222f40fc6ad472ef5b577e53adc9f75cd6887378cfb9e824c6"
+    },
+    {
+      "path": "internal/app/session_fork.go",
+      "before_sha256": null,
+      "after_sha256": "d63f963ee1e8e9373a685c210beb3e749446cba9d65c615a891aa7b7b223a830"
+    },
+    {
+      "path": "internal/tui/session_fork_test.go",
+      "before_sha256": null,
+      "after_sha256": "903b9ecc4cad0f78741644a27df425af8610ae1302b46030cab4572c79243db6"
+    },
+    {
+      "path": "internal/sessionio/fork_process_test.go",
+      "before_sha256": null,
+      "after_sha256": "2f68ef94ef2de2a7f0089d97dbc19574c2883542c8373b59af7db441a8ce13ca"
+    },
+    {
+      "path": "internal/sessionio/fork_staging.go",
+      "before_sha256": null,
+      "after_sha256": "f20887a7fd1a600e40ec59620ec24acad1500269d63fc33dafe650eb287deda1"
+    },
+    {
+      "path": "internal/sessionio/fork_staging_test.go",
+      "before_sha256": null,
+      "after_sha256": "08779b9cb21fbac670414aeb21e565e4a568feec2ab3fbc641dba84cc4720c28"
+    },
+    {
+      "path": "internal/sessionio/export.go",
+      "before_sha256": null,
+      "after_sha256": "a569de413ef873db2295e2493e83c7a23b5050abaaa2de9d3ef3797bd72f871f"
+    },
+    {
+      "path": "internal/sessionio/export_test.go",
+      "before_sha256": null,
+      "after_sha256": "92dd2893837beaf3de7d56264392eb0118ded3a0ac9c4b03c1ee3daac344fae6"
+    },
+    {
+      "path": "internal/app/session_export.go",
+      "before_sha256": null,
+      "after_sha256": "95b281478e81722ef46b0d292ed0f647a7a0721580c3f5d760376706048e085e"
+    },
+    {
+      "path": "internal/tui/session_export.go",
+      "before_sha256": null,
+      "after_sha256": "8e727d640a7a97167037c12f77d8b89a0b63ec7f70dcb1c18199c25733aaa685"
+    },
+    {
+      "path": "internal/tui/session_export_test.go",
+      "before_sha256": null,
+      "after_sha256": "383e736e20ceb3692a2d8eaee9ab9e6064812e81df58a1aeb94dde65334c72f3"
+    },
+    {
+      "path": "cmd/hand/session_export_test.go",
+      "before_sha256": null,
+      "after_sha256": "f32c77345d9e49400be99c009bc7d079743cbb36cf215af20cbf42bca5bbef98"
+    },
+    {
+      "path": "internal/sessionio/export_process_test.go",
+      "before_sha256": null,
+      "after_sha256": "a989312e70cfa18591c77d7354f73d50522d7903011894faf62d6f369a409fb1"
+    },
+    {
+      "path": "internal/sessionio/session_write_fault_test.go",
+      "before_sha256": null,
+      "after_sha256": "81788f0848842abd842b2f1dd53caeaf445b820eb8602bb6a8020b7bc9329c0d"
+    },
+    {
+      "path": "internal/sessionio/usage.go",
+      "before_sha256": null,
+      "after_sha256": "41616b5c738efd1f55f58065ffe98f50994aada3c5efd518846ed5b8db8e7585"
+    },
+    {
+      "path": "internal/sessionio/usage_test.go",
+      "before_sha256": null,
+      "after_sha256": "c1b0830d408fa5453f61a7d81e3f3714e3b287efe41e97759c9e198033f67c22"
+    },
+    {
+      "path": "internal/app/session_usage.go",
+      "before_sha256": null,
+      "after_sha256": "c03961f82242296ea64d6b4c15d8543e5100648d776dcf53f9eec2a2a8d9d9a8"
+    },
+    {
+      "path": "internal/app/session_usage_test.go",
+      "before_sha256": null,
+      "after_sha256": "90a5f34c33a1a954c0ad12408304ceff3a3c69e3d811ceb7cdc5cc43c1b932da"
+    },
+    {
+      "path": "internal/app/harness.go",
+      "before_sha256": "2d0ce578de2adb257d25fc31455073ee695bb9c39d34d4cbdd75cc7961ca1e71",
+      "after_sha256": "121438b375d0d054130d632f3eebf448e0ae9c9712a71ab6bd35932c52af8011"
+    },
+    {
+      "path": "internal/app/details.go",
+      "before_sha256": "f5e07b1d036129eb06ddb2abd28786d4b44f3871d6f7800fb95c339b0de4c6f1",
+      "after_sha256": "dd62d11219223b2a252afb1ba1c7a2b4b47aeeca6e712f3a306772f955d2cc88"
+    },
+    {
+      "path": "internal/tui/session_usage_test.go",
+      "before_sha256": null,
+      "after_sha256": "c35dc1f98a62dcb05deadaeaa4101a94da86c4ae450de568d556b9ee46c40c76"
+    },
+    {
+      "path": "internal/app/service.go",
+      "before_sha256": "f799544959901737d2f0b9cab8f26a5d037ed9a0c55f288db0262c27e932deb5",
+      "after_sha256": "e76ea95970face6497c7b639ce238f09e306cd03e9e3dc03759bd5ab4ec2060b"
+    },
+    {
+      "path": "internal/app/stream.go",
+      "before_sha256": "38abadc1a4beb9e6f0651b117f5a59f31fd7cc18552457c77691d2be5eeb956d",
+      "after_sha256": "c283377b45c0ffcf2a33bad8dd9e9e3c7be465e5d004ae101653334a1f1bee91"
+    },
+    {
+      "path": "internal/app/usage_cancellation_test.go",
+      "before_sha256": null,
+      "after_sha256": "94e1f70b7555893cace2243395db5b8853d7824438d108f20432f3dca66677de"
+    },
+    {
+      "path": "internal/app/usage_observer.go",
+      "before_sha256": null,
+      "after_sha256": "d247569a1a07c227e7875de542d9ac5800d0025c32e4ff06c4eabac906422854"
+    },
+    {
+      "path": "internal/tui/events.go",
+      "before_sha256": "cc760e775e0a1f621232a3f9ebcd62b41709fad19a77d7dcd7ca618628036ba5",
+      "after_sha256": "1b61ba00ee9b86a46438b9ad532b28ec7f785e8005d06ae05c88f9472921f6df"
+    },
+    {
+      "path": "internal/tui/manual_usage_test.go",
+      "before_sha256": null,
+      "after_sha256": "3510befcd083aeeaf8c90f20bb465c951ac6af12690b32929efb02fc514e52fe"
+    },
+    {
+      "path": "internal/tui/compaction_shutdown_test.go",
+      "before_sha256": null,
+      "after_sha256": "4c9d9a13de8674a57426d22c34446c88f33d914a5747958841c846f79927383a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/session-compaction-shutdown-integration.patch",
+      "sha256": "86f76658278898bfec91f06852fea528a649e8f157185ac91b65499c71b7a580"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-shutdown-full-20260908.jsonl",
+      "sha256": "d48ade2c5996f5a864c80b0f1d1b403cce4737da4e978d6aea7b5ad4bfccff41"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-shutdown-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-shutdown-repeat-20260908.jsonl",
+      "sha256": "ddab12a0a4c54a1fc1ccb1b4d62083bb3c66bc4f299bc3aa2b0aa9b5d18b08a6"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-shutdown-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-shutdown-coverage-20260908.out",
+      "sha256": "e824a3c68f464ef160dba3424213c6afc07c770dbfa3492d1a7c074eeea093a7"
+    },
+    {
+      "path": "/private/tmp/hand-compaction-shutdown-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "repetitions": 20,
+  "targeted_repeat_passes": 160
+}

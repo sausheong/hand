@@ -1,0 +1,24 @@
+{"Time":"2026-09-08T20:32:14.371928+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T20:32:14.403448+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T20:32:14.403528+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T20:32:14.980911+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch"}
+{"Time":"2026-09-08T20:32:14.980989+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Output":"=== RUN   TestSeparateSummarizerReviewAtomicityAndModelSwitch\n"}
+{"Time":"2026-09-08T20:32:14.981374+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Output":"--- PASS: TestSeparateSummarizerReviewAtomicityAndModelSwitch (0.00s)\n"}
+{"Time":"2026-09-08T20:32:14.981393+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Elapsed":0}
+{"Time":"2026-09-08T20:32:14.98154+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T20:32:15.632744+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/tui","Test":"TestSummarizerReviewDisclosureAndSingleUse"}
+{"Time":"2026-09-08T20:32:15.632792+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestSummarizerReviewDisclosureAndSingleUse","Output":"=== RUN   TestSummarizerReviewDisclosureAndSingleUse\n"}
+{"Time":"2026-09-08T20:32:15.694641+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Test":"TestSummarizerReviewDisclosureAndSingleUse","Output":"--- PASS: TestSummarizerReviewDisclosureAndSingleUse (0.06s)\n"}
+{"Time":"2026-09-08T20:32:15.694669+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Test":"TestSummarizerReviewDisclosureAndSingleUse","Elapsed":0.06}
+{"Time":"2026-09-08T20:32:15.695052+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"PASS\n"}
+{"Time":"2026-09-08T20:32:15.99014+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.618s\n"}
+{"Time":"2026-09-08T20:32:15.990209+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.6179999999999999}
+{"Time":"2026-09-08T20:32:16.077789+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSummarizerRPCReviewConfirmationAndReplay"}
+{"Time":"2026-09-08T20:32:16.077848+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSummarizerRPCReviewConfirmationAndReplay","Output":"=== RUN   TestSummarizerRPCReviewConfirmationAndReplay\n"}
+{"Time":"2026-09-08T20:32:16.113141+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSummarizerRPCReviewConfirmationAndReplay","Output":"--- PASS: TestSummarizerRPCReviewConfirmationAndReplay (0.04s)\n"}
+{"Time":"2026-09-08T20:32:16.113181+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestSummarizerRPCReviewConfirmationAndReplay","Elapsed":0.04}
+{"Time":"2026-09-08T20:32:16.113405+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T20:32:16.703557+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"ok  \tgithub.com/sausheong/hand/internal/tui\t2.300s\n"}
+{"Time":"2026-09-08T20:32:16.70368+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/tui","Elapsed":2.3}
+{"Time":"2026-09-08T20:32:17.122599+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t2.719s\n"}
+{"Time":"2026-09-08T20:32:17.12273+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":2.719}

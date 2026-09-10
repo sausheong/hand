@@ -1,0 +1,103 @@
+{
+  "status": "development_passed",
+  "requirements": [
+    "M0.1",
+    "M8.2"
+  ],
+  "changes": [
+    "make dist calls worker-inclusive builder without deleting existing output",
+    "Both CI workflows require worker verification",
+    "Installation/upgrade/rollback guide and corrected preserved-session README descriptions"
+  ],
+  "archive_directory": "/private/tmp/hand-dist-wiring-20260909",
+  "archive_hashes": {
+    "hand-development-worker-wiring-darwin-amd64.tar.gz": "483efd777173284d2b226b731682834f38b6d4a1b77f6f8ba0af31b82bd706d7",
+    "hand-development-worker-wiring-linux-amd64.tar.gz": "5944431480c17fb89053cde3abd0de4fbcb56f44535a36f8c6e08ff0fcacc833",
+    "hand-development-worker-wiring-linux-arm64.tar.gz": "3f5f34800843dff2c579b5b9cc2b6784455939c1ad5a053c31ce06ef39fc98b2",
+    "hand-development-worker-wiring-darwin-arm64.tar.gz": "e503289ffd5f9038eb03ec3802f6ada39234f98aa291303aa9f90a8d5a45b5b1",
+    "SHA256SUMS": "48e2b61024453d614638e09f99192e0076dc7ecf89508905cd51783c790efc78"
+  },
+  "smoke": {
+    "archives": [
+      {
+        "target": "darwin-amd64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      },
+      {
+        "target": "darwin-arm64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": true
+      },
+      {
+        "target": "linux-amd64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      },
+      {
+        "target": "linux-arm64",
+        "checksum": "passed",
+        "contents": "passed",
+        "worker": "passed",
+        "native_smoke": false
+      }
+    ]
+  },
+  "worker_validator_unit_tests": 5,
+  "existing_directory": "rejected with all original file hashes unchanged",
+  "documentation_links": "passed",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/Makefile.txt",
+      "sha256": "b8509a26e2181ab85cea60b309421bf1aae4737acc1c2d6ab7cea5b621f837d3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/SHA256SUMS",
+      "sha256": "48e2b61024453d614638e09f99192e0076dc7ecf89508905cd51783c790efc78"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/build.log",
+      "sha256": "279475628067d50ad0f8e62498f51e8d620ab659b352c82bfca87d1de5cf55d0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/build_dist.py.txt",
+      "sha256": "403d1f16da73684481fab2bc195bced1099174a87586fe6221e4887921d80121"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/existing-directory-rejection.log",
+      "sha256": "9811a94411b03d93bcb1d1cdbc5c1abf1037cc4d93b67a82c2678b5355ffb1d8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/release.yml.txt",
+      "sha256": "4350456079e56d7bda96ee32bd3d63634353438acf4badc8acc0bd1cb2138572"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/smoke.json",
+      "sha256": "47d699c4e39a852b19c4d5746f09fbce5d7e4bc0c8aba0b21e080ab7b0ffe768"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/smoke_dist.py.txt",
+      "sha256": "858383763b461b5cc9eaf4494ba5faa8639ac5b406d0061e211e9c291a738d55"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/unit.log",
+      "sha256": "d03ce458f2a6cd2b4f27522f3aacad03ce1872c028853507c3ad02ca621bdcad"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/dist-wiring-20260909/validate.yml.txt",
+      "sha256": "dc7ddd69a1a22a59f4d2c97c4248fcd67c60fed6a22eff85d3940314305a48f5"
+    }
+  ],
+  "limitations": [
+    "Dirty Hand checkout with local unreleased Harness dependency; embedded commit is baseline identity, not a clean candidate",
+    "Only darwin-arm64 CLI executed; other archive runtime and packaged isolation journeys remain open",
+    "Hosted CI and publication not executed",
+    "README documentation updated after archive build; final candidate must rebuild all artifacts"
+  ]
+}

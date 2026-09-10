@@ -1,0 +1,31 @@
+{
+  "status": "development_validation_passed",
+  "command": "PYTHONPATH=scripts python3 -m unittest discover -s scripts -p 'test_*.py'",
+  "artifacts": [
+    {
+      "source": "scripts/evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-budget-validation-20260909/evaluation_manifest.py",
+      "sha256": "28619eee5da2368f697e3e8b78b2c9858ae48af06dcf6f4956c991450ed913d9"
+    },
+    {
+      "source": "scripts/test_evaluation_manifest.py",
+      "path": "docs/acceptance/development-evidence/evaluation-budget-validation-20260909/test_evaluation_manifest.py",
+      "sha256": "fb549c29054d4652266f3157392b5e482733ad20aff7ec638fbe9e450f7551fd"
+    },
+    {
+      "source": "/private/tmp/hand-manifest-budget-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-budget-validation-20260909/hand-manifest-budget-tests-20260909.log",
+      "sha256": "624c96a30997903d3534fbb23acb31542f1c20fa8cab032f6e3f902dd7352f10"
+    }
+  ],
+  "changes": [
+    "Reject boolean and floating-point schema versions",
+    "Reject monetary integers too large for finite numeric representation without an uncaught overflow",
+    "Compare decimal budget caps and planned totals exactly, retaining rejection of insufficient totals"
+  ],
+  "limitations": [
+    "Structural regression tests are not comparative product evidence",
+    "No paid execution authorised or performed",
+    "Final candidate qualification remains open"
+  ]
+}

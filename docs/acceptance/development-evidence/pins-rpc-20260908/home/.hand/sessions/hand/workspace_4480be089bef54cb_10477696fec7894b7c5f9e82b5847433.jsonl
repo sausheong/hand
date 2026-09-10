@@ -1,0 +1,5 @@
+{"schemaVersion":1,"id":"ses_e9c6d18366c8b567","type":"session_header","timestamp":1788859599,"data":null}
+{"id":"annotation_45a303627a48cacd","type":"annotation","timestamp":1788859599,"data":{"version":1,"kind":"harness.context_pins","payload":{"version":1,"pins":[{"id":"objective","kind":"objective","text":"Preserve this objective across restart"}]}}}
+{"id":"annotation_8bb8921cb8a125be","type":"annotation","timestamp":1788859599,"data":{"version":1,"kind":"harness.context_pins","payload":{"version":1,"pins":[{"id":"objective","kind":"objective","text":"Preserve this objective across restart"},{"id":"constraint","kind":"constraint","text":"Keep user changes"}]}}}
+{"id":"annotation_5d4833bdb940e0b3","type":"annotation","timestamp":1788859599,"data":{"version":1,"kind":"harness.context_pins","payload":{"version":1,"pins":[{"id":"constraint","kind":"constraint","text":"Keep user changes"}]}}}
+{"id":"annotation_f0037bf75338f194","type":"annotation","timestamp":1788859599,"data":{"version":1,"kind":"harness.context_pins","payload":{"version":1,"pins":[]}}}

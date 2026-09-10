@@ -1,0 +1,354 @@
+diff --git a/SESSION_FORMAT.md b/SESSION_FORMAT.md
+index 2fb4b11..e33a474 100644
+--- a/SESSION_FORMAT.md
++++ b/SESSION_FORMAT.md
+@@ -83,3 +83,15 @@ CopyAttachments publishes only referenced blobs into a target store before its
+ session JSONL is published. Portable JSONL copies must travel together with their
+ sibling `.attachments` directory. Copying JSONL alone is insufficient when it
+ contains references. Blob quotas do not evict existing session data.
++
++MigrateLegacy also externalizes legacy inline images, including image records
++larger than the normal reader limit. Its migration-only record cap is 64 MiB,
++within the existing 128 MiB total import cap. Each blob must fit the attachment
++store's 32 MiB limit. Normalized output still passes the unchanged 10 MiB record
++reader and strict graph/duplicate-ID validation before replacement. The backup
++and reported source digest refer to the original unmodified bytes. The report's
++ExternalizedImages count describes transformed image occurrences. Repeated
++migration of reference-backed records leaves bytes and identity unchanged.
++Invalid image data and oversized non-image records remain errors. A failed
++conversion can leave unreferenced immutable blobs; it never rewrites the source.
++Combined oversized-image plus truncated-tail recovery remains a separate gap.
+diff --git a/session/attachments.go b/session/attachments.go
+index 0e151f0..1fbe4f6 100644
+--- a/session/attachments.go
++++ b/session/attachments.go
+@@ -18,7 +18,7 @@ func (s *Store) OpenAttachments(agentID string) (*attachment.Store, error) {
+ }
+ 
+ func mapImages(entry SessionEntry, transform func(ImageData) (ImageData, error)) (SessionEntry, error) {
+-	if entry.Type != EntryTypeMessage && entry.Type != EntryTypeToolResult {
++	if len(entry.Data) == 0 || (entry.Type != EntryTypeMessage && entry.Type != EntryTypeToolResult) {
+ 		return entry, nil
+ 	}
+ 	var fields map[string]json.RawMessage
+@@ -97,7 +97,7 @@ func (s *Session) externalizeImages(ctx context.Context, entry SessionEntry) (Se
+ 			}
+ 			return img, nil
+ 		}
+-		if int64(base64.StdEncoding.DecodedLen(len(img.Data))) > attachment.MaxBlobBytes {
++		if len(img.Data) > base64.StdEncoding.EncodedLen(int(attachment.MaxBlobBytes)) {
+ 			return img, errors.New("inline image exceeds attachment limit")
+ 		}
+ 		data, err := base64.StdEncoding.DecodeString(img.Data)
+diff --git a/session/attachments_test.go b/session/attachments_test.go
+index 33c440c..f0c8248 100644
+--- a/session/attachments_test.go
++++ b/session/attachments_test.go
+@@ -115,3 +115,25 @@ func TestToolAttachmentPreservesUnknownPayloadFields(t *testing.T) {
+ 		t.Fatal(result)
+ 	}
+ }
++
++func TestImageAtExactAttachmentLimitIsAccepted(t *testing.T) {
++	store := NewStore(t.TempDir())
++	if err := store.Create("agent", "key"); err != nil {
++		t.Fatal(err)
++	}
++	sess, err := store.LoadExclusive("agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	// 32 MiB has base64 padding: DecodedLen alone overestimates by one byte.
++	data := make([]byte, 32<<20)
++	entry := UserMessageWithImagesEntry("boundary", []ImageData{{MimeType: "image/png", Data: base64.StdEncoding.EncodeToString(data)}})
++	if err := sess.AppendContext(context.Background(), entry); err != nil {
++		t.Fatal("exact limit rejected", err)
++	}
++	refs, err := AttachmentReferences(sess.Entries())
++	if err != nil || len(refs) != 1 || refs[0].Size != int64(len(data)) {
++		t.Fatal(refs, err)
++	}
++}
+diff --git a/session/migration.go b/session/migration.go
+index dfbedef..d546b05 100644
+--- a/session/migration.go
++++ b/session/migration.go
+@@ -3,6 +3,8 @@ package session
+ import (
+ 	"bytes"
+ 	"context"
++	"crypto/sha256"
++	"encoding/hex"
+ 	"encoding/json"
+ 	"errors"
+ 	"io"
+@@ -12,14 +14,15 @@ import (
+ 
+ type MigrationReport struct {
+ 	LegacyConversion
+-	FormatUpgraded bool
+-	BackupPath     string
+-	Migrated       bool // replacement occurred; a later sync error still requires reconciliation
++	ExternalizedImages int
++	FormatUpgraded     bool
++	BackupPath         string
++	Migrated           bool // replacement occurred; a later sync error still requires reconciliation
+ }
+ 
+ // MigrateLegacy converts historical duplicate-ID compaction logs in place,
+ // holding the lifetime writer lease. It preserves a private, synced original
+-// backup before atomic replacement. Legacy logs receive a versioned identity header. Already-versioned valid logs remain byte-identical.
++// backup before atomic replacement. Legacy logs receive a versioned identity header. Already-versioned valid logs without inline images remain byte-identical.
+ // The returned session owns the lease until Close. This is a log-format
+ // migration primitive, not a workspace/session catalogue importer.
+ func (s *Store) MigrateLegacy(ctx context.Context, agentID, key string) (*Session, MigrationReport, error) {
+@@ -61,7 +64,14 @@ func (s *Store) migrateLegacy(ctx context.Context, agentID, key string, syncDire
+ 	if int64(len(raw)) > MaxLegacyImportBytes {
+ 		return nil, report, errors.New("legacy session exceeds import size limit")
+ 	}
+-	converted, conversion, err := ConvertLegacySession(&recoveryReader{ctx: ctx, reader: bytes.NewReader(raw)})
++	normalized, imageCount, err := s.externalizeLegacyImages(ctx, agentID, raw)
++	report.ExternalizedImages = imageCount
++	if err != nil {
++		return nil, report, err
++	}
++	converted, conversion, err := ConvertLegacySession(&recoveryReader{ctx: ctx, reader: bytes.NewReader(normalized)})
++	originalHash := sha256.Sum256(raw)
++	conversion.SourceSHA256 = hex.EncodeToString(originalHash[:])
+ 	report.LegacyConversion = conversion
+ 	if err != nil {
+ 		return nil, report, err
+@@ -90,7 +100,7 @@ func (s *Store) migrateLegacy(ctx context.Context, agentID, key string, syncDire
+ 		}
+ 		report.FormatUpgraded = true
+ 	}
+-	if conversion.RemappedIDs > 0 || report.FormatUpgraded {
++	if conversion.RemappedIDs > 0 || report.FormatUpgraded || report.ExternalizedImages > 0 {
+ 		dir := filepath.Dir(path)
+ 		backup, err := writeMigrationFile(ctx, dir, "."+key+".migration-backup-*", raw)
+ 		if err != nil {
+diff --git a/session/migration_images.go b/session/migration_images.go
+new file mode 100644
+index 0000000..3584c80
+--- /dev/null
++++ b/session/migration_images.go
+@@ -0,0 +1,83 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"encoding/json"
++	"errors"
++)
++
++// Only migration may read larger legacy image records. Every converted record
++// must still pass the normal 10 MiB parser before the original is replaced.
++const MaxLegacyImageRecordBytes = 64 << 20
++
++func (s *Store) externalizeLegacyImages(ctx context.Context, agentID string, raw []byte) ([]byte, int, error) {
++	var output bytes.Buffer
++	images := 0
++	temporary := &Session{store: s, AgentID: agentID}
++	for offset, lineNumber := 0, 1; offset < len(raw); lineNumber++ {
++		if err := ctx.Err(); err != nil {
++			return nil, images, err
++		}
++		if lineNumber > MaxLegacyImportRecords {
++			return nil, images, errors.New("legacy session exceeds import record limit")
++		}
++		length := bytes.IndexByte(raw[offset:], '\n')
++		final := length < 0
++		if final {
++			length = len(raw) - offset
++		} else {
++			length++
++		}
++		line := raw[offset : offset+length]
++		trimmed := bytes.TrimSpace(line)
++		if len(line) > MaxLegacyImageRecordBytes {
++			return nil, images, &RecordError{Line: lineNumber, Offset: int64(offset), Cause: ErrSessionRecordTooLarge}
++		}
++		next := line
++		if len(trimmed) > 0 {
++			entry, err := decodeSessionRecord(trimmed, final, lineNumber, int64(offset))
++			if err != nil {
++				return nil, images, err
++			}
++			inline := 0
++			_, err = mapImages(entry, func(img ImageData) (ImageData, error) {
++				if img.Reference == nil {
++					inline++
++				}
++				return img, nil
++			})
++			if err != nil {
++				return nil, images, err
++			}
++			if inline > 0 {
++				converted, err := temporary.externalizeImages(ctx, entry)
++				if err != nil {
++					return nil, images, err
++				}
++				var fields map[string]json.RawMessage
++				if err := json.Unmarshal(trimmed, &fields); err != nil {
++					return nil, images, err
++				}
++				fields["data"] = converted.Data
++				next, err = json.Marshal(fields)
++				if err != nil {
++					return nil, images, err
++				}
++				if !final {
++					next = append(next, '\n')
++				}
++				if len(next) > MaxSessionRecordBytes {
++					return nil, images, ErrSessionRecordTooLarge
++				}
++				images += inline
++			}
++		}
++		if int64(output.Len()+len(next)) > MaxLegacyImportBytes {
++			return nil, images, errors.New("normalised legacy session exceeds import size limit")
++		}
++		output.Write(next)
++		offset += length
++	}
++	return output.Bytes(), images, nil
++}
+diff --git a/session/migration_images_test.go b/session/migration_images_test.go
+new file mode 100644
+index 0000000..66eb404
+--- /dev/null
++++ b/session/migration_images_test.go
+@@ -0,0 +1,129 @@
++package session
++
++import (
++	"bytes"
++	"context"
++	"crypto/sha256"
++	"encoding/base64"
++	"encoding/json"
++	"errors"
++	"fmt"
++	"os"
++	"strings"
++	"testing"
++)
++
++func TestMigrateLargeLegacyImagePreservesOriginalAndRestarts(t *testing.T) {
++	data := bytes.Repeat([]byte{42}, 12<<20)
++	entry := UserMessageWithImagesEntry("legacy image", []ImageData{{MimeType: "image/png", Data: base64.StdEncoding.EncodeToString(data)}})
++	entry.ID = "legacy-image"
++	entry.Timestamp = 123
++	raw, err := json.Marshal(entry)
++	if err != nil {
++		t.Fatal(err)
++	}
++	raw = append(raw, '\n')
++	store, path := recoveryFixture(t, string(raw))
++	if _, err := store.Load("agent", "key"); !errors.Is(err, ErrSessionRecordTooLarge) {
++		t.Fatal("normal reader limit changed", err)
++	}
++	sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	if !report.Migrated || report.ExternalizedImages != 1 || report.SourceSHA256 != fmt.Sprintf("%x", sha256.Sum256(raw)) {
++		t.Fatal(report)
++	}
++	backup, err := os.ReadFile(report.BackupPath)
++	if err != nil || !bytes.Equal(backup, raw) {
++		t.Fatal("original backup changed", err)
++	}
++	converted, err := os.ReadFile(path)
++	if err != nil || len(converted) > 4096 {
++		t.Fatal("image remains inline", err)
++	}
++	sess.Close()
++	resumed, again, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer resumed.Close()
++	if again.Migrated || again.ExternalizedImages != 0 || again.BackupPath != "" || resumed.LeafID() != entry.ID {
++		t.Fatal(again)
++	}
++	replay, err := resumed.ResolveImages(context.Background(), resumed.History())
++	if err != nil {
++		t.Fatal(err)
++	}
++	var message MessageData
++	if err := json.Unmarshal(replay[0].Data, &message); err != nil {
++		t.Fatal(err)
++	}
++	restored, err := base64.StdEncoding.DecodeString(message.Images[0].Data)
++	if err != nil || !bytes.Equal(restored, data) {
++		t.Fatal("legacy pixels changed", err)
++	}
++	after, err := os.ReadFile(path)
++	if err != nil || !bytes.Equal(after, converted) {
++		t.Fatal("repeat migration changed file", err)
++	}
++}
++
++func TestImageMigrationRejectsOversizedTextAndMalformedImage(t *testing.T) {
++	for _, kind := range []string{"text", "bad_image"} {
++		t.Run(kind, func(t *testing.T) {
++			entry := UserMessageEntry("old")
++			if kind == "text" {
++				entry = UserMessageEntry(string(bytes.Repeat([]byte("x"), MaxSessionRecordBytes)))
++			} else {
++				entry = UserMessageWithImagesEntry("bad", []ImageData{{MimeType: "image/png", Data: "%%%"}})
++			}
++			entry.ID = "old"
++			raw, err := json.Marshal(entry)
++			if err != nil {
++				t.Fatal(err)
++			}
++			raw = append(raw, '\n')
++			store, path := recoveryFixture(t, string(raw))
++			if _, _, err := store.MigrateLegacy(context.Background(), "agent", "key"); err == nil {
++				t.Fatal("invalid import accepted")
++			}
++			after, err := os.ReadFile(path)
++			if err != nil || !bytes.Equal(after, raw) {
++				t.Fatal("failed migration altered original", err)
++			}
++		})
++	}
++}
++
++func TestImageMigrationPreservesLegacyCompactionClones(t *testing.T) {
++	raw := strings.ReplaceAll(legacyCompactionFixture(), `"text":"kept"`, `"text":"kept","images":[{"mime_type":"image/png","data":"aW1hZ2U="}]`)
++	store, path := recoveryFixture(t, raw)
++	sess, report, err := store.MigrateLegacy(context.Background(), "agent", "key")
++	if err != nil {
++		t.Fatal(err)
++	}
++	defer sess.Close()
++	if report.RemappedIDs != 2 || report.ExternalizedImages != 2 {
++		t.Fatal(report)
++	}
++	refs, err := AttachmentReferences(sess.Entries())
++	if err != nil || len(refs) != 1 {
++		t.Fatal("clone attachment not deduplicated", refs, err)
++	}
++	if err := sess.Branch("b"); err != nil {
++		t.Fatal(err)
++	}
++	replay, err := sess.ResolveImages(context.Background(), sess.History())
++	if err != nil {
++		t.Fatal(err)
++	}
++	var data MessageData
++	if err := json.Unmarshal(replay[1].Data, &data); err != nil || len(data.Images) != 1 || data.Images[0].Data != "aW1hZ2U=" {
++		t.Fatal(data, err)
++	}
++	converted, err := os.ReadFile(path)
++	if err != nil || !bytes.Contains(converted, []byte(`"value":9007199254740993`)) {
++		t.Fatal("unknown integer field lost", err)
++	}
++}

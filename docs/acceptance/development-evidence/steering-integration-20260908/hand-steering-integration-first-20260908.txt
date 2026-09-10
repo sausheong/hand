@@ -1,0 +1,2 @@
+ok  	github.com/sausheong/hand/internal/app	2.783s
+ok  	github.com/sausheong/hand/internal/tui	3.405s

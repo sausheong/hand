@@ -1,0 +1,52 @@
+{
+  "status": "development_passed",
+  "requirement": "M2.1",
+  "repetitions": 20,
+  "pass_including_subtests": 120,
+  "fail": 0,
+  "skip": 0,
+  "changes": [
+    "Removed unused transitional Controller.Run after migrating its contract tests to Owner.Start.",
+    "Controller configuration remains gated by same service ownership as runtime execution."
+  ],
+  "assertions": [
+    "Model/session changes blocked until cancelled provider joins, then model switch succeeds.",
+    "Selected token budget refusal survives in service outcome cause.",
+    "Time-budget expiry survives backend and service outcome cause; provider is stopped.",
+    "Manual compaction remains governed by selected run budget and accounts summary request."
+  ],
+  "build": {
+    "exit_code": 0,
+    "sha256": "5db4dcebc4fc249a0798c685997d7d53dc1bda4738369deafc7631d6a71ff844"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/controller-adapter-removal-20260909/hand-controller-adapter-repeated-20260909.jsonl.gz",
+      "sha256": "9c29f415c012039229078d7c21645b7a143fd91b6ae4197f0a29ebef0e5bd08b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/controller-adapter-removal-20260909/hand-controller-adapter-removal-20260909.jsonl.gz",
+      "sha256": "48504cd4f16d26d530dc6c9337add9d9af4f43003458d3db9c3b47b4aea17c07"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/controller-adapter-removal-20260909/hand-controller-adapter-build-20260909.log.gz",
+      "sha256": "d2da836791215245ec9bc16b5b678a1ef442b87dacbb3f4a58b04e414b0f87f2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/controller-adapter-removal-20260909/controller.go.gz",
+      "sha256": "5a963fc97cb356c6989efecf9acc447625595a6072b11835526afe91c2f490a7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/controller-adapter-removal-20260909/controller_test.go.gz",
+      "sha256": "65bdbe9bd247ac5b750c2dff2cfd2b6a6c7704e2b7b3e7a5407550d2d42645a9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/controller-adapter-removal-20260909/run_budget_compaction_test.go.gz",
+      "sha256": "c7ee73a0d456b8fae4c287da2fff111bf6916a43c3c7947a5f236dd3ac027f87"
+    }
+  ],
+  "limitations": [
+    "Targeted development race tests and CLI build, not full candidate/platform/coverage qualification.",
+    "Startup runtime configuration and legacy approval message compatibility remain."
+  ]
+}

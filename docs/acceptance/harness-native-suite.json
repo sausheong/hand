@@ -1,0 +1,215 @@
+{
+  "status": "development_full_suite_passed",
+  "command": "go test -p=1 -race -count=1 -timeout=15m -coverpkg=./... -coverprofile=/private/tmp/hand-harness-native-coverage-20260909.out -json ./...",
+  "source_unchanged_during_run": true,
+  "test_records": {
+    "pass": 1051,
+    "fail": 0,
+    "skip": 0
+  },
+  "packages": {
+    "pass": 32
+  },
+  "coverage": {
+    "total": {
+      "statements": 8787,
+      "covered": 6132,
+      "percentage": 69.7849095254353
+    },
+    "packages": {
+      "github.com/sausheong/harness/attachment": {
+        "statements": 170,
+        "covered": 125,
+        "percentage": 73.52941176470588
+      },
+      "github.com/sausheong/harness/budget": {
+        "statements": 479,
+        "covered": 380,
+        "percentage": 79.33194154488518
+      },
+      "github.com/sausheong/harness/compaction": {
+        "statements": 329,
+        "covered": 301,
+        "percentage": 91.48936170212765
+      },
+      "github.com/sausheong/harness/examples/data-agent": {
+        "statements": 232,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/lta-agent": {
+        "statements": 192,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/minimal": {
+        "statements": 40,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/self-improving-agent": {
+        "statements": 59,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/support-agent": {
+        "statements": 314,
+        "covered": 129,
+        "percentage": 41.0828025477707
+      },
+      "github.com/sausheong/harness/execution": {
+        "statements": 415,
+        "covered": 316,
+        "percentage": 76.144578313253
+      },
+      "github.com/sausheong/harness/llm": {
+        "statements": 253,
+        "covered": 207,
+        "percentage": 81.81818181818181
+      },
+      "github.com/sausheong/harness/llm/llmtest": {
+        "statements": 19,
+        "covered": 17,
+        "percentage": 89.47368421052632
+      },
+      "github.com/sausheong/harness/process": {
+        "statements": 277,
+        "covered": 227,
+        "percentage": 81.94945848375451
+      },
+      "github.com/sausheong/harness/providers/anthropic": {
+        "statements": 266,
+        "covered": 213,
+        "percentage": 80.07518796992481
+      },
+      "github.com/sausheong/harness/providers/gemini": {
+        "statements": 118,
+        "covered": 7,
+        "percentage": 5.932203389830509
+      },
+      "github.com/sausheong/harness/providers/litellm": {
+        "statements": 1,
+        "covered": 1,
+        "percentage": 100.0
+      },
+      "github.com/sausheong/harness/providers/local": {
+        "statements": 3,
+        "covered": 3,
+        "percentage": 100.0
+      },
+      "github.com/sausheong/harness/providers/openai": {
+        "statements": 148,
+        "covered": 48,
+        "percentage": 32.432432432432435
+      },
+      "github.com/sausheong/harness/providers/openrouter": {
+        "statements": 3,
+        "covered": 3,
+        "percentage": 100.0
+      },
+      "github.com/sausheong/harness/runtime": {
+        "statements": 2146,
+        "covered": 1703,
+        "percentage": 79.3569431500466
+      },
+      "github.com/sausheong/harness/session": {
+        "statements": 1259,
+        "covered": 1039,
+        "percentage": 82.52581413820492
+      },
+      "github.com/sausheong/harness/tokens": {
+        "statements": 123,
+        "covered": 88,
+        "percentage": 71.54471544715447
+      },
+      "github.com/sausheong/harness/tool": {
+        "statements": 298,
+        "covered": 254,
+        "percentage": 85.23489932885906
+      },
+      "github.com/sausheong/harness/tool/memory": {
+        "statements": 80,
+        "covered": 67,
+        "percentage": 83.75
+      },
+      "github.com/sausheong/harness/tool/memory/jsonl": {
+        "statements": 144,
+        "covered": 119,
+        "percentage": 82.63888888888889
+      },
+      "github.com/sausheong/harness/tool/skills": {
+        "statements": 97,
+        "covered": 85,
+        "percentage": 87.62886597938144
+      },
+      "github.com/sausheong/harness/tool/skills/disk": {
+        "statements": 235,
+        "covered": 198,
+        "percentage": 84.25531914893617
+      },
+      "github.com/sausheong/harness/tools/bash": {
+        "statements": 160,
+        "covered": 141,
+        "percentage": 88.125
+      },
+      "github.com/sausheong/harness/tools/browser": {
+        "statements": 299,
+        "covered": 121,
+        "percentage": 40.468227424749166
+      },
+      "github.com/sausheong/harness/tools/file": {
+        "statements": 123,
+        "covered": 82,
+        "percentage": 66.66666666666667
+      },
+      "github.com/sausheong/harness/tools/mcp": {
+        "statements": 118,
+        "covered": 101,
+        "percentage": 85.59322033898304
+      },
+      "github.com/sausheong/harness/tools/todo": {
+        "statements": 104,
+        "covered": 90,
+        "percentage": 86.53846153846153
+      },
+      "github.com/sausheong/harness/tools/web": {
+        "statements": 283,
+        "covered": 67,
+        "percentage": 23.674911660777386
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-harness-native-inputs-20260909.json",
+      "path": "docs/acceptance/development-evidence/harness-native-suite-20260909/hand-harness-native-inputs-20260909.json.gz",
+      "sha256": "75e23fe121238aeab442974bce4fa6bd26b33f535e5906efc7373f245b8eba5d",
+      "uncompressed_sha256": "aec4714bfb5c74db33394ea9c1cd7511440a7c3bf38d28e9bf2b3c8efc1b86f1"
+    },
+    {
+      "source": "/private/tmp/hand-harness-native-tests-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/harness-native-suite-20260909/hand-harness-native-tests-20260909.jsonl.gz",
+      "sha256": "ae43c4130abc5f669cb260da525ce267ff654dae7633ac482d29f63247d1ec62",
+      "uncompressed_sha256": "c341e346cb7f255060113afb1fe8d889ce64c9ded4dd686f44d50c7e9feeadff"
+    },
+    {
+      "source": "/private/tmp/hand-harness-native-coverage-20260909.out",
+      "path": "docs/acceptance/development-evidence/harness-native-suite-20260909/hand-harness-native-coverage-20260909.out.gz",
+      "sha256": "ef75cd9b170953c4322e7b8f64eb5a811a056af1435b1800b0beeae5ed09306f",
+      "uncompressed_sha256": "1116da4068efeae2525736d95aa3af8df219761a4150817e7e5f72c80efee131"
+    }
+  ],
+  "environment": {
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_VOLUME_IMAGE": "sha256:ef257d85f76e48da1c64832459b59fcaba1a4dac97bf5d7450c77753542eee94",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off"
+  },
+  "limitations": [
+    "Dirty unreleased Harness candidate; no final release qualification",
+    "Native Docker containers run Linux on a macOS host; this is not a native Linux host race suite",
+    "Coverage alone does not establish meaningful assertions or scenario completeness"
+  ]
+}

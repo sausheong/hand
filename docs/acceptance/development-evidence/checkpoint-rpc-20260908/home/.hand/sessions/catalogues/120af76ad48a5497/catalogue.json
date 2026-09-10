@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-checkpoint-rpc-final-20260908/workspace",
+  "generation": 4,
+  "lastActiveId": "ses_6d5e244738d6d2d6",
+  "sessions": [
+    {
+      "id": "ses_431b8ea7ee49584c",
+      "agentId": "hand",
+      "storeKey": "workspace_120af76ad48a5497_c7eb0a157a7b6079b02ce18a1d4a290b",
+      "name": "",
+      "createdAt": "2026-09-08T07:06:59.757905Z",
+      "lastActive": "2026-09-08T07:06:59.758146Z"
+    },
+    {
+      "id": "ses_05e27085997eb5eb",
+      "agentId": "hand",
+      "storeKey": "workspace_120af76ad48a5497_9b7072207ed6be6637b83e9098f4b63c",
+      "name": "",
+      "createdAt": "2026-09-08T07:06:59.934724Z",
+      "lastActive": "2026-09-08T07:06:59.934803Z"
+    },
+    {
+      "id": "ses_6d5e244738d6d2d6",
+      "agentId": "hand",
+      "storeKey": "workspace_120af76ad48a5497_a7c4adafb606a697799b18859d861680",
+      "name": "",
+      "createdAt": "2026-09-08T07:07:00.020931Z",
+      "lastActive": "2026-09-08T07:07:00.134506Z"
+    }
+  ]
+}

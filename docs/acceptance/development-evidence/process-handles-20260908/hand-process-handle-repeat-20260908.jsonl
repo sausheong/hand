@@ -1,0 +1,244 @@
+{"Time":"2026-09-08T10:35:03.187214+08:00","Action":"start","Package":"github.com/sausheong/harness/process"}
+{"Time":"2026-09-08T10:35:03.604504+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.604571+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.611304+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.611337+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.611386+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.611397+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.631672+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.02s)\n"}
+{"Time":"2026-09-08T10:35:03.631702+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.02}
+{"Time":"2026-09-08T10:35:03.631747+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.631755+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.634064+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.634093+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.634206+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.634215+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.639313+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.639336+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.639356+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.63936+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.652492+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.652519+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.652553+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.652559+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.654516+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.654537+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.654635+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.654639+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.659831+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.65986+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.659903+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.659908+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.674305+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.674331+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.674364+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.67437+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.676554+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.676573+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.676649+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.676653+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.680917+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.68095+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.681013+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.681017+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.694375+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.694399+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.69442+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.694424+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.696181+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.696198+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.696259+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.696263+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.700269+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.700289+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.700309+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.700314+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.713369+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.713389+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.713425+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.713429+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.715324+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.715343+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.715414+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.715419+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.71955+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.719563+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.719593+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.719598+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.731337+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.73135+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.731374+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.731378+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.733068+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.733083+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.733156+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.733159+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.737114+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.737121+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.737152+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.737157+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.748317+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.74834+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.748362+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.748366+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.750296+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.750324+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.750397+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.7504+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.754086+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.754103+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.754133+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.754144+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.765038+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.765051+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.765076+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.765078+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.766708+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.766725+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.766794+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.766802+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.770316+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.770335+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.770366+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.770369+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.781465+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.781475+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.781494+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.781497+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.783013+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.783037+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.78312+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.783124+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.787306+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.787325+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.787334+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.787337+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.799364+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.799388+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.799425+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.799428+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.801056+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.80108+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.801143+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.801147+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.804683+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.804698+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.804718+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.804722+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.816302+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.816319+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.816345+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.81635+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.817915+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.817931+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.817988+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.817997+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.821621+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.821634+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.821653+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.821656+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.833424+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.833444+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.83347+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.833474+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.835107+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.835125+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.835178+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.835181+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.83864+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.838656+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.838681+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.838684+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.85033+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.850362+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.850399+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.850402+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.851987+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.852006+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.85208+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.852083+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.855947+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.855961+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.855982+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.855989+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.867161+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.867172+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.867191+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.867197+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.868818+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.868834+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.868897+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.868902+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.872839+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.872853+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.872882+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.872888+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.884258+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.884279+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.88431+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.884317+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.885927+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.885942+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.886007+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.88601+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.889392+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.889404+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.889426+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.889431+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.900195+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.900216+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.90024+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.900243+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.901765+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.90178+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.901839+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.901843+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.905207+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.905222+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.905241+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.905244+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.916093+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.916128+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.91616+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.916163+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.917702+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.917717+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.91778+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.917782+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.921411+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.921427+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.921466+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.921472+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.932169+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.93219+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.93222+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.932224+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.933795+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.933807+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.933875+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.933878+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.937355+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.937376+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.937407+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.937414+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.948177+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.948202+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.948234+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.948237+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.94981+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.949821+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.949887+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait"}
+{"Time":"2026-09-08T10:35:03.949889+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"=== RUN   TestHandleSendReadWait\n"}
+{"Time":"2026-09-08T10:35:03.953184+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Output":"--- PASS: TestHandleSendReadWait (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.953201+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleSendReadWait","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.953218+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation"}
+{"Time":"2026-09-08T10:35:03.95322+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"=== RUN   TestHandleBoundedCaptureAndOwnerCancellation\n"}
+{"Time":"2026-09-08T10:35:03.963073+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Output":"--- PASS: TestHandleBoundedCaptureAndOwnerCancellation (0.01s)\n"}
+{"Time":"2026-09-08T10:35:03.963086+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleBoundedCaptureAndOwnerCancellation","Elapsed":0.01}
+{"Time":"2026-09-08T10:35:03.963102+08:00","Action":"run","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput"}
+{"Time":"2026-09-08T10:35:03.963105+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"=== RUN   TestHandleRejectsOversizedInput\n"}
+{"Time":"2026-09-08T10:35:03.964714+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Output":"--- PASS: TestHandleRejectsOversizedInput (0.00s)\n"}
+{"Time":"2026-09-08T10:35:03.964729+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Test":"TestHandleRejectsOversizedInput","Elapsed":0}
+{"Time":"2026-09-08T10:35:03.964775+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Output":"PASS\n"}
+{"Time":"2026-09-08T10:35:04.981412+08:00","Action":"output","Package":"github.com/sausheong/harness/process","Output":"ok  \tgithub.com/sausheong/harness/process\t1.794s\n"}
+{"Time":"2026-09-08T10:35:04.981535+08:00","Action":"pass","Package":"github.com/sausheong/harness/process","Elapsed":1.794}

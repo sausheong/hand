@@ -1,0 +1,54 @@
+{
+  "status": "development_passed",
+  "requirement": "M6.3",
+  "scope": "Reject ambiguous monetary tariff review JSON before computing approval digest",
+  "before": {
+    "failed_test_records": 8,
+    "accepted_ambiguous_cases": 7
+  },
+  "after": {
+    "passed_test_records": 17,
+    "fail": 0,
+    "skip": 0
+  },
+  "cases": [
+    "duplicate version",
+    "version case alias",
+    "duplicate prices",
+    "escaped duplicate rate",
+    "rate case alias",
+    "null rate",
+    "duplicate bounded-charge flag"
+  ],
+  "invariants": [
+    "Rejected input yields no approval digest",
+    "Input bytes remain unchanged",
+    "Canonical replacement file remains usable"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/price-ambiguity-20260909/after.jsonl",
+      "sha256": "bc8dd7467f3942c57c0b543a71d91f5582d7488bba0acfd50462dc0446d1885c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-ambiguity-20260909/before.jsonl",
+      "sha256": "87c46b72f0da49ca7c6faecb5c8290117b4729d9a9246530a2d5c65d18b1fa63"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-ambiguity-20260909/price_review.go.txt",
+      "sha256": "6e8e0ba1ef4c3317398f0050d9d64e907ac1371d2468e94d5a6773ac9cccb3a8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-ambiguity-20260909/price_review_ambiguity_test.go.txt",
+      "sha256": "13eb7056a6ea8c06e8b4137f261fa9fe8ff0bd0b8824b06ae860d8712fa660d3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/price-ambiguity-20260909/price_review_json.go.txt",
+      "sha256": "cbc50bab405d6e30cba7a74e7f0d23312e9baba362bd1dfd01192b82c4a6509a"
+    }
+  ],
+  "limitations": [
+    "Targeted race tests, not refreshed full coverage or final candidate evidence",
+    "Tariffs remain caller-supplied assertions, not independently verified billing"
+  ]
+}

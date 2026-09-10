@@ -1,0 +1,192 @@
+{
+  "status": "development_paths_passed",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -timeout=2m -json ./internal/tui -run '^(TestSessionOperationCancellationInitiationLatency|TestSessionChange.*|TestChangingKeyboardQuitJoinsBeforeExit)$'",
+  "test_records": {
+    "pass": 14,
+    "fail": 0,
+    "skip": 0
+  },
+  "paths": {
+    "TestSessionOperationCancellationInitiationLatency/ctrl_c": {
+      "samples_ms": [
+        0.0085,
+        0.008583,
+        0.008875,
+        0.011,
+        0.011875,
+        0.011917,
+        0.014083,
+        0.0145,
+        0.018125,
+        0.02,
+        0.021042,
+        0.02125,
+        0.021417,
+        0.021583,
+        0.021792,
+        0.022,
+        0.022209,
+        0.024125,
+        0.024625,
+        0.025167,
+        0.025209,
+        0.026,
+        0.026417,
+        0.029167,
+        0.030166,
+        0.030584,
+        0.033792,
+        0.035708,
+        0.037084,
+        0.046459
+      ],
+      "p95_ms": 0.037084,
+      "trials": 30
+    },
+    "TestSessionOperationCancellationInitiationLatency/quit": {
+      "samples_ms": [
+        0.03425,
+        0.073666,
+        0.084541,
+        0.088084,
+        0.0915,
+        0.098416,
+        0.10125,
+        0.101416,
+        0.108416,
+        0.109542,
+        0.11025,
+        0.138166,
+        0.139041,
+        0.149,
+        0.159333,
+        0.160416,
+        0.1605,
+        0.165542,
+        0.171416,
+        0.182917,
+        0.217125,
+        0.229958,
+        0.429416,
+        0.774,
+        1.047167,
+        1.078833,
+        1.3195,
+        1.483125,
+        1.975584,
+        3.027625
+      ],
+      "p95_ms": 1.975584,
+      "trials": 30
+    },
+    "TestSessionOperationCancellationInitiationLatency/exit": {
+      "samples_ms": [
+        0.035417,
+        0.036125,
+        0.052917,
+        0.055708,
+        0.062917,
+        0.080167,
+        0.084375,
+        0.085292,
+        0.087042,
+        0.08975,
+        0.090292,
+        0.094459,
+        0.103334,
+        0.107375,
+        0.113292,
+        0.115958,
+        0.122584,
+        0.136584,
+        0.150875,
+        0.158292,
+        0.16225,
+        0.164875,
+        0.165083,
+        0.189292,
+        0.197292,
+        0.866333,
+        1.111417,
+        1.118166,
+        1.146584,
+        1.173334
+      ],
+      "p95_ms": 1.146584,
+      "trials": 30
+    },
+    "TestSessionOperationCancellationInitiationLatency/close": {
+      "samples_ms": [
+        0.004458,
+        0.005458,
+        0.006125,
+        0.008292,
+        0.009083,
+        0.00975,
+        0.0105,
+        0.011042,
+        0.011042,
+        0.011291,
+        0.011333,
+        0.011458,
+        0.011875,
+        0.011959,
+        0.01225,
+        0.012834,
+        0.013084,
+        0.01325,
+        0.0135,
+        0.013667,
+        0.014458,
+        0.015833,
+        0.016042,
+        0.019209,
+        0.023334,
+        0.024125,
+        0.025,
+        0.035042,
+        0.057625,
+        0.076125
+      ],
+      "p95_ms": 0.057625,
+      "trials": 30
+    }
+  },
+  "sources": [
+    {
+      "path": "internal/tui/session_cancellation_latency_test.go",
+      "sha256": "8f53ad8ba5e52514e1d0692924a146cb60825986715b8a00c72cc19b6afc45e3",
+      "archive": "docs/acceptance/development-evidence/session-cancel-latency-20260909/session_cancellation_latency_test.go.txt"
+    },
+    {
+      "path": "internal/tui/model.go",
+      "sha256": "c665223817bf4b8b8d52343e3fc60b57c49614d01b4b32e3ecaffc27d7e7f5a2",
+      "archive": "docs/acceptance/development-evidence/session-cancel-latency-20260909/model.go.txt"
+    },
+    {
+      "path": "internal/tui/session_operation.go",
+      "sha256": "fc4b1013121b8a33bc7eb93d92f91d335bc6774d2644b211cf568c7d0699f12d",
+      "archive": "docs/acceptance/development-evidence/session-cancel-latency-20260909/session_operation.go.txt"
+    },
+    {
+      "path": "internal/tui/application.go",
+      "sha256": "ff81774143ae4d34503b14382c386e42c2b000a730de89c7c1b968f34103ab5a",
+      "archive": "docs/acceptance/development-evidence/session-cancel-latency-20260909/application.go.txt"
+    }
+  ],
+  "raw": "docs/acceptance/development-evidence/session-cancel-latency-20260909/hand-session-cancel-latency-20260909.jsonl.gz",
+  "raw_sha256": "487256e49960818a640698068da04c26f86f57a5e48459279a214ad44e91f886",
+  "assertions": [
+    "Cancellation cause is context.Canceled",
+    "Cancelled operation preserves UI identity and releases guard after join",
+    "Quit and exit produce actual QuitMsg",
+    "Duplicate cancelled result cannot disturb newer operation",
+    "Fresh metadata operation succeeds after cancellation"
+  ],
+  "limitations": [
+    "In-process dispatcher to session worker context; callback substitutes blocked operation",
+    "Does not measure filesystem cancellation, terminal input transport, or crash recovery",
+    "Dirty development tree and local unreleased Harness; final platform/candidate qualification remains"
+  ]
+}

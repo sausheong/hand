@@ -1,0 +1,61 @@
+{
+  "status": "development_usage_attachment_regression_passed",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -timeout=3m -json ./internal/tui",
+  "results": {
+    "before": {
+      "test_records": {
+        "fail": 1
+      },
+      "package_results": [
+        {
+          "Time": "2026-09-09T12:09:24.627721+08:00",
+          "Action": "fail",
+          "Package": "github.com/sausheong/hand/internal/tui",
+          "Elapsed": 0.698
+        }
+      ]
+    },
+    "after": {
+      "test_records": {
+        "pass": 321
+      },
+      "package_results": [
+        {
+          "Time": "2026-09-09T12:09:53.916623+08:00",
+          "Action": "pass",
+          "Package": "github.com/sausheong/hand/internal/tui",
+          "Elapsed": 15.657
+        }
+      ]
+    }
+  },
+  "assertions": [
+    "Known first-session totals loaded",
+    "Unreadable second-session usage clears cached totals and marks prior usage unknown",
+    "Usage command discloses unavailable accounting",
+    "Returning to readable session recovers known totals"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/usage-attachment-20260909/hand-usage-attach-before-20260909.jsonl.gz",
+      "sha256": "5a454c8e0b7f6aef2d12d1d540b94ac0ae54f63aaf0de7983b1ceb4f97788b33"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-attachment-20260909/hand-usage-attach-after-20260909.jsonl.gz",
+      "sha256": "8cf43d86bc18e059ceef22ac10b80339a52c2f2ae078dd5ff9aae765c72cb3de"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-attachment-20260909/model.go.txt",
+      "sha256": "e32a0a35fb70d19fda6f8d36283046fd8255a1d4c4139fd028cbe614ea2609ac"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/usage-attachment-20260909/usage_unavailable_test.go.txt",
+      "sha256": "2f8d390b0845d405de8525589baeecda8247ced94e3f37ec118ac5ddce9fd9ae"
+    }
+  ],
+  "limitations": [
+    "In-memory session annotations, not physical corruption recovery",
+    "Development source with local Harness; not final candidate qualification",
+    "Existing full coverage predates this production change"
+  ]
+}

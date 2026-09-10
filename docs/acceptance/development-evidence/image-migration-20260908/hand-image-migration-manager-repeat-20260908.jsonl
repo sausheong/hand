@@ -1,0 +1,84 @@
+{"Time":"2026-09-08T07:05:38.30471+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/sessionio"}
+{"Time":"2026-09-08T07:05:38.851316+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:05:38.851367+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:05:48.821148+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (10.03s)\n"}
+{"Time":"2026-09-08T07:05:48.821348+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":10.03}
+{"Time":"2026-09-08T07:05:48.821369+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:05:48.821374+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:05:58.67939+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.86s)\n"}
+{"Time":"2026-09-08T07:05:58.679416+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.86}
+{"Time":"2026-09-08T07:05:58.679566+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:05:58.679574+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:06:08.457754+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.78s)\n"}
+{"Time":"2026-09-08T07:06:08.458082+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.78}
+{"Time":"2026-09-08T07:06:08.45813+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:06:08.45814+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:06:18.188047+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.73s)\n"}
+{"Time":"2026-09-08T07:06:18.188089+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.73}
+{"Time":"2026-09-08T07:06:18.188194+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:06:18.188204+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:06:27.975448+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.79s)\n"}
+{"Time":"2026-09-08T07:06:27.97548+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.79}
+{"Time":"2026-09-08T07:06:27.975618+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:06:27.975625+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:06:37.696067+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.72s)\n"}
+{"Time":"2026-09-08T07:06:37.69626+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.72}
+{"Time":"2026-09-08T07:06:37.69627+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:06:37.696277+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:06:47.410231+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.71s)\n"}
+{"Time":"2026-09-08T07:06:47.410473+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.71}
+{"Time":"2026-09-08T07:06:47.410488+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:06:47.410493+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:06:57.102288+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.69s)\n"}
+{"Time":"2026-09-08T07:06:57.102314+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.69}
+{"Time":"2026-09-08T07:06:57.102433+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:06:57.102438+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:07:06.769811+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.67s)\n"}
+{"Time":"2026-09-08T07:07:06.770086+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.67}
+{"Time":"2026-09-08T07:07:06.770098+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:07:06.770104+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:07:16.421792+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.65s)\n"}
+{"Time":"2026-09-08T07:07:16.421822+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.65}
+{"Time":"2026-09-08T07:07:16.421941+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:07:16.421948+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:07:26.127186+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.71s)\n"}
+{"Time":"2026-09-08T07:07:26.127462+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.71}
+{"Time":"2026-09-08T07:07:26.127471+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:07:26.127476+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:07:36.033935+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.91s)\n"}
+{"Time":"2026-09-08T07:07:36.035446+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.91}
+{"Time":"2026-09-08T07:07:36.035466+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:07:36.035471+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:07:45.909018+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.87s)\n"}
+{"Time":"2026-09-08T07:07:45.909433+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.87}
+{"Time":"2026-09-08T07:07:45.909568+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:07:45.90959+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:07:55.594752+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.69s)\n"}
+{"Time":"2026-09-08T07:07:55.594786+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.69}
+{"Time":"2026-09-08T07:07:55.594888+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:07:55.594907+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:08:05.167474+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.57s)\n"}
+{"Time":"2026-09-08T07:08:05.1675+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.57}
+{"Time":"2026-09-08T07:08:05.167636+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:08:05.167654+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:08:14.738954+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.57s)\n"}
+{"Time":"2026-09-08T07:08:14.738977+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.57}
+{"Time":"2026-09-08T07:08:14.739087+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:08:14.739094+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:08:24.30179+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.56s)\n"}
+{"Time":"2026-09-08T07:08:24.301816+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.56}
+{"Time":"2026-09-08T07:08:24.301973+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:08:24.301981+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:08:33.856478+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.55s)\n"}
+{"Time":"2026-09-08T07:08:33.856505+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.55}
+{"Time":"2026-09-08T07:08:33.8566+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:08:33.856605+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:08:43.388398+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.53s)\n"}
+{"Time":"2026-09-08T07:08:43.388425+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.53}
+{"Time":"2026-09-08T07:08:43.388556+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage"}
+{"Time":"2026-09-08T07:08:43.388563+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"=== RUN   TestManagerImportsOversizedLegacyImage\n"}
+{"Time":"2026-09-08T07:08:52.960316+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Output":"--- PASS: TestManagerImportsOversizedLegacyImage (9.57s)\n"}
+{"Time":"2026-09-08T07:08:52.960347+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Test":"TestManagerImportsOversizedLegacyImage","Elapsed":9.57}
+{"Time":"2026-09-08T07:08:52.960394+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Output":"PASS\n"}
+{"Time":"2026-09-08T07:08:54.051485+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/sessionio","Output":"ok  \tgithub.com/sausheong/hand/internal/sessionio\t195.809s\n"}
+{"Time":"2026-09-08T07:08:54.051558+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/sessionio","Elapsed":195.809}

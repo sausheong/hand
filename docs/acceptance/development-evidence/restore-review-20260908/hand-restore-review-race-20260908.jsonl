@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T15:22:08.451369+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T15:22:08.451778+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/rpc"}
+{"Time":"2026-09-08T15:22:09.026018+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC"}
+{"Time":"2026-09-08T15:22:09.026078+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"=== RUN   TestCheckpointChangesRPC\n"}
+{"Time":"2026-09-08T15:22:09.090485+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Output":"--- PASS: TestCheckpointChangesRPC (0.06s)\n"}
+{"Time":"2026-09-08T15:22:09.090507+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Test":"TestCheckpointChangesRPC","Elapsed":0.06}
+{"Time":"2026-09-08T15:22:09.090682+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"PASS\n"}
+{"Time":"2026-09-08T15:22:09.576859+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence"}
+{"Time":"2026-09-08T15:22:09.5769+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence","Output":"=== RUN   TestCheckpointChangesDurablePagingAndMissingEvidence\n"}
+{"Time":"2026-09-08T15:22:09.639389+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence","Output":"--- PASS: TestCheckpointChangesDurablePagingAndMissingEvidence (0.06s)\n"}
+{"Time":"2026-09-08T15:22:09.639423+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestCheckpointChangesDurablePagingAndMissingEvidence","Elapsed":0.06}
+{"Time":"2026-09-08T15:22:09.639698+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T15:22:10.105919+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/rpc","Output":"ok  \tgithub.com/sausheong/hand/internal/rpc\t1.654s\n"}
+{"Time":"2026-09-08T15:22:10.106047+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/rpc","Elapsed":1.654}
+{"Time":"2026-09-08T15:22:10.655932+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t2.204s\n"}
+{"Time":"2026-09-08T15:22:10.656041+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":2.205}

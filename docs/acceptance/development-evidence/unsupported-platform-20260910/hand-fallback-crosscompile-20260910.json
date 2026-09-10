@@ -1,0 +1,78 @@
+[
+  {
+    "package": "cmd/hand",
+    "command": [
+      "go",
+      "test",
+      "-c",
+      "-o",
+      "/private/tmp/hand-fallback-cmd-hand.test.exe",
+      "unsupported_platform.go",
+      "legacy_open_other.go",
+      "rpc_stdio_other.go",
+      "unsupported_platform_test.go"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "package": "internal/agentio",
+    "command": [
+      "go",
+      "test",
+      "-c",
+      "-o",
+      "/private/tmp/hand-fallback-internal-agentio.test.exe",
+      "unsupported_platform.go",
+      "approval_snapshot_other.go",
+      "unsupported_platform_test.go"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "package": "internal/checkpoints",
+    "command": [
+      "go",
+      "test",
+      "-c",
+      "-o",
+      "/private/tmp/hand-fallback-internal-checkpoints.test.exe",
+      "unsupported_platform.go",
+      "rename_other.go",
+      "unsupported_platform_test.go"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "package": "internal/permissions",
+    "command": [
+      "go",
+      "test",
+      "-c",
+      "-o",
+      "/private/tmp/hand-fallback-internal-permissions.test.exe",
+      "unsupported_platform.go",
+      "authority_other.go",
+      "unsupported_platform_test.go"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "package": "internal/rpc",
+    "command": [
+      "go",
+      "test",
+      "-c",
+      "-o",
+      "/private/tmp/hand-fallback-internal-rpc.test.exe",
+      "unsupported_platform.go",
+      "ledger_other.go",
+      "unsupported_platform_test.go"
+    ],
+    "exit_code": 0,
+    "output": ""
+  }
+]

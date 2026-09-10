@@ -1,0 +1,13 @@
+# Bounded legacy-image migration
+
+Unpublished Harness `82e89fced176de827d0e5f8bac6e74c235c2bcde` externalizes legacy inline images before strict graph conversion. A migration-only 64 MiB record cap operates within the existing 128 MiB import cap; every normalized record must pass the unchanged 10 MiB normal reader before replacement. The 32 MiB blob limit still applies. Oversized text and malformed image data remain errors.
+
+The existing private synced backup preserves the original bytes before atomic JSONL replacement. The report's SourceSHA256 identifies those original bytes, and ExternalizedImages counts transformed image occurrences. Node identity, duplicate-compaction versions and unknown fields are preserved. Repeated migration of reference-backed sessions leaves bytes/identity unchanged. Failed conversion may leave reusable unreferenced immutable blobs, but never rewrites the original file.
+
+Staged Hand imports a 12 MiB legacy image through the workspace manager, surfaces its backup, resumes without duplicate migration, restores identical bytes and preserves unknown prior usage. Harness tests additionally cover oversized text rejection, malformed images and image-bearing compaction clones. The full suite exposed a regression for legacy records omitting data; the image mapper now preserves that supported form. A separate regression demonstrated that the previous base64 length estimate incorrectly rejected an exact 32 MiB image; the check now respects the encoded limit and decoded blob validation.
+
+Large migration checks passed 20 race-enabled repetitions (80 test/subtest passes); compatibility/clone checks passed 20 repetitions (40 passes); Hand import passed 20 repetitions. The exact-size test fails with an overlay restoring the old check and passes with the fix. Final full suites passed 900 Harness and 587 Hand tests/subtests, zero failures/skips; both vet checks passed. The final suites include both corrections. These are development checks, not frozen candidate qualification.
+
+[Hand aggregate patch](session-image-migration-integration.patch), [Hand source/evidence manifest](session-image-migration-integration.json), [Harness patch](harness-image-migration.patch), [Harness evidence](harness-image-migration.json). Raw logs, coverage and regression overlay sources are copied into development-evidence/image-migration-20260908; the Go overlay source is stored with a .txt suffix to avoid creating an accidental build package.
+
+Primary Hand still pins Harness v0.3.9. Combined oversized-image or duplicate-graph plus truncated-tail recovery, process-kill image migration, native platforms, final coverage and full-plan acceptance remain pending.

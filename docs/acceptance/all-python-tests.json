@@ -1,0 +1,31 @@
+{
+  "status": "development_python_suites_passed",
+  "requirement": "M0.1",
+  "tests": {
+    "runner": 113,
+    "checker": 17
+  },
+  "total": 130,
+  "failures": 0,
+  "skips": 0,
+  "ci_discovery": "scripts/validate.py discovers test_*.py in scripts and docs/acceptance; invoked by shared Linux/macOS validation workflow",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/all-python-tests-20260909/checker.log",
+      "sha256": "5d623589e56f76fb0e26ac133cfb0cf28262cc7ac742159735fdf5eb64cacb8f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/all-python-tests-20260909/runner.log",
+      "sha256": "d8dfaee8fe42adc7492de4098e73e6154b445b126fc33ae09d36c0a2d77905d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/all-python-tests-20260909/source-hashes.json",
+      "sha256": "c130b852c48a1e9b06aa466fcda1686cc0dfc3cba52978b247d82fdd7dafa8d8"
+    }
+  ],
+  "limitations": [
+    "Runner/checker unit tests are not evidence of product scenario completion",
+    "Tests use synthetic verifier fixtures and temporary process/Git repositories",
+    "Hosted CI and final candidate execution remain pending"
+  ]
+}

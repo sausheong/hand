@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "command": [
+    "/private/tmp/hand-changes-cli-20260908",
+    "--model",
+    "local/fixture",
+    "--base-url",
+    "http://127.0.0.1:1/v1",
+    "--session",
+    "ses_36eb3b459f8f2372",
+    "--checkpoint-dir",
+    "/private/tmp/hand-changes-rpc-final-20260908/checkpoints"
+  ],
+  "binary_sha256": "0e1da30cadb2b02f6b7ae051942e5684822d7632a760de2d99f4ff21fff264d3",
+  "runner_sha256": "88064c082942fe00dc08a2a7219e857451b65bb7fe8c513240eecf4eef580e55",
+  "rendered_change": "added approved.txt",
+  "exit_code": 0,
+  "terminal_sha256": "1cdf0fcf215b588ea8ad7b06d9e90642d2fb37795cb61f3578a9370c6933591f"
+}

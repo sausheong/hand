@@ -1,0 +1,249 @@
+diff --git a/execution/backend.go b/execution/backend.go
+index 2f53759..ab6edf0 100644
+--- a/execution/backend.go
++++ b/execution/backend.go
+@@ -53,6 +53,7 @@ var imageID = regexp.MustCompile(`^sha256:[0-9a-f]{64}$`)
+ var envName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
+ 
+ type Container struct {
++	WorkerSHA256                     string // required when WorkerPath is configured
+ 	WorkerPath                       string // optional trusted executable mounted read-only at /hand-worker
+ 	Docker, Socket, Image, Workspace string
+ 	Writable, Network                bool
+@@ -194,6 +195,17 @@ func (c Container) prepare(ctx context.Context, r Request) (plan *containerComma
+ 			os.RemoveAll(config)
+ 		}
+ 	}()
++	configCanonical, e := filepath.EvalSymlinks(config)
++	if e != nil {
++		return nil, e
++	}
++	relative, e := filepath.Rel(workspace, configCanonical)
++	if e != nil || (relative != ".." && !strings.HasPrefix(relative, ".."+string(filepath.Separator)) && !filepath.IsAbs(relative)) {
++		return nil, errors.New("container state must be outside the mounted workspace")
++	}
++	if strings.ContainsAny(configCanonical, ",\n\r") {
++		return nil, errors.New("container state path cannot be mounted safely")
++	}
+ 	base := []string{"--config", config, "--host", "unix://" + c.Socket}
+ 	inspectCtx, inspectCancel := context.WithTimeout(ctx, 5*time.Second)
+ 	inspected, inspectErr := run(inspectCtx, "", environment(nil), nil, c.Docker, append(append([]string{}, base...), "image", "inspect", "--format", "{{json .Config.Volumes}}", c.Image)...)
+@@ -232,20 +244,13 @@ func (c Container) prepare(ctx context.Context, r Request) (plan *containerComma
+ 	}
+ 	args := append(append([]string{}, base...), "create", "--name", name, "--pull=never", "--read-only", "--cap-drop=ALL", "--security-opt=no-new-privileges", "--network", network, "--pids-limit=128", "--memory=512m", "--memory-swap=512m", "--cpus=2", "--init", "--no-healthcheck", "--log-driver=none", "--user", strconv.Itoa(uid)+":"+strconv.Itoa(gid), "--mount", mount, "--tmpfs", "/tmp:rw,nosuid,nodev,size=64m,mode=1777", "--workdir", "/workspace", "--interactive", "--entrypoint", r.Argv[0])
+ 	if c.WorkerPath != "" {
+-		worker, e := filepath.EvalSymlinks(c.WorkerPath)
++		worker, e := snapshotWorker(ctx, c.WorkerPath, c.WorkerSHA256, config)
+ 		if e != nil {
+ 			return nil, e
+ 		}
+-		worker, e = filepath.Abs(worker)
+-		if e != nil {
+-			return nil, e
+-		}
+-		info, e := os.Stat(worker)
+-		if e != nil || !info.Mode().IsRegular() || info.Mode().Perm()&0111 == 0 || strings.ContainsAny(worker, ",\n\r") {
+-			return nil, errors.New("worker must be a regular executable with a mount-safe path")
+-		}
+ 		args = append(args, "--mount", "type=bind,src="+worker+",dst=/hand-worker,readonly")
+ 	}
++
+ 	for _, entry := range environment(r.Env) {
+ 		args = append(args, "--env", entry)
+ 	}
+diff --git a/execution/worker_snapshot.go b/execution/worker_snapshot.go
+new file mode 100644
+index 0000000..3d27910
+--- /dev/null
++++ b/execution/worker_snapshot.go
+@@ -0,0 +1,90 @@
++package execution
++
++import (
++	"context"
++	"crypto/sha256"
++	"encoding/hex"
++	"errors"
++	"io"
++	"os"
++	"path/filepath"
++)
++
++const MaxWorkerBytes int64 = 128 << 20
++
++// snapshotWorker freezes verified bytes in a private directory outside the
++// workspace. The daemon mounts this copy, never the mutable configured path.
++func snapshotWorker(ctx context.Context, source, expected, directory string) (string, error) {
++	digest, err := hex.DecodeString(expected)
++	if err != nil || len(digest) != sha256.Size {
++		return "", errors.New("worker requires a SHA-256 digest")
++	}
++	canonical, err := filepath.EvalSymlinks(source)
++	if err != nil {
++		return "", err
++	}
++	input, err := openWorkerSource(canonical)
++	if err != nil {
++		return "", err
++	}
++	defer input.Close()
++	info, err := input.Stat()
++	if err != nil {
++		return "", err
++	}
++	if !info.Mode().IsRegular() || info.Mode().Perm()&0111 == 0 || info.Size() > MaxWorkerBytes {
++		return "", errors.New("worker must be a regular executable within 128 MiB")
++	}
++	destination := filepath.Join(directory, "verified-worker")
++	output, err := os.OpenFile(destination, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0500)
++	if err != nil {
++		return "", err
++	}
++	complete := false
++	defer func() {
++		output.Close()
++		if !complete {
++			os.Remove(destination)
++		}
++	}()
++	hash := sha256.New()
++	reader := io.LimitReader(input, MaxWorkerBytes+1)
++	buffer := make([]byte, 32<<10)
++	var total int64
++	for {
++		if err = ctx.Err(); err != nil {
++			return "", err
++		}
++		n, readErr := reader.Read(buffer)
++		if n > 0 {
++			total += int64(n)
++			if total > MaxWorkerBytes {
++				return "", errors.New("worker exceeds 128 MiB")
++			}
++			if _, err = output.Write(buffer[:n]); err != nil {
++				return "", err
++			}
++			hash.Write(buffer[:n])
++		}
++		if readErr == io.EOF {
++			break
++		}
++		if readErr != nil {
++			return "", readErr
++		}
++	}
++	if hex.EncodeToString(hash.Sum(nil)) != expected {
++		return "", errors.New("worker SHA-256 mismatch; refusing execution")
++	}
++	if err = output.Chmod(0555); err != nil {
++		return "", err
++	}
++	if err = output.Sync(); err != nil {
++		return "", err
++	}
++	if err = output.Close(); err != nil {
++		return "", err
++	}
++	complete = true
++	return destination, nil
++}
+diff --git a/execution/worker_snapshot_test.go b/execution/worker_snapshot_test.go
+new file mode 100644
+index 0000000..88c50a8
+--- /dev/null
++++ b/execution/worker_snapshot_test.go
+@@ -0,0 +1,54 @@
++package execution
++
++import (
++	"context"
++	"crypto/sha256"
++	"encoding/hex"
++	"os"
++	"path/filepath"
++	"testing"
++)
++
++func TestWorkerSnapshotPinsBytesAcrossSourceReplacement(t *testing.T) {
++	source := filepath.Join(t.TempDir(), "worker")
++	original := []byte("#!/bin/sh\nprintf original\n")
++	if err := os.WriteFile(source, original, 0700); err != nil {
++		t.Fatal(err)
++	}
++	hash := sha256.Sum256(original)
++	digest := hex.EncodeToString(hash[:])
++	frozen, err := snapshotWorker(context.Background(), source, digest, t.TempDir())
++	if err != nil {
++		t.Fatal(err)
++	}
++	if err = os.WriteFile(source, []byte("#!/bin/sh\nprintf replaced\n"), 0700); err != nil {
++		t.Fatal(err)
++	}
++	raw, err := os.ReadFile(frozen)
++	if err != nil || string(raw) != string(original) {
++		t.Fatal("snapshot changed with source")
++	}
++	dir := t.TempDir()
++	if _, err = snapshotWorker(context.Background(), source, digest, dir); err == nil {
++		t.Fatal("changed worker accepted")
++	}
++	entries, err := os.ReadDir(dir)
++	if err != nil || len(entries) != 0 {
++		t.Fatal("failed snapshot retained")
++	}
++}
++func TestWorkerSnapshotRejectsCancellationAndInvalidDigest(t *testing.T) {
++	source := filepath.Join(t.TempDir(), "worker")
++	if err := os.WriteFile(source, []byte("worker"), 0700); err != nil {
++		t.Fatal(err)
++	}
++	if _, err := snapshotWorker(context.Background(), source, "invalid", t.TempDir()); err == nil {
++		t.Fatal("invalid digest accepted")
++	}
++	hash := sha256.Sum256([]byte("worker"))
++	ctx, cancel := context.WithCancel(context.Background())
++	cancel()
++	if _, err := snapshotWorker(ctx, source, hex.EncodeToString(hash[:]), t.TempDir()); err != context.Canceled {
++		t.Fatal(err)
++	}
++}
+diff --git a/execution/worker_source_other.go b/execution/worker_source_other.go
+new file mode 100644
+index 0000000..9162c3c
+--- /dev/null
++++ b/execution/worker_source_other.go
+@@ -0,0 +1,12 @@
++//go:build !unix
++
++package execution
++
++import (
++	"errors"
++	"os"
++)
++
++func openWorkerSource(string) (*os.File, error) {
++	return nil, errors.New("worker snapshot source validation is unavailable on this platform")
++}
+diff --git a/execution/worker_source_unix.go b/execution/worker_source_unix.go
+new file mode 100644
+index 0000000..82e0346
+--- /dev/null
++++ b/execution/worker_source_unix.go
+@@ -0,0 +1,16 @@
++//go:build unix
++
++package execution
++
++import (
++	"golang.org/x/sys/unix"
++	"os"
++)
++
++func openWorkerSource(path string) (*os.File, error) {
++	fd, err := unix.Open(path, unix.O_RDONLY|unix.O_NOFOLLOW|unix.O_NONBLOCK|unix.O_CLOEXEC, 0)
++	if err != nil {
++		return nil, err
++	}
++	return os.NewFile(uintptr(fd), path), nil
++}

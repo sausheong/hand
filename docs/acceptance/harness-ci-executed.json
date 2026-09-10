@@ -1,0 +1,68 @@
+{
+  "status": "local_ci_fixture_step_verified",
+  "candidate_commit": "cc756425e8b0c2366b08d33f3184cf9ede3e6f7e",
+  "source_fingerprint": "a8711b65b69550c0712825c754c85322bb836e5470e8d84fe6db2c767e2bb5bd",
+  "native_fixture_tests": {
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0
+  },
+  "workflow_yaml": "parsed",
+  "shell_syntax": "passed",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/debian-pull.txt.gz",
+      "sha256": "c0a9fbc21f255c85f3b29e3a9e157d39ec4c7f288e16774f2c71fabe26103fe3",
+      "uncompressed_sha256": "0bc64b5509a334d31c042d9d7d48185195154e5acd16a902bd96f2ced4cbc969"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/native-tests.jsonl.gz",
+      "sha256": "a27ea734b52051ac47099edd81bece6452436cc5a71da0f2124e581a3caf1389",
+      "uncompressed_sha256": "a18a0b59a5279c06317256aa07af1de9cfa60a3355a50d33881c9f3e4f0fc5f9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/alpine-pull.txt.gz",
+      "sha256": "a433042829d8a0814d8f5c7a4339b10ab2ba72c99aa3327b429e7edfe13aff84",
+      "uncompressed_sha256": "d37b4789a7ed63915ed69ac75ad9213c9a08f83937bc313b1818d1d4581a948d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/fixtures.json.gz",
+      "sha256": "d9269df9d5c3e7dac1c5ff98ebb669eef3502128373151aeb9151282c1dd3cac",
+      "uncompressed_sha256": "b1e490bf8c88ac30eda31d475843aeb416583d7e25709c0770289815ba26256f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/docker-version.txt.gz",
+      "sha256": "988fc5a5773d607b2b43d2b23b0b3bf0020709a536a59becefa3a3b6de3239f8",
+      "uncompressed_sha256": "bb4f1e2a864cce03c741bbe6880379946efe907fc7d6fbf28ee3963ea6336e7b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/github.env.gz",
+      "sha256": "c90d3cd46f41856cb56d606d1c4f8c865492c2d20ae677251dcc2150b1ba8f94",
+      "uncompressed_sha256": "d0c2fcafef5852b986bf00f85ff8d36e0d4232accefebaa183099d6495f37011"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/prepare_container_fixtures.py.gz",
+      "sha256": "e4a9c27035cd5585c2cc15aa93beb4931d1365f69774d7977fac685349ca9a2d",
+      "uncompressed_sha256": "2821b303b013804b0d8e93b736b8b38ebd3062ed2d69dd73eb589e6bf31978e0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/qualify.yml.gz",
+      "sha256": "17826284de7a01e914b94db9cd83357437b1aca4b06f2f9935bfc6a68b7c4bb3",
+      "uncompressed_sha256": "d4b1c7673acb7389ed5ae8df8128c3eec5ceac213661856e55fd5194ec25baae"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/QUALIFICATION.md.gz",
+      "sha256": "c2d8affc98ad4a0178e4a98cc826f0a0c540de9641f34a443637b8976c3081b2",
+      "uncompressed_sha256": "694627265ef148df2b8e055c821e20ef6e037122f641b65e41e63d1ce8350266"
+    }
+  ],
+  "bundle": {
+    "path": "docs/acceptance/development-evidence/harness-ci-executed-20260910/candidate.bundle",
+    "sha256": "65784e9af908369563c2cef7c686e8087806f47e3e79d1d53b4544ca75aee547"
+  },
+  "limitations": [
+    "Local execution of actual CI fixture step, not hosted GitHub execution.",
+    "Revised candidate requires final native verification; previous 1114-per-platform records belong to 0972eed3eabe53dd310239bc66643aa89b915bd0.",
+    "Hosted macOS daemon remains an external runner prerequisite; publication is not authorised."
+  ]
+}

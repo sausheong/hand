@@ -1,0 +1,22 @@
+{"Time":"2026-09-08T16:11:46.167415+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/checkpoints"}
+{"Time":"2026-09-08T16:11:46.59279+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestConfiguredCheckpointScopeAndBounds"}
+{"Time":"2026-09-08T16:11:46.592828+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestConfiguredCheckpointScopeAndBounds","Output":"=== RUN   TestConfiguredCheckpointScopeAndBounds\n"}
+{"Time":"2026-09-08T16:11:46.628982+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestConfiguredCheckpointScopeAndBounds","Output":"--- PASS: TestConfiguredCheckpointScopeAndBounds (0.04s)\n"}
+{"Time":"2026-09-08T16:11:46.629016+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestConfiguredCheckpointScopeAndBounds","Elapsed":0.04}
+{"Time":"2026-09-08T16:11:46.629823+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestCheckpointOmitsRestoreRecoveryContent"}
+{"Time":"2026-09-08T16:11:46.629831+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestCheckpointOmitsRestoreRecoveryContent","Output":"=== RUN   TestCheckpointOmitsRestoreRecoveryContent\n"}
+{"Time":"2026-09-08T16:11:46.63123+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestCheckpointOmitsRestoreRecoveryContent","Output":"--- PASS: TestCheckpointOmitsRestoreRecoveryContent (0.00s)\n"}
+{"Time":"2026-09-08T16:11:46.631242+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/checkpoints","Test":"TestCheckpointOmitsRestoreRecoveryContent","Elapsed":0}
+{"Time":"2026-09-08T16:11:46.631709+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/checkpoints","Output":"PASS\n"}
+{"Time":"2026-09-08T16:11:47.632921+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/checkpoints","Output":"ok  \tgithub.com/sausheong/hand/internal/checkpoints\t1.465s\n"}
+{"Time":"2026-09-08T16:11:47.632969+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/checkpoints","Elapsed":1.466}
+{"Time":"2026-09-08T16:11:47.743466+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-08T16:11:47.743542+08:00","Action":"start","Package":"github.com/sausheong/hand/sdk"}
+{"Time":"2026-09-08T16:11:48.412297+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T16:11:48.412386+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-08T16:11:48.891036+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T16:11:48.891067+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"PASS\n"}
+{"Time":"2026-09-08T16:11:49.425587+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t1.682s [no tests to run]\n"}
+{"Time":"2026-09-08T16:11:49.425667+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":1.682}
+{"Time":"2026-09-08T16:11:49.90609+08:00","Action":"output","Package":"github.com/sausheong/hand/sdk","Output":"ok  \tgithub.com/sausheong/hand/sdk\t2.162s [no tests to run]\n"}
+{"Time":"2026-09-08T16:11:49.90627+08:00","Action":"pass","Package":"github.com/sausheong/hand/sdk","Elapsed":2.163}

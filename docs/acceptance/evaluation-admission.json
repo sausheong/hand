@@ -1,0 +1,62 @@
+{
+  "status": "development_tooling_passed",
+  "candidate_qualified": false,
+  "capability": "Atomic outbound-body digest and complete pricing-contract binding to durable request reservation; quote/bound consistency checked on reopen and writes.",
+  "tests": {
+    "focused": 5,
+    "evaluation_suite": 106,
+    "failures": 0,
+    "skips": 0
+  },
+  "scenarios": [
+    "Crash after committed admission preserves quote and reservation",
+    "Duplicate identity never grants replay permission",
+    "Binding storage failure rolls back numerical reservation",
+    "Invalid/denied requests leave no admission",
+    "Corrupted numeric quote blocks existing and reopened ledgers"
+  ],
+  "limitations": [
+    "Provider payload/endpoint/output-cap validation and exact-byte forwarding remain unimplemented gateway responsibilities.",
+    "No provider credentials, authentic prices, actual billing or paid authorisation supplied.",
+    "Legacy development ledgers without binding table are rejected, not reset or migrated.",
+    "Raw reserve remains a lower-level unbound primitive; future gateway must use reserve_quoted."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-admission-20260909/evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/evaluation_budget.py",
+      "sha256": "0b7892353db62e3896d9bab0ef9f74fca5d50310e54aeae14e7e39b8bab5f923",
+      "uncompressed_sha256": "1829ba68487f4c703381cb24a854ffa308b0818b771b2456c52cad955f76ed9c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-admission-20260909/test_evaluation_budget.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_budget.py",
+      "sha256": "32616f59a19a1625591acaaf669b60357c9b44eb6f666083785e55ed82637241",
+      "uncompressed_sha256": "761291b07e68d551cba92f9c29db9928a32b1df6e9e4394f3b71b4608f011ee6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-admission-20260909/test_evaluation_admission.py.gz",
+      "source": "/Users/sausheong/projects/hand/scripts/test_evaluation_admission.py",
+      "sha256": "10d333e91d8e27dfca3a3f4a0d38808d20b9e1077ac49bc310e53998795582f4",
+      "uncompressed_sha256": "7487188bf46318db168ccdefbbcd0eaae1b473907f20759ef4a984299c26010c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-admission-20260909/executor-design.md.gz",
+      "source": "/Users/sausheong/projects/hand/docs/acceptance/evaluation/executor-design.md",
+      "sha256": "e9d8fc883ea9ee3b27889800b9c3ca7ac639abf9e91a2c4caa35487ccbcd27b0",
+      "uncompressed_sha256": "ee06231e4cbada3c7afbd3865301b2b0e8f9c8a8a96980efece244f1ade32381"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-admission-20260909/hand-evaluation-admission-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-admission-20260909.log",
+      "sha256": "7e3d2fecf5b9085979af4b5610e8275ba61e7f72a5db2b0b680aba81db247747",
+      "uncompressed_sha256": "569dd010c4fab44db959d9efccbc29c908759bab594c36b6930bfaf5dda0bf38"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/evaluation-admission-20260909/hand-evaluation-admission-final-20260909.log.gz",
+      "source": "/private/tmp/hand-evaluation-admission-final-20260909.log",
+      "sha256": "6034e20ac020071aac3b3edcbf8608eb1a570197eb56ddd461da421fb602c77a",
+      "uncompressed_sha256": "0fc9bb3e5b520ee4e4babb5e074f5fe65d9692bbef8d189f82b90e4d643e4afe"
+    }
+  ]
+}

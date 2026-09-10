@@ -1,0 +1,13 @@
+{"Time":"2026-09-08T20:38:36.181043+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/app"}
+{"Time":"2026-09-08T20:38:36.267867+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-08T20:38:36.798685+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch"}
+{"Time":"2026-09-08T20:38:36.798736+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Output":"=== RUN   TestSeparateSummarizerReviewAtomicityAndModelSwitch\n"}
+{"Time":"2026-09-08T20:38:36.799342+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Output":"--- PASS: TestSeparateSummarizerReviewAtomicityAndModelSwitch (0.00s)\n"}
+{"Time":"2026-09-08T20:38:36.799356+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Test":"TestSeparateSummarizerReviewAtomicityAndModelSwitch","Elapsed":0}
+{"Time":"2026-09-08T20:38:36.799508+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"PASS\n"}
+{"Time":"2026-09-08T20:38:37.475073+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"testing: warning: no tests to run\n"}
+{"Time":"2026-09-08T20:38:37.475139+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-08T20:38:37.807344+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/app","Output":"ok  \tgithub.com/sausheong/hand/internal/app\t1.626s\n"}
+{"Time":"2026-09-08T20:38:37.807565+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/app","Elapsed":1.627}
+{"Time":"2026-09-08T20:38:38.486321+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t2.218s [no tests to run]\n"}
+{"Time":"2026-09-08T20:38:38.486433+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":2.219}

@@ -1,0 +1,28 @@
+{
+  "status": "coverage_policy_updated_by_user",
+  "authorisation": "i can accept 80% coverage.",
+  "thresholds": {
+    "overall": 80,
+    "changed": 80,
+    "each_critical_group": 80
+  },
+  "checker_tests_exit_code": 0,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/coverage-policy-20260909/check.py.txt",
+      "sha256": "0bce54988fbaa4ea7c2db7ba04c2ab550bc88d77e28b50211d7976ef86889897"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/coverage-policy-20260909/hand-coverage-policy-tests-20260909.log.txt",
+      "sha256": "1c0ac2e9382b3a48a71c0b3b10920200f5287e4c09f5f6e9dfa005fc9393905d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/coverage-policy-20260909/test_check.py.txt",
+      "sha256": "cf8c1f21fc76f0ef59debca9b48a8c0caf02b0ab53d480396a95f387e70be902"
+    }
+  ],
+  "limitations": [
+    "Checker fixtures validate policy behavior only and are not product evidence",
+    "All required scenarios, platform/source qualification and non-coverage gates remain required"
+  ]
+}

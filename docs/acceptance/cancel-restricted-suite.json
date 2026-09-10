@@ -1,0 +1,28 @@
+{
+  "status": "failed_environment_restricted",
+  "exit_code": 1,
+  "test_records": {
+    "pass": 1411,
+    "fail": 15
+  },
+  "causes": [
+    "Sandbox denied local TCP listener binds",
+    "Sandbox denied existing Docker socket access",
+    "Public-fetch fixture DNS unavailable"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/cancel-restricted-20260909/hand-cancel-full-20260909.jsonl.gz",
+      "sha256": "6f57508cab8a68831fce722b4def6c410da765ae4050566cee144d6ccc3bf2b4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cancel-restricted-20260909/hand-cancel-full-20260909.cover.gz",
+      "sha256": "0e76042518f4f13eb05cdc2eabd48129a4a427e6f0ef9d66c40e001bd362d0ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/cancel-restricted-20260909/hand-cancel-full-20260909-result.json.gz",
+      "sha256": "4e044dfa1985acfcab1bcb0bff26948518d195ce1510960e8cfe2e4b1feb6b2b"
+    }
+  ],
+  "qualification": "Not used for passing coverage or acceptance. Native rerun used separately approved fixture access; no Linux group/socket permission changes."
+}

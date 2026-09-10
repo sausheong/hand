@@ -1,0 +1,55 @@
+{
+  "status": "development_fuzz_passed",
+  "target": "FuzzLedgerObjectIntegrity",
+  "commands": [
+    "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -race -count=1 -json ./internal/rpc -run '^FuzzLedgerObjectIntegrity$'",
+    "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -count=1 -parallel=2 -run '^$' -fuzz '^FuzzLedgerObjectIntegrity$' -fuzztime=60s -json ./internal/rpc"
+  ],
+  "runs": {
+    "seeds": {
+      "test_records": {
+        "pass": 9
+      },
+      "package_result": "pass"
+    },
+    "fuzz": {
+      "test_records": {
+        "pass": 1
+      },
+      "package_result": "pass",
+      "last_measurement": "fuzz: elapsed: 1m1s, execs: 1341891 (0/sec), new interesting: 120 (total: 128)",
+      "executions": 1341891,
+      "requested_seconds": 60,
+      "workers": 2
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/ledger-fuzz-20260909/hand-ledger-fuzz-seeds-20260909.jsonl.gz",
+      "sha256": "89ec7c17aa685d77e5e71441a1ab6e2d6839dcf312edc172065795bd5a5cb7a6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/ledger-fuzz-20260909/hand-ledger-fuzz-20260909.jsonl.gz",
+      "sha256": "ea9e487e47e3665cc48ed6bdc6056cf82c45e847422d50d23ec1508cd7cc578f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/ledger-fuzz-20260909/ledger_fuzz_test.go.txt",
+      "sha256": "d85d65ec0a5954afaa3138b3417db0f9b420330ed0cadc3851927d9777838de0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/ledger-fuzz-20260909/ledger_json.go.txt",
+      "sha256": "6798bcfe2b4e34367d38e663a6f4c4b5ecf722ea8e4f8aa5f52187027f5fdb3a"
+    }
+  ],
+  "oracles": [
+    "Accepted input is valid UTF-8 JSON with fields matching standard decoding",
+    "Roundtrip preserves decoded field values",
+    "Injected duplicate decoded keys rejected",
+    "Trailing JSON object rejected"
+  ],
+  "limitations": [
+    "Object parser only; request identity/state transition and physical crash guarantees use separate tests",
+    "Inputs above 64 KiB excluded from this bounded parser fuzz target; journal size limits tested separately",
+    "Dirty development evidence, not final-candidate fuzz qualification"
+  ]
+}

@@ -1,0 +1,285 @@
+diff --git a/execution/backend.go b/execution/backend.go
+index 75bdf20..aca31f7 100644
+--- a/execution/backend.go
++++ b/execution/backend.go
+@@ -20,14 +20,18 @@ import (
+ )
+ 
+ type Request struct {
+-	Argv  []string
+-	Env   map[string]string
+-	Stdin []byte
++	OutputStore *process.ArtifactStore // caller-owned trusted capture store
++	Argv        []string
++	Env         map[string]string
++	Stdin       []byte
+ }
+ type Result struct {
+-	Stdout, Stderr string
+-	ExitCode       int
+-	Truncated      bool
++	StdoutTruncated, StderrTruncated bool
++	StdoutBytes, StderrBytes         int64
++	StdoutArtifact, StderrArtifact   process.ArtifactInfo
++	Stdout, Stderr                   string
++	ExitCode                         int
++	Truncated                        bool
+ }
+ type Backend interface {
+ 	Run(context.Context, Request) (Result, error)
+@@ -40,7 +44,7 @@ func (h Host) Run(ctx context.Context, r Request) (Result, error) {
+ 	if err := validate(r); err != nil {
+ 		return Result{}, err
+ 	}
+-	return run(ctx, h.Workspace, environment(r.Env), r.Stdin, r.Argv[0], r.Argv[1:]...)
++	return runCaptured(ctx, r.OutputStore, h.Workspace, environment(r.Env), r.Stdin, r.Argv[0], r.Argv[1:]...)
+ }
+ 
+ var imageID = regexp.MustCompile(`^sha256:[0-9a-f]{64}$`)
+@@ -89,17 +93,42 @@ func environment(values map[string]string) []string {
+ 	return env
+ }
+ func run(ctx context.Context, dir string, env []string, input []byte, name string, args ...string) (Result, error) {
++	return runCaptured(ctx, nil, dir, env, input, name, args...)
++}
++func runCaptured(ctx context.Context, store *process.ArtifactStore, dir string, env []string, input []byte, name string, args ...string) (Result, error) {
+ 	cmd := process.Command(ctx, name, args...)
+ 	cmd.Dir = dir
+ 	cmd.Env = env
+ 	cmd.Stdin = bytes.NewReader(input)
+-	out, stderr := process.NewCapture(64<<10), process.NewCapture(64<<10)
++	type capture interface {
++		Write([]byte) (int, error)
++		Snapshot() (string, int64, bool)
++	}
++	var out, stderr capture = process.NewCapture(64 << 10), process.NewCapture(64 << 10)
++	var diskOut, diskErr *process.OutputCapture
++	if store != nil {
++		diskOut, diskErr = store.Capture(64<<10), store.Capture(64<<10)
++		out, stderr = diskOut, diskErr
++	}
+ 	cmd.Stdout = out
+ 	cmd.Stderr = stderr
+ 	err := process.Run(cmd)
+-	a, _, at := out.Snapshot()
+-	b, _, bt := stderr.Snapshot()
+-	result := Result{Stdout: a, Stderr: b, ExitCode: -1, Truncated: at || bt}
++	result := Result{ExitCode: -1}
++	if diskOut != nil {
++		diskOut.Close()
++		diskErr.Close()
++		result.StdoutArtifact = diskOut.Info()
++		result.StderrArtifact = diskErr.Info()
++	}
++	a, ab, at := out.Snapshot()
++	b, bb, bt := stderr.Snapshot()
++	result.Stdout = a
++	result.Stderr = b
++	result.StdoutBytes = ab
++	result.StderrBytes = bb
++	result.Truncated = at || bt
++	result.StdoutTruncated = at
++	result.StderrTruncated = bt
+ 	if cmd.ProcessState != nil {
+ 		result.ExitCode = cmd.ProcessState.ExitCode()
+ 	}
+@@ -178,5 +207,5 @@ func (c Container) Run(ctx context.Context, r Request) (result Result, err error
+ 	if err = ctx.Err(); err != nil {
+ 		return
+ 	}
+-	return run(ctx, "", environment(nil), r.Stdin, c.Docker, append(append([]string{}, base...), "start", "--attach", "--interactive", name)...)
++	return runCaptured(ctx, r.OutputStore, "", environment(nil), r.Stdin, c.Docker, append(append([]string{}, base...), "start", "--attach", "--interactive", name)...)
+ }
+diff --git a/tools/bash/backend_test.go b/tools/bash/backend_test.go
+new file mode 100644
+index 0000000..2409a60
+--- /dev/null
++++ b/tools/bash/backend_test.go
+@@ -0,0 +1,100 @@
++package bash
++
++import (
++	"context"
++	"encoding/json"
++	"errors"
++	"os"
++	"path/filepath"
++	"reflect"
++	"strings"
++	"testing"
++
++	"github.com/sausheong/harness/execution"
++	"github.com/sausheong/harness/process"
++)
++
++type recordingBackend struct {
++	requests []execution.Request
++	fail     bool
++}
++
++func (*recordingBackend) Boundary() string { return "fixture boundary" }
++func (b *recordingBackend) Run(_ context.Context, r execution.Request) (execution.Result, error) {
++	b.requests = append(b.requests, r)
++	if b.fail {
++		return execution.Result{ExitCode: -1}, errors.New("backend unavailable")
++	}
++	return execution.Result{Stdout: "captured", ExitCode: 0}, nil
++}
++func TestBackendReceivesExactApprovedCommandAndNeverFallsBack(t *testing.T) {
++	workspace := t.TempDir()
++	actual := filepath.Join(workspace, "narrow\u00a0space")
++	if err := os.WriteFile(actual, []byte("fixture"), 0600); err != nil {
++		t.Fatal(err)
++	}
++	command := "cat '" + filepath.Join(workspace, "narrow space") + "'"
++	backend := &recordingBackend{}
++	bt := &BashTool{WorkDir: workspace, Backend: backend}
++	input, _ := json.Marshal(bashInput{Command: command})
++	result, err := bt.Execute(context.Background(), input)
++	if err != nil || result.Error != "" {
++		t.Fatalf("%+v %v", result, err)
++	}
++	if len(backend.requests) != 1 || !reflect.DeepEqual(backend.requests[0].Argv, []string{"/bin/bash", "-c", command}) {
++		t.Fatal("approved source was rewritten")
++	}
++	if backend.requests[0].OutputStore == nil || result.Metadata["execution_boundary"] != "fixture boundary" {
++		t.Fatal("capture or boundary missing")
++	}
++	backend.fail = true
++	marker := filepath.Join(workspace, "must-not-exist")
++	input, _ = json.Marshal(bashInput{Command: "touch '" + marker + "'"})
++	result, _ = bt.Execute(context.Background(), input)
++	if !strings.Contains(result.Error, "backend unavailable") {
++		t.Fatal(result)
++	}
++	if _, err = os.Stat(marker); !os.IsNotExist(err) {
++		t.Fatal("fallback ran on host")
++	}
++	bt.ExecPolicy = &ExecPolicy{Level: "deny"}
++	bt.Execute(context.Background(), input)
++	if len(backend.requests) != 2 {
++		t.Fatal("policy denial reached backend")
++	}
++}
++func TestBashNativeContainerWithCapture(t *testing.T) {
++	image, socket := os.Getenv("HARNESS_TEST_BASH_IMAGE"), os.Getenv("HARNESS_TEST_CONTAINER_SOCKET")
++	if image == "" || socket == "" {
++		t.Skip("native bash container fixture not configured")
++	}
++	workspace := t.TempDir()
++	if err := os.Chmod(workspace, 0777); err != nil {
++		t.Fatal(err)
++	}
++	store, err := process.NewArtifactStore(filepath.Join(t.TempDir(), "capture"))
++	if err != nil {
++		t.Fatal(err)
++	}
++	bt := &BashTool{OutputStore: store, Backend: execution.Container{Docker: "/usr/local/bin/docker", Socket: socket, Image: image, Workspace: workspace, Writable: true}}
++	input, _ := json.Marshal(bashInput{Command: `set -eu; test ! -e /var/run/docker.sock; ! touch /etc/outside; printf allowed >/workspace/allowed; head -c 100000 /dev/zero`})
++	result, err := bt.Execute(context.Background(), input)
++	if err != nil || result.Error != "" {
++		t.Fatalf("%+v %v", result, err)
++	}
++	if result.Metadata["stdout_bytes"] != int64(100000) || result.Metadata["output_truncated"] != true {
++		t.Fatal("capture limits missing", result.Metadata)
++	}
++	info, ok := result.Metadata["stdout_artifact"].(process.ArtifactInfo)
++	if !ok || info.Bytes != 100000 || info.Error != "" {
++		t.Fatal("full artifact missing", info)
++	}
++	raw, err := store.Read(context.Background(), info)
++	if err != nil || len(raw) != 100000 {
++		t.Fatalf("artifact: %d %v", len(raw), err)
++	}
++	raw, err = os.ReadFile(filepath.Join(workspace, "allowed"))
++	if err != nil || string(raw) != "allowed" {
++		t.Fatal("workspace write absent")
++	}
++}
+diff --git a/tools/bash/bash.go b/tools/bash/bash.go
+index 94c4589..2d9d307 100644
+--- a/tools/bash/bash.go
++++ b/tools/bash/bash.go
+@@ -13,6 +13,7 @@ import (
+ 	"strings"
+ 	"time"
+ 
++	"github.com/sausheong/harness/execution"
+ 	"github.com/sausheong/harness/process"
+ 	"github.com/sausheong/harness/tool"
+ )
+@@ -91,6 +92,7 @@ type ExecPolicy struct {
+ 
+ // BashTool executes shell commands.
+ type BashTool struct {
++	Backend     execution.Backend // optional explicit command boundary; configured before use
+ 	WorkDir     string
+ 	OutputStore *process.ArtifactStore // nil uses the private per-user temporary store
+ 	ExecPolicy  *ExecPolicy            // nil means "full" (allow everything)
+@@ -186,8 +188,10 @@ func (t *BashTool) Execute(ctx context.Context, input json.RawMessage) (tool.Too
+ 	// (e.g. ASCII spaces in a filename that on disk uses NBSP). Substitution
+ 	// only fires when the on-disk entry actually contains Unicode whitespace,
+ 	// so create-style commands like `mkdir /tmp/newdir` are unaffected.
+-	resolvedCmd, pathSubs := resolveBashCommandPaths(in.Command)
+-	in.Command = resolvedCmd
++	var pathSubs [][2]string
++	if t.Backend == nil {
++		in.Command, pathSubs = resolveBashCommandPaths(in.Command)
++	}
+ 
+ 	// Enforce exec policy
+ 	if t.ExecPolicy != nil {
+@@ -232,6 +236,9 @@ func (t *BashTool) Execute(ctx context.Context, input json.RawMessage) (tool.Too
+ 	ctx, cancel := context.WithTimeout(ctx, timeout)
+ 	defer cancel()
+ 
++	if t.Backend != nil {
++		return t.executeBackend(ctx, in.Command), nil
++	}
+ 	var cmd *exec.Cmd
+ 	if runtime.GOOS == "windows" {
+ 		cmd = process.Command(ctx, "cmd", "/c", in.Command)
+@@ -330,3 +337,43 @@ func pathSubsNotice(subs [][2]string) string {
+ 	b.WriteString("---\n")
+ 	return b.String()
+ }
++
++// Explicit backends receive the exact approved shell source. Do not reinterpret
++// paths on the host: the backend filesystem can contain different resources.
++func (t *BashTool) executeBackend(ctx context.Context, command string) tool.ToolResult {
++	store := t.OutputStore
++	if store == nil {
++		var err error
++		store, err = process.NewArtifactStore(filepath.Join(os.TempDir(), "harness-output-"+strconv.Itoa(os.Getuid())))
++		if err != nil {
++			return tool.ToolResult{Error: "prepare output capture: " + err.Error()}
++		}
++	}
++	r, err := t.Backend.Run(ctx, execution.Request{Argv: []string{"/bin/bash", "-c", command}, OutputStore: store})
++	meta := map[string]any{"execution_boundary": t.Backend.Boundary(), "exit_code": r.ExitCode, "stdout_bytes": r.StdoutBytes, "stderr_bytes": r.StderrBytes, "stdout_artifact": r.StdoutArtifact, "stderr_artifact": r.StderrArtifact, "output_truncated": r.Truncated, "stdout_truncated": r.StdoutTruncated, "stderr_truncated": r.StderrTruncated, "cancelled": ctx.Err() == context.Canceled, "timed_out": ctx.Err() == context.DeadlineExceeded}
++	output := r.Stdout
++	if r.Stderr != "" {
++		output += "\nSTDERR:\n" + r.Stderr
++	}
++	if r.Truncated {
++		output += "\n[inline output truncated; inspect capture artifacts]"
++	}
++	for _, capture := range []struct {
++		name string
++		info process.ArtifactInfo
++	}{{"stdout", r.StdoutArtifact}, {"stderr", r.StderrArtifact}} {
++		if capture.info.Error != "" {
++			output += "\n[" + capture.name + " artifact unavailable or incomplete: " + capture.info.Error + "]"
++		}
++	}
++	result := tool.ToolResult{Output: output, Metadata: meta}
++	if err != nil {
++		result.Error = err.Error()
++	}
++	if ctx.Err() == context.Canceled {
++		result.Error = "command cancelled"
++	} else if ctx.Err() == context.DeadlineExceeded {
++		result.Error = "command timed out"
++	}
++	return result
++}

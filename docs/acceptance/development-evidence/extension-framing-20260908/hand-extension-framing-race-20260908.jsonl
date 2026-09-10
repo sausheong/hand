@@ -1,0 +1,20 @@
+{"Time":"2026-09-08T23:11:47.495282+08:00","Action":"start","Package":"github.com/sausheong/hand/extension/protocol"}
+{"Time":"2026-09-08T23:11:47.941005+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures"}
+{"Time":"2026-09-08T23:11:47.941068+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Output":"=== RUN   TestFramesAndTerminalFailures\n"}
+{"Time":"2026-09-08T23:11:47.942978+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Output":"--- PASS: TestFramesAndTerminalFailures (0.00s)\n"}
+{"Time":"2026-09-08T23:11:47.942993+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestFramesAndTerminalFailures","Elapsed":0}
+{"Time":"2026-09-08T23:11:47.943008+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite"}
+{"Time":"2026-09-08T23:11:47.943014+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Output":"=== RUN   TestWriterRejectsAmbiguousPayloadAndShortWrite\n"}
+{"Time":"2026-09-08T23:11:47.94325+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Output":"--- PASS: TestWriterRejectsAmbiguousPayloadAndShortWrite (0.00s)\n"}
+{"Time":"2026-09-08T23:11:47.943262+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"TestWriterRejectsAmbiguousPayloadAndShortWrite","Elapsed":0}
+{"Time":"2026-09-08T23:11:47.943316+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader"}
+{"Time":"2026-09-08T23:11:47.943326+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Output":"=== RUN   FuzzFrameReader\n"}
+{"Time":"2026-09-08T23:11:47.943457+08:00","Action":"run","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0"}
+{"Time":"2026-09-08T23:11:47.943466+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Output":"=== RUN   FuzzFrameReader/seed#0\n"}
+{"Time":"2026-09-08T23:11:47.944397+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Output":"--- PASS: FuzzFrameReader/seed#0 (0.00s)\n"}
+{"Time":"2026-09-08T23:11:47.944405+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader/seed#0","Elapsed":0}
+{"Time":"2026-09-08T23:11:47.944429+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Output":"--- PASS: FuzzFrameReader (0.00s)\n"}
+{"Time":"2026-09-08T23:11:47.944434+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Test":"FuzzFrameReader","Elapsed":0}
+{"Time":"2026-09-08T23:11:47.944442+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Output":"PASS\n"}
+{"Time":"2026-09-08T23:11:48.953224+08:00","Action":"output","Package":"github.com/sausheong/hand/extension/protocol","Output":"ok  \tgithub.com/sausheong/hand/extension/protocol\t1.457s\n"}
+{"Time":"2026-09-08T23:11:48.953331+08:00","Action":"pass","Package":"github.com/sausheong/hand/extension/protocol","Elapsed":1.458}

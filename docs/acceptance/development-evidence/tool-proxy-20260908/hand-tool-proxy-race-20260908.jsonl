@@ -1,0 +1,28 @@
+{"Time":"2026-09-08T13:52:20.667131+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolproxy"}
+{"Time":"2026-09-08T13:52:20.66742+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/toolworker"}
+{"Time":"2026-09-08T13:52:21.228376+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests"}
+{"Time":"2026-09-08T13:52:21.228463+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"=== RUN   TestWorkerRealFileRoundtripAndRejectedRequests\n"}
+{"Time":"2026-09-08T13:52:21.243663+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Output":"--- PASS: TestWorkerRealFileRoundtripAndRejectedRequests (0.02s)\n"}
+{"Time":"2026-09-08T13:52:21.243682+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerRealFileRoundtripAndRejectedRequests","Elapsed":0.02}
+{"Time":"2026-09-08T13:52:21.243731+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput"}
+{"Time":"2026-09-08T13:52:21.243742+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"=== RUN   TestWorkerCancellationAndBrokenOutput\n"}
+{"Time":"2026-09-08T13:52:21.250078+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Output":"--- PASS: TestWorkerCancellationAndBrokenOutput (0.01s)\n"}
+{"Time":"2026-09-08T13:52:21.250094+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerCancellationAndBrokenOutput","Elapsed":0.01}
+{"Time":"2026-09-08T13:52:21.25011+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes"}
+{"Time":"2026-09-08T13:52:21.250115+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes","Output":"=== RUN   TestWorkerPreservesImageBytes\n"}
+{"Time":"2026-09-08T13:52:21.25115+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes","Output":"--- PASS: TestWorkerPreservesImageBytes (0.00s)\n"}
+{"Time":"2026-09-08T13:52:21.251157+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Test":"TestWorkerPreservesImageBytes","Elapsed":0}
+{"Time":"2026-09-08T13:52:21.251167+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"PASS\n"}
+{"Time":"2026-09-08T13:52:21.738681+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestProxyPreservesLargeResponseAndImagesWithoutHostFallback"}
+{"Time":"2026-09-08T13:52:21.738723+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestProxyPreservesLargeResponseAndImagesWithoutHostFallback","Output":"=== RUN   TestProxyPreservesLargeResponseAndImagesWithoutHostFallback\n"}
+{"Time":"2026-09-08T13:52:21.748596+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestProxyPreservesLargeResponseAndImagesWithoutHostFallback","Output":"--- PASS: TestProxyPreservesLargeResponseAndImagesWithoutHostFallback (0.01s)\n"}
+{"Time":"2026-09-08T13:52:21.75031+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestProxyPreservesLargeResponseAndImagesWithoutHostFallback","Elapsed":0.01}
+{"Time":"2026-09-08T13:52:21.75033+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip"}
+{"Time":"2026-09-08T13:52:21.750336+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"=== RUN   TestNativeProxyWorkerRoundtrip\n"}
+{"Time":"2026-09-08T13:52:22.253637+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolworker","Output":"ok  \tgithub.com/sausheong/hand/internal/toolworker\t1.586s\n"}
+{"Time":"2026-09-08T13:52:22.253731+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolworker","Elapsed":1.5859999999999999}
+{"Time":"2026-09-08T13:52:22.391894+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Output":"--- PASS: TestNativeProxyWorkerRoundtrip (0.64s)\n"}
+{"Time":"2026-09-08T13:52:22.391919+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolproxy","Test":"TestNativeProxyWorkerRoundtrip","Elapsed":0.64}
+{"Time":"2026-09-08T13:52:22.391964+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Output":"PASS\n"}
+{"Time":"2026-09-08T13:52:23.406244+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/toolproxy","Output":"ok  \tgithub.com/sausheong/hand/internal/toolproxy\t2.739s\n"}
+{"Time":"2026-09-08T13:52:23.406376+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/toolproxy","Elapsed":2.739}

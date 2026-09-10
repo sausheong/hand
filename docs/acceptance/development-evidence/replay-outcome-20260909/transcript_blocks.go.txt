@@ -1,0 +1,273 @@
+package tui
+
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/sausheong/harness/session"
+	"strings"
+)
+
+// TranscriptBlock keeps immutable source fields separate from presentation.
+type TranscriptBlock struct {
+	Kind, Text, Detail        string
+	Tone                      string
+	State, ID, Preview        string
+	TokensBefore, TokensAfter int
+	Count                     int
+	ImageCount                int
+	Truncated                 bool
+}
+type sourceLayout struct {
+	Block           TranscriptBlock
+	Width           int
+	Style, Rendered string
+}
+
+// A null JSON value must not become an empty successful message or tool result.
+func decodeReplayData(raw json.RawMessage, target any) error {
+	trimmed := bytes.TrimSpace(raw)
+	if len(trimmed) == 0 || trimmed[0] != '{' {
+		return errors.New("entry data must be an object")
+	}
+	return json.Unmarshal(raw, target)
+}
+
+func sessionBlock(entry session.SessionEntry) (TranscriptBlock, bool) {
+	malformed := func(kind string, err error) (TranscriptBlock, bool) {
+		return TranscriptBlock{Kind: "error", Text: "  ✗ could not replay " + kind + ": " + err.Error()}, true
+	}
+	switch entry.Type {
+	case session.EntryTypeMessage, session.EntryTypeMeta:
+		var d session.MessageData
+		if err := decodeReplayData(entry.Data, &d); err != nil {
+			kind := "message"
+			if entry.Type == session.EntryTypeMeta {
+				kind = "note"
+			}
+			return malformed(kind, err)
+		}
+		kind := "assistant"
+		if entry.Role == "user" {
+			kind = "user"
+		}
+		if entry.Type == session.EntryTypeMeta {
+			kind = "note"
+		}
+		return TranscriptBlock{Kind: kind, Text: d.Text, ImageCount: len(d.Images)}, true
+	case session.EntryTypeToolCall:
+		var d session.ToolCallData
+		if err := decodeReplayData(entry.Data, &d); err != nil {
+			return malformed("tool call", err)
+		}
+		return TranscriptBlock{Kind: "tool_call", Text: d.Tool, Detail: string(d.Input)}, true
+	case session.EntryTypeToolResult:
+		var d session.ToolResultData
+		if err := decodeReplayData(entry.Data, &d); err != nil {
+			return malformed("tool result", err)
+		}
+		return TranscriptBlock{Kind: "tool_result", Text: d.Output, Detail: replayToolError(d), ImageCount: len(d.Images)}, true
+	case session.EntryTypeCompaction:
+		var d session.CompactionData
+		if err := decodeReplayData(entry.Data, &d); err != nil {
+			return malformed("compaction", err)
+		}
+		return TranscriptBlock{Kind: "compaction", Text: d.Summary, Count: d.TurnsCompacted}, true
+	}
+	return TranscriptBlock{}, false
+}
+func (b TranscriptBlock) render(width int, style string) (rendered string) {
+	defer func() {
+		// Render only attachment metadata: replay must not load large blobs or
+		// place inline base64/storage identifiers into the terminal transcript.
+		if b.ImageCount > 0 {
+			suffix := "image attachment"
+			if b.ImageCount != 1 {
+				suffix += "s"
+			}
+			rendered += toolCallStyle.Render(fmt.Sprintf(" [%d %s]", b.ImageCount, suffix))
+		}
+		if b.Truncated && b.Kind == "compaction" {
+			rendered += " [details truncated]"
+		}
+	}()
+	text := sanitizeForTerminal(b.Text)
+	switch b.Kind {
+	case "notice":
+		switch b.Tone {
+		case "errorLineStyle":
+			return errorLineStyle.Render(text)
+		case "approvedStyle":
+			return approvedStyle.Render(text)
+		case "deniedStyle":
+			return deniedStyle.Render(text)
+		case "userLineStyle":
+			return userLineStyle.Render(text)
+		case "statusIdleStyle":
+			return statusIdleStyle.Render(text)
+		default:
+			return toolCallStyle.Render(text)
+		}
+	case "extension_text", "extension_code", "extension_item":
+		return renderExtensionBlock(b, width)
+	case "assistant":
+		return renderMarkdown(text, width, style)
+	case "user":
+		return userLineStyle.Render("> " + text)
+	case "tool_call":
+		line := fmt.Sprintf("[tool: %s]", text)
+		if !b.Truncated {
+			if detail := summarizeToolCall(text, json.RawMessage(b.Detail)); detail != "" {
+				line += " " + detail
+			}
+		} else {
+			line += " [details truncated]"
+		}
+		return toolCallStyle.Render(line)
+	case "tool_result":
+		return (ToolOutput{Output: b.Text, Error: b.Detail, Truncated: b.Truncated}).preview()
+	case "approval":
+		line := fmt.Sprintf("  %s: %s", sanitizeForTerminal(b.State), text)
+		if b.State == "denied" {
+			return deniedStyle.Render(line)
+		}
+		if b.State == "approved" || b.State == "always allowed" {
+			return approvedStyle.Render(line)
+		}
+		return toolCallStyle.Render(line)
+	case "compaction":
+		switch b.State {
+		case "running":
+			return toolCallStyle.Render("compacting context...")
+		case "failed":
+			return errorLineStyle.Render("compact failed: " + text)
+		case "skipped":
+			return toolCallStyle.Render("compact skipped: " + text)
+		case "completed":
+			return approvedStyle.Render(fmt.Sprintf("compacted %d turns", b.Count))
+		case "automatic":
+			return toolCallStyle.Render(fmt.Sprintf("context compaction: %d → %d tokens", b.TokensBefore, b.TokensAfter))
+		}
+		return toolCallStyle.Render(fmt.Sprintf("[compacted %d turns]", b.Count))
+	case "note":
+		return toolCallStyle.Render("[" + text + "]")
+	case "error":
+		return errorLineStyle.Render(text)
+	default:
+		return toolCallStyle.Render(text)
+	}
+}
+func (m *Model) appendSourceBlock(block TranscriptBlock) {
+	if m.sourceBlocks == nil {
+		m.sourceBlocks = make(map[int]sourceLayout)
+	}
+	rendered := block.render(m.termWidth, m.markdownStyle)
+	m.sourceBlocks[len(m.transcript)] = sourceLayout{Block: block, Width: m.termWidth, Style: m.markdownStyle, Rendered: rendered}
+	m.transcript = append(m.transcript, rendered)
+}
+func (m *Model) refreshSourceBlocks() {
+	pending := make(map[int]sourceLayout)
+	bytes := 0
+	for index, source := range m.sourceBlocks {
+		if source.Block.Kind == "assistant" && (source.Width != m.termWidth || source.Style != m.markdownStyle) {
+			pending[index] = source
+			bytes += len(source.Block.Text)
+		}
+	}
+	asynchronous := len(pending) >= 8 || bytes >= 64<<10
+	if m.markdownLayout != nil {
+		if m.markdownLayout.width != m.termWidth || m.markdownLayout.style != m.markdownStyle {
+			m.markdownLayout.cancel()
+		}
+		asynchronous = true
+	} else if asynchronous {
+		m.startMarkdownLayout(pending)
+	}
+	for index, cached := range m.sourceBlocks {
+		// Presentation is a projection: source wins over stale cache content.
+		for len(m.transcript) <= index {
+			m.transcript = append(m.transcript, "")
+		}
+		m.transcript[index] = cached.Rendered
+		if cached.Width == m.termWidth && cached.Style == m.markdownStyle {
+			continue
+		}
+		if asynchronous && cached.Block.Kind == "assistant" {
+			continue
+		}
+		cached.Rendered = cached.Block.render(m.termWidth, m.markdownStyle)
+		cached.Width = m.termWidth
+		cached.Style = m.markdownStyle
+		m.sourceBlocks[index] = cached
+		m.transcript[index] = cached.Rendered
+	}
+}
+
+func (m *Model) recordApproval(state string) {
+	if m.pending == nil {
+		return
+	}
+	m.appendSourceBlock(TranscriptBlock{Kind: "approval", State: state, ID: m.pendingApprovalID, Text: m.pending.Tool, Detail: string(m.pending.Input), Preview: m.pending.Preview})
+}
+
+func (m *Model) appendNotice(text, tone string) {
+	if tone == "userLineStyle" && strings.HasPrefix(text, "> ") {
+		m.appendSourceBlock(TranscriptBlock{Kind: "user", Text: strings.TrimPrefix(text, "> ")})
+		return
+	}
+	m.appendSourceBlock(TranscriptBlock{Kind: "notice", Text: text, Tone: tone})
+}
+func (m *Model) appendNotices(lines []string) {
+	for _, line := range lines {
+		m.appendNotice(sanitizeForTerminal(line), "toolCallStyle")
+	}
+}
+func (m *Model) clearTranscript() {
+	m.layoutEpoch++
+	if m.markdownLayout != nil {
+		m.markdownLayout.cancel()
+	}
+	m.transcript = nil
+	m.sourceBlocks = nil
+}
+func (m *Model) replaceTranscript(lines []string, sources map[int]sourceLayout) {
+	m.clearTranscript()
+	for i, line := range lines {
+		if source, ok := sources[i]; ok {
+			m.appendSourceBlock(source.Block)
+		} else {
+			m.appendNotice(sanitizeForTerminal(line), "toolCallStyle")
+		}
+	}
+}
+func (m *Model) prependSourceBlocks(blocks []TranscriptBlock) {
+	oldLines, oldSources := m.transcript, m.sourceBlocks
+	m.clearTranscript()
+	for _, block := range blocks {
+		m.appendSourceBlock(block)
+	}
+	for i, line := range oldLines {
+		if source, ok := oldSources[i]; ok {
+			m.appendSourceBlock(source.Block)
+		} else {
+			m.appendNotice(sanitizeForTerminal(line), "toolCallStyle")
+		}
+	}
+}
+
+func (m *Model) finishMarkdownLayout(task *markdownLayout) {
+	if task != m.markdownLayout {
+		return
+	}
+	<-task.done
+	m.markdownLayout = nil
+	if task.complete && task.epoch == m.layoutEpoch && task.width == m.termWidth && task.style == m.markdownStyle {
+		for index, result := range task.result {
+			if current, ok := m.sourceBlocks[index]; ok && current.Block == result.Block {
+				m.sourceBlocks[index] = result
+			}
+		}
+	}
+	m.refreshViewport()
+}

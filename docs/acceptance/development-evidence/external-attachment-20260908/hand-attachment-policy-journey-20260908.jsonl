@@ -1,0 +1,21 @@
+{"Time":"2026-09-08T08:51:11.124221+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-08T08:51:11.124356+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T08:51:13.197861+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot"}
+{"Time":"2026-09-08T08:51:13.197944+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot","Output":"=== RUN   TestAttachmentPolicyExactSnapshot\n"}
+{"Time":"2026-09-08T08:51:13.19941+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot","Output":"--- PASS: TestAttachmentPolicyExactSnapshot (0.00s)\n"}
+{"Time":"2026-09-08T08:51:13.199443+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyExactSnapshot","Elapsed":0}
+{"Time":"2026-09-08T08:51:13.199486+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles"}
+{"Time":"2026-09-08T08:51:13.199492+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles","Output":"=== RUN   TestAttachmentPolicyLimitsAndSpecialFiles\n"}
+{"Time":"2026-09-08T08:51:13.201716+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles","Output":"--- PASS: TestAttachmentPolicyLimitsAndSpecialFiles (0.00s)\n"}
+{"Time":"2026-09-08T08:51:13.20174+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestAttachmentPolicyLimitsAndSpecialFiles","Elapsed":0}
+{"Time":"2026-09-08T08:51:13.207193+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"PASS\n"}
+{"Time":"2026-09-08T08:51:14.074113+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestOneShotExternalAttachmentGrant"}
+{"Time":"2026-09-08T08:51:14.074162+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestOneShotExternalAttachmentGrant","Output":"=== RUN   TestOneShotExternalAttachmentGrant\n"}
+{"Time":"2026-09-08T08:51:14.076518+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestOneShotExternalAttachmentGrant","Output":"\n"}
+{"Time":"2026-09-08T08:51:14.077044+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestOneShotExternalAttachmentGrant","Output":"--- PASS: TestOneShotExternalAttachmentGrant (0.00s)\n"}
+{"Time":"2026-09-08T08:51:14.077056+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestOneShotExternalAttachmentGrant","Elapsed":0}
+{"Time":"2026-09-08T08:51:14.077824+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-08T08:51:14.214683+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"ok  \tgithub.com/sausheong/hand/internal/agentio\t3.090s\n"}
+{"Time":"2026-09-08T08:51:14.214793+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":3.09}
+{"Time":"2026-09-08T08:51:15.086557+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t3.962s\n"}
+{"Time":"2026-09-08T08:51:15.086624+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":3.9619999999999997}

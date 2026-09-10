@@ -1,0 +1,63 @@
+{
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "base": "1b79b1d12a8e08b06ee49251b2b5c9a1293a2e54",
+  "candidate": "698a0c24d4fdf1fd8a17813b3224d252281470a6",
+  "patch_sha256": "a10b8bda6e3a9fb8646d620b7d38b1b3d936b9980b049f25d9c1cd7a3e9fb857",
+  "results": {
+    "hand-artifact-persistence-final-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 13,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "pass"
+      }
+    },
+    "hand-artifact-persistence-first-20260908.jsonl": {
+      "tests_and_subtests": {
+        "pass": 41,
+        "fail": 0,
+        "skip": 0
+      },
+      "packages": {
+        "github.com/sausheong/harness/runtime": "pass",
+        "github.com/sausheong/harness/session": "pass"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-persistence-20260908/hand-artifact-persistence-final-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-artifact-persistence-final-20260908.jsonl",
+      "sha256": "834e16fec4a1d6b4bcbc837ff4b007083bb8cda6aa93f1bf50d4bcbab448bae3"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-persistence-20260908/hand-artifact-persistence-final-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-artifact-persistence-final-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-persistence-20260908/hand-artifact-persistence-first-20260908.jsonl",
+      "original_execution_path": "/private/tmp/hand-artifact-persistence-first-20260908.jsonl",
+      "sha256": "ac5418ac0456c59d1f609a1190cf6cae711e42dff22ac528a545c47f379ec6c0"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-persistence-20260908/hand-artifact-persistence-first-20260908.stderr",
+      "original_execution_path": "/private/tmp/hand-artifact-persistence-first-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/sausheong/projects/hand/docs/acceptance/development-evidence/artifact-persistence-20260908/hand-artifact-persistence-vet-20260908.txt",
+      "original_execution_path": "/private/tmp/hand-artifact-persistence-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "targeted_race_exit_code": 0,
+  "vet_exit_code": 0,
+  "limitations": [
+    "Targeted runtime/session regressions only; full Harness and Hand qualification remains pending.",
+    "Hand artifact-viewer wiring remains pending.",
+    "References preserve original store paths; session export/fork does not yet copy process artifacts. Retention may expire them."
+  ]
+}

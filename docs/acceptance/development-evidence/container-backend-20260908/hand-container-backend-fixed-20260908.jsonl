@@ -1,0 +1,16 @@
+{"Time":"2026-09-08T13:33:11.945092+08:00","Action":"start","Package":"github.com/sausheong/harness/execution"}
+{"Time":"2026-09-08T13:33:12.365057+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments"}
+{"Time":"2026-09-08T13:33:12.365123+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Output":"=== RUN   TestHostExplicitEnvironmentAndExactArguments\n"}
+{"Time":"2026-09-08T13:33:12.370759+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Output":"--- PASS: TestHostExplicitEnvironmentAndExactArguments (0.01s)\n"}
+{"Time":"2026-09-08T13:33:12.370775+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestHostExplicitEnvironmentAndExactArguments","Elapsed":0.01}
+{"Time":"2026-09-08T13:33:12.370799+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand"}
+{"Time":"2026-09-08T13:33:12.370804+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Output":"=== RUN   TestMissingContainerNeverExecutesHostCommand\n"}
+{"Time":"2026-09-08T13:33:12.371371+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Output":"--- PASS: TestMissingContainerNeverExecutesHostCommand (0.00s)\n"}
+{"Time":"2026-09-08T13:33:12.371378+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestMissingContainerNeverExecutesHostCommand","Elapsed":0}
+{"Time":"2026-09-08T13:33:12.371391+08:00","Action":"run","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary"}
+{"Time":"2026-09-08T13:33:12.371396+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"=== RUN   TestNativeContainerBoundary\n"}
+{"Time":"2026-09-08T13:33:13.850711+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Output":"--- PASS: TestNativeContainerBoundary (1.48s)\n"}
+{"Time":"2026-09-08T13:33:13.850765+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Test":"TestNativeContainerBoundary","Elapsed":1.48}
+{"Time":"2026-09-08T13:33:13.850854+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"PASS\n"}
+{"Time":"2026-09-08T13:33:14.862268+08:00","Action":"output","Package":"github.com/sausheong/harness/execution","Output":"ok  \tgithub.com/sausheong/harness/execution\t2.916s\n"}
+{"Time":"2026-09-08T13:33:14.862432+08:00","Action":"pass","Package":"github.com/sausheong/harness/execution","Elapsed":2.917}

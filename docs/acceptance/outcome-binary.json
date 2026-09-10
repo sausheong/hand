@@ -1,0 +1,38 @@
+{
+  "status": "development_passed",
+  "passed_tests": [
+    "TestBinaryOutcomeExitCodeMatrix/answer",
+    "TestBinaryOutcomeExitCodeMatrix/verified",
+    "TestBinaryOutcomeExitCodeMatrix/optional_warning",
+    "TestBinaryOutcomeExitCodeMatrix/stop_failure",
+    "TestBinaryOutcomeExitCodeMatrix/prompt_failure",
+    "TestBinaryOutcomeExitCodeMatrix/iteration_limit",
+    "TestBinaryOutcomeExitCodeMatrix/turn_limit",
+    "TestBinaryOutcomeExitCodeMatrix/provider_failure",
+    "TestBinaryOutcomeExitCodeMatrix/invalid_invocation",
+    "TestBinaryOutcomeExitCodeMatrix"
+  ],
+  "child_invocations": 9,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/outcome-binary-20260909/hand-outcome-binary-20260909.jsonl.gz",
+      "sha256": "215a66fd7a7ea5cc487541d65769b4e56465cd0bb4e7cae06ec319f9f35c20ea"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/outcome-binary-20260909/outcome_binary_test.go.gz",
+      "sha256": "8245520634b434d1dd1392c9933ddd1eb93ac0dc1876998e16a1430d61484041"
+    }
+  ],
+  "assertions": [
+    "Actual process codes 0/2/3/4/5 agree with runtime status and reason",
+    "Verified true only with successful mandatory Stop validator",
+    "Started runs emit exactly one terminal JSONL frame, ordered and last",
+    "Invalid flags fail before provider invocation or runtime terminal event"
+  ],
+  "limitations": [
+    "Native macOS development checkout with local Harness, not final clean released candidate or all-platform qualification",
+    "Parent race instrumentation; built child ordinary compilation",
+    "Signal exit 130 covered separately in lifecycle-scenario-audit.json",
+    "Local fake providers; no paid calls"
+  ]
+}

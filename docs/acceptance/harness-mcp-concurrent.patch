@@ -1,0 +1,245 @@
+diff --git a/runtime/builder.go b/runtime/builder.go
+index 758b5c8..20ba74e 100644
+--- a/runtime/builder.go
++++ b/runtime/builder.go
+@@ -4,7 +4,6 @@ import (
+ 	"context"
+ 	"fmt"
+ 	"log/slog"
+-	"time"
+ 
+ 	"github.com/sausheong/harness/compaction"
+ 	"github.com/sausheong/harness/llm"
+@@ -107,7 +106,7 @@ func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeIn
+ 	names := make(map[string]bool)
+ 	for _, srv := range spec.MCPServers {
+ 		if srv.Name == "" || names[srv.Name] {
+-			return nil, fmt.Errorf("MCP server names must be nonempty and unique")
++			return nil, fmt.Errorf("mcp server names must be nonempty and unique")
+ 		}
+ 		if srv.ConnectTimeout < 0 {
+ 			return nil, fmt.Errorf("MCP connect timeout must not be negative")
+@@ -139,37 +138,15 @@ func BuildRuntimeContext(ctx context.Context, deps RuntimeDeps, inputs RuntimeIn
+ 				},
+ 			})
+ 		}
+-		// Connect declared MCP servers and register their adapter tools.
+-		// On any failure, close everything connected so far before
+-		// returning — a partially-built Runtime would leak processes.
+-		for _, srv := range spec.MCPServers {
+-			serverCtx := ctx
+-			cancel := func() {}
+-			timeout := srv.ConnectTimeout
+-			if timeout == 0 && srv.Optional {
+-				timeout = 5 * time.Second
+-			}
+-			if timeout > 0 {
+-				serverCtx, cancel = context.WithTimeout(ctx, timeout)
+-			}
+-			cli, err := mcp.Connect(serverCtx, srv)
+-			cancel()
+-			if err != nil {
+-				if ctx.Err() != nil {
+-					return nil, ctx.Err()
+-				}
+-				if srv.Optional {
+-					mcpStatus = append(mcpStatus, MCPServerStatus{Name: srv.Name, Optional: true, State: "unavailable"})
+-					continue
+-				}
+-				return nil, fmt.Errorf("mcp server %q: %w", srv.Name, err)
+-			}
+-			for _, t := range cli.Tools() {
+-				stagedTools = append(stagedTools, t)
+-			}
+-			mcpClients = append(mcpClients, cli)
+-			mcpStatus = append(mcpStatus, MCPServerStatus{Name: srv.Name, Optional: srv.Optional, State: "connected", Tools: len(cli.Tools())})
++		var err error
++		mcpClients, mcpStatus, err = connectMCPServers(ctx, spec.MCPServers)
++		if err != nil {
++			return nil, err
++		}
++		for _, cli := range mcpClients {
++			stagedTools = append(stagedTools, cli.Tools()...)
+ 		}
++
+ 	} else if len(spec.MCPServers) > 0 {
+ 		return nil, fmt.Errorf("AgentSpec.MCPServers requires inputs.Tools to be *tool.Registry")
+ 	}
+diff --git a/runtime/mcp_startup.go b/runtime/mcp_startup.go
+new file mode 100644
+index 0000000..bc1f352
+--- /dev/null
++++ b/runtime/mcp_startup.go
+@@ -0,0 +1,82 @@
++package runtime
++
++import (
++	"context"
++	"fmt"
++	"sync"
++	"time"
++
++	"github.com/sausheong/harness/tools/mcp"
++)
++
++const MCPConnectConcurrency = 4
++
++// connectMCPServers joins every worker before returning. Results retain config
++// order, independent of completion order; publication remains transactional in
++// BuildRuntimeContext. The caller owns and must close returned clients on error.
++func connectMCPServers(parent context.Context, servers []mcp.ServerConfig) ([]*mcp.Client, []MCPServerStatus, error) {
++	ctx, cancel := context.WithCancel(parent)
++	defer cancel()
++	clients := make([]*mcp.Client, len(servers))
++	status := make([]MCPServerStatus, len(servers))
++	var firstErr error
++	var fail sync.Once
++	jobs := make(chan int)
++	var workers sync.WaitGroup
++	for w := 0; w < min(MCPConnectConcurrency, len(servers)); w++ {
++		workers.Add(1)
++		go func() {
++			defer workers.Done()
++			for i := range jobs {
++				if ctx.Err() != nil {
++					continue
++				}
++				srv := servers[i]
++				serverCtx := ctx
++				stop := func() {}
++				timeout := srv.ConnectTimeout
++				if timeout == 0 && srv.Optional {
++					timeout = 5 * time.Second
++				}
++				if timeout > 0 {
++					serverCtx, stop = context.WithTimeout(ctx, timeout)
++				}
++				cli, err := mcp.Connect(serverCtx, srv)
++				stop()
++				status[i] = MCPServerStatus{Name: srv.Name, Optional: srv.Optional, State: "unavailable"}
++				if err != nil {
++					if !srv.Optional {
++						fail.Do(func() { firstErr = fmt.Errorf("mcp server %q: %w", srv.Name, err); cancel() })
++					}
++					continue
++				}
++				clients[i] = cli
++				status[i].State = "connected"
++				status[i].Tools = len(cli.Tools())
++			}
++		}()
++	}
++dispatch:
++	for i := range servers {
++		select {
++		case jobs <- i:
++		case <-ctx.Done():
++			break dispatch
++		}
++	}
++	close(jobs)
++	workers.Wait()
++	connected := make([]*mcp.Client, 0, len(clients))
++	for _, cli := range clients {
++		if cli != nil {
++			connected = append(connected, cli)
++		}
++	}
++	if parent.Err() != nil {
++		return connected, nil, parent.Err()
++	}
++	if firstErr != nil {
++		return connected, nil, firstErr
++	}
++	return connected, status, nil
++}
+diff --git a/runtime/mcp_startup_test.go b/runtime/mcp_startup_test.go
+new file mode 100644
+index 0000000..ef9a0db
+--- /dev/null
++++ b/runtime/mcp_startup_test.go
+@@ -0,0 +1,84 @@
++package runtime
++
++import (
++	"context"
++	"errors"
++	"fmt"
++	"net/http"
++	"sync/atomic"
++	"testing"
++	"time"
++
++	"github.com/sausheong/harness/tool"
++	"github.com/sausheong/harness/tools/mcp"
++)
++
++type startupTransport func(*http.Request) (*http.Response, error)
++
++func (f startupTransport) RoundTrip(r *http.Request) (*http.Response, error) { return f(r) }
++func TestMCPConnectionsIndependentAndBounded(t *testing.T) {
++	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
++	defer cancel()
++	release := make(chan struct{})
++	entered := make(chan struct{}, 32)
++	var active, peak atomic.Int32
++	client := &http.Client{Transport: startupTransport(func(r *http.Request) (*http.Response, error) {
++		n := active.Add(1)
++		defer active.Add(-1)
++		for old := peak.Load(); n > old; old = peak.Load() {
++			if peak.CompareAndSwap(old, n) {
++				break
++			}
++		}
++		select {
++		case entered <- struct{}{}:
++		default:
++		}
++		select {
++		case <-release:
++		case <-r.Context().Done():
++		}
++		return nil, errors.New("fixture unavailable")
++	})}
++	servers := make([]mcp.ServerConfig, 8)
++	for i := range servers {
++		servers[i] = mcp.ServerConfig{Name: fmt.Sprintf("server%d", i), Optional: true, URL: "http://fixture.invalid/mcp", HTTPClient: client}
++	}
++	type result struct {
++		rt  *Runtime
++		err error
++	}
++	done := make(chan result, 1)
++	go func() {
++		rt, err := BuildRuntimeContext(ctx, RuntimeDeps{}, RuntimeInputs{Tools: tool.NewRegistry()}, AgentSpec{MCPServers: servers})
++		done <- result{rt, err}
++	}()
++	for i := 0; i < MCPConnectConcurrency; i++ {
++		select {
++		case <-entered:
++		case <-ctx.Done():
++			t.Fatal("connections did not start independently")
++		}
++	}
++	if n := active.Load(); n != MCPConnectConcurrency {
++		t.Fatalf("active connections %d", n)
++	}
++	close(release)
++	r := <-done
++	if r.err != nil {
++		t.Fatal(r.err)
++	}
++	defer r.rt.Close()
++	if n := peak.Load(); n > MCPConnectConcurrency {
++		t.Fatalf("concurrency exceeded: %d", n)
++	}
++	status := r.rt.MCPStatus()
++	if len(status) != len(servers) {
++		t.Fatalf("status count %d", len(status))
++	}
++	for i, s := range status {
++		if s.Name != servers[i].Name || s.State != "unavailable" {
++			t.Fatalf("status order %+v", status)
++		}
++	}
++}

@@ -1,0 +1,9 @@
+# RPC application dispatcher
+
+The staged dispatcher requires `hello` negotiation and implements `state`, `prompt`, `cancel`, `request.get` and `events.poll`. Prompt accepts nonempty text up to 64 KiB. The dispatcher uses the real application Service and durable request ledger; duplicate IDs return their stored run/result instead of calling the backend again. New prompts are rejected while a dispatcher run remains active. Admission failures after durable intent remain unresolved rather than silently granting a second execution.
+
+Progress retention is bounded to 256 events and 2 MiB. Polling returns at most 16 events and 512 KiB of event data, with a connection-local cursor and an explicit `gap` when earlier progress has been evicted. Polling an ahead-of-connection cursor is rejected. Terminal events are persisted as completed request results before completion retrieval, so progress eviction does not erase them. Event IDs and run IDs are invocation-unique; durable replay returns the stored terminal event.
+
+Closing the dispatcher cancels its application context and joins consumers and backend cleanup. The caller still owns the ledger and closes it afterward. A terminal-persistence failure is exposed through state rather than falsely marking the request complete. The implementation does not yet provide a stdio listener or guarantee interruption of arbitrary blocked transport I/O.
+
+Permanent tests use the actual application service with a controlled backend to prove single execution for repeated prompt IDs, bounded retention/gap reporting, persisted terminal identity and close-triggered cancellation/joining. RPC package race-suite and vet evidence is in `rpc-dispatch-integration.json`. Plain-text dispatch is an intermediate slice: attachments, session/profile changes, approval decisions, steering/follow-ups and the non-Go client journey remain outstanding.

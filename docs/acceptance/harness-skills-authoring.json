@@ -1,0 +1,74 @@
+{
+  "status": "development_passed",
+  "harness_base_commit": "5998569d24ce063207cc237263d89f22d532e25f",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "worktree_dirty": true,
+  "patch_sha256": "145b7fc683fcb3178006edbcc8f5855c10f5d186db446da606cd2d59e0de37d4",
+  "sources": [
+    {
+      "path": "runtime/builder.go",
+      "before_sha256": "ea5f56010a2d92a4f3e28b59a972abddcef2daabb0673d5c817617e47213c2fe",
+      "after_sha256": "996b26b6c4477e317366c33d4d2b61addb629df41035ac0ead2cf81a8b555d15"
+    },
+    {
+      "path": "runtime/runtime.go",
+      "before_sha256": "94e3219e803253221d636e662d299f09b28e43481725234160561e4ad479c2e1",
+      "after_sha256": "7b1ebfa01a5b714cccf011e73323d59b7123772254960618ae29cca318f43f6a"
+    },
+    {
+      "path": "runtime/types.go",
+      "before_sha256": "4019dcfa42135449dac16e79bee67b646476e1f7298a04923314a5b965607c61",
+      "after_sha256": "2e2e21e42ff47f6f3ae5232839fbe7987424a90eff0f128ef342e9a7b7434f1b"
+    },
+    {
+      "path": "runtime/skills_refresh.go",
+      "before_sha256": null,
+      "after_sha256": "b11129f4b41049b0a5ab2b88850bf84ea1763c8556aa0aebcef5c3122c2d1bd5"
+    },
+    {
+      "path": "runtime/skills_refresh_test.go",
+      "before_sha256": null,
+      "after_sha256": "76eb53fea41aad9fb39d7e7b517a8891dc9b455a92f1ec274067b45c3fcec4c4"
+    },
+    {
+      "path": "runtime/skills_authoring_test.go",
+      "before_sha256": null,
+      "after_sha256": "4d9e44d05e3ae8813c5f5ed590883f970256ded90d9caaad7581b74022278263"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-skills-authoring-20260908/harness-skills-authoring-race-20260908.jsonl",
+      "sha256": "85cda621c4183f81d0c559307936277bcd05166d37a5436dcf8f188facc10a7c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-skills-authoring-20260908/harness-skills-authoring-fixed-race-20260908.jsonl",
+      "sha256": "88ac5c12e2d562f2475a5fc5bdad77dc11ccb31587a401edd66903d1ae8d418e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-skills-authoring-20260908/harness-skills-authoring-vet-20260908.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "results": {
+    "harness-skills-authoring-race-20260908.jsonl": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 1
+    },
+    "harness-skills-authoring-fixed-race-20260908.jsonl": {
+      "pass": 2,
+      "fail": 0,
+      "skip": 0,
+      "build-fail": 0
+    }
+  },
+  "vet": "passed",
+  "limitations": [
+    "Not released or integrated into primary Hand dependency.",
+    "Scripted provider regression covers real tool execution, disk persistence and next model request; no live provider evaluation.",
+    "Hand reload command and lazy nested guidance remain pending.",
+    "SkillProvider must bound its own filesystem work."
+  ]
+}

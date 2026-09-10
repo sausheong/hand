@@ -1,0 +1,278 @@
+{
+  "requirement": "M6.3",
+  "status": "incomplete",
+  "scenarios_mapped": 9,
+  "scenarios_qualified": 0,
+  "scenarios": [
+    {
+      "id": "retry_summary_in_ledger",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostLedgerRestartAndPricingProvenance"
+        },
+        {
+          "module": "harness",
+          "path": "runtime/cost_budget_test.go",
+          "test": "TestCostBudgetRuntimeAndIndependentSummary"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/run_budget_compaction_test.go",
+          "test": "TestSelectedRunBudgetGovernsManualCompaction"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/fallback_usage_test.go",
+          "test": "TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen"
+        }
+      ],
+      "scope": "Durable retry reservation, independent summariser route, and manual compaction admission are covered. Actual deterministic Harness fallback preserves unknown primary reservation, reported cache subtotal, strict cost charges and identical budget views after reopen.",
+      "remaining": [
+        "Reconcile fallback/cache/provider retry cases across real built-client journeys on final candidate."
+      ]
+    },
+    {
+      "id": "reservations_concurrent",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostConcurrentOwnersAndExplicitResume"
+        }
+      ],
+      "scope": "Two ledger owners compete for one remaining balance; exactly one reservation succeeds.",
+      "remaining": [
+        "Final race repetitions and released Harness evidence; audit all concurrent runtime admission routes."
+      ]
+    },
+    {
+      "id": "strict_unknown_price_blocks",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty"
+        },
+        {
+          "module": "harness",
+          "path": "runtime/cost_budget_test.go",
+          "test": "TestCostBudgetRuntimeAndIndependentSummary"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/fallback_usage_test.go",
+          "test": "TestFallbackCostAdmissionRefusesBeforeSecondProviderCall"
+        }
+      ],
+      "scope": "Unknown strict price blocks provider dispatch. Built CLI journey also refuses missing, expired and unbounded tariffs before provider dispatch. Missing/expired fallback tariffs and exhausted cost ceiling prevent second provider dispatch.",
+      "remaining": [
+        "Repeat strengthened CLI journey on final candidate and supported platforms."
+      ]
+    },
+    {
+      "id": "advisory_unknown_visible",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestStrictCostBlocksUnknownAndAdvisoryPersistsUncertainty"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/cost_budget_view_test.go",
+          "test": "TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart"
+        },
+        {
+          "module": "hand",
+          "path": "internal/tui/cost_budget_test.go",
+          "test": "TestCostTerminalExplicitDecisionAndDisplay"
+        }
+      ],
+      "scope": "Unknown advisory charge remains in ledger and bounded view with disclosure. Built RPC client observes unknown amount, uncertainty disclosure and durable restart.",
+      "remaining": [
+        "Final candidate/platform repetition and terminal UI counterpart."
+      ]
+    },
+    {
+      "id": "exhaustion_stops_new_work",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostFailedUsageRetainsReservationAndOverrunExhausts"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/budget_outcome_test.go",
+          "test": "TestBudgetExhaustionOutcomeSkipsVerification"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/run_budget_test.go",
+          "test": "TestRunDeadlineCoversCompletionValidator"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/fallback_usage_test.go",
+          "test": "TestFallbackCostAdmissionRefusesBeforeSecondProviderCall"
+        }
+      ],
+      "scope": "Overrun stops admission; all budget causes produce unverified exhaustion; validator deadline blocks continuation. Missing/expired fallback tariffs and exhausted cost ceiling prevent second provider dispatch.",
+      "remaining": [
+        "Reconcile owned provider/tool/descendant cancellation trials and final outcome evidence for every limit scope."
+      ]
+    },
+    {
+      "id": "explicit_resume_budget",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostConcurrentOwnersAndExplicitResume"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/run_budget_compaction_test.go",
+          "test": "TestSelectedRunBudgetGovernsManualCompaction"
+        },
+        {
+          "module": "hand",
+          "path": "internal/rpc/params_integrity_test.go",
+          "test": "TestBudgetConfirmationRejectsAmbiguousParams"
+        }
+      ],
+      "scope": "Explicit new limits resume without erasing charges; ambiguous confirmations cannot change decisions.",
+      "remaining": [
+        "Fresh same-candidate complete resume journeys, with prior failed/uncertain state retained."
+      ]
+    },
+    {
+      "id": "ledger_restart",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostLedgerRestartAndPricingProvenance"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/cost_budget_view_test.go",
+          "test": "TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/run_budget_test.go",
+          "test": "TestSelectedRunBudgetPersistsAcrossContinuationAndRestart"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/fallback_usage_test.go",
+          "test": "TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen"
+        }
+      ],
+      "scope": "Disk session reopen retains reservation, category amounts, unknown attempts and selected run budget. Actual deterministic Harness fallback preserves unknown primary reservation, reported cache subtotal, strict cost charges and identical budget views after reopen.",
+      "remaining": [
+        "Final process-crash and platform suite provenance including persistent token/time/cost scopes."
+      ]
+    },
+    {
+      "id": "pricing_provenance",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostLedgerRestartAndPricingProvenance"
+        },
+        {
+          "module": "hand",
+          "path": "internal/rpc/cost_budget_test.go",
+          "test": "TestCostBudgetRPCDecisionsPricesAndReplay"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/price_review_ambiguity_test.go",
+          "test": "TestPriceReviewRejectsAmbiguousFields"
+        },
+        {
+          "module": "hand",
+          "path": "internal/rpc/price_ambiguity_test.go",
+          "test": "TestRPCPriceTableRejectsAmbiguousRates"
+        }
+      ],
+      "scope": "Route/source/version snapshots persist; confirmation and replay protect updates; ambiguous tariff input is refused.",
+      "remaining": [
+        "Released dependency, final tariff validity/route audit, and fresh fuzz plus integrated review evidence."
+      ]
+    },
+    {
+      "id": "in_flight_uncertainty",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "module": "harness",
+          "path": "budget/cost_test.go",
+          "test": "TestCostFailedUsageRetainsReservationAndOverrunExhausts"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/cost_budget_view_test.go",
+          "test": "TestCostBudgetViewRetainsReservationsAndCompactionAfterRestart"
+        },
+        {
+          "module": "hand",
+          "path": "internal/app/fallback_usage_test.go",
+          "test": "TestFallbackUsageRetainsUnknownAttemptAndCacheSubtotalAfterReopen"
+        }
+      ],
+      "scope": "Partial cancelled usage does not release reservation; outstanding and unknown charges remain visible after restart. Actual deterministic Harness fallback preserves unknown primary reservation, reported cache subtotal, strict cost charges and identical budget views after reopen.",
+      "remaining": [
+        "Final non-cancellable provider and disconnect/restart evidence; no exact invoice-cap claim."
+      ]
+    }
+  ],
+  "source_hashes": {
+    "harness/budget/cost_test.go": "93fbc32f536cd728323455916daf29e00d2a35b764ed19de30a1ce966d41950f",
+    "harness/runtime/cost_budget_test.go": "40db1b64a3ef636c626fec49ab70785fc4ff89cd93bf683b137709c1e7e9755a",
+    "hand/internal/app/run_budget_compaction_test.go": "c4a8cf63dbae69490d48e4003131d92e03966aefe1ad9c0d8e6614e9a814cb63",
+    "hand/internal/app/cost_budget_view_test.go": "3091d93128bdd22931bf535bbf467185b333fcc3ad43099447288d1fdd8ec37f",
+    "hand/internal/tui/cost_budget_test.go": "0f0967c7195bf78b62175c8e0d0859a3f422b069e730032af4fdda12da8ce905",
+    "hand/internal/app/budget_outcome_test.go": "2fcbc2306a1f50e75a7352b11fbe3c0f9dc8ece47f52112b0e32dc26382cacd3",
+    "hand/internal/app/run_budget_test.go": "6799f4fea9641637aa615b28553e3b2a3d734e9645b35bd5b8f9a62893c56806",
+    "hand/internal/rpc/params_integrity_test.go": "7a807999d63f38a5081986f52c3b02851cd74d93125aafa47d4c31cd976ec9ca",
+    "hand/internal/rpc/cost_budget_test.go": "22e3cc83c256eeda4ddb65ecaca8f885f783150dd2360def714d7fd28c1f3a6d",
+    "hand/internal/app/price_review_ambiguity_test.go": "13eb7056a6ea8c06e8b4137f261fa9fe8ff0bd0b8824b06ae860d8712fa660d3",
+    "hand/internal/rpc/price_ambiguity_test.go": "f258c57ea0c48fdf53741c865eb570c2a058afefeedae3c1535b54f162a22a9f",
+    "hand/internal/app/fallback_usage_test.go": "b39500d72120c1bd57daa9b5ff8a475edff8389d046663fbafb0173069868fa7"
+  },
+  "development_evidence": [
+    "docs/acceptance/harness-current-native-suite.json",
+    "docs/acceptance/tariff-full-suite.json",
+    "docs/acceptance/cost-view-restart.json",
+    "docs/acceptance/price-ambiguity.json",
+    "docs/acceptance/price-fuzz.json",
+    "docs/acceptance/rpc-price-ambiguity.json",
+    "docs/acceptance/params-integrity.json",
+    "docs/acceptance/budget-advisory-journey.json",
+    "docs/acceptance/budget-advisory-linux.json",
+    "docs/acceptance/deadline-repeat.json",
+    "docs/acceptance/fallback-budget-accounting.json",
+    "docs/acceptance/fallback-cost-refusal.json",
+    "docs/acceptance/run-fallback-native-suite.json"
+  ],
+  "global_remaining": [
+    "Budgets measured 81.3861%, above user-revised 80% threshold; final candidate and platform/source qualification still required.",
+    "Released Harness integration and clean Hand candidate",
+    "Full plan-bullet traceability including cache effectiveness and run/session/time/token/cost combinations",
+    "Fresh final platform, concurrency, fuzz, journey and semantic acceptance evidence"
+  ]
+}

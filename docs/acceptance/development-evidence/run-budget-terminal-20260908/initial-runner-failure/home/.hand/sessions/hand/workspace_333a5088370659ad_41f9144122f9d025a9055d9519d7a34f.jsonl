@@ -1,0 +1,5 @@
+{"schemaVersion":1,"id":"ses_6e0c1e55e35e3c3c","type":"session_header","timestamp":1788877361,"data":null}
+{"id":"annotation_8527c9892cb8f63f","type":"annotation","timestamp":1788877363,"data":{"version":1,"kind":"harness.budget.tokens.v1.run.repair","payload":{"version":1,"kind":"limit","tokens":100000}}}
+{"id":"annotation_8625456381e5a7a1","type":"annotation","timestamp":1788877363,"data":{"version":1,"kind":"harness.budget.cost.v1.run.repair","payload":{"version":1,"kind":"decision","currency":"USD","limit_nano":1000000001,"strict":true}}}
+{"id":"annotation_235ec9f342506166","type":"annotation","timestamp":1788877363,"data":{"version":1,"kind":"harness.budget.deadline.v1.run.repair","payload":{"version":1,"decided_at":"2026-09-08T14:22:43.793646Z","deadline":"2026-09-08T14:32:43.793646Z"}}}
+{"id":"annotation_6e98eeb1d6be45b0","type":"annotation","timestamp":1788877363,"data":{"version":1,"kind":"hand.budget.run.v1","payload":{"version":1,"id":"repair"}}}

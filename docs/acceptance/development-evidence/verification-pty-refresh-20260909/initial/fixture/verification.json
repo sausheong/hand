@@ -1,0 +1,1 @@
+{"directory": "/private/tmp/hand-verification-pty-20260909-evidence/fixture/evidence", "profiles": [{"name": "unit", "command": ["/bin/sh", "-c", "printf x >> \"$1\"; cat source", "verify", "/private/tmp/hand-verification-pty-20260909-evidence/fixture/command-executions"]}]}

@@ -1,0 +1,46 @@
+{
+  "status": "development_passed",
+  "requirement": "G-JOURNEY",
+  "scenario": "restore_with_user_edits",
+  "command": "go test -race -count=1 -timeout=3m -run ^TestBinaryRPCCodingEditTestResumeJourney$ -json ./cmd/hand",
+  "tests": {
+    "pass": 1,
+    "fail": 0,
+    "skip": 0
+  },
+  "assertions": [
+    "Real compiled RPC coding run captures starting non-Git workspace",
+    "Checkpoint ID obtained from checkpoint.changes survives process restart",
+    "Stale preview returns completed=false with diagnostic and preserves subsequent edit",
+    "Fresh preview flags conflict",
+    "After explicit fixture user reversion to post-image, selected restore recovers exact starting content",
+    "Unselected user edits and test artifact remain intact"
+  ],
+  "initial_failures": [
+    "Test incorrectly used RPC execution ID as checkpoint ID",
+    "Test incorrectly equated successful RPC transport with successful restore; corrected to assert completed/error result and actual file bytes"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/restore-journey-20260909/coding_journey_binary_test.go.gz",
+      "sha256": "4a586bd052a9a199f72d48fb730bb9df5916b587c8eec0ca4aee02ddf42d4e5f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-journey-20260909/hand-restore-journey-20260909.jsonl.gz",
+      "sha256": "40f207e70412be1bde50da439f51bffda85e59c044290d31b287ac4cd7236adf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-journey-20260909/hand-restore-journey-fixed-20260909.jsonl.gz",
+      "sha256": "103b52165c5c7c74d847dfbee74a488ea5533434068c797606caec4e7c4eb17d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/restore-journey-20260909/hand-restore-journey-result-20260909.jsonl.gz",
+      "sha256": "457aa42af3239fae44657e734c343c20dae14bc2231fbf384ca6429cb1a46389"
+    }
+  ],
+  "limitations": [
+    "Scripted local provider and dirty development checkout; not final candidate",
+    "Race-enabled harness with ordinary compiled Hand child",
+    "Focused restore journey; not repeated crash injection or live model evaluation"
+  ]
+}

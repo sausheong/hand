@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-evidence-terminal-20260908/fixture/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_ce07ae3c064fbbd8",
+  "sessions": [
+    {
+      "id": "ses_ce07ae3c064fbbd8",
+      "agentId": "hand",
+      "storeKey": "workspace_ee1904479454e213_aeba1698e3598cff126c9a3fc87dc4b3",
+      "name": "",
+      "createdAt": "2026-09-08T08:44:05.186027Z",
+      "lastActive": "2026-09-08T08:44:05.186342Z"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{"ImportPath":"github.com/sausheong/hand/internal/tui","Action":"build-output","Output":"# github.com/sausheong/hand/internal/tui\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/tui","Action":"build-output","Output":"internal/tui/startup_draft.go:5:48: m.input undefined (type *Model has no field or method input)\n"}
+{"ImportPath":"github.com/sausheong/hand/internal/tui","Action":"build-fail"}
+{"Time":"2026-09-08T11:05:53.002971+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-08T11:05:53.003028+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"FAIL\tgithub.com/sausheong/hand/cmd/hand [build failed]\n"}
+{"Time":"2026-09-08T11:05:53.00304+08:00","Action":"fail","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T11:05:53.003046+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/tui"}
+{"Time":"2026-09-08T11:05:53.003058+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/tui","Output":"FAIL\tgithub.com/sausheong/hand/internal/tui [build failed]\n"}
+{"Time":"2026-09-08T11:05:53.003064+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/tui","Elapsed":0,"FailedBuild":"github.com/sausheong/hand/internal/tui"}

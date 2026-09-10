@@ -1,0 +1,294 @@
+package tui
+
+import (
+	"context"
+	"encoding/base64"
+	"errors"
+	"fmt"
+	"io"
+	"strconv"
+	"strings"
+	"unicode/utf8"
+
+	"github.com/charmbracelet/bubbles/viewport"
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/sausheong/harness/session"
+)
+
+// ToolOutput retains full captured content separately from its preview. Raw
+// content is never written directly to the terminal.
+type ToolOutput struct {
+	Output, Error     string
+	SessionID, ToolID string
+	Artifact          string
+	Truncated         bool
+}
+
+func (b ToolOutput) preview() string {
+	suffix := ""
+	if b.Truncated {
+		suffix = " [details truncated]"
+	}
+	if b.Error != "" {
+		return toolErrStyle.Render("  ✗ "+sanitizeForTerminal(b.Error)) + suffix
+	}
+	line := toolOKStyle.Render("  ✓")
+	if snippet := summarizeToolResult(b.Output); snippet != "" {
+		line += "\n" + toolCallStyle.Render(snippet)
+	}
+	return line + suffix
+}
+func (b ToolOutput) text() string {
+	text := b.Output
+	if b.Truncated {
+		if b.Artifact != "" {
+			text = "[Capture reached its limit; this is the verified captured prefix]\n" + text
+		} else {
+			text = "[Captured display is truncated; full output requires session/artifact access]\n" + text
+		}
+	}
+	if b.Error != "" {
+		if text != "" {
+			text += "\n"
+		}
+		text += "Error: " + b.Error
+	}
+	return sanitizeForTerminal(text)
+}
+func outputFromEntry(entry session.SessionEntry) (ToolOutput, bool) {
+	if entry.Type != session.EntryTypeToolResult {
+		return ToolOutput{}, false
+	}
+	var data session.ToolResultData
+	if decodeReplayData(entry.Data, &data) != nil {
+		return ToolOutput{}, false
+	}
+	return ToolOutput{Output: data.Output, Error: data.Error, ToolID: data.ToolCallID}, true
+}
+
+type outputViewer struct {
+	load                 *outputLoad
+	approval             bool
+	title                string
+	viewport             viewport.Model
+	block                ToolOutput
+	number               int
+	query, draft, status string
+	searching            bool
+	matches              []int
+	match                int
+}
+
+func (m *Model) showOutput(args string) tea.Cmd {
+	number := len(m.toolOutputs)
+	fields := strings.Fields(args)
+	artifact := ""
+	if len(fields) > 0 && (fields[len(fields)-1] == "stdout" || fields[len(fields)-1] == "stderr") {
+		artifact = fields[len(fields)-1]
+		fields = fields[:len(fields)-1]
+	}
+	if len(fields) > 1 {
+		m.queueMessage("usage: /output [result number] [stdout|stderr]")
+		return nil
+	}
+	if len(fields) == 1 {
+		n, err := strconv.Atoi(fields[0])
+		if err != nil {
+			m.queueMessage("usage: /output [result number] [stdout|stderr]")
+			return nil
+		}
+		number = n
+	}
+	if number < 1 || number > len(m.toolOutputs) {
+		m.queueMessage(fmt.Sprintf("no tool output %d; %d available", number, len(m.toolOutputs)))
+		return nil
+	}
+	m.closeOutputView()
+	m.outputView = &outputViewer{block: m.toolOutputs[number-1], number: number, viewport: viewport.New(max(1, m.termWidth), max(1, m.termHeight-2))}
+	m.resizeOutput()
+	v := m.outputView
+	if (v.block.Truncated || artifact != "") && m.controller != nil && v.block.ToolID != "" {
+		controller := m.controller
+		sessionID, toolID := v.block.SessionID, v.block.ToolID
+		v.status = "Loading complete session result…"
+		return m.startOutputLoad(v, func(ctx context.Context) (ToolOutput, error) {
+			if artifact != "" {
+				text, truncated, err := controller.ToolArtifact(ctx, sessionID, toolID, artifact)
+				return ToolOutput{Output: text, Truncated: truncated, SessionID: sessionID, ToolID: toolID, Artifact: artifact}, err
+			}
+			data, err := controller.ToolOutput(ctx, sessionID, toolID)
+			return ToolOutput{Output: data.Output, Error: data.Error, SessionID: sessionID, ToolID: toolID}, err
+		})
+	}
+	if artifact != "" {
+		v.status = "Artifact session/tool identity unavailable"
+	}
+	return nil
+}
+func (m *Model) resizeOutput() {
+	if m.outputView == nil {
+		return
+	}
+	v := m.outputView
+	v.viewport.Width = max(1, m.termWidth)
+	v.viewport.Height = max(1, m.termHeight-2)
+	v.viewport.SetContent(wrapToWidth(v.block.text(), v.viewport.Width))
+	v.findMatches()
+}
+func (m *Model) outputKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	v := m.outputView
+	// Searching output must not consume the interrupt for an active operation.
+	// Escape still leaves search locally; an idle Ctrl+C retains that behaviour.
+	if msg.String() == "ctrl+c" && (m.running || m.goalChecking || m.compacting || m.sessionChanging || m.profileChanging) {
+		m.closeOutputView()
+		return m.handleKey(msg)
+	}
+	if v.searching {
+		switch msg.String() {
+		case "esc":
+			v.searching = false
+		case "enter":
+			v.query = v.draft
+			v.searching = false
+			v.match = 0
+			v.findMatches()
+			v.gotoMatch()
+		case "backspace":
+			r := []rune(v.draft)
+			if len(r) > 0 {
+				v.draft = string(r[:len(r)-1])
+			}
+		case "ctrl+c":
+			v.searching = false
+		default:
+			if msg.Type == tea.KeyRunes {
+				next := v.draft + sanitizeForTerminal(string(msg.Runes))
+				if utf8.RuneCountInString(next) <= 256 {
+					v.draft = next
+				}
+			}
+		}
+		return m, nil
+	}
+	switch msg.String() {
+	case "/":
+		v.searching = true
+		v.draft = v.query
+		return m, nil
+	case "n", "N":
+		if len(v.matches) > 0 {
+			if msg.String() == "n" {
+				v.match = (v.match + 1) % len(v.matches)
+			} else {
+				v.match = (v.match + len(v.matches) - 1) % len(v.matches)
+			}
+			v.gotoMatch()
+		}
+		return m, nil
+	case "y":
+		text := v.block.text()
+		if len(text) > 8<<20 {
+			v.status = "Copy exceeds 8 MiB; use session export"
+			return m, nil
+		}
+		return m, tea.Exec(&clipboardWrite{text: text}, func(err error) tea.Msg { return outputCopyResult{viewer: v, err: err} })
+	case "end":
+		m.outputView.viewport.GotoBottom()
+		return m, nil
+	case "home":
+		m.outputView.viewport.GotoTop()
+		return m, nil
+	case "esc", "q":
+		m.closeOutputView()
+		return m, nil
+	case "ctrl+c":
+		m.closeOutputView()
+		return m.handleKey(msg)
+	}
+	var cmd tea.Cmd
+	m.outputView.viewport, cmd = m.outputView.viewport.Update(msg)
+	return m, cmd
+}
+
+func (v *outputViewer) findMatches() {
+	v.matches = nil
+	if v.query == "" {
+		v.status = ""
+		return
+	}
+	row := 0
+	for _, line := range strings.Split(v.block.text(), "\n") {
+		if index := strings.Index(line, v.query); index >= 0 {
+			_, size := utf8.DecodeRuneInString(line[index:])
+			matchedRow := row + strings.Count(wrapToWidth(line[:index+size], v.viewport.Width), "\n")
+			v.matches = append(v.matches, matchedRow)
+		}
+		row += strings.Count(wrapToWidth(line, v.viewport.Width), "\n") + 1
+	}
+	if v.match >= len(v.matches) {
+		v.match = 0
+	}
+	v.status = fmt.Sprintf("%d matching lines", len(v.matches))
+}
+func (v *outputViewer) gotoMatch() {
+	if len(v.matches) == 0 {
+		return
+	}
+	v.viewport.SetYOffset(v.matches[v.match])
+	v.status = fmt.Sprintf("Match %d/%d: %s", v.match+1, len(v.matches), v.query)
+}
+func (v *outputViewer) view() string {
+	header := fmt.Sprintf("Output %d | / search | n/N next/prev | y copy | Esc close", v.number)
+	if v.approval {
+		header = "Approval preview | / search | y copy | Esc returns to decision"
+	}
+	status := v.status
+	if v.searching {
+		status = "/" + v.draft
+	}
+	clip := func(s string) string { return strings.Split(wrapToWidth(s, v.viewport.Width), "\n")[0] }
+	return clip(header) + "\n" + v.viewport.View() + "\n" + clip(status)
+}
+
+type outputCopyResult struct {
+	viewer *outputViewer
+	err    error
+}
+
+// clipboardWrite emits only a generated, base64-encoded OSC52 request after an
+// explicit copy key. A successful write is not proof of clipboard acceptance.
+type clipboardWrite struct {
+	text string
+	out  io.Writer
+}
+
+func (c *clipboardWrite) SetStdin(io.Reader)    {}
+func (c *clipboardWrite) SetStderr(io.Writer)   {}
+func (c *clipboardWrite) SetStdout(w io.Writer) { c.out = w }
+func (c *clipboardWrite) Run() error {
+	if c.out == nil {
+		return errors.New("terminal output unavailable")
+	}
+	sequence := "\x1b]52;c;" + base64.StdEncoding.EncodeToString([]byte(c.text)) + "\a"
+	n, err := io.WriteString(c.out, sequence)
+	if err == nil && n != len(sequence) {
+		return io.ErrShortWrite
+	}
+	return err
+}
+
+func (m *Model) showApprovalPreview() {
+	if m.pending == nil {
+		return
+	}
+	text := fmt.Sprintf("Tool: %s\n%s", m.pending.Tool, m.pending.Preview)
+	m.outputView = &outputViewer{approval: true, block: ToolOutput{Output: text}, viewport: viewport.New(max(1, m.termWidth), max(1, m.termHeight-2))}
+	m.resizeOutput()
+}
+
+type outputLoaded struct {
+	load   *outputLoad
+	viewer *outputViewer
+	block  ToolOutput
+	err    error
+}

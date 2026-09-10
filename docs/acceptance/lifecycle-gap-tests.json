@@ -1,0 +1,41 @@
+{
+  "status": "development_passed",
+  "pass_records": {
+    "hand-hook-timeout-binary-20260909": 1,
+    "hand-hook-timeout-binary-repeat-20260909": 20,
+    "hand-new-session-goal-20260909": 20
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-gap-20260909/hand-hook-timeout-binary-20260909.jsonl.gz",
+      "sha256": "39a393ef3ad4ebc4db925abcd83697722a1d98e6b41ba2bdad0faaa16ffef454"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-gap-20260909/hand-hook-timeout-binary-repeat-20260909.jsonl.gz",
+      "sha256": "4fa4c1a5afc8cbff87959733c5e1761b0257e33e03e7376ef944d1f6abf8e198"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-gap-20260909/hand-new-session-goal-20260909.jsonl.gz",
+      "sha256": "21bc0385abbc0817069db352f0c0ce00757667184bce3d12c16bc5c2cf2944d8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-gap-20260909/cmd_hand_hook_timeout_binary_test.go.gz",
+      "sha256": "273bb187bb6af22c21fc042db3493c3a759e3a78fab191678a7c5d1cdb75178b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-gap-20260909/internal_tui_lifecycle_regression_test.go.gz",
+      "sha256": "823d5e7cf89ef647582a0441f0cbc5a41e54a5a3a5161fb46a9c4014f69de9b7"
+    }
+  ],
+  "assertions": [
+    "Built CLI with --yes denies valid skill mutation after mandatory PreToolUse timeout and returns timeout to provider",
+    "Successful validator positive control permits same valid mutation in a fresh CLI process",
+    "Queued goal result before and after actual /new session change cannot start work or contaminate new history"
+  ],
+  "limitations": [
+    "Native macOS development checkout/local Harness; not final released candidate or supported-platform qualification",
+    "New-session regression uses actual in-process TUI and session store, not built PTY",
+    "Parent race instrumentation; child ordinary build",
+    "Local fake provider; no paid calls"
+  ]
+}

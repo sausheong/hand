@@ -2,29 +2,27 @@ package tui
 
 import (
 	"context"
-	"encoding/json"
+	"crypto/rand"
 	"fmt"
+	"github.com/charmbracelet/x/ansi"
 	"strings"
 	"time"
 
 	"github.com/charmbracelet/bubbles/spinner"
 	"github.com/charmbracelet/bubbles/textarea"
-	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
 	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/hand/internal/app"
 	"github.com/sausheong/hand/internal/config"
+	"github.com/sausheong/hand/internal/extensions"
 	"github.com/sausheong/harness/llm"
-	"github.com/sausheong/harness/runtime"
 	"github.com/sausheong/harness/tokens"
 )
 
-// Runner is the subset of *runtime.Runtime the TUI needs, so tests can
-// supply a fake instead of a real provider-backed Runtime.
-type Runner interface {
-	Run(ctx context.Context, userMsg string, images []llm.ImageContent) (<-chan runtime.AgentEvent, error)
-}
+// Controller is an internal construction alias; ownership lives in app.
+type Controller = app.Controller
 
 // Model is the Hand Bubble Tea program. It uses pointer-receiver
 // Init/Update/View methods (rather than the value-receiver style most
@@ -33,33 +31,82 @@ type Runner interface {
 // between the Program and the approval hook that needs to Send into it
 // (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
-	rt         Runner
-	workspace  string
-	program    *tea.Program
-	controller *Controller // optional; nil in tests that only exercise Runner
+	permissionTask      *permissionTask
+	markdownLayout      *markdownLayout
+	layoutEpoch         uint64
+	outputLoads         map[*outputLoad]struct{}
+	sourceBlocks        map[int]sourceLayout
+	toolOutputs         []ToolOutput
+	outputView          *outputViewer
+	attachmentPolicy    *agentio.AttachmentPolicy
+	editorActive        bool
+	sessionChanging     bool
+	sessionGeneration   uint64
+	extensionQuestion   *extensions.PendingQuestion
+	extensionGeneration uint64
+	extensionDraft      string
+	sessionCancel       context.CancelFunc
+	sessionDone         chan struct{}
+	quitAfterSession    bool
+	lastModelInfo       app.ModelInfo
+	profileDone         chan struct{}
+	profileGeneration   uint64
+	profileChanging     bool
+	profilePicker       *profilePicker
+	profileCancel       context.CancelFunc
+	quitAfterProfile    bool
+	pendingApprovalID   string
+	service             *app.Service
+	activeStream        *app.Stream
+	goalActive          bool
+	lastOutcome         *agentio.RunOutcome
 
-	viewport viewport.Model
+	identity            agentio.RunIdentity
+	quitAfterRun        bool
+	workspace           string
+	program             *tea.Program
+	processTask         *processTask
+	evidenceIDs         []string
+	verificationReviews []app.VerificationProfileView
+	summarizerReview    *app.SummarizerView
+	priceReview         *app.PriceReview
+	recoveryPage        *app.CheckpointRecoveryPage
+	restoreReview       *app.CheckpointRestorePreview
+	controller          *Controller // optional for presentation-only tests
+
+	viewport transcriptViewport
 	textarea textarea.Model
 	spinner  spinner.Model
 
 	transcript []string
 	streamBuf  strings.Builder
 
-	running bool
-	pending *agentio.ApprovalRequest
-	cancel  context.CancelFunc
+	compacting        bool
+	compactGeneration uint64
+	compactCancel     context.CancelFunc
+	compactDone       chan struct{}
+	compactCancelled  bool
+	quitAfterCompact  bool
+	goalGeneration    uint64
+	goalChecking      bool
+	running           bool
+	pending           *agentio.ApprovalRequest
+	cancel            context.CancelFunc
 
 	// lastUsage holds the token counts from the most recent turn's
 	// EventDone, nil until the first turn completes with usage reported
 	// (a provider may not report usage at all). Surfaced via /usage and
 	// the always-on status line's context/turn-token figures.
-	lastUsage *llm.Usage
+	lastUsage        *llm.Usage
+	lastRequestUsage *llm.Usage
 
 	// sessionUsage accumulates lastUsage's fields across every completed
 	// turn since this process started (not persisted — a fresh hand
 	// process, even resuming the same saved session, starts back at
 	// zero, matching how the rest of this status line resets).
-	sessionUsage llm.Usage
+	sessionUsage                llm.Usage
+	usageRequests, usageUnknown int
+	usagePriorUnknown           bool
 
 	// model is the active "provider/model" string, kept in sync with
 	// SetBanner and /model so contextWindow can be recomputed on switch.
@@ -83,31 +130,9 @@ type Model struct {
 	// once at BuildRuntime time).
 	skillsIndex string
 
-	// goalHooks/goalStopReason/goalMaxIterations back the Stop-hook goal
-	// loop (see agentio.EvaluateStopHooks): after a turn ends cleanly,
-	// runEndedMsg's handler checks whether a configured Stop hook says
-	// the goal isn't met yet and, if so, automatically starts another
-	// turn — see startAutoContinue. goalStopReason is a pointer into the
-	// same string main.go passed to agentio.BuildLifecycleHooks, updated
-	// by harness's OnStop callback before runEndedMsg ever fires (see
-	// that function's doc comment for why this is race-free without a
-	// mutex). Set once via SetGoalLoop; nil-safe (an unset goalHooks
-	// means the loop never fires, matching pre-goal-loop behavior).
-	goalHooks         []config.HookConfig
-	goalStopReason    *string
-	goalMaxIterations int
-	// goalIteration counts turns run so far in the current goal-loop
-	// chain, including the first (user-submitted) one. Reset to 1 by
-	// runTurn when it starts a user-submitted turn (startRun); left
-	// alone (and incremented) by startAutoContinue.
+	// goalIteration is the latest iteration reported by the application.
 	goalIteration int
-	// turnErrored is set when the most recent turn emitted EventError,
-	// and goalCancelled when the user pressed ctrl+c to abort it — both
-	// suppress the goal loop for that turn: an error or an explicit user
-	// interrupt should never be second-guessed by an automatic
-	// continuation. Both reset at the start of every turn via runTurn
-	// (goalCancelled only by startRun — see its own comment).
-	turnErrored   bool
+	// goalCancelled suppresses late presentation after user cancellation.
 	goalCancelled bool
 
 	// turnStart marks when the in-flight (or, once finished, most
@@ -123,9 +148,7 @@ type Model struct {
 	// something is actually happening, not a frozen/hung UI.
 	toolCallsThisTurn int
 	// lastTurnDuration is frozen at the most recently completed turn's
-	// wall-clock time, set once on runEndedMsg (the one signal harness
-	// guarantees fires exactly once per turn on every exit path — see
-	// runEndedMsg's doc comment in events.go). Zero until a turn ends.
+	// wall-clock duration reported when the application turn ends.
 	lastTurnDuration time.Duration
 
 	// suggestIndex is the highlighted row in the slash-command
@@ -142,23 +165,21 @@ type Model struct {
 	termWidth, termHeight int
 }
 
-// NewModel builds a Hand TUI model driving rt, with workspace used to
-// resolve image paths referenced in chat messages (see
-// agentio.ExtractImagePaths). Call BindProgram with the *tea.Program
-// constructed from this model before calling Run on that program.
-func NewModel(rt Runner, workspace string) *Model {
+// newPresentationModel initializes terminal presentation state. Production
+// construction must attach an application service before returning the model.
+func newPresentationModel(workspace string) *Model {
 	ta := textarea.New()
-	ta.Placeholder = "Type a message..."
+	ta.Placeholder = "Type a message... (Ctrl+G: external editor)"
 	ta.ShowLineNumbers = false
 	ta.SetWidth(78) // 80 minus the 1-column border on each side (see View/resize)
 	ta.SetHeight(3)
 	ta.Focus()
 
-	vp := viewport.New(80, 20)
+	vp := transcriptViewport{Width: 80, Height: 20}
 	sp := spinner.New(spinner.WithSpinner(spinner.Dot), spinner.WithStyle(spinnerStyle))
 
 	return &Model{
-		rt:            rt,
+		identity:      agentio.RunIdentity{SessionID: "tui-" + rand.Text()},
 		workspace:     workspace,
 		textarea:      ta,
 		viewport:      vp,
@@ -172,7 +193,7 @@ func NewModel(rt Runner, workspace string) *Model {
 // SetMarkdownStyle sets the glamour style renderMarkdown uses for
 // assistant output (see config.ValidMarkdownStyles). Call before the
 // first turn if overriding the config.DefaultMarkdownStyle set by
-// NewModel — main.go does this from --markdown-style/config.json.
+// NewApplicationModel — main.go does this from --markdown-style/config.json.
 // renderMarkdown falls back to the default itself for anything not on
 // the allow-list, so an unvalidated value here is safe, just possibly
 // not what the caller intended.
@@ -186,36 +207,23 @@ func (m *Model) SetSkillsIndex(index string) {
 	m.skillsIndex = index
 }
 
-// SetGoalLoop wires up the Stop-hook goal loop (see
-// agentio.EvaluateStopHooks): hooks is cfg.Hooks, stopReason is the same
-// pointer main.go passed to agentio.BuildLifecycleHooks, and
-// maxIterations bounds how many turns a chain may run automatically
-// before giving up. Leaving this unset (the zero Model) means the loop
-// never fires — pre-goal-loop behavior.
-func (m *Model) SetGoalLoop(hooks []config.HookConfig, stopReason *string, maxIterations int) {
-	m.goalHooks = hooks
-	m.goalStopReason = stopReason
-	m.goalMaxIterations = maxIterations
-}
-
 // BindProgram gives the model a reference to its own running Program,
-// used to launch the per-turn StreamEvents goroutine.
+// retained for terminal construction compatibility.
 func (m *Model) BindProgram(p *tea.Program) {
 	m.program = p
 }
 
 // SetBanner prepends the startup banner (version/model/workspace) to the
-// transcript. Call once, right after NewModel and before LoadHistory, so
+// transcript. Call once, right after NewApplicationModel and before LoadHistory, so
 // the banner sits above any resumed conversation.
 func (m *Model) SetBanner(version, model, workspace string) {
 	m.setModel(model)
-	banner := []string{
-		userLineStyle.Render("Hand") + statusIdleStyle.Render(" "+version),
-		statusIdleStyle.Render(model),
-		statusIdleStyle.Render(workspace),
-		"",
-	}
-	m.transcript = append(banner, m.transcript...)
+	m.prependSourceBlocks([]TranscriptBlock{
+		{Kind: "notice", Text: "Hand " + version, Tone: "userLineStyle"},
+		{Kind: "notice", Text: model, Tone: "statusIdleStyle"},
+		{Kind: "notice", Text: workspace, Tone: "statusIdleStyle"},
+		{Kind: "notice", Text: "", Tone: "statusIdleStyle"},
+	})
 	m.refreshViewport()
 }
 
@@ -224,15 +232,33 @@ func (m *Model) SetBanner(version, model, workspace string) {
 // tracks whichever model is actually active. Called at startup
 // (SetBanner) and after a successful /model switch.
 func (m *Model) setModel(model string) {
+	m.lastRequestUsage = nil
 	m.model = model
 	m.contextWindow = tokens.ContextWindowFor(model, 0)
 }
 
 // SetController wires up slash commands that need state beyond the
-// Runner interface (/model, /new, /compact). Without it those commands
+// presentation state (/model, /new, /compact). Without it those commands
 // report themselves unavailable; /exit, /help, and /clear work regardless.
 func (m *Model) SetController(c *Controller) {
 	m.controller = c
+	if c != nil && c.SessionID() != "" {
+		if m.identity.SessionID != c.SessionID() {
+			m.lastRequestUsage = nil
+		}
+		m.identity.SessionID = c.SessionID()
+		if usage, err := c.SessionUsage(); err == nil {
+			m.sessionUsage, m.usageRequests, m.usageUnknown = usage.Total, usage.Requests, usage.Unknown
+			m.usagePriorUnknown = usage.PriorUsageUnknown
+		} else {
+			// Totals belong to a session. An unreadable replacement must not
+			// retain the previous session's cached accounting.
+			m.sessionUsage = llm.Usage{}
+			m.usageRequests, m.usageUnknown = 0, 0
+			m.usagePriorUnknown = true
+			m.appendNotice("session usage unavailable: "+sanitizeForTerminal(err.Error()), "errorLineStyle")
+		}
+	}
 }
 
 func (m *Model) Init() tea.Cmd {
@@ -241,39 +267,127 @@ func (m *Model) Init() tea.Cmd {
 
 func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+	case permissionCommandDone:
+		return m, m.finishPermissionCommand(msg)
+	case processCommandDone:
+		return m, m.finishProcessCommand(msg)
+	case referenceCompletionMsg:
+		m.applyReferenceCompletion(msg)
+		return m, nil
+	case editorResult:
+		m.finishExternalEditor(msg)
+		return m, nil
+	case outputLoaded:
+		if msg.load != nil {
+			<-msg.load.done
+			delete(m.outputLoads, msg.load)
+		}
+		if m.outputView != msg.viewer {
+			return m, nil
+		}
+		if msg.err != nil {
+			m.outputView.status = "Full output unavailable: " + sanitizeForTerminal(msg.err.Error())
+			return m, nil
+		}
+		m.outputView.block = msg.block
+		m.resizeOutput()
+		m.outputView.status = "Loaded complete session result"
+		if msg.block.Artifact != "" {
+			m.outputView.status = "Verified " + msg.block.Artifact + " capture"
+			if msg.block.Truncated {
+				m.outputView.status += " (capture truncated)"
+			}
+		}
+		return m, nil
+	case outputCopyResult:
+		if m.outputView == msg.viewer {
+			if msg.err != nil {
+				m.outputView.status = "Copy failed: " + sanitizeForTerminal(msg.err.Error())
+			} else {
+				m.outputView.status = "Copy request sent; terminal must support OSC52"
+			}
+		}
+		return m, nil
+	case markdownLayoutDone:
+		m.finishMarkdownLayout(msg.task)
+		return m, m.waitMarkdownLayout()
 	case tea.WindowSizeMsg:
 		m.resize(msg.Width, msg.Height)
-		return m, nil
+		m.resizeOutput()
+		return m, m.waitMarkdownLayout()
 
 	case spinner.TickMsg:
 		var cmd tea.Cmd
 		m.spinner, cmd = m.spinner.Update(msg)
-		return m, cmd
+		return m, tea.Batch(cmd, m.waitMarkdownLayout())
 
-	case runtime.AgentEvent:
-		m.handleAgentEvent(msg)
-		m.refreshViewport()
-		return m, nil
-
-	case runEndedMsg:
-		m.running = false
-		m.lastTurnDuration = time.Since(m.turnStart)
-		m.refreshViewport()
-		return m, m.maybeContinueGoalLoop()
-
-	case goalLoopResultMsg:
-		if !msg.outcome.Continue {
+	case extensionQuestionTick:
+		return m, m.pollExtensionQuestion(msg)
+	case sessionChangedMsg:
+		if msg.generation == m.sessionGeneration {
+			m.dismissExtensionQuestion()
+			m.extensionGeneration++
+		}
+		return m, m.finishSessionChange(msg)
+	case profileChangedMsg:
+		if !m.profileChanging || msg.generation != m.profileGeneration {
 			return m, nil
 		}
-		return m, m.startAutoContinue(msg.outcome.NextPrompt)
-
-	case agentio.ApprovalRequest:
-		req := msg
-		m.pending = &req
+		m.profileDone = nil
+		m.profileChanging = false
+		m.profileCancel = nil
+		if msg.err != nil {
+			m.appendNotice("profile switch failed: "+sanitizeForTerminal(msg.err.Error()), "errorLineStyle")
+		} else {
+			m.identity.Generation++
+			m.lastRequestUsage = nil
+			m.setModel(m.controller.CurrentModel())
+			m.SetContextLimit(m.controller.ContextLimit())
+			m.appendNotice("profile switched to "+sanitizeForTerminal(msg.name)+": "+sanitizeForTerminal(m.model), "approvedStyle")
+		}
 		m.refreshViewport()
+		if m.quitAfterProfile {
+			return m, tea.Quit
+		}
+		return m, nil
+	case applicationMsg:
+		return m, m.handleApplicationMessage(msg)
+
+	case compactResultMsg:
+		if !m.compacting || msg.generation != m.compactGeneration || msg.identity != m.identity {
+			return m, nil
+		}
+		if m.compactDone != nil {
+			<-m.compactDone
+			m.compactDone = nil
+		}
+		m.compacting = false
+		m.lastRequestUsage = nil
+		m.compactCancel = nil
+		if msg.usageKnown {
+			m.sessionUsage, m.usageRequests, m.usageUnknown = msg.usage.Total, msg.usage.Requests, msg.usage.Unknown
+			m.usagePriorUnknown = msg.usage.PriorUsageUnknown
+		}
+		if msg.usageErr != nil {
+			// Cached usage remains a reported subtotal, not a complete total.
+			m.usagePriorUnknown = true
+			m.appendNotice("compaction usage unavailable: "+sanitizeForTerminal(msg.usageErr.Error()), "errorLineStyle")
+		}
+		if m.compactCancelled {
+			m.appendNotice("compaction cancelled", "toolCallStyle")
+		} else {
+			m.showCompactResult(msg.result, msg.err)
+		}
+		m.refreshViewport()
+		if m.quitAfterCompact {
+			return m, tea.Quit
+		}
 		return m, nil
 
 	case tea.KeyMsg:
+		if m.outputView != nil {
+			return m.outputKey(msg)
+		}
 		return m.handleKey(msg)
 	}
 
@@ -281,11 +395,102 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+	if m.profilePicker != nil {
+		return m.handleProfilePickerKey(msg)
+	}
+	if m.editorActive {
+		return m, nil
+	}
+	if msg.String() == "ctrl+g" {
+		return m, m.openExternalEditor()
+	}
+	if m.sessionChanging && msg.String() == "ctrl+c" {
+		m.sessionCancel()
+		return m, nil
+	}
+	if m.extensionQuestion != nil && (m.sessionChanging || m.running || m.compacting) {
+		switch msg.String() {
+		case "enter":
+			m.answerExtension(m.textarea.Value(), false)
+			return m, nil
+		case "esc":
+			m.answerExtension("", true)
+			return m, nil
+		}
+	}
+	if m.sessionChanging && msg.String() == "enter" {
+		text := strings.TrimSpace(m.textarea.Value())
+		if text == "/quit" || text == "/exit" {
+			m.textarea.Reset()
+			return m, m.handleCommand(text)
+		}
+		return m, nil
+	}
+	if m.profileChanging && msg.String() == "ctrl+c" {
+		m.profileCancel()
+		return m, nil
+	}
+	if m.profileChanging && msg.String() == "enter" {
+		text := strings.TrimSpace(m.textarea.Value())
+		if text == "/quit" || text == "/exit" {
+			m.textarea.Reset()
+			return m, m.handleCommand(text)
+		}
+		return m, nil
+	}
+	if m.running && msg.String() == "ctrl+c" {
+		m.goalCancelled = true
+		m.dismissApproval()
+		if m.cancel != nil {
+			m.cancel()
+		}
+		return m, nil
+	}
+
+	if m.compacting && msg.String() == "ctrl+c" {
+		m.compactCancelled = true
+		m.compactCancel()
+		return m, nil
+	}
+	if m.compacting && msg.String() == "enter" {
+		// Quit must reach the existing cancel-and-join command path even
+		// while ordinary submissions are held during compaction.
+		text := strings.TrimSpace(m.textarea.Value())
+		if text == "/quit" || text == "/exit" {
+			m.textarea.Reset()
+			return m, m.handleCommand(text)
+		}
+		return m, nil
+	}
+
+	if m.pending != nil && (msg.String() == "/" || strings.HasPrefix(m.textarea.Value(), "/")) {
+		// Slash input must not accidentally answer an approval with y/a keys.
+		if msg.String() == "enter" {
+			text := strings.TrimSpace(m.textarea.Value())
+			if isQueueCommand(text) {
+				m.textarea.Reset()
+				return m, m.handleCommand(text)
+			}
+			return m, nil
+		}
+		if msg.String() == "esc" {
+			m.textarea.Reset()
+			return m, nil
+		}
+		var cmd tea.Cmd
+		m.textarea, cmd = m.textarea.Update(msg)
+		return m, cmd
+	}
 	if m.pending != nil {
 		// Scrolling must not fall through to the default case below
 		// (deny) — a long diff or bash preview is exactly when a user
 		// most wants to scroll back through it before deciding.
 		switch msg.String() {
+		case "v":
+			m.showApprovalPreview()
+			return m, nil
+		case "tab":
+			return m, nil
 		case "pgup", "ctrl+u":
 			m.viewport.HalfPageUp()
 			return m, nil
@@ -295,18 +500,21 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		}
 		switch msg.String() {
 		case "y", "Y":
-			m.pending.Respond <- agentio.DecisionOnce
-			m.transcript = append(m.transcript, approvedStyle.Render(fmt.Sprintf("  approved: %s", m.pending.Tool)))
+			if m.respondPendingApproval(agentio.DecisionOnce) {
+				m.recordApproval("approved")
+			}
 			m.pending = nil
 			m.refreshViewport()
 		case "a", "A":
-			m.pending.Respond <- agentio.DecisionAlways
-			m.transcript = append(m.transcript, approvedStyle.Render(fmt.Sprintf("  always allowed: %s", m.pending.Tool)))
+			if m.respondPendingApproval(agentio.DecisionAlways) {
+				m.recordApproval("always allowed")
+			}
 			m.pending = nil
 			m.refreshViewport()
 		default:
-			m.pending.Respond <- agentio.DecisionDeny
-			m.transcript = append(m.transcript, deniedStyle.Render(fmt.Sprintf("  denied: %s", m.pending.Tool)))
+			if m.respondPendingApproval(agentio.DecisionDeny) {
+				m.recordApproval("denied")
+			}
 			m.pending = nil
 			m.refreshViewport()
 		}
@@ -348,6 +556,11 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 	switch msg.String() {
 	case "ctrl+c":
+		if m.goalChecking {
+			m.goalCancelled = true
+			m.abandonGoal("context_cancelled")
+			return m, nil
+		}
 		if m.running && m.cancel != nil {
 			m.goalCancelled = true
 			m.cancel()
@@ -376,8 +589,15 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.viewport.HalfPageDown()
 		return m, nil
 
+	case "tab":
+		return m, m.completeReference()
 	case "enter":
 		if m.running {
+			text := strings.TrimSpace(m.textarea.Value())
+			if isQueueCommand(text) {
+				m.textarea.Reset()
+				return m, m.handleCommand(text)
+			}
 			return m, nil
 		}
 		text := strings.TrimSpace(m.textarea.Value())
@@ -401,149 +621,51 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 // chain (goalIteration/goalCancelled) since this is a fresh,
 // human-initiated turn, not an automatic continuation of a previous one.
 func (m *Model) startRun(text string) tea.Cmd {
-	cleanText, images := agentio.ExtractImagePaths(m.workspace, text)
+	if m.compacting || m.running || m.profileChanging || m.sessionChanging {
+		return nil
+	}
+	input, err := agentio.ParsePromptInput(agentio.WithAttachmentPolicy(context.Background(), m.attachmentPolicy), m.workspace, text)
+	if err != nil {
+		m.queueMessage("Attachment error: " + err.Error() + "; input preserved.")
+		return nil
+	}
+	m.abandonGoal("superseded_by_input")
 	m.goalIteration = 1
 	m.goalCancelled = false
 	// The original text (with the real path, not the placeholder) is
 	// sent to the model alongside images — the model may benefit from
 	// the literal filename/path context next to the image bytes.
-	return m.runTurn(userLineStyle.Render("> "+cleanText), text, images)
+	return m.runTurn(userLineStyle.Render("> "+input.Display), input.Prompt, input.Images)
 }
 
-// startAutoContinue begins the next turn in an in-progress Stop-hook
-// goal loop (see agentio.EvaluateStopHooks and runEndedMsg's handling in
-// Update) — prompt is that hook's NextPrompt. Rendered with a visually
-// distinct transcript line so it's never mistaken for something the
-// user typed. Unlike startRun, does not reset goalCancelled: a chain
-// only calls this once runEndedMsg has already confirmed the previous
-// turn wasn't cancelled.
-func (m *Model) startAutoContinue(prompt string) tea.Cmd {
-	m.goalIteration++
-	line := fmt.Sprintf("↻ continuing (goal loop %d/%d): %s", m.goalIteration, m.goalMaxIterations, prompt)
-	return m.runTurn(toolCallStyle.Render(line), prompt, nil)
-}
-
-// runTurn is startRun/startAutoContinue's shared Run()-kickoff: appends
-// displayLine to the transcript, starts the turn, and returns nil (not a
-// tea.Cmd that produces a Msg) — StreamEvents runs in its own goroutine
-// for the lifetime of the turn, since a tea.Cmd can only ever produce a
-// single terminal Msg and this stream is unbounded until EventDone /
-// EventError / channel-close.
+// runTurn starts a user request through the application service.
 func (m *Model) runTurn(displayLine, prompt string, images []llm.ImageContent) tea.Cmd {
-	m.transcript = append(m.transcript, displayLine)
+	if m.running || m.compacting {
+		return nil
+	}
+	m.identity.RunID++
+	m.identity.Generation++
+	m.quitAfterRun = false
+	m.goalActive = true
+	m.lastOutcome = nil
+
+	if text := sanitizeForTerminal(displayLine); strings.HasPrefix(text, "> ") {
+		m.appendSourceBlock(TranscriptBlock{Kind: "user", Text: strings.TrimPrefix(text, "> ")})
+	} else {
+		m.appendSourceBlock(TranscriptBlock{Kind: "status", Text: text})
+	}
 	m.textarea.Reset()
 	m.running = true
 	m.turnStart = time.Now()
 	m.toolCallsThisTurn = 0
-	m.turnErrored = false
-
-	ctx, cancel := context.WithCancel(context.Background())
-	m.cancel = cancel
-
-	events, err := m.rt.Run(ctx, prompt, images)
-	if err != nil {
-		m.running = false
-		m.transcript = append(m.transcript, errorLineStyle.Render("error: "+err.Error()))
-		cancel()
-		m.refreshViewport()
-		return nil
-	}
-
-	go StreamEvents(m.program, events)
-	m.refreshViewport()
-	return nil
+	return m.startApplicationGoal(prompt, images)
 }
 
-// maybeContinueGoalLoop is called from runEndedMsg's handling in Update,
-// once a turn has fully ended, to decide whether the Stop-hook goal loop
-// (see agentio.EvaluateStopHooks) should automatically start another
-// turn. Returns nil (no-op) when there's nothing to check — an errored
-// or user-cancelled turn is never second-guessed by an automatic
-// continuation, and a no-hooks-configured session pays no cost at all.
-// Otherwise returns a tea.Cmd that runs the (subprocess-spawning, so
-// potentially slow) hook check off the Update goroutine, producing a
-// goalLoopResultMsg.
-func (m *Model) maybeContinueGoalLoop() tea.Cmd {
-	if m.turnErrored || m.goalCancelled || len(m.goalHooks) == 0 {
-		return nil
-	}
-	if m.goalIteration >= m.goalMaxIterations {
-		m.transcript = append(m.transcript, toolCallStyle.Render(
-			fmt.Sprintf("goal loop stopped: reached the %d-iteration cap", m.goalMaxIterations)))
-		m.refreshViewport()
-		return nil
-	}
-
-	hooks := m.goalHooks
-	workspace := m.workspace
-	iteration := m.goalIteration
-	reason := ""
-	if m.goalStopReason != nil {
-		reason = *m.goalStopReason
-	}
-	return func() tea.Msg {
-		return goalLoopResultMsg{outcome: agentio.EvaluateStopHooks(context.Background(), hooks, workspace, reason, iteration)}
-	}
-}
-
-func (m *Model) handleAgentEvent(ev runtime.AgentEvent) {
-	switch ev.Type {
-	case runtime.EventTextDelta:
-		m.streamBuf.WriteString(sanitizeForTerminal(ev.Text))
-
-	case runtime.EventToolCallStart:
-		m.flushStream()
-		m.toolCallsThisTurn++
-		name := "?"
-		var input json.RawMessage
-		if ev.ToolCall != nil {
-			// An MCP server's own registered tool name — unlike hand's
-			// fixed built-in tool names (bash, read_file, ...), this
-			// string comes from whatever the (possibly untrusted) server
-			// declared, so it needs the same sanitization untrusted tool
-			// output already gets.
-			name = sanitizeForTerminal(ev.ToolCall.Name)
-			input = ev.ToolCall.Input
-		}
-		line := fmt.Sprintf("[tool: %s]", name)
-		if detail := summarizeToolCall(name, input); detail != "" {
-			line = fmt.Sprintf("[tool: %s] %s", name, detail)
-		}
-		m.transcript = append(m.transcript, toolCallStyle.Render(line))
-
-	case runtime.EventToolResult:
-		switch {
-		case ev.Result != nil && ev.Result.Error != "":
-			// ev.Result.Error can carry untrusted content (bash stderr,
-			// a web_fetch failure echoing page content, an MCP server's
-			// own error text) just as much as a successful Output does —
-			// summarizeToolResult sanitizes that path; this one needs it too.
-			m.transcript = append(m.transcript, toolErrStyle.Render("  ✗ "+sanitizeForTerminal(ev.Result.Error)))
-		case ev.Result != nil:
-			line := toolOKStyle.Render("  ✓")
-			if snippet := summarizeToolResult(ev.Result.Output); snippet != "" {
-				line += "\n" + toolCallStyle.Render(snippet)
-			}
-			m.transcript = append(m.transcript, line)
-		default:
-			m.transcript = append(m.transcript, toolOKStyle.Render("  ✓"))
-		}
-
-	case runtime.EventError:
-		m.flushStream()
-		m.turnErrored = true
-		errText := "unknown error"
-		if ev.Error != nil {
-			errText = ev.Error.Error()
-		}
-		m.transcript = append(m.transcript, errorLineStyle.Render("error: "+errText))
-
-	case runtime.EventDone:
-		m.flushStream()
-		m.running = false
-		m.lastUsage = ev.Usage
-		m.sessionUsage = addUsage(m.sessionUsage, ev.Usage)
-	}
+// cancelGoalCheck invalidates even an already queued result. Only Update's
+// goroutine changes this state; commands capture their generation and context.
+func (m *Model) cancelGoalCheck() {
+	m.goalGeneration++
+	m.goalChecking = false
 }
 
 // flushStream moves the in-progress assistant text block into the
@@ -556,11 +678,12 @@ func (m *Model) flushStream() {
 	if m.streamBuf.Len() == 0 {
 		return
 	}
-	m.transcript = append(m.transcript, renderMarkdown(m.streamBuf.String(), m.termWidth, m.markdownStyle))
+	m.appendSourceBlock(TranscriptBlock{Kind: "assistant", Text: m.streamBuf.String()})
 	m.streamBuf.Reset()
 }
 
 func (m *Model) refreshViewport() {
+	m.refreshSourceBlocks()
 	// Only auto-scroll to the new bottom if the viewport was already
 	// there before this update — otherwise every streamed delta or tool
 	// event (refreshViewport runs on each one) would yank the view back
@@ -568,27 +691,10 @@ func (m *Model) refreshViewport() {
 	// Checked before SetContent changes what "bottom" even means.
 	stickToBottom := m.viewport.AtBottom()
 
-	content := strings.Join(m.transcript, "\n")
-	if m.streamBuf.Len() > 0 {
-		// Deliberately NOT rendered through glamour here. This used to
-		// re-render the whole growing buffer as Markdown on every single
-		// delta so formatting appeared live instead of only once the
-		// block flushed — but Update (and everything else on Bubble
-		// Tea's single event loop: spinner ticks, key presses, Ctrl+C)
-		// blocks for the full duration of glamour's Render call, and
-		// that call's cost grows with buffer size. For a long, dense
-		// response (headers, lists, an open code fence) called on every
-		// one of what can be hundreds of deltas, the cumulative
-		// synchronous render time compounds into many seconds of a
-		// completely unresponsive UI — indistinguishable from a genuine
-		// hang, and Ctrl+C can't get through it either since it's all on
-		// the one goroutine. flushStream still renders the complete,
-		// final block through glamour — bounded to a handful of calls
-		// per turn on text that has stopped growing, not one call per
-		// delta on text that keeps growing.
-		content += "\n" + m.streamBuf.String()
-	}
-	m.viewport.SetContent(wrapToWidth(content, m.termWidth))
+	// Cached layouts retain completed history while only the growing stream
+	// block is rewrapped. The viewport renders visible rows on demand.
+	m.viewport.Width = m.termWidth
+	m.viewport.SetBlocks(m.transcript, m.streamBuf.String())
 
 	// inputHeight is the textarea's own rows; borderRows accounts for the
 	// rounded border View() draws around it (1 row top + 1 bottom).
@@ -631,11 +737,7 @@ func (m *Model) resize(width, height int) {
 // viewport currently occupies.
 func (m *Model) bottomHeight() int {
 	if m.pending != nil {
-		if m.pending.Preview == "" {
-			return 1 // just the question line
-		}
-		wrapped := wrapToWidth(renderPreview(m.pending.Preview), m.termWidth)
-		return strings.Count(wrapped, "\n") + 1 /* last preview line */ + 1 /* question line */
+		return strings.Count(m.approvalPanel(), "\n") + 1
 	}
 	if suggestions := m.commandSuggestions(); len(suggestions) > 0 {
 		return len(suggestions)
@@ -656,6 +758,16 @@ func (m *Model) bottomHeight() int {
 // inner segment's color for everything after it.
 func (m *Model) statusLine() string {
 	left := statusIdleStyle.Render("ready")
+	if m.compacting {
+		label := " compacting..."
+		if m.compactCancelled {
+			label = " cancelling compaction..."
+		}
+		left = m.spinner.View() + statusIdleStyle.Render(label)
+	}
+	if m.goalChecking {
+		left = m.spinner.View() + statusIdleStyle.Render(" checking goal...")
+	}
 	if m.running {
 		toolInfo := ""
 		if m.toolCallsThisTurn > 0 {
@@ -704,12 +816,16 @@ func (m *Model) usageLine() string {
 		turnSeg = "turn 0 tok"
 	}
 
+	sessionSeg := fmt.Sprintf("session %s tok", formatTokenCount(totalTokens(m.sessionUsage)))
+	if m.usagePriorUnknown || m.usageUnknown > 0 {
+		sessionSeg = fmt.Sprintf("session ≥%s tok (incomplete)", formatTokenCount(totalTokens(m.sessionUsage)))
+	}
 	sep := statusIdleStyle.Render("  ·  ")
 	parts := []string{
 		statusIdleStyle.Render(m.model),
 		m.contextSummary(),
 		statusIdleStyle.Render(turnSeg),
-		statusIdleStyle.Render(fmt.Sprintf("session %s tok", formatTokenCount(totalTokens(m.sessionUsage)))),
+		statusIdleStyle.Render(sessionSeg),
 	}
 	if m.lastTurnDuration > 0 {
 		parts = append(parts, statusIdleStyle.Render("last turn "+formatDuration(m.lastTurnDuration)))
@@ -729,7 +845,10 @@ const contextAlertThreshold = 0.85
 // is unknown (setModel was never called, e.g. a test that skips
 // SetBanner, or a model tokens.ContextWindowFor has no data for).
 func (m *Model) contextSummary() string {
-	used := contextTokens(m.lastUsage)
+	if m.lastRequestUsage == nil {
+		return statusIdleStyle.Render("ctx unknown")
+	}
+	used := contextTokens(m.lastRequestUsage)
 	if m.contextWindow <= 0 {
 		return statusIdleStyle.Render("ctx " + formatTokenCount(used))
 	}
@@ -744,11 +863,21 @@ func (m *Model) contextSummary() string {
 // approvalPanel renders the pending request's preview (colored by line
 // prefix) followed by the yes/always/no question.
 func (m *Model) approvalPanel() string {
-	question := statusAlertStyle.Render(fmt.Sprintf("Allow %s? [y]es / [a]lways / [n]o", m.pending.Tool))
-	if m.pending.Preview == "" {
-		return question
+	width := max(1, m.termWidth)
+	toolName := strings.ReplaceAll(sanitizeForTerminal(m.pending.Tool), "\n", " ")
+	toolName = ansi.Truncate(toolName, max(1, width-44), "…")
+	question := fmt.Sprintf("Allow %s? [y]es / [a]lways / [n]o [v]iew", toolName)
+	question = strings.Split(wrapToWidth(question, width), "\n")[0]
+	budget := max(2, min(8, m.termHeight/3))
+	preview := sanitizeForTerminal(m.pending.Preview)
+	lines := strings.Split(wrapToWidth(preview, width), "\n")
+	if preview == "" {
+		return statusAlertStyle.Render(question)
 	}
-	return wrapToWidth(renderPreview(m.pending.Preview), m.termWidth) + "\n" + question
+	if len(lines) > budget-1 {
+		lines = append(lines[:max(0, budget-2)], "… [v] opens full preview")
+	}
+	return renderPreview(strings.Join(lines, "\n")) + "\n" + statusAlertStyle.Render(question)
 }
 
 // renderPreview colors an agentio-built preview line by line: "+ " lines
@@ -756,7 +885,7 @@ func (m *Model) approvalPanel() string {
 // "$ " (a bash command) in the user-input color, everything else
 // (diff context lines) dim.
 func renderPreview(preview string) string {
-	lines := strings.Split(preview, "\n")
+	lines := strings.Split(sanitizeForTerminal(preview), "\n")
 	for i, line := range lines {
 		switch {
 		case strings.HasPrefix(line, "+ "):
@@ -773,6 +902,12 @@ func renderPreview(preview string) string {
 }
 
 func (m *Model) View() string {
+	if m.profilePicker != nil {
+		return m.profilePickerView()
+	}
+	if m.outputView != nil {
+		return m.outputView.view()
+	}
 	bottom := wrapToWidth(m.statusLine(), m.termWidth)
 	switch {
 	case m.pending != nil:
@@ -784,3 +919,65 @@ func (m *Model) View() string {
 	}
 	return m.viewport.View() + "\n" + bottom + "\n" + inputBorderStyle.Render(m.textarea.View())
 }
+
+// dismissApproval never blocks Update, including when cancellation races a
+// decision already queued for the hook. The hook also rechecks its context.
+func (m *Model) respondPendingApproval(decision agentio.Decision) bool {
+	if m.pending == nil || m.pendingApprovalID == "" || m.service == nil {
+		return false
+	}
+	if err := m.service.RespondApproval(m.pending.Identity, m.pendingApprovalID, decision); err != nil {
+		if !m.goalCancelled {
+			m.appendNotice("approval expired: "+sanitizeForTerminal(err.Error()), "errorLineStyle")
+		}
+		return false
+	}
+	m.pendingApprovalID = ""
+	return true
+}
+
+func (m *Model) dismissApproval() {
+	if m.outputView != nil && m.outputView.approval {
+		m.closeOutputView()
+	}
+	if m.pending != nil {
+		m.respondPendingApproval(agentio.DecisionDeny)
+		m.pendingApprovalID = ""
+		m.pending = nil
+	}
+}
+
+// finishGoal publishes one result for a user request, including all automatic
+// continuations. Duplicate closure/check messages cannot publish it again.
+func (m *Model) finishGoal(outcome agentio.RunOutcome) {
+	m.dismissExtensionQuestion()
+	m.extensionGeneration++
+	if !m.goalActive {
+		return
+	}
+	m.goalActive = false
+	outcome.Iterations = m.goalIteration
+	m.lastOutcome = &outcome
+	label := map[agentio.RunStatus]string{agentio.Completed: "Completed", agentio.VerificationFailed: "Verification failed", agentio.BudgetExhausted: "Limit reached", agentio.Cancelled: "Cancelled", agentio.InfrastructureError: "Execution failed"}[outcome.Status]
+	detail := outcome.Reason
+	if outcome.Status == agentio.Completed {
+		detail = "no mandatory verification"
+		if outcome.Verified {
+			detail = "configured checks passed"
+		}
+	}
+	line := fmt.Sprintf("[result] %s: %s", label, detail)
+	if outcome.Cause != nil {
+		line += ": " + outcome.Cause.Error()
+	}
+	m.appendSourceBlock(TranscriptBlock{Kind: "status", Text: line})
+	m.refreshViewport()
+}
+
+func (m *Model) abandonGoal(reason string) {
+	m.cancelGoalCheck()
+	m.finishGoal(agentio.RunOutcome{Status: agentio.Cancelled, Reason: reason})
+}
+
+// SetAttachmentPolicy installs invocation grants for explicit user input only.
+func (m *Model) SetAttachmentPolicy(policy *agentio.AttachmentPolicy) { m.attachmentPolicy = policy }

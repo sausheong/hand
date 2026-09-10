@@ -1,0 +1,77 @@
+{"Time":"2026-09-08T22:46:33.906697+08:00","Action":"start","Package":"github.com/sausheong/hand/internal/agentio"}
+{"Time":"2026-09-08T22:46:34.453657+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedGuidanceScopeAndBounds"}
+{"Time":"2026-09-08T22:46:34.453733+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedGuidanceScopeAndBounds","Output":"=== RUN   TestSearchNestedGuidanceScopeAndBounds\n"}
+{"Time":"2026-09-08T22:46:34.455958+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedGuidanceScopeAndBounds","Output":"    search_instructions_test.go:46: guidance limit must not claim matches were omitted\n"}
+{"Time":"2026-09-08T22:46:34.456612+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedGuidanceScopeAndBounds","Output":"--- FAIL: TestSearchNestedGuidanceScopeAndBounds (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.456625+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedGuidanceScopeAndBounds","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.456922+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLargeSourceMustNotDisappear"}
+{"Time":"2026-09-08T22:46:34.456938+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLargeSourceMustNotDisappear","Output":"=== RUN   TestSearchLargeSourceMustNotDisappear\n"}
+{"Time":"2026-09-08T22:46:34.508652+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLargeSourceMustNotDisappear","Output":"--- PASS: TestSearchLargeSourceMustNotDisappear (0.05s)\n"}
+{"Time":"2026-09-08T22:46:34.508678+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLargeSourceMustNotDisappear","Elapsed":0.05}
+{"Time":"2026-09-08T22:46:34.50869+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchInvalidGlobMustError"}
+{"Time":"2026-09-08T22:46:34.508694+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchInvalidGlobMustError","Output":"=== RUN   TestSearchInvalidGlobMustError\n"}
+{"Time":"2026-09-08T22:46:34.508969+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchInvalidGlobMustError","Output":"--- PASS: TestSearchInvalidGlobMustError (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.508978+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchInvalidGlobMustError","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.508984+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchCancellationMustBeExplicit"}
+{"Time":"2026-09-08T22:46:34.508993+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchCancellationMustBeExplicit","Output":"=== RUN   TestSearchCancellationMustBeExplicit\n"}
+{"Time":"2026-09-08T22:46:34.50943+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchCancellationMustBeExplicit","Output":"--- PASS: TestSearchCancellationMustBeExplicit (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.509438+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchCancellationMustBeExplicit","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.509447+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides"}
+{"Time":"2026-09-08T22:46:34.509452+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides","Output":"=== RUN   TestSearchNestedIgnoreAndOverrides\n"}
+{"Time":"2026-09-08T22:46:34.512445+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides","Output":"--- PASS: TestSearchNestedIgnoreAndOverrides (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.512467+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchNestedIgnoreAndOverrides","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.51247+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLongLineReportsIncompleteAndBoundsOutput"}
+{"Time":"2026-09-08T22:46:34.512472+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLongLineReportsIncompleteAndBoundsOutput","Output":"=== RUN   TestSearchLongLineReportsIncompleteAndBoundsOutput\n"}
+{"Time":"2026-09-08T22:46:34.517071+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLongLineReportsIncompleteAndBoundsOutput","Output":"--- PASS: TestSearchLongLineReportsIncompleteAndBoundsOutput (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.517086+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchLongLineReportsIncompleteAndBoundsOutput","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.517097+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchReportsUnreadableFile"}
+{"Time":"2026-09-08T22:46:34.517101+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchReportsUnreadableFile","Output":"=== RUN   TestSearchReportsUnreadableFile\n"}
+{"Time":"2026-09-08T22:46:34.517765+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchReportsUnreadableFile","Output":"--- PASS: TestSearchReportsUnreadableFile (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.517772+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchReportsUnreadableFile","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.517788+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchDoesNotFollowFileSymlinks"}
+{"Time":"2026-09-08T22:46:34.517791+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchDoesNotFollowFileSymlinks","Output":"=== RUN   TestSearchDoesNotFollowFileSymlinks\n"}
+{"Time":"2026-09-08T22:46:34.518403+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchDoesNotFollowFileSymlinks","Output":"--- PASS: TestSearchDoesNotFollowFileSymlinks (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.518409+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchDoesNotFollowFileSymlinks","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.518419+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchWorksWithoutExecutables"}
+{"Time":"2026-09-08T22:46:34.518421+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchWorksWithoutExecutables","Output":"=== RUN   TestSearchWorksWithoutExecutables\n"}
+{"Time":"2026-09-08T22:46:34.519321+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchWorksWithoutExecutables","Output":"--- PASS: TestSearchWorksWithoutExecutables (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.519326+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchWorksWithoutExecutables","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.51934+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NameGlobMatch"}
+{"Time":"2026-09-08T22:46:34.519343+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NameGlobMatch","Output":"=== RUN   TestSearchTool_NameGlobMatch\n"}
+{"Time":"2026-09-08T22:46:34.520104+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NameGlobMatch","Output":"--- PASS: TestSearchTool_NameGlobMatch (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.520114+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NameGlobMatch","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.520122+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_ContentMatchFormat"}
+{"Time":"2026-09-08T22:46:34.520124+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_ContentMatchFormat","Output":"=== RUN   TestSearchTool_ContentMatchFormat\n"}
+{"Time":"2026-09-08T22:46:34.520646+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_ContentMatchFormat","Output":"--- PASS: TestSearchTool_ContentMatchFormat (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.520651+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_ContentMatchFormat","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.520661+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MaxResultsCapsWalk"}
+{"Time":"2026-09-08T22:46:34.520663+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MaxResultsCapsWalk","Output":"=== RUN   TestSearchTool_MaxResultsCapsWalk\n"}
+{"Time":"2026-09-08T22:46:34.522196+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MaxResultsCapsWalk","Output":"--- PASS: TestSearchTool_MaxResultsCapsWalk (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.522202+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MaxResultsCapsWalk","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.522216+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_BinaryFileSkippedForContentSearch"}
+{"Time":"2026-09-08T22:46:34.522219+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_BinaryFileSkippedForContentSearch","Output":"=== RUN   TestSearchTool_BinaryFileSkippedForContentSearch\n"}
+{"Time":"2026-09-08T22:46:34.522769+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_BinaryFileSkippedForContentSearch","Output":"--- PASS: TestSearchTool_BinaryFileSkippedForContentSearch (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.522774+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_BinaryFileSkippedForContentSearch","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.522778+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_LargeFileSearchedByContentAndName"}
+{"Time":"2026-09-08T22:46:34.522781+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_LargeFileSearchedByContentAndName","Output":"=== RUN   TestSearchTool_LargeFileSearchedByContentAndName\n"}
+{"Time":"2026-09-08T22:46:34.525343+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_LargeFileSearchedByContentAndName","Output":"--- PASS: TestSearchTool_LargeFileSearchedByContentAndName (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.525348+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_LargeFileSearchedByContentAndName","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.525372+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MissingBothParametersErrors"}
+{"Time":"2026-09-08T22:46:34.525376+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MissingBothParametersErrors","Output":"=== RUN   TestSearchTool_MissingBothParametersErrors\n"}
+{"Time":"2026-09-08T22:46:34.525654+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MissingBothParametersErrors","Output":"--- PASS: TestSearchTool_MissingBothParametersErrors (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.525659+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_MissingBothParametersErrors","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.525673+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NonexistentPathReturnsError"}
+{"Time":"2026-09-08T22:46:34.525684+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NonexistentPathReturnsError","Output":"=== RUN   TestSearchTool_NonexistentPathReturnsError\n"}
+{"Time":"2026-09-08T22:46:34.526179+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NonexistentPathReturnsError","Output":"--- PASS: TestSearchTool_NonexistentPathReturnsError (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.526184+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_NonexistentPathReturnsError","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.526194+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathIsNotADirectoryErrors"}
+{"Time":"2026-09-08T22:46:34.526198+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathIsNotADirectoryErrors","Output":"=== RUN   TestSearchTool_PathIsNotADirectoryErrors\n"}
+{"Time":"2026-09-08T22:46:34.526647+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathIsNotADirectoryErrors","Output":"--- PASS: TestSearchTool_PathIsNotADirectoryErrors (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.526657+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathIsNotADirectoryErrors","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.526669+08:00","Action":"run","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathOutsideWorkDirRejected"}
+{"Time":"2026-09-08T22:46:34.526673+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathOutsideWorkDirRejected","Output":"=== RUN   TestSearchTool_PathOutsideWorkDirRejected\n"}
+{"Time":"2026-09-08T22:46:34.527147+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathOutsideWorkDirRejected","Output":"--- PASS: TestSearchTool_PathOutsideWorkDirRejected (0.00s)\n"}
+{"Time":"2026-09-08T22:46:34.527157+08:00","Action":"pass","Package":"github.com/sausheong/hand/internal/agentio","Test":"TestSearchTool_PathOutsideWorkDirRejected","Elapsed":0}
+{"Time":"2026-09-08T22:46:34.527206+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"FAIL\n"}
+{"Time":"2026-09-08T22:46:34.528908+08:00","Action":"output","Package":"github.com/sausheong/hand/internal/agentio","Output":"FAIL\tgithub.com/sausheong/hand/internal/agentio\t0.622s\n"}
+{"Time":"2026-09-08T22:46:34.528916+08:00","Action":"fail","Package":"github.com/sausheong/hand/internal/agentio","Elapsed":0.622}

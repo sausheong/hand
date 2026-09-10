@@ -1,0 +1,1 @@
+hand: execution boundary: container: workspace writable=false; network=false; other host paths unmounted; model-provider requests remain on host

@@ -1,0 +1,75 @@
+{
+  "status": "development_passed",
+  "full_test_records": 134,
+  "repetitions": 20,
+  "built_client_framing_passed": true,
+  "source_unchanged": true,
+  "harness_unchanged": true,
+  "go_environment": {
+    "CGO_ENABLED": "0",
+    "GOARCH": "arm64",
+    "GOOS": "linux",
+    "GOVERSION": "go1.25.1",
+    "GOWORK": "/Users/sausheong/projects/hand/go.work"
+  },
+  "raw_report": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/run.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/build-hand-tests.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/build-hand.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/build-note.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/build-tests.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/check_rpc_linux.py.txt",
+      "sha256": "9f3fbf589ab86aeae090ba0af1bfbb2411f0c4b854f2b2b0d3aff94adbcd0e5d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/framing.log",
+      "sha256": "68a8dea1ecf2a56b1c00dda76a8239e92b04c4a440b567becd20a6fae612d0a0"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/full.log",
+      "sha256": "6cee8bf272e2fa69e44a0a972146940f5551bee3eebd55420eb47154bbb7eae8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/go-environment.log",
+      "sha256": "5c681379909a7a55ce72499e3cea79efa5849d730cf524635621f706ebe270a4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/harness-module.log",
+      "sha256": "f0f6c6127782e5b3dbe43b51cd0fe2afd4c3a1f3d8cd8cca6f84ca486cbc4ba7"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/inventory.log",
+      "sha256": "22057d06a6bbbda874377880498d720dc5325d76ec683d1279e3d8c15a74b44b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/repeated.log",
+      "sha256": "aec6544e6734149f1c9daba4f87f90c77f1e247f5685a1653e0b9545a3af5c50"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/rpc_frame_binary_test.go.txt",
+      "sha256": "a855285f687ee59d22be2d12a37506c919c1aea71f2aaf424b022ceb83d73a97"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/rpc-linux-framing-20260909/run.json",
+      "sha256": "028f33c58aec02e4fc56ef92c6a604ce8d80f291bbefc6829230161ecd570078"
+    }
+  ],
+  "limitations": [
+    "Development Linux arm64 container run, without race instrumentation",
+    "Local Harness workspace dependency; clean candidate and released dependency qualification pending",
+    "RPC package plus selected built Hand framing regression, not full Linux acceptance"
+  ]
+}

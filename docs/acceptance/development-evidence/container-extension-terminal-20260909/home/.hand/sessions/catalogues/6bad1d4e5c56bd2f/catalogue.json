@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "workspace": "/private/tmp/hand-container-extension-terminal-20260909/workspace",
+  "generation": 1,
+  "lastActiveId": "ses_00b00c0700aac643",
+  "sessions": [
+    {
+      "id": "ses_00b00c0700aac643",
+      "agentId": "hand",
+      "storeKey": "workspace_6bad1d4e5c56bd2f_307ede07e194a1c04fdd0b390837b6e7",
+      "name": "",
+      "createdAt": "2026-09-08T19:40:19.668955Z",
+      "lastActive": "2026-09-08T19:40:19.669361Z"
+    }
+  ]
+}

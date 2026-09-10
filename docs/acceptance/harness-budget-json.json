@@ -1,0 +1,89 @@
+{
+  "status": "development_passed",
+  "harness_checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "harness_source_fingerprint": "14f0b7bdfdecdb99ca4bfb25966d5d758fd57dc83eb1538d5dbb37245c2713f5",
+  "source_files": [
+    {
+      "path": "budget/tokens.go",
+      "sha256": "0739907c20237006a954c5308c156248635f68e136969ac095a984570fcc8c72"
+    },
+    {
+      "path": "budget/cost.go",
+      "sha256": "000938a5c5bdebce4103395cd865eb6963cbc1f92fcc268b2bc2f4e201c3b355"
+    },
+    {
+      "path": "budget/deadline.go",
+      "sha256": "40306e93f37055efc5955034971a59eeab39f18c4104ce0839562378bf34ef81"
+    },
+    {
+      "path": "budget/json.go",
+      "sha256": "7fbcf0682a240f0bf49490c07eabdaccc55d4c73f1b1b64522ab9c45f6380923"
+    },
+    {
+      "path": "budget/json_integrity_test.go",
+      "sha256": "e607adee25da626dafb475719b92c2893f6c6cb8561813990e73ff2a745edc92"
+    }
+  ],
+  "results": {
+    "before": {
+      "fail": 17
+    },
+    "budget": {
+      "pass": 45
+    },
+    "runtime": {
+      "pass": 383
+    },
+    "integration": {
+      "pass": 82
+    },
+    "nested": {
+      "pass": 6
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-budget-json-20260909/hand-harness-budget-json-before-20260909.jsonl.gz",
+      "sha256": "d680d75d6bd1d86c6e54091c51d634e9dfd698583c58855aecbc76580c62633c",
+      "uncompressed_sha256": "1bfa35d645ae03fe46993f51e5440005b50a28793d2945f78a17d11927092e56"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-budget-json-20260909/hand-harness-budget-json-after-20260909.jsonl.gz",
+      "sha256": "75468386362f3fb8272975518c5ac91c6455cdcb2ec7efce201b4d7458cafa88",
+      "uncompressed_sha256": "8d2377d7a45d24991f6383291af779f6bbab516e1843fd2e11df471ba0c66cc5"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-budget-json-20260909/hand-harness-budget-json-final-20260909.jsonl.gz",
+      "sha256": "1491fe3fd361dcdf318d87379f1cda33ad4356d7c7c7ac3aae745052afafa22c",
+      "uncompressed_sha256": "5c622ca9eaf70b510d364905119a69121a56de56fcba7fbc05f696bea09c2a98"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-budget-json-20260909/hand-budget-json-integration-20260909.jsonl.gz",
+      "sha256": "ca900633bd7a80fbaf38c21add85f76d7674a8c94c0b3016c4f078ef43ae5cf9",
+      "uncompressed_sha256": "d3b95d496d83fadaa52f30a1b37d69799a7959fd9254d0cc13962a8ca7b333fa"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-budget-json-20260909/hand-harness-budget-json-nested-20260909.jsonl.gz",
+      "sha256": "8e6232101b0e4987f363035cf6dcaac7e89b6d12dece591323d55bf7431c141e",
+      "uncompressed_sha256": "13c39ef4363e9fb6c41c8cfc8fa5897d676502989274d559153c2b37cc6d39e3"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-budget-json-20260909/harness-budget-sources.tar.gz",
+      "sha256": "41c61a4fb93f6a959f66240aeb46ef8e860e1753803ece027df3fa43d878f0f5"
+    }
+  ],
+  "scope": "Shared session and logical-run token/cost/deadline JSON integrity, including nested immutable pricing snapshots",
+  "defect": "Duplicate and case-aliased fields could enlarge persisted token/cost ceilings and deadlines; null scalar values were accepted as zero/false.",
+  "correction": "Bounded recursive structural validation rejects duplicate decoded keys, noncanonical case and null scalar fields before strict typed decoding; only optional attempt/snapshot pointers retain null compatibility.",
+  "assertions": [
+    "16 real restart cases reject ambiguous session/run budget state",
+    "Corrupt token state refuses reservation; corrupt cost state refuses new decision; journal bytes unchanged",
+    "Nested quote/snapshot duplicates, aliases and null numeric rates rejected while valid pricing record remains readable"
+  ],
+  "limitations": [
+    "Scoped race evidence only; full Harness coverage and cumulative release bundle must be refreshed",
+    "No new release or publication performed",
+    "Hand full native suite predates this Harness production change and cannot qualify it",
+    "Final candidate/platform and acceptance gates remain pending"
+  ]
+}

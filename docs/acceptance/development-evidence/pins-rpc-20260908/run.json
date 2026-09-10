@@ -1,0 +1,55 @@
+{
+  "status": "development_passed",
+  "qualification": "development",
+  "binary_sha256": "5b5b24ce337aa7752bab0cfc79858cf7fed720129294a4a139032388ed1a6672",
+  "runner_sha256": "807515879a243b0a2f845baf9dee72cb6ae25ee1e3bf3883f5181815bba90dd6",
+  "client_sha256": "4ff5f1f6443a5666f8322f5790b3915902732fade42cb6383d59f9f145f489e9",
+  "model_runs_requested": 0,
+  "session_id": "ses_e9c6d18366c8b567",
+  "pins_survived_restart": true,
+  "replay_did_not_recreate": true,
+  "clean_exits": 2,
+  "inspection": {
+    "estimate_method": "UTF-8 bytes / 4 with message framing and fixed image allowance; not provider-reported usage",
+    "estimated_tokens": 2049,
+    "contributions": [
+      {
+        "kind": "static_prompt",
+        "name": "Installed identity, guidance, skills and memory",
+        "count": 1,
+        "estimated_tokens": 83
+      },
+      {
+        "kind": "messages",
+        "name": "Effective conversation",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_results",
+        "name": "Effective tool results",
+        "count": 0,
+        "estimated_tokens": 0
+      },
+      {
+        "kind": "tool_schemas",
+        "name": "Registered tool schemas",
+        "count": 11,
+        "estimated_tokens": 1916
+      },
+      {
+        "kind": "pins",
+        "name": "Pinned objectives and constraints",
+        "count": 2,
+        "estimated_tokens": 49
+      }
+    ],
+    "limitations": [
+      "Source estimates are subsets of the static prompt category, not additional tokens.",
+      "Excludes the next user message, per-request date/identity suffix and dynamic retrieval.",
+      "Estimates include only effective history after compaction; raw archived history is not counted.",
+      "Image estimates use a fixed allowance, not provider-specific tiles or resolution.",
+      "Components round down individually; their sum can differ slightly from the total."
+    ]
+  }
+}

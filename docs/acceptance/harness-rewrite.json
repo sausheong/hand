@@ -1,0 +1,38 @@
+{
+  "base": "ec89b4d718182ddde190c036907522a166f7e7d6",
+  "candidate": "c6c155d314f176527d0dd3e33253d592bf82ef61",
+  "checkout": "/private/tmp/hand-harness-persistence-20260908",
+  "published": false,
+  "integrated_in_hand": false,
+  "hand_harness_version": "v0.3.9",
+  "full_tests_passed": 782,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "repeated_session_tests_passed": 700,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/harness-rewrite.patch",
+      "sha256": "0f468e04a04a80dc5ab0cbca6d6573e99927a666d1b7ed66a183ae28f7d5ab3a"
+    },
+    {
+      "path": "/private/tmp/hand-harness-rewrite-before-20260908.txt",
+      "sha256": "1da80851992c6f77a99b1c8b6be67bc3cf18287c3c8bf2cdea1efc7f4fa94f71"
+    },
+    {
+      "path": "/private/tmp/hand-harness-rewrite-full-20260908.jsonl",
+      "sha256": "c4c383974c4e66a265cc75bc1aecace6983954105d9194380620aef6f5d06ada"
+    },
+    {
+      "path": "/private/tmp/hand-harness-rewrite-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-harness-rewrite-coverage-20260908.out",
+      "sha256": "d8d14be1c357724ca0658c43dedca6001f5e6efc4381a43bbfdf844541b34e23"
+    },
+    {
+      "path": "/private/tmp/hand-harness-rewrite-repeat-20260908.jsonl",
+      "sha256": "7cd6aee8e57dd18a482b4b7bd6321b7393f7091a045d74a3bb5954eebb40eff6"
+    }
+  ]
+}

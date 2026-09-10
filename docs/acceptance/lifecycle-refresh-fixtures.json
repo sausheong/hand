@@ -1,0 +1,45 @@
+{
+  "status": "fixed_and_verified",
+  "initial_failure": "Native suite rebuilt extension peer from internal/extensions, which has no TestFileWritePeerProcess; Go test output was rejected by extension protocol parser. Three cases and their parent failed. Raw failed run preserved.",
+  "fix": "Build peer from internal/app; permanent Linux runner now verifies entry-point listing before suite.",
+  "verification": "Corrected full native suite passed 1848 records, 26 packages, zero failures/skips, unchanged source inventories. Linux runner reporting unit tests passed.",
+  "evidence": "docs/acceptance/lifecycle-fixed-native-suite.json",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-lifecycle-native-20260909.jsonl.gz",
+      "sha256": "079d9b3869bdc56adcd62d935db1d5f4e63d0de815800a71452d0aeefe983119"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-lifecycle-native-20260909-result.json.gz",
+      "sha256": "fbf8393bb284802d8e2fe7d72b137b573835d5a57a001a47480e65d5aeaf1edf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-lifecycle-native-suite-20260909.py.gz",
+      "sha256": "ffec3b32fb21036ff14fed1dfe12b5cd5f7a7f6e551278b30f2a4b7390f2cfd8"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-lifecycle-fixed-native-suite-20260909.py.gz",
+      "sha256": "212310a55ffb2ccda0a8bc816d8670d181ad46dfd64225b55f95c4bec9b6da1f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-lifecycle-fixed-worker-build-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-lifecycle-fixed-peer-build-20260909.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/hand-linux-runner-reporting-20260909.log.gz",
+      "sha256": "0c00d44f4d798c91398dfe5da06dd8cea85335126914fa349d3ea9ae20f5cd6c"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/lifecycle-refresh-fixtures-20260909/check_linux_full.py.gz",
+      "sha256": "12c5010be6bc5cb5674f1a70281bde8cfc91d234b62218a4d4e20478de04cf68"
+    }
+  ],
+  "limitations": [
+    "Permanent full Linux runner was edited and its reporting tests checked, but full Linux execution remains separately blocked; no workaround attempted.",
+    "Native suite is development evidence, not released Harness/clean candidate qualification."
+  ]
+}

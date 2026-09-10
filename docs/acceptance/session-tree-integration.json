@@ -1,0 +1,142 @@
+{
+  "checkout": "/private/tmp/hand-session-integration-20260908",
+  "primary_integrated": false,
+  "primary_harness_version": "v0.3.9",
+  "development_harness_candidate": "5cc93a3d6a1a504cd348d435db8ebd7e68050d28",
+  "development_dependency_mode": "isolated local replacement; not final acceptance",
+  "aggregate_patch_includes_previous_session_integration": true,
+  "patch_excludes_go_mod_replace": true,
+  "full_tests_passed": 514,
+  "full_tests_failed": 0,
+  "full_tests_skipped": 0,
+  "targeted_repeat_passes": 40,
+  "repetitions": 20,
+  "vet_exit_code": 0,
+  "sources": [
+    {
+      "path": "internal/sessionio/manager.go",
+      "before_sha256": null,
+      "after_sha256": "4fa6371db71e0984a6dd89f6fc4416f1b1747574a2e054fe42b0932c19ebe3a1"
+    },
+    {
+      "path": "internal/sessionio/manager_test.go",
+      "before_sha256": null,
+      "after_sha256": "bb0d5f7ed0db1818b7f50724adaaa6a5a33c1fa2cf5c92dd9cf6592412c5da7d"
+    },
+    {
+      "path": "internal/app/controller.go",
+      "before_sha256": "5a99045e52b0be64484ae77b0e42a64148cb08cf328b4ce09e1d8079b8656cca",
+      "after_sha256": "0796fe9817eca9ac6150827749a94af9f957fe95bf8a5492256387d0cfb7a71c"
+    },
+    {
+      "path": "internal/app/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2d094ca9f433cd13ec0be66eec60bd60e7fef4dab4c673ff92209bc6f1a3d519"
+    },
+    {
+      "path": "internal/app/sessions.go",
+      "before_sha256": null,
+      "after_sha256": "f15ef983a8668281800fb7bd90a405cb3c425adc614e185a2709d5e371b647fe"
+    },
+    {
+      "path": "internal/tui/commands.go",
+      "before_sha256": "71e8a5d655719976cff20722314695538f92d324a3d038b127732fb6382d95d7",
+      "after_sha256": "37e8b73772e571116b9f9ecc34011e662d779b0f8eadf6581cd70e8b75dea0e6"
+    },
+    {
+      "path": "internal/tui/sessions.go",
+      "before_sha256": null,
+      "after_sha256": "fec5d9bb50838b8aff90e2a0d9a997594a33419b48d7bb28c7953c72c2807f23"
+    },
+    {
+      "path": "internal/tui/sessions_test.go",
+      "before_sha256": null,
+      "after_sha256": "277f3aec81f10e3fdb2993f41a0ee56637da44b07ec16ee206a7747313ecc41b"
+    },
+    {
+      "path": "cmd/hand/main.go",
+      "before_sha256": "58ec6d21038f14012a2c6dd7ae31345b566b1ee9ce9556aa229a19f13af62683",
+      "after_sha256": "f346e1c2ab275dacd68c47df169cb7db6756a5c91073b194ebbd2df4b72374a8"
+    },
+    {
+      "path": "cmd/hand/session_integration_test.go",
+      "before_sha256": null,
+      "after_sha256": "2aac513aec6783c271f239e562f6b3d4b0fb24ba575b6d1d737b6fd51da2aba9"
+    },
+    {
+      "path": "cmd/hand/session_binary_test.go",
+      "before_sha256": null,
+      "after_sha256": "17a6d1fb55990e2e2f8f06698e837c99a3405618613d9f90a1234a6af69d4eda"
+    },
+    {
+      "path": "internal/tui/model.go",
+      "before_sha256": "d9fe34029b96721dd91fc614942f41f9c8cfdf257147fc8ce75543697167ebba",
+      "after_sha256": "4d7923b54a4017d73206a0a4d4ba3348dfc395dbe799b562be3088bd08879324"
+    },
+    {
+      "path": "internal/tui/application.go",
+      "before_sha256": "6f325fea7422e6161425750591891e4be12aa0fd8f973a34885fa2d68abc99eb",
+      "after_sha256": "d68ee4afce1c9c869f29715463431eeb523b4e53471bef8a121a09c04b2092b4"
+    },
+    {
+      "path": "internal/tui/session_operation.go",
+      "before_sha256": null,
+      "after_sha256": "cf5c52957d688de6f4d1800ca31a8469a7df2431c6cf589b7e339d7185cc3eb8"
+    },
+    {
+      "path": "internal/tui/session_operation_test.go",
+      "before_sha256": null,
+      "after_sha256": "280c18bc4372f3079ed9a20edabfeb8cf3c84278cbd8adc64008cea1756117bd"
+    },
+    {
+      "path": "internal/tui/identity_test.go",
+      "before_sha256": "87d18b19a87a178432db5fe9621e006ed9a1b4e0bfbe9d2ffa35f527b0ea915c",
+      "after_sha256": "88ec271fd89c1ab015db73360f4d1e6c0d49f4ae6d4ec9ebcd861896be5b90ea"
+    },
+    {
+      "path": "internal/app/session_tree.go",
+      "before_sha256": null,
+      "after_sha256": "05334c71df7fe0897ac8961f6389e48c411fb492d4dd072c768f2e7b926ac7a9"
+    },
+    {
+      "path": "internal/tui/session_tree.go",
+      "before_sha256": null,
+      "after_sha256": "ae70e633c71910e1d63b284bf6e8b618e07baf9278e3505bfdbb96a653d91393"
+    },
+    {
+      "path": "internal/tui/session_tree_test.go",
+      "before_sha256": null,
+      "after_sha256": "b1b1eab023151b47b0ef82dbf250332f4bb995a32044c47f1ca44b53c89edea1"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/session-tree-integration.patch",
+      "sha256": "001d519258334c953aa31229fd35e5994e1d4dfff8e6920c27a66bf1f8c94d31"
+    },
+    {
+      "path": "/private/tmp/hand-session-tree-full-20260908.jsonl",
+      "sha256": "df95c9594764454dd07f4cc018491707781f26af394b879947550fed74cbd82e"
+    },
+    {
+      "path": "/private/tmp/hand-session-tree-full-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-tree-repeat-20260908.jsonl",
+      "sha256": "535cc34d37fafa8b956c9d0f6be3040a626589f2c89a74c9356b7a9b715a0d83"
+    },
+    {
+      "path": "/private/tmp/hand-session-tree-repeat-20260908.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/hand-session-tree-coverage-20260908.out",
+      "sha256": "723cece801fbe05d31e85e887c16c656dc8807b2941e65fba0cd124505a2d515"
+    },
+    {
+      "path": "/private/tmp/hand-session-tree-vet-20260908.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

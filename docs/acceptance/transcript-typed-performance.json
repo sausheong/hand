@@ -1,0 +1,200 @@
+{
+  "status": "development_workload_passed",
+  "blocks": 10000,
+  "runs": [
+    {
+      "events": 1000,
+      "p95_ms": 0.450833,
+      "max_ms": 0.9625
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.452958,
+      "max_ms": 1.113208
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.456959,
+      "max_ms": 1.331333
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.451833,
+      "max_ms": 1.389334
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.444708,
+      "max_ms": 1.132084
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.446125,
+      "max_ms": 1.303875
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.44725,
+      "max_ms": 1.1585
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.442833,
+      "max_ms": 1.204333
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.4395,
+      "max_ms": 1.070292
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.437583,
+      "max_ms": 1.106375
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.441625,
+      "max_ms": 0.992583
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.438041,
+      "max_ms": 1.269416
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.438333,
+      "max_ms": 1.127417
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.441459,
+      "max_ms": 0.90425
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.447542,
+      "max_ms": 1.005917
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.441,
+      "max_ms": 0.893208
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.449833,
+      "max_ms": 1.241209
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.441416,
+      "max_ms": 0.949
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.445375,
+      "max_ms": 1.019458
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.436333,
+      "max_ms": 1.041417
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.439417,
+      "max_ms": 1.160459
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.462208,
+      "max_ms": 1.24575
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.451583,
+      "max_ms": 1.394125
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.467625,
+      "max_ms": 1.042792
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.45625,
+      "max_ms": 1.314667
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.447875,
+      "max_ms": 1.344541
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.443541,
+      "max_ms": 1.212834
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.444,
+      "max_ms": 1.054625
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.440709,
+      "max_ms": 1.0795
+    },
+    {
+      "events": 1000,
+      "p95_ms": 0.437917,
+      "max_ms": 1.223833
+    }
+  ],
+  "total_events": 30000,
+  "ui_key_p95_ms": 0.446375,
+  "worst_run_p95_ms": 0.467625,
+  "max_ms": 1.394125,
+  "calibration_groups": 30,
+  "workload_sufficient": true,
+  "threshold_ms": 100,
+  "scope": "In-process stream refresh, key handling and View; excludes terminal display and OS event delivery.",
+  "raw_sha256": "ffd9fbc9d8e214036009efabbcca81d62ed67484acfbb9e156e60d8b320e9b56",
+  "command": "GOCACHE=/private/tmp/hand-review-gocache GOPROXY=off go test -run '^$' -bench '^BenchmarkTranscript10000Blocks$' -benchtime=1000x -count=30 ./internal/tui",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/transcript-typed-20260909/hand-transcript-typed-20260909.log.gz",
+      "sha256": "0da5c1e76abea64d3711e52ef86e3a038ee5269875969fb9db94c88059d0e0f6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-typed-20260909/hand-transcript-typed-report-20260909.json.gz",
+      "sha256": "1113dc6b7aec4fa0301530cc7c76a80bd5d4198b3922332b503e01934063d1d2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-typed-20260909/transcript_benchmark_test.go.gz",
+      "sha256": "d60262577e9afa734ac316a4b2b898078659df4dad3f08b4aacfee790085350b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-typed-20260909/transcript_performance.py.gz",
+      "sha256": "6780d0bbe56cde52713d11d66c0c7bb4ae62584c3f27f73d901a27bb9fb97b01"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/transcript-typed-20260909/model.go.gz",
+      "sha256": "5b5a06e1715ddb5ef98003aaa55e37eb0c2af8a67451430da7c553ecacfe824c"
+    }
+  ],
+  "assertions": [
+    "Exactly 10000 source blocks and transcript entries retained before timing",
+    "Each measured key routed through Model.Update and increases textarea input length",
+    "Input reset below editor capacity between measurements",
+    "Model cleanup after every benchmark instance"
+  ],
+  "limitations": [
+    "Dirty development checkout, not exact final candidate",
+    "In-process loop excludes OS terminal delivery/display",
+    "CPU model query denied by sandbox; current run records macOS arm64 but final reference hardware qualification remains"
+  ]
+}

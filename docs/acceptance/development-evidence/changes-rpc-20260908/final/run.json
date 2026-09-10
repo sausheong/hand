@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "qualification": "development",
+  "binary_sha256": "0e1da30cadb2b02f6b7ae051942e5684822d7632a760de2d99f4ff21fff264d3",
+  "runner_sha256": "0e5aa4bf12de7ad4a1d6150103ad8b0b7ccc20030bb89fd89d6bf397cf42a5eb",
+  "checkpoint_changes": {
+    "status": "passed",
+    "run_id": "ASILA2M7YLK5VJSUJKG7BB623I",
+    "changes": 1,
+    "recovered": true
+  },
+  "scenarios": [
+    "non_go_client_lifecycle",
+    "approval_once_before_write",
+    "steering_delivery",
+    "followup_queue",
+    "duplicate_request_no_sideeffect_replay",
+    "version_error",
+    "cancel_terminal",
+    "disconnect_cleanup",
+    "reconnect_terminal_recovery"
+  ],
+  "provider_calls": 5,
+  "cancelled_provider_requests": 2,
+  "checkpoints": {
+    "snapshots": 2,
+    "starts": 3,
+    "finishes": 3,
+    "status": "passed"
+  }
+}

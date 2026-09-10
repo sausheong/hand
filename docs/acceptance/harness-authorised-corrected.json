@@ -1,0 +1,99 @@
+{
+  "status": "development_full_harness_suite_passed",
+  "source_fingerprint": "c04759d354adec6b17dbdb13c7da27c24b41e55d6c080699569bfde66096fe33",
+  "tests": {
+    "passed": 1114,
+    "skipped": [],
+    "failed": [],
+    "missing": [],
+    "packages": [
+      "github.com/sausheong/harness/attachment",
+      "github.com/sausheong/harness/budget",
+      "github.com/sausheong/harness/compaction",
+      "github.com/sausheong/harness/examples/data-agent",
+      "github.com/sausheong/harness/examples/lta-agent",
+      "github.com/sausheong/harness/examples/minimal",
+      "github.com/sausheong/harness/examples/self-improving-agent",
+      "github.com/sausheong/harness/examples/support-agent",
+      "github.com/sausheong/harness/execution",
+      "github.com/sausheong/harness/llm",
+      "github.com/sausheong/harness/llm/llmtest",
+      "github.com/sausheong/harness/process",
+      "github.com/sausheong/harness/providers/anthropic",
+      "github.com/sausheong/harness/providers/gemini",
+      "github.com/sausheong/harness/providers/litellm",
+      "github.com/sausheong/harness/providers/local",
+      "github.com/sausheong/harness/providers/openai",
+      "github.com/sausheong/harness/providers/openrouter",
+      "github.com/sausheong/harness/runtime",
+      "github.com/sausheong/harness/session",
+      "github.com/sausheong/harness/tokens",
+      "github.com/sausheong/harness/tool",
+      "github.com/sausheong/harness/tool/memory",
+      "github.com/sausheong/harness/tool/memory/jsonl",
+      "github.com/sausheong/harness/tool/skills",
+      "github.com/sausheong/harness/tool/skills/disk",
+      "github.com/sausheong/harness/tools/bash",
+      "github.com/sausheong/harness/tools/browser",
+      "github.com/sausheong/harness/tools/file",
+      "github.com/sausheong/harness/tools/mcp",
+      "github.com/sausheong/harness/tools/todo",
+      "github.com/sausheong/harness/tools/web"
+    ],
+    "unfinished": [],
+    "missing_packages": []
+  },
+  "coverage": {
+    "statements": 8922,
+    "covered": 6248,
+    "percentage": 70.0291414481058
+  },
+  "source_unchanged": true,
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/report.json.gz",
+      "sha256": "87024fd2b74f0c9c4ea2cff6a6533246fbd9ac58bfefa0042253a56450c5c0f4",
+      "uncompressed_sha256": "58f9df183e70441cb5348f3cb54f32709469a083dc82533918bcc303947ed607"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/tests.jsonl.gz",
+      "sha256": "8f58b0da07e9fff3082b56d226451f5ac982930bf546de3dc77876db87ed8c2d",
+      "uncompressed_sha256": "a0667fda8c0d2f2e607beb917344454cc897b9c6772dbc3375296dd4045d4bb2"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/inventory.json.gz",
+      "sha256": "d4b11d0944ba11ee4ebce0a41c8a96ba0db35fcfab3afb2bbcb2994cc2d84c3c",
+      "uncompressed_sha256": "2f7913a9b38c44cb76ba1415d8f107ad8852fd9ef1d7ed18c68f59be724829b9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/coverage.out.gz",
+      "sha256": "1b8e07ec00e5f8e5d6a1041f06598caa7aead161e138c1744cea98442d39b615",
+      "uncompressed_sha256": "164a68f848c5c19fe13ce1c5b017bfa54d12ddc8baab288935c5ce8b27ee2540"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/packages.txt.gz",
+      "sha256": "a3bb5d66a6423cb447418957263d362b8f741fef98b2b8ec3ab3f5e40831a201",
+      "uncompressed_sha256": "996ee2b035ca271a96890f0a4effdc5dd24801ed598d5c39b1e835575a719849"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/harness-corrected-qualification-gate-20260909.json.gz",
+      "sha256": "279c7c6396c5bdd9599a5c5eed8e0e88429eb2a96e7bc968df613d69fbce1dc0",
+      "uncompressed_sha256": "b815efd679e715553633d180fb6888fda52d32997be857a27b71f30a7fb12cd4"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-authorised-corrected-20260909/backend_test.go.gz",
+      "sha256": "c3b07292fcb291a21b0b9e74aceaa2de078e35b1e018dc914b157f884348d06f",
+      "uncompressed_sha256": "48fcb5fb89842340f8c1c43833a6c7c14764b09d1531a262c9ca029ae7b71c33"
+    }
+  ],
+  "upstream": {
+    "main": "09c30fe2d529d6125f423593f621e970a7ce8735",
+    "v039": "246628a04d66650e9ce76d7802882801b81a273c",
+    "v040": null
+  },
+  "limitations": [
+    "macOS native suite using Linux ARM64 Docker fixtures; not separate Linux native-host qualification.",
+    "Whole-Harness coverage is a raw measurement, not Hand overall or combined critical-group acceptance.",
+    "Dirty development source, not a frozen published release."
+  ]
+}

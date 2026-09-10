@@ -1,0 +1,96 @@
+{
+  "status": "development_passed",
+  "tests": {
+    "hand-output-limit-harness-20260909": {
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    "hand-output-limit-integrated-20260909": {
+      "pass": 14,
+      "fail": 1,
+      "skip": 0
+    },
+    "hand-output-limit-integrated-fixed-20260909": {
+      "pass": 15,
+      "fail": 0,
+      "skip": 0
+    },
+    "hand-output-limit-runtime-suite-20260909": {
+      "pass": 333,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand-output-limit-harness-20260909.jsonl.gz",
+      "sha256": "59d7c614aa7f6db459634ca1bffc1512d397af1c48ae7e597c0268fd1d93c11b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand-output-limit-integrated-20260909.jsonl.gz",
+      "sha256": "7debcfdec29087d8823707b1bef743194d31a801e03ea592c5fbe3cce457630b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand-output-limit-integrated-fixed-20260909.jsonl.gz",
+      "sha256": "7cd460fc12a7bd46b317f0a338257dc24f5effca643f7166a452ce33f256d329"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand-output-limit-runtime-suite-20260909.jsonl.gz",
+      "sha256": "09bcfac56b80817a0a250ce8ea622a9d937d8d5d6aee8289f200dd039b0ea960"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand_cmd_hand_main.go.gz",
+      "sha256": "44860ae1f98a85c22845f52615da111aaf331e5f42f8f135ca76c81f9e20db9b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand_cmd_hand_invocation_test.go.gz",
+      "sha256": "22f9d662d311c5bc5888e255a565f94ff275f2726d766580eb62b7f1a5da3a9f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand_internal_app_profiles.go.gz",
+      "sha256": "67f0ee5cd5b17033f5083d266397c6f1b0f6abda6117d626b9ce7fcae9ba5258"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/hand_internal_app_profiles_test.go.gz",
+      "sha256": "898c0977888820fa6ef3921093a983e4dac2b5b89f7f61562fdda4c6b0de229d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/harness_runtime_runtime.go.gz",
+      "sha256": "7814dc0499026de12095ba6c871175183d4a2c800d3136cc7f9dff926627ba50"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/harness_runtime_runturn.go.gz",
+      "sha256": "8eb2b1abfac1b32739b39de065865c50e2b7a86498e2ed7dc6775d1ef6d1d83f"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/harness_runtime_types.go.gz",
+      "sha256": "d555b243ea0c32f1f88f224431f2ee6b46d89e2d4797428db211fad34c29fe6e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/harness_runtime_builder.go.gz",
+      "sha256": "52b0758490ade5d9c4238785d79ee8a424eeb34039f9ead052cf78a9b8991f43"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/harness_runtime_output_tokens.go.gz",
+      "sha256": "58eafe566fc4be58f9947b86feabd099ac76d30086ad130d7bdc9db519bc7b91"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/output-limits-20260909/harness_runtime_output_tokens_test.go.gz",
+      "sha256": "84760da9846f366d9af4e0df05585934cd6a61c9a004846d0f6f050f7f421911"
+    }
+  ],
+  "changes": [
+    "Harness Runtime and AgentSpec accept MaxOutputTokens; zero defaults to 8192; negative values reject",
+    "Run and RunTurn propagate configured output limits, including same-provider fallback",
+    "Hand startup and atomic profile switch apply max_output; zero profile value resets to runtime default",
+    "HTTP fixture verifies max_completion_tokens=123"
+  ],
+  "limitations": [
+    "Unreleased local Harness modification; publication still requires authorisation",
+    "Initial HTTP assertion used max_tokens; corrected to actual adapter field max_completion_tokens and retained failure log",
+    "Full Hand coverage and platform qualification need fresh runs after these production changes",
+    "Catalogue integration remains pending; this is its output-limit prerequisite",
+    "No paid calls"
+  ]
+}

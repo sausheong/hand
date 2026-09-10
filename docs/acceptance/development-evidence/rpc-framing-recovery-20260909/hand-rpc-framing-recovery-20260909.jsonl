@@ -1,0 +1,8 @@
+{"Time":"2026-09-09T09:17:03.738461+08:00","Action":"start","Package":"github.com/sausheong/hand/cmd/hand"}
+{"Time":"2026-09-09T09:17:04.574994+08:00","Action":"run","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestBinaryRPCRejectsOversizedFrameBeforeProvider"}
+{"Time":"2026-09-09T09:17:04.575061+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestBinaryRPCRejectsOversizedFrameBeforeProvider","Output":"=== RUN   TestBinaryRPCRejectsOversizedFrameBeforeProvider\n"}
+{"Time":"2026-09-09T09:17:07.456459+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestBinaryRPCRejectsOversizedFrameBeforeProvider","Output":"--- PASS: TestBinaryRPCRejectsOversizedFrameBeforeProvider (2.88s)\n"}
+{"Time":"2026-09-09T09:17:07.456553+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Test":"TestBinaryRPCRejectsOversizedFrameBeforeProvider","Elapsed":2.88}
+{"Time":"2026-09-09T09:17:07.456753+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"PASS\n"}
+{"Time":"2026-09-09T09:17:08.463948+08:00","Action":"output","Package":"github.com/sausheong/hand/cmd/hand","Output":"ok  \tgithub.com/sausheong/hand/cmd/hand\t4.725s\n"}
+{"Time":"2026-09-09T09:17:08.463975+08:00","Action":"pass","Package":"github.com/sausheong/hand/cmd/hand","Elapsed":4.726}

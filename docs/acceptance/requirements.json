@@ -1,0 +1,482 @@
+{
+  "schema_version": 1,
+  "requirements": [
+    {
+      "id": "M0.1",
+      "title": "CI and releases",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "ci_failure_blocks_release",
+        "archive_version_commit",
+        "checksums_licence",
+        "no_credentials_smoke",
+        "linux_macos_checks",
+        "all_target_builds"
+      ]
+    },
+    {
+      "id": "M0.2",
+      "title": "Baselines and reproducibility",
+      "kind": "benchmark",
+      "profile": "offline",
+      "scenarios": [
+        "startup_no_mcp",
+        "startup_fast_slow_failed_mcp",
+        "memory_binary_size",
+        "reproducible_task_manifest",
+        "architecture_decisions"
+      ]
+    },
+    {
+      "id": "M1.1",
+      "title": "Usage accounting",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "ten_requests_context_vs_total",
+        "cache_no_double_count",
+        "missing_usage_unknown",
+        "retry_fallback_compaction_accounting",
+        "switch_resets_context"
+      ]
+    },
+    {
+      "id": "M1.2",
+      "title": "Search correctness",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "large_source_match",
+        "nested_ignore_negation",
+        "invalid_glob_error",
+        "unreadable_partial_result",
+        "cancellation_explicit",
+        "long_lines_binary_symlink",
+        "bounded_output",
+        "no_rg_fallback"
+      ]
+    },
+    {
+      "id": "M1.3",
+      "title": "Approval regressions",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "skill_mutations_gated",
+        "skill_reads_classified",
+        "failed_save_reprompts",
+        "every_tool_classified",
+        "interactive_oneshot_parity"
+      ]
+    },
+    {
+      "id": "M1.4",
+      "title": "Lifecycle and completion",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "stale_goal_after_new_or_cancel",
+        "stale_goal_after_newer_run",
+        "responsive_cancel_compact",
+        "exactly_one_terminal_outcome",
+        "exit_code_matrix",
+        "large_hook_json_stdin",
+        "mandatory_hook_timeout_denies",
+        "signal_shutdown"
+      ]
+    },
+    {
+      "id": "M1.5",
+      "title": "Harness execution safety",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "hung_partial_mcp_cleanup",
+        "grandchildren_reaped",
+        "bounded_memory_and_disk",
+        "executable_mode_preserved",
+        "atomic_write_failure",
+        "published_harness_contracts"
+      ]
+    },
+    {
+      "id": "M2.1",
+      "title": "Application service",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "cli_tui_same_lifecycle",
+        "invalid_transitions_rejected",
+        "immutable_ordered_events",
+        "cleanup_before_terminal",
+        "no_ui_runtime_mutation"
+      ]
+    },
+    {
+      "id": "M2.2",
+      "title": "Provider profiles",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "local_hosted_proxy_routing",
+        "no_credential_crossover",
+        "failed_switch_atomic",
+        "reasoning_capability_validation",
+        "metadata_precedence",
+        "active_context_not_advertised",
+        "compaction_switch_consistent",
+        "legacy_config_migration"
+      ]
+    },
+    {
+      "id": "M3.1",
+      "title": "Durable sessions",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "legacy_backup_idempotent_import",
+        "interrupted_migration",
+        "branch_restart_compaction",
+        "selected_leaf_persisted",
+        "new_preserves_history",
+        "two_process_writer_lock",
+        "truncated_tail_vs_interior_corruption",
+        "disk_full_visible",
+        "usage_attachments_export_restart"
+      ]
+    },
+    {
+      "id": "M3.2",
+      "title": "Input and steering",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "steer_at_tool_boundary",
+        "followup_after_settled",
+        "editable_cancelled_queue",
+        "no_duplicate_on_retry",
+        "approval_steering_collision",
+        "file_completion_external_editor",
+        "spaced_image_paths",
+        "external_attachment_policy"
+      ]
+    },
+    {
+      "id": "M3.3",
+      "title": "Transcript and viewers",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "full_output_search_copy",
+        "diff_80x24_scroll",
+        "panel_height_bounded",
+        "live_replay_sanitisation",
+        "resize_reflow",
+        "ui_10000_blocks_p95",
+        "states_and_persistence_visible"
+      ]
+    },
+    {
+      "id": "M3.4",
+      "title": "Background work and startup",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "server_while_agent_runs",
+        "read_send_cancel_wait",
+        "handles_bounded_capture",
+        "shutdown_cleanup",
+        "ui_before_mcp",
+        "optional_server_degrades",
+        "required_server_blocks",
+        "tool_catalog_consistency"
+      ]
+    },
+    {
+      "id": "M4.1",
+      "title": "JSONL and RPC",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "stdout_json_only",
+        "non_go_client_lifecycle",
+        "approval_steer_cancel",
+        "version_size_errors",
+        "duplicate_request_id",
+        "no_sideeffect_replay",
+        "slow_consumer_terminal_retained",
+        "disconnect_cleanup",
+        "no_hidden_trust_prompt"
+      ]
+    },
+    {
+      "id": "M4.2",
+      "title": "Go SDK",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "external_module_build",
+        "released_package_example",
+        "cli_rpc_sdk_equivalence",
+        "context_cancel_cleanup",
+        "compatibility_fixture"
+      ]
+    },
+    {
+      "id": "M5.1",
+      "title": "Scoped policy",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "grant_scope_lifetime",
+        "provenance_inspect_revoke",
+        "project_cannot_self_authorise",
+        "legacy_broad_grant_ack",
+        "changed_scope_reapproval",
+        "stale_preview_revalidation",
+        "shell_not_prefix_sandbox",
+        "symlink_escape_refused",
+        "routine_work_prompt_count"
+      ]
+    },
+    {
+      "id": "M5.2",
+      "title": "Isolation backend",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "mount_read_write_escape_denied",
+        "network_disabled",
+        "credentials_scoped",
+        "children_inherit",
+        "missing_backend_no_fallback",
+        "mcp_extension_boundary_visible",
+        "linux_macos_container_suite"
+      ]
+    },
+    {
+      "id": "M5.3",
+      "title": "Restore and verification",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "dirty_tree_preserved",
+        "untracked_nongit_checkpoint",
+        "restore_hash_conflict",
+        "executable_mode_restore",
+        "branch_does_not_restore",
+        "later_edit_invalidates_tests",
+        "snapshot_command_exit_evidence",
+        "retention_limits_sensitive_paths",
+        "external_effect_not_rollback"
+      ]
+    },
+    {
+      "id": "M6.1",
+      "title": "Instructions and skills",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "personal_ancestor_nested_precedence",
+        "hand_agents_collision",
+        "resources_relative_to_skill",
+        "new_skill_refresh",
+        "conventional_paths",
+        "bounds_unreadable_visible",
+        "instructions_no_exec_grant"
+      ]
+    },
+    {
+      "id": "M6.2",
+      "title": "Context and compaction",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "context_contributors",
+        "pin_survives_repeated_compaction",
+        "objectives_decisions_evidence_preserved",
+        "summariser_profile_disclosure",
+        "failure_keeps_history",
+        "call_result_pairing",
+        "raw_history_retrievable",
+        "large_result_lazy_tools",
+        "threshold_comparison"
+      ]
+    },
+    {
+      "id": "M6.3",
+      "title": "Budgets",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "retry_summary_in_ledger",
+        "reservations_concurrent",
+        "strict_unknown_price_blocks",
+        "advisory_unknown_visible",
+        "exhaustion_stops_new_work",
+        "explicit_resume_budget",
+        "ledger_restart",
+        "pricing_provenance",
+        "in_flight_uncertainty"
+      ]
+    },
+    {
+      "id": "M7.1",
+      "title": "Extensions",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "go_python_examples",
+        "commands_questions_context_state",
+        "ordered_transforms",
+        "mandatory_failure_denies",
+        "cancellation_crash_cleanup",
+        "no_escape_in_render",
+        "no_policy_override",
+        "transactional_reload"
+      ]
+    },
+    {
+      "id": "M7.2",
+      "title": "Packages",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "local_git_archive_install",
+        "digest_lock_reproducible",
+        "list_update_remove_rollback",
+        "capability_change_reapproval",
+        "project_no_autorun",
+        "runtime_dependency_diagnostic",
+        "integrity_conformance",
+        "examples_documented"
+      ]
+    },
+    {
+      "id": "M7.D",
+      "title": "Conditional decisions",
+      "kind": "review",
+      "profile": "offline",
+      "scenarios": [
+        "wasm_decision_with_measurements",
+        "native_sandbox_marketplace_scope",
+        "explicit_required_followons_completed"
+      ]
+    },
+    {
+      "id": "M8.1",
+      "title": "Evaluation harness",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "thirty_task_manifest",
+        "heldout_split",
+        "paired_repeated_design",
+        "offline_fault_suite",
+        "raw_results_failures",
+        "uncertainty_reproducibility",
+        "paid_budget_gate"
+      ]
+    },
+    {
+      "id": "M8.2",
+      "title": "Release candidate",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "exact_commit_archives",
+        "migration_rollback_guides",
+        "prior_release_preserved",
+        "install_sdk_extension_guides",
+        "evidence_bundle",
+        "known_limitations_no_false_claim"
+      ]
+    },
+    {
+      "id": "G-TEST",
+      "title": "Full test and coverage gate",
+      "kind": "quality",
+      "profile": "offline",
+      "scenarios": [
+        "uncached_full_suite",
+        "race_build_vet_format",
+        "quantitative_coverage",
+        "no_required_skips",
+        "critical_fault_repetition",
+        "fuzz_parsers",
+        "architecture_contracts"
+      ]
+    },
+    {
+      "id": "G-PLATFORM",
+      "title": "Runtime platform coverage",
+      "kind": "integration",
+      "profile": "offline",
+      "scenarios": [
+        "linux_native",
+        "macos_native",
+        "all_archive_targets_build",
+        "secondary_arch_smoke"
+      ]
+    },
+    {
+      "id": "G-PERF",
+      "title": "Performance gate",
+      "kind": "benchmark",
+      "profile": "offline",
+      "scenarios": [
+        "key_latency_p95",
+        "cancel_start_latency",
+        "child_cleanup_deadline",
+        "memory_output_caps",
+        "no_mcp_startup_regression"
+      ]
+    },
+    {
+      "id": "G-JOURNEY",
+      "title": "Integrated user journeys",
+      "kind": "e2e",
+      "profile": "offline",
+      "scenarios": [
+        "coding_task_approve_test_resume",
+        "steer_during_tool_cancel",
+        "resume_after_crash_budget",
+        "restore_with_user_edits",
+        "rpc_sdk_same_task",
+        "extension_reload_failure",
+        "isolated_background_server"
+      ]
+    },
+    {
+      "id": "G-REVIEW",
+      "title": "Final acceptance review",
+      "kind": "review",
+      "profile": "offline",
+      "scenarios": [
+        "traceability_all_plan_bullets",
+        "no_placeholder_paths",
+        "no_open_acceptance_defects",
+        "security_recovery_audit",
+        "docs_examples_executed",
+        "test_oracles_reviewed"
+      ]
+    },
+    {
+      "id": "G-LIVE",
+      "title": "Live provider and Pi evaluation",
+      "kind": "live",
+      "profile": "full",
+      "scenarios": [
+        "native_providers_smoke",
+        "aggregator_local_smoke",
+        "thirty_tasks_three_repeats_per_arm",
+        "heldout_scoring",
+        "raw_costs_failures",
+        "budgets_authorised",
+        "success_floor",
+        "noninferiority_or_explicit_result"
+      ]
+    }
+  ]
+}

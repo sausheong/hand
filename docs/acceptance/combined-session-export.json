@@ -1,0 +1,30 @@
+{
+  "status": "development_passed",
+  "requirement": "M3.1",
+  "scenario": "usage_attachments_export_restart",
+  "test": "github.com/sausheong/hand/internal/sessionio::TestAttachmentForkExportAndRestart",
+  "source": {
+    "path": "internal/sessionio/attachment_integration_test.go",
+    "sha256": "ffe959dd95111c2aadac4c26361f731444b3315c01796dbc78228f0b9691044e"
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/combined-session-export-20260909/hand-combined-export-20260909.jsonl.gz",
+      "sha256": "01217c05b444d5fccf09f3d8c3e599ba083416cb715e879151dbeff1b21cd22d",
+      "uncompressed_sha256": "f905e5e8db7acae8485e83593a5d7e3dabbc03597d139336bbc7737656788455"
+    }
+  ],
+  "assertions": [
+    "12 MiB attachment preserved in fork and exported session",
+    "Unreferenced blob excluded from export; source blob store moved away before standalone import",
+    "Source and initial import: 2 requests, 1 unknown, 37 input tokens, 11 output tokens, 7 cache-read tokens",
+    "Fork: no inherited requests, unknowns or tokens",
+    "Recorded request replay after import does not double-count",
+    "New imported-session request persists across second reopen: 3 requests, 1 unknown, 41 input tokens, 13 output tokens, 7 cache-read tokens",
+    "Attachment bytes still exact after second reopen"
+  ],
+  "limitations": [
+    "Offline storage integration, not a client UI/RPC journey or live model evaluation",
+    "Client-visible totals, native platform rerun and final clean/released candidate qualification remain pending"
+  ]
+}

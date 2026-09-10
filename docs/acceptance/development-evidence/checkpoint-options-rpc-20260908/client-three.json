@@ -1,0 +1,134 @@
+[
+  {
+    "request": {
+      "version": 1,
+      "id": "hello",
+      "method": "hello",
+      "params": {}
+    },
+    "response": {
+      "version": 1,
+      "request_id": "hello",
+      "result": {
+        "execution_boundary": "unrestricted host",
+        "max_frame_bytes": 1048576,
+        "methods": [
+          "hello",
+          "state",
+          "prompt",
+          "cancel",
+          "events.poll",
+          "request.get",
+          "approval.pending",
+          "approval.respond",
+          "steer",
+          "followup.enqueue",
+          "followup.start",
+          "followup.resume",
+          "queue.list",
+          "queue.edit",
+          "queue.remove",
+          "session.list",
+          "session.new",
+          "session.select",
+          "session.name",
+          "profile.list",
+          "profile.select",
+          "checkpoint.changes",
+          "checkpoint.restore_preview",
+          "checkpoint.restore",
+          "checkpoint.recoveries",
+          "checkpoint.recovery_resolve",
+          "permission.list",
+          "permission.revoke"
+        ],
+        "retained_bytes": 2097152,
+        "retained_events": 256,
+        "version": 1
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-confirmed",
+      "method": "checkpoint.restore",
+      "params": {
+        "confirmed": true,
+        "preview": {
+          "run_id": "EET5CRZG4AEHFTC6XX4GKTUPQL",
+          "before": "108f0ae0221c34b2e2dbe7599e927b98e8a6eed036343e002602899feb41104e",
+          "after": "3238b843151de3814ab822a4fa676d406049afc4b11d0038946e8816a1cf7e81",
+          "current": "3238b843151de3814ab822a4fa676d406049afc4b11d0038946e8816a1cf7e81",
+          "actions": [
+            {
+              "path": "approved.txt",
+              "operation": "remove",
+              "expected": {
+                "path": "approved.txt",
+                "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+                "mode": 384,
+                "size": 13,
+                "kind": "regular"
+              }
+            }
+          ],
+          "conflicts": false
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-confirmed",
+      "result": {
+        "completed": true,
+        "files": [
+          {
+            "path": "approved.txt",
+            "applied": true,
+            "recovery_path": ".hand-restore-1ae3145b612731cf46e8d02c0f208fea"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "version": 1,
+      "id": "restore-stale-new-id",
+      "method": "checkpoint.restore",
+      "params": {
+        "confirmed": true,
+        "preview": {
+          "run_id": "EET5CRZG4AEHFTC6XX4GKTUPQL",
+          "before": "108f0ae0221c34b2e2dbe7599e927b98e8a6eed036343e002602899feb41104e",
+          "after": "3238b843151de3814ab822a4fa676d406049afc4b11d0038946e8816a1cf7e81",
+          "current": "3238b843151de3814ab822a4fa676d406049afc4b11d0038946e8816a1cf7e81",
+          "actions": [
+            {
+              "path": "approved.txt",
+              "operation": "remove",
+              "expected": {
+                "path": "approved.txt",
+                "hash": "ac23239997bc7f316c9a27d8f9e8e5ead151daa7d522c0e73941e5ae7c78ccc7",
+                "mode": 384,
+                "size": 13,
+                "kind": "regular"
+              }
+            }
+          ],
+          "conflicts": false
+        }
+      }
+    },
+    "response": {
+      "version": 1,
+      "request_id": "restore-stale-new-id",
+      "result": {
+        "completed": false,
+        "error": "workspace changed since restore confirmation",
+        "files": null
+      }
+    }
+  }
+]

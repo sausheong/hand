@@ -1,0 +1,225 @@
+{
+  "status": "development_full_harness_suite_passed",
+  "command": [
+    "go",
+    "test",
+    "-p=1",
+    "-race",
+    "-count=1",
+    "-timeout=15m",
+    "-coverpkg=./...",
+    "-coverprofile=/private/tmp/hand-catalogue-harness-20260909.cover",
+    "-json",
+    "./..."
+  ],
+  "environment": {
+    "HARNESS_TEST_CONTAINER_IMAGE": "sha256:14358309a308569c32bdc37e2e0e9694be33a9d99e68afb0f5ff33cc1f695dce",
+    "HARNESS_TEST_BASH_IMAGE": "sha256:7b140f374b289a7c2befc338f42ebe6441b7ea838a042bbd5acbfca6ec875818",
+    "HARNESS_TEST_VOLUME_IMAGE": "sha256:ef257d85f76e48da1c64832459b59fcaba1a4dac97bf5d7450c77753542eee94",
+    "HARNESS_TEST_CONTAINER_SOCKET": "/Users/sausheong/.docker/run/docker.sock",
+    "GOCACHE": "/private/tmp/hand-review-gocache",
+    "GOPROXY": "off",
+    "GOWORK": "off"
+  },
+  "sources_unchanged": true,
+  "source_hashes": {
+    "/private/tmp/hand-harness-persistence-20260908": "c52ab17e0f872e75f337d82107817e96418bab6e16220cd9021b4b3f2a6e6a4b"
+  },
+  "seconds": 134.3002632089192,
+  "test_records": {
+    "pass": 1112
+  },
+  "packages": {
+    "pass": 32
+  },
+  "coverage": {
+    "total": {
+      "statements": 8916,
+      "covered": 6243,
+      "percentage": 70.02018842530282
+    },
+    "packages": {
+      "github.com/sausheong/harness/attachment": {
+        "statements": 170,
+        "covered": 125,
+        "percentage": 73.52941176470588
+      },
+      "github.com/sausheong/harness/budget": {
+        "statements": 548,
+        "covered": 438,
+        "percentage": 79.92700729927007
+      },
+      "github.com/sausheong/harness/compaction": {
+        "statements": 329,
+        "covered": 301,
+        "percentage": 91.48936170212765
+      },
+      "github.com/sausheong/harness/examples/data-agent": {
+        "statements": 232,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/lta-agent": {
+        "statements": 192,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/minimal": {
+        "statements": 40,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/self-improving-agent": {
+        "statements": 59,
+        "covered": 0,
+        "percentage": 0.0
+      },
+      "github.com/sausheong/harness/examples/support-agent": {
+        "statements": 314,
+        "covered": 129,
+        "percentage": 41.0828025477707
+      },
+      "github.com/sausheong/harness/execution": {
+        "statements": 415,
+        "covered": 316,
+        "percentage": 76.144578313253
+      },
+      "github.com/sausheong/harness/llm": {
+        "statements": 253,
+        "covered": 207,
+        "percentage": 81.81818181818181
+      },
+      "github.com/sausheong/harness/llm/llmtest": {
+        "statements": 19,
+        "covered": 17,
+        "percentage": 89.47368421052632
+      },
+      "github.com/sausheong/harness/process": {
+        "statements": 277,
+        "covered": 227,
+        "percentage": 81.94945848375451
+      },
+      "github.com/sausheong/harness/providers/anthropic": {
+        "statements": 266,
+        "covered": 213,
+        "percentage": 80.07518796992481
+      },
+      "github.com/sausheong/harness/providers/gemini": {
+        "statements": 118,
+        "covered": 7,
+        "percentage": 5.932203389830509
+      },
+      "github.com/sausheong/harness/providers/litellm": {
+        "statements": 1,
+        "covered": 1,
+        "percentage": 100.0
+      },
+      "github.com/sausheong/harness/providers/local": {
+        "statements": 3,
+        "covered": 3,
+        "percentage": 100.0
+      },
+      "github.com/sausheong/harness/providers/openai": {
+        "statements": 148,
+        "covered": 48,
+        "percentage": 32.432432432432435
+      },
+      "github.com/sausheong/harness/providers/openrouter": {
+        "statements": 3,
+        "covered": 3,
+        "percentage": 100.0
+      },
+      "github.com/sausheong/harness/runtime": {
+        "statements": 2155,
+        "covered": 1712,
+        "percentage": 79.4431554524362
+      },
+      "github.com/sausheong/harness/session": {
+        "statements": 1310,
+        "covered": 1083,
+        "percentage": 82.67175572519083
+      },
+      "github.com/sausheong/harness/tokens": {
+        "statements": 123,
+        "covered": 88,
+        "percentage": 71.54471544715447
+      },
+      "github.com/sausheong/harness/tool": {
+        "statements": 298,
+        "covered": 254,
+        "percentage": 85.23489932885906
+      },
+      "github.com/sausheong/harness/tool/memory": {
+        "statements": 80,
+        "covered": 67,
+        "percentage": 83.75
+      },
+      "github.com/sausheong/harness/tool/memory/jsonl": {
+        "statements": 144,
+        "covered": 119,
+        "percentage": 82.63888888888889
+      },
+      "github.com/sausheong/harness/tool/skills": {
+        "statements": 97,
+        "covered": 85,
+        "percentage": 87.62886597938144
+      },
+      "github.com/sausheong/harness/tool/skills/disk": {
+        "statements": 235,
+        "covered": 198,
+        "percentage": 84.25531914893617
+      },
+      "github.com/sausheong/harness/tools/bash": {
+        "statements": 160,
+        "covered": 141,
+        "percentage": 88.125
+      },
+      "github.com/sausheong/harness/tools/browser": {
+        "statements": 299,
+        "covered": 121,
+        "percentage": 40.468227424749166
+      },
+      "github.com/sausheong/harness/tools/file": {
+        "statements": 123,
+        "covered": 82,
+        "percentage": 66.66666666666667
+      },
+      "github.com/sausheong/harness/tools/mcp": {
+        "statements": 118,
+        "covered": 101,
+        "percentage": 85.59322033898304
+      },
+      "github.com/sausheong/harness/tools/todo": {
+        "statements": 104,
+        "covered": 90,
+        "percentage": 86.53846153846153
+      },
+      "github.com/sausheong/harness/tools/web": {
+        "statements": 283,
+        "covered": 67,
+        "percentage": 23.674911660777386
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-harness-20260909/hand-catalogue-harness-20260909-result.json.gz",
+      "sha256": "f5a5f137318f235df332546a2a51f85d850b09d1fb1f320bce977fa6aef4ff7b"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-harness-20260909/hand-catalogue-harness-20260909.jsonl.gz",
+      "sha256": "75b8a5c15713fea6aa2492cf8382483d44e5ba019b8bc679e989f399cf972ef9"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-harness-20260909/hand-catalogue-harness-20260909.cover.gz",
+      "sha256": "cb277fa9c874f21c00bc41069bc713d517cc430c96993c31fda640db5853a5b6"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/catalogue-harness-20260909/hand-catalogue-harness-suite-20260909.py.gz",
+      "sha256": "d4118a4e7cfecf0a1d660da8cdb55b93507db195c4d3c75c8bcb6db8719db5fd"
+    }
+  ],
+  "limitations": [
+    "Native macOS dirty local Harness checkout; not released or final-platform qualification"
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "requirement": "M2.2",
+  "status": "incomplete",
+  "scenarios_mapped": 8,
+  "scenarios_qualified": 0,
+  "scenarios": [
+    {
+      "id": "local_hosted_proxy_routing",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/app/profiles_test.go",
+          "name": "TestProfileSwitchStagesRoutingAndCompactionAtomically",
+          "sha256": "14fe238fae311f91ca50205c15c1002c0ae24c0f46b44ec216c7c75ef5de1e4d",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/app/profile_http_integration_test.go",
+          "name": "TestProfileSwitchHTTPGenerationAndSummaryStayOnSelectedRoute",
+          "sha256": "bf7072c2bf9fc623f3f66982c085bc32a1b0130019799b0ad5482284b41efb9b",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/profile-http-routing.json"
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required.",
+        "Compiled terminal profile-switch/compaction journey and live provider qualification remain distinct requirements."
+      ],
+      "pty_evidence": [
+        "docs/acceptance/profile-picker-pty.json"
+      ]
+    },
+    {
+      "id": "no_credential_crossover",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "cmd/hand/invocation_test.go",
+          "name": "TestNamedProfileRoutesOnlyItsCredential",
+          "sha256": "ba909cc7c4f5a5d8085c06fe26f2a435e4aafb85120bec9ffadd7d234d6fb380",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/config/profiles_test.go",
+          "name": "TestLegacyAndNamedProfileIsolation",
+          "sha256": "d5c4b8fce4ed34dd9333a4aaef3469855858cbbc0625c16e051f3661d3ca2e8b",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/app/profile_http_integration_test.go",
+          "name": "TestProfileSwitchHTTPGenerationAndSummaryStayOnSelectedRoute",
+          "sha256": "bf7072c2bf9fc623f3f66982c085bc32a1b0130019799b0ad5482284b41efb9b",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/profile-http-routing.json"
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required.",
+        "Compiled terminal profile-switch/compaction journey and live provider qualification remain distinct requirements."
+      ]
+    },
+    {
+      "id": "failed_switch_atomic",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/app/profile_cancellation_test.go",
+          "name": "TestProfileCancellationBeforePermissionCommit",
+          "sha256": "ccfe46fad639be8bbce4a0fab0ef3dccd6482964c0bd62c84436dfed78e59f30",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/tui/profile_metadata_integration_test.go",
+          "name": "TestProfileMetadataFailurePreservesUIAndCompaction",
+          "sha256": "eeefe3dcad1dfdf23b26f4c31897cd4ca190bfd5c281492518a7cd98d53d78e1",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/tui/profile_test.go",
+          "name": "TestProfileSwitchCancellationJoinsAndPreservesRuntime",
+          "sha256": "f9d4fecff8d4e8b0ed4edefc16ee23cc845969440074ed044e6c3f2dd14a947a",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required."
+      ]
+    },
+    {
+      "id": "reasoning_capability_validation",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/config/profiles_test.go",
+          "name": "TestProfileReasoningAndInvalidConfiguration",
+          "sha256": "d5c4b8fce4ed34dd9333a4aaef3469855858cbbc0625c16e051f3661d3ca2e8b",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/app/profiles_test.go",
+          "name": "TestProfileSwitchRejectsBusyAndInvalidBeforeConstruction",
+          "sha256": "14fe238fae311f91ca50205c15c1002c0ae24c0f46b44ec216c7c75ef5de1e4d",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required."
+      ]
+    },
+    {
+      "id": "metadata_precedence",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/app/metadata_test.go",
+          "name": "TestMetadataUsesActiveContextAndExplicitPrecedence",
+          "sha256": "bfd62b108b05ae05764eb542a78695d7929f0744c443d21f4b4e590a17bf3954",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/config/profiles_test.go",
+          "name": "TestProfileMetadataPrecedenceAndActiveContext",
+          "sha256": "d5c4b8fce4ed34dd9333a4aaef3469855858cbbc0625c16e051f3661d3ca2e8b",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/app/catalogue_test.go",
+          "name": "TestCataloguePreparationAndEndpointIsolation",
+          "sha256": "b8d4caecf1bb2181eba927097c06097b6849684770ccca129b9fe9e9cb1a3b32",
+          "evidence": "docs/acceptance/catalogue-integration.json"
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required."
+      ]
+    },
+    {
+      "id": "active_context_not_advertised",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/app/metadata_test.go",
+          "name": "TestMetadataRejectsRedirectOversizeAndInvalidProperties",
+          "sha256": "bfd62b108b05ae05764eb542a78695d7929f0744c443d21f4b4e590a17bf3954",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/tui/profile_metadata_integration_test.go",
+          "name": "TestProfileMetadataFailurePreservesUIAndCompaction",
+          "sha256": "eeefe3dcad1dfdf23b26f4c31897cd4ca190bfd5c281492518a7cd98d53d78e1",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required."
+      ]
+    },
+    {
+      "id": "compaction_switch_consistent",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/app/profiles_test.go",
+          "name": "TestProfileSwitchStagesRoutingAndCompactionAtomically",
+          "sha256": "14fe238fae311f91ca50205c15c1002c0ae24c0f46b44ec216c7c75ef5de1e4d",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/tui/profile_metadata_integration_test.go",
+          "name": "TestProfileMetadataFailurePreservesUIAndCompaction",
+          "sha256": "eeefe3dcad1dfdf23b26f4c31897cd4ca190bfd5c281492518a7cd98d53d78e1",
+          "repetitions": 20
+        },
+        {
+          "path": "internal/app/profile_http_integration_test.go",
+          "name": "TestProfileSwitchHTTPGenerationAndSummaryStayOnSelectedRoute",
+          "sha256": "bf7072c2bf9fc623f3f66982c085bc32a1b0130019799b0ad5482284b41efb9b",
+          "repetitions": 20,
+          "evidence": "docs/acceptance/profile-http-routing.json"
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required.",
+        "Compiled terminal profile-switch/compaction journey and live provider qualification remain distinct requirements."
+      ]
+    },
+    {
+      "id": "legacy_config_migration",
+      "status": "development_mapped_not_qualified",
+      "tests": [
+        {
+          "path": "internal/config/profiles_test.go",
+          "name": "TestProfileConfigRoundTripAndLegacyNotRewritten",
+          "sha256": "d5c4b8fce4ed34dd9333a4aaef3469855858cbbc0625c16e051f3661d3ca2e8b",
+          "repetitions": 20
+        }
+      ],
+      "remaining": [
+        "Final clean released-Harness candidate and supported-platform qualification remain required."
+      ]
+    }
+  ],
+  "pass_records": {
+    "hand-profile-metadata-20260909": 20,
+    "hand-profile-audit-20260909": 440
+  },
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/hand-profile-metadata-20260909.jsonl.gz",
+      "sha256": "e1f37c7c57850a86739e43787ba117f78a8ea9bb0e858dbbfefff9c06f9c25ef"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/hand-profile-audit-20260909.jsonl.gz",
+      "sha256": "0af768bdc3588cbfdcd5d1c69a8cf2c542162cffcc0f3d03a55ee162f1d752ae"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/cmd_hand_invocation_test.go.gz",
+      "sha256": "7b0035c17c16b5b81432bbeb76e8dbb77090da9d84dd5ac057d1a7699051e79e"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/internal_app_metadata_test.go.gz",
+      "sha256": "8015c6f737179f66a1550b47d8798c095a6e69bf081e32eb597760ad19825879"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/internal_app_profile_cancellation_test.go.gz",
+      "sha256": "81e61ba73d3ca5839ab444bcc46244809f303d015b783b0c419a24c4c9cb71ec"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/internal_app_profiles_test.go.gz",
+      "sha256": "648fadce25afd05ce33d4aa64065a459836a74431da1fddc485e0477695fc1da"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/internal_config_profiles_test.go.gz",
+      "sha256": "803c2aaeeda542fcbdc62b29f26ec561e61ae44aa168b3a6311d66cbc68a1f7d"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/internal_tui_profile_metadata_integration_test.go.gz",
+      "sha256": "e214e0cba099e3463a3da61e7a0f68c498a5aeaf0d63a0d1d1e14e9aa06e37cf"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/profile-audit-20260909/internal_tui_profile_test.go.gz",
+      "sha256": "2b3ecb8113ba9b1437fb44ad2769f7897eca1e311d979324ce0b6f92230b6c22"
+    }
+  ],
+  "limitations": [
+    "Local fixture providers and metadata; not live hosted-provider qualification",
+    "New test covers real HTTP metadata and in-process TUI, not compiled PTY",
+    "No production changes or paid calls"
+  ],
+  "followup_evidence": [
+    "docs/acceptance/catalogue-integration.json",
+    "docs/acceptance/profile-http-routing.json",
+    "docs/acceptance/profile-picker-pty.json"
+  ]
+}

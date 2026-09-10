@@ -1,0 +1,140 @@
+{
+  "status": "development_command_execution_passed",
+  "runner_tests": 81,
+  "process_tests": 9,
+  "calibration_runs": [
+    {
+      "status": "failed",
+      "exit_code": 1,
+      "argv": [
+        "go",
+        "test",
+        "-count=1",
+        "./tools/file",
+        "-run",
+        "^TestAcceptanceWriteMode$"
+      ],
+      "cwd": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/preserve-write-mode",
+      "elapsed_seconds": 1.7444978340063244,
+      "output_bytes": 240,
+      "process_and_pipes_joined": true,
+      "timeout_seconds": 60,
+      "max_output_bytes": 1048576,
+      "logs": {
+        "stdout": {
+          "path": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/preserve-write-mode/stdout.log",
+          "sha256": "8cd541ba39cbbf515673a2ef69bfe167f85470a9c0a00d34fb98310d9ce3172d"
+        },
+        "stderr": {
+          "path": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/preserve-write-mode/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "task": "preserve-write-mode"
+    },
+    {
+      "status": "failed",
+      "exit_code": 1,
+      "argv": [
+        "go",
+        "test",
+        "-count=1",
+        "./tools/bash",
+        "-run",
+        "^TestAcceptanceBashCancellationOwnsDescendants$"
+      ],
+      "cwd": "/private/tmp/hand-prepared-calibration-20260909-5qvwhtal/cancel-shell-descendants",
+      "elapsed_seconds": 4.023439749958925,
+      "output_bytes": 291,
+      "process_and_pipes_joined": true,
+      "timeout_seconds": 60,
+      "max_output_bytes": 1048576,
+      "logs": {
+        "stdout": {
+          "path": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/cancel-shell-descendants/stdout.log",
+          "sha256": "436d1d23c4086e53da96550b2a0081a85e70744d80838295105bfe3016161a97"
+        },
+        "stderr": {
+          "path": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/cancel-shell-descendants/stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "task": "cancel-shell-descendants"
+    }
+  ],
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-evaluation-process-calibration-20260909.json",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/0-hand-evaluation-process-calibration-20260909.json.gz",
+      "sha256": "612eb82a96fd8fddbd1f6ea7dc834117971cb938ee956f281ba9551ea654b72a",
+      "uncompressed_sha256": "5efd1c14fbd1ea0c07f94234c73497a4dd49931a62717d135b7529484a0cb74f"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-process-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/1-hand-evaluation-process-tests-20260909.log.gz",
+      "sha256": "3c7e4651e3957c2cbb6a932be340f96f551f2a0366d8cec94ecf85ae3b83685d",
+      "uncompressed_sha256": "2f6b3d7dfbce2860998ab7cea987b76b67f02de35ae270e41f1cfaf730b8587c"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-process-authorised-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/2-hand-evaluation-process-authorised-tests-20260909.log.gz",
+      "sha256": "ea7277fb16532ac2e7fa8a97ae8dc973111d7dfd4aa37f72ed0c9a8728cdc262",
+      "uncompressed_sha256": "56f79a76e95025307734d15272530e5db1cfc40d4dea848edaeb78fcd55e4149"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-process-fixed-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/3-hand-evaluation-process-fixed-tests-20260909.log.gz",
+      "sha256": "954822ab3580135a70fde50863e160124e2bbbc650e13079cb57a3841c27fbeb",
+      "uncompressed_sha256": "4e35ab40f2b32d846fb67d85d880fa125c779ec0bd72806b966084a1d90590ed"
+    },
+    {
+      "source": "/private/tmp/hand-evaluation-process-all-tests-20260909.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/4-hand-evaluation-process-all-tests-20260909.log.gz",
+      "sha256": "9cb3e442c837ebb2b9d901fe9f7929d452edad1bc4f0d5083d68c8e71b287242",
+      "uncompressed_sha256": "471c66df0977d4ed78ba3e0d3cf792315c2669ae85be3412eda9bf05e9e81a1a"
+    },
+    {
+      "source": "scripts/evaluation_process.py",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/5-evaluation_process.py.gz",
+      "sha256": "38022a2539dd060cdfba2063407195f48ba2f56f565558bf4be20fc7849edf13",
+      "uncompressed_sha256": "68b151114a32ac3e6903d1c0e35c866c2d8a5bf1377c5605595750a4e8ea3082"
+    },
+    {
+      "source": "scripts/test_evaluation_process.py",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/6-test_evaluation_process.py.gz",
+      "sha256": "19c0714994b1b601f2caba968f9d860738e81c9c7b971755099cd943a8b86fd0",
+      "uncompressed_sha256": "c67c2f43047f5887a3f44eb35005db961b32579095a9f1c8be65bd86500bb713"
+    },
+    {
+      "source": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/preserve-write-mode/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/7-stdout.log.gz",
+      "sha256": "341c5698ecd0d667471f854c3f34939a8e50ed3ee887d53fde1e0589c56f2375",
+      "uncompressed_sha256": "8cd541ba39cbbf515673a2ef69bfe167f85470a9c0a00d34fb98310d9ce3172d"
+    },
+    {
+      "source": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/preserve-write-mode/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/8-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/cancel-shell-descendants/stdout.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/9-stdout.log.gz",
+      "sha256": "225c1b9c34e64e9673a082167ffde528cf12f9d21f193eef8e2b31ea63f94207",
+      "uncompressed_sha256": "436d1d23c4086e53da96550b2a0081a85e70744d80838295105bfe3016161a97"
+    },
+    {
+      "source": "/private/tmp/hand-bounded-calibration-20260909-fitqo1gy/cancel-shell-descendants/stderr.log",
+      "path": "docs/acceptance/development-evidence/evaluation-process-20260909/10-stderr.log.gz",
+      "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+      "uncompressed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "fix": "Repeated process-group signals caused PermissionError after initial cleanup; successful group signalling is now idempotent and direct-child reaping remains attempted on cleanup errors.",
+  "limitations": [
+    "Real calibration runs are expected failures on pinned defective source, not model task-success evidence",
+    "Timeout and output enforcement do not enforce model request/token/cost limits",
+    "Process group cleanup is not a sandbox against malicious setsid escape and pipe joining is not proof of all descendant PID disappearance",
+    "Full comparative executor, authorised model runs and final acceptance remain outstanding"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "status": "development_passed",
+  "requirement": "M4.1",
+  "scenario": "slow_consumer_terminal_retained",
+  "repetitions": {
+    "pass": 20
+  },
+  "rpc_suite": {
+    "pass": 134
+  },
+  "commands": [
+    "go test -race -count=20 -json ./internal/rpc -run '^TestSlowConsumerReconnectRecoversExactTerminalWithoutReplay$'",
+    "go test -race -count=1 -json ./internal/rpc"
+  ],
+  "exit_codes": [
+    0,
+    0
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/slow-consumer-recovery-20260909/hand-slow-consumer-20260909.jsonl",
+      "sha256": "ec81782d9658fea9a494bac19f53a5f7923e9616ac3b010a944807805c8daf93"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/slow-consumer-recovery-20260909/hand-slow-consumer-rpc-suite-20260909.jsonl",
+      "sha256": "3eb8cc12803cc61ed046138013e1b271eb438559778384b18e11f3ce3edaac31"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/slow-consumer-recovery-20260909/slow_consumer_recovery_test.go.txt",
+      "sha256": "2914465aa481a5d647a7a06d43e19e68d01d118bcad52ecfe4041ec8134c4b39"
+    }
+  ],
+  "limitations": [
+    "In-process framed net.Pipe transport with actual persistent ledger and file side effect, not separate built Hand processes",
+    "Native macOS development run; final Linux/macOS candidate qualification pending"
+  ]
+}

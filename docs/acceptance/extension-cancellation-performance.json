@@ -1,0 +1,310 @@
+{
+  "status": "development_performance_passed",
+  "requirement": "G-PERF",
+  "race": true,
+  "trials_per_path": 30,
+  "total_final_trials": 180,
+  "paths": {
+    "ctrl_c": {
+      "samples_ms_sorted": [
+        0.661875,
+        0.731208,
+        0.776958,
+        0.827875,
+        0.969667,
+        0.983417,
+        1.038292,
+        1.108583,
+        1.11075,
+        1.173875,
+        1.181833,
+        1.21225,
+        1.234792,
+        1.236625,
+        1.254708,
+        1.257333,
+        1.281166,
+        1.286042,
+        1.420209,
+        1.42175,
+        1.423459,
+        1.504167,
+        1.512458,
+        1.560833,
+        1.627625,
+        1.680208,
+        1.777333,
+        1.978583,
+        2.290459,
+        11.648125
+      ],
+      "p95_ms": 2.290459,
+      "max_ms": 11.648125
+    },
+    "quit": {
+      "samples_ms_sorted": [
+        0.786084,
+        0.807584,
+        0.867708,
+        0.877583,
+        0.88125,
+        0.899625,
+        0.911417,
+        0.913917,
+        0.929417,
+        0.969,
+        1.03725,
+        1.076333,
+        1.127875,
+        1.202334,
+        1.25475,
+        1.338375,
+        1.474334,
+        1.480167,
+        1.523208,
+        1.540834,
+        1.603209,
+        1.646125,
+        1.665667,
+        1.673875,
+        1.734833,
+        1.780167,
+        1.809167,
+        1.878042,
+        2.003834,
+        2.75025
+      ],
+      "p95_ms": 2.003834,
+      "max_ms": 2.75025
+    },
+    "exit": {
+      "samples_ms_sorted": [
+        0.644084,
+        0.689167,
+        0.699083,
+        0.730375,
+        0.73575,
+        0.754125,
+        0.792916,
+        0.797625,
+        0.892,
+        0.963875,
+        1.157417,
+        1.223375,
+        1.442,
+        1.543708,
+        1.548625,
+        1.562833,
+        1.6225,
+        1.651375,
+        1.658209,
+        1.661042,
+        1.6755,
+        1.679,
+        1.710208,
+        1.710708,
+        1.71175,
+        1.718875,
+        1.801917,
+        1.911208,
+        1.922916,
+        3.014208
+      ],
+      "p95_ms": 1.922916,
+      "max_ms": 3.014208
+    },
+    "close": {
+      "samples_ms_sorted": [
+        0.706333,
+        0.766542,
+        0.779125,
+        0.789,
+        0.801875,
+        0.822625,
+        0.830291,
+        0.84625,
+        0.879792,
+        0.9565,
+        0.981541,
+        0.984167,
+        1.007625,
+        1.128833,
+        1.186375,
+        1.244875,
+        1.307875,
+        1.317334,
+        1.400958,
+        1.529875,
+        1.659209,
+        1.675458,
+        1.752,
+        1.7905,
+        1.870167,
+        1.905,
+        1.916542,
+        1.96175,
+        2.028458,
+        7.580875
+      ],
+      "p95_ms": 2.028458,
+      "max_ms": 7.580875
+    },
+    "viewer": {
+      "samples_ms_sorted": [
+        0.64275,
+        0.737375,
+        0.766083,
+        0.80175,
+        0.936583,
+        0.938375,
+        0.973167,
+        0.973417,
+        0.994167,
+        1.026291,
+        1.0355,
+        1.060458,
+        1.073667,
+        1.113917,
+        1.124459,
+        1.248584,
+        1.363167,
+        1.367333,
+        1.760292,
+        1.792167,
+        1.846667,
+        1.852,
+        1.897291,
+        1.938125,
+        1.987167,
+        2.039958,
+        2.139917,
+        2.228417,
+        2.261542,
+        3.128583
+      ],
+      "p95_ms": 2.261542,
+      "max_ms": 3.128583
+    },
+    "viewer_search": {
+      "samples_ms_sorted": [
+        0.62525,
+        0.668417,
+        0.720417,
+        0.846583,
+        0.907583,
+        0.938,
+        0.967708,
+        0.982833,
+        1.032458,
+        1.061458,
+        1.1195,
+        1.169875,
+        1.209375,
+        1.258667,
+        1.271083,
+        1.602542,
+        1.709208,
+        1.764167,
+        1.853416,
+        1.859917,
+        1.904917,
+        1.961292,
+        1.963834,
+        1.969375,
+        1.9905,
+        1.992125,
+        2.094417,
+        2.239458,
+        2.392,
+        2.973
+      ],
+      "p95_ms": 2.392,
+      "max_ms": 2.973
+    }
+  },
+  "test_records": {
+    "hand-extension-cancellation-latency-20260909.jsonl": {
+      "pass": 7
+    },
+    "hand-extension-cancellation-draft-20260909.jsonl": {
+      "pass": 7
+    }
+  },
+  "artifacts": [
+    {
+      "source": "/private/tmp/hand-extension-cancellation-latency-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/0-hand-extension-cancellation-latency-20260909.jsonl.gz",
+      "sha256": "08bf9e9b83cf570f749f8184e3877cb8b5ea49ffd97dc58a37819265b637e364",
+      "uncompressed_sha256": "903884128078649820e96be75bd6f811ae29d5f12e4c2af14b5725eccba1e45b"
+    },
+    {
+      "source": "/private/tmp/hand-extension-cancellation-draft-20260909.jsonl",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/1-hand-extension-cancellation-draft-20260909.jsonl.gz",
+      "sha256": "e22b5fc67747a3c4bea2cb81ed10af2cf673e4ad2cdcd449f4daf1e02a71c2c4",
+      "uncompressed_sha256": "b2d4d456799c36f7715b18039a894a24b8656ea2bf0dd7bcdbfc39833daa2ecf"
+    },
+    {
+      "source": "internal/tui/extension_cancellation_latency_test.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/2-extension_cancellation_latency_test.go.gz",
+      "sha256": "2223f4bdc63d558afe806422c5e357c50f9aaa0f41dd19140021dfb8b7729fc5",
+      "uncompressed_sha256": "ff158ed42e6045a8a8c9bab7cfc2142a1105054028e28383b5c9fe8d9c305ed8"
+    },
+    {
+      "source": "internal/tui/extensions.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/3-extensions.go.gz",
+      "sha256": "00ca619b164734e0a157c72a520240ee3fee39292861ca558b920725a2f0df6b",
+      "uncompressed_sha256": "8a8a2955057bda9cd6389adb762f4062ea394ea76adc7004aa808b45dba04b0d"
+    },
+    {
+      "source": "internal/tui/model.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/4-model.go.gz",
+      "sha256": "e38fac712ef97fa663259b6f627c3d19ce8c3b7e66e88dfd3621c85671823291",
+      "uncompressed_sha256": "ed13073195f157860ecb3c2081d8478b275d900ae8e96fd21b097de00fc29cc6"
+    },
+    {
+      "source": "internal/tui/session_operation.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/5-session_operation.go.gz",
+      "sha256": "3a465c9bc4bf7decdbf813bf10eab3b210ab73ca77de8eb131b675fa6563876d",
+      "uncompressed_sha256": "fc4b1013121b8a33bc7eb93d92f91d335bc6774d2644b211cf568c7d0699f12d"
+    },
+    {
+      "source": "internal/tui/application.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/6-application.go.gz",
+      "sha256": "bdad22d96765b2abc8093b88cccfba5cd248c613594038d268e5231b48023430",
+      "uncompressed_sha256": "271134b6ef6efee658c9f7fb60c53208bd1322d8beffc6b736397b8ad50dcb2f"
+    },
+    {
+      "source": "internal/app/extensions.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/7-extensions.go.gz",
+      "sha256": "e57e767f571dcae924ac43166de45b25dd7bf40a59baa8054ce0f710afe19f9f",
+      "uncompressed_sha256": "423d99a885380e044905afb3c388a4062d9c663f4c7827544cf1d355cb7f8cc8"
+    },
+    {
+      "source": "internal/extensions/connection.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/8-connection.go.gz",
+      "sha256": "99e05364d76a75c5e80b0f2c4ea91c60c7acb53bc7bf320a81aa9345932c2629",
+      "uncompressed_sha256": "b77a39ca03f8ca8eb0d41713171604ae276d4a5039847e1d5e32cfc4897182c2"
+    },
+    {
+      "source": "examples/extensions/go-task-note/main.go",
+      "path": "docs/acceptance/development-evidence/extension-cancellation-20260909/9-main.go.gz",
+      "sha256": "830cbce10b0e4c043d3ee707e95880b09cbe965c134746eb56f26abf31c1540c",
+      "uncompressed_sha256": "46c3d2a4ec84c4cbae1a4ddb4e9d81051d494bead9d956927115a89850d5b395"
+    }
+  ],
+  "scope": "Production UI cancellation dispatcher through joined extension command result; conservative upper bound for cancellation initiation. Close also waits for CloseApplication.",
+  "assertions": [
+    "real reviewed compiled peer waiting on question",
+    "cancelled operation result",
+    "question removed and operation ownership released",
+    "saved input draft restored",
+    "durable extension state unchanged"
+  ],
+  "limitations": [
+    "Not PTY/OS input latency or a live model measurement",
+    "No direct child PID probe in this test; measures extension operation join, with transport cleanup covered separately",
+    "Native development checkout, not final candidate or Linux qualification"
+  ],
+  "max_path_p95_ms": 2.392,
+  "max_join_ms": 11.648125
+}

@@ -1,0 +1,89 @@
+diff --git a/execution/backend.go b/execution/backend.go
+index aca31f7..44d168f 100644
+--- a/execution/backend.go
++++ b/execution/backend.go
+@@ -6,6 +6,7 @@ import (
+ 	"bytes"
+ 	"context"
+ 	"crypto/rand"
++	"encoding/json"
+ 	"errors"
+ 	"fmt"
+ 	"os"
+@@ -167,6 +168,18 @@ func (c Container) Run(ctx context.Context, r Request) (result Result, err error
+ 	}
+ 	defer os.RemoveAll(config)
+ 	base := []string{"--config", config, "--host", "unix://" + c.Socket}
++	inspectCtx, inspectCancel := context.WithTimeout(ctx, 5*time.Second)
++	inspected, inspectErr := run(inspectCtx, "", environment(nil), nil, c.Docker, append(append([]string{}, base...), "image", "inspect", "--format", "{{json .Config.Volumes}}", c.Image)...)
++	inspectCancel()
++	if inspectErr != nil {
++		return result, fmt.Errorf("inspect container image: %w: %s", inspectErr, inspected.Stderr)
++	}
++	if inspected.Truncated {
++		return result, errors.New("container image volume metadata exceeds limit")
++	}
++	if err = validateImageVolumes(inspected.Stdout); err != nil {
++		return
++	}
+ 	name := "harness-exec-" + strings.ToLower(rand.Text())
+ 	cleanup := func() error {
+ 		cleanupCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+@@ -181,7 +194,7 @@ func (c Container) Run(ctx context.Context, r Request) (result Result, err error
+ 	if c.Network {
+ 		network = "bridge"
+ 	}
+-	mount := "type=bind,src=" + workspace + ",dst=/workspace,bind-propagation=rprivate"
++	mount := "type=bind,src=" + workspace + ",dst=/workspace,bind-propagation=rprivate,bind-recursive=disabled"
+ 	if !c.Writable {
+ 		mount += ",readonly"
+ 	}
+@@ -209,3 +222,16 @@ func (c Container) Run(ctx context.Context, r Request) (result Result, err error
+ 	}
+ 	return runCaptured(ctx, r.OutputStore, "", environment(nil), r.Stdin, c.Docker, append(append([]string{}, base...), "start", "--attach", "--interactive", name)...)
+ }
++
++// Image-declared volumes otherwise create implicit writable disk mounts even
++// with a read-only root filesystem. Require explicit workspace/scratch only.
++func validateImageVolumes(raw string) error {
++	var volumes map[string]json.RawMessage
++	if err := json.Unmarshal([]byte(raw), &volumes); err != nil {
++		return errors.New("invalid container image volume metadata")
++	}
++	if len(volumes) != 0 {
++		return errors.New("container image declares implicit volumes; use an image without VOLUME declarations")
++	}
++	return nil
++}
+diff --git a/execution/backend_test.go b/execution/backend_test.go
+index 757a976..dfe7d8a 100644
+--- a/execution/backend_test.go
++++ b/execution/backend_test.go
+@@ -72,3 +72,27 @@ func TestNativeContainerBoundary(t *testing.T) {
+ 		t.Fatalf("cancel not bounded: %v %s", err, time.Since(start))
+ 	}
+ }
++
++func TestImageImplicitVolumesRejected(t *testing.T) {
++	for _, raw := range []string{`{"/data":{}}`, `{"/tmp":{}}`, `[]`, `"unknown"`, `{} garbage`} {
++		if err := validateImageVolumes(raw); err == nil {
++			t.Fatalf("accepted implicit or malformed volumes: %s", raw)
++		}
++	}
++	for _, raw := range []string{`null`, `{}`} {
++		if err := validateImageVolumes(raw); err != nil {
++			t.Fatal(err)
++		}
++	}
++}
++func TestNativeImageVolumeRejection(t *testing.T) {
++	image, socket := os.Getenv("HARNESS_TEST_VOLUME_IMAGE"), os.Getenv("HARNESS_TEST_CONTAINER_SOCKET")
++	if image == "" || socket == "" {
++		t.Skip("native volume image fixture not configured")
++	}
++	c := Container{Docker: "/usr/local/bin/docker", Socket: socket, Image: image, Workspace: t.TempDir()}
++	_, err := c.Run(context.Background(), Request{Argv: []string{"/bin/sh", "-c", "exit 99"}})
++	if err == nil || !strings.Contains(err.Error(), "implicit volumes") {
++		t.Fatalf("image volume declarations were not rejected: %v", err)
++	}
++}

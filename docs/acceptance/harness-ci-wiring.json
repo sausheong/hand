@@ -1,0 +1,34 @@
+{
+  "status": "wired_not_hosted_verified",
+  "changes": [
+    "CI prepares required Docker fixtures before full native tests.",
+    "Resolved image IDs and daemon information are preserved with evidence.",
+    "Unavailable local daemon fails qualification; skipped tests remain failures."
+  ],
+  "validation": {
+    "command": "bash -n /private/tmp/harness-ci-fixture-step-20260909.sh",
+    "exit_code": 0
+  },
+  "limitations": [
+    "Hosted execution not performed; Docker-capable macOS runner remains an external prerequisite.",
+    "Fixture version tags resolve per run; reproducing older evidence requires recorded image IDs.",
+    "Workflow/helper additions require updated release candidate."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-wiring-20260909/qualify.yml.gz",
+      "sha256": "17826284de7a01e914b94db9cd83357437b1aca4b06f2f9935bfc6a68b7c4bb3",
+      "uncompressed_sha256": "d4b1c7673acb7389ed5ae8df8128c3eec5ceac213661856e55fd5194ec25baae"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-wiring-20260909/QUALIFICATION.md.gz",
+      "sha256": "c2d8affc98ad4a0178e4a98cc826f0a0c540de9641f34a443637b8976c3081b2",
+      "uncompressed_sha256": "694627265ef148df2b8e055c821e20ef6e037122f641b65e41e63d1ce8350266"
+    },
+    {
+      "path": "docs/acceptance/development-evidence/harness-ci-wiring-20260909/harness-ci-fixture-step-20260909.sh.gz",
+      "sha256": "581744025722a647ac33611c5857026c262ca0d7883190180417fdddfbe30766",
+      "uncompressed_sha256": "33a7486bf15cb6cdf5a9f31d45864bf3b9c715f4a9a4e994df0d74f88140a23f"
+    }
+  ]
+}

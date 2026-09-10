@@ -1,0 +1,12 @@
+{"Time":"2026-09-08T16:59:03.895445+08:00","Action":"start","Package":"github.com/sausheong/harness/runtime"}
+{"Time":"2026-09-08T16:59:04.504716+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest"}
+{"Time":"2026-09-08T16:59:04.504776+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest","Output":"=== RUN   TestSkillAuthoringRefreshesNextModelRequest\n"}
+{"Time":"2026-09-08T16:59:04.523962+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest","Output":"--- PASS: TestSkillAuthoringRefreshesNextModelRequest (0.02s)\n"}
+{"Time":"2026-09-08T16:59:04.523975+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestSkillAuthoringRefreshesNextModelRequest","Elapsed":0.02}
+{"Time":"2026-09-08T16:59:04.524005+08:00","Action":"run","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills"}
+{"Time":"2026-09-08T16:59:04.524008+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills","Output":"=== RUN   TestRefreshSkillsDiscoversAuthoredAndRemovedSkills\n"}
+{"Time":"2026-09-08T16:59:04.531281+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills","Output":"--- PASS: TestRefreshSkillsDiscoversAuthoredAndRemovedSkills (0.01s)\n"}
+{"Time":"2026-09-08T16:59:04.531292+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Test":"TestRefreshSkillsDiscoversAuthoredAndRemovedSkills","Elapsed":0.01}
+{"Time":"2026-09-08T16:59:04.532909+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"PASS\n"}
+{"Time":"2026-09-08T16:59:05.53925+08:00","Action":"output","Package":"github.com/sausheong/harness/runtime","Output":"ok  \tgithub.com/sausheong/harness/runtime\t1.644s\n"}
+{"Time":"2026-09-08T16:59:05.539353+08:00","Action":"pass","Package":"github.com/sausheong/harness/runtime","Elapsed":1.6440000000000001}
