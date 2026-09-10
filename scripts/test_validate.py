@@ -7,11 +7,25 @@ import subprocess
 import tempfile
 from unittest.mock import patch
 import validate
-from validate import check_events
+from validate import check_events, platform_changes
 from critical_coverage import GROUPS
 
 
 class InventoryTests(unittest.TestCase):
+    def test_platform_changes_excludes_other_os_and_architecture(self):
+        changes = {
+            'plain.go': [(1, 1)],
+            'rename_linux.go': [(1, 1)],
+            'rename_darwin.go': [(1, 1)],
+            'peer_linux_amd64.go': [(1, 1)],
+            'peer_linux_arm64.go': [(1, 1)],
+        }
+        self.assertEqual(platform_changes(changes, 'linux', 'amd64'), {
+            'plain.go': [(1, 1)],
+            'rename_linux.go': [(1, 1)],
+            'peer_linux_amd64.go': [(1, 1)],
+        })
+
     def test_missing_cannot_pass(self):
         self.assertEqual(check_events([], {('p', 'TestRequired')})['missing'], [('p', 'TestRequired')])
 
@@ -79,7 +93,7 @@ class InventoryTests(unittest.TestCase):
                     elif argv[:2] == ['go', 'version']:
                         text = 'go version fixture\n'
                     elif argv[:2] == ['go', 'env']:
-                        text = '{}'
+                        text = json.dumps({'GOOS': 'linux', 'GOARCH': 'amd64'})
                     elif argv[:2] == ['go', 'list']:
                         text = 'fixture\n'
                     elif argv[:3] == ['go', 'test', '-list']:

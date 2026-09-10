@@ -14,6 +14,8 @@ from coverage_changes import changed_lines, changed_coverage, classify_changed_s
 from critical_coverage import critical_coverage
 
 ROOT = Path(__file__).resolve().parents[1]
+GOOSES = frozenset('aix android darwin dragonfly freebsd illumos ios js linux netbsd openbsd plan9 solaris wasip1 windows'.split())
+GOARCHES = frozenset('386 amd64 arm arm64 loong64 mips mips64 mips64le mipsle ppc64 ppc64le riscv64 s390x wasm'.split())
 
 
 def check_events(events, expected):
@@ -45,6 +47,23 @@ def inventory_names(listing):
     # corpus during an ordinary test invocation. Benchmarking is separate.
     return {line for line in listing.splitlines()
             if re.fullmatch(r'(?:Test|Example|Fuzz)\w*', line)}
+
+
+def platform_changes(changes, goos, goarch):
+    """Keep changed Go files that the current Go platform can compile."""
+    applicable = {}
+    for path, lines in changes.items():
+        suffixes = Path(path).stem.split('_')[1:]
+        arch_constraint = suffixes[-1] if suffixes and suffixes[-1] in GOARCHES else None
+        if arch_constraint:
+            suffixes = suffixes[:-1]
+        os_constraint = suffixes[-1] if suffixes and suffixes[-1] in GOOSES else None
+        if os_constraint and os_constraint != goos:
+            continue
+        if arch_constraint and arch_constraint != goarch:
+            continue
+        applicable[path] = lines
+    return applicable
 
 
 def main():
@@ -113,9 +132,13 @@ def main():
         module = run(['go', 'list', '-m'], 'module.txt').strip()
         source_scope = classify_changed_sources(ROOT, changed_lines(ROOT, report['baseline']),
             json.loads((ROOT / 'docs/acceptance/coverage-scope.json').read_text()))
+        applicable_changes = platform_changes(source_scope['production_changes'],
+                                              report['platform']['GOOS'], report['platform']['GOARCH'])
         report['changed_coverage'] = changed_coverage((output / 'coverage.out').read_text(), module,
-                                                     source_scope['production_changes'], root=ROOT)
+                                                     applicable_changes, root=ROOT)
         report['changed_coverage']['excluded_tests'] = source_scope['excluded_tests']
+        report['changed_coverage']['excluded_platform_files'] = sorted(
+            set(source_scope['production_changes']) - set(applicable_changes))
         (output / 'changed-coverage.json').write_text(json.dumps(report['changed_coverage'], indent=2) + '\n')
         report['critical_coverage'] = critical_coverage(
             {module: (output / 'coverage.out').read_text()},
