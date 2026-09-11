@@ -29,6 +29,8 @@ type TimingReport struct {
 }
 
 type RequestTiming struct {
+	MaxOutput  int        `json:"max_output,omitempty"`
+	StopReason string     `json:"stop_reason,omitempty"`
 	Usage      *llm.Usage `json:"usage,omitempty"`
 	OffsetMS   float64    `json:"offset_ms"`
 	DurationMS float64    `json:"duration_ms"`
@@ -194,6 +196,12 @@ func (r TimingReport) Detail() string {
 	}
 	for i, q := range r.Requests {
 		fmt.Fprintf(&b, "\nRequest %d (%s, %s): started +%.2fs; duration %.2fs; %d messages, %d tools available", i+1, q.Mode, q.Status, q.OffsetMS/1000, q.DurationMS/1000, q.Messages, q.Tools)
+		if q.MaxOutput > 0 {
+			fmt.Fprintf(&b, "\n  output allowance: %d tokens", q.MaxOutput)
+		}
+		if q.StopReason != "" {
+			fmt.Fprintf(&b, "\n  model stop reason: %s", q.StopReason)
+		}
 		if q.Usage != nil {
 			fmt.Fprintf(&b, "\n  tokens: %d input, %d output, %d cached input", q.Usage.InputTokens, q.Usage.OutputTokens, q.Usage.CacheReadInputTokens)
 		} else {

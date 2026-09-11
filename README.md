@@ -10,10 +10,22 @@ project scaffolding forced onto your repo. It's built on top of
 [`harness`](https://github.com/sausheong/harness), a Go library for building
 LLM agents.
 
-> **Current release: v0.3.3.** This release pins Harness v0.4.1 and supports
+> **Current release: v0.3.4.** This release pins Harness v0.4.2 and supports
 > macOS and Linux on AMD64 and ARM64. Hand's interfaces remain pre-1.0; pin
 > the release you deploy and follow the migration and rollback guide when
 > upgrading.
+
+## What's in v0.3.4
+
+- Empty or truncated model responses no longer report successful completion. Generic empty responses get one bounded retry; output-limit failures explain what happened.
+- Set the output allowance with `--max-output` or `max_output` in configuration. `/timing` records the allowance and provider stop reason.
+- Bash calls show the first five command lines as soon as the complete arguments arrive.
+- Raw interactive diagnostics go to private `~/.hand/logs/` files; a divider and spacing separate results, status and input.
+- Press **Esc** to cancel the current turn, including while an approval or output viewer is open.
+- `/permissions skip` and `/permissions ask` control approvals for the current session. `--dangerously-skip-permissions` enables the same temporary setting at launch.
+- Routine skipped context-cleanup messages stay quiet, and truncated summaries preserve the original history.
+
+See [session approvals](docs/session-approval.md), [output limits](docs/empty-response-fix.md), and [transcript navigation](docs/transcript-navigation.md).
 
 ## What's in v0.3.3
 
@@ -206,6 +218,8 @@ before exit, including during MCP startup.
 | `--profile`         | Named provider/model profile from config |
 | `--base-url`        | Custom API base URL — required for `litellm`, optional for `openai`/`openrouter`, not supported for `gemini` |
 | `--context-limit`   | Explicit active context limit for this invocation |
+| `--max-output` | Output token allowance per model request for this invocation |
+| `--dangerously-skip-permissions` | Automatically approve all tools for this session without saving grants; execution isolation remains active |
 | `--reasoning`       | `off`, `low`, `medium` or `high`; the selected profile must declare support |
 | `--max-turns`       | Cap the agent's tool-use loop for this run (default: 50, or `max_turns` in config) |
 | `--fallback-model`  | `provider/model` to retry against on a transient provider error, same provider as `--model` |
@@ -310,8 +324,9 @@ characters — not the full result. Scroll up (`pgup`/`pgdown`, `ctrl+u`/
 `ctrl+d`) to review earlier output; the preview cap keeps the transcript
 itself scannable rather than a full pager for every command.
 
-Hand doesn't capture the mouse, so your terminal's normal text
-selection/copy works exactly as it would anywhere else.
+Mouse scrolling is enabled by default. In iTerm2, hold Option while dragging
+to select text, or disable **Report mouse clicks & drags** while keeping wheel
+reporting enabled. `/mouse off` restores ordinary selection in other terminals.
 
 ## Search
 

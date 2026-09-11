@@ -57,7 +57,7 @@ func timeProviderCall(ctx context.Context, req llm.ChatRequest, mode string, cal
 		return call(ctx, req)
 	}
 	i := len(r.report.Requests)
-	r.report.Requests = append(r.report.Requests, RequestTiming{OffsetMS: milliseconds(start.Sub(r.start)), Mode: mode, Status: "running", Messages: len(req.Messages), Tools: len(req.Tools)})
+	r.report.Requests = append(r.report.Requests, RequestTiming{MaxOutput: req.MaxTokens, OffsetMS: milliseconds(start.Sub(r.start)), Mode: mode, Status: "running", Messages: len(req.Messages), Tools: len(req.Tools)})
 	r.mu.Unlock()
 	update := func(f func(*RequestTiming)) {
 		r.mu.Lock()
@@ -117,6 +117,9 @@ func timeProviderCall(ctx context.Context, req llm.ChatRequest, mode string, cal
 				}
 				update(func(q *RequestTiming) {
 					mark(&q.FirstEventMS)
+					if event.Type == llm.EventDone {
+						q.StopReason = event.StopReason
+					}
 					if event.Usage != nil {
 						copy := *event.Usage
 						q.Usage = &copy
@@ -130,6 +133,9 @@ func timeProviderCall(ctx context.Context, req llm.ChatRequest, mode string, cal
 				})
 				if event.Type == llm.EventDone && status != "failed" {
 					status = "completed"
+					if event.StopReason == "length" || event.StopReason == "max_tokens" {
+						status = "output_limit"
+					}
 				}
 				if event.Type == llm.EventError {
 					status = "failed"

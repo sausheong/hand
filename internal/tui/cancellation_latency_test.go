@@ -5,6 +5,7 @@ import (
 	"github.com/sausheong/harness/llm"
 	"reflect"
 	"sort"
+	"strings"
 	"testing"
 	"time"
 
@@ -71,10 +72,15 @@ func measureCancellationSignal(t *testing.T, phase, action string) float64 {
 		t.Fatal("backend/checker did not start")
 	}
 	start := time.Now()
-	if action == "viewer" || action == "viewer_search" {
+	if action == "viewer" || action == "viewer_search" || action == "escape_viewer" {
 		m.outputView = &outputViewer{searching: action == "viewer_search"}
 	}
-	if action != "close" {
+	if action == "escape_approval" {
+		m.pending = &agentio.ApprovalRequest{Tool: "bash"}
+	}
+	if strings.HasPrefix(action, "escape") {
+		m.Update(tea.KeyMsg{Type: tea.KeyEsc})
+	} else if action != "close" {
 		m.Update(tea.KeyMsg{Type: tea.KeyCtrlC})
 	} else {
 		m.CloseApplication()
@@ -95,6 +101,32 @@ func measureCancellationSignal(t *testing.T, phase, action string) float64 {
 		t.Fatalf("cancellation outcome=%+v err=%v", outcome, err)
 	}
 	return float64(signal.Sub(start).Nanoseconds()) / 1e6
+}
+
+func TestEscapeCancelsActiveTurn(t *testing.T) {
+	for _, phase := range []string{"backend", "checker"} {
+		for _, action := range []string{"escape", "escape_viewer", "escape_approval"} {
+			t.Run(phase+"/"+action, func(t *testing.T) { measureCancellationSignal(t, phase, action) })
+		}
+	}
+}
+
+func TestEscapeIdleDoesNotQuitAndCancelsCompaction(t *testing.T) {
+	m := NewModel(nil, t.TempDir())
+	defer m.CloseApplication()
+	m.textarea.SetValue("keep draft")
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyEsc})
+	if cmd != nil || m.textarea.Value() != "keep draft" {
+		t.Fatal("idle Esc quit or cleared ordinary draft")
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	m.compacting = true
+	m.compactCancel = cancel
+	m.Update(tea.KeyMsg{Type: tea.KeyEsc})
+	if ctx.Err() == nil || !m.compactCancelled {
+		t.Fatal("Esc did not cancel compaction")
+	}
+	m.compacting = false
 }
 
 func TestOutputLoadCancellationInitiationLatency(t *testing.T) {

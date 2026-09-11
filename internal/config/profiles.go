@@ -92,6 +92,9 @@ func (p ModelProfile) Validate() error {
 }
 
 func ValidateProfiles(c Config) error {
+	if c.MaxOutput < 0 {
+		return fmt.Errorf("max_output cannot be negative")
+	}
 	if c.DefaultProfile != "" {
 		if _, ok := c.Profiles[c.DefaultProfile]; !ok {
 			return fmt.Errorf("default_profile %q is not defined", c.DefaultProfile)
@@ -133,7 +136,7 @@ func SelectProfile(c Config, name string) (ModelProfile, error) {
 	if !ok {
 		return ModelProfile{}, fmt.Errorf("legacy model must be in provider/model form")
 	}
-	p := ModelProfile{Provider: provider, Model: bare, Endpoint: c.BaseURL, CredentialEnv: DefaultCredentialEnv(provider)}
+	p := ModelProfile{Provider: provider, Model: bare, Endpoint: c.BaseURL, CredentialEnv: DefaultCredentialEnv(provider), MaxOutput: c.MaxOutput}
 	return p, p.Validate()
 }
 

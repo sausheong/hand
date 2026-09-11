@@ -224,6 +224,7 @@ func run() (runErr error) {
 
 	profileFlag := flag.String("profile", "", "named provider/model profile from config")
 	contextLimitFlag := flag.Int("context-limit", 0, "explicit active context limit in tokens for this invocation")
+	maxOutputFlag := flag.Int("max-output", 0, "output token allowance per model request (overrides config for this run)")
 	reasoningFlag := flag.String("reasoning", "", "reasoning level: off, low, medium or high; requires declared profile support")
 	modelFlag := flag.String("model", "", "provider/model to use, e.g. anthropic/claude-sonnet-5 (overrides ~/.hand/config.json for this run)")
 	baseURLFlag := flag.String("base-url", "", "custom API base URL (overrides ~/.hand/config.json for this run; required for litellm, optional for openai/openrouter/local, not supported for gemini)")
@@ -258,6 +259,7 @@ func run() (runErr error) {
 	jsonlFlag := flag.Bool("jsonl", false, "emit versioned JSONL events with -p")
 	printFlag := flag.String("p", "", "run one turn non-interactively with this prompt, print the result, and exit (no TUI)")
 	yesFlag := flag.Bool("yes", false, "auto-approve all gated tool calls for this run (only valid with -p)")
+	skipPermissionsFlag := flag.Bool("dangerously-skip-permissions", false, "approve all tools for this Hand session only; does not save grants or disable execution isolation")
 	flag.Parse()
 	if *newSessionFlag && *sessionFlag != "" {
 		return fmt.Errorf("--session and --new-session are mutually exclusive")
@@ -341,6 +343,9 @@ func run() (runErr error) {
 	}
 	if *contextLimitFlag < 0 {
 		return fmt.Errorf("context limit cannot be negative")
+	}
+	if *maxOutputFlag < 0 {
+		return fmt.Errorf("output limit cannot be negative")
 	}
 	if *maxTurnsFlag < 0 || *maxIterationsFlag < 0 {
 		return fmt.Errorf("turn and iteration limits cannot be negative")
@@ -463,6 +468,9 @@ func run() (runErr error) {
 	if *contextLimitFlag > 0 {
 		profile.ContextLimit = *contextLimitFlag
 	}
+	if *maxOutputFlag > 0 {
+		profile.MaxOutput = *maxOutputFlag
+	}
 	if *reasoningFlag != "" {
 		profile.Reasoning = *reasoningFlag
 	}
@@ -538,6 +546,12 @@ func run() (runErr error) {
 		}
 	} else {
 		hook = app.NewBoundApprovalHook(bindings.snapshot, workspace, allMCPServerNames)
+	}
+	sessionApproval := &app.SessionApproval{}
+	sessionApproval.SetSkip(*skipPermissionsFlag)
+	hook = sessionApproval.Wrap(hook)
+	if sessionApproval.Skipping() {
+		fmt.Fprintln(os.Stderr, "hand: all tool requests are automatically approved for this session; no permissions are saved")
 	}
 	var stopReason string
 	hooks := agentio.BuildLifecycleHooks(cfg.Hooks, workspace, hook, &stopReason)
@@ -665,6 +679,7 @@ func run() (runErr error) {
 	}
 
 	controller := &app.Controller{
+		SessionApproval:        sessionApproval,
 		ExecutionBoundary:      executionBoundary,
 		Authority:              authority,
 		LegacyPermissions:      legacyProposal,
@@ -727,6 +742,7 @@ func run() (runErr error) {
 		return err
 	}
 	m.SetAttachmentPolicy(policy)
+	m.SetSessionAutoApproval(*skipPermissionsFlag)
 	m.SetMarkdownStyle(markdownStyle)
 	m.SetBanner(versionString(), model, workspace)
 	m.SetMCPStatus(rt.MCPStatus())
@@ -737,6 +753,12 @@ func run() (runErr error) {
 	m.SetContextLimit(controller.ContextLimit())
 	m.SetSkillsIndex(skillProvider.FormatIndex())
 	m.SetController(controller)
+	closeLogs, err := interactiveLogs(cfgPath)
+	if err != nil {
+		m.CloseApplication()
+		return fmt.Errorf("open interactive diagnostic log: %w", err)
+	}
+	defer closeLogs()
 	defer m.CloseApplication()
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)

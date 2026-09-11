@@ -31,6 +31,7 @@ type Controller = app.Controller
 // between the Program and the approval hook that needs to Send into it
 // (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
+	sessionAutoApproval bool
 	mouseDisabled       bool
 	permissionTask      *permissionTask
 	markdownLayout      *markdownLayout
@@ -388,6 +389,25 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.MouseMsg:
 		return m.handleMouse(msg)
 	case tea.KeyMsg:
+		if msg.Type == tea.KeyEsc && (m.running || m.compacting || m.goalChecking) {
+			m.closeOutputView()
+			m.dismissApproval()
+			if m.running {
+				m.goalCancelled = true
+				if m.cancel != nil {
+					m.cancel()
+				}
+			} else if m.compacting {
+				m.compactCancelled = true
+				if m.compactCancel != nil {
+					m.compactCancel()
+				}
+			} else {
+				m.goalCancelled = true
+				m.abandonGoal("context_cancelled")
+			}
+			return m, nil
+		}
 		if m.outputView != nil {
 			return m.outputKey(msg)
 		}
@@ -706,7 +726,7 @@ func (m *Model) refreshViewport() {
 	// here, not just on resize, since the panel's height depends on the
 	// current Preview, not just the terminal size.
 	const inputHeight, borderRows = 3, 2
-	viewportHeight := m.termHeight - inputHeight - borderRows - m.bottomHeight()
+	viewportHeight := m.termHeight - inputHeight - borderRows - m.bottomHeight() - 2 // separator and footer spacing
 	if viewportHeight < 1 {
 		viewportHeight = 1
 	}
@@ -785,6 +805,9 @@ func (m *Model) statusLine() string {
 			}
 		}
 		left = m.spinner.View() + statusIdleStyle.Render(fmt.Sprintf(" working... %s%s", formatDuration(time.Since(m.turnStart)), toolInfo))
+	}
+	if m.skippingApprovals() {
+		left += statusAlertStyle.Render(" · approvals off")
 	}
 	return left + "   " + m.usageLine()
 }
@@ -928,7 +951,8 @@ func (m *Model) View() string {
 			bottom = m.renderSuggestions(suggestions)
 		}
 	}
-	return m.viewport.View() + "\n" + bottom + "\n" + inputBorderStyle.Render(m.textarea.View())
+	separator := toolCallStyle.Render(strings.Repeat("─", max(1, m.termWidth)))
+	return m.viewport.View() + "\n" + separator + "\n" + bottom + "\n\n" + inputBorderStyle.Render(m.textarea.View())
 }
 
 // dismissApproval never blocks Update, including when cancellation races a

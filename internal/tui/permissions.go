@@ -24,13 +24,33 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 		m.refreshViewport()
 		return nil
 	}
+	if len(args) == 1 && (args[0] == "skip" || args[0] == "ask") {
+		if m.running || m.compacting || m.goalActive {
+			return report("Stop the current turn before changing approval mode.")
+		}
+		if m.controller == nil || m.controller.SessionApproval == nil {
+			return report("Session approval controls are unavailable.")
+		}
+		m.controller.SessionApproval.SetSkip(args[0] == "skip")
+		if m.skippingApprovals() {
+			return report("Approvals off for this session. All tools are allowed. Use /permissions ask to restore normal approvals.")
+		}
+		return report("Normal approvals restored. Saved grants still apply.")
+	}
+	if len(args) == 0 {
+		mode := "Approval mode: ask. Saved grants still apply."
+		if m.skippingApprovals() {
+			mode = "Approval mode: skip. All tools are automatically approved for this session. Use /permissions ask to restore normal approvals."
+		}
+		m.appendNotice(mode, "toolCallStyle")
+	}
 	if m.controller == nil || m.controller.PermissionState().Authority == nil {
 		return report("Permissions are unavailable")
 	}
 	if m.permissionTask != nil {
 		return report("Please wait for the current permission change to finish")
 	}
-	const usage = "Usage: /permissions | allow bash --project | revoke <ID> | [offset] | legacy | acknowledge <fingerprint>"
+	const usage = "Usage: /permissions | skip | ask | allow bash --project | revoke <ID> | [offset] | legacy | acknowledge <fingerprint>"
 	allowBash := false
 	offset, revoke := 0, ""
 	legacy, acknowledge := false, ""

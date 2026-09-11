@@ -118,6 +118,11 @@ func (b TranscriptBlock) render(width int, style string) (rendered string) {
 	case "user":
 		return userLineStyle.Render("> " + text)
 	case "tool_call":
+		if text == "bash" && !b.Truncated {
+			if preview := bashCommandPreview(b.Detail, width); preview != "" {
+				return toolCallStyle.Bold(true).Render("[tool: bash]") + "\n" + preview
+			}
+		}
 		line := fmt.Sprintf("[tool: %s]", text)
 		if !b.Truncated {
 			if detail := summarizeToolCall(text, json.RawMessage(b.Detail)); detail != "" {
@@ -149,7 +154,12 @@ func (b TranscriptBlock) render(width int, style string) (rendered string) {
 		case "completed":
 			return approvedStyle.Render(fmt.Sprintf("Summarised %d turns", b.Count))
 		case "automatic":
-			return toolCallStyle.Render(fmt.Sprintf("Conversation shortened: %d → %d tokens", b.TokensBefore, b.TokensAfter))
+			if b.TokensBefore > 0 && b.TokensAfter > 0 && b.TokensAfter < b.TokensBefore {
+				return toolCallStyle.Render(fmt.Sprintf("Context condensed automatically: %d → %d tokens", b.TokensBefore, b.TokensAfter))
+			}
+			return toolCallStyle.Render("Older context condensed automatically")
+		case "automatic_skipped":
+			return errorLineStyle.Render("Automatic context cleanup could not finish: " + strings.ReplaceAll(text, "_", " "))
 		}
 		return toolCallStyle.Render(fmt.Sprintf("[Summarised %d turns]", b.Count))
 	case "note":
@@ -272,4 +282,31 @@ func (m *Model) finishMarkdownLayout(task *markdownLayout) {
 		}
 	}
 	m.refreshViewport()
+}
+
+// Start events can arrive before arguments. Replace the matching header when
+// the complete input arrives, including providers that omit a start event.
+func (m *Model) updateToolCall(id, name, input string, truncated bool) {
+	if id != "" {
+		for i := len(m.transcript) - 1; i >= 0; i-- {
+			source, ok := m.sourceBlocks[i]
+			if !ok {
+				continue
+			}
+			if source.Block.Kind == "user" {
+				break
+			}
+			if source.Block.Kind != "tool_call" || source.Block.ID != id {
+				continue
+			}
+			source.Block.Text, source.Block.Detail, source.Block.Truncated = name, input, truncated
+			source.Width, source.Style = m.termWidth, m.markdownStyle
+			source.Rendered = source.Block.render(source.Width, source.Style)
+			m.sourceBlocks[i] = source
+			m.transcript[i] = source.Rendered
+			return
+		}
+	}
+	m.toolCallsThisTurn++
+	m.appendSourceBlock(TranscriptBlock{Kind: "tool_call", ID: id, Text: name, Detail: input, Truncated: truncated})
 }

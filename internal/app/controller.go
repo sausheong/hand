@@ -25,6 +25,7 @@ import (
 // is only invoked when /model names a different provider than the one
 // currently active.
 type Controller struct {
+	SessionApproval     *SessionApproval
 	extensionsActivated bool           // protected by the shared operation reservation
 	Extensions          *ExtensionHost // fixed before serving clients; creator owns shutdown
 	verificationConfig  *config.VerificationConfig

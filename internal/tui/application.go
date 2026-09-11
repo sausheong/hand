@@ -154,7 +154,10 @@ func (m *Model) renderApplicationEvent(e app.Event) {
 		if !d.ToolPresent {
 			name = "?"
 		}
-		m.appendSourceBlock(TranscriptBlock{Kind: "tool_call", Text: name, Detail: d.ToolInput, Truncated: d.Truncated})
+		m.appendSourceBlock(TranscriptBlock{Kind: "tool_call", ID: d.ToolID, Text: name, Detail: d.ToolInput, Truncated: d.Truncated})
+	case "tool_call_ready":
+		m.flushStream()
+		m.updateToolCall(d.ToolID, d.ToolName, d.ToolInput, d.Truncated)
 	case "tool_result":
 		block := ToolOutput{Output: d.Output, Error: d.ToolError, Truncated: d.Truncated, SessionID: m.identity.SessionID, ToolID: d.ToolID}
 		m.toolOutputs = append(m.toolOutputs, block)
@@ -187,12 +190,22 @@ func (m *Model) renderApplicationEvent(e app.Event) {
 		}
 		m.appendSourceBlock(TranscriptBlock{Kind: "status", Text: line})
 	case "compaction_start":
-		m.appendSourceBlock(TranscriptBlock{Kind: "compaction", State: "running"})
+		// Automatic housekeeping is recorded in application events. Do not
+		// present its eligibility checks as a user-requested summary.
 	case "compaction_done", "compaction_skipped":
+		if e.Kind == "compaction_skipped" {
+			switch d.Skipped {
+			case "", "too_short", "below_threshold", "cancelled", "canceled":
+				return
+			}
+		}
+		if e.Kind == "compaction_done" && d.CompactionPresent && !d.Compacted && d.Skipped == "" {
+			return
+		}
 		state := "automatic"
 		text := d.Summary
 		if d.Skipped != "" {
-			state = "skipped"
+			state = "automatic_skipped"
 			text = d.Skipped
 		}
 		m.appendSourceBlock(TranscriptBlock{Kind: "compaction", State: state, Text: text, Count: d.TurnsCompacted, TokensBefore: d.TokensBefore, TokensAfter: d.TokensAfter, Truncated: d.Truncated})

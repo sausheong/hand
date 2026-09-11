@@ -140,6 +140,8 @@ func translateHarnessEvent(event runtime.AgentEvent) (BackendEvent, bool) {
 		e.Err = errors.New("runtime aborted the turn")
 	case runtime.EventToolCallStart:
 		e.Kind = "tool_call"
+	case runtime.EventToolCallReady:
+		e.Kind = "tool_call_ready"
 	case runtime.EventToolResult:
 		e.Kind = "tool_result"
 	case runtime.EventCompactionStart:

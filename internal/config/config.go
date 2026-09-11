@@ -65,6 +65,7 @@ var ValidMarkdownStyles = []string{"ascii", "dark", "dracula", "light", "notty",
 // never stored here — each provider reads its key from its own
 // standard environment variable.
 type Config struct {
+	MaxOutput      int                     `json:"max_output,omitempty"`
 	Execution      ExecutionConfig         `json:"execution,omitempty"`
 	DefaultProfile string                  `json:"default_profile,omitempty"`
 	Profiles       map[string]ModelProfile `json:"profiles,omitempty"`

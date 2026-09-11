@@ -11,8 +11,13 @@ terminal. Retain useful underlying errors, paths, limits and next steps.
 - Failed checks: `Checks failed: <details>`.
 - Provider or execution errors: `Could not complete the request: <details>`.
 - Exhausted limits: identify the limit, such as `Session token limit reached`.
-- Context summarisation: `Summarising conversation...`; if unnecessary,
+- Explicit `/compact`: `Summarising conversation...`; if unnecessary,
   `No summary needed — the conversation is still short`.
+- Automatic context management: keep routine eligibility checks and skipped
+  attempts out of the transcript. After successful compaction, show
+  `Older context condensed automatically`. Show before/after token counts only
+  when both are measured and demonstrate a reduction. Preserve failure notices
+  and the underlying structured events for diagnostics.
 - Missing context usage: show `ctx usage unknown / 1M limit` when the limit
   is known. Do not report zero usage without evidence.
 

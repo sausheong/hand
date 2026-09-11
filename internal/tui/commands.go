@@ -50,7 +50,7 @@ var commandDefs = []commandDef{
 	{"/restore-cancel", "discard pending restore preview"},
 	{"/restore-preview", "preview one checkpoint restore: RUN-ID PATH"},
 	{"/changes", "inspect checkpoint file changes: [run-ID] [offset]"},
-	{"/permissions", "inspect grants; allow bash --project; revoke <ID>; legacy; acknowledge <fingerprint>"},
+	{"/permissions", "show mode and grants; skip; ask; allow bash --project; revoke <ID>"},
 	{"/mcp", "show optional connections; /mcp retry <server>"},
 	{"/process", "background shell: start <command>, list, read/send/cancel/wait/forget <ID>"},
 	{"/output", "view output: /output [result number] [stdout|stderr]"},
@@ -248,7 +248,7 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 		return nil
 	case "/mouse":
 		if len(args) != 1 || (args[0] != "on" && args[0] != "off") {
-			m.appendNotice("Use /mouse on for wheel scrolling, or /mouse off for text selection. Keyboard scrolling works in either mode.", "toolCallStyle")
+			m.appendNotice("Use /mouse on for wheel scrolling. In iTerm2, hold Option while dragging to select text, or use /mouse off for normal selection. Keyboard scrolling works in either mode.", "toolCallStyle")
 			m.refreshViewport()
 			return nil
 		}
@@ -256,7 +256,7 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 		if m.mouseDisabled {
 			m.appendNotice("Mouse scrolling off. Select text normally; use Page Up/Down or Ctrl+U/D to scroll. /mouse on restores wheel scrolling.", "toolCallStyle")
 		} else {
-			m.appendNotice("Mouse scrolling on. /mouse off allows native text selection.", "toolCallStyle")
+			m.appendNotice("Mouse scrolling on. In iTerm2, hold Option while dragging to select text. /mouse off enables normal selection in other terminals.", "toolCallStyle")
 		}
 		m.refreshViewport()
 		if m.mouseDisabled {
