@@ -25,10 +25,10 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 		return nil
 	}
 	if m.controller == nil || m.controller.PermissionState().Authority == nil {
-		return report("Scoped permissions are unavailable")
+		return report("Permissions are unavailable")
 	}
 	if m.permissionTask != nil {
-		return report("A permission operation is pending")
+		return report("Please wait for the current permission change to finish")
 	}
 	const usage = "Usage: /permissions | allow bash --project | revoke <ID> | [offset] | legacy | acknowledge <fingerprint>"
 	allowBash := false
@@ -118,7 +118,7 @@ func (m *Model) runPermissionCommand(args []string) tea.Cmd {
 			end = len(grants)
 		}
 		var b strings.Builder
-		fmt.Fprintf(&b, "Scoped permissions: %d grants\n", len(grants))
+		fmt.Fprintf(&b, "Saved permissions: %d\n", len(grants))
 		b.WriteString("Allow all Bash commands here: /permissions allow bash --project (persistent for this configuration)\n")
 		if len(proposal.Grants()) > 0 {
 			b.WriteString("Legacy proposal available: /permissions legacy (review does not grant authority)\n")

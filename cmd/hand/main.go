@@ -94,10 +94,15 @@ func runOneShotOutcome(ctx context.Context, rt *runtime.Runtime, prompt string, 
 		case "turn_end":
 			fmt.Println()
 		case "continuation":
-			fmt.Fprintf(os.Stderr, "hand: goal not met, continuing (%d/%d)...\n", event.Iteration, maxIterations)
+			fmt.Fprintf(os.Stderr, "hand: continuing (attempt %d of %d)...\n", event.Iteration, maxIterations)
+		case "warning":
+			fmt.Fprintln(os.Stderr, "hand: "+event.Text)
 		}
 	}
 	result, err := stream.Wait()
+	if writer == nil {
+		fmt.Fprintln(os.Stderr, "hand: "+service.Timing().Summary())
+	}
 	if err != nil {
 		return agentio.RunOutcome{Status: agentio.InfrastructureError, Reason: "operation_rejected", Cause: err}
 	}
@@ -515,7 +520,7 @@ func run() (runErr error) {
 	if err != nil {
 		return err
 	}
-	fmt.Fprintln(os.Stderr, "hand: execution boundary: "+executionBoundary)
+	fmt.Fprintln(os.Stderr, executionBoundaryNotice(executionBoundary))
 	configurationReady = true
 	initialPermissions := app.PermissionState{Authority: authority, Legacy: legacyProposal, Digest: authorityDigest}
 	bindings := &cliPermissionBindings{current: initialPermissions, states: map[string]app.PermissionState{authorityDigest: initialPermissions}, workspace: workspace, cfg: cfg}
@@ -736,12 +741,9 @@ func run() (runErr error) {
 	if history := sess.History(); len(history) > 0 {
 		m.LoadHistory(history)
 	}
-	// No tea.WithMouseCellMotion(): enabling mouse tracking makes most
-	// terminal emulators hand every mouse event to the app instead of
-	// letting the user select/copy text natively — a worse trade than
-	// losing wheel-scroll, since pgup/pgdown/ctrl+u/ctrl+d already cover
-	// scrolling from the keyboard (see handleKey in internal/tui).
-	program := tea.NewProgram(m, tea.WithAltScreen())
+	// The alternate screen has no native scrollback: Hand must handle wheel
+	// events. /mouse off restores native text selection when needed.
+	program := tea.NewProgram(m, tea.WithAltScreen(), tea.WithMouseCellMotion())
 	m.BindProgram(program)
 
 	if _, err := program.Run(); err != nil {
@@ -752,7 +754,12 @@ func run() (runErr error) {
 
 func main() {
 	if err := run(); err != nil {
-		fmt.Fprintln(os.Stderr, "hand:", err)
+		var failure *agentio.RunFailure
+		if errors.As(err, &failure) {
+			fmt.Fprintln(os.Stderr, "hand:", failure.Outcome.UserMessage())
+		} else {
+			fmt.Fprintln(os.Stderr, "hand:", err)
+		}
 		os.Exit(exitCode(err))
 	}
 }

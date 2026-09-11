@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/sausheong/hand/internal/agentio"
+	"github.com/sausheong/harness/tool"
 	"github.com/sausheong/harness/tool/skills"
 	"github.com/sausheong/harness/tool/skills/disk"
 )
@@ -154,14 +155,14 @@ func TestSkillDiscoveryBoundsVisible(t *testing.T) {
 	if err := os.MkdirAll(dir, 0700); err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(dir, "SKILL.md"), []byte(strings.Repeat("x", 32769)), 0600); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "SKILL.md"), []byte(strings.Repeat("x", (1<<20)+1)), 0600); err != nil {
 		t.Fatal(err)
 	}
 	p, _, err := agentio.BuildSkillProvider(workspace)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(p.FormatIndex(), "exceeds 32 KiB") {
+	if !strings.Contains(p.FormatIndex(), "exceeds 1 MiB") {
 		t.Fatal(p.FormatIndex())
 	}
 	if _, ok := p.Get("huge"); ok {
@@ -169,5 +170,41 @@ func TestSkillDiscoveryBoundsVisible(t *testing.T) {
 	}
 	if _, ok := p.Get("../huge"); ok {
 		t.Fatal("invalid name loaded")
+	}
+}
+
+func TestLargeSkillIndexedAndLoadedCompletely(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+	workspace := t.TempDir()
+	dir := filepath.Join(workspace, ".agents", "skills", "large")
+	if err := os.MkdirAll(dir, 0700); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(dir, "SKILL.md")
+	body := "---\nname: large\ndescription: Large skill fixture\n---\n" + strings.Repeat("full instructions\n", 6000) + "FINAL INSTRUCTION\n"
+	if err := os.WriteFile(path, []byte(body), 0600); err != nil {
+		t.Fatal(err)
+	}
+	p, _, err := agentio.BuildSkillProvider(workspace)
+	if err != nil {
+		t.Fatal(err)
+	}
+	index := p.FormatIndex()
+	if !strings.Contains(index, "Large skill fixture") || strings.Contains(index, "FINAL INSTRUCTION") || strings.Contains(index, "exceeds") {
+		t.Fatal(index)
+	}
+	loader := &tool.LoadSkillTool{Lookup: p.Get}
+	result, err := loader.Execute(context.Background(), []byte(`{"name":"large"}`))
+	if err != nil || !strings.HasSuffix(result.Output, body) {
+		t.Fatal("skill instructions were lost", err)
+	}
+	// Loading must re-read the selected file rather than return stale discovery data.
+	body += "UPDATED\n"
+	if err := os.WriteFile(path, []byte(body), 0600); err != nil {
+		t.Fatal(err)
+	}
+	loaded, ok := p.Get("large")
+	if !ok || !strings.HasSuffix(loaded, body) {
+		t.Fatal("stale body")
 	}
 }

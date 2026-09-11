@@ -71,7 +71,7 @@ func TestManualCompactionCancellationPreservesTranscript(t *testing.T) {
 	}
 	// Updates and rendering continue while the provider is blocked.
 	m.Update(tea.WindowSizeMsg{Width: 100, Height: 30})
-	if !strings.Contains(m.statusLine(), "compacting") {
+	if !strings.Contains(m.statusLine(), "summarising") {
 		t.Fatal("compaction activity not visible")
 	}
 	m.textarea.SetValue("new work")

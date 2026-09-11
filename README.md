@@ -10,10 +10,20 @@ project scaffolding forced onto your repo. It's built on top of
 [`harness`](https://github.com/sausheong/harness), a Go library for building
 LLM agents.
 
-> **Current release: v0.3.2.** This release pins Harness v0.4.1 and supports
+> **Current release: v0.3.3.** This release pins Harness v0.4.1 and supports
 > macOS and Linux on AMD64 and ARM64. Hand's interfaces remain pre-1.0; pin
 > the release you deploy and follow the migration and rollback guide when
 > upgrading.
+
+## What's in v0.3.3
+
+- Mouse wheel and trackpad scrolling; `/mouse off` restores native text selection.
+- Readable skills list with bold blue names, separate descriptions and source paths, and more spacing.
+- Larger skill files load on demand, with a 1 MiB limit and a lightweight startup index.
+- `/timing` shows where a turn spent its time; detailed reports are saved in the session.
+- Simpler completion, error and execution-mode messages. The configured context limit is visible before usage is known.
+
+See [transcript navigation](docs/transcript-navigation.md), [turn timing](docs/turn-timing.md), and [skill loading](docs/package-skills.md).
 
 ## What's in v0.3.2
 

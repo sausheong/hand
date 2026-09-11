@@ -158,7 +158,7 @@ func TestSessionAndModelChangesInvalidateQueuedGoal(t *testing.T) {
 func TestRunningSlashCommandCannotSwitchSessionAndQuitJoins(t *testing.T) {
 	m, cmd, returned, release := pendingServiceApproval(t)
 	m.handleCommand("/new")
-	if !strings.Contains(strings.Join(m.transcript, "\n"), "run still active") {
+	if !strings.Contains(strings.Join(m.transcript, "\n"), "Still working") {
 		t.Fatal("running session command was not guarded")
 	}
 	if next := m.handleCommand("/quit"); next != nil {

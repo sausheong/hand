@@ -291,9 +291,12 @@ func TestMatchingCommands(t *testing.T) {
 	if len(all) != len(commandDefs) {
 		t.Fatalf("\"/\" should match every command, got %d of %d", len(all), len(commandDefs))
 	}
-	only := matchingCommands("/mo")
+	only := matchingCommands("/mod")
 	if len(only) != 1 || only[0].name != "/model" {
-		t.Fatalf("\"/mo\" should match only /model, got %v", only)
+		t.Fatalf("\"/mod\" should match only /model, got %v", only)
+	}
+	if got := matchingCommands("/mo"); len(got) != 2 || got[0].name != "/model" || got[1].name != "/mouse" {
+		t.Fatalf("expected model then mouse, got %v", got)
 	}
 }
 
@@ -306,7 +309,7 @@ func TestMatchingCommands(t *testing.T) {
 
 func TestModel_SlashTriggersDropdown(t *testing.T) {
 	m := NewModel(nil, t.TempDir())
-	m.textarea.SetValue("/mo")
+	m.textarea.SetValue("/mod")
 
 	suggestions := m.commandSuggestions()
 	if len(suggestions) != 1 || suggestions[0].name != "/model" {

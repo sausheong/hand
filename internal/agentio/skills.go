@@ -38,7 +38,7 @@ type mergedSkillProvider struct{ roots []string }
 
 type discoveredSkill struct{ name, path, body, description string }
 
-func (m *mergedSkillProvider) discover() ([]discoveredSkill, []string) {
+func (m *mergedSkillProvider) discover(wanted string) ([]discoveredSkill, []string) {
 	var found []discoveredSkill
 	var diagnostics []string
 	winners := map[string]string{}
@@ -63,6 +63,9 @@ func (m *mergedSkillProvider) discover() ([]discoveredSkill, []string) {
 		}
 		sort.Slice(entries, func(i, j int) bool { return entries[i].Name() < entries[j].Name() })
 		for _, entry := range entries {
+			if wanted != "" && entry.Name() != wanted {
+				continue
+			}
 			if !entry.IsDir() || !skills.ValidName(entry.Name()) {
 				continue
 			}
@@ -84,7 +87,7 @@ func (m *mergedSkillProvider) discover() ([]discoveredSkill, []string) {
 				diagnostics = append(diagnostics, path+": non-regular skill excluded")
 				continue
 			}
-			body, err := readInstruction(path, info)
+			body, err := readSkill(path, info, wanted != "")
 			if err != nil {
 				diagnostics = append(diagnostics, path+": "+err.Error())
 				continue
@@ -111,7 +114,7 @@ func (m *mergedSkillProvider) discover() ([]discoveredSkill, []string) {
 func (m *mergedSkillProvider) FormatIndex() string { index, _ := m.IndexSnapshot(); return index }
 
 func (m *mergedSkillProvider) IndexSnapshot() (string, []runtime.ContextSource) {
-	found, diagnostics := m.discover()
+	found, diagnostics := m.discover("")
 	if len(found) == 0 && len(diagnostics) == 0 {
 		return "", nil
 	}
@@ -133,7 +136,7 @@ func (m *mergedSkillProvider) Get(name string) (string, bool) {
 	if !skills.ValidName(name) {
 		return "", false
 	}
-	found, _ := m.discover()
+	found, _ := m.discover(name)
 	for _, sk := range found {
 		if sk.name == name {
 			return fmt.Sprintf("Skill source: %s\nResource base directory: %s\nResolve relative resource references against this directory. Loading guidance grants no execution permission.\n\n%s", sk.path, filepath.Dir(sk.path), sk.body), true

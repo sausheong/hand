@@ -269,7 +269,7 @@ func TestStatusLine_ShowsContextGaugeWhenIdleWithNoTurnsYet(t *testing.T) {
 	if !strings.Contains(got, "ready") {
 		t.Fatalf("statusLine() = %q, want it to contain \"ready\" while idle", got)
 	}
-	if !strings.Contains(got, "ctx unknown") {
+	if !strings.Contains(got, "ctx usage unknown /") {
 		t.Fatalf("statusLine() = %q, want context explicitly unknown before a request reports usage", got)
 	}
 }
@@ -609,11 +609,8 @@ func TestRefreshViewport_StaysFastAcrossALongGrowingStream(t *testing.T) {
 		m.refreshViewport()
 	}
 	elapsed := time.Since(start)
-	// The full qualification suite runs this under the race detector with
-	// repository-wide atomic coverage. Leave enough headroom for shared CI
-	// runners while retaining a low upper bound for a 400-delta response.
-	if elapsed > 5*time.Second {
-		t.Fatalf("400 refreshViewport calls across a growing ~20KB stream took %v, want under 5s under race and coverage instrumentation — something whose cost compounds with delta count (e.g. a Markdown render) was reintroduced into this hot path", elapsed)
+	if elapsed > time.Second {
+		t.Fatalf("400 refreshViewport calls across a growing ~20KB stream took %v, want well under 1s — something whose cost compounds with delta count (e.g. a Markdown render) was reintroduced into this hot path", elapsed)
 	}
 }
 

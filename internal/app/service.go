@@ -77,6 +77,7 @@ type Snapshot struct {
 }
 
 type Service struct {
+	timing            *timingRecorder
 	steeringSnapshots map[string]agentio.PromptInput
 	inputs            []QueuedInput
 	control           chan Event
@@ -153,6 +154,11 @@ func (s *Service) beginGoalLocked(parent context.Context, images []llm.ImageCont
 }
 
 func (s *Service) executeOwned(ctx context.Context, cancel context.CancelFunc, runID uint64, prompt string, images []llm.ImageContent, consume func(Event)) (result agentio.RunOutcome, err error) {
+	timing := newTiming(runID)
+	ctx = context.WithValue(ctx, timingKey{}, timing)
+	s.mu.Lock()
+	s.timing = timing
+	s.mu.Unlock()
 	defer func() {
 		cancel()
 		s.mu.Lock()
@@ -172,6 +178,7 @@ func (s *Service) executeOwned(ctx context.Context, cancel context.CancelFunc, r
 		event.State = s.state
 		s.mu.Unlock()
 		event.Timestamp = time.Now().UTC()
+		timing.observe(event)
 		if consume != nil {
 			consume(event)
 		}
@@ -287,10 +294,14 @@ func (s *Service) executeOwned(ctx context.Context, cancel context.CancelFunc, r
 				return *failure
 			}
 			transition(CheckingCompletion, iteration)
+			checksStarted := time.Now()
 			check := agentio.GoalLoopOutcome{}
 			if s.options.Check != nil {
 				check = s.options.Check(ctx, reason, iteration)
 			}
+			timing.mu.Lock()
+			timing.report.ChecksMS += milliseconds(time.Since(checksStarted))
+			timing.mu.Unlock()
 			if ctx.Err() != nil {
 				return cancelledOutcome(iteration)
 			}
@@ -341,6 +352,7 @@ func (s *Service) executeOwned(ctx context.Context, cancel context.CancelFunc, r
 			result = finish(agentio.InfrastructureError, "checkpoint_start_failed", 0, boundaryErr)
 		} else {
 			result = execute()
+			cleanupStarted := time.Now()
 			if finishBoundary != nil {
 				// Cleanup capture is bounded and joined even if execution was cancelled.
 				finishCtx, finishCancel := context.WithTimeout(context.WithoutCancel(ctx), 5*time.Second)
@@ -350,6 +362,9 @@ func (s *Service) executeOwned(ctx context.Context, cancel context.CancelFunc, r
 					result = finish(agentio.InfrastructureError, "checkpoint_finish_failed", result.Iterations, errors.Join(result.Cause, boundaryErr))
 				}
 			}
+			timing.mu.Lock()
+			timing.report.CleanupMS += milliseconds(time.Since(cleanupStarted))
+			timing.mu.Unlock()
 		}
 	}
 	s.mu.Lock()
@@ -367,6 +382,12 @@ func (s *Service) executeOwned(ctx context.Context, cancel context.CancelFunc, r
 		record.Outcome = &savedOutcome
 		if journalErr := journal.RecordRun(record); journalErr != nil {
 			result = finish(agentio.InfrastructureError, "run_metadata_finish_failed", result.Iterations, errors.Join(result.Cause, journalErr))
+		}
+	}
+	timing.finish(ctx.Err() != nil)
+	if recorder, ok := s.backend.(interface{ RecordTiming(TimingReport) error }); ok {
+		if timingErr := saveTiming(func() error { return recorder.RecordTiming(timing.snapshot()) }); timingErr != nil {
+			emit(Event{Kind: "warning", Text: "Could not save turn timings. They are still available with /timing."})
 		}
 	}
 	terminal := Event{Kind: "terminal", Status: result.Status, Reason: result.Reason, Iteration: result.Iterations, Verified: result.Verified}

@@ -31,6 +31,7 @@ type Controller = app.Controller
 // between the Program and the approval hook that needs to Send into it
 // (see internal/agentio.Sender and cmd/hand/main.go).
 type Model struct {
+	mouseDisabled       bool
 	permissionTask      *permissionTask
 	markdownLayout      *markdownLayout
 	layoutEpoch         uint64
@@ -384,6 +385,8 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 		return m, nil
 
+	case tea.MouseMsg:
+		return m.handleMouse(msg)
 	case tea.KeyMsg:
 		if m.outputView != nil {
 			return m.outputKey(msg)
@@ -467,7 +470,7 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		// Slash input must not accidentally answer an approval with y/a keys.
 		if msg.String() == "enter" {
 			text := strings.TrimSpace(m.textarea.Value())
-			if isQueueCommand(text) {
+			if isQueueCommand(text) || isLiveInspectionCommand(text) {
 				m.textarea.Reset()
 				return m, m.handleCommand(text)
 			}
@@ -594,7 +597,7 @@ func (m *Model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "enter":
 		if m.running {
 			text := strings.TrimSpace(m.textarea.Value())
-			if isQueueCommand(text) {
+			if isQueueCommand(text) || isLiveInspectionCommand(text) {
 				m.textarea.Reset()
 				return m, m.handleCommand(text)
 			}
@@ -759,14 +762,14 @@ func (m *Model) bottomHeight() int {
 func (m *Model) statusLine() string {
 	left := statusIdleStyle.Render("ready")
 	if m.compacting {
-		label := " compacting..."
+		label := " summarising..."
 		if m.compactCancelled {
-			label = " cancelling compaction..."
+			label = " cancelling summary..."
 		}
 		left = m.spinner.View() + statusIdleStyle.Render(label)
 	}
 	if m.goalChecking {
-		left = m.spinner.View() + statusIdleStyle.Render(" checking goal...")
+		left = m.spinner.View() + statusIdleStyle.Render(" checking results...")
 	}
 	if m.running {
 		toolInfo := ""
@@ -846,6 +849,9 @@ const contextAlertThreshold = 0.85
 // SetBanner, or a model tokens.ContextWindowFor has no data for).
 func (m *Model) contextSummary() string {
 	if m.lastRequestUsage == nil {
+		if m.contextWindow > 0 {
+			return statusIdleStyle.Render("ctx usage unknown / " + formatTokenCount(m.contextWindow) + " limit")
+		}
 		return statusIdleStyle.Render("ctx unknown")
 	}
 	used := contextTokens(m.lastRequestUsage)
@@ -963,19 +969,13 @@ func (m *Model) finishGoal(outcome agentio.RunOutcome) {
 	m.goalActive = false
 	outcome.Iterations = m.goalIteration
 	m.lastOutcome = &outcome
-	label := map[agentio.RunStatus]string{agentio.Completed: "Completed", agentio.VerificationFailed: "Verification failed", agentio.BudgetExhausted: "Limit reached", agentio.Cancelled: "Cancelled", agentio.InfrastructureError: "Execution failed"}[outcome.Status]
-	detail := outcome.Reason
-	if outcome.Status == agentio.Completed {
-		detail = "no mandatory verification"
-		if outcome.Verified {
-			detail = "configured checks passed"
+	line := "[result] " + outcome.UserMessage()
+	m.appendSourceBlock(TranscriptBlock{Kind: "status", Text: line})
+	if m.service != nil {
+		if timing := m.service.Timing(); timing.Complete {
+			m.appendSourceBlock(TranscriptBlock{Kind: "status", Text: timing.Summary() + " · /timing for details"})
 		}
 	}
-	line := fmt.Sprintf("[result] %s: %s", label, detail)
-	if outcome.Cause != nil {
-		line += ": " + outcome.Cause.Error()
-	}
-	m.appendSourceBlock(TranscriptBlock{Kind: "status", Text: line})
 	m.refreshViewport()
 }
 

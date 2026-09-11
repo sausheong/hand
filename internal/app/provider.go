@@ -15,7 +15,12 @@ import (
 )
 
 // BuildProfileProvider constructs the provider shared by CLI and embedded clients.
-func BuildProfileProvider(ctx context.Context, profile config.ModelProfile) (llm.LLMProvider, error) {
+func BuildProfileProvider(ctx context.Context, profile config.ModelProfile) (provider llm.LLMProvider, err error) {
+	defer func() {
+		if err == nil && provider != nil {
+			provider = withProviderTiming(provider)
+		}
+	}()
 	if err := ctx.Err(); err != nil {
 		return nil, err
 	}

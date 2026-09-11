@@ -4,7 +4,42 @@ import (
 	"context"
 	"fmt"
 	tea "github.com/charmbracelet/bubbletea"
+	"strings"
 )
+
+// Keep the model's discovery index unchanged; only its terminal presentation
+// gets hierarchy and spacing. Source paths and descriptions remain complete.
+func renderSkillsIndex(index string) string {
+	var entries []string
+	for _, line := range strings.Split(index, "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		if line == "## Skills" {
+			entries = append(entries, userLineStyle.Render("Skills")+"\n"+toolCallStyle.Render("Scroll with the wheel, Page Up/Down or Ctrl+U/D."))
+			continue
+		}
+		if strings.HasPrefix(line, "- ") {
+			name, description, ok := strings.Cut(strings.TrimPrefix(line, "- "), ": ")
+			if ok {
+				source := ""
+				if at := strings.LastIndex(description, " (source: "); at >= 0 && strings.HasSuffix(description, ")") {
+					source = description[at+len(" (source: ") : len(description)-1]
+					description = description[:at]
+				}
+				entry := userLineStyle.Render(name) + "\n" + description
+				if source != "" {
+					entry += "\n" + toolCallStyle.Render("Source: "+source)
+				}
+				entries = append(entries, entry)
+				continue
+			}
+		}
+		entries = append(entries, toolCallStyle.Render(line))
+	}
+	return strings.Join(entries, "\n\n")
+}
 
 func (m *Model) runReload(args []string) tea.Cmd {
 	if len(args) == 2 && m.controller != nil && m.controller.Extensions != nil {

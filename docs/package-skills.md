@@ -1,5 +1,17 @@
 # Installed package skills and relative resources
 
+## Local skill discovery
+
+Skills discovered in `.hand/skills` and `.agents/skills` may contain up to 1 MiB
+per `SKILL.md`. Discovery reads only frontmatter within the first 16 KiB to
+construct the index. The complete selected file is read when `load_skill` is
+called; skill bodies are not included in every startup prompt. Files exceeding
+the body limit are excluded with a diagnostic rather than silently truncated.
+Put larger supporting documents in referenced files. Project guidance files
+such as `HAND.md` and `AGENTS.md` retain their separate 32 KiB per-file limit.
+
+## Installed packages
+
 Installed skills are selected explicitly. Installing a package alone does not load its guidance or execute its code. Use the existing package review/install commands to install and inspect a pinned package, then select its declared skill files with `--package-skills`:
 
 ```json

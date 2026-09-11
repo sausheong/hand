@@ -35,6 +35,7 @@ var commandDefs = []commandDef{
 	{"/pin", "set session pin: ID objective|constraint TEXT"},
 	{"/unpin", "remove a session pin: ID"},
 	{"/context", "inspect estimated context contributions while idle"},
+	{"/timing", "show where the latest turn spent its time"},
 	{"/reload", "refresh the skill index while idle"},
 	{"/extension", "run a reviewed extension: NAME COMMAND [arguments]"},
 	{"/verify-list", "list saved verification IDs: [offset]"},
@@ -58,6 +59,7 @@ var commandDefs = []commandDef{
 	{"/queue", "list queued input; /queue edit <ID> <text>, remove <ID>, or run"},
 	{"/help", "show this message"},
 	{"/model", "show the active model, or /model <name> to switch"},
+	{"/mouse", "mouse scrolling: on|off (off allows native text selection)"},
 	{"/profile", "choose a profile, or /profile <name> to switch"},
 	{"/new", "create a new session while keeping previous history"},
 	{"/resume", "list sessions, or /resume <session ID>"},
@@ -180,7 +182,7 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 				m.cancel()
 			}
 		} else {
-			m.appendNotice("run still active; Ctrl+C cancels", "toolCallStyle")
+			m.appendNotice("Still working. Press Ctrl+C to cancel.", "toolCallStyle")
 			m.refreshViewport()
 		}
 		return nil
@@ -191,7 +193,7 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 			m.compactCancelled = true
 			m.compactCancel()
 		} else {
-			m.appendNotice("compaction in progress; Ctrl+C cancels", "toolCallStyle")
+			m.appendNotice("Summarising the conversation. Press Ctrl+C to cancel.", "toolCallStyle")
 			m.refreshViewport()
 		}
 		return nil
@@ -236,6 +238,31 @@ func (m *Model) handleCommand(text string) tea.Cmd {
 		return m.runPins(name, args)
 	case "/context":
 		return m.runContext(args)
+	case "/timing":
+		if m.service == nil {
+			m.appendNotice("No turn timings yet.", "toolCallStyle")
+		} else {
+			m.appendNotice(m.service.Timing().Detail(), "toolCallStyle")
+		}
+		m.refreshViewport()
+		return nil
+	case "/mouse":
+		if len(args) != 1 || (args[0] != "on" && args[0] != "off") {
+			m.appendNotice("Use /mouse on for wheel scrolling, or /mouse off for text selection. Keyboard scrolling works in either mode.", "toolCallStyle")
+			m.refreshViewport()
+			return nil
+		}
+		m.mouseDisabled = args[0] == "off"
+		if m.mouseDisabled {
+			m.appendNotice("Mouse scrolling off. Select text normally; use Page Up/Down or Ctrl+U/D to scroll. /mouse on restores wheel scrolling.", "toolCallStyle")
+		} else {
+			m.appendNotice("Mouse scrolling on. /mouse off allows native text selection.", "toolCallStyle")
+		}
+		m.refreshViewport()
+		if m.mouseDisabled {
+			return tea.DisableMouse
+		}
+		return tea.EnableMouseCellMotion
 	case "/reload":
 		return m.runReload(args)
 	case "/verify-list":
@@ -341,7 +368,7 @@ func (m *Model) runModelCommand(args []string) {
 	target := args[0]
 	oldProvider, _, _ := strings.Cut(m.controller.CurrentModel(), "/")
 	if err := m.controller.SwitchModel(target); err != nil {
-		m.appendNotice("model switch failed: "+err.Error(), "errorLineStyle")
+		m.appendNotice("Could not switch models: "+err.Error(), "errorLineStyle")
 		return
 	}
 	m.identity.Generation++
@@ -479,7 +506,11 @@ func (m *Model) runSkillsCommand() {
 		m.appendNotice("no skills found in ~/.hand/skills or this workspace's .hand/skills", "toolCallStyle")
 		return
 	}
-	m.appendNotice(strings.TrimRight(m.skillsIndex, "\n"), "toolCallStyle")
+	start := m.viewport.totalRows()
+	m.appendSourceBlock(TranscriptBlock{Kind: "skills", Text: strings.TrimRight(m.skillsIndex, "\n")})
+	m.refreshViewport()
+	// Open a long listing at its heading, rather than showing only its tail.
+	m.viewport.YOffset = min(start, m.viewport.maxOffset())
 }
 
 type profileChangedMsg struct {

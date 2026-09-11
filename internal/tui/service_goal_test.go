@@ -102,7 +102,7 @@ func TestMaybeContinueGoalLoop_ReturnsCmdThatEvaluatesTheConfiguredHook(t *testi
 func TestStartAutoContinue_IncrementsIterationAndUsesDistinctTranscriptLine(t *testing.T) {
 	m, prompts, _ := runGoalJourney(t, goalJourney{limit: 2, command: "echo 'next step'; exit 2"})
 	text := strings.Join(m.transcript, "\n")
-	if m.lastOutcome.Iterations != 2 || len(prompts) != 2 || prompts[1] != "next step" || !strings.Contains(text, "goal iteration 2") || !strings.Contains(text, "next step") {
+	if m.lastOutcome.Iterations != 2 || len(prompts) != 2 || prompts[1] != "next step" || !strings.Contains(text, "attempt 2") || !strings.Contains(text, "next step") {
 		t.Fatal(text, prompts, m.lastOutcome)
 	}
 	for _, block := range m.sourceBlocks {

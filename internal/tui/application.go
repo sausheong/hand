@@ -181,7 +181,7 @@ func (m *Model) renderApplicationEvent(e app.Event) {
 		m.goalIteration = e.Iteration
 		m.toolCallsThisTurn = 0
 		m.turnStart = time.Now()
-		line := fmt.Sprintf("↻ continuing (goal iteration %d): %s", e.Iteration, sanitizeForTerminal(e.Text))
+		line := fmt.Sprintf("↻ continuing (attempt %d): %s", e.Iteration, sanitizeForTerminal(e.Text))
 		if e.Truncated {
 			line += " [prompt display truncated]"
 		}

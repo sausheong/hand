@@ -159,7 +159,7 @@ func TestInteractiveContinuationPublishesOneFinalResult(t *testing.T) {
 	m.BindProgram(tm.GetProgram())
 	tm.Type("finish the task")
 	tm.Send(tea.KeyMsg{Type: tea.KeyEnter})
-	teatest.WaitFor(t, tm.Output(), func(b []byte) bool { return strings.Contains(string(b), "configured checks passed") }, teatest.WithDuration(3*time.Second))
+	teatest.WaitFor(t, tm.Output(), func(b []byte) bool { return strings.Contains(string(b), "checks passed") }, teatest.WithDuration(3*time.Second))
 	tm.Send(tea.KeyMsg{Type: tea.KeyCtrlC})
 	tm.WaitFinished(t, teatest.WithFinalTimeout(2*time.Second))
 	if m.lastOutcome == nil || !m.lastOutcome.Verified || m.lastOutcome.Iterations != 2 {

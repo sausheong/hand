@@ -94,6 +94,8 @@ func (b TranscriptBlock) render(width int, style string) (rendered string) {
 	}()
 	text := sanitizeForTerminal(b.Text)
 	switch b.Kind {
+	case "skills":
+		return renderSkillsIndex(text)
 	case "notice":
 		switch b.Tone {
 		case "errorLineStyle":
@@ -139,17 +141,17 @@ func (b TranscriptBlock) render(width int, style string) (rendered string) {
 	case "compaction":
 		switch b.State {
 		case "running":
-			return toolCallStyle.Render("compacting context...")
+			return toolCallStyle.Render("Summarising conversation...")
 		case "failed":
-			return errorLineStyle.Render("compact failed: " + text)
+			return errorLineStyle.Render("Could not summarise the conversation: " + text)
 		case "skipped":
-			return toolCallStyle.Render("compact skipped: " + text)
+			return toolCallStyle.Render(compactionSkipMessage(text))
 		case "completed":
-			return approvedStyle.Render(fmt.Sprintf("compacted %d turns", b.Count))
+			return approvedStyle.Render(fmt.Sprintf("Summarised %d turns", b.Count))
 		case "automatic":
-			return toolCallStyle.Render(fmt.Sprintf("context compaction: %d → %d tokens", b.TokensBefore, b.TokensAfter))
+			return toolCallStyle.Render(fmt.Sprintf("Conversation shortened: %d → %d tokens", b.TokensBefore, b.TokensAfter))
 		}
-		return toolCallStyle.Render(fmt.Sprintf("[compacted %d turns]", b.Count))
+		return toolCallStyle.Render(fmt.Sprintf("[Summarised %d turns]", b.Count))
 	case "note":
 		return toolCallStyle.Render("[" + text + "]")
 	case "error":
