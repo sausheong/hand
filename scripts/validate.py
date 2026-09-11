@@ -102,6 +102,11 @@ def main():
         if unformatted: raise RuntimeError('unformatted Go files: ' + unformatted)
         run(['go', 'build', './...'], 'build.txt')
         run(['go', 'vet', './...'], 'vet.txt')
+        # Measure the shipping build's latency, not race/atomic-coverage overhead.
+        # Keep the one-second regression limit as a mandatory separate gate.
+        run(['go', 'test', '-count=1', '-run',
+             '^TestRefreshViewport_StaysFastAcrossALongGrowingStream$',
+             './internal/tui'], 'stream-performance.txt')
         packages = run(['go', 'list', './...'], 'packages.txt').splitlines()
         expected = set()
         for i, package in enumerate(packages):

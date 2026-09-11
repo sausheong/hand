@@ -609,8 +609,11 @@ func TestRefreshViewport_StaysFastAcrossALongGrowingStream(t *testing.T) {
 		m.refreshViewport()
 	}
 	elapsed := time.Since(start)
-	if elapsed > time.Second {
+	if !raceInstrumented && elapsed > time.Second {
 		t.Fatalf("400 refreshViewport calls across a growing ~20KB stream took %v, want well under 1s — something whose cost compounds with delta count (e.g. a Markdown render) was reintroduced into this hot path", elapsed)
+	}
+	if m.viewport.totalRows() < 250 {
+		t.Fatal("growing stream lost rendered rows")
 	}
 }
 
