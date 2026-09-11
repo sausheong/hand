@@ -29,6 +29,9 @@ func (p *skillMutationProvider) ChatStream(context.Context, llm.ChatRequest) (<-
 	if p.calls == 1 {
 		events <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: "mutation", Name: "skill_manage", Input: p.input}}
 	}
+	if p.calls > 1 {
+		events <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
+	}
 	events <- llm.ChatEvent{Type: llm.EventDone}
 	close(events)
 	return events, nil

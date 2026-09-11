@@ -38,6 +38,9 @@ func (p *policyCallProvider) ChatStream(ctx context.Context, _ llm.ChatRequest) 
 				}
 			}
 		}
+		if !first {
+			out <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
+		}
 		out <- llm.ChatEvent{Type: llm.EventDone}
 	}()
 	return out, nil

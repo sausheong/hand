@@ -33,6 +33,9 @@ func (p *contextSequenceProvider) ChatStream(_ context.Context, req llm.ChatRequ
 	if p.calls == 10 && p.unknownLast {
 		usage = nil
 	}
+	if p.calls >= 10 {
+		events <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
+	}
 	events <- llm.ChatEvent{Type: llm.EventDone, Usage: usage}
 	close(events)
 	return events, nil

@@ -30,6 +30,9 @@ func (p *steeringProvider) ChatStream(_ context.Context, req llm.ChatRequest) (<
 		raw, _ := json.Marshal(req.Messages)
 		p.corrected = strings.Contains(string(raw), "answer instead")
 	}
+	if p.calls > 1 {
+		ch <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
+	}
 	ch <- llm.ChatEvent{Type: llm.EventDone}
 	close(ch)
 	return ch, nil

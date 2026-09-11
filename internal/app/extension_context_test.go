@@ -23,7 +23,8 @@ type extensionContextProvider struct {
 
 func (p *extensionContextProvider) ChatStream(_ context.Context, req llm.ChatRequest) (<-chan llm.ChatEvent, error) {
 	p.requests = append(p.requests, req)
-	out := make(chan llm.ChatEvent, 1)
+	out := make(chan llm.ChatEvent, 2)
+	out <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
 	out <- llm.ChatEvent{Type: llm.EventDone}
 	close(out)
 	return out, nil

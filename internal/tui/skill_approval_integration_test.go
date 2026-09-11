@@ -29,6 +29,9 @@ func (p *approvalSkillProvider) ChatStream(context.Context, llm.ChatRequest) (<-
 	if p.calls == 1 {
 		events <- llm.ChatEvent{Type: llm.EventToolCallDone, ToolCall: &llm.ToolCall{ID: "create", Name: "skill_manage", Input: json.RawMessage(`{"action":"create","name":"new-skill","body":"approved body"}`)}}
 	}
+	if p.calls > 1 {
+		events <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
+	}
 	events <- llm.ChatEvent{Type: llm.EventDone}
 	close(events)
 	return events, nil

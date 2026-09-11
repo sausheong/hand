@@ -22,11 +22,12 @@ func (p *persistedUsageProvider) ChatStream(context.Context, llm.ChatRequest) (<
 	if p.fail {
 		return nil, errors.New("provider rejected request")
 	}
-	ch := make(chan llm.ChatEvent, 1)
+	ch := make(chan llm.ChatEvent, 2)
 	var usage *llm.Usage
 	if !p.unknown {
 		usage = &llm.Usage{InputTokens: 40, OutputTokens: 5, CacheReadInputTokens: 20}
 	}
+	ch <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
 	ch <- llm.ChatEvent{Type: llm.EventDone, Usage: usage}
 	close(ch)
 	return ch, nil

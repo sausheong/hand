@@ -48,7 +48,8 @@ func TestRunQuestionPeerProcess(t *testing.T) {
 type runQuestionProvider struct{ llmtest.Base }
 
 func (*runQuestionProvider) ChatStream(context.Context, llm.ChatRequest) (<-chan llm.ChatEvent, error) {
-	out := make(chan llm.ChatEvent, 1)
+	out := make(chan llm.ChatEvent, 2)
+	out <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
 	out <- llm.ChatEvent{Type: llm.EventDone}
 	close(out)
 	return out, nil

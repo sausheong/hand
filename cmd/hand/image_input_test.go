@@ -25,7 +25,8 @@ func (p *imageInputProvider) ChatStream(_ context.Context, request llm.ChatReque
 	for _, message := range request.Messages {
 		p.images = append(p.images, message.Images...)
 	}
-	ch := make(chan llm.ChatEvent, 1)
+	ch := make(chan llm.ChatEvent, 2)
+	ch <- llm.ChatEvent{Type: llm.EventTextDelta, Text: "Answer"}
 	ch <- llm.ChatEvent{Type: llm.EventDone}
 	close(ch)
 	return ch, nil
