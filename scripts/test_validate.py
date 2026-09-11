@@ -98,6 +98,10 @@ class InventoryTests(unittest.TestCase):
                         text = 'fixture\n'
                     elif argv[:3] == ['go', 'test', '-list']:
                         text = 'TestRequired\n'
+                    elif argv[:2] == ['go', 'test'] and '-race' not in argv:
+                        # The separate, uninstrumented speed gate succeeds;
+                        # these cases exercise failure of the coverage suite.
+                        text = 'ok fixture\n'
                     elif argv[:2] == ['go', 'test']:
                         (output / 'coverage.out').write_text('mode: atomic\nfixture/production.go:1.1,2.1 1 1\n')
                         text = json.dumps(dict(Package='fixture', Test='TestRequired', Action=action)) + '\n'
